@@ -441,12 +441,6 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 .loc-list li a {white-space: inherit;}
 /*--------08-04-2016---------------*/
 
-/*--------Always at Bottom---------*/
-.m-t35 {margin-top: 35px;}
-.m-t40 {margin-top: 40px;}
-
-.u-text{text-decoration:underline;}
-.u-text:hover{text-decoration:none;}
 .ng-binding.error-fld { background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;color: #fff;margin: 0 0 15px;
     padding: 10px;}
 
@@ -465,4 +459,26 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 .ng-scope.ng-isolate-scope .pac-container {
     position: absolute !important;
 }
+
+
+/*---------20160422---------------*/
+.welcometxt .btn{line-height:36px; padding:0 15px; font-weight:700;}
+.welcometxt .btn-group.open .dropdown-toggle{background:none; border:none;}
+.welcometxt .dropdown-menu{border:none; margin:0;}
+.welcometxt .dropdown-menu > li > a{border-bottom: 1px solid #dadada;
+    color: #606060;
+    display: block;
+    font-size: 15px;
+    padding: 10px; line-height:1;}
+	
+.welcometxt .dropdown-menu > li > a:hover, .welcometxt .dropdown-menu > li > a:focus{	background-color: #e5e5e5;
+    text-decoration: none;}
+
+/*--------Always at Bottom---------*/
+.m-t35 {margin-top: 35px;}
+.m-t40 {margin-top: 40px;}
+
+.u-text{text-decoration:underline;}
+.u-text:hover{text-decoration:none;}
+
 
