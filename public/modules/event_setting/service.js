@@ -24,6 +24,27 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
       
   };
   
+  url.changeVenueStatus = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.changeVenueStatus,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+      
+  };
+  
+  url.deleteVenue = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.deleteVenue,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+      
+  };
+  
+  url.duplicateVenue = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.duplicateVenue,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+      
+  };
+  
   
   
 return url;

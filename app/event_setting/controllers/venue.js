@@ -82,3 +82,59 @@ exports.venueOverview = function(req,res){
 });
    
 }
+
+/*** Change Venue Status***/
+exports.changeVenueStatus = function(req,res){
+    //console.log(req.body.userId);
+   connection.query("UPDATE venues SET status='"+req.body.status+"' where id="+req.body.id, function(err, results) {
+   if (err) {
+    res.json({error:err,code:101});
+   }
+   res.json({result:results,code:200});
+});
+   
+}
+
+/*** Delete Venue   ***/
+exports.deleteVenue = function(req,res){
+    //console.log(req.body.userId);
+   connection.query("Delete from venues where id="+req.body.id, function(err, results) {
+   if (err) {
+    res.json({error:err,code:101});
+   }
+   res.json({result:results,code:200});
+});
+   
+}
+
+/*** Duplicate Venue ***/
+exports.duplicateVenue = function(req,res){
+    //console.log(req.body.userId);
+   connection.query("select * from venues where id="+req.body.id, function(err, vdata) {
+   if (err) {
+    res.json({error:err,code:101});
+   }
+  
+   var data = vdata[0];
+   data.created = new Date();
+   var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`, `fax`, `timezone`, `capacity`, `contact_name`, `phone`, `email`, `url`, `image`, `seating_chart`) VALUES (NULL, '"+data.seller_id+"', '"+data.venue_type+"', '"+data.venue_name+"', '"+data.address+"', '"+data.city+"', '"+data.zipcode+"', '"+data.state+"', '"+data.country+"', '"+data.status+"', '"+data.latitude+"', '"+data.longitude+"', '"+data.created+"', '"+data.fax+"', '"+data.timezone+"', '"+data.capacity+"', '"+data.contact_name+"', '"+data.phone+"', '"+data.email+"', '"+data.url+"', '"+data.image+"', '"+data.seating_chart+"')";
+    
+     /// To save Venue details
+     if (query != "")
+     {
+          connection.query(query, function(err7, results) {
+               if (err7) {
+                res.json({error:err7,code:101});
+               }
+               res.json({result:results,code:200});
+          });
+     }
+     else{
+          res.json({error:"error",code:101}); 
+     }
+    
+    /// To save Venue details
+  
+});
+   
+}

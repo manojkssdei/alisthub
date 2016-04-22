@@ -5,53 +5,142 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
          // <-- CHANGED HERE
      $rootScope.starttime='';
      $rootScope.endtime='';
+     $scope.data = {};
+     $scope.locations = [];
+     $scope.locations[0]=[];
+      var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+       center: new google.maps.LatLng(32.7990, -86.8073),
+      mapTypeId: google.maps.MapTypeId.ROADMAP 
+    });
+     $scope.$on('g-places-autocomplete:select', function (event, place) {
+        
+        if (place.geometry) {
+        $scope.data.latitude  = place.geometry.location.lat();
+        $scope.data.longitude = place.geometry.location.lng();
+    }
+     
+    $scope.data.address = place.formatted_address;
+    
+    $scope.data.zipcode = '';
+    $scope.data.country = '';
+    $scope.data.state = '';
+    $scope.data.city = '';
+    
+    // FINDING ZIP
+    if (place.address_components[place.address_components.length-1].types[0] == 'postal_code') {
+      $scope.data.zipcode = Number(place.address_components[place.address_components.length-1].long_name);
+    };
+     // FINDING COUNTRY 
+    if (place.address_components[place.address_components.length-1].types[0] == 'country' || 
+        place.address_components[place.address_components.length-2].types[0] == 'country') {
+      if(place.address_components[place.address_components.length-1].types[0] == 'country'){
+        $scope.data.country = place.address_components[place.address_components.length-1].long_name;  
+      }else{
+        $scope.data.country = place.address_components[place.address_components.length-2].long_name;  
+      }      
+    };
+    // FINDING STATE
+    if (place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_1' || 
+        place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_1' ||
+        place.address_components[place.address_components.length-3].types[0] == 'administrative_area_level_1') {
+      
+      if(place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_1'){
+        $scope.data.state = place.address_components[place.address_components.length-1].long_name;
+      }else if(place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_1'){
+        $scope.data.state = place.address_components[place.address_components.length-2].long_name;  
+      }else{
+        $scope.data.state = place.address_components[place.address_components.length-3].long_name;  
+      }
+    };
+    // FINDING CITY
+    if (place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_2' || 
+        place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_2' ||
+        place.address_components[place.address_components.length-3].types[0] == 'administrative_area_level_2' ||
+        place.address_components[place.address_components.length-4].types[0] == 'administrative_area_level_2' ||
+
+        place.address_components[place.address_components.length-1].types[0] == 'sublocality_level_1' ||
+        place.address_components[place.address_components.length-2].types[0] == 'sublocality_level_1' ||
+        place.address_components[place.address_components.length-3].types[0] == 'sublocality_level_1' ||
+        place.address_components[place.address_components.length-4].types[0] == 'sublocality_level_1' ) {
+    
+      if(place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_2' || 
+        place.address_components[place.address_components.length-1].types[0] == 'sublocality_level_1'){
+        $scope.data.city = place.address_components[place.address_components.length-1].long_name;
+      }else if( place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_2' || 
+                place.address_components[place.address_components.length-2].types[0] == 'sublocality_level_1'){
+        $scope.data.city = place.address_components[place.address_components.length-2].long_name;  
+      }else if( place.address_components[place.address_components.length-3].types[0] == 'administrative_area_level_2' || 
+                place.address_components[place.address_components.length-3].types[0] == 'sublocality_level_1'){
+        $scope.data.city = place.address_components[place.address_components.length-3].long_name;  
+      }else{
+        $scope.data.city = place.address_components[place.address_components.length-4].long_name;  
+      }    
+    };
+    
+     // FINDING STATE
+    if (place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_1' || 
+        place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_1' ||
+        place.address_components[place.address_components.length-3].types[0] == 'administrative_area_level_1') {
+      
+      if(place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_1'){
+        $scope.data.state = place.address_components[place.address_components.length-1].long_name;
+      }else if(place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_1'){
+        $scope.data.state = place.address_components[place.address_components.length-2].long_name;  
+      }else{
+        $scope.data.state = place.address_components[place.address_components.length-3].long_name;  
+      }
+    };
+    $scope.locations[0].push($scope.data.state,
+        $scope.data.latitude,
+        $scope.data.longitude,
+        1,
+        $scope.data.city,
+        "",
+        $scope.data.address,
+        "coming soon");
+    var bounds = new google.maps.LatLngBounds();
+     var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+    
+    for (i = 0; i < $scope.locations.length; i++) {
+       
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng($scope.data.latitude, $scope.data.longitude),
+        map: map
+      });
+     bounds.extend(marker.position);
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          
+          infowindow.setContent($scope.data.address, '');
+          infowindow.open(map, marker);
+        } 
+      })(marker, i));
+    }
+    //now fit the map to the newly inclusive bounds
+    map.fitBounds(bounds);
+
+    //(optional) restore the zoom level after the map is done scaling
+    var listener = google.maps.event.addListener(map, "idle", function () {
+        map.setZoom(14);
+        google.maps.event.removeListener(listener);
+    });
+      });
+     
+     
     if ($localStorage.userId!=undefined) {
        
         $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
             $scope.total_venue=response;
         });
     }
-    
-    $scope.data = {};
  
-    
-var locations = [
-  /*  [
-        "New Mermaid",
-        36.9079,
-        -76.199,
-        1,
-        "Georgia Mason",
-        "",
-        "Norfolk Botanical Gardens, 6700 Azalea Garden Rd.",
-        "coming soon"
-    ]*/
-]
+ 
+   
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      // center: new google.maps.LatLng(-33.92, 151.25),
-      center: new google.maps.LatLng(33.43023, -112.34765970000001),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    var infowindow = new google.maps.InfoWindow();
-
-    var marker, i;
-
-    for (i = 0; i < locations.length; i++) {  
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-        map: map
-      });
-
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          infowindow.setContent(locations[i][0], locations[i][6]);
-          infowindow.open(map, marker);
-        }
-      })(marker, i));
-    }
+   
    var now = new Date();
 if (now.getMonth() == 11) {
     var current = new Date(now.getFullYear() + 1, 0, 1);
