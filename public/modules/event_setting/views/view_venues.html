@@ -10,7 +10,7 @@
           <div class="form-group row">
           	<section class="col-sm-6">
             	<section class="search-event">
-                    <input type="text" name="eventname" class="form-control search-field" placeholder="Enter your keyword">
+                    <input type="text" name="filter" class="form-control search-field" placeholder="Enter your keyword" ng-model="filter">
                     <i class="fa fa-search"></i>
                 </section>
             </section>
@@ -21,7 +21,7 @@
                   <section class="grid-btn-top row">
                   	  <section class="col-sm-7">
                       	<section class="top-buttons">
-                            <button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add New Venue</button>
+                            <a href="#/add_venue"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add New Venue</button></a>
                         </section>
                       </section>
                       <section class="col-sm-5 right-btns text-right">
@@ -46,14 +46,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="data in venuedata">
+                        <tr pagination-id="paginate2" dir-paginate="data in venuedata | itemsPerPage: 2 | filter:filter">
                             <td><strong>{{data.venue_name}}</strong></td>
                             <td class="numbers">{{data.venue_type}}</td>
                             <td class="numbers">{{data.city}}</td>
 			    <td class="numbers">{{data.state}}</td>
                             <td class="numbers">{{data.country}}</td>
                             <td class="numbers">{{data.zipcode}}</td>
-                            <td class="action"><a href="#/edit_venue/{{data.id}}"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
+                            <td class="action">
+			      <a href="#/edit_venue/{{data.id}}"><i class="fa fa-edit"></i></a>
+			      <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Venue status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
+			      <a ng-click="duplicateVenue(data.id)"><i class="fa fa-clone"></i></a>
+			      <a ng-click="delVenue(data.id)" ng-confirm-click="Would you like to delete this Venue?"><i class="fa fa-trash"></i></a>
+			    </td>
                         </tr>
 			<tr ng-show="loader">
 			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
@@ -64,12 +69,13 @@
             
             
                       </div>
+		      
                   </section>
                   
                   <section class="grid-bottm clearfix">
-                  		<section class="paging">
-                             <label class="lt-label">Page</label>
-                             <ul class="page-list">
+                  	     <section class="paging">
+                             <label class="lt-label"></label>
+                             <!--<ul class="page-list">
                              	<li class="first-page page-btn"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
                                 <li class="prev-page page-btn"><a href="#"><i class="fa fa-angle-left"></i></a></li>   
                                 <li class="active"><a href="#">1</a></li>    
@@ -80,12 +86,14 @@
                                 <li><a href="#">6</a></li> 
                                 <li class="next-page page-btn"><a href="#"><i class="fa fa-angle-right"></i></i></a></li>  
                                 <li class="last-page page-btn"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>  
-                             </ul>
+                             </ul>-->
+			    <dir-pagination-controls pagination-id="paginate2" ></dir-pagination-controls>
                         </section>
                         <section class="gr-right pull-right">
                             <ul class="legends">
                                 <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
                                 <li><i class="fa fa-check-circle"></i><span>active</span></li>
+				<li><i class="fa fa-clone"></i><span>Duplicate</span></li>
                                 <li><i class="fa fa-trash"></i><span>delete</span></li>
                             </ul>
                         </section>

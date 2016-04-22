@@ -39,7 +39,7 @@
                         <div class="col-xs-12">
                           <div class="form-group">
                             <label for="Address">Address<span class="req">*</span></label>
-                            <input type="text" class="form-control" name="place" ng-model="place" ng-change="update(place)" g-places-autocomplete required><b>details (formatted address)</b>: {{details.formatted_address}}
+                            <input type="text" class="form-control" name="place" ng-model="place"  g-places-autocomplete required>
                           </div>
                         </div>
                       </div>
@@ -61,19 +61,15 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="City">State<span class="req">*</span></label>
-                            <select class="form-control" name="state" ng-model="data.state">
-                              <option>Select State</option>
-			      <option value="Punjab">Punjab</option>
-                            </select>
+			    <input type="text" class="form-control" name="state" ng-model="data.state">
+                            
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="Zipcode">Country<span class="req">*</span></label>
-                            <select class="form-control" name="country" ng-model="data.country">
-                              <option value="USA">USA</option>
-			      <option value="India">India</option>
-                            </select>
+                            <input type="text" class="form-control" name="country" ng-model="data.country">
+                           	    
                           </div>
                         </div>
                       </div>
@@ -83,7 +79,38 @@
                             <label for="City">Timezone<span class="req"></span></label>
                             <select class="form-control" name="timezone" ng-model="data.timezone">
                               <option>Select Timezone</option>
-			      <option>Pacific Time</option>
+			      <option>International Date Line West</option>
+			      <option>Midway Island, Samoa</option>
+			      <option>Hawaii</option>
+			      <option>Alaska</option>
+			      <option>Pacific Time (US & Canada)</option>
+			      <option>Tijuana, Baja California</option>
+			      <option>Arizona</option>
+			      <option>Chihuahua, La Paz, Mazatlan</option>
+			      <option>Mountain Time (US & Canada)</option>
+			      <option>Central America</option>
+			      <option>Central Time (US & Canada)</option>
+			      <option>Guadalajara, Mexico City, Monterrey</option>
+			      <option>Saskatchewan</option>
+			      <option>Bogota, Lima, Quito, Rio Branco</option>
+			      <option>Eastern Time (US & Canada)</option>
+			      <option>Indiana (East)</option>
+			      <option>Atlantic Time (Canada)</option>
+			      <option>Caracas, La Paz</option>
+			      <option>Manaus</option>
+			      <option>Santiago</option>
+			      <option>Newfoundland</option>
+			      <option>Brasilia</option>
+			      <option>Buenos Aires, Georgetown</option>
+			      <option>Greenland</option>
+			      <option>Montevideo</option>
+			      <option>Mid-Atlantic</option>
+			      <option>Cape Verde Is.</option>
+			      <option>Azores</option>
+			      <option>Casablanca, Monrovia, Reykjavik</option>
+			      <option>Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London</option>
+			      <option>Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
+			      <option>Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
                             </select>
                           </div>
                         </div>
@@ -161,7 +188,7 @@
                   <!-- Tab panes -->
                   
                 </div>
-                <div class="col-sm-12 col-md-6"> <img src="images/map.jpg" class="img-responsive" alt="" /> </div>
+                <div class="col-sm-12 col-md-6"> <div id="map" style="height: 400px;"></div> </div>
 		
               </div>
             </div>

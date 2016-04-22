@@ -422,7 +422,7 @@ input[type="radio"] + label span, input[type="radio"]:checked + label span { -we
 .inline-section{display:inline-block; margin:0 5px; vertical-align:middle;}
 select.select30{height:30px; padding:0 8px; font-size:14px;}
 .search-event{position:relative;}
-.search-field{padding-left:40px;}
+.search-field{padding-left:40px !important;}
 .search-event .fa{position:absolute; left:13px; top:10px; color:#777; font-size:18px;}
 
 .ev-icon{margin-bottom:15px; display:inline-table; border-radius:50%; background:#fff; width:100px; height:100px;}
@@ -465,4 +465,54 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 .ng-scope.ng-isolate-scope .pac-container {
     position: absolute !important;
 }
+
+
+/*************************  22-04-2016 ***********************************/
+.btns-widget{margin:0 -15px;}
+.btns-widget li{padding:7px 15px; float:left; font-size:12px; font-weight:700; text-transform:uppercase; width:25%;}
+.btns-widget li a{padding:7px 15px; display:block; color:#c129b9; /*border:1px #ccc solid; background:#fff;*/ }
+
+.icon-fa{background:#fff; border-radius:50%; width:30px; height:30px; line-height:30px; color:#969696; text-align:center; margin-right:10px; font-size:18px; position:relative;}
+.sub-fa{font-size:60%; position:absolute; bottom:15%; right:10%; background:#fff; border-radius:50%; width:10px; height:10px;}
+
+.date-view{border:1px #ccc solid; background:#fff; display:inline-block; vertical-align:middle;}
+.date-m, .date-d{display:block; padding:8px; text-align:center;}
+.date-m{background:#0275d0; color:#fff; font-size:16px; text-transform:uppercase; font-weight:600;}
+.date-media{width:120px;}
+.date-d{padding:10px;}
+
+.v-map{height:200px; overflow:hidden; margin-bottom:15px; }
+.address-list > li{margin-top:10px; line-height:20px;}
+.address-list > li:first-child{margin-top:0;}
+.address-list .fa{color:#969696;}
+
+/*13-04-2016*/
+.stage-container .stage:last-child::after{display:none;}
+.right-span{display:inline-block; vertical-align:top; padding-top:8px;}
+/*13-04-2016*/
+
+.error-text{color:#ff0000; padding:8px; margin-bottom:20px; background:rgba(255,220,220,0.5);}
+.profile-btns > li{margin-top:10px;}
+.profile-btns > li:first-child{margin-top:0;}
+.profile-btns > li .btn{width:100%;}
+
+/*--------Always at Bottom---------*/
+.m-t35 {margin-top: 35px;}
+.m-t40 {margin-top: 40px;}
+
+.mt-3{margin-top:-3px;}
+
+.m-b0{margin-bottom:0px;}
+.m-b20{margin-bottom:20px;}
+
+.p-t10{padding-top:10px;}
+
+.u-text{text-decoration:underline;}
+.u-text:hover{text-decoration:none;}
+
+.bb-1{border-bottom:1px #ccc solid;}
+
+.f-n{font-weight:400;}
+.f-b{font-weight:700;}
+.f-sb{font-weight:600;}
 

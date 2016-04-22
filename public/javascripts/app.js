@@ -8,7 +8,7 @@ Montive: It defined routes to call different files.It will provide you direction
 angular.module("communicationModule", []);
 // Declare app level module which depends on filters, and services
 
-var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','angularUtils.directives.dirPagination','ngAnimate'])
+var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','angularUtils.directives.dirPagination'])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ocLazyLoadProvider) {
      $urlRouterProvider.otherwise('/login');
@@ -234,6 +234,54 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 "lazyLoadView": {
                   controller: 'venueController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/event_setting/views/add_venue.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+        .state('event_setting', {
+            url: '/event_setting',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'eventSettingController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/event_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+        .state('venue_overview', {
+            url: '/venue_overview/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'eventSettingController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/venue_overview.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
