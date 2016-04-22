@@ -22,6 +22,18 @@ module.exports = function(app, express) {
         /* Service : Seller Venues Listing
         * */
         router.post('/venueListing', Event_setting.getVenue);
+        
+        /* Service : Change Venue Status
+        * */
+        router.post('/changeVenueStatus', Event_setting.changeVenueStatus);
+        
+        /* Service : Delete Venue 
+        * */
+        router.post('/deleteVenue', Event_setting.deleteVenue);
+        
+        /* Service : Duplicate Venue 
+        * */
+        router.post('/duplicateVenue', Event_setting.duplicateVenue);
          
          
 	app.use('/event_setting', router);
