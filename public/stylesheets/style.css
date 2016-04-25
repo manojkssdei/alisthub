@@ -1,3 +1,4 @@
+
 /* Google Font Import Code
    ========================================================================== */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300italic,300,400italic,600,600italic,700,700italic,800,800italic");
@@ -457,6 +458,7 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
     width: 1%; border: 1px solid #c2c2c2;border-left: none; border-radius: 0 4px 4px 0;}
      .datepicker .input-group-btn .btn{ background: none; border: none;  padding: 0px; }
      .uib-timepicker .form-control{ padding: 5px 6px;}
+
      .uib-timepicker .btn {margin-left: 5px;padding: 9px 10px;}
 .ng-binding.success-fld { background: rgb(34,139,34) none repeat scroll 0 0;color: #fff;margin: 0 0 15px;
     padding: 10px;}
@@ -466,6 +468,19 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
     position: absolute !important;
 }
 
+
+/*---------20160422---------------*/
+.welcometxt .btn{line-height:36px; padding:0 15px; font-weight:700;}
+.welcometxt .btn-group.open .dropdown-toggle{background:none; border:none;}
+.welcometxt .dropdown-menu{border:none; margin:0;}
+.welcometxt .dropdown-menu > li > a{border-bottom: 1px solid #dadada;
+    color: #606060;
+    display: block;
+    font-size: 15px;
+    padding: 10px; line-height:1;}
+	
+.welcometxt .dropdown-menu > li > a:hover, .welcometxt .dropdown-menu > li > a:focus{	background-color: #e5e5e5;
+    text-decoration: none;}
 
 /*************************  22-04-2016 ***********************************/
 .btns-widget{margin:0 -15px;}
@@ -496,9 +511,11 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 .profile-btns > li:first-child{margin-top:0;}
 .profile-btns > li .btn{width:100%;}
 
+
 /*--------Always at Bottom---------*/
 .m-t35 {margin-top: 35px;}
 .m-t40 {margin-top: 40px;}
+
 
 .mt-3{margin-top:-3px;}
 
@@ -515,4 +532,5 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 .f-n{font-weight:400;}
 .f-b{font-weight:700;}
 .f-sb{font-weight:600;}
+
 

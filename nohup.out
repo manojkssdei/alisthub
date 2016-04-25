@@ -1015,3 +1015,44 @@ connected as id 180731
 [0mGET /modules/step_event/service.js [36m304 [0m0.404 ms - -[0m
 [0mGET /modules/step_event/controller.js [36m304 [0m0.645 ms - -[0m
 [0mGET /modules/step_event/views/create_event_step1.html [36m304 [0m0.383 ms - -[0m
+
+> alist@0.0.0 start /home/bigdata/public_html/alisthub
+> node ./bin/www
+
+
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: listen EADDRINUSE
+    at errnoException (net.js:901:11)
+    at Server._listen2 (net.js:1039:14)
+    at listen (net.js:1061:10)
+    at Server.listen (net.js:1135:5)
+    at EventEmitter.listen (/home/bigdata/public_html/alisthub/node_modules/express/lib/application.js:617:24)
+    at Object.<anonymous> (/home/bigdata/public_html/alisthub/app.js:64:5)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:312:12)
+
+npm ERR! alist@0.0.0 start: `node ./bin/www`
+npm ERR! Exit status 8
+npm ERR! 
+npm ERR! Failed at the alist@0.0.0 start script.
+npm ERR! This is most likely a problem with the alist package,
+npm ERR! not with npm itself.
+npm ERR! Tell the author that this fails on your system:
+npm ERR!     node ./bin/www
+npm ERR! You can get their info via:
+npm ERR!     npm owner ls alist
+npm ERR! There is likely additional logging output above.
+npm ERR! System Linux 2.6.32-431.17.1.el6.x86_64
+npm ERR! command "/home/bigdata/.nvm/v0.10.25/bin/node" "/home/bigdata/.nvm/v0.10.25/bin/npm" "start"
+npm ERR! cwd /home/bigdata/public_html/alisthub
+npm ERR! node -v v0.10.25
+npm ERR! npm -v 1.3.24
+npm ERR! code ELIFECYCLE
+npm ERR! 
+npm ERR! Additional logging details can be found in:
+npm ERR!     /home/bigdata/public_html/alisthub/npm-debug.log
+npm ERR! not ok code 0
