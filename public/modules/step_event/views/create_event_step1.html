@@ -66,8 +66,8 @@
                       <div class="clearfix list-event-date">
                       <div class="col-sm-3 pull-right text-right lss-top"> <a  href="javascript:void(0)" ng-click="remove_event()"><i class="fa fa-close"></i></a> </div>
                         <div class="col-sm-3"> {{selectevent_date }} </div>
-                        <div class="col-sm-3"> Start Time : {{starttime| date:'shortTime'}} </div>
-                        <div class="col-sm-3"> End Time : {{endtime| date:'shortTime'}} </div>
+                        <div class="col-sm-3"> Start Time :{{startevent_time}}</div>
+                        <div class="col-sm-3"> End Time :{{endevent_time}} </div>
                         
                       </div>
                     </div>
@@ -88,12 +88,13 @@
                     </div>
                   </div>
                 </div>
+               <div ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="EndTime">Start Date<span class="req">*</span></label>
                       <div class="form-group datepicker">
-                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt2" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
                          <span class="input-group-btn">
                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                      </div>
@@ -103,7 +104,7 @@
                     <div class="form-group">
                       <label for="EndTime">End Date<span class="req">*</span></label>
                       <div class="form-group datepicker">
-                        <input type="text" class="form-control" uib-datepicker-popup ng-model="dt3" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <input type="text" class="form-control" uib-datepicker-popup ng-model="multiple_end_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"  ng-change="recurring_period('end')"/>
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
@@ -115,13 +116,12 @@
                   <div class="col-sm-4">
                   	<label for="City">Recurring<span class="req">*</span></label>
                     <div class="form-group">                      
-                      <select class="form-control">
-                        <option>Weekly</option>
-                        <option>Monthly</option>
+                      <select class="form-control" ng-model="data.period" ng-change="recurring_period('period')">
+                        <option ng-repeat="option in timeperiod" value="{{option.id}}">{{option.name}}</option>
                       </select>
                     </div>
                   </div>
-                  <div class="col-sm-8 event">
+                  <div class="col-sm-8 event" ng-hide="days_div">
                     <div class="form-group custom-check m-t40">
                       <p class="custom-check">
                         <input type="checkbox" id="test1">
@@ -153,47 +153,28 @@
                       </p>
                     </div>
                   </div>
-                  <div class="col-sm-12">
-                  	 <div class="form-group">
-                        <button class="pink-btn btn btn-small">Save</button>
-                    </div>
-                  </div>
+
                 </div>
                 <div class="row">
                   <div class="col-xs-12">
                     <label>Select/Deslect Events</label>
-                    <div class="clearfix list-event-date form-inline">
-      <div class="col-sm-1 pull-right text-right lss-top"> <a href="#"><i class="fa fa-close"></i></a> </div>
-     
-        <div class="sel-d col-sm-3">
-          <label> Friday, 4 March 2016 </label>
-        </div>
-        <div class="sel-d col-sm-4">
-          <label for="exampleInputName2">Start Time : </label>
-          <input type="text" class="form-control input30" id="exampleInputName2">
-        </div>
-        <div class="sel-d col-sm-4">
-          <label for="exampleInputEmail2">End Time : </label>
-          <input type="email" class="form-control input30" id="exampleInputEmail2">
-        </div>
-   
-    </div>
-                    <div class="clearfix list-event-date form-inline">
-      <div class="col-sm-1 pull-right text-right lss-top"> <a href="#"><i class="fa fa-close"></i></a> </div>
-     
-        <div class="sel-d col-sm-3">
-          <label> Friday, 4 March 2016 </label>
-        </div>
-        <div class="sel-d col-sm-4">
-          <label for="exampleInputName2">Start Time : </label>
-          <input type="text" class="form-control input30" id="exampleInputName2">
-        </div>
-        <div class="sel-d col-sm-4">
-          <label for="exampleInputEmail2">End Time : </label>
-          <input type="email" class="form-control input30" id="exampleInputEmail2">
-        </div>
-   
-    </div>
+                    <div class="clearfix list-event-date form-inline"  ng-repeat="between in between_date track by $index">
+                         <div class="col-sm-1 pull-right text-right lss-top"> <a href="#"><i class="fa fa-close"></i></a> </div>
+                        
+                           <div class="sel-d col-sm-3">
+                             <label> {{between| date:'EEEE MMMM dd,yyyy'}} </label>
+                           </div>
+                           <div class="sel-d col-sm-4">
+                             <label for="exampleInputName2">Start Time : </label>
+                             timepicker
+                           </div>
+                           <div class="sel-d col-sm-4">
+                             <label for="exampleInputEmail2">End Time : </label>
+                             timepicker
+                           </div>
+                      
+                       </div>
+      
                   </div>
                 </div>
                 

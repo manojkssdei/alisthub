@@ -1,8 +1,48 @@
 angular.module("google.places",[]);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope) {
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout) { 
    //For Step 1
     var $serviceTest = $injector.get("venues");
          // <-- CHANGED HERE
+    $scope.days_div=$scope.error_message=true;
+    
+    $scope.recurring_period=function(action){
+       //console.log($scope.data.period);
+       
+       if(($scope.multiple_start_date===undefined)||($scope.multiple_end_date==undefined))
+       {
+        if ((action=='start')||(action=='end')) {}else{
+        $scope.error="Please select start date and end date.";
+        $scope.error_message=false;
+        $timeout(function() {
+             
+          $scope.error='';
+          $scope.error_message=true;
+          $scope.data.period='';
+        },3000);
+        }
+       }else{
+        if (($scope.data.period=='weekly')||($scope.data.period=='monthly')) {
+            $scope.days_div=false;
+        }else{
+            $scope.days_div=true;
+            currentDate=new Date($scope.multiple_start_date);
+            endDate=new Date($scope.multiple_end_date);
+            
+            var between=[];
+            while (currentDate <= endDate) {
+                between.push(new Date(currentDate));
+                currentDate.setDate(currentDate.getDate() + 1);
+                
+            }
+            $scope.between_date=between;
+        }
+       }
+    }
+    $scope.timeperiod=[
+      {id: 'daily', name: 'Daily'},
+      {id: 'weekly', name: 'Weekly'},
+      {id: 'monthly', name: 'Monthly'}
+    ]
      $rootScope.starttime='';
      $rootScope.endtime='';
      $scope.data = {};
@@ -426,11 +466,12 @@ $scope.items = ['item1'];
    }
    
    $scope.changedstarttime=function(){
-    $rootScope.starttime=$scope.starttime;
-   }
+ 
+    $rootScope.startevent_time=$filter('date')($scope.starttime, 'shortTime');
+   } 
    
-   $scope.changedendtime=function(){
-    $rootScope.endtime=$scope.endtime;
+   $scope.changedendtime=function(){ 
+    $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');
    }
 
 });
@@ -444,8 +485,8 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
   $scope.remove=function(){
   
     delete $rootScope.selectevent_date;
-    delete $rootScope.starttime;
-    delete $rootScope.endtime;
+    delete $rootScope.startevent_time;
+    delete $rootScope.endevent_time;
     $uibModalInstance.close($scope.selected.item);
   }
 
