@@ -511,11 +511,15 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 .profile-btns > li:first-child{margin-top:0;}
 .profile-btns > li .btn{width:100%;}
 
+/*-------Date Picker-------*/
+.uib-datepicker{background:#fff; box-shadow:none; -moz-box-shadow:none; -webkit-box-shadow:none; padding:15px 25px;}
+.uib-datepicker .btn-default{background:none; border:none;}
+/*======= Date Picker ========*/
+
 
 /*--------Always at Bottom---------*/
 .m-t35 {margin-top: 35px;}
 .m-t40 {margin-top: 40px;}
-
 
 .mt-3{margin-top:-3px;}
 
