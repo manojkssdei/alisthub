@@ -1,9 +1,43 @@
 angular.module("google.places",[]);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout) { 
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce) { 
    //For Step 1
     var $serviceTest = $injector.get("venues");
          // <-- CHANGED HERE
+ $scope.dynamicPopover = {
+   templateUrl: 'myPopoverTemplate.html',
+   placement:'bottom'
+  };
+  $scope.dynamicPopoverend = {
+   templateUrl: 'myPopoverendTemplate.html',
+   placement:'bottom'
+  };
+  
     $scope.days_div=$scope.error_message=true;
+    $scope.select_checkbox=function($event){
+        var dateArray = new Array();
+       angular.forEach($scope.days, function(day){
+        if (!!day.selected) 
+        {
+          dDate1=new Date($scope.multiple_start_date);
+          dDate2=new Date($scope.multiple_end_date);
+          
+           while (dDate1<=dDate2)
+          {
+            var currentDate=JSON.parse(JSON.stringify(dDate1));
+            if (dDate1.getDay()==day.id) {
+              dateArray.push(currentDate);  
+            }
+            dDate1.setDate(dDate1.getDate() + 1);
+          }
+          
+        }
+      })
+       $scope.between_date=dateArray; 
+     
+    }
+    
+   
+    
     
     $scope.recurring_period=function(action){
        //console.log($scope.data.period);
@@ -23,25 +57,36 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
        }else{
         if (($scope.data.period=='weekly')||($scope.data.period=='monthly')) {
             $scope.days_div=false;
+            $scope.between_date=[];
         }else{
-            $scope.days_div=true;
-            currentDate=new Date($scope.multiple_start_date);
-            endDate=new Date($scope.multiple_end_date);
-            
-            var between=[];
-            while (currentDate <= endDate) {
-                between.push(new Date(currentDate));
-                currentDate.setDate(currentDate.getDate() + 1);
+            if ($scope.data.period!=undefined) {
+                $scope.days_div=true;
+                currentDate=new Date($scope.multiple_start_date);
+                endDate=new Date($scope.multiple_end_date);
                 
+                var between=[];
+                while (currentDate <= endDate) {
+                    between.push(new Date(currentDate));
+                    currentDate.setDate(currentDate.getDate() + 1);
+                    
+                }
+                $scope.between_date=between;  
             }
-            $scope.between_date=between;
         }
        }
     }
+    $scope.days=[
+      {id: '0', name: 'Sun'},
+      {id: '1', name: 'Mon'},
+      {id: '2', name: 'Tues'},
+      {id: '3', name: 'Wed'},
+      {id: '4', name: 'Thurs'},
+      {id: '5', name: 'Fri'},
+      {id: '6', name: 'Sat'}
+    ]
     $scope.timeperiod=[
       {id: 'daily', name: 'Daily'},
-      {id: 'weekly', name: 'Weekly'},
-      {id: 'monthly', name: 'Monthly'}
+      {id: 'weekly', name: 'Weekly'}
     ]
      $rootScope.starttime='';
      $rootScope.endtime='';
@@ -205,7 +250,8 @@ $scope.inlineOptions = {
   function disabled(data) {
     var date = data.date,
       mode = data.mode;
-    return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+    return '';
+    //mode === 'day' && (date.getDay() === 0 || date.getDay() === 6)
   }
 
 
@@ -465,13 +511,13 @@ $scope.items = ['item1'];
     });
    }
    
-   $scope.changedstarttime=function(){
- 
-    $rootScope.startevent_time=$filter('date')($scope.starttime, 'shortTime');
+   $scope.changedstarttime=function(obj){
+    $rootScope.startevent_time=$filter('date')(obj.starttime, 'shortTime');
+    
    } 
    
-   $scope.changedendtime=function(){ 
-    $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');
+   $scope.changedendtime=function(obj){ 
+    $rootScope.endevent_time=$filter('date')(obj.endtime, 'shortTime');
    }
 
 });

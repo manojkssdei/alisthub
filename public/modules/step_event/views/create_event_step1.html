@@ -13,7 +13,7 @@
     
     <!-- Form COntainer -->
     
-    <div class="form-section">
+    <div class="form-section  wt-frame">
       <form class="event-form">
         <!-- Event Detail Form -->
        <div ng-hide="eventdetail_div">
@@ -40,19 +40,30 @@
                     <div class="col-sm-4">
                       <div class="form-group">
                         <label for="StartTime">Start Time</label>
-                       <uib-timepicker ng-model="starttime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-change="changedstarttime()"></uib-timepicker>
+                       <input type="text" class="form-control" placeholder="select Start time" uib-popover-template="dynamicPopover.templateUrl" ng-model="startevent_time">
+
+    <script type="text/ng-template" id="myPopoverTemplate.html">
+     
+      <uib-timepicker ng-model="starttime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-change="changedstarttime(this)"></uib-timepicker>  
+    </script>
+                       
                       </div>
                       <div class="form-group">
                         <label>From</label>
                         
-                       <uib-datepicker ng-model="start_date" class="well well-sm" datepicker-options="options" ng-change="single_eventstart()"></uib-datepicker>
+                       <uib-datepicker ng-model="start_date" class="well well-sm" datepicker-options="options" ng-change="single_eventstart(this)"></uib-datepicker>
  
                       </div>
                     </div>
                     <div class="col-sm-4">
                       <div class="form-group">
                         <label for="EndTime">End Time</label>
-                         <uib-timepicker ng-model="endtime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"  ng-change="changedendtime()"></uib-timepicker>
+                        <input type="text" class="form-control" placeholder="select End time" uib-popover-template="dynamicPopoverend.templateUrl" ng-model="endevent_time">
+                         <script type="text/ng-template" id="myPopoverendTemplate.html">
+     
+      <uib-timepicker ng-model="endtime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"  ng-change="changedendtime(this)"></uib-timepicker> 
+    </script>
+                         
                       </div>
                       <div class="form-group">
                         <label>To</label>
@@ -123,34 +134,11 @@
                   </div>
                   <div class="col-sm-8 event" ng-hide="days_div">
                     <div class="form-group custom-check m-t40">
-                      <p class="custom-check">
-                        <input type="checkbox" id="test1">
-                        <label for="test1">Sun</label>
+                      <p class="custom-check" ng-repeat="day in days">
+                        <input type="checkbox"  ng-model="day.selected" id={{day.id}} ng-change="select_checkbox(day.selected)"  value={{day.id}}>
+                        <label for="{{day.id}}">{{day.name}}</label>
                       </p>
-                      <p class="custom-check">
-                        <input type="checkbox" id="test2">
-                        <label for="test2">Mon</label>
-                      </p>
-                      <p class="custom-check">
-                        <input type="checkbox" id="test3">
-                        <label for="test3">Tue</label>
-                      </p>
-                      <p class="custom-check">
-                        <input type="checkbox" id="test4">
-                        <label for="test4">Wed</label>
-                      </p>
-                      <p class="custom-check">
-                        <input type="checkbox" id="test5">
-                        <label for="test5">Thu</label>
-                      </p>
-                      <p class="custom-check">
-                        <input type="checkbox" id="test6">
-                        <label for="test6">Fri</label>
-                      </p>
-                      <p class="custom-check">
-                        <input type="checkbox" id="test7">
-                        <label for="test7">Sat</label>
-                      </p>
+                      
                     </div>
                   </div>
 
