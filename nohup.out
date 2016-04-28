@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 
 > alist@0.0.0 start /home/bigdata/public_html/alisthub
 > node ./bin/www
@@ -1343,3 +1344,5 @@ connected as id 547606
 [0mGET /modules/step_event/controller.js [36m304 [0m0.406 ms - -[0m
 [0mGET /modules/step_event/views/create_event_step1.html [36m304 [0m0.449 ms - -[0m
 [0mOPTIONS /event_setting/venueListing [32m200 [0m1.486 ms - 4[0m
+=======
+>>>>>>> Stashed changes

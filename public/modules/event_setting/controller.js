@@ -14,7 +14,8 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
  }
  
  /////////////////////////////////////////////////////////////////////////////
-$scope.data = {};
+    $scope.data = {};
+     
      $scope.locations = [];
      $scope.locations[0]=[];
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -137,7 +138,10 @@ $scope.data = {};
         google.maps.event.removeListener(listener);
     });
       });
+     
+    
  ////////////////////////////////////////////////////////////////////////////
+ 
     $scope.encodeImageFileAsURL = function(){
                   var filesSelected = document.getElementById("inputFileToLoad").files;
                   if (filesSelected.length > 0)
@@ -256,6 +260,14 @@ $scope.data = {};
                    $scope.data  = {};
                    $scope.data = response.result[0];
                    $scope.place = response.result[0].address;
+                   $scope.locations[0].push(response.result[0].state,
+                    response.result[0].latitude,
+                    response.result[0].longitude,
+                    1,
+                    response.result[0].city,
+                    "",
+                    response.result[0].address,
+                    "coming soon");
                   }else{
                    $scope.error_message = response.error;
             }
@@ -285,6 +297,51 @@ $scope.data = {};
     
     ///////////////////////////////////////
   }
+  
+ //////////////////////////////////////////////////////////////////////////
+})
+
+.controller('manageVenueController', function($scope,$localStorage,$injector,$http,$state,$location) {
+  var $serviceTest = $injector.get("venues");
+    
+    if(window.innerWidth>767){ 
+    $scope.navCollapsed = false;	  
+    }else{
+    $scope.navCollapsed = true;
+    $scope.toggleMenu = function() {
+    $scope.navCollapsed = $scope.navCollapsed === false ? true: false;
+    };	  
+    }
+ 
+ /////////////////////////////////////////////////////////////////////////////
+    $scope.data = {};
+   
+         
+ ////////////////////////////////////////////////////////////////////////////
+    $scope.getVenue = function() {
+    
+        if ($localStorage.userId!=undefined) {
+        $scope.data.userId      = $localStorage.userId;
+        $scope.loader = true;
+        $serviceTest.getVenues($scope.data,function(response){
+            console.log(response);
+            $scope.loader = false;
+            if (response.code == 200) {
+                   $scope.venuedata = response.result;
+                  }else{
+                   $scope.error_message = response.error;
+            }
+            
+        });
+        
+        }
+    };
+  
+  /// View listing venues 
+  if ($state.params.list) {
+    $scope.getVenue();
+  }
+   
   
   //////////////////// Duplicate Venue ////////////////
   
@@ -335,30 +392,34 @@ $scope.data = {};
         }
   };
   
-  
     
- ///////////////////////////////////////////////////////////////////////////
 })
 
 .controller('eventSettingController', function($scope,$localStorage,$injector,$http,$state,$location) {
    
     var $serviceTest = $injector.get("venues");
     $scope.data = {};
-    if ($localStorage.userId!=undefined) {
+       
+        if ($localStorage.userId!=undefined) {
         $scope.data.userId      = $localStorage.userId;
         $scope.loader = true;
-        $serviceTest.getVenues($scope.data,function(response){
-            console.log(response);
+        $serviceTest.getSettingCount($scope.data,function(response){
             $scope.loader = false;
             if (response.code == 200) {
-                   $scope.venuecount = response.result.length;
+                   $scope.venuecount   = response.venueresult.count;
+                   $scope.quescount    = response.quesresult.count;
+                   $scope.productcount = response.productresult.count;
                   }else{
-                   $scope.venuecount = 0;
+                   $scope.venuecount   = 0;
+                   $scope.quescount    = 0;
+                   $scope.productcount = 0;
             }
             
         });
         
-    }
+        }
+            
+    
     
     $scope.venuetab   = false;
     $scope.producttab = false;
