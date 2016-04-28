@@ -1,5 +1,31 @@
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css" media="screen" />
+ 
+<link rel="stylesheet/less" type="text/css" href="http://jdewit.github.io/bootstrap-timepicker/css/timepicker.less" />
+
+ <script type="text/javascript">
+      $(document).ready(function () {
+               
+     
+            $('.timepick').timepicker({
+                minuteStep: 1
+                });
+
+            
+        });
+    </script>
+
 <div class="container">
      <h1>Create an Event</h1>
+     
+     
+      <div class="input-group bootstrap-timepicker timepicker">
+        <input id="timepicker1" class="form-control input-small timepick" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+    </div>
+    
+  <div class="input-group bootstrap-timepicker timepicker">
+        <input id="timepicker2" class="form-control input-small timepick" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+    </div>
     
     <!-- Step Form -->
     
@@ -89,13 +115,24 @@
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="StartTime">Start Time<span class="req">*</span></label>
-                      <uib-timepicker ng-model="multiple_starttime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+                      
+                      <input type="text" class="form-control" placeholder="select Start time" uib-popover-template="dynamicPopovermultiplestart.templateUrl" ng-model="multiple_starttime">
+
+    <script type="text/ng-template" id="myPopoverTemplatemultiplestart.html">
+     
+      <uib-timepicker ng-model="multiple_starttime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+    </script>
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="EndTime">End Time</label>
-                     <uib-timepicker ng-model="multiple_endtime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+                      <input type="text" class="form-control" placeholder="select End time" uib-popover-template="dynamicPopovermultipleend.templateUrl" ng-model="multiple_endtime">
+
+    <script type="text/ng-template" id="myPopoverTemplatemultipleend.html">
+     
+      <uib-timepicker ng-model="multiple_endtime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+    </script>
                     </div>
                   </div>
                 </div>
@@ -153,12 +190,20 @@
                              <label> {{between| date:'EEEE MMMM dd,yyyy'}} </label>
                            </div>
                            <div class="sel-d col-sm-4">
-                             <label for="exampleInputName2">Start Time : </label>
-                             timepicker
+                             <label for="exampleInputName2">Start Time:</label>
+                          <uib-timepicker ng-model="asff"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>  
+                   
+                
                            </div>
                            <div class="sel-d col-sm-4">
                              <label for="exampleInputEmail2">End Time : </label>
                              timepicker
+                           <!--   <input type="text" class="form-control" placeholder="select End time" uib-popover-template="dynamicPopovermultipleendtime.templateUrl">
+ng-model="multiple_endtime[{{$index}}]"
+                    <script type="text/ng-template" id="myPopoverTemplatemultipleendtime.html">
+                     
+                      <uib-timepicker   hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>-->
+                    
                            </div>
                       
                        </div>
@@ -846,3 +891,5 @@
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
     </script>
+
+

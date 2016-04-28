@@ -1,5 +1,5 @@
 <div class="container">
-     <h1>View all Venues</h1>
+     <h1>View all Questions</h1>
     
     <!-- Form COntainer -->
     
@@ -21,7 +21,7 @@
                   <section class="grid-btn-top row">
                   	  <section class="col-sm-7">
                       	<section class="top-buttons">
-                            <a href="#/add_venue"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add New Venue</button></a>
+                            <a href="#/add_question"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add New Question</button></a>
                         </section>
                       </section>
                       <section class="col-sm-5 right-btns text-right">
@@ -38,26 +38,19 @@
                         <tr>
                             <th width="15%">Name</th>
                             <th width="10%" class="numbers">Type</th>
-                            <th width="14%" class="numbers">City</th>
-                            <th width="13%" class="numbers">State</th>
-                            <th width="14%" class="numbers">Country</th>
-                            <th width="12%" class="numbers">Zipcode</th>
+                            <th width="14%" class="numbers">Assigned To</th>
                             <th width="23%">&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr pagination-id="paginate2" dir-paginate="data in venuedata | itemsPerPage: 2 | filter:filter">
-                            <td><strong>{{data.venue_name}}</strong></td>
-                            <td class="numbers">{{data.venue_type}}</td>
-                            <td class="numbers">{{data.city}}</td>
-			    <td class="numbers">{{data.state}}</td>
-                            <td class="numbers">{{data.country}}</td>
-                            <td class="numbers">{{data.zipcode}}</td>
+                        <tr pagination-id="paginate2" dir-paginate="data in questiondata | itemsPerPage: 2 | filter:filter">
+                            <td><strong>{{data.question_name}}</strong></td>
+                            <td class="numbers">{{data.question_type}}</td>
+                            <td class="numbers">{{data.status}}</td>
                             <td class="action">
-			      <a href="#/edit_venue/{{data.id}}"><i class="fa fa-edit"></i></a>
-			      <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Venue status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
-			      <a ng-click="duplicateVenue(data.id)"><i class="fa fa-clone"></i></a>
-			      <a ng-click="delVenue(data.id)" ng-confirm-click="Would you like to delete this Venue?"><i class="fa fa-trash"></i></a>
+			      <a href="#/edit_question/{{data.id}}"><i class="fa fa-edit"></i></a>
+			      <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Question status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
+			      <a ng-click="delQuestion(data.id)" ng-confirm-click="Would you like to delete this Question?"><i class="fa fa-trash"></i></a>
 			    </td>
                         </tr>
 			<tr ng-show="loader">
@@ -75,26 +68,14 @@
                   <section class="grid-bottm clearfix">
                   	     <section class="paging">
                              <label class="lt-label"></label>
-                             <!--<ul class="page-list">
-                             	<li class="first-page page-btn"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                <li class="prev-page page-btn"><a href="#"><i class="fa fa-angle-left"></i></a></li>   
-                                <li class="active"><a href="#">1</a></li>    
-                                <li><a href="#">2</a></li>      
-                                <li><a href="#">3</a></li>      
-                                <li><a href="#">4</a></li>      
-                                <li><a href="#">5</a></li>  
-                                <li><a href="#">6</a></li> 
-                                <li class="next-page page-btn"><a href="#"><i class="fa fa-angle-right"></i></i></a></li>  
-                                <li class="last-page page-btn"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>  
-                             </ul>-->
+                             
 			    <dir-pagination-controls pagination-id="paginate2" ></dir-pagination-controls>
                         </section>
                         <section class="gr-right pull-right">
                             <ul class="legends">
                                 <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
                                 <li><i class="fa fa-check-circle"></i><span>active</span></li>
-				<li><i class="fa fa-clone"></i><span>Duplicate</span></li>
-                                <li><i class="fa fa-trash"></i><span>delete</span></li>
+				<li><i class="fa fa-trash"></i><span>delete</span></li>
                             </ul>
                         </section>
                    </section>

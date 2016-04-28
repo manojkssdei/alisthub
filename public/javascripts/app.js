@@ -171,7 +171,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     //var $serviceTest = $injector.get("CustomerFirstLoad");
                            // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     })*/.then(function(){
-                    return $ocLazyLoad.load(['modules/step_event/controller.js']);
+                    return $ocLazyLoad.load(['modules/step_event/controller.js','https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js','https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js','http://jdewit.github.io/bootstrap-timepicker/js/bootstrap-timepicker.js']);
                     })
                
               }]
@@ -185,7 +185,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             views: {
                 "lazyLoadView": {
                   controller: 'venueController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/event_setting/views/add_venue.html'
+                  templateUrl: 'modules/event_setting/views/venue/add_venue.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -208,8 +208,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             
             views: {
                 "lazyLoadView": {
-                  controller: 'venueController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/event_setting/views/view_venues.html'
+                  controller: 'manageVenueController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/venue/view_venues.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -233,7 +233,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             views: {
                 "lazyLoadView": {
                   controller: 'venueController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/event_setting/views/add_venue.html'
+                  templateUrl: 'modules/event_setting/views/venue/add_venue.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -280,8 +280,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             
             views: {
                 "lazyLoadView": {
-                  controller: 'eventSettingController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/event_setting/views/venue_overview.html'
+                  controller: 'venueController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/venue/venue_overview.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -292,6 +292,150 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                            // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     }).then(function(){
                     return $ocLazyLoad.load(['modules/event_setting/controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+        .state('add_question', {
+            url: '/add_question',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'questionController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/question/add_question.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+        .state('edit_question', {
+            url: '/edit_question/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'questionController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/question/add_question.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+        .state('view_questions', {
+            url: '/view_questions/:list',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageQuestionController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/question/view_question.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        // Add Product
+        .state('add_product', {
+            url: '/add_product',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'productController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/product/add_product.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+        .state('edit_product', {
+            url: '/edit_product/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'productController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/product/add_product.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+        .state('view_products', {
+            url: '/view_products/:list',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageProductController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/product/view_product.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
                     })
                
               }]

@@ -11,7 +11,24 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
    templateUrl: 'myPopoverendTemplate.html',
    placement:'bottom'
   };
+  $scope.dynamicPopovermultiplestart = {
+   templateUrl: 'myPopoverTemplatemultiplestart.html',
+   placement:'bottom'
+  };
+  $scope.dynamicPopovermultipleend = {
+   templateUrl: 'myPopoverTemplatemultipleend.html',
+   placement:'bottom'
+  };
+  $scope.dynamicPopovermultiplestarttime = {
+   templateUrl: 'dynamicPopovermultiplestarttime.html',
+   placement:'bottom'
+  };
+  $scope.dynamicPopovermultipleendtime = {
+   templateUrl: 'myPopoverTemplatemultipleendtime.html',
+   placement:'bottom'
+  };
   
+   
     $scope.days_div=$scope.error_message=true;
     $scope.select_checkbox=function($event){
         var dateArray = new Array();
@@ -20,18 +37,21 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         {
           dDate1=new Date($scope.multiple_start_date);
           dDate2=new Date($scope.multiple_end_date);
-          
+         
            while (dDate1<=dDate2)
           {
             var currentDate=JSON.parse(JSON.stringify(dDate1));
             if (dDate1.getDay()==day.id) {
-              dateArray.push(currentDate);  
-            }
+           
+              dateArray.push(currentDate);
+              
+           }
             dDate1.setDate(dDate1.getDate() + 1);
           }
           
         }
       })
+    
        $scope.between_date=dateArray; 
      
     }
