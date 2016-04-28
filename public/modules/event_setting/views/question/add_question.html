@@ -1,0 +1,72 @@
+<div class="container">
+     <h1>{{page_title}} Question</h1>
+    
+    <!-- Form COntainer -->
+    
+    <div class="form-section">
+      <form class="venue-form" name="userForm" id="venue-form" ng-submit="saveQuestion()" novalidate>
+        <!-- Event Detail Form -->
+       <div> 
+          <!-- Location Group -->
+          <div class="form-group field-group">
+               <!-- Date Event Group -->
+            <div class="event-date fieldSection">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="tab-content">
+                    <div role="tabpanel">
+                      <div class="row">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.question_type.$invalid && !userForm.question_type.$pristine }">
+                          <div class="form-group">
+                            <label for="EventName">Question Type<span class="req">*</span></label>
+                            <select class="form-control" name="question_type" ng-model="data.question_type" required>
+                              <option>Text</option>
+                            </select>
+                          </div>
+			  <p ng-show="userForm.question_type.$invalid && !userForm.question_type.$pristine" class="help-block">Select Question type.</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12" ng-class="{ 'has-error' : userForm.question_name.$invalid && !userForm.question_name.$pristine }">
+                          <div class="form-group">
+                            <label for="Venue">Question<span class="req">*</span></label>
+                            <textarea class="form-control" name="question_name" ng-model="data.question_name" required></textarea>
+                          </div>
+			  <p ng-show="userForm.question_name.$invalid && !userForm.question_name.$pristine" class="help-block">Enter Question name.</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="onoffswitch">
+			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.required" checked>
+			 <label class="onoffswitch-label" for="myonoffswitch4"></label>
+		       </div>
+                        </div>
+                      </div>
+                    		    
+                    </div>
+                   
+                  </div>
+                  
+                  <!-- Tab panes -->
+                  
+                </div>
+                <div class="col-sm-12 col-md-6"></div>
+		
+              </div>
+            </div>
+          </div>
+          <!-- //Location Group -->
+      
+        <!-- //Event Detail Form -->
+         </div>
+         <div class="editor-btn">
+          
+           <button class="pink-btn btn" ng-disabled="userForm.$invalid">Save</button>
+          
+         </div>
+     </form>
+     </div>
+    
+    <!-- //Form COntainer --> 
+  </div>

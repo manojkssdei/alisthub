@@ -1,5 +1,20 @@
 var fs         = require('fs');
 var path_venue = process.cwd()+'/public/images/venues/';
+/*** Get Seller Setting Count ***/
+exports.getSettingCount = function(req,res){
+     connection.query('SELECT count(*) as count from venues where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err, vresults) {
+   if (err) {
+    res.json({error:err,code:101});
+   }
+   connection.query('SELECT count(*) as count from questions where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err2, qresults) {
+     connection.query('SELECT count(*) as count from products where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err2, presults) {
+     res.json({venueresult:vresults[0],quesresult:qresults[0],productresult:presults[0],code:200});
+     });
+   });
+});
+   
+}
+
 /*** Get Seller Venues ***/
 exports.getVenue = function(req,res){
     //console.log(req.body.userId);
