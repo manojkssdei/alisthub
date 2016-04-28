@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 
 var localbaseUrl   = "http://192.155.246.146:5501";
 
@@ -97,3 +98,5 @@ var headerConstants = {
 	<option timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13">(GMT+13:00) Nuku'alofa</option>";*/
 
 
+=======
+>>>>>>> Stashed changes
