@@ -28,7 +28,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
    placement:'bottom'
   };
   
-   
+  
     $scope.days_div=$scope.error_message=true;
     $scope.select_checkbox=function($event){
         var dateArray = new Array();

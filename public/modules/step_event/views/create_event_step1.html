@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css" media="screen" />
+
  
 <link rel="stylesheet/less" type="text/css" href="http://jdewit.github.io/bootstrap-timepicker/css/timepicker.less" />
 
@@ -13,19 +13,20 @@
 
             
         });
+		$('body').load(function(){
+		function showpicker(){
+		alert("here");
+		$('.bootstrap-timepicker-widget').show();
+		}
+		});
+		function showpicker(){
+		 $('.bootstrap-timepicker-widget').show();
+		}
     </script>
 
 <div class="container">
      <h1>Create an Event</h1>
      
-     
-      <div class="input-group bootstrap-timepicker timepicker">
-        <input id="timepicker1" class="form-control input-small timepick" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-    </div>
-    
-  <div class="input-group bootstrap-timepicker timepicker">
-        <input id="timepicker2" class="form-control input-small timepick" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-    </div>
     
     <!-- Step Form -->
     
@@ -66,14 +67,10 @@
                     <div class="col-sm-4">
                       <div class="form-group">
                         <label for="StartTime">Start Time</label>
-                       <input type="text" class="form-control" placeholder="select Start time" uib-popover-template="dynamicPopover.templateUrl" ng-model="startevent_time">
-
-    <script type="text/ng-template" id="myPopoverTemplate.html">
-     
-      <uib-timepicker ng-model="starttime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-change="changedstarttime(this)"></uib-timepicker>  
-    </script>
-                       
-                      </div>
+						 <div class="input-group bootstrap-timepicker timepicker">
+							<input  ng-model="startevent_time"  class="form-control input-small timepick" type="text"/><span class="input-group-addon" onclick="showpicker()"><i class="glyphicon glyphicon-time"></i></span>
+						</div>
+                    </div>
                       <div class="form-group">
                         <label>From</label>
                         
@@ -84,11 +81,10 @@
                     <div class="col-sm-4">
                       <div class="form-group">
                         <label for="EndTime">End Time</label>
-                        <input type="text" class="form-control" placeholder="select End time" uib-popover-template="dynamicPopoverend.templateUrl" ng-model="endevent_time">
-                         <script type="text/ng-template" id="myPopoverendTemplate.html">
-     
-      <uib-timepicker ng-model="endtime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"  ng-change="changedendtime(this)"></uib-timepicker> 
-    </script>
+						<div class="input-group bootstrap-timepicker timepicker">
+        <input ng-model="endevent_time" class="form-control input-small timepick" type="text"/><span class="input-group-addon" onclick="showpicker()"><i class="glyphicon glyphicon-time"></i></span>
+    </div>
+                        
                          
                       </div>
                       <div class="form-group">
@@ -115,24 +111,19 @@
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="StartTime">Start Time<span class="req">*</span></label>
-                      
-                      <input type="text" class="form-control" placeholder="select Start time" uib-popover-template="dynamicPopovermultiplestart.templateUrl" ng-model="multiple_starttime">
-
-    <script type="text/ng-template" id="myPopoverTemplatemultiplestart.html">
-     
-      <uib-timepicker ng-model="multiple_starttime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
-    </script>
+                     
+	               <div class="input-group bootstrap-timepicker timepicker">
+							<input  ng-model="multiple_starttime"  class="form-control input-small timepick" type="text"/><span class="input-group-addon" onclick="showpicker()"><i class="glyphicon glyphicon-time"></i></span>
+						</div>
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="EndTime">End Time</label>
-                      <input type="text" class="form-control" placeholder="select End time" uib-popover-template="dynamicPopovermultipleend.templateUrl" ng-model="multiple_endtime">
-
-    <script type="text/ng-template" id="myPopoverTemplatemultipleend.html">
-     
-      <uib-timepicker ng-model="multiple_endtime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
-    </script>
+					  <div class="input-group bootstrap-timepicker timepicker">
+							<input  ng-model="multiple_endtime"  class="form-control input-small timepick" type="text"/><span class="input-group-addon" onclick="showpicker()"><i class="glyphicon glyphicon-time"></i></span>
+						</div>
+                      
                     </div>
                   </div>
                 </div>
@@ -191,18 +182,17 @@
                            </div>
                            <div class="sel-d col-sm-4">
                              <label for="exampleInputName2">Start Time:</label>
-                          <uib-timepicker ng-model="asff"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>  
+                          <div class="input-group bootstrap-timepicker timepicker">
+							<input   class="form-control input-small timepick" type="text"/><span class="input-group-addon" onclick="showpicker()"><i class="glyphicon glyphicon-time"></i></span>
+						</div>
                    
                 
                            </div>
                            <div class="sel-d col-sm-4">
                              <label for="exampleInputEmail2">End Time : </label>
-                             timepicker
-                           <!--   <input type="text" class="form-control" placeholder="select End time" uib-popover-template="dynamicPopovermultipleendtime.templateUrl">
-ng-model="multiple_endtime[{{$index}}]"
-                    <script type="text/ng-template" id="myPopoverTemplatemultipleendtime.html">
-                     
-                      <uib-timepicker   hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>-->
+                             <div class="input-group bootstrap-timepicker timepicker">
+							<input   class="form-control input-small timepick" type="text"/><span class="input-group-addon" onclick="showpicker()"><i class="glyphicon glyphicon-time"></i></span>
+						   </div>
                     
                            </div>
                       
