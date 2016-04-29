@@ -9,6 +9,13 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 		});
       
   };
+  
+  url.saveEvent = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.saveEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+      
+  };
 
   
   

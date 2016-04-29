@@ -29,7 +29,14 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
        $scope.between_date=dateArray; 
      
     }
-    
+    $scope.savedata=function(data)
+    {
+      console.log(data);
+      data.userId=$localStorage.userId;
+      $serviceTest.saveEvent(data,function(response){
+        console.log(response);
+        });
+    }
     $scope.removediv=function(index){
         $scope.between_date.splice(index,1);
     }
@@ -241,8 +248,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     if ($localStorage.userId!=undefined) {
        
         $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
-            if (response.code==200) {
-            $scope.total_venue=response.result;    
+            if (response!=null) {
+            if (response.code==200)
+             {
+              $scope.total_venue=response.result;
+             }
             }else{
              $scope.total_venue=[];   
             }

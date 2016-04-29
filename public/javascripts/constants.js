@@ -28,7 +28,8 @@ var webservices = {
         "addProduct" : localbaseUrl + "/event_setting/addProduct",
         "productOverview" : localbaseUrl + "/event_setting/productOverview",
         "changeProductStatus" : localbaseUrl + "/event_setting/changeProductStatus",
-        "uploadProductImage"  : localbaseUrl + "/event_setting/uploadProductImage"
+        "uploadProductImage"  : localbaseUrl + "/event_setting/uploadProductImage",
+        "saveEvent"  : localbaseUrl + "/event/saveEvent",
 }
 
 var global_message = {
