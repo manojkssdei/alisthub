@@ -212,11 +212,16 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     });
       });
      
-     
+     console.log($localStorage.userId);
     if ($localStorage.userId!=undefined) {
        
         $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
-            $scope.total_venue=response;
+            if (response.code==200) {
+            $scope.total_venue=response.result;    
+            }else{
+             $scope.total_venue=[];   
+            }
+            
         });
     }
  
@@ -509,13 +514,13 @@ $scope.items = ['item1'];
     });
    }
    
-   $scope.changedstarttime=function(obj){
-    $rootScope.startevent_time=$filter('date')(obj.starttime, 'shortTime');
+   $scope.changedstarttime=function(){
+    $rootScope.startevent_time=$filter('date')($scope.starttime, 'shortTime');
     
    } 
    
-   $scope.changedendtime=function(obj){ 
-    $rootScope.endevent_time=$filter('date')(obj.endtime, 'shortTime');
+   $scope.changedendtime=function(){ 
+    $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');
    }
 
 });
