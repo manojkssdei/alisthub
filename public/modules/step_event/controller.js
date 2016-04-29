@@ -35,12 +35,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       data.eventdate=$scope.selectevent_date;
       data.startevent_time=$scope.startevent_time;
       data.endevent_time=$scope.endevent_time;
+      
       data.userId=$localStorage.userId;
       $serviceTest.saveEvent(data,function(response){
         if (response.code == 200) {
              $scope.success="Event Successfully Saved.";
              $scope.data={};
-             $scope.selectevent_date=$scope.startevent_time=$scope.endevent_time='';
+             $scope.selectevent_date=$scope.starttime=$scope.endtime=$scope.startevent_time=$scope.endevent_time='';
                    $scope.error_message=false;
                    $timeout(function() {
                     
