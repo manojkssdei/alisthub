@@ -33,11 +33,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     $scope.removediv=function(index){
         $scope.between_date.splice(index,1);
     }
-    
-   
-    
-    
-    $scope.recurring_period=function(action){
+     $scope.recurring_period=function(action){
        //console.log($scope.data.period);
        
        if(($scope.multiple_start_date===undefined)||($scope.multiple_end_date==undefined))
@@ -211,8 +207,37 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         google.maps.event.removeListener(listener);
     });
       });
+     $scope.venue_info=function(venuedata){
+    
+        $scope.data.venuename=venuedata.venue_name;
+        $scope.data.place=venuedata.address;
+        $scope.data.venueid=venuedata.id;
+        $scope.data.city=venuedata.city;
+        $scope.data.country=venuedata.country;
+        $scope.data.latitude=venuedata.latitude;
+        $scope.data.longitude=venuedata.longitude;
+        $scope.data.longitude=venuedata.longitude;
+        $scope.data.state=venuedata.state;
+        $scope.data.zipcode=venuedata.zipcode;
+        var bounds = new google.maps.LatLngBounds();
+        var infowindow = new google.maps.InfoWindow();
+
+       var marker, i;
+         marker = new google.maps.Marker({
+        position: new google.maps.LatLng($scope.data.latitude, $scope.data.longitude),
+        map: map
+      });
+     bounds.extend(marker.position);
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          
+          infowindow.setContent($scope.data.place, '');
+          infowindow.open(map, marker);
+        } 
+      })(marker, i));
+      map.fitBounds(bounds);
+    }
      
-     console.log($localStorage.userId);
     if ($localStorage.userId!=undefined) {
        
         $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
@@ -521,6 +546,36 @@ $scope.items = ['item1'];
    
    $scope.changedendtime=function(){ 
     $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');
+   }
+   
+  $scope.data = {};
+   $scope.multiplestart=function(){
+    
+    $scope.data.starttimeloop1=[];
+    
+    var i=0;
+    while(i<$scope.between_date.length)
+    {
+        
+        $scope.data.starttimeloop1.push(JSON.parse(JSON.stringify($scope.multiple_starttime)));
+    
+      i++;  
+    }
+    
+   }
+   $scope.multipleend=function(){
+    
+  $scope.data.endtimeloop1=[];
+    var j=0;
+    console.log($scope.between_date.length);
+    console.log($scope.multiple_endtime);
+    while(j<$scope.between_date.length)
+    {
+    $scope.data.endtimeloop1.push(JSON.parse(JSON.stringify($scope.multiple_endtime)));
+      j++;  
+    }
+   
+    console.log($scope.data.endtimeloop1);
    }
 
 });
