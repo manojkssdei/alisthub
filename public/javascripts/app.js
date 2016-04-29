@@ -171,7 +171,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     //var $serviceTest = $injector.get("CustomerFirstLoad");
                            // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     })*/.then(function(){
-                    return $ocLazyLoad.load(['modules/step_event/controller.js','https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js','https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js','http://jdewit.github.io/bootstrap-timepicker/js/bootstrap-timepicker.js']);
+                    return $ocLazyLoad.load(['modules/step_event/controller.js','javascripts/bootstrap-timepicker.js']);
                     })
                
               }]

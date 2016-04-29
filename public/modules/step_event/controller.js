@@ -30,6 +30,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
      
     }
     
+    $scope.removediv=function(index){
+        $scope.between_date.splice(index,1);
+    }
+    
    
     
     
