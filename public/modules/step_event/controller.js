@@ -2,33 +2,7 @@ angular.module("google.places",[]);
 angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce) { 
    //For Step 1
     var $serviceTest = $injector.get("venues");
-         // <-- CHANGED HERE
- $scope.dynamicPopover = {
-   templateUrl: 'myPopoverTemplate.html',
-   placement:'bottom'
-  };
-  $scope.dynamicPopoverend = {
-   templateUrl: 'myPopoverendTemplate.html',
-   placement:'bottom'
-  };
-  $scope.dynamicPopovermultiplestart = {
-   templateUrl: 'myPopoverTemplatemultiplestart.html',
-   placement:'bottom'
-  };
-  $scope.dynamicPopovermultipleend = {
-   templateUrl: 'myPopoverTemplatemultipleend.html',
-   placement:'bottom'
-  };
-  $scope.dynamicPopovermultiplestarttime = {
-   templateUrl: 'dynamicPopovermultiplestarttime.html',
-   placement:'bottom'
-  };
-  $scope.dynamicPopovermultipleendtime = {
-   templateUrl: 'myPopoverTemplatemultipleendtime.html',
-   placement:'bottom'
-  };
   
-   
     $scope.days_div=$scope.error_message=true;
     $scope.select_checkbox=function($event){
         var dateArray = new Array();

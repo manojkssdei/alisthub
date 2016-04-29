@@ -1,545 +1,62 @@
-
-> alist@0.0.0 start /home/bigdata/public_html/alisthub
-> node ./bin/www
-
-
-events.js:72
-        throw er; // Unhandled 'error' event
-              ^
-Error: listen EADDRINUSE
-    at errnoException (net.js:901:11)
-    at Server._listen2 (net.js:1039:14)
-    at listen (net.js:1061:10)
-    at Server.listen (net.js:1135:5)
-    at EventEmitter.listen (/home/bigdata/public_html/alisthub/node_modules/express/lib/application.js:617:24)
-    at Object.<anonymous> (/home/bigdata/public_html/alisthub/app.js:64:5)
-    at Module._compile (module.js:456:26)
-    at Object.Module._extensions..js (module.js:474:10)
-    at Module.load (module.js:356:32)
-    at Function.Module._load (module.js:312:12)
-
-npm ERR! alist@0.0.0 start: `node ./bin/www`
-npm ERR! Exit status 8
-npm ERR! 
-npm ERR! Failed at the alist@0.0.0 start script.
-npm ERR! This is most likely a problem with the alist package,
-npm ERR! not with npm itself.
-npm ERR! Tell the author that this fails on your system:
-npm ERR!     node ./bin/www
-npm ERR! You can get their info via:
-npm ERR!     npm owner ls alist
-npm ERR! There is likely additional logging output above.
-npm ERR! System Linux 2.6.32-431.17.1.el6.x86_64
-npm ERR! command "/home/bigdata/.nvm/v0.10.25/bin/node" "/home/bigdata/.nvm/v0.10.25/bin/npm" "start"
-npm ERR! cwd /home/bigdata/public_html/alisthub
-npm ERR! node -v v0.10.25
-npm ERR! npm -v 1.3.24
-npm ERR! code ELIFECYCLE
-npm ERR! 
-npm ERR! Additional logging details can be found in:
-npm ERR!     /home/bigdata/public_html/alisthub/npm-debug.log
-npm ERR! not ok code 0
-
-> alist@0.0.0 start /home/bigdata/public_html/alisthub
-> node ./bin/www
-
-Server listening at port 5500
-connected as id 360446
-
-> alist@0.0.0 start /home/bigdata/public_html/alisthub
-> node ./bin/www
-
-Server listening at port 5500
-connected as id 360457
-[0mGET /public [33m404 [0m451.708 ms - 1207[0m
-[0mGET /stylesheets/style.css [36m304 [0m2.750 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m1.353 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.534 ms - -[0m
-[0mGET / [32m200 [0m5.290 ms - 8152[0m
-[0mGET /stylesheets/login.css [32m200 [0m1.922 ms - 3154[0m
-[0mGET /stylesheets/style.css [32m200 [0m1.328 ms - 27826[0m
-[0mGET /stylesheets/media.css [32m200 [0m1.101 ms - 1949[0m
-[0mGET /javascripts/angular-ui-router.js [32m200 [0m0.429 ms - 30445[0m
-[0mGET /assets/images/favicon.png [33m404 [0m33.781 ms - 1207[0m
-[0mGET /images/logo.png [32m200 [0m1.903 ms - 16692[0m
-[0mGET /images/user.jpg [32m200 [0m0.430 ms - 3002[0m
-[0mGET /stylesheets/animate.css [32m200 [0m1.001 ms - 75601[0m
-[0mGET /javascripts/angular-min.js [32m200 [0m0.611 ms - 148496[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m16.718 ms - 1207[0m
-[0mGET / [32m200 [0m2.026 ms - 8152[0m
-[0mGET /stylesheets/login.css [32m200 [0m0.895 ms - 3154[0m
-[0mGET /stylesheets/style.css [32m200 [0m0.555 ms - 27826[0m
-[0mGET /stylesheets/media.css [32m200 [0m0.983 ms - 1949[0m
-[0mGET /stylesheets/autocomplete.css [32m200 [0m1.203 ms - 2264[0m
-[0mGET /stylesheets/angucomplete.css [32m200 [0m0.414 ms - 1439[0m
-[0mGET /assets/images/favicon.png [33m404 [0m20.313 ms - 1207[0m
-[0mGET /javascripts/angular-ui-router.js [32m200 [0m3.708 ms - 30445[0m
-[0mGET /javascripts/ngStorage.min.js [32m200 [0m5.484 ms - 2276[0m
-[0mGET /javascripts/angucomplete.js [32m200 [0m5.749 ms - 10600[0m
-[0mGET /javascripts/communication.js [32m200 [0m5.640 ms - 2291[0m
-[0mGET /javascripts/dirPagination.js [32m200 [0m3.299 ms - 27701[0m
-[0mGET /javascripts/autocomplete.js [32m200 [0m2.703 ms - 19156[0m
-[0mGET /javascripts/constants.js [32m200 [0m0.432 ms - 7754[0m
-[0mGET /javascripts/app.js [32m200 [0m1.754 ms - 21675[0m
-[0mGET /javascripts/ocLazyLoad.js [32m200 [0m5.584 ms - 58637[0m
-[0mGET /stylesheets/animate.css [32m200 [0m1.485 ms - 75601[0m
-[0mGET /javascripts/angular-min.js [32m200 [0m3.355 ms - 148496[0m
-[0mGET /javascripts/directives/angular-ckeditor.js [32m200 [0m1.180 ms - 4148[0m
-[0mGET /modules/events/controller.js [32m200 [0m1.801 ms - 871[0m
-[0mGET /images/logo.png [32m200 [0m1.864 ms - 16692[0m
-[0mGET /images/user.jpg [32m200 [0m0.614 ms - 3002[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.659 ms - -[0m
-[0mGET /modules/authentication/controller.js [32m200 [0m0.729 ms - 8248[0m
-[0mGET /modules/events/views/dashboard.html [32m200 [0m0.838 ms - 13546[0m
-[0mGET /favicon.ico [33m404 [0m14.921 ms - 1207[0m
-[0mGET /modules/authentication/views/login.html [32m200 [0m0.689 ms - 2249[0m
-[0mGET /favicon.ico [33m404 [0m32.120 ms - 1207[0m
-[0mGET /images/logo-l.png [32m200 [0m0.890 ms - 12431[0m
-[0mGET /images/bg.jpg [32m200 [0m1.251 ms - 159785[0m
-[0mGET /public/html/ [33m404 [0m12.099 ms - 1207[0m
-[0mGET /stylesheets/style.css [36m304 [0m1.232 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m1.067 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.316 ms - -[0m
-[0mGET /modules/event_setting/service.js [32m200 [0m0.922 ms - 4916[0m
-[0mGET /modules/event_setting/controller.js [32m200 [0m0.773 ms - 17318[0m
-[0mGET /stylesheets/autocomplete.css [32m200 [0m0.854 ms - 2264[0m
-[0mGET /stylesheets/angucomplete.css [32m200 [0m0.624 ms - 1439[0m
-[0mGET /javascripts/ngStorage.min.js [32m200 [0m1.117 ms - 2276[0m
-[0mGET /javascripts/ocLazyLoad.js [32m200 [0m1.704 ms - 58637[0m
-[0mGET /javascripts/autocomplete.js [32m200 [0m0.436 ms - 19156[0m
-[0mGET /javascripts/angucomplete.js [32m200 [0m0.409 ms - 10600[0m
-[0mGET /modules/event_setting/views/event_setting.html [32m200 [0m0.637 ms - 4389[0m
-[0mGET /javascripts/dirPagination.js [32m200 [0m1.313 ms - 27701[0m
-[0mGET /javascripts/app.js [32m200 [0m0.759 ms - 21675[0m
-[0mGET /javascripts/communication.js [32m200 [0m0.428 ms - 2291[0m
-[0mGET /javascripts/constants.js [32m200 [0m0.839 ms - 7754[0m
-[0mGET /modules/events/controller.js [32m200 [0m0.392 ms - 871[0m
-[0mGET /javascripts/directives/angular-ckeditor.js [32m200 [0m0.965 ms - 4148[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.447 ms - -[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m13.972 ms - 1207[0m
-[0mGET /modules/authentication/controller.js [32m200 [0m2.001 ms - 8248[0m
-[0mGET /modules/events/views/dashboard.html [32m200 [0m0.538 ms - 13546[0m
-[0mGET / [36m304 [0m0.497 ms - -[0m
-[0mGET /modules/authentication/views/login.html [32m200 [0m0.473 ms - 2249[0m
-[0mGET /favicon.ico [33m404 [0m10.870 ms - 1207[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.834 ms - -[0m
-[0mGET /stylesheets/style.css [36m304 [0m0.723 ms - -[0m
-[0mGET /stylesheets/media.css [36m304 [0m0.284 ms - -[0m
-[0mGET /stylesheets/autocomplete.css [36m304 [0m1.560 ms - -[0m
-[0mGET /stylesheets/angucomplete.css [36m304 [0m0.480 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m0.505 ms - -[0m
-[0mGET /javascripts/ngStorage.min.js [36m304 [0m1.701 ms - -[0m
-[0mGET /javascripts/angular-min.js [36m304 [0m0.966 ms - -[0m
-[0mGET /javascripts/angular-ui-router.js [36m304 [0m3.463 ms - -[0m
-[0mGET /javascripts/app.js [36m304 [0m3.143 ms - -[0m
-[0mGET /javascripts/constants.js [36m304 [0m2.378 ms - -[0m
-[0mGET /javascripts/communication.js [36m304 [0m2.249 ms - -[0m
-[0mGET /javascripts/autocomplete.js [36m304 [0m1.991 ms - -[0m
-[0mGET /javascripts/dirPagination.js [36m304 [0m0.303 ms - -[0m
-[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.839 ms - -[0m
-[0mGET /javascripts/angucomplete.js [36m304 [0m0.278 ms - -[0m
-[0mGET /modules/events/controller.js [36m304 [0m2.690 ms - -[0m
-[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.932 ms - -[0m
-[0mGET /images/logo.png [36m304 [0m1.736 ms - -[0m
-[0mGET /images/user.jpg [36m304 [0m0.959 ms - -[0m
-[0mGET /images/logo-l.png [32m200 [0m1.117 ms - 12431[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m20.853 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m10.259 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m18.466 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m8.478 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m15.759 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m22.318 ms - 1207[0m
-[0mGET /modules/events/controller.js [36m304 [0m22.287 ms - -[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m27.405 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m40.670 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m7.461 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m5.831 ms - 1207[0m
-[0mGET /modules/event_setting/service.js [36m304 [0m0.443 ms - -[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m10.659 ms - 1207[0m
-[0mGET /modules/events/views/dashboard.html [36m304 [0m0.350 ms - -[0m
-[0mGET /modules/event_setting/controller.js [36m304 [0m0.315 ms - -[0m
-[0mGET /public/images/ [33m404 [0m8.629 ms - 1207[0m
-[0mGET /modules/event_setting/views/event_setting.html [36m304 [0m0.448 ms - -[0m
-[0mGET /images/bg.jpg [32m200 [0m0.822 ms - 159785[0m
-[0mGET /stylesheets/style.css [36m304 [0m0.440 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m0.452 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.270 ms - -[0m
-[0mGET /images/ [33m404 [0m7.682 ms - 1207[0m
-[0mGET /stylesheets/style.css [36m304 [0m0.432 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m0.443 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.473 ms - -[0m
-[0mGET /alisthub/public/images [33m404 [0m7.673 ms - 1207[0m
-[0mGET /stylesheets/style.css [36m304 [0m0.683 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m0.493 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.290 ms - -[0m
-[0mGET /html/index.html [32m200 [0m0.640 ms - 1775[0m
-[0mGET /html/angular-gridster.min.css [32m200 [0m0.566 ms - 2188[0m
-[0mGET /html/angular-gridster.js [32m200 [0m0.417 ms - 63561[0m
-[0mGET /html/script.js [32m200 [0m0.428 ms - 1233[0m
-[0mGET /html/style.css [32m200 [0m0.567 ms - 342[0m
-[0mGET /html/view.html [32m200 [0m0.348 ms - 250[0m
-[0mGET /html [36m303 [0m1.222 ms - 43[0m
-[0mGET /html/ [32m200 [0m0.469 ms - 1775[0m
-[0mGET /html/angular-gridster.min.css [32m200 [0m0.573 ms - 2188[0m
-[0mGET /html/angular-gridster.js [32m200 [0m1.222 ms - 63561[0m
-[0mGET /html/script.js [32m200 [0m3.557 ms - 1233[0m
-[0mGET /html/style.css [32m200 [0m2.214 ms - 342[0m
-[0mGET /html/view.html [32m200 [0m0.489 ms - 250[0m
-[0mGET /html/ [32m200 [0m0.572 ms - 1775[0m
-[0mGET /html/angular-gridster.min.css [32m200 [0m0.500 ms - 2188[0m
-[0mGET /html/script.js [32m200 [0m0.497 ms - 1233[0m
-[0mGET /html/angular-gridster.js [32m200 [0m0.383 ms - 63561[0m
-[0mGET /html/style.css [32m200 [0m0.378 ms - 342[0m
-[0mGET /html/view.html [32m200 [0m0.704 ms - 250[0m
-[0mGET /favicon.ico [33m404 [0m6.798 ms - 1207[0m
-[0mGET /html/ [32m200 [0m2.524 ms - 1775[0m
-[0mGET /html/angular-gridster.min.css [32m200 [0m0.478 ms - 2188[0m
-[0mGET /html/script.js [32m200 [0m0.564 ms - 1233[0m
-[0mGET /html/angular-gridster.js [32m200 [0m0.441 ms - 63561[0m
-[0mGET /html/style.css [32m200 [0m0.485 ms - 342[0m
-[0mGET /html/view.html [32m200 [0m0.371 ms - 250[0m
-[0mGET /favicon.ico [33m404 [0m6.412 ms - 1207[0m
-[0mGET /modules/events/views/create_an_event.html [32m200 [0m0.609 ms - 1749[0m
-[0mGET /images/icons/dollar.png [32m200 [0m0.601 ms - 1697[0m
-[0mGET /images/icons/event-single.png [32m200 [0m0.387 ms - 1693[0m
-[0mGET /images/icons/event-series.png [32m200 [0m0.390 ms - 1735[0m
-[0mGET /modules/step_event/service.js [32m200 [0m0.572 ms - 435[0m
-[0mGET /modules/step_event/controller.js [32m200 [0m0.562 ms - 17827[0m
-[0mGET /modules/step_event/views/create_event_step1.html [32m200 [0m0.580 ms - 44034[0m
-[0mGET /images/img/f-img.jpg [32m200 [0m0.555 ms - 12803[0m
-[0mGET /images/img/s-img.jpg [32m200 [0m0.409 ms - 21813[0m
-[0mGET / [36m304 [0m1.124 ms - -[0m
-[0mGET /stylesheets/media.css [36m304 [0m0.440 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.292 ms - -[0m
-[0mGET /stylesheets/style.css [36m304 [0m0.269 ms - -[0m
-[0mGET /javascripts/angular-min.js [36m304 [0m0.262 ms - -[0m
-[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.261 ms - -[0m
-[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.252 ms - -[0m
-[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.279 ms - -[0m
-[0mGET /stylesheets/angucomplete.css [36m304 [0m0.264 ms - -[0m
-[0mGET /stylesheets/autocomplete.css [36m304 [0m0.247 ms - -[0m
-[0mGET /javascripts/autocomplete.js [36m304 [0m0.259 ms - -[0m
-[0mGET /javascripts/angucomplete.js [36m304 [0m0.246 ms - -[0m
-[0mGET /javascripts/dirPagination.js [36m304 [0m0.246 ms - -[0m
-[0mGET /javascripts/app.js [36m304 [0m0.240 ms - -[0m
-[0mGET /javascripts/communication.js [36m304 [0m0.264 ms - -[0m
-[0mGET /javascripts/constants.js [36m304 [0m0.252 ms - -[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.250 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m0.256 ms - -[0m
-[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.251 ms - -[0m
-[0mGET /images/user.jpg [36m304 [0m0.409 ms - -[0m
-[0mGET /images/logo.png [36m304 [0m0.247 ms - -[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m7.707 ms - 1207[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.443 ms - -[0m
-[0mGET /modules/step_event/service.js [36m304 [0m0.393 ms - -[0m
-[0mGET /modules/step_event/controller.js [36m304 [0m0.409 ms - -[0m
-[0mGET /modules/events/views/dashboard.html [36m304 [0m0.295 ms - -[0m
-[0mGET /modules/step_event/views/create_event_step1.html [36m304 [0m0.432 ms - -[0m
-[0mGET /images/img/f-img.jpg [36m304 [0m0.395 ms - -[0m
-[0mGET /images/img/s-img.jpg [36m304 [0m0.296 ms - -[0m
-
-> alist@0.0.0 start /home/bigdata/public_html/alisthub
-> node ./bin/www
-
-Server listening at port 5500
-connected as id 361993
-[0mGET / [36m304 [0m6.842 ms - -[0m
-[0mGET /stylesheets/style.css [36m304 [0m2.239 ms - -[0m
-[0mGET /stylesheets/media.css [36m304 [0m0.765 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.361 ms - -[0m
-[0mGET /javascripts/angular-min.js [36m304 [0m0.571 ms - -[0m
-[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.328 ms - -[0m
-[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.390 ms - -[0m
-[0mGET /stylesheets/autocomplete.css [36m304 [0m0.606 ms - -[0m
-[0mGET /stylesheets/angucomplete.css [36m304 [0m1.320 ms - -[0m
-[0mGET /javascripts/ocLazyLoad.js [36m304 [0m1.691 ms - -[0m
-[0mGET /javascripts/autocomplete.js [36m304 [0m0.932 ms - -[0m
-[0mGET /javascripts/angucomplete.js [36m304 [0m1.124 ms - -[0m
-[0mGET /javascripts/dirPagination.js [36m304 [0m0.265 ms - -[0m
-[0mGET /javascripts/app.js [36m304 [0m0.381 ms - -[0m
-[0mGET /javascripts/communication.js [36m304 [0m1.779 ms - -[0m
-[0mGET /javascripts/constants.js [32m200 [0m2.744 ms - 2530[0m
-[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m1.922 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m0.440 ms - -[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.419 ms - -[0m
-[0mGET /images/user.jpg [36m304 [0m0.615 ms - -[0m
-[0mGET /images/logo.png [36m304 [0m0.496 ms - -[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m430.053 ms - 1207[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.759 ms - -[0m
-[0mGET /modules/step_event/service.js [36m304 [0m0.545 ms - -[0m
-[0mGET /modules/events/views/dashboard.html [36m304 [0m0.871 ms - -[0m
-[0mGET /modules/step_event/controller.js [36m304 [0m0.314 ms - -[0m
-[0mGET /modules/step_event/views/create_event_step1.html [36m304 [0m1.738 ms - -[0m
-[0mGET /images/img/s-img.jpg [36m304 [0m0.299 ms - -[0m
-[0mGET /images/img/f-img.jpg [36m304 [0m0.279 ms - -[0m
-[0mPOST /event_setting/venueListing [32m200 [0m35.518 ms - 423[0m
-[0mGET / [36m304 [0m0.578 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.816 ms - -[0m
-[0mGET /stylesheets/style.css [36m304 [0m0.342 ms - -[0m
-[0mGET /stylesheets/autocomplete.css [36m304 [0m0.310 ms - -[0m
-[0mGET /stylesheets/angucomplete.css [36m304 [0m0.302 ms - -[0m
-[0mGET /stylesheets/media.css [36m304 [0m0.541 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m0.366 ms - -[0m
-[0mGET /javascripts/dirPagination.js [36m304 [0m2.000 ms - -[0m
-[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.937 ms - -[0m
-[0mGET /javascripts/angucomplete.js [36m304 [0m0.445 ms - -[0m
-[0mGET /javascripts/ocLazyLoad.js [36m304 [0m3.106 ms - -[0m
-[0mGET /javascripts/autocomplete.js [36m304 [0m1.927 ms - -[0m
-[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.309 ms - -[0m
-[0mGET /javascripts/app.js [36m304 [0m0.828 ms - -[0m
-[0mGET /javascripts/angular-min.js [36m304 [0m0.280 ms - -[0m
-[0mGET /javascripts/constants.js [32m200 [0m1.909 ms - 2530[0m
-[0mGET /javascripts/communication.js [36m304 [0m0.946 ms - -[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.456 ms - -[0m
-[0mGET /images/user.jpg [36m304 [0m0.817 ms - -[0m
-[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.496 ms - -[0m
-[0mGET /images/logo.png [36m304 [0m0.260 ms - -[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m31.021 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m16.224 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m30.641 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m41.684 ms - 1207[0m
-[0mGET /modules/events/controller.js [36m304 [0m41.349 ms - -[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m53.202 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m63.538 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m74.914 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m85.012 ms - 1207[0m
-[0mGET /modules/event_setting/service.js [36m304 [0m0.618 ms - -[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m10.998 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m11.034 ms - 1207[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m12.143 ms - 1207[0m
-[0mGET /modules/events/views/dashboard.html [36m304 [0m0.621 ms - -[0m
-[0mGET /modules/event_setting/controller.js [36m304 [0m0.556 ms - -[0m
-[0mGET /modules/event_setting/views/event_setting.html [36m304 [0m0.630 ms - -[0m
-[0mPOST /event_setting/getSettingCount [32m200 [0m5.591 ms - 91[0m
-[0mGET /modules/event_setting/product_controller.js [32m200 [0m0.791 ms - 9524[0m
-[0mGET /modules/event_setting/views/product/view_product.html [32m200 [0m0.463 ms - 4173[0m
-[0mPOST /event_setting/getProducts [32m200 [0m2.972 ms - 934[0m
-[0mGET /images/icons/loader.gif [32m200 [0m0.607 ms - 2608[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m9.076 ms - 1207[0m
-[0mOPTIONS /event_setting/getProducts [32m200 [0m0.773 ms - 4[0m
-[0mOPTIONS /event_setting/venueListing [32m200 [0m1.132 ms - 4[0m
-[0mOPTIONS /event_setting/venueListing [32m200 [0m0.266 ms - 4[0m
-[0mPOST /event_setting/getSettingCount [32m200 [0m2.329 ms - 91[0m
-[0mGET /modules/event_setting/views/venue/view_venues.html [32m200 [0m0.658 ms - 5728[0m
-[0mPOST /event_setting/venueListing [32m200 [0m2.957 ms - 4885[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m8.225 ms - 1207[0m
-[0mPOST /event_setting/changeVenueStatus [32m200 [0m129.034 ms - 190[0m
-[0mPOST /event_setting/venueListing [32m200 [0m3.735 ms - 4885[0m
-[0mPOST /event_setting/changeVenueStatus [32m200 [0m85.447 ms - 190[0m
-[0mPOST /event_setting/venueListing [32m200 [0m3.281 ms - 4885[0m
-[0mPOST /event_setting/getSettingCount [32m200 [0m1.566 ms - 91[0m
-[0mGET /modules/event_setting/question_controller.js [32m200 [0m0.575 ms - 5664[0m
-[0mGET /modules/event_setting/views/question/view_question.html [32m200 [0m0.408 ms - 4085[0m
-[0mPOST /event_setting/getQuestions [32m200 [0m2.564 ms - 453[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m6.903 ms - 1207[0m
-[0mPOST /event_setting/changeQuestionStatus [32m200 [0m118.310 ms - 190[0m
-[0mPOST /event_setting/getQuestions [32m200 [0m1.248 ms - 453[0m
-[0mPOST /event_setting/changeQuestionStatus [32m200 [0m268.502 ms - 190[0m
-[0mPOST /event_setting/getQuestions [32m200 [0m1.048 ms - 453[0m
-[0mGET /modules/event_setting/views/question/add_question.html [32m200 [0m1.066 ms - 3120[0m
-[0mPOST /event_setting/questionOverview [32m200 [0m2.524 ms - 163[0m
-UPDATE `questions` SET seller_id=132, question_type='Text', question_name='Testing question.u', created='0000-00-00 00:00:00' where id=4
-[0mPOST /event_setting/addQuestion [32m200 [0m219.593 ms - 190[0m
-[0mPOST /event_setting/getQuestions [32m200 [0m2.501 ms - 454[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m6.254 ms - 1207[0m
-[0mPOST /event_setting/getSettingCount [32m200 [0m1.842 ms - 91[0m
-[0mPOST /event_setting/getQuestions [32m200 [0m1.012 ms - 454[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m13.962 ms - 1207[0m
-[0mPOST /event_setting/changeQuestionStatus [32m200 [0m124.191 ms - 190[0m
-[0mPOST /event_setting/getQuestions [32m200 [0m10.977 ms - 454[0m
-[0mPOST /event_setting/changeQuestionStatus [32m200 [0m175.177 ms - 190[0m
-[0mPOST /event_setting/getQuestions [32m200 [0m2.230 ms - 454[0m
-[0mPOST /event_setting/getSettingCount [32m200 [0m5.903 ms - 91[0m
-[0mPOST /event_setting/getProducts [32m200 [0m1.297 ms - 934[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m7.230 ms - 1207[0m
-[0mPOST /event_setting/getSettingCount [32m200 [0m2.129 ms - 91[0m
-[0mPOST /event_setting/venueListing [32m200 [0m4.725 ms - 4885[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m6.508 ms - 1207[0m
-[0mGET /modules/event_setting/views/venue/venue_overview.html [32m200 [0m0.612 ms - 3525[0m
-[0mPOST /event_setting/venueOverview [32m200 [0m3.090 ms - 659[0m
-[0mPOST /event_setting/getSettingCount [32m200 [0m1.275 ms - 91[0m
-[0mPOST /event_setting/getQuestions [32m200 [0m1.009 ms - 454[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m10.473 ms - 1207[0m
-[0mPOST /event_setting/getSettingCount [32m200 [0m2.534 ms - 91[0m
-[0mPOST /event_setting/getProducts [32m200 [0m1.233 ms - 934[0m
-[0mGET /javascripts/angular.min.js.map [33m404 [0m7.823 ms - 1207[0m
-[0mGET /modules/event_setting/views/product/add_product.html [32m200 [0m1.929 ms - 14087[0m
-[0mGET /html/ [32m200 [0m23.683 ms - 1775[0m
-[0mGET /html/angular-gridster.min.css [32m200 [0m398.305 ms - 2188[0m
-[0mGET /html/script.js [32m200 [0m180.610 ms - 1233[0m
-[0mGET /html/angular-gridster.js [32m200 [0m192.519 ms - 63561[0m
-[0mGET /html/style.css [32m200 [0m96.004 ms - 342[0m
-[0mGET /html/view.html [32m200 [0m112.789 ms - 250[0m
-[0mGET /favicon.ico [33m404 [0m90.200 ms - 1207[0m
-[0mGET /favicon.ico [33m404 [0m6.959 ms - 1207[0m
-
-Error: Connection lost: The server closed the connection.
-    at Protocol.end (/home/bigdata/public_html/alisthub/node_modules/mysql/lib/protocol/Protocol.js:109:13)
-    at Socket.<anonymous> (/home/bigdata/public_html/alisthub/node_modules/mysql/lib/Connection.js:102:28)
-    at Socket.EventEmitter.emit (events.js:117:20)
-    at _stream_readable.js:920:16
-    at process._tickCallback (node.js:415:13)
-
-npm ERR! alist@0.0.0 start: `node ./bin/www`
-npm ERR! Exit status 8
-npm ERR! 
-npm ERR! Failed at the alist@0.0.0 start script.
-npm ERR! This is most likely a problem with the alist package,
-npm ERR! not with npm itself.
-npm ERR! Tell the author that this fails on your system:
-npm ERR!     node ./bin/www
-npm ERR! You can get their info via:
-npm ERR!     npm owner ls alist
-npm ERR! There is likely additional logging output above.
-npm ERR! System Linux 2.6.32-431.17.1.el6.x86_64
-npm ERR! command "/home/bigdata/.nvm/v0.10.25/bin/node" "/home/bigdata/.nvm/v0.10.25/bin/npm" "start"
-npm ERR! cwd /home/bigdata/public_html/alisthub
-npm ERR! node -v v0.10.25
-npm ERR! npm -v 1.3.24
-npm ERR! code ELIFECYCLE
-npm ERR! 
-npm ERR! Additional logging details can be found in:
-npm ERR!     /home/bigdata/public_html/alisthub/npm-debug.log
-npm ERR! not ok code 0
-
-> alist@0.0.0 start /home/bigdata/public_html/alisthub
-> node ./bin/www
-
-Server listening at port 5500
-connected as id 434176
-[0mGET / [36m304 [0m6.279 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m13.966 ms - -[0m
-[0mGET /stylesheets/style.css [36m304 [0m0.497 ms - -[0m
-[0mGET /stylesheets/media.css [36m304 [0m0.350 ms - -[0m
-[0mGET /stylesheets/autocomplete.css [36m304 [0m0.378 ms - -[0m
-[0mGET /stylesheets/angucomplete.css [36m304 [0m0.291 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m0.284 ms - -[0m
-[0mGET /javascripts/angular-min.js [36m304 [0m0.261 ms - -[0m
-[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.295 ms - -[0m
-[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.932 ms - -[0m
-[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.540 ms - -[0m
-[0mGET /javascripts/autocomplete.js [36m304 [0m0.261 ms - -[0m
-[0mGET /javascripts/angucomplete.js [36m304 [0m0.254 ms - -[0m
-[0mGET /javascripts/dirPagination.js [36m304 [0m0.892 ms - -[0m
-[0mGET /javascripts/app.js [36m304 [0m1.760 ms - -[0m
-[0mGET /javascripts/communication.js [36m304 [0m0.250 ms - -[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.263 ms - -[0m
-[0mGET /javascripts/constants.js [36m304 [0m0.279 ms - -[0m
-[0mGET /images/user.jpg [36m304 [0m0.265 ms - -[0m
-[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m18.161 ms - -[0m
-[0mGET /images/logo.png [36m304 [0m0.471 ms - -[0m
-[0mGET /assets/images/favicon.png [33m404 [0m714.012 ms - 1207[0m
-[0mGET /modules/events/controller.js [36m304 [0m1.182 ms - -[0m
-[0mGET /modules/authentication/controller.js [36m304 [0m6.886 ms - -[0m
-[0mGET /modules/events/views/dashboard.html [36m304 [0m0.611 ms - -[0m
-[0mGET /favicon.ico [33m404 [0m33.727 ms - 1207[0m
-[0mGET /modules/authentication/views/login.html [36m304 [0m0.682 ms - -[0m
-[0mGET /images/logo-l.png [36m304 [0m0.345 ms - -[0m
-[0mGET /images/bg.jpg [36m304 [0m0.383 ms - -[0m
-[0mGET /html/index.html [36m304 [0m8.495 ms - -[0m
-[0mGET /html/angular-gridster.min.css [36m304 [0m0.467 ms - -[0m
-[0mGET /html/angular-gridster.js [36m304 [0m0.428 ms - -[0m
-[0mGET /html/script.js [36m304 [0m0.644 ms - -[0m
-[0mGET /html/view.html [36m304 [0m0.385 ms - -[0m
-[0mGET /html/style.css [36m304 [0m0.906 ms - -[0m
-[0mGET / [36m304 [0m0.440 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.346 ms - -[0m
-[0mGET /stylesheets/style.css [36m304 [0m0.648 ms - -[0m
-[0mGET /stylesheets/media.css [36m304 [0m0.273 ms - -[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.490 ms - -[0m
-[0mGET /javascripts/angular-min.js [36m304 [0m0.917 ms - -[0m
-[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.448 ms - -[0m
-[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.272 ms - -[0m
-[0mGET /stylesheets/angucomplete.css [36m304 [0m0.280 ms - -[0m
-[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.844 ms - -[0m
-[0mGET /stylesheets/autocomplete.css [36m304 [0m0.585 ms - -[0m
-[0mGET /javascripts/autocomplete.js [36m304 [0m0.285 ms - -[0m
-[0mGET /javascripts/angucomplete.js [36m304 [0m0.285 ms - -[0m
-[0mGET /javascripts/dirPagination.js [36m304 [0m0.269 ms - -[0m
-[0mGET /javascripts/app.js [36m304 [0m0.406 ms - -[0m
-[0mGET /javascripts/constants.js [36m304 [0m0.640 ms - -[0m
-[0mGET /javascripts/communication.js [36m304 [0m0.364 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m0.592 ms - -[0m
-[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.438 ms - -[0m
-[0mGET /images/user.jpg [36m304 [0m0.303 ms - -[0m
-[0mGET /images/logo.png [36m304 [0m0.273 ms - -[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.585 ms - -[0m
-[0mGET /modules/authentication/controller.js [36m304 [0m0.566 ms - -[0m
-[0mGET /modules/events/views/dashboard.html [36m304 [0m0.450 ms - -[0m
-[0mGET /modules/authentication/views/login.html [36m304 [0m0.286 ms - -[0m
-[0mGET /images/logo-l.png [36m304 [0m0.437 ms - -[0m
-[0mGET /images/bg.jpg [36m304 [0m0.443 ms - -[0m
-[0mGET /modules/events/views/create_an_event.html [36m304 [0m0.391 ms - -[0m
-[0mGET /images/icons/event-series.png [36m304 [0m6.632 ms - -[0m
-[0mGET /images/icons/event-single.png [36m304 [0m5.647 ms - -[0m
-[0mGET /images/icons/dollar.png [36m304 [0m3.321 ms - -[0m
-[0mGET / [36m304 [0m0.549 ms - -[0m
-[0mGET /javascripts/ngStorage.min.js [36m304 [0m1.803 ms - -[0m
-[0mGET /javascripts/angular-min.js [36m304 [0m0.732 ms - -[0m
-[0mGET /stylesheets/autocomplete.css [36m304 [0m0.271 ms - -[0m
-[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.737 ms - -[0m
-[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.620 ms - -[0m
-[0mGET /stylesheets/style.css [36m304 [0m0.830 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.516 ms - -[0m
-[0mGET /stylesheets/media.css [36m304 [0m0.267 ms - -[0m
-[0mGET /stylesheets/angucomplete.css [36m304 [0m0.319 ms - -[0m
-[0mGET /javascripts/autocomplete.js [36m304 [0m0.638 ms - -[0m
-[0mGET /javascripts/angucomplete.js [36m304 [0m0.482 ms - -[0m
-[0mGET /javascripts/dirPagination.js [36m304 [0m0.256 ms - -[0m
-[0mGET /javascripts/communication.js [36m304 [0m0.267 ms - -[0m
-[0mGET /javascripts/app.js [36m304 [0m0.282 ms - -[0m
-[0mGET /javascripts/constants.js [36m304 [0m0.549 ms - -[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.276 ms - -[0m
-[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.324 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m0.261 ms - -[0m
-[0mGET /images/user.jpg [36m304 [0m0.281 ms - -[0m
-[0mGET /images/logo.png [36m304 [0m0.269 ms - -[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.462 ms - -[0m
-[0mGET /modules/events/views/create_an_event.html [36m304 [0m0.340 ms - -[0m
-[0mGET /modules/events/views/dashboard.html [36m304 [0m0.291 ms - -[0m
-[0mGET /images/icons/event-series.png [36m304 [0m0.643 ms - -[0m
-[0mGET /images/icons/dollar.png [36m304 [0m1.642 ms - -[0m
-[0mGET /images/icons/event-single.png [36m304 [0m0.273 ms - -[0m
-[0mGET /modules/step_event/service.js [36m304 [0m0.740 ms - -[0m
-[0mGET /modules/step_event/controller.js [36m304 [0m0.607 ms - -[0m
-[0mGET /modules/step_event/views/create_event_step1.html [36m304 [0m0.365 ms - -[0m
-[0mPOST /event_setting/venueListing [32m200 [0m72.924 ms - 423[0m
-[0mGET /images/img/f-img.jpg [36m304 [0m17.871 ms - -[0m
-[0mGET /images/img/s-img.jpg [36m304 [0m11.425 ms - -[0m
-[0mGET / [36m304 [0m0.679 ms - -[0m
-[0mGET /stylesheets/style.css [36m304 [0m0.347 ms - -[0m
-[0mGET /javascripts/angular-min.js [36m304 [0m0.317 ms - -[0m
-[0mGET /stylesheets/login.css [36m304 [0m0.442 ms - -[0m
-[0mGET /stylesheets/media.css [36m304 [0m0.404 ms - -[0m
-[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.280 ms - -[0m
-[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.278 ms - -[0m
-[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.278 ms - -[0m
-[0mGET /stylesheets/autocomplete.css [36m304 [0m0.416 ms - -[0m
-[0mGET /stylesheets/angucomplete.css [36m304 [0m0.274 ms - -[0m
-[0mGET /javascripts/autocomplete.js [36m304 [0m0.277 ms - -[0m
-[0mGET /javascripts/angucomplete.js [36m304 [0m0.502 ms - -[0m
-[0mGET /javascripts/dirPagination.js [36m304 [0m0.277 ms - -[0m
-[0mGET /javascripts/app.js [36m304 [0m0.271 ms - -[0m
-[0mGET /javascripts/communication.js [36m304 [0m0.675 ms - -[0m
-[0mGET /javascripts/constants.js [36m304 [0m1.164 ms - -[0m
-[0mGET /modules/events/controller.js [36m304 [0m0.924 ms - -[0m
-[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.407 ms - -[0m
-[0mGET /stylesheets/animate.css [36m304 [0m0.282 ms - -[0m
-[0mGET /images/user.jpg [36m304 [0m0.280 ms - -[0m
-[0mGET /images/logo.png [36m304 [0m0.598 ms - -[0m
-[0mGET /modules/events/controller.js [36m304 [0m1.191 ms - -[0m
-[0mGET /modules/step_event/service.js [36m304 [0m0.323 ms - -[0m
-[0mGET /modules/events/views/dashboard.html [36m304 [0m0.344 ms - -[0m
-[0mGET /modules/step_event/controller.js [36m304 [0m0.309 ms - -[0m
-[0mGET /modules/step_event/views/create_event_step1.html [36m304 [0m0.277 ms - -[0m
-[0mGET /images/img/s-img.jpg [36m304 [0m0.276 ms - -[0m
-[0mGET /images/img/f-img.jpg [36m304 [0m0.408 ms - -[0m
-[0mPOST /event_setting/venueListing [32m200 [0m3.368 ms - 423[0m
-[0mGET /html/ [32m200 [0m21.187 ms - 1775[0m
-[0mGET /html/angular-gridster.min.css [32m200 [0m8.617 ms - 2188[0m
-[0mGET /html/script.js [32m200 [0m3.904 ms - 1233[0m
-[0mGET /html/angular-gridster.js [32m200 [0m1.333 ms - 63561[0m
-[0mGET /html/view.html [32m200 [0m10.177 ms - 250[0m
-[0mGET /html/style.css [32m200 [0m2.333 ms - 342[0m
-[0mGET /favicon.ico [33m404 [0m27.976 ms - 1207[0m
-[0mGET /favicon.ico [33m404 [0m11.135 ms - 1207[0m
+[0mGET / [36m304 [0m0.448 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m1.199 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.339 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m1.825 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m1.406 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m0.754 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.771 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m1.269 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.283 ms - -[0m
+[0mGET /stylesheets/angucomplete.css [36m304 [0m0.571 ms - -[0m
+[0mGET /javascripts/autocomplete.js [36m304 [0m0.283 ms - -[0m
+[0mGET /javascripts/dirPagination.js [36m304 [0m1.778 ms - -[0m
+[0mGET /javascripts/angucomplete.js [36m304 [0m0.772 ms - -[0m
+[0mGET /javascripts/communication.js [36m304 [0m0.293 ms - -[0m
+[0mGET /javascripts/app.js [36m304 [0m0.279 ms - -[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.774 ms - -[0m
+[0mGET /javascripts/constants.js [36m304 [0m0.814 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.335 ms - -[0m
+[0mGET /stylesheets/animate.css [36m304 [0m0.285 ms - -[0m
+[0mGET /images/user.jpg [36m304 [0m0.769 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m0.274 ms - -[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m24.078 ms - 1207[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.563 ms - -[0m
+[0mGET /modules/authentication/controller.js [36m304 [0m0.374 ms - -[0m
+[0mGET /modules/events/views/dashboard.html [36m304 [0m0.345 ms - -[0m
+[0mGET /modules/authentication/views/login.html [36m304 [0m0.256 ms - -[0m
+[0mGET /images/logo-l.png [36m304 [0m0.268 ms - -[0m
+[0mGET /images/bg.jpg [36m304 [0m0.351 ms - -[0m
+[0mGET / [36m304 [0m0.362 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.391 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m0.261 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.242 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.240 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m0.232 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.543 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.261 ms - -[0m
+[0mGET /stylesheets/angucomplete.css [36m304 [0m0.248 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.245 ms - -[0m
+[0mGET /javascripts/autocomplete.js [36m304 [0m0.231 ms - -[0m
+[0mGET /javascripts/dirPagination.js [36m304 [0m0.350 ms - -[0m
+[0mGET /javascripts/angucomplete.js [36m304 [0m0.252 ms - -[0m
+[0mGET /javascripts/constants.js [36m304 [0m0.253 ms - -[0m
+[0mGET /javascripts/communication.js [36m304 [0m1.342 ms - -[0m
+[0mGET /javascripts/app.js [36m304 [0m1.259 ms - -[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.250 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.236 ms - -[0m
+[0mGET /images/user.jpg [36m304 [0m0.304 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m0.236 ms - -[0m
+[0mGET /stylesheets/animate.css [36m304 [0m0.241 ms - -[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m10.701 ms - 1207[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.348 ms - -[0m
+[0mGET /modules/events/views/dashboard.html [36m304 [0m0.358 ms - -[0m
+[0mGET /modules/events/views/create_an_event.html [36m304 [0m0.354 ms - -[0m
+[0mGET /images/icons/dollar.png [36m304 [0m0.268 ms - -[0m
+[0mGET /images/icons/event-series.png [36m304 [0m0.262 ms - -[0m
+[0mGET /images/icons/event-single.png [36m304 [0m0.244 ms - -[0m
+[0mGET /modules/step_event/service.js [36m304 [0m0.335 ms - -[0m
+[0mGET /modules/step_event/controller.js [32m200 [0m0.640 ms - 17098[0m
+[0mGET /modules/step_event/views/create_event_step1.html [32m200 [0m0.695 ms - 42960[0m
+[0mGET /images/img/f-img.jpg [36m304 [0m0.405 ms - -[0m
+[0mGET /images/img/s-img.jpg [36m304 [0m0.315 ms - -[0m
+[0mPOST /event_setting/venueListing [32m200 [0m2.964 ms - 423[0m
