@@ -29,12 +29,25 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
        $scope.between_date=dateArray; 
      
     }
+    $scope.error_message=true;
     $scope.savedata=function(data)
     {
-      console.log(data);
+      data.eventdate=$scope.selectevent_date;
+      data.startevent_time=$scope.startevent_time;
+      data.endevent_time=$scope.endevent_time;
       data.userId=$localStorage.userId;
       $serviceTest.saveEvent(data,function(response){
-        console.log(response);
+        if (response.code == 200) {
+             $scope.success="Event Successfully Saved.";
+             $scope.data={};
+             $scope.selectevent_date=$scope.startevent_time=$scope.endevent_time='';
+                   $scope.error_message=false;
+                   $timeout(function() {
+                    
+                     $scope.success='';
+                     $scope.error_message=true;
+                   },3000);
+        }
         });
     }
     $scope.removediv=function(index){

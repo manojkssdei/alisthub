@@ -156,15 +156,15 @@
                              <label for="exampleInputName2">Start Time:</label>
                           <div class="input-group bootstrap-timepicker timepicker">
                               <input   class="form-control input-small timepick" type="text" ng-model="data.starttimeloop1[$index]"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-						</div>
+			 </div>
                    
                 
                            </div>
                            <div class="sel-d col-sm-4">
                              <label for="exampleInputEmail2">End Time : </label>
-                             <div class="input-group bootstrap-timepicker timepicker">    
-							<input   class="form-control input-small timepick" type="text" ng-model="data.endtimeloop1[$index]"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-						   </div>
+                              <div class="input-group bootstrap-timepicker timepicker">    
+                              <input   class="form-control input-small timepick" type="text" ng-model="data.endtimeloop1[$index]"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                              </div>
                     
                            </div>
                       
@@ -197,7 +197,7 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="EventName">Venue Type<span class="req">*</span></label>
-                            <select class="form-control">
+                            <select class="form-control" ng-model="data.venuetype">
                               <option>Ticket</option>
                             </select>
                           </div>
@@ -342,6 +342,7 @@
           <button class="gray-btn btn" ng-click="savedata(data)">Save</button> 
           <button class="pink-btn btn">Next</button>
         </div>
+        <div ng-hide="error_message" style="color:green;">{{success}}</div>
       </div>
        </div>
       
