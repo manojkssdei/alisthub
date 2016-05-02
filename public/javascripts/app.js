@@ -171,7 +171,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     //var $serviceTest = $injector.get("CustomerFirstLoad");
                            // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     })*/.then(function(){
-                    return $ocLazyLoad.load(['modules/step_event/controller.js']);
+                    return $ocLazyLoad.load(['modules/step_event/controller.js','javascripts/bootstrap-timepicker.js']);
                     })
                
               }]
@@ -455,6 +455,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         $rootScope.phone_no=$localStorage.phone_no;
         $rootScope.userId=$localStorage.userId;
         $rootScope.address=$localStorage.address;
+        $rootScope.class_status = false;
         $state.go('dashboard');
     }else{
        $rootScope.menu=$rootScope.after_login_footer_div=true;

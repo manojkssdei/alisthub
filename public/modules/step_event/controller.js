@@ -2,15 +2,6 @@ angular.module("google.places",[]);
 angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce) { 
    //For Step 1
     var $serviceTest = $injector.get("venues");
-         // <-- CHANGED HERE
- $scope.dynamicPopover = {
-   templateUrl: 'myPopoverTemplate.html',
-   placement:'bottom'
-  };
-  $scope.dynamicPopoverend = {
-   templateUrl: 'myPopoverendTemplate.html',
-   placement:'bottom'
-  };
   
     $scope.days_div=$scope.error_message=true;
     $scope.select_checkbox=function($event){
@@ -20,26 +11,50 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         {
           dDate1=new Date($scope.multiple_start_date);
           dDate2=new Date($scope.multiple_end_date);
-          
+         
            while (dDate1<=dDate2)
           {
             var currentDate=JSON.parse(JSON.stringify(dDate1));
             if (dDate1.getDay()==day.id) {
-              dateArray.push(currentDate);  
-            }
+           
+              dateArray.push(currentDate);
+              
+           }
             dDate1.setDate(dDate1.getDate() + 1);
           }
           
         }
       })
+    
        $scope.between_date=dateArray; 
      
     }
-    
-   
-    
-    
-    $scope.recurring_period=function(action){
+    $scope.error_message=true;
+    $scope.savedata=function(data)
+    {
+      data.eventdate=$scope.selectevent_date;
+      data.startevent_time=$scope.startevent_time;
+      data.endevent_time=$scope.endevent_time;
+      
+      data.userId=$localStorage.userId;
+      $serviceTest.saveEvent(data,function(response){
+        if (response.code == 200) {
+             $scope.success="Event Successfully Saved.";
+             $scope.data={};
+             $scope.selectevent_date=$scope.starttime=$scope.endtime=$scope.startevent_time=$scope.endevent_time='';
+                   $scope.error_message=false;
+                   $timeout(function() {
+                    
+                     $scope.success='';
+                     $scope.error_message=true;
+                   },3000);
+        }
+        });
+    }
+    $scope.removediv=function(index){
+        $scope.between_date.splice(index,1);
+    }
+     $scope.recurring_period=function(action){
        //console.log($scope.data.period);
        
        if(($scope.multiple_start_date===undefined)||($scope.multiple_end_date==undefined))
@@ -213,12 +228,49 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         google.maps.event.removeListener(listener);
     });
       });
-     
+     $scope.venue_info=function(venuedata){
+    
+        $scope.data.venuename=venuedata.venue_name;
+        $scope.data.place=venuedata.address;
+        $scope.data.venueid=venuedata.id;
+        $scope.data.city=venuedata.city;
+        $scope.data.country=venuedata.country;
+        $scope.data.latitude=venuedata.latitude;
+        $scope.data.longitude=venuedata.longitude;
+        $scope.data.longitude=venuedata.longitude;
+        $scope.data.state=venuedata.state;
+        $scope.data.zipcode=venuedata.zipcode;
+        var bounds = new google.maps.LatLngBounds();
+        var infowindow = new google.maps.InfoWindow();
+
+       var marker, i;
+         marker = new google.maps.Marker({
+        position: new google.maps.LatLng($scope.data.latitude, $scope.data.longitude),
+        map: map
+      });
+     bounds.extend(marker.position);
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          
+          infowindow.setContent($scope.data.place, '');
+          infowindow.open(map, marker);
+        } 
+      })(marker, i));
+      map.fitBounds(bounds);
+    }
      
     if ($localStorage.userId!=undefined) {
        
         $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
-            $scope.total_venue=response;
+            if (response!=null) {
+            if (response.code==200)
+             {
+              $scope.total_venue=response.result;
+             }
+            }else{
+             $scope.total_venue=[];   
+            }
+            
         });
     }
  
@@ -511,13 +563,43 @@ $scope.items = ['item1'];
     });
    }
    
-   $scope.changedstarttime=function(obj){
-    $rootScope.startevent_time=$filter('date')(obj.starttime, 'shortTime');
+   $scope.changedstarttime=function(){
+    $rootScope.startevent_time=$filter('date')($scope.starttime, 'shortTime');
     
    } 
    
-   $scope.changedendtime=function(obj){ 
-    $rootScope.endevent_time=$filter('date')(obj.endtime, 'shortTime');
+   $scope.changedendtime=function(){ 
+    $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');
+   }
+   
+  $scope.data = {};
+   $scope.multiplestart=function(){
+    
+    $scope.data.starttimeloop1=[];
+    
+    var i=0;
+    while(i<$scope.between_date.length)
+    {
+        
+        $scope.data.starttimeloop1.push(JSON.parse(JSON.stringify($scope.multiple_starttime)));
+    
+      i++;  
+    }
+    
+   }
+   $scope.multipleend=function(){
+    
+  $scope.data.endtimeloop1=[];
+    var j=0;
+    console.log($scope.between_date.length);
+    console.log($scope.multiple_endtime);
+    while(j<$scope.between_date.length)
+    {
+    $scope.data.endtimeloop1.push(JSON.parse(JSON.stringify($scope.multiple_endtime)));
+      j++;  
+    }
+   
+    console.log($scope.data.endtimeloop1);
    }
 
 });
