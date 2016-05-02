@@ -68,9 +68,11 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                         $rootScope.email=$localStorage.email=data.user.User.email;
                         $rootScope.name=$localStorage.name=data.user.User.first_name+" "+data.user.User.last_name;
                         $rootScope.access_token=$localStorage.access_token=data.user.User.access_token;
+                        $rootScope.auth_token=$localStorage.auth_token=data.user.User.token;
                         $rootScope.phone_no=$localStorage.phone_no=data.user.User.phone_no;
                         $rootScope.userId=$localStorage.userId=data.user.User.id;
                         $rootScope.address=$localStorage.address=data.user.User.address;
+                        
                         $state.go('dashboard');
                   }
                 });
