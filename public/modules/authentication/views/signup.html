@@ -14,12 +14,12 @@
               <div class="form-group row">
                   <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.firstname.$invalid && !userSignupForm.firstname.$pristine }">
                     <label>First Name</label>
-                    <input type="text" name="firstname" ng-model="user.firstname" class="form-control" placeholder="First Name" required> 
+                    <input type="text" name="firstname" ng-model="user.firstname" class="form-control" placeholder="first name" required> 
 		    <p ng-show="userSignupForm.firstname.$invalid && !userSignupForm.firstname.$pristine" class="help-block">Enter Firstname.</p>
                   </div>
                   <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.lastname.$invalid && !userSignupForm.lastname.$pristine }">
                     <label>Last Name</label>
-                    <input type="text" name="lastname" ng-model="user.lastname" class="form-control" placeholder="Last Name" required>
+                    <input type="text" name="lastname" ng-model="user.lastname" class="form-control" placeholder="last name" required>
 		    <p ng-show="userSignupForm.lastname.$invalid && !userSignupForm.lastname.$pristine" class="help-block">Enter Lastname.</p>
                   </div>
               </div>
@@ -43,13 +43,13 @@
                     <label>Organization</label>
                     <input type="text" name="organization" class="form-control" placeholder="Organization" ng-model="user.organization" required>
 			<p ng-show="userSignupForm.organization.$invalid && !userSignupForm.organization.$pristine" class="help-block">Enter an organization name.</p>
-                  </div>--> 
+                  </div>
               
                   <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.username.$invalid && !userSignupForm.username.$pristine }">
                     <label>User Name</label>
                     <input type="text" name="username" class="form-control" placeholder="User Name" ng-model="user.username" required>
 			<p ng-show="userSignupForm.username.$invalid && !userSignupForm.username.$pristine" class="help-block">Enter your username.</p>
-                  </div>
+                  </div>--> 
               </div>
         </section>
         <p><button  type="submit" class="btn-l m-fw"  ng-disabled="userSignupForm.$invalid">Sign up</button></p>

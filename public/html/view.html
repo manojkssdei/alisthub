@@ -1,10 +1,18 @@
 <div class="demo-container">
-    <h2>Drag Pages</h2>  
+    <h2>Custom Theme</h2>  
    <div gridster="gridsterOpts">
         <ul>
-            <li gridster-item="item" ng-repeat="item in standardItems">              
-		Test Events
+            <li gridster-item="item" ng-repeat="item in standardItems" ng-bind-html="item.content | sanitize">              
+		
             </li>
         </ul>
     </div>
 </div>
+
+
+
+
+
+<img id='image1' src='http://images.aviary.com/imagesv5/feather_default.jpg' onclick="return launchEditor('image1', 'http://images.aviary.com/imagesv5/feather_default.jpg');" />
+
+

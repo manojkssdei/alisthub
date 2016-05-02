@@ -559,6 +559,13 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 .editor-row{padding-top:20px; padding-bottom:20px; font-size:14px; line-height:18px;}
 .editor-bottom{padding:15px 0; border-top:1px #ccc solid; text-align:center;}
 
+.bootstrap-timepicker-widget td{text-align:center; padding:5px 0;}
+.bootstrap-timepicker-widget input{width:50px; text-align:center; border:none; font-size:16px; padding:5px 0;}
+
+button[disabled], button[disabled]:hover{background:rgba(193, 41, 185, 0.4);}
+table:focus {
+    outline: none;
+}
 
 /*--------Always at Bottom---------*/
 .m-t35 {margin-top: 35px;}
