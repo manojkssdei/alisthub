@@ -55,17 +55,17 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
               }); 
         }  
         }else{
-        
+
+         
           data.userId=$localStorage.userId;
-         console.log($scope.between_date);
-         console.log(data);
+         
           $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-            
+           
               if (response.code == 200) {
                    $scope.success="Event Successfully Saved.";
                    $scope.data={};
-                   
-                         $scope.error_message=false;
+                        $scope.error_message=false;
+
                          $timeout(function() {
                           
                            $scope.success='';
