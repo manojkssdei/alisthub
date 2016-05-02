@@ -455,6 +455,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         $rootScope.phone_no=$localStorage.phone_no;
         $rootScope.userId=$localStorage.userId;
         $rootScope.address=$localStorage.address;
+        $rootScope.class_status = false;
         $state.go('dashboard');
     }else{
        $rootScope.menu=$rootScope.after_login_footer_div=true;
