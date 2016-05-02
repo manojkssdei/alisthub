@@ -35,6 +35,7 @@ var webservices = {
 
         "uploadProductImage"  : localbaseUrl + "/event_setting/uploadProductImage",
         "saveEvent"  : localbaseUrl + "/event/saveEvent",
+        "saverecurringEvent"  : localbaseUrl + "/event/saverecurringEvent",
 
 }
 

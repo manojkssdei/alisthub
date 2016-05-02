@@ -55,22 +55,21 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
               }); 
         }  
         }else{
-          console.log(data);
+         
           data.userId=$localStorage.userId;
-          console.log($scope.between_date);
+         
           $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-            console.log(response);
-            /*  if (response.code == 200) {
+           
+              if (response.code == 200) {
                    $scope.success="Event Successfully Saved.";
                    $scope.data={};
-                   $scope.selectevent_date=$scope.starttime=$scope.endtime=$scope.startevent_time=$scope.endevent_time='';
-                         $scope.error_message=false;
+                        $scope.error_message=false;
                          $timeout(function() {
                           
                            $scope.success='';
                            $scope.error_message=true;
                          },3000);
-              }*/
+              }
               }); 
         }
         
