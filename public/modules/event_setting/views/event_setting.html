@@ -8,11 +8,11 @@
         <section class="module">
             <section class="prof-hd no-icon" ng-click="openTab(1)">
                    <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
-                    <h2>Venues  <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                    <h2>Venues  <span class="rt-img"><i class="fa {{venuetabclass}}"></i></span></h2>
             </section>
             <section class="gray-frame"  ng-show="venuetab">
             	<ul class="btns-widget clearfix">
-                    <li><a href="#/view_venues/list"><i class="fa fa-list-ul icon-fa"></i>{{ venuecount }}  Venues</a></li>
+                    <li><a href="{{redirectvenue}}"><i class="fa fa-list-ul icon-fa"></i>{{ venuecount }}  Venues</a></li>
                     <li><a href="#/add_venue"><i class="fa fa-user icon-fa"></i>Add Venue</a></li>
                     
                 </ul>
@@ -21,11 +21,11 @@
         <section class="module">
         	<section class="prof-hd no-icon" ng-click="openTab(2)">
                    <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
-                    <h2>Products <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                    <h2>Products <span class="rt-img"><i class="fa {{producttabclass}}"></i></span></h2>
             </section>
             <section class="gray-frame" ng-show="producttab">
             	<ul class="btns-widget clearfix">
-                	<li><a href="#/view_products/list"><i class="fa fa-user icon-fa"><span class="fa fa-plus-square-o sub-fa"></span></i>{{productcount}} Products</a></li>
+                	<li><a href="{{redirectproduct}}"><i class="fa fa-user icon-fa"><span class="fa fa-plus-square-o sub-fa"></span></i>{{productcount}} Products</a></li>
                     <li><a href="#/add_product"><i class="fa fa-user icon-fa"><span class="fa fa-pencil-square-o sub-fa"></i>Add Product</a></li>
                 </ul>
             </section>
@@ -33,7 +33,7 @@
         <section class="module">
         	<section class="prof-hd no-icon" ng-click="openTab(3)">
                    <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
-                    <h2>Discount <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                    <h2>Discount <span class="rt-img"><i class="fa {{discounttabclass}}"></i></span></h2>
             </section>
             <section class="gray-frame" ng-show="discounttab">
             	<ul class="btns-widget clearfix">
@@ -46,11 +46,11 @@
         <section class="module">
         	<section class="prof-hd no-icon" ng-click="openTab(4)">
                    <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
-                    <h2>Question <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                    <h2>Question <span class="rt-img"><i class="fa {{questiontabclass}}"></i></span></h2>
             </section>
             <section class="gray-frame" ng-show="questiontab">
             	<ul class="btns-widget clearfix">
-                	<li><a href="#/view_questions/list"><i class="fa fa-plus-square-o icon-fa"></i>{{ quescount }} Question</a></li>
+                	<li><a href="{{redirectques}}"><i class="fa fa-plus-square-o icon-fa"></i>{{ quescount }} Question</a></li>
                     <li><a href="#/add_question"><i class="fa fa-ticket icon-fa"></i>Add Question</a></li>
                 </ul>
             </section>

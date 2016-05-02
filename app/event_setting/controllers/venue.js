@@ -36,11 +36,14 @@ exports.addVenue = function(req,res){
           var photoname = req.body.seller_id+'_image_'+Date.now() + '.jpg';
           var imagename = path_venue+'/'+photoname;
           var base64Data = req.body.imagedata.replace(/^data:image\/jpeg;base64,/, "");
+          var base64Data = req.body.imagedata.replace(/^data:image\/png;base64,/, "");
+          var base64Data = req.body.imagedata.replace(/^data:image\/gif;base64,/, "");
           
           fs.writeFile(imagename, base64Data, 'base64', function(err) {
           if (err) {
            console.log("Image Failure Upload");
           }
+           console.log("Chart Upload");
           });
           
           req.body.image = photoname;
@@ -51,11 +54,14 @@ exports.addVenue = function(req,res){
           var chartname   = req.body.seller_id+'_chart_'+Date.now() + '.jpg';
           var chartimage  = path_venue+'/'+chartname;
           var base64Data5 = req.body.venue_chart.replace(/^data:image\/jpeg;base64,/, "");
+          var base64Data5 = req.body.venue_chart.replace(/^data:image\/png;base64,/, "");
+          var base64Data5 = req.body.venue_chart.replace(/^data:image\/gif;base64,/, "");
           
           fs.writeFile(chartimage, base64Data5, 'base64', function(err5) {
            if (err5) {
            console.log("Chart Failure Upload");
           }
+           console.log("Image Upload");
           });
           req.body.seating_chart = chartname;
      }

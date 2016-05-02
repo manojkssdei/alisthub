@@ -169,16 +169,19 @@
                             <label for="City">Image<span class="req"></span></label>
                             <!--<input type="file" class="form-control" name="image" ng-model="data.image">-->
 			    <input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles">
-                            <div id="imgTest" ng-model="picDatatest"></div>
+                            
+			    <p><div id="imgTest" ng-model="picDatatest"></div>
 			    <div id="data.image"><img ng-src="/images/venues/{{ data.image }}"></div> 
-                          </div>
+			    </p>
+			  </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="Zipcode">Seating Chart<span class="req"></span></label>
                             <input  id="inputFileToLoad5" type="file" onchange="angular.element(this).scope().encodeChartFileAsURL(this)" file-model="file.seating_chart">
-			      <div id="imgTest5" ng-model="picDatatest5"></div>
-			      <div id="data.seating_chart"><img ng-src="/images/venues/{{ data.seating_chart }}"></div> 
+			      <p><div id="imgTest5" ng-model="picDatatest5"></div>
+			      <div id="data.seating_chart"><img ng-src="/images/venues/{{ data.seating_chart }}"></div>
+			      </p>
 			    <!--<input type="file" class="form-control" name="seating_chart" ng-model="data.seating_chart">-->
                           </div>
                         </div>
