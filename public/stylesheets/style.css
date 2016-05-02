@@ -496,6 +496,7 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 .date-media{width:120px;}
 .date-d{padding:10px;}
 
+.v-map-overview{height:375px; overflow:hidden; margin-bottom:15px; }
 .v-map{height:200px; overflow:hidden; margin-bottom:15px; }
 .address-list > li{margin-top:10px; line-height:20px;}
 .address-list > li:first-child{margin-top:0;}

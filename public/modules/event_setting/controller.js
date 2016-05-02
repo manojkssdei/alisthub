@@ -293,7 +293,10 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
                     //now fit the map to the newly inclusive bounds
                     map.fitBounds(bounds);
                     
-                    
+                      var listener = google.maps.event.addListener(map, "idle", function () {
+                        map.setZoom(14);
+                        google.maps.event.removeListener(listener);
+                    });
                     
                     
                    //////////////////////////////////////////////////////////
