@@ -1,10 +1,10 @@
-<<<<<<< Updated upstream
 
-var localbaseUrl   = "http://192.155.246.146:5501";
+//var localbaseUrl   = "http://192.155.246.146:5501";
+var localbaseUrl   = "http://localhost:5501";
 
-var baseUrl = "//192.155.246.146:7048";
+var baseUrl = "http://192.155.246.146:7048";
 var servicebaseUrl = "//192.155.246.146:5501";
-var localhostUrl="//192.155.246.146:5501";
+var localhostUrl="http://localhost:5501";
 
 var webservices = {	
 
@@ -19,7 +19,18 @@ var webservices = {
         "venueOverview" : localbaseUrl + "/event_setting/venueOverview",
         "changeVenueStatus" : localbaseUrl + "/event_setting/changeVenueStatus",
         "deleteVenue" : localbaseUrl + "/event_setting/deleteVenue",
-        "duplicateVenue" : localbaseUrl + "/event_setting/duplicateVenue"
+        "duplicateVenue" : localbaseUrl + "/event_setting/duplicateVenue",
+        "getQuestions":localhostUrl + "/event_setting/getQuestions",
+        "addQuestion" : localbaseUrl + "/event_setting/addQuestion",
+        "questionOverview" : localbaseUrl + "/event_setting/questionOverview",
+        "changeQuestionStatus" : localbaseUrl + "/event_setting/changeQuestionStatus",
+        "deleteQuestion" : localbaseUrl + "/event_setting/deleteQuestion",
+        "getSettingCount" : localbaseUrl + "/event_setting/getSettingCount",
+        "getProducts":localhostUrl + "/event_setting/getProducts",
+        "addProduct" : localbaseUrl + "/event_setting/addProduct",
+        "productOverview" : localbaseUrl + "/event_setting/productOverview",
+        "changeProductStatus" : localbaseUrl + "/event_setting/changeProductStatus",
+        "uploadProductImage"  : localbaseUrl + "/event_setting/uploadProductImage"
 }
 
 var global_message = {
@@ -33,10 +44,19 @@ var global_message = {
     "ErrorInActivation" : "There is some problem in server , Please try some time."
 }
 
-var appConstants = {
 
-	"authorizationKey": "dGF4aTphcHBsaWNhdGlvbg=="
+var appConstants = {
+	//"authorizationKey": "dGF4aTphcHBsaWNhdGlvbg=="
+        "authorizationKey" : localStorage.getItem( "ngStorage-auth_token" )
 }
+
+
+//var appConstants = {
+
+	//"authorizationKey": "dGF4aTphcHBsaWNhdGlvbg=="
+        //"authorizationKey":$localStorage.token
+       
+//}
 
 var headerConstants = {
 
@@ -97,6 +117,3 @@ var headerConstants = {
 	<option timeZoneId="81" gmtAdjustment="GMT+12:00" useDaylightTime="0" value="12">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
 	<option timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13">(GMT+13:00) Nuku'alofa</option>";*/
 
-
-=======
->>>>>>> Stashed changes

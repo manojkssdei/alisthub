@@ -110,7 +110,7 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
         $scope.data.address,
         "coming soon");
     var bounds = new google.maps.LatLngBounds();
-     var infowindow = new google.maps.InfoWindow();
+    var infowindow = new google.maps.InfoWindow();
 
     var marker, i;
     
@@ -268,6 +268,35 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
                     "",
                     response.result[0].address,
                     "coming soon");
+                    /////////////////////////////////////////////////////////
+                    
+                    var bounds = new google.maps.LatLngBounds();
+                    var infowindow = new google.maps.InfoWindow();
+                
+                    var marker, i;
+                    
+                    for (i = 0; i < $scope.locations.length; i++) {
+                       
+                      marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(response.result[0].latitude, response.result[0].longitude),
+                        map: map
+                      });
+                     bounds.extend(marker.position);
+                      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                          
+                          infowindow.setContent(response.result[0].address, '');
+                          infowindow.open(map, marker);
+                        } 
+                      })(marker, i));
+                    }
+                    //now fit the map to the newly inclusive bounds
+                    map.fitBounds(bounds);
+                    
+                    
+                    
+                    
+                   //////////////////////////////////////////////////////////
                   }else{
                    $scope.error_message = response.error;
             }
@@ -406,15 +435,38 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
         $serviceTest.getSettingCount($scope.data,function(response){
             $scope.loader = false;
             if (response.code == 200) {
-                   $scope.venuecount   = response.venueresult.count;
-                   $scope.quescount    = response.quesresult.count;
-                   $scope.productcount = response.productresult.count;
+                   $scope.venuecount      = response.venueresult.count;
+                   $scope.quescount       = response.quesresult.count;
+                   $scope.productcount    = response.productresult.count;
+                   
                   }else{
-                   $scope.venuecount   = 0;
-                   $scope.quescount    = 0;
-                   $scope.productcount = 0;
+                   $scope.venuecount      = 0;
+                   $scope.quescount       = 0;
+                   $scope.productcount    = 0;
+                   
             }
-            
+                if ($scope.venuecount > 0) {
+                     $scope.redirectvenue   = "#/view_venues/list";
+                }
+                else{
+                    $scope.redirectvenue   = "#/add_venue";
+                }
+                
+                if ($scope.quescount > 0) {
+                     $scope.redirectques   = "#/view_questions/list";
+                }
+                else{
+                    $scope.redirectques   = "#/add_question";
+                }
+                
+                if ($scope.productcount > 0) {
+                     $scope.redirectproduct   = "#/view_products/list";
+                }
+                else{
+                    $scope.redirectproduct   = "#/add_product";
+                }
+                
+                  
         });
         
         }
@@ -425,6 +477,12 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
     $scope.producttab = false;
     $scope.discounttab = false;
     $scope.questiontab = false;
+    
+    $scope.venuetabclass     = "fa-caret-down";
+    $scope.producttabclass   = "fa-caret-down";
+    $scope.discounttabclass  = "fa-caret-down";
+    $scope.questiontabclass  = "fa-caret-down";
+    
     $scope.openTab = function(id)
     {
         if (id == 1) {
@@ -432,27 +490,68 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
             $scope.producttab = false;
             $scope.discounttab = false;
             $scope.questiontab = false;
+            
+            // class
+            $scope.venuetabclass     = "fa-caret-up";
+            $scope.producttabclass   = "fa-caret-down";
+            $scope.discounttabclass  = "fa-caret-down";
+            $scope.questiontabclass  = "fa-caret-down";
         }
         if (id == 2) {
             $scope.venuetab     = false;
             $scope.producttab   = true;
             $scope.discounttab = false;
             $scope.questiontab = false;
+            
+            // class
+            $scope.venuetabclass     = "fa-caret-down";
+            $scope.producttabclass   = "fa-caret-up";
+            $scope.discounttabclass  = "fa-caret-down";
+            $scope.questiontabclass  = "fa-caret-down";
         }
         if (id == 3) {
             $scope.venuetab   = false;
             $scope.producttab = false;
             $scope.discounttab  = true;
             $scope.questiontab = false;
+            
+            // class
+            $scope.venuetabclass     = "fa-caret-down";
+            $scope.producttabclass   = "fa-caret-down";
+            $scope.discounttabclass  = "fa-caret-up";
+            $scope.questiontabclass  = "fa-caret-down";
         }
         if (id == 4) {
             $scope.venuetab   = false;
             $scope.producttab = false;
             $scope.discounttab = false;
             $scope.questiontab  = true;
+            
+            // class
+            $scope.venuetabclass     = "fa-caret-down";
+            $scope.producttabclass   = "fa-caret-down";
+            $scope.discounttabclass  = "fa-caret-down";
+            $scope.questiontabclass  = "fa-caret-up";
         }
         
     }
     
 })
+
+.directive('ngConfirmClicks', [
+    function(){
+        return {
+            priority: 1,
+            terminal: true,
+            link: function (scope, element, attr) {
+                var msg = attr.ngConfirmClick || "Are you sure?";
+                var clickAction = attr.ngClick;
+                element.bind('click',function (event) {
+                    if ( window.confirm(msg) ) {
+                        scope.$eval(clickAction)
+                    }
+                });
+            }
+        };
+}])
 

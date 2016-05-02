@@ -17,8 +17,8 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({limit: '150mb'}));
+app.use(bodyParser.urlencoded({limit: '150mb', extended: true}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -61,8 +61,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(5500, function(req, res){
-  console.log('Server listening at port 5500');  
+app.listen(5501, function(req, res){
+  console.log('Server listening at port 5501');  
  
 })
 
