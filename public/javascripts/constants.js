@@ -1,8 +1,12 @@
-var localbaseUrl   = "//localhost:5500";
 
-var baseUrl = "//192.155.246.146:7048";
-var servicebaseUrl = "//localhost:5500";
-var localhostUrl="//localhost:5500";
+
+var localbaseUrl   = "//192.155.246.146:5501";
+
+
+var baseUrl = "http://192.155.246.146:7048";
+var servicebaseUrl = "//192.155.246.146:5501";
+var localhostUrl="//192.155.246.146:5501";
+
 
 var webservices = {	
 
@@ -28,8 +32,10 @@ var webservices = {
         "addProduct" : localbaseUrl + "/event_setting/addProduct",
         "productOverview" : localbaseUrl + "/event_setting/productOverview",
         "changeProductStatus" : localbaseUrl + "/event_setting/changeProductStatus",
+
         "uploadProductImage"  : localbaseUrl + "/event_setting/uploadProductImage",
         "saveEvent"  : localbaseUrl + "/event/saveEvent",
+
 }
 
 var global_message = {
@@ -42,15 +48,17 @@ var global_message = {
     "ActivatedMessage" : "Your account has been activated now , you can sign in your account .",
     "ErrorInActivation" : "There is some problem in server , Please try some time."
 }
- 
-var appConstants = {
 
-	"authorizationKey": "dGF4aTphcHBsaWNhdGlvbg=="
+
+var appConstants = {
+	//"authorizationKey": "dGF4aTphcHBsaWNhdGlvbg=="
+        "authorizationKey" : localStorage.getItem( "ngStorage-auth_token" )
 }
+
 
 var headerConstants = {
 
 	"json": "application/json"
 
-} 
+}
 
