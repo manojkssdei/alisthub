@@ -32,24 +32,49 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     $scope.error_message=true;
     $scope.savedata=function(data)
     {
-      data.eventdate=$scope.selectevent_date;
-      data.startevent_time=$scope.startevent_time;
-      data.endevent_time=$scope.endevent_time;
-      
-      data.userId=$localStorage.userId;
-      $serviceTest.saveEvent(data,function(response){
-        if (response.code == 200) {
-             $scope.success="Event Successfully Saved.";
-             $scope.data={};
-             $scope.selectevent_date=$scope.starttime=$scope.endtime=$scope.startevent_time=$scope.endevent_time='';
-                   $scope.error_message=false;
-                   $timeout(function() {
-                    
-                     $scope.success='';
-                     $scope.error_message=true;
-                   },3000);
+        if (data.eventtype=='single') {
+          if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+            data.eventdate=$scope.single_start_date;
+            
+            data.startevent_time=$scope.startevent_time;
+            data.endevent_time=$scope.endevent_time;
+            
+            data.userId=$localStorage.userId;
+            $serviceTest.saveEvent(data,function(response){
+              if (response.code == 200) {
+                   $scope.success="Event Successfully Saved.";
+                   $scope.data={};
+                   $scope.selectevent_date=$scope.starttime=$scope.endtime=$scope.startevent_time=$scope.endevent_time='';
+                         $scope.error_message=false;
+                         $timeout(function() {
+                          
+                           $scope.success='';
+                           $scope.error_message=true;
+                         },3000);
+              }
+              }); 
+        }  
+        }else{
+          console.log(data);
+          data.userId=$localStorage.userId;
+          console.log($scope.between_date);
+          $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
+            console.log(response);
+            /*  if (response.code == 200) {
+                   $scope.success="Event Successfully Saved.";
+                   $scope.data={};
+                   $scope.selectevent_date=$scope.starttime=$scope.endtime=$scope.startevent_time=$scope.endevent_time='';
+                         $scope.error_message=false;
+                         $timeout(function() {
+                          
+                           $scope.success='';
+                           $scope.error_message=true;
+                         },3000);
+              }*/
+              }); 
         }
-        });
+        
+    
     }
     $scope.removediv=function(index){
         $scope.between_date.splice(index,1);
@@ -446,9 +471,11 @@ var tomorrow = new Date();
      }
      $scope.select= function(item) {
         if (item.id==1) {
+            $scope.data.eventtype='single';
           $scope.multiple_event_div=true;
           $scope.single_event_div=false;  
         }else{
+         $scope.data.eventtype='multiple';
          $scope.multiple_event_div=false;
          $scope.single_event_div=true;      
         }
@@ -502,6 +529,8 @@ $scope.items = ['item1'];
         var curr_month = d.getMonth();
         var day=d.getDay();
         var curr_year = d.getFullYear();
+        var cur_mon=d.getMonth()+1;
+        $rootScope.single_start_date=curr_year+"-"+cur_mon+"-"+curr_date;
         $rootScope.selectevent_date=weekday[day]+" "+m_names[curr_month]+" "+curr_date + "," + curr_year;  
     }else{
       var modalInstance = $uibModal.open({
@@ -529,6 +558,8 @@ $scope.items = ['item1'];
         var curr_month = d.getMonth();
         var day=d.getDay();
         var curr_year = d.getFullYear();
+        var cur_mon=d.getMonth()+1;
+         $rootScope.single_start_date=curr_year+"-"+cur_mon+"-"+curr_date;
         $rootScope.selectevent_date=weekday[day]+" "+m_names[curr_month]+" "+curr_date + "," + curr_year; 
     }else{
      var modalInstance = $uibModal.open({

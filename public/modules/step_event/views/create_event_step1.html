@@ -15,21 +15,23 @@
     <!-- Form COntainer -->
     
     <div class="form-section  wt-frame">
-      <form class="event-form">
-        <!-- Event Detail Form -->
-       <div ng-hide="eventdetail_div">
+     <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
+
+<div ng-hide="eventdetail_div">
           <div class="form-group">
             <label for="eventname">Event Name<span class="req">*</span></label>
-            <input type="text" ng-model="data.eventname" class="form-control" placeholder="Title of your Event">
+            <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="Title of your Event" required>
+             <span style="color:red" ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">  <span  ng-show="myForm.eventname.$error.required">Event name is required</span></span>
           </div>
-          <!-- Date Event Group -->
-          <div class="form-group field-group">
+           <div class="form-group field-group">
             <label>Date and Time<span class="req">*</span></label>
             <div class="event-date fieldSection"> 
               <!-- Nav tabs -->
               <div class="content-tab">
                 <ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
-               <li ng-repeat="event in events" ng-click="select(event)" ng-class="{active: isActive(event)}" ><a class="pointer" href="javascript:void(0)" >{{event.name}}</a> </li>
+               <li ng-repeat="event in events" ng-click="select(event)" ng-class="{active: isActive(event)}" ><a class="pointer" href="javascript:void(0)" >{{event.name}}</a>
+                    <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype" >
+               </li>
               
                 </ul>
               </div>
@@ -70,7 +72,7 @@
                       <label>Select/Deselect Events</label>
                       <div class="clearfix list-event-date">
                       <div class="col-sm-3 pull-right text-right lss-top"> <a  href="javascript:void(0)" ng-click="remove_event()"><i class="fa fa-close"></i></a> </div>
-                        <div class="col-sm-3"> {{selectevent_date }} </div>
+                        <div class="col-sm-3"> {{selectevent_date }} <span style="display:none;">{{single_start_date}}</span> </div>
                         <div class="col-sm-3"> Start Time :{{startevent_time}}</div>
                         <div class="col-sm-3"> End Time :{{endevent_time}} </div>
                         
@@ -105,7 +107,7 @@
                     <div class="form-group">
                       <label for="EndTime">Start Date<span class="req">*</span></label>
                       <div class="form-group datepicker">
-                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
+                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
                          <span class="input-group-btn">
                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                      </div>
@@ -115,7 +117,7 @@
                     <div class="form-group">
                       <label for="EndTime">End Date<span class="req">*</span></label>
                       <div class="form-group datepicker">
-                        <input type="text" class="form-control" uib-datepicker-popup ng-model="multiple_end_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"  ng-change="recurring_period('end')"/>
+                        <input type="text" class="form-control" uib-datepicker-popup ng-model="multiple_end_date" is-open="popup2.opened" datepicker-options="dateOptions"  close-text="Close"  ng-change="recurring_period('end')"/>
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
@@ -178,10 +180,8 @@
               </div>
             </div>
           </div>
-          <!-- //Date Event Group --> 
-          
-          <!-- Location Group -->
-          <div class="form-group field-group">
+
+ <div class="form-group field-group">
             <label for="Location">Location<span class="req">*</span></label>
             <!-- Date Event Group -->
             <div class="event-date fieldSection">
@@ -207,7 +207,8 @@
                         <div class="col-xs-12">
                           <div class="form-group">
                             <label for="Venue">Venue<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.venuename">
+                            <input type="text" class="form-control" ng-model="data.venuename" name="venuename" value="" required>
+                              <span style="color:red" ng-show="myForm.venuename.$dirty && myForm.venuename.$invalid">  <span  ng-show="myForm.venuename.$error.required">Venue name is required</span></span>
                             <input type="hidden" class="form-control" ng-model="data.venueid">
                           </div>
                         </div>
@@ -224,13 +225,15 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="City">City<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.city">
+                            <input type="text" class="form-control" name="city" ng-model="data.city" required>
+                              <span style="color:red" ng-show="myForm.city.$dirty && myForm.city.$invalid">  <span  ng-show="myForm.city.$error.required">City is required</span></span>
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="Zipcode">Zipcode<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.zipcode">
+                            <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" required>
+                           <span style="color:red" ng-show="myForm.zipcode.$dirty && myForm.zipcode.$invalid">  <span  ng-show="myForm.zipcode.$error.required">Zipcode is required</span></span>
                           </div>
                         </div>
                       </div>
@@ -238,13 +241,16 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="City">State<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.state">
+                            <input type="text" class="form-control" ng-model="data.state" name="state" required>
+                              <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
+                              
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="Zipcode">Country<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.country">
+                            <input type="text" class="form-control" ng-model="data.country" name="country" required>
+                              <span style="color:red" ng-show="myForm.country.$dirty && myForm.country.$invalid">  <span  ng-show="myForm.country.$error.required">Country is required</span></span>
                             <input type="hidden" class="form-control" ng-model="data.latitude">
                             <input type="hidden" class="form-control" ng-model="data.longitude">
                           </div>
@@ -278,11 +284,7 @@
               </div>
             </div>
           </div>
-          <!-- //Location Group -->
-      
-        <!-- //Event Detail Form -->
-        
-        <fieldset>
+ <fieldset>
           <div class="form-top">
             <div class="form-top-left">
               <h3>Step 2 / 3</h3>
@@ -331,22 +333,26 @@
               <input type="text" name="form-google-plus" placeholder="Google plus..." class="form-google-plus form-control" id="form-google-plus">
             </div>
             <button type="button" class="btn btn-previous">Previous</button>
-            <button type="submit" class="btn">Sign me up!</button>
+            <button type="button" class="btn">Sign me up!</button>
           </div>
         </fieldset>
      
       <div class="editr">
+              
+                    
+
         <label>Event Description<span class="req">*</span></label>
-         <div ckeditor="option_ckeditor" ng-model="data.content" ready="onReady()"></div>
+         <div ckeditor="option_ckeditor" name="content" required ng-model="data.content" ready="onReady()"></div>
+         
         <div class="editor-btn">
-          <button class="gray-btn btn" ng-click="savedata(data)">Save</button> 
+          <button type="submit" 
+ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
           <button class="pink-btn btn">Next</button>
         </div>
         <div ng-hide="error_message" style="color:green;">{{success}}</div>
       </div>
        </div>
-      
-       <div ng-hide="price_and_link_div">
+ <div ng-hide="price_and_link_div">
            <!-- Event Detail Form -->
    		  
           <section class="row">
@@ -798,10 +804,9 @@
           <button class="pink-btn btn">Next</button>
         </div>   
        </div>
-      
        <div ng-hide="look_and_feel_div"><div class="module template-view">
-      	  <div class="main-image"><img src="images/img/f-img.jpg" alt=""/></div>
-          
+       <div class="main-image"><img src="images/img/f-img.jpg" alt=""/></div>
+         
           <!--With Right Img start-->
           <div class="row editor-row">
        	    <div class="col-sm-8">
@@ -840,9 +845,8 @@
 
       </div></div>
        <div ng-hide="setting_div">Settting Div.</div>
-      </form>
-    
-    </div>
+</form>
+</div>
     
     <!-- //Form COntainer --> 
   </div>
