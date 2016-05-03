@@ -81,26 +81,7 @@
                   </div>
                 </div>
                 <div role="tabpanel"  id="multiple-event"  ng-hide="multiple_event_div">
-                    <div class="row">
-                  <div class="col-sm-4">
-                    <div class="form-group">
-                      <label for="StartTime">Start Time<span class="req">*</span></label>
-                     
-                         <div class="input-group bootstrap-timepicker timepicker">
-                         <input  ng-model="multiple_starttime"  class="form-control input-small timepick" type="text" ng-change="multiplestart()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                         </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="form-group">
-                      <label for="EndTime">End Time</label>
-                         <div class="input-group bootstrap-timepicker timepicker">
-                         <input  ng-model="multiple_endtime"  class="form-control input-small timepick" type="text" ng-change="multipleend()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                         </div>
-                      
-                    </div>
-                  </div>
-                </div>
+                   
                <div ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
                 <div class="row">
                   <div class="col-sm-4">
@@ -144,6 +125,26 @@
                     </div>
                   </div>
 
+                </div>
+                 <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="StartTime">Start Time<span class="req">*</span></label>
+                     
+                         <div class="input-group bootstrap-timepicker timepicker">
+                         <input  ng-model="multiple_starttime"  class="form-control input-small timepick" type="text" ng-change="multiplestart()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                         </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="EndTime">End Time</label>
+                         <div class="input-group bootstrap-timepicker timepicker">
+                         <input  ng-model="multiple_endtime"  class="form-control input-small timepick" type="text" ng-change="multipleend()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                         </div>
+                      
+                    </div>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-xs-12">
@@ -862,5 +863,6 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
     </script>
+
 
 

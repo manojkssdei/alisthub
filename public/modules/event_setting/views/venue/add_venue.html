@@ -20,7 +20,8 @@
                           <div class="form-group">
                             <label for="EventName">Venue Type<span class="req">*</span></label>
                             <select class="form-control" name="venue_type" ng-model="data.venue_type" required>
-                              <option>Ticket</option>
+                              <option>General Admission</option>
+			      <option>Seated</option>
                             </select>
                           </div>
 			  <p ng-show="userForm.venue_type.$invalid && !userForm.venue_type.$pristine" class="help-block">Select Venue type.</p>

@@ -3,7 +3,7 @@
     
     <!-- Form COntainer -->
     
-    <div class="form-section">
+    <div class="form-section  wt-frame">
       <form class="venue-form" name="userForm" id="venue-form" ng-submit="saveQuestion()" novalidate>
         <!-- Event Detail Form -->
        <div> 
@@ -37,6 +37,7 @@
                       </div>
                       <div class="row">
                         <div class="col-xs-12">
+			 <label for="Venue">Required</label>
                           <div class="onoffswitch">
 			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.required" checked>
 			 <label class="onoffswitch-label" for="myonoffswitch4"></label>
