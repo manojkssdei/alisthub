@@ -145,7 +145,7 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
     $scope.encodeImageFileAsURL = function(){
                   var filesSelected = document.getElementById("inputFileToLoad").files;
                   if (filesSelected.length > 0)
-                  {   console.log(filesSelected.length);
+                  {  
                       var fileToLoad = filesSelected[0];
               
                       var fileReader = new FileReader();
@@ -293,7 +293,10 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
                     //now fit the map to the newly inclusive bounds
                     map.fitBounds(bounds);
                     
-                    
+                      var listener = google.maps.event.addListener(map, "idle", function () {
+                        map.setZoom(14);
+                        google.maps.event.removeListener(listener);
+                    });
                     
                     
                    //////////////////////////////////////////////////////////

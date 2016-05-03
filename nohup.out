@@ -4566,3 +4566,996 @@ connected as id 45067
 [0mGET /html/view.html [36m304 [0m0.290 ms - -[0m
 [0mGET /html/image/f-img.jpg [36m304 [0m0.373 ms - -[0m
 [0mGET /html/image/s-img.jpg [36m304 [0m0.513 ms - -[0m
+
+> alist@0.0.0 start /home/bigdata/public_html/alisthub
+> node ./bin/www
+
+Server listening at port 5501
+Port 5501 is already in use
+
+npm ERR! Linux 2.6.32-431.17.1.el6.x86_64
+npm ERR! argv "node" "/home/bigdata/.nvm/v0.10.25/bin/npm" "start"
+npm ERR! node v0.10.25
+npm ERR! npm  v3.8.8
+npm ERR! code ELIFECYCLE
+npm ERR! alist@0.0.0 start: `node ./bin/www`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the alist@0.0.0 start script 'node ./bin/www'.
+npm ERR! Make sure you have the latest version of node.js and npm installed.
+npm ERR! If you do, this is most likely a problem with the alist package,
+npm ERR! not with npm itself.
+npm ERR! Tell the author that this fails on your system:
+npm ERR!     node ./bin/www
+npm ERR! You can get information on how to open an issue for this project with:
+npm ERR!     npm bugs alist
+npm ERR! Or if that isn't available, you can get their info via:
+npm ERR!     npm owner ls alist
+npm ERR! There is likely additional logging output above.
+
+npm ERR! Please include the following file with any support request:
+npm ERR!     /home/bigdata/public_html/alisthub/npm-debug.log
+
+> alist@0.0.0 start /home/bigdata/public_html/alisthub
+> node ./bin/www
+
+
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: listen EADDRINUSE
+    at errnoException (net.js:901:11)
+    at Server._listen2 (net.js:1039:14)
+    at listen (net.js:1061:10)
+    at Server.listen (net.js:1135:5)
+    at EventEmitter.listen (/home/bigdata/public_html/alisthub/node_modules/express/lib/application.js:617:24)
+    at Object.<anonymous> (/home/bigdata/public_html/alisthub/app.js:65:5)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:312:12)
+
+npm ERR! Linux 2.6.32-431.17.1.el6.x86_64
+npm ERR! argv "node" "/home/bigdata/.nvm/v0.10.25/bin/npm" "start"
+npm ERR! node v0.10.25
+npm ERR! npm  v3.8.8
+npm ERR! code ELIFECYCLE
+npm ERR! alist@0.0.0 start: `node ./bin/www`
+npm ERR! Exit status 8
+npm ERR! 
+npm ERR! Failed at the alist@0.0.0 start script 'node ./bin/www'.
+npm ERR! Make sure you have the latest version of node.js and npm installed.
+npm ERR! If you do, this is most likely a problem with the alist package,
+npm ERR! not with npm itself.
+npm ERR! Tell the author that this fails on your system:
+npm ERR!     node ./bin/www
+npm ERR! You can get information on how to open an issue for this project with:
+npm ERR!     npm bugs alist
+npm ERR! Or if that isn't available, you can get their info via:
+npm ERR!     npm owner ls alist
+npm ERR! There is likely additional logging output above.
+
+npm ERR! Please include the following file with any support request:
+npm ERR!     /home/bigdata/public_html/alisthub/npm-debug.log
+
+> alist@0.0.0 start /home/bigdata/public_html/alisthub
+> node ./bin/www
+
+Server listening at port 5501
+Port 5501 is already in use
+
+npm ERR! Linux 2.6.32-431.17.1.el6.x86_64
+npm ERR! argv "node" "/home/bigdata/.nvm/v0.10.25/bin/npm" "start"
+npm ERR! node v0.10.25
+npm ERR! npm  v3.8.8
+npm ERR! code ELIFECYCLE
+npm ERR! alist@0.0.0 start: `node ./bin/www`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the alist@0.0.0 start script 'node ./bin/www'.
+npm ERR! Make sure you have the latest version of node.js and npm installed.
+npm ERR! If you do, this is most likely a problem with the alist package,
+npm ERR! not with npm itself.
+npm ERR! Tell the author that this fails on your system:
+npm ERR!     node ./bin/www
+npm ERR! You can get information on how to open an issue for this project with:
+npm ERR!     npm bugs alist
+npm ERR! Or if that isn't available, you can get their info via:
+npm ERR!     npm owner ls alist
+npm ERR! There is likely additional logging output above.
+
+npm ERR! Please include the following file with any support request:
+npm ERR!     /home/bigdata/public_html/alisthub/npm-debug.log
+
+> alist@0.0.0 start /home/bigdata/public_html/alisthub
+> node ./bin/www
+
+Server listening at port 5501
+Port 5501 is already in use
+
+npm ERR! Linux 2.6.32-431.17.1.el6.x86_64
+npm ERR! argv "node" "/home/bigdata/.nvm/v0.10.25/bin/npm" "start"
+npm ERR! node v0.10.25
+npm ERR! npm  v3.8.8
+npm ERR! code ELIFECYCLE
+npm ERR! alist@0.0.0 start: `node ./bin/www`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the alist@0.0.0 start script 'node ./bin/www'.
+npm ERR! Make sure you have the latest version of node.js and npm installed.
+npm ERR! If you do, this is most likely a problem with the alist package,
+npm ERR! not with npm itself.
+npm ERR! Tell the author that this fails on your system:
+npm ERR!     node ./bin/www
+npm ERR! You can get information on how to open an issue for this project with:
+npm ERR!     npm bugs alist
+npm ERR! Or if that isn't available, you can get their info via:
+npm ERR!     npm owner ls alist
+npm ERR! There is likely additional logging output above.
+
+npm ERR! Please include the following file with any support request:
+npm ERR!     /home/bigdata/public_html/alisthub/npm-debug.log
+
+> alist@0.0.0 start /home/bigdata/public_html/alisthub
+> node ./bin/www
+
+Server listening at port 5501
+connected as id 86002
+UPDATE `venues` SET seller_id=132, venue_type='Ticket', venue_name='Annual Function2', address='Amritsar, Punjab 143002, India', city='Amritsar', zipcode='143002', state='Punjab', country='India', status='0', latitude='31.633086', longitude='74.867131', created='0000-00-00 00:00:00', fax='2121212121', timezone='Pacific Time (US & Canada)', capacity='200', contact_name='Annual', phone='2147483647', email='test@gmail.com', url='http://localhost:5500/#/add_venue', image='132_image_1462201069659.jpg', seating_chart='132_chart_1462201069659.jpg' where id=7
+Chart Upload
+Image Upload
+[0mPOST /event_setting/addVenue [32m200 [0m387.760 ms - 190[0m
+[0mPOST /event_setting/venueListing [32m200 [0m5.813 ms - 3692[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m430.601 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m34.183 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m17.881 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m27.068 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m36.380 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m48.327 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.590 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m20.285 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m13.425 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m20.253 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.407 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.606 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m8.636 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m12.544 ms - 1207[0m
+[0mGET / [36m304 [0m2.482 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.652 ms - -[0m
+[0mGET /stylesheets/custom-style.css [36m304 [0m1.293 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.575 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m0.276 ms - -[0m
+[0mGET /javascripts/jquery.min.js [36m304 [0m0.307 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m1.199 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m0.618 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.498 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.277 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.295 ms - -[0m
+[0mGET /stylesheets/angucomplete.css [36m304 [0m0.662 ms - -[0m
+[0mGET /javascripts/autocomplete.js [36m304 [0m0.524 ms - -[0m
+[0mGET /javascripts/angucomplete.js [36m304 [0m0.617 ms - -[0m
+[0mGET /javascripts/dirPagination.js [36m304 [0m0.498 ms - -[0m
+[0mGET /javascripts/app.js [36m304 [0m0.560 ms - -[0m
+[0mGET /javascripts/communication.js [36m304 [0m0.283 ms - -[0m
+[0mGET /javascripts/constants.js [36m304 [0m0.277 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.440 ms - -[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.630 ms - -[0m
+[0mGET /stylesheets/animate.css [36m304 [0m0.278 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m1.288 ms - -[0m
+[0mGET /images/user.jpg [36m304 [0m0.645 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m18.304 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m7.251 ms - 1207[0m
+[0mPOST /event_setting/venueOverview [32m200 [0m3.177 ms - 602[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m10.964 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.967 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m12.987 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m11.616 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m18.126 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m25.736 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m33.028 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m38.768 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m43.626 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.165 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.458 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.549 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.686 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.289 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.685 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.244 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.471 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.834 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.950 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m8.670 ms - 1207[0m
+[0mGET /images/venues/132_image_1462201069659.jpg [32m200 [0m2.481 ms - 8210[0m
+[0mGET /images/venues/132_chart_1462201069659.jpg [32m200 [0m0.753 ms - 8210[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.522 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.555 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.217 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.503 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.361 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.667 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m8.876 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.974 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.764 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.480 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.168 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.193 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.173 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m9.960 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.192 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.401 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.868 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.381 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.203 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.159 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.193 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.147 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.105 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.770 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.387 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.109 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.572 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.381 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.226 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m12.198 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.422 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.302 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.184 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.372 ms - 1207[0m
+[0mGET /modules/step_event/service.js [36m304 [0m0.464 ms - -[0m
+[0mPOST /event_setting/getSettingCount [32m200 [0m2.543 ms - 91[0m
+[0mGET / [32m200 [0m0.585 ms - 8191[0m
+[0mGET /stylesheets/login.css [32m200 [0m1.050 ms - 3154[0m
+[0mGET /stylesheets/style.css [32m200 [0m0.598 ms - 28187[0m
+[0mGET /stylesheets/custom-style.css [32m200 [0m0.355 ms - 51[0m
+[0mGET /stylesheets/media.css [32m200 [0m0.367 ms - 1949[0m
+[0mGET /javascripts/angular-ui-router.js [32m200 [0m0.404 ms - 30445[0m
+[0mGET /javascripts/ngStorage.min.js [32m200 [0m0.359 ms - 2276[0m
+[0mGET /stylesheets/autocomplete.css [32m200 [0m0.521 ms - 2264[0m
+[0mGET /javascripts/jquery.min.js [32m200 [0m0.818 ms - 84380[0m
+[0mGET /stylesheets/angucomplete.css [32m200 [0m0.335 ms - 1439[0m
+[0mGET /javascripts/autocomplete.js [32m200 [0m1.647 ms - 19156[0m
+[0mGET /javascripts/ocLazyLoad.js [32m200 [0m0.527 ms - 58637[0m
+[0mGET /javascripts/angucomplete.js [32m200 [0m0.942 ms - 10600[0m
+[0mGET /javascripts/dirPagination.js [32m200 [0m1.066 ms - 27701[0m
+[0mGET /javascripts/angular-min.js [32m200 [0m0.390 ms - 148496[0m
+[0mGET /javascripts/app.js [32m200 [0m0.494 ms - 21543[0m
+[0mGET /javascripts/communication.js [32m200 [0m0.333 ms - 2291[0m
+[0mGET /javascripts/constants.js [32m200 [0m1.035 ms - 2748[0m
+[0mGET /modules/events/controller.js [32m200 [0m0.369 ms - 917[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [32m200 [0m0.345 ms - 4148[0m
+[0mGET /stylesheets/animate.css [32m200 [0m0.388 ms - 75601[0m
+[0mGET /images/logo.png [32m200 [0m0.826 ms - 16692[0m
+[0mGET /images/user.jpg [32m200 [0m0.839 ms - 3002[0m
+[0mGET /modules/events/controller.js [32m200 [0m0.388 ms - 917[0m
+[0mGET /modules/event_setting/service.js [32m200 [0m0.341 ms - 4916[0m
+[0mGET /modules/events/views/dashboard.html [32m200 [0m0.410 ms - 13546[0m
+[0mGET /modules/event_setting/controller.js [32m200 [0m0.669 ms - 21386[0m
+[0mGET /modules/event_setting/views/event_setting.html [36m304 [0m0.328 ms - -[0m
+[0mPOST /event_setting/getSettingCount [32m200 [0m1.391 ms - 91[0m
+[0mGET /modules/event_setting/views/venue/view_venues.html [36m304 [0m0.397 ms - -[0m
+[0mGET /images/icons/loader.gif [32m200 [0m0.501 ms - 2608[0m
+[0mPOST /event_setting/venueListing [32m200 [0m7.498 ms - 2486[0m
+[0mGET /modules/event_setting/views/venue/add_venue.html [36m304 [0m0.425 ms - -[0m
+[0mPOST /event_setting/venueOverview [32m200 [0m4.117 ms - 606[0m
+[0mGET /images/venues/146_image_1462197240944.jpg [32m200 [0m0.459 ms - 17545[0m
+[0mGET /images/venues/146_chart_1462196988687.jpg [33m404 [0m5.924 ms - 1207[0m
+[0mPOST /event_setting/addVenue [33m413 [0m1214.213 ms - 1255[0m
+[0mGET / [36m304 [0m0.654 ms - -[0m
+[0mGET /stylesheets/custom-style.css [36m304 [0m0.322 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m1.953 ms - -[0m
+[0mGET /javascripts/jquery.min.js [36m304 [0m1.376 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.283 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.534 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m0.259 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m0.304 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.233 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.246 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.274 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m0.299 ms - -[0m
+[0mGET /images/user.jpg [36m304 [0m0.281 ms - -[0m
+[0mGET / [36m304 [0m0.250 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.286 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m0.255 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.243 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.242 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.448 ms - -[0m
+[0mGET /stylesheets/custom-style.css [36m304 [0m0.250 ms - -[0m
+[0mGET /javascripts/jquery.min.js [36m304 [0m0.782 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.233 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m0.237 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.257 ms - -[0m
+[0mGET /stylesheets/angucomplete.css [36m304 [0m0.234 ms - -[0m
+[0mGET / [36m304 [0m0.299 ms - -[0m
+[0mGET /images/user.jpg [36m304 [0m0.413 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m0.246 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.333 ms - -[0m
+[0mGET /stylesheets/custom-style.css [36m304 [0m0.252 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.251 ms - -[0m
+[0mGET / [36m304 [0m0.264 ms - -[0m
+[0mGET / [36m304 [0m0.243 ms - -[0m
+[0mGET / [36m304 [0m0.246 ms - -[0m
+[0mGET / [36m304 [0m0.237 ms - -[0m
+[0mGET / [36m304 [0m0.251 ms - -[0m
+[0mGET / [36m304 [0m0.317 ms - -[0m
+[0mGET / [36m304 [0m0.303 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.596 ms - -[0m
+[0mGET /javascripts/jquery.min.js [36m304 [0m0.532 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.746 ms - -[0m
+[0mGET /stylesheets/custom-style.css [36m304 [0m0.248 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m0.248 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m0.239 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.333 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.236 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.239 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.382 ms - -[0m
+[0mGET /stylesheets/angucomplete.css [36m304 [0m0.250 ms - -[0m
+[0mGET /javascripts/angucomplete.js [36m304 [0m0.237 ms - -[0m
+[0mGET /javascripts/autocomplete.js [36m304 [0m0.230 ms - -[0m
+[0mGET /javascripts/dirPagination.js [36m304 [0m0.254 ms - -[0m
+[0mGET /javascripts/app.js [36m304 [0m1.329 ms - -[0m
+[0mGET /javascripts/communication.js [36m304 [0m0.278 ms - -[0m
+[0mGET /javascripts/constants.js [36m304 [0m0.233 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.503 ms - -[0m
+[0mGET /stylesheets/animate.css [36m304 [0m0.446 ms - -[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.249 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m0.265 ms - -[0m
+[0mGET /images/user.jpg [36m304 [0m0.445 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m1.238 ms - -[0m
+[0mGET /modules/event_setting/service.js [36m304 [0m0.295 ms - -[0m
+[0mGET /modules/events/views/dashboard.html [36m304 [0m0.333 ms - -[0m
+[0mGET /modules/event_setting/controller.js [36m304 [0m0.284 ms - -[0m
+[0mGET /modules/event_setting/views/venue/add_venue.html [36m304 [0m0.380 ms - -[0m
+[0mPOST /event_setting/venueOverview [32m200 [0m1.445 ms - 606[0m
+[0mGET /images/venues/146_chart_1462196988687.jpg [33m404 [0m6.708 ms - 1207[0m
+[0mGET /images/venues/146_image_1462197240944.jpg [36m304 [0m0.282 ms - -[0m
+UPDATE `venues` SET seller_id=146, venue_type='Ticket', venue_name='This is a testing', address='14, Costa Mesa, CA 92626, USA', city='Orange County', zipcode='92626', state='California', country='United States', status='1', latitude='33.690963', longitude='-117.917076', created='0000-00-00 00:00:00', fax='53535', timezone='undefined', capacity='234', contact_name='test', phone='889998999', email='manojks@smartdatainc.net', url='http://localhost:5500/#/add_venue', image='146_image_1462201164588.jpg', seating_chart='146_chart_1462201164588.jpg' where id=46
+Chart Upload
+Image Upload
+[0mPOST /event_setting/addVenue [32m200 [0m634.505 ms - 190[0m
+[0mGET /modules/event_setting/views/venue/view_venues.html [36m304 [0m0.372 ms - -[0m
+[0mGET /images/icons/loader.gif [36m304 [0m0.308 ms - -[0m
+[0mPOST /event_setting/venueListing [32m200 [0m2.861 ms - 2486[0m
+[0mPOST /event_setting/venueOverview [32m200 [0m2.374 ms - 606[0m
+[0mGET /images/venues/146_chart_1462201164588.jpg [32m200 [0m0.506 ms - 16501[0m
+[0mGET /images/venues/146_image_1462201164588.jpg [32m200 [0m0.397 ms - 21206[0m
+[0mGET /modules/events/views/create_an_event.html [36m304 [0m0.367 ms - -[0m
+[0mGET /images/icons/event-series.png [36m304 [0m0.349 ms - -[0m
+[0mGET /images/icons/event-single.png [36m304 [0m0.287 ms - -[0m
+[0mGET /images/icons/dollar.png [36m304 [0m1.042 ms - -[0m
+[0mGET /modules/step_event/service.js [36m304 [0m0.371 ms - -[0m
+[0mGET /javascripts/bootstrap-timepicker.js [36m304 [0m0.354 ms - -[0m
+[0mGET /modules/step_event/controller.js [36m304 [0m0.257 ms - -[0m
+[0mGET /modules/step_event/views/create_event_step1.html [36m304 [0m0.330 ms - -[0m
+[0mGET /stylesheets/timepicker.css [36m304 [0m0.303 ms - -[0m
+[0mGET /images/img/s-img.jpg [36m304 [0m0.382 ms - -[0m
+[0mGET /javascripts/timepicker.js?_=1462201137452 [32m200 [0m0.958 ms - 334[0m
+[0mGET /images/img/f-img.jpg [36m304 [0m0.249 ms - -[0m
+[0mPOST /event_setting/venueListing [32m200 [0m1.292 ms - 2486[0m
+[0mGET /modules/event_setting/views/event_setting.html [36m304 [0m0.366 ms - -[0m
+[0mPOST /event_setting/getSettingCount [32m200 [0m1.434 ms - 91[0m
+[0mPOST /event_setting/venueListing [32m200 [0m1.266 ms - 2486[0m
+[0mPOST /event_setting/venueOverview [32m200 [0m3.103 ms - 568[0m
+UPDATE `venues` SET seller_id=146, venue_type='Ticket', venue_name='Venue Testing 1', address='14, Costa Mesa, CA 92626, USA', city='Orange County', zipcode='92626', state='California', country='United States', status='1', latitude='33.690963', longitude='-117.917076', created='0000-00-00 00:00:00', fax='53535', timezone='undefined', capacity='234', contact_name='test', phone='889998999', email='manojks@smartdatainc.net', url='http://localhost:5500/#/add_venue', image='146_image_1462201268669.jpg', seating_chart='146_chart_1462201268669.jpg' where id=47
+Chart Upload
+Image Upload
+[0mPOST /event_setting/addVenue [32m200 [0m948.719 ms - 190[0m
+[0mPOST /event_setting/venueListing [32m200 [0m1.695 ms - 2522[0m
+[0mGET /modules/event_setting/views/venue/venue_overview.html [36m304 [0m0.367 ms - -[0m
+[0mPOST /event_setting/venueOverview [32m200 [0m3.271 ms - 604[0m
+[0mPOST /event_setting/venueOverview [32m200 [0m1.870 ms - 604[0m
+[0mGET /images/venues/146_chart_1462201268669.jpg [32m200 [0m0.540 ms - 49223[0m
+[0mGET /images/venues/146_image_1462201268669.jpg [32m200 [0m0.378 ms - 12795[0m
+[0mGET / [36m304 [0m0.396 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.380 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.286 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m0.370 ms - -[0m
+[0mGET /stylesheets/custom-style.css [36m304 [0m0.279 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.292 ms - -[0m
+[0mGET /stylesheets/angucomplete.css [36m304 [0m0.281 ms - -[0m
+[0mGET /stylesheets/animate.css [36m304 [0m0.266 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m0.334 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.262 ms - -[0m
+[0mGET /javascripts/autocomplete.js [36m304 [0m0.256 ms - -[0m
+[0mGET /javascripts/angucomplete.js [36m304 [0m0.253 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.263 ms - -[0m
+[0mGET /javascripts/dirPagination.js [36m304 [0m0.250 ms - -[0m
+[0mGET /javascripts/app.js [36m304 [0m0.282 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.270 ms - -[0m
+[0mGET /javascripts/communication.js [36m304 [0m0.584 ms - -[0m
+[0mGET /javascripts/jquery.min.js [36m304 [0m0.470 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.356 ms - -[0m
+[0mGET /javascripts/constants.js [36m304 [0m0.267 ms - -[0m
+[0mGET /images/user.jpg [36m304 [0m0.249 ms - -[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.264 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m0.693 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.929 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.350 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m15.014 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m19.552 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.885 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.046 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m11.836 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m16.157 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.307 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m7.529 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m11.008 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m15.808 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.845 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m11.632 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m16.917 ms - 1207[0m
+[0mGET /modules/events/controller.js [36m304 [0m17.686 ms - -[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m22.552 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m27.466 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m32.340 ms - 1207[0m
+[0mGET /modules/event_setting/service.js [36m304 [0m0.368 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.440 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.903 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.199 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.224 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.073 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.054 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.052 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m8.353 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.203 ms - 1207[0m
+[0mGET /modules/events/views/dashboard.html [36m304 [0m0.371 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m9.138 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.222 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.557 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.500 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.083 ms - 1207[0m
+[0mGET /modules/event_setting/controller.js [36m304 [0m0.358 ms - -[0m
+[0mGET /modules/event_setting/views/venue/add_venue.html [32m200 [0m0.660 ms - 11698[0m
+[0mPOST /event_setting/venueOverview [32m200 [0m1.427 ms - 602[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.510 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.131 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.906 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m16.095 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m20.933 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m8.610 ms - 1207[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m14.515 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m19.471 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m26.356 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.542 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.488 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.308 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.845 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.034 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.869 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m11.848 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.371 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.277 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.347 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.275 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.435 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.142 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.172 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m8.208 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.428 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.166 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m15.224 ms - 1207[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m22.824 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m29.456 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.167 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.548 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.349 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.356 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.180 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.679 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.278 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.375 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.074 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.262 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.727 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m19.332 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.647 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.871 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.095 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.282 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.002 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.191 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.004 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.005 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.142 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.239 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.310 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.982 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.030 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.084 ms - 1313[0m
+[0mGET /images/venues/132_image_1462201069659.jpg [36m304 [0m0.288 ms - -[0m
+[0mGET /images/venues/132_chart_1462201069659.jpg [36m304 [0m0.289 ms - -[0m
+[0mGET / [36m304 [0m0.370 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m0.348 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.897 ms - -[0m
+[0mGET /stylesheets/angucomplete.css [36m304 [0m0.474 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.259 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.252 ms - -[0m
+[0mGET /stylesheets/custom-style.css [36m304 [0m0.414 ms - -[0m
+[0mGET /javascripts/angucomplete.js [36m304 [0m1.586 ms - -[0m
+[0mGET /javascripts/autocomplete.js [36m304 [0m0.571 ms - -[0m
+[0mGET /javascripts/dirPagination.js [36m304 [0m0.536 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m0.484 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.281 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.252 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.247 ms - -[0m
+[0mGET /javascripts/jquery.min.js [36m304 [0m0.280 ms - -[0m
+[0mGET /javascripts/app.js [36m304 [0m0.256 ms - -[0m
+[0mGET /javascripts/communication.js [36m304 [0m0.275 ms - -[0m
+[0mGET /javascripts/constants.js [36m304 [0m0.275 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.270 ms - -[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.249 ms - -[0m
+[0mGET /images/user.jpg [36m304 [0m0.258 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m0.318 ms - -[0m
+[0mGET /stylesheets/animate.css [36m304 [0m0.251 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.523 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.827 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.751 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m15.647 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.086 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.949 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m16.025 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m20.915 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.261 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.760 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m7.097 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m10.779 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m15.678 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.780 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m10.661 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m6.355 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m11.243 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m16.021 ms - 1313[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.430 ms - -[0m
+[0mGET /modules/event_setting/service.js [36m304 [0m0.292 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.392 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.998 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.130 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.984 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.216 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.060 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.048 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.242 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.127 ms - 1313[0m
+[0mGET /modules/events/views/dashboard.html [36m304 [0m0.308 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.083 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.007 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.081 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.007 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.124 ms - 1313[0m
+[0mGET /modules/event_setting/controller.js [36m304 [0m0.271 ms - -[0m
+[0mGET /modules/event_setting/views/venue/add_venue.html [32m200 [0m0.828 ms - 11698[0m
+[0mPOST /event_setting/venueOverview [32m200 [0m1.890 ms - 602[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.853 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m11.254 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m16.093 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.956 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m14.316 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m19.201 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m24.049 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.505 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.271 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.197 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.400 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.196 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.077 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.041 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.004 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.027 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.986 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.016 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.996 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.992 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.495 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.578 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.035 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.067 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.221 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.023 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.018 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.043 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.300 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m12.956 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.097 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.098 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.021 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.019 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.186 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.997 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.022 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.027 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.356 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.281 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.299 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.095 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.002 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.057 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.248 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.149 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.035 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.004 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.077 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.997 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.434 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.129 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.041 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.578 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.192 ms - 1313[0m
+[0mGET /images/venues/132_image_1462201069659.jpg [36m304 [0m0.293 ms - -[0m
+[0mGET /images/venues/132_chart_1462201069659.jpg [36m304 [0m2.109 ms - -[0m
+[0mGET / [36m304 [0m0.387 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.764 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.598 ms - -[0m
+[0mGET /stylesheets/custom-style.css [36m304 [0m0.305 ms - -[0m
+[0mGET /stylesheets/angucomplete.css [36m304 [0m0.254 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.280 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m0.237 ms - -[0m
+[0mGET /javascripts/autocomplete.js [36m304 [0m0.370 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.663 ms - -[0m
+[0mGET /javascripts/dirPagination.js [36m304 [0m0.489 ms - -[0m
+[0mGET /javascripts/app.js [36m304 [0m0.569 ms - -[0m
+[0mGET /javascripts/angucomplete.js [36m304 [0m0.456 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.238 ms - -[0m
+[0mGET /javascripts/jquery.min.js [36m304 [0m0.371 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.368 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m0.375 ms - -[0m
+[0mGET /javascripts/communication.js [36m304 [0m0.334 ms - -[0m
+[0mGET /stylesheets/animate.css [36m304 [0m0.309 ms - -[0m
+[0mGET /images/user.jpg [36m304 [0m0.413 ms - -[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.292 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m0.253 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.277 ms - -[0m
+[0mGET /javascripts/constants.js [36m304 [0m0.260 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.540 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.611 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.257 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m14.894 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.877 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.880 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m15.565 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m20.264 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.215 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.470 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.611 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m10.263 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m14.938 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.391 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m11.179 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m17.112 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m21.823 ms - 1313[0m
+[0mGET /modules/events/controller.js [36m304 [0m21.794 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m26.475 ms - 1313[0m
+[0mGET /modules/authentication/controller.js [36m304 [0m0.318 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.501 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.150 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.200 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.095 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.069 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.003 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.961 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.131 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m4.989 ms - 1313[0m
+[0mGET /modules/events/views/dashboard.html [36m304 [0m0.373 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.144 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.002 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.103 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.156 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.018 ms - 1313[0m
+[0mGET /modules/authentication/views/login.html [36m304 [0m0.436 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.019 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m6.768 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m11.650 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m16.556 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.242 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.444 ms - 1313[0m
+[0mGET /images/logo-l.png [36m304 [0m6.436 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m11.239 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m16.173 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m21.076 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.479 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.040 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.210 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.224 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.248 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.224 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.342 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.866 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m12.861 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m17.784 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.738 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.283 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.122 ms - 1313[0m
+[0mGET /modules/event_setting/service.js [36m304 [0m0.359 ms - -[0m
+[0mGET /modules/event_setting/controller.js [36m304 [0m0.375 ms - -[0m
+[0mGET /modules/event_setting/views/event_setting.html [36m304 [0m0.380 ms - -[0m
+[0mPOST /event_setting/getSettingCount [32m200 [0m1.790 ms - 91[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.707 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.103 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.966 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.960 ms - 1313[0m
+[0mGET /modules/event_setting/question_controller.js [32m200 [0m0.585 ms - 5664[0m
+[0mGET /modules/event_setting/views/question/add_question.html [32m200 [0m0.504 ms - 3131[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m8.301 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m12.917 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.659 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.355 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m15.073 ms - 1313[0m
+[0mGET /modules/authentication/controller.js [36m304 [0m0.350 ms - -[0m
+[0mGET /modules/authentication/views/login.html [36m304 [0m0.365 ms - -[0m
+[0mGET /images/logo-l.png [36m304 [0m0.294 ms - -[0m
+[0mGET /images/bg.jpg [36m304 [0m0.237 ms - -[0m
+[0mGET / [36m304 [0m0.476 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.362 ms - -[0m
+[0mGET /stylesheets/custom-style.css [36m304 [0m0.280 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m0.266 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.252 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.331 ms - -[0m
+[0mGET /stylesheets/angucomplete.css [36m304 [0m0.267 ms - -[0m
+[0mGET /javascripts/autocomplete.js [36m304 [0m0.287 ms - -[0m
+[0mGET /javascripts/jquery.min.js [36m304 [0m0.562 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.472 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m0.254 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.255 ms - -[0m
+[0mGET /javascripts/dirPagination.js [36m304 [0m0.284 ms - -[0m
+[0mGET /javascripts/angucomplete.js [36m304 [0m0.238 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.774 ms - -[0m
+[0mGET /javascripts/app.js [36m304 [0m0.626 ms - -[0m
+[0mGET /javascripts/communication.js [36m304 [0m0.260 ms - -[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.268 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.262 ms - -[0m
+[0mGET /javascripts/constants.js [36m304 [0m0.245 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m0.263 ms - -[0m
+[0mGET /images/user.jpg [36m304 [0m0.245 ms - -[0m
+[0mGET /stylesheets/animate.css [36m304 [0m0.362 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.458 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.285 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m9.966 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m6.105 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.732 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m15.391 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m20.040 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m24.689 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.114 ms - 1313[0m
+[0mGET / [36m304 [0m0.260 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.270 ms - -[0m
+[0mGET /stylesheets/custom-style.css [36m304 [0m0.251 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.239 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m0.231 ms - -[0m
+[0mGET /javascripts/jquery.min.js [36m304 [0m0.263 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m0.253 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.226 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.221 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m0.219 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.237 ms - -[0m
+[0mGET /stylesheets/angucomplete.css [36m304 [0m0.263 ms - -[0m
+[0mGET /javascripts/autocomplete.js [36m304 [0m0.231 ms - -[0m
+[0mGET /javascripts/angucomplete.js [36m304 [0m0.231 ms - -[0m
+[0mGET /javascripts/dirPagination.js [36m304 [0m0.234 ms - -[0m
+[0mGET /javascripts/communication.js [36m304 [0m2.351 ms - -[0m
+[0mGET /javascripts/app.js [36m304 [0m1.324 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.490 ms - -[0m
+[0mGET /javascripts/constants.js [36m304 [0m0.427 ms - -[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.514 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.573 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m10.227 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m14.879 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m6.321 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m10.933 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m18.364 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m24.894 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m30.778 ms - 1313[0m
+[0mGET /modules/events/controller.js [36m304 [0m30.765 ms - -[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.268 ms - -[0m
+[0mGET /stylesheets/animate.css [36m304 [0m0.234 ms - -[0m
+[0mGET /modules/event_setting/service.js [36m304 [0m0.270 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.217 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.268 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.592 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.009 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m7.722 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.044 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.243 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m9.867 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.615 ms - 1313[0m
+[0mGET /images/user.jpg [36m304 [0m0.262 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m0.236 ms - -[0m
+[0mGET /modules/events/views/dashboard.html [36m304 [0m0.276 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.120 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.024 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.970 ms - 1313[0m
+[0mGET /javascripts/angular.min.js.map [33m404 [0m5.089 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m4.991 ms - 1313[0m
+[0mGET /modules/event_setting/question_controller.js [36m304 [0m0.292 ms - -[0m
+[0mGET /modules/authentication/controller.js [36m304 [0m0.245 ms - -[0m
+[0mGET /modules/authentication/views/login.html [36m304 [0m0.296 ms - -[0m
+[0mGET /modules/event_setting/views/question/add_question.html [32m200 [0m0.496 ms - 3171[0m
+[0mGET /images/logo-l.png [36m304 [0m0.394 ms - -[0m
+[0mGET /images/bg.jpg [36m304 [0m0.246 ms - -[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.482 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m8.213 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m14.391 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m5.666 ms - 1313[0m
+[0mGET /javascripts/jquery.min.map [33m404 [0m10.515 ms - 1313[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.346 ms - -[0m
+[0mGET /modules/events/views/dashboard.html [36m304 [0m0.346 ms - -[0m
+[0mGET /modules/event_setting/service.js [36m304 [0m0.443 ms - -[0m
+[0mGET /modules/event_setting/controller.js [36m304 [0m0.459 ms - -[0m
+[0mGET /modules/event_setting/views/event_setting.html [36m304 [0m0.307 ms - -[0m
+[0mPOST /event_setting/getSettingCount [32m200 [0m1.668 ms - 91[0m
+[0mGET / [36m304 [0m0.348 ms - -[0m
+[0mGET /stylesheets/media.css [36m304 [0m0.293 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.533 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.460 ms - -[0m
+[0mGET /stylesheets/custom-style.css [36m304 [0m0.231 ms - -[0m
+[0mGET /javascripts/jquery.min.js [36m304 [0m0.248 ms - -[0m
+[0mGET /javascripts/angular-min.js [36m304 [0m1.226 ms - -[0m
+[0mGET /javascripts/angular-ui-router.js [36m304 [0m0.307 ms - -[0m
+[0mGET /javascripts/ngStorage.min.js [36m304 [0m1.959 ms - -[0m
+[0mGET /stylesheets/autocomplete.css [36m304 [0m0.456 ms - -[0m
+[0mGET /javascripts/ocLazyLoad.js [36m304 [0m0.229 ms - -[0m
+[0mGET /stylesheets/angucomplete.css [36m304 [0m0.226 ms - -[0m
+[0mGET /javascripts/autocomplete.js [36m304 [0m0.220 ms - -[0m
+[0mGET /javascripts/angucomplete.js [36m304 [0m0.280 ms - -[0m
+[0mGET /javascripts/dirPagination.js [36m304 [0m0.238 ms - -[0m
+[0mGET /javascripts/communication.js [36m304 [0m0.232 ms - -[0m
+[0mGET /javascripts/app.js [36m304 [0m0.224 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.227 ms - -[0m
+[0mGET /javascripts/constants.js [36m304 [0m0.230 ms - -[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [36m304 [0m0.344 ms - -[0m
+[0mGET /stylesheets/animate.css [36m304 [0m0.275 ms - -[0m
+[0mGET /images/logo.png [36m304 [0m0.326 ms - -[0m
+[0mGET /images/user.jpg [36m304 [0m0.221 ms - -[0m
+[0mGET /modules/authentication/controller.js [36m304 [0m0.477 ms - -[0m
+[0mGET /modules/authentication/views/login.html [36m304 [0m0.343 ms - -[0m
+[0mGET /images/logo-l.png [36m304 [0m0.301 ms - -[0m
+[0mGET /images/bg.jpg [36m304 [0m0.248 ms - -[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.337 ms - -[0m
+[0mGET /modules/events/views/dashboard.html [36m304 [0m0.295 ms - -[0m
+[0mGET /modules/event_setting/service.js [36m304 [0m0.328 ms - -[0m
+[0mGET /modules/event_setting/controller.js [36m304 [0m0.322 ms - -[0m
+[0mGET /modules/event_setting/views/event_setting.html [36m304 [0m0.319 ms - -[0m
+[0mPOST /event_setting/getSettingCount [32m200 [0m1.250 ms - 91[0m
+[0mGET /modules/event_setting/product_controller.js [36m304 [0m0.331 ms - -[0m
+[0mGET /modules/event_setting/views/product/view_product.html [32m200 [0m0.515 ms - 4174[0m
+[0mGET /images/icons/loader.gif [36m304 [0m0.319 ms - -[0m
+[0mPOST /event_setting/getProducts [32m200 [0m2.617 ms - 934[0m
+[0mGET /modules/event_setting/views/product/add_product.html [36m304 [0m0.349 ms - -[0m
+[0mPOST /event_setting/getSettingCount [32m200 [0m1.657 ms - 91[0m
+[0mGET /modules/event_setting/question_controller.js [36m304 [0m0.343 ms - -[0m
+[0mGET /modules/event_setting/views/question/add_question.html [32m200 [0m0.472 ms - 3171[0m
+[0mGET / [32m200 [0m13.611 ms - 8191[0m
+[0mGET /stylesheets/login.css [32m200 [0m17.505 ms - 3154[0m
+[0mGET /stylesheets/custom-style.css [32m200 [0m1.204 ms - 51[0m
+[0mGET /stylesheets/media.css [32m200 [0m1.156 ms - 1949[0m
+[0mGET /javascripts/angular-ui-router.js [32m200 [0m1.265 ms - 30445[0m
+[0mGET /stylesheets/style.css [32m200 [0m22.607 ms - 28187[0m
+[0mGET /javascripts/jquery.min.js [32m200 [0m0.716 ms - 84380[0m
+[0mGET /javascripts/ngStorage.min.js [32m200 [0m16.383 ms - 2276[0m
+[0mGET /stylesheets/autocomplete.css [32m200 [0m8.900 ms - 2264[0m
+[0mGET /stylesheets/angucomplete.css [32m200 [0m3.786 ms - 1439[0m
+[0mGET /javascripts/ocLazyLoad.js [32m200 [0m0.739 ms - 58637[0m
+[0mGET /javascripts/autocomplete.js [32m200 [0m0.556 ms - 19156[0m
+[0mGET /javascripts/angucomplete.js [32m200 [0m3.555 ms - 10600[0m
+[0mGET /javascripts/dirPagination.js [32m200 [0m17.246 ms - 27701[0m
+[0mGET /javascripts/angular-min.js [32m200 [0m22.941 ms - 148496[0m
+[0mGET /javascripts/app.js [32m200 [0m0.498 ms - 21543[0m
+[0mGET /javascripts/communication.js [32m200 [0m0.520 ms - 2291[0m
+[0mGET /javascripts/constants.js [32m200 [0m16.778 ms - 2748[0m
+[0mGET /modules/events/controller.js [32m200 [0m24.018 ms - 917[0m
+[0mGET /stylesheets/animate.css [32m200 [0m16.385 ms - 75601[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [32m200 [0m40.147 ms - 4148[0m
+[0mGET /assets/images/favicon.png [33m404 [0m5.999 ms - 1313[0m
+[0mGET /assets/images/favicon.png [33m404 [0m5.235 ms - 1313[0m
+[0mGET /images/user.jpg [32m200 [0m14.627 ms - 3002[0m
+[0mGET /images/logo.png [32m200 [0m17.755 ms - 16692[0m
+[0mGET /modules/authentication/controller.js [32m200 [0m0.639 ms - 8366[0m
+[0mGET /modules/authentication/views/login.html [32m200 [0m0.623 ms - 2249[0m
+[0mGET /images/logo-l.png [32m200 [0m1.304 ms - 12431[0m
+[0mGET /images/bg.jpg [32m200 [0m11.101 ms - 159785[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.396 ms - -[0m
+[0mGET /modules/events/views/dashboard.html [32m200 [0m2.796 ms - 13546[0m
+[0mGET /modules/events/views/view_event.html [32m200 [0m0.678 ms - 8393[0m
+[0mGET /modules/events/views/create_an_event.html [32m200 [0m0.711 ms - 1749[0m
+[0mGET /images/icons/event-single.png [32m200 [0m15.852 ms - 1693[0m
+[0mGET /images/icons/dollar.png [32m200 [0m0.427 ms - 1697[0m
+[0mGET /images/icons/event-series.png [32m200 [0m13.161 ms - 1735[0m
+[0mGET /modules/step_event/service.js [32m200 [0m16.354 ms - 923[0m
+[0mGET /modules/step_event/controller.js [32m200 [0m20.021 ms - 21231[0m
+[0mGET /javascripts/bootstrap-timepicker.js [32m200 [0m30.577 ms - 34375[0m
+[0mGET /modules/step_event/views/create_event_step1.html [32m200 [0m16.420 ms - 44783[0m
+[0mGET /images/img/f-img.jpg [32m200 [0m17.692 ms - 12803[0m
+[0mGET /images/img/s-img.jpg [32m200 [0m18.356 ms - 21813[0m
+[0mGET /stylesheets/timepicker.css [32m200 [0m23.256 ms - 3836[0m
+[0mGET /javascripts/timepicker.js?_=1462223559783 [32m200 [0m10.690 ms - 334[0m
+[0mPOST /event_setting/venueListing [32m200 [0m19.704 ms - 24[0m
+[0mGET /images/logo-l.png [36m304 [0m0.376 ms - -[0m
+[0mGET /images/icons/event-single.png [36m304 [0m0.366 ms - -[0m
+[0mGET /images/icons/event-series.png [36m304 [0m0.286 ms - -[0m
+[0mGET /images/icons/dollar.png [36m304 [0m0.291 ms - -[0m
+[0mGET /javascripts/timepicker.js?_=1462223559784 [32m200 [0m0.510 ms - 334[0m
+[0mPOST /event_setting/venueListing [32m200 [0m0.973 ms - 24[0m
+[0mGET /modules/event_setting/service.js [32m200 [0m23.476 ms - 4916[0m
+[0mGET /modules/event_setting/controller.js [32m200 [0m15.378 ms - 21386[0m
+[0mGET /modules/event_setting/views/event_setting.html [32m200 [0m0.891 ms - 4406[0m
+[0mGET /%7B%7Bredirectques%7D%7D [33m404 [0m149.014 ms - 1311[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.351 ms - -[0m
+[0mGET /stylesheets/animate.css [36m304 [0m0.314 ms - -[0m
+[0mGET /stylesheets/login.css [36m304 [0m0.268 ms - -[0m
+[0mGET /favicon.ico [33m404 [0m6.000 ms - 1313[0m
+[0mGET /favicon.ico [33m404 [0m5.524 ms - 1313[0m
+[0mPOST /event_setting/getSettingCount [32m200 [0m7.121 ms - 91[0m
+[0mGET /modules/events/views/view_event.html [36m304 [0m0.373 ms - -[0m
+[0mGET /modules/authentication/controller.js [36m304 [0m1.100 ms - -[0m
+[0mGET /modules/authentication/views/login.html [36m304 [0m0.270 ms - -[0m
+[0mGET / [32m200 [0m17.546 ms - 8191[0m
+[0mGET /stylesheets/login.css [32m200 [0m16.513 ms - 3154[0m
+[0mGET /stylesheets/style.css [32m200 [0m21.492 ms - 28187[0m
+[0mGET /stylesheets/media.css [32m200 [0m6.142 ms - 1949[0m
+[0mGET /stylesheets/custom-style.css [32m200 [0m28.443 ms - 51[0m
+[0mGET /javascripts/angular-ui-router.js [32m200 [0m0.582 ms - 30445[0m
+[0mGET /javascripts/ngStorage.min.js [32m200 [0m14.238 ms - 2276[0m
+[0mGET /stylesheets/autocomplete.css [32m200 [0m0.415 ms - 2264[0m
+[0mGET /stylesheets/angucomplete.css [32m200 [0m1.134 ms - 1439[0m
+[0mGET /javascripts/ocLazyLoad.js [32m200 [0m9.571 ms - 58637[0m
+[0mGET /javascripts/autocomplete.js [32m200 [0m14.984 ms - 19156[0m
+[0mGET /javascripts/angucomplete.js [32m200 [0m1.718 ms - 10600[0m
+[0mGET /javascripts/jquery.min.js [32m200 [0m16.937 ms - 84380[0m
+[0mGET /javascripts/dirPagination.js [32m200 [0m9.721 ms - 27701[0m
+[0mGET /javascripts/app.js [32m200 [0m5.749 ms - 21543[0m
+[0mGET /javascripts/communication.js [32m200 [0m0.404 ms - 2291[0m
+[0mGET /javascripts/constants.js [32m200 [0m13.431 ms - 2748[0m
+[0mGET /modules/events/controller.js [32m200 [0m16.731 ms - 917[0m
+[0mGET /stylesheets/animate.css [32m200 [0m0.573 ms - 75601[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [32m200 [0m6.801 ms - 4148[0m
+[0mGET /assets/images/favicon.png [33m404 [0m21.840 ms - 1313[0m
+[0mGET /javascripts/angular-min.js [32m200 [0m8.034 ms - 148496[0m
+[0mGET /assets/images/favicon.png [33m404 [0m5.334 ms - 1313[0m
+[0mGET /images/logo.png [32m200 [0m9.668 ms - 16692[0m
+[0mGET /images/user.jpg [32m200 [0m0.412 ms - 3002[0m
+[0mGET /modules/authentication/controller.js [32m200 [0m0.529 ms - 8366[0m
+[0mGET /modules/authentication/views/login.html [32m200 [0m0.542 ms - 2249[0m
+[0mGET /favicon.ico [33m404 [0m5.339 ms - 1313[0m
+[0mGET /favicon.ico [33m404 [0m5.257 ms - 1313[0m
+[0mGET /images/logo-l.png [32m200 [0m0.485 ms - 12431[0m
+[0mGET /images/bg.jpg [32m200 [0m17.810 ms - 159785[0m
+[0mGET /modules/events/controller.js [36m304 [0m0.325 ms - -[0m
+[0mGET /modules/events/views/dashboard.html [32m200 [0m0.542 ms - 13546[0m
+[0mGET /modules/events/views/create_an_event.html [32m200 [0m0.579 ms - 1749[0m
+[0mGET /images/icons/dollar.png [32m200 [0m0.558 ms - 1697[0m
+[0mGET /images/icons/event-single.png [32m200 [0m1.324 ms - 1693[0m
+[0mGET /images/icons/event-series.png [32m200 [0m0.464 ms - 1735[0m
+[0mGET /modules/step_event/service.js [32m200 [0m0.607 ms - 923[0m
+[0mGET /javascripts/bootstrap-timepicker.js [32m200 [0m0.475 ms - 34375[0m
+[0mGET /modules/step_event/controller.js [32m200 [0m17.704 ms - 21231[0m
+[0mGET /modules/step_event/views/create_event_step1.html [32m200 [0m14.643 ms - 44783[0m
+[0mGET /javascripts/timepicker.js?_=1462248769552 [32m200 [0m0.333 ms - 334[0m
+[0mGET /stylesheets/timepicker.css [32m200 [0m11.473 ms - 3836[0m
+[0mGET /images/img/f-img.jpg [32m200 [0m15.726 ms - 12803[0m
+[0mGET /images/img/s-img.jpg [32m200 [0m2.541 ms - 21813[0m
+[0mPOST /event_setting/venueListing [32m200 [0m5.105 ms - 3692[0m
+[0mGET / [32m200 [0m0.458 ms - 8191[0m
+[0mGET /stylesheets/login.css [32m200 [0m0.384 ms - 3154[0m
+[0mGET /stylesheets/style.css [32m200 [0m0.470 ms - 28187[0m
+[0mGET /stylesheets/custom-style.css [32m200 [0m1.925 ms - 51[0m
+[0mGET /stylesheets/media.css [32m200 [0m0.303 ms - 1949[0m
+[0mGET /javascripts/angular-ui-router.js [32m200 [0m0.503 ms - 30445[0m
+[0mGET /javascripts/ngStorage.min.js [32m200 [0m0.350 ms - 2276[0m
+[0mGET /stylesheets/autocomplete.css [32m200 [0m0.561 ms - 2264[0m
+[0mGET /stylesheets/angucomplete.css [32m200 [0m0.382 ms - 1439[0m
+[0mGET /javascripts/jquery.min.js [32m200 [0m3.311 ms - 84380[0m
+[0mGET /javascripts/ocLazyLoad.js [32m200 [0m0.684 ms - 58637[0m
+[0mGET /javascripts/autocomplete.js [32m200 [0m0.629 ms - 19156[0m
+[0mGET /javascripts/angucomplete.js [32m200 [0m0.355 ms - 10600[0m
+[0mGET /javascripts/dirPagination.js [32m200 [0m0.351 ms - 27701[0m
+[0mGET /javascripts/angular-min.js [32m200 [0m0.577 ms - 148496[0m
+[0mGET /javascripts/app.js [32m200 [0m0.467 ms - 21543[0m
+[0mGET /javascripts/communication.js [32m200 [0m0.539 ms - 2291[0m
+[0mGET /javascripts/constants.js [32m200 [0m0.504 ms - 2748[0m
+[0mGET /modules/events/controller.js [32m200 [0m0.415 ms - 917[0m
+[0mGET /javascripts/directives/angular-ckeditor.js [32m200 [0m0.343 ms - 4148[0m
+[0mGET /stylesheets/animate.css [32m200 [0m0.507 ms - 75601[0m
+[0mGET /images/user.jpg [32m200 [0m0.773 ms - 3002[0m
+[0mGET /images/logo.png [32m200 [0m0.371 ms - 16692[0m
+[0mGET /modules/events/controller.js [32m200 [0m0.475 ms - 917[0m
+[0mGET /modules/authentication/controller.js [32m200 [0m0.362 ms - 8366[0m
+[0mGET /modules/events/views/dashboard.html [32m200 [0m0.650 ms - 13546[0m
+[0mGET /modules/authentication/views/login.html [0m- [0m- ms - -[0m

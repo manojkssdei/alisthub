@@ -55,6 +55,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
               }); 
         }  
         }else{
+
          
           data.userId=$localStorage.userId;
          
@@ -64,6 +65,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                    $scope.success="Event Successfully Saved.";
                    $scope.data={};
                         $scope.error_message=false;
+
                          $timeout(function() {
                           
                            $scope.success='';

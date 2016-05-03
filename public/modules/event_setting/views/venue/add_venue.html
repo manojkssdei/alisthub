@@ -20,7 +20,8 @@
                           <div class="form-group">
                             <label for="EventName">Venue Type<span class="req">*</span></label>
                             <select class="form-control" name="venue_type" ng-model="data.venue_type" required>
-                              <option>Ticket</option>
+                              <option>General Admission</option>
+			      <option>Seated</option>
                             </select>
                           </div>
 			  <p ng-show="userForm.venue_type.$invalid && !userForm.venue_type.$pristine" class="help-block">Select Venue type.</p>
@@ -170,8 +171,8 @@
                             <!--<input type="file" class="form-control" name="image" ng-model="data.image">-->
 			    <input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles">
                             
-			    <p><div id="imgTest" ng-model="picDatatest"></div>
-			    <div id="data.image"><img ng-src="/images/venues/{{ data.image }}"></div> 
+			    <p><div id="imgTest" ng-model="picDatatest"></div>&nbsp;</p>
+			    <p><div id="data.image" ng-if="data.image != 'undefined'"><img ng-src="/images/venues/{{ data.image }}"></div> 
 			    </p>
 			  </div>
                         </div>
@@ -179,8 +180,8 @@
                           <div class="form-group">
                             <label for="Zipcode">Seating Chart<span class="req"></span></label>
                             <input  id="inputFileToLoad5" type="file" onchange="angular.element(this).scope().encodeChartFileAsURL(this)" file-model="file.seating_chart">
-			      <p><div id="imgTest5" ng-model="picDatatest5"></div>
-			      <div id="data.seating_chart"><img ng-src="/images/venues/{{ data.seating_chart }}"></div>
+			      <p><div id="imgTest5" ng-model="picDatatest5"></div>&nbsp;</p>
+			      <p><div id="data.seating_chart" ng-if="data.seating_chart != 'undefined'"><img ng-src="/images/venues/{{ data.seating_chart }}"></div>
 			      </p>
 			    <!--<input type="file" class="form-control" name="seating_chart" ng-model="data.seating_chart">-->
                           </div>
