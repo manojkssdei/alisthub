@@ -1,8 +1,8 @@
 angular.module("google.places",[]);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce) { 
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
    //For Step 1
     var $serviceTest = $injector.get("venues");
-  
+    $scope.select_delect_event=true;
     $scope.days_div=$scope.error_message=true;
     $scope.select_checkbox=function($event){
         var dateArray = new Array();
@@ -51,8 +51,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                            $scope.success='';
                            $scope.error_message=true;
                          },3000);
+                        console.log($location.path());
+                         $location.path();
               }
-              }); 
+              });
+            
         }  
         }else{
 
@@ -71,9 +74,12 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                            $scope.success='';
                            $scope.error_message=true;
                          },3000);
+                         console.log($location.path());
+                         $location.path();
               }
               }); 
         }
+        
         
     
     }
@@ -96,11 +102,12 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         },3000);
         }
        }else{
-        if (($scope.data.period=='weekly')||($scope.data.period=='monthly')) {
+        if (($scope.data.period=='hourly')||($scope.data.period=='monthly')) {
             $scope.days_div=false;
             $scope.between_date=[];
         }else{
-            if ($scope.data.period!=undefined) {
+           console.log($scope.data.period); 
+        if ($scope.data.period!=undefined) {
                 $scope.days_div=true;
                 currentDate=new Date($scope.multiple_start_date);
                 endDate=new Date($scope.multiple_end_date);
@@ -127,7 +134,9 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     ]
     $scope.timeperiod=[
       {id: 'daily', name: 'Daily'},
-      {id: 'weekly', name: 'Weekly'}
+      {id: 'hourly', name: 'Hourly'},
+      {id:'weekly',name:'Weekly'},
+      {id:'monthly',name:'Monthly'}
     ]
      $rootScope.starttime='';
      $rootScope.endtime='';
@@ -525,6 +534,7 @@ $scope.items = ['item1'];
    {
     if($rootScope.selectevent_date==undefined)
     {
+        $scope.select_delect_event=false;
         var d=new Date($scope.start_date);
         var curr_date = d.getDate();
         var curr_month = d.getMonth();
@@ -550,7 +560,7 @@ $scope.items = ['item1'];
     }
    }
    
-   $scope.single_eventend=function()
+  /* $scope.single_eventend=function()
    {
     if($rootScope.selectevent_date==undefined)
     {
@@ -577,7 +587,7 @@ $scope.items = ['item1'];
     });
     }
     
-   }
+   }*/
    
    $scope.remove_event=function()
    {
@@ -596,11 +606,13 @@ $scope.items = ['item1'];
    }
    
    $scope.changedstarttime=function(){
+    $scope.select_delect_event=false;
     $rootScope.startevent_time=$filter('date')($scope.starttime, 'shortTime');
     
    } 
    
-   $scope.changedendtime=function(){ 
+   $scope.changedendtime=function(){
+    $scope.select_delect_event=false;
     $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');
    }
    
@@ -647,6 +659,7 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
     delete $rootScope.selectevent_date;
     delete $rootScope.startevent_time;
     delete $rootScope.endevent_time;
+   
     $uibModalInstance.close($scope.selected.item);
   }
 
