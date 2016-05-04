@@ -1,9 +1,68 @@
 angular.module("google.places",[]);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce) { 
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
    //For Step 1
     var $serviceTest = $injector.get("venues");
-  
-    $scope.days_div=$scope.error_message=true;
+    $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=true;
+    
+    $scope.days=[
+      {id: '0', name: 'Sun'},
+      {id: '1', name: 'Mon'},
+      {id: '2', name: 'Tues'},
+      {id: '3', name: 'Wed'},
+      {id: '4', name: 'Thurs'},
+      {id: '5', name: 'Fri'},
+      {id: '6', name: 'Sat'}
+    ]
+    $scope.dates=[
+                 {id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9},{id:10},
+                 {id:11},{id:12},{id:13},{id:14},{id:15},{id:16},{id:17},{id:18},{id:19},{id:20},
+                 {id:21},{id:22},{id:23},{id:24},{id:25},{id:26},{id:27},{id:28},{id:29},{id:30},{id:31}
+                 ];
+    $scope.change_month=function(){
+      
+       var monthly_start=new Date($scope.multiple_start_date);
+       var monthly_end=new Date($scope.multiple_end_date);
+       var dateArray = new Array();
+       while (monthly_start<=monthly_end)
+          {
+            if(monthly_start.getDate()==$scope.data.monthly_option)
+            {
+              var currentDate=JSON.parse(JSON.stringify(monthly_start));
+              dateArray.push(currentDate);
+            }
+            monthly_start.setDate(monthly_start.getDate() + 1);
+          }
+          $scope.between_date=dateArray;
+    }
+    $scope.timeperiod=[
+      {id: 'daily', name: 'Daily'},
+      {id: 'hourly', name: 'Hourly'},
+      {id:'weekly',name:'Weekly'},
+      {id:'monthly',name:'Monthly'}
+    ]
+    $scope.removediv=function(index){
+        $scope.between_date.splice(index,1);
+    }
+    $scope.weekly_div=true;
+    $scope.weekly_option_change=function(){
+        
+         var weekly_start=new Date($scope.multiple_start_date);
+         var weekly_end=new Date($scope.multiple_end_date);
+        var dateArray = new Array();
+         while (weekly_start<=weekly_end)
+          {
+            var currentDate=JSON.parse(JSON.stringify(weekly_start));
+            
+           if (weekly_start.getDay()==$scope.data.weekly_option) {
+           
+              dateArray.push(currentDate);
+              
+           }
+            weekly_start.setDate(weekly_start.getDate() + 1);
+          }
+          $scope.between_date=dateArray;
+    }
+    
     $scope.select_checkbox=function($event){
         var dateArray = new Array();
        angular.forEach($scope.days, function(day){
@@ -29,8 +88,54 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
        $scope.between_date=dateArray; 
      
     }
-    $scope.error_message=true;
-    $scope.savedata=function(data)
+     $scope.recurring_period=function(action){
+       //console.log($scope.data.period);
+       
+       if(($scope.multiple_start_date===undefined)||($scope.multiple_end_date==undefined))
+       {
+        if ((action=='start')||(action=='end')) {}else{
+        $scope.error="Please select start date and end date.";
+        $scope.error_message=false;
+        $timeout(function() {
+             
+          $scope.error='';
+          $scope.error_message=true;
+          $scope.data.period='';
+        },3000);
+        }
+       }else{
+      
+        
+        if ($scope.data.period=='daily') {
+            $scope.weekly_div=$scope.monthly_div=$scope.days_div=true;
+            if ($scope.data.period!=undefined) {
+                
+                currentDate=new Date($scope.multiple_start_date);
+                endDate=new Date($scope.multiple_end_date);
+                
+                var between=[];
+                while (currentDate <= endDate) {
+                    between.push(new Date(currentDate));
+                    currentDate.setDate(currentDate.getDate() + 1);
+                    
+                }
+                $scope.between_date=between;  
+            }
+        }
+        else if ($scope.data.period=='hourly') {
+            $scope.days_div=false;$scope.weekly_div=$scope.monthly_div=true;
+            $scope.between_date=[];
+        }else if ($scope.data.period=='weekly') {
+           $scope.weekly_div=false;$scope.days_div=$scope.monthly_div=true;
+        }else if ($scope.data.period=='monthly'){
+            $scope.weekly_div=$scope.days_div=true;$scope.monthly_div=false;
+            console.log($scope.data.period);
+        }
+      
+       } 
+    }
+    
+     $scope.savedata=function(data)
     {
         if (data.eventtype=='single') {
           if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
@@ -51,8 +156,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                            $scope.success='';
                            $scope.error_message=true;
                          },3000);
+                        
+                         window.location.reload();
               }
-              }); 
+              });
+            
         }  
         }else{
 
@@ -71,64 +179,17 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                            $scope.success='';
                            $scope.error_message=true;
                          },3000);
+                        
+                          window.location.reload();
               }
               }); 
         }
         
+        
     
     }
-    $scope.removediv=function(index){
-        $scope.between_date.splice(index,1);
-    }
-     $scope.recurring_period=function(action){
-       //console.log($scope.data.period);
-       
-       if(($scope.multiple_start_date===undefined)||($scope.multiple_end_date==undefined))
-       {
-        if ((action=='start')||(action=='end')) {}else{
-        $scope.error="Please select start date and end date.";
-        $scope.error_message=false;
-        $timeout(function() {
-             
-          $scope.error='';
-          $scope.error_message=true;
-          $scope.data.period='';
-        },3000);
-        }
-       }else{
-        if (($scope.data.period=='weekly')||($scope.data.period=='monthly')) {
-            $scope.days_div=false;
-            $scope.between_date=[];
-        }else{
-            if ($scope.data.period!=undefined) {
-                $scope.days_div=true;
-                currentDate=new Date($scope.multiple_start_date);
-                endDate=new Date($scope.multiple_end_date);
-                
-                var between=[];
-                while (currentDate <= endDate) {
-                    between.push(new Date(currentDate));
-                    currentDate.setDate(currentDate.getDate() + 1);
-                    
-                }
-                $scope.between_date=between;  
-            }
-        }
-       }
-    }
-    $scope.days=[
-      {id: '0', name: 'Sun'},
-      {id: '1', name: 'Mon'},
-      {id: '2', name: 'Tues'},
-      {id: '3', name: 'Wed'},
-      {id: '4', name: 'Thurs'},
-      {id: '5', name: 'Fri'},
-      {id: '6', name: 'Sat'}
-    ]
-    $scope.timeperiod=[
-      {id: 'daily', name: 'Daily'},
-      {id: 'weekly', name: 'Weekly'}
-    ]
+    
+   
      $rootScope.starttime='';
      $rootScope.endtime='';
      $scope.data = {};
@@ -525,6 +586,7 @@ $scope.items = ['item1'];
    {
     if($rootScope.selectevent_date==undefined)
     {
+        $scope.select_delect_event=false;
         var d=new Date($scope.start_date);
         var curr_date = d.getDate();
         var curr_month = d.getMonth();
@@ -550,7 +612,7 @@ $scope.items = ['item1'];
     }
    }
    
-   $scope.single_eventend=function()
+  /* $scope.single_eventend=function()
    {
     if($rootScope.selectevent_date==undefined)
     {
@@ -577,7 +639,7 @@ $scope.items = ['item1'];
     });
     }
     
-   }
+   }*/
    
    $scope.remove_event=function()
    {
@@ -596,11 +658,13 @@ $scope.items = ['item1'];
    }
    
    $scope.changedstarttime=function(){
+    $scope.select_delect_event=false;
     $rootScope.startevent_time=$filter('date')($scope.starttime, 'shortTime');
     
    } 
    
-   $scope.changedendtime=function(){ 
+   $scope.changedendtime=function(){
+    $scope.select_delect_event=false;
     $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');
    }
    
@@ -647,6 +711,7 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
     delete $rootScope.selectevent_date;
     delete $rootScope.startevent_time;
     delete $rootScope.endevent_time;
+   
     $uibModalInstance.close($scope.selected.item);
   }
 
