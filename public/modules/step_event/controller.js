@@ -166,10 +166,9 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
          
           data.userId=$localStorage.userId;
-         console.log(data);
-         console.log($scope.between_date);
+         
           $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-           console.log(response); 
+          
               if (response.code == 200) {
                    $scope.success="Event Successfully Saved.";
                    $scope.data={};
