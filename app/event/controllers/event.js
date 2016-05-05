@@ -28,7 +28,8 @@ exports.saveEvent = function(req,res){
 }
 
 exports.saverecurringEvent=function(req,res){
-    var dates=req.body.date;
+   var dates=req.body.date;
+   
      var data=req.body.data;
   
 
@@ -43,9 +44,11 @@ exports.saverecurringEvent=function(req,res){
           data.created = new Date();
        var j=0;
      var query1="INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+date+"','"+data.content+"')";
+     console.log(query1);
      connection.query(query1,function(err,result){
  
         var query2="INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`) VALUES(NULL,'"+result.insertId+"','"+date+"','"+req.body.data.starttimeloop1[j]+"','"+req.body.data.endtimeloop1[j]+"')";
+        console.log(query2);
      connection.query(query2);
      j++;
         })  ;
@@ -53,6 +56,7 @@ exports.saverecurringEvent=function(req,res){
         })
     
     var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`, `fax`, `timezone`, `capacity`, `contact_name`, `phone`, `email`, `url`, `image`, `seating_chart`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+data.created+"', '', '', '', '', '', '', '', '', '')";
+    console.log(query);
     if (dates != "")
      {
           res.json({result:"results",code:200}); 

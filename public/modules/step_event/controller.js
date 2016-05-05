@@ -129,7 +129,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
            $scope.weekly_div=false;$scope.days_div=$scope.monthly_div=true;
         }else if ($scope.data.period=='monthly'){
             $scope.weekly_div=$scope.days_div=true;$scope.monthly_div=false;
-            console.log($scope.data.period);
+            
         }
       
        } 
@@ -166,9 +166,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
          
           data.userId=$localStorage.userId;
-         
+         console.log(data);
+         console.log($scope.between_date);
           $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-           
+           console.log(response); 
               if (response.code == 200) {
                    $scope.success="Event Successfully Saved.";
                    $scope.data={};
@@ -687,15 +688,13 @@ $scope.items = ['item1'];
     
   $scope.data.endtimeloop1=[];
     var j=0;
-    console.log($scope.between_date.length);
-    console.log($scope.multiple_endtime);
+   
     while(j<$scope.between_date.length)
     {
     $scope.data.endtimeloop1.push(JSON.parse(JSON.stringify($scope.multiple_endtime)));
       j++;  
     }
    
-    console.log($scope.data.endtimeloop1);
    }
 
 });
