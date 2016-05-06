@@ -1,5 +1,5 @@
 var baseUrl = "//192.155.246.146:7048";
-
+servicebaseUrl="//192.155.246.146:5502";
 
 
 var webservices = {	

@@ -7,6 +7,8 @@ module.exports = function(app, express) {
         
        router.post('/saveEvent', Event.saveEvent);
        router.post('/saverecurringEvent', Event.saverecurringEvent);
+       router.post('/getEvents', Event.getEvents);
+       router.post('/getEvent', Event.getEvent);
        
       
         

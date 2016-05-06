@@ -140,10 +140,11 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
             });
         };
     
-    }).controller('forgotcontroller',function($http,$scope,$rootScope,$location, $state,communicationService){
+    }).controller('forgotcontroller',function($http,$scope,$rootScope,$location, $state,communicationService,$timeout){
+        $rootScope.class_status=1;
         
         $scope.forgotPassword=function(){
-            console.log($scope.user);
+          
             $scope.message = false;
             var serviceUrl = webservices.forgetPassword;
             $scope.user.hosturl  = servicebaseUrl;
@@ -159,10 +160,17 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
             }).success(function(data, status, headers, config) {
                  if (data == 200) {
                  $scope.message = global_message.ForgetPassword;
+                 $scope.errormessage ='';
                  }
                  else{
-                 $scope.message = global_message.ForgetEmailError;
+                 $scope.errormessage = global_message.ForgetEmailError;
+                 $scope.message = '';
                  }
+                 $timeout(function() {
+             
+                $scope.errormessage='';
+                $scope.message='';
+              },3000);
             });
         }
         if ($state.params.id)
