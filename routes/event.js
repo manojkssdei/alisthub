@@ -6,6 +6,9 @@ module.exports = function(app, express) {
 	Event    = require('./../app/event/controllers/event.js');
         
        router.post('/saveEvent', Event.saveEvent);
+       router.post('/saverecurringEvent', Event.saverecurringEvent);
+       router.post('/getEvents', Event.getEvents);
+       router.post('/getEvent', Event.getEvent);
        
       
         

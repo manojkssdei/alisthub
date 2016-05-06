@@ -1,5 +1,5 @@
 <div class="container">
-     <h1>View all Products</h1>
+     <h1>All Discount</h1>
     
     <!-- Form COntainer -->
     
@@ -18,17 +18,18 @@
           <!--Ticket Types Start -->
           <div class="module">             	
                 <section class="gray-frame sub-fields">
-                  <section class="grid-btn-top row">
-                  	  <section class="col-sm-7">
-                      	<section class="top-buttons">
-                            <a href="#/add_product"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add New Product</button></a>
-                        </section>
-                      </section>
-                      <section class="col-sm-5 right-btns text-right">
-                      	 <a href="#/product_setting"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Product Setting</button></a>
-                          
-                      </section>
-                    </section>
+                
+                  	 <section class="grid-btn-top row">
+<section class="col-sm-12 top-buttons">
+
+  <a href="#/add_discount"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Create Discount</button></a>
+  <a href="#/assign_discount"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Assign Discount</button></a>
+  <a href="#/export_discount"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Export CSV</button></a>
+                       
+</section>
+ </section>
+                      
+                    
                   <section class="grid-widget">
                       <div class="table-responsive">
                           
@@ -36,23 +37,25 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th width="15%">NAME</th>
-                            <th width="10%" class="numbers">MODEL</th>
-			    <th width="10%" class="numbers">UPC</th>
-                            <th width="14%" class="numbers">STATUS</th>
+                            <th width="15%">Name</th>
+                            <th width="10%" class="numbers">Type</th>
+                            <th width="14%" class="numbers">Code</th>
+                            <th width="14%" class="numbers">Discount</th>
+                            <th width="14%" class="numbers">Assigned To</th>
                             <th width="23%">&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr pagination-id="paginate2" dir-paginate="data in productdata | itemsPerPage: 2 | filter:filter">
-                            <td><a href="#/product_overview/{{data.id}}"><strong>{{data.product_name}}</strong></a></td>
-                            <td class="numbers">{{data.product_model}}</td>
-			    <td class="numbers">{{data.product_upc}}</td>
-                            <td class="numbers"><p ng-if="data.status == 1">Active</p><p ng-if="data.status == 0">Inactive</p></td>
+                        <tr pagination-id="paginate2" dir-paginate="data in discountdata | itemsPerPage: 2 | filter:filter">
+                            <td><strong>{{data.coupon_name}}</strong></td>
+                            <td class="numbers">{{data.coupon_type}}</td>
+                            <td class="numbers">{{data.coupon_code}}</td>
+                            <td class="numbers">{{data.amount}}</td>
+                            <td class="numbers">{{data.assigned_to}}</td>
                             <td class="action">
-			      <a href="#/edit_product/{{data.id}}"><i class="fa fa-edit"></i></a>
-			      <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Product status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
-			      <a ng-click="delProduct(data.id)" ng-confirm-clicks="Would you like to delete this Product?"><i class="fa fa-trash"></i></a>
+			      <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
+			      <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
+			      <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?"><i class="fa fa-trash"></i></a>
 			    </td>
                         </tr>
 			<tr ng-show="loader">

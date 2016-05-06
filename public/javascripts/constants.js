@@ -1,10 +1,6 @@
 
-var localbaseUrl   = "http://localhost:5502";
-
-
-var baseUrl = "http://192.155.246.146:7048";
-var servicebaseUrl = "http://192.155.246.146:5502";
-var localhostUrl="http://localhost:5502";
+var baseUrl = "//192.155.246.146:7048";
+servicebaseUrl="//192.155.246.146:5502";
 
 var webservices = {	
 
@@ -19,6 +15,7 @@ var webservices = {
         "venueOverview" :  "/event_setting/venueOverview",
         "changeVenueStatus" :  "/event_setting/changeVenueStatus",
         "deleteVenue" :  "/event_setting/deleteVenue",
+
         "duplicateVenue" :  "/event_setting/duplicateVenue",
         "getQuestions": "/event_setting/getQuestions",
         "addQuestion" :  "/event_setting/addQuestion",
@@ -38,6 +35,22 @@ var webservices = {
         "deleteProduct": "/event_setting/deleteProduct",
         "saveProductSetting"  :  "/event_setting/saveProductSetting",
         "getProductSetting"  :  "/event_setting/getProductSetting",
+
+        "saverecurringEvent"  :  "/event/saverecurringEvent",
+
+        "getDiscounts":"/event_setting/getDiscounts",
+        "addDiscount" : "/event_setting/addDiscount",
+        "assignDiscount" : "/event_setting/assignDiscount",
+        "discountOverview" :  "/event_setting/discountOverview",
+        "changeDiscountStatus" :  "/event_setting/changeDiscountStatus",
+        "deleteDiscount" :  "/event_setting/deleteDiscount",
+
+        "getBundles": "/event_setting/getBundles",
+        "addBundle" :  "/event_setting/addBundle",
+        "bundleOverview" :  "/event_setting/bundleOverview",
+     
+        "getBundleProducts":"/event_setting/getBundleProducts",
+
 
 }
 

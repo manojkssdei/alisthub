@@ -8,7 +8,12 @@ module.exports = function(app, express) {
         question_setting  = require('./../app/event_setting/controllers/question.js');
         
         product_setting  = require('./../app/event_setting/controllers/product.js');
-               
+        
+        discount_setting  = require('./../app/event_setting/controllers/discount.js');
+        
+        bundle_setting  = require('./../app/event_setting/controllers/bundle.js');
+        
+
         /* Web services for Event Setting Module
         * Created : 2016-04-19 6 PM
         /* GET users listing. */
@@ -105,11 +110,50 @@ module.exports = function(app, express) {
         router.post('/deleteProduct', product_setting.deleteProduct);
         
         
+
         router.post('/saveProductSetting', product_setting.saveProductSettingFunc);
         
         router.post('/getProductSetting', product_setting.getProductSetting);
         
         
+
+        /*** Module : Manage Discount
+         *   Get Seller Discount 
+         *
+        */
+        router.post('/getDiscounts', discount_setting.getDiscounts);
+        
+        /* Add Seller Discount  */
+        
+        router.post('/addDiscount', discount_setting.addDiscount);
+        
+        /* Assign Discount to event  */
+        
+        router.post('/assignDiscount', discount_setting.assignDiscount);
+        
+
+        /* Change Status Seller Discount  */
+        
+        router.post('/changeDiscountStatus', discount_setting.changeDiscountStatus);
+        
+        
+        /* Service : Discount Overview to Seller
+        * */
+        router.post('/discountOverview', discount_setting.discountOverview);
+        
+        /* Delete Seller Discount  */
+        
+        router.post('/deleteDiscount', discount_setting.deleteDiscount);
+        
+
+        /*** Module : Manage Bundle
+         *   Get Seller Bundle 
+         *
+        */
+    
+        
+        router.post('/addBundle', bundle_setting.addBundle);
+
         
          
 	app.use('/event_setting', router);
