@@ -664,8 +664,21 @@ $scope.items = ['item1'];
    } 
    
    $scope.changedendtime=function(){
-    $scope.select_delect_event=false;
-    $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');
+  
+    if ($scope.starttime!='') {
+      $scope.select_delect_event=false;
+      $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');  
+    }else{
+        $scope.error_message=false;
+        $scope.error='Kindly select start time.';
+        $scope.endtime='';
+        $timeout(function() {
+                          
+            $scope.error='';
+            $scope.error_message=true;
+          },3000);
+    }
+    
    }
    
   $scope.data = {};

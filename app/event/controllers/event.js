@@ -71,7 +71,7 @@ exports.getEvents=function(req,res){
     var user_id=req.body.user_id;
     var sql="SELECT * FROM events LEFT JOIN event_dates ON events.id=event_dates.event_id where events.user_id="+user_id;
     connection.query(sql,function(err,result){
-       
+      
         if (err) {
            res.send({err:"error",code:101}); 
         }
