@@ -1,0 +1,147 @@
+<div class="container">
+     <h1>PRODUCT OVERVIEW</h1>
+    
+    <!-- Form COntainer -->
+<div class="form-section  wt-frame">
+<section class="gray-frame">
+      <div class="row">
+        <div class="col-sm-5"> </div>
+        <div class="col-sm-2">
+           <a href="#/edit_product/{{data.id}}">
+           <button class="btn pink-btn btn-small" type="button">
+           <i class="glyphicon glyphicon-pencil">
+           </i>Edit
+           </button>
+           </a>
+        </div>
+
+
+  
+        <div class="col-sm-2">
+            <!-- <a href="#/delete_product"> -->
+            <button class="btn pink-btn btn-small" ng-confirm-clicks="Would you like to change Product status ?"  type="button" ng-click="delProduct(data.id)">
+            <i class="glyphicon glyphicon-remove">
+            </i>Delete
+            </button>
+           
+        </div>
+  
+
+        <div class="col-sm-2">
+            
+            <button class="btn pink-btn btn-small"  type="button" ng-click="changeStatus(data.id,data.status)">
+            <i class="glyphicon glyphicon-pause">
+            </i>Pause Sale
+            </button>
+            
+        </div>
+        </div>
+
+</section>
+
+
+   <section class="gray-frame">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+           <h4>Products sales are currently live.</h4>
+        </div>
+    </div>
+</div>
+   
+                       
+
+</section>
+
+
+
+<section class="gray-frame">
+ <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+            
+             <h4>This product is not attached to any events.</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+            <p class="marklist">-go to step 2 (pricing) of event  to attach this product.</p>
+        </div>
+     </div>
+  </div>
+  </div>
+  </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+            <p class="marklist">-The product price paid by the buyer is $ {{data.buyer_pays}}</p>
+        </div>
+     </div>
+  </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+            <p class="marklist">-The total order will also include a flat $ {{data.ship_cost}} shiping fee.</p>
+        </div>
+     </div>
+  </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+            <p class="marklist">-Fulfillment fees are contracted between the seller and the fulfiller. ALIST Solutions LLC does not add this fee it is included in the $ {{data.retail_price}} Retail Price.</p>
+        </div>
+     </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+       <div class="form-group">
+           <p class="marklist">-After each Sale , ALIST Solution LLC records the fulfillment fee owed to the fulfiller.</p>
+       </div>
+    </div>
+ </div>
+ 
+</section>
+
+
+<section class="gray-frame">
+
+                      <div class="table-responsive">
+                          
+            
+                    <table class="table table-striped">
+                        <thead>
+                           <tr>
+                            <th width="8%">CONFIGURATION</th>
+                            <th width="8%" class="numbers">INVENTORY</th>
+			    <th width="8%" class="numbers">SOLD</th>
+                            <th width="8%" class="numbers">REMAINING</th>
+                             
+                           <!--  <th width="15%">&nbsp;</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="key in componentdata">
+                            <td><strong><p ng-if="data.configuration == true">Multiple</p><p ng-if="data.configuration == false">Single</p></strong></td>
+                            <td class="numbers">{{key.inventory}}</td>
+			    <td class="numbers">0</td>
+                            <td class="numbers">0</td>
+                                         
+                        </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+			<tr ng-show="loader">
+			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+			</tr>
+		    </tbody>
+            </table>
+            </div>
+		      </section>
+ 
+  </div>
+  </div>

@@ -542,4 +542,3 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
 })
 
 
-

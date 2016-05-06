@@ -370,6 +370,33 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                         
             }
         })
+        
+        .state('assign_question', {
+            url: '/assign_question/:assign',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageQuestionController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/question/assign_question.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+        
+        
         // Add Product
         .state('add_product', {
             url: '/add_product',
@@ -418,6 +445,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                         
             }
         })
+        
         
         .state('view_products', {
             url: '/view_products/:list',
@@ -593,13 +621,16 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
         
-        .state('view_bundles', {
-            url: '/view_bundles/:list',
+
+        
+         .state('product_overview', {
+            url: '/product_overview/:id',
             
             views: {
                 "lazyLoadView": {
-                  controller: 'manageBundleController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/event_setting/views/bundle/view_bundle.html'
+                  controller: 'productController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/product/product_overview.html'
+
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -609,7 +640,59 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     //var $serviceTest = $injector.get("CustomerFirstLoad");
                            // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/bundle_controller.js']);
+
+                    return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+   .state('product_setting', {
+            url: '/product_setting',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageProductController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/product/product_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+    // End Product Module
+   
+   // Start Manage Section :
+   //  Module :User   
+.state('user', {
+            url: '/user',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'userController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/manage/views/user/user.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/manage/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/manage/user_controller.js']);
+
                     })
                
               }]
@@ -618,8 +701,35 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         })
 
 
-
-// end bundle
+        .state('user/addUser', {
+            url: '/user/addUser',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'userController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/manage/views/user/add_user.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/manage/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/manage/user_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        // End Manage Section :
+        /// start discount routes
+        
+        
+        
+        /// end discount routes
 
     
   }).run(['$rootScope', '$location','$state', '$localStorage',function($rootScope,$location, $state,$localStorage) {
@@ -647,7 +757,9 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         $state.go('login');
     }
     }])
-.directive('ngConfirmClicks', [
+
+ .directive('ngConfirmClicks', [
+
     function(){
         return {
             priority: 1,
@@ -662,5 +774,5 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 });
             }
         };
-}])
-  ;;
+}]);
+
