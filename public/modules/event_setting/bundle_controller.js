@@ -34,6 +34,7 @@ angular.module('alisthub')
         $scope.step_1=$scope.step_3=false;
        }
        if (menu.id==3) {
+        console.log($scope.data);
         $scope.step_3=true;
         $scope.step_2=$scope.step_1=false;
        }
@@ -41,9 +42,10 @@ angular.module('alisthub')
         $scope.selected2 = menu;  
      }
   $scope.click_menu({id:1});
- 
 
-      
+   $serviceTest.getBundles({'userId':$localStorage.userId},function(response){
+    $scope.res=response.result;
+   });
   $scope.addBundle = function(step) {
         if ($localStorage.userId!=undefined) {
         $scope.data.seller_id   = $localStorage.userId;
