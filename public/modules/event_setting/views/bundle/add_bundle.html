@@ -1,0 +1,547 @@
+<div class="container">
+     <h1>{{page_title}} a bundle</h1>
+    
+<!-- Step Form -->
+    <div class="stage-container stage-container-3steps clearfix">
+      <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+        <div class="stage-title">{{step.title}}</div> </div>
+    </div>
+<!-- //Step Form --> 
+    
+<!-- Form COntainer -->
+    
+    <div class="form-section  wt-frame">
+      <form class="event-form" name="userForm" novalidate>
+       
+       <!-- Step 1 start ------------------->
+       <div ng-show="step_1">
+        <!-- Event Detail Form -->
+       <div>
+          
+       <!-- //Event Detail Form -->
+        <!--Links Start -->
+
+          <div class="module">
+  <section class="prof-hd" > <!-- add  class="prof-hd"if u need to display this as tab -->
+   <i class="fa fa-link hdicon pos-l16"></i>
+    <h2> Details <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+  </section>
+  <section class="gray-frame">
+    <div class="row">
+      <div class="col-sm-4" ng-class="{ 'has-error' : userForm.bundle_name.$invalid && !userForm.bundle_name.$pristine }">
+                          <div class="form-group">
+                            <label for="EventName">Name<span class="req">*</span></label>
+                              <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="data.bundle_name" required/>
+                          </div>
+        <p ng-show="userForm.bundle_name.$invalid && !userForm.bundle_name.$pristine" class="help-block">Enter coupon name.</p>
+                        </div>
+
+
+      <div class="col-sm-8">
+        <div class="form-group">
+          <label for="EventName"> Description</label>
+          <div class="bundle-editr" >
+         <div ckeditor="option_ckeditor" ng-model="data.bundle_description" ready="onReady()"></div>
+      </div>
+        </div>
+      </div>
+
+        <!--<div class="col-sm-8">
+        <div class="form-group">
+          <label for="EventName"> Description</label>
+          <div class="bundle-editr" ng-class="{ 'has-error' : userForm.bundle_description.$invalid && !userForm.bundle_description.$pristine }">
+         <div ckeditor="option_ckeditor" ng-model="data.bundle_description" ready="onReady()"></div>
+        <p ng-show="userForm.bundle_description.$invalid && !userForm.bundle_description.$pristine" class="help-block">Enter Description.</p>
+      </div>
+        </div>
+      </div>-->
+    </div>
+
+
+
+
+    <div class="row">
+      <div class="col-sm-4"  ng-class="{ 'has-error' : userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine }" >
+        <div class="form-group">
+          <label for="EventName"> Limit<span class="req-limit">*</span></label>
+          <input type="number" min="0" class="form-control" placeholder="Limit" ng-model="data.bundle_limit"/>
+        </div>
+        <p ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="help-block">Enter bundle limit.</p>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="EventName"> Minimum Purchase</label>
+          <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="data.bundle_minimum_purchase"/>
+        </div>
+      </div>
+
+       <div class="col-sm-4">
+        <div class="form-group">
+    <label for="EventName"> Multiple Ticket Holders?</label>
+         <div class="onoffswitch">
+       <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="data.multiple_ticket_holder" checked>
+       <label class="onoffswitch-label" for="myonoffswitch2"></label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+<br/>
+<br/>
+        <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <p for="EventName"> When an inventory is not set on this bundle it will fallback to the inventory of events and pricing levels in this bundle</p>
+        </div>
+      </div>
+    </div>
+
+<br/>
+<br/>
+    <div class="row">
+      
+    
+
+      <div class="col-sm-4">
+        <div class="form-group">
+    <label for="EventName"> Assign Inventory?<span class="req">*</span></label>
+          <div class="onoffswitch">
+       <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.assign_inventory"  ng-model="checked" checked>
+       <label class="onoffswitch-label" for="myonoffswitch4"></label>
+          </div>
+        </div>
+      </div>
+
+
+  <div class="col-sm-4">
+        <div class="form-group">
+          <label for="EventName"> Inventory</label>
+          <input type="text" class="form-control" ng-disabled="!data.assign_inventory" placeholder="Inventory" ng-model="data.bundle_inventory"/>
+        </div>
+      </div>
+
+  <div class="col-sm-4">
+        <div class="form-group">
+    <label for="EventName"> Active</label>
+          <div class="onoffswitch">
+       <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch1" ng-model="data.status" checked>
+       <label class="onoffswitch-label" for="myonoffswitch1"></label>
+          </div>
+        </div>
+      </div>
+
+     
+
+    </div>
+
+     <div class="row">
+     
+      <div class="col-sm-4">
+        <div class="form-group">
+    <label for="EventName"> Hide Online?<span class="req">*</span></label>
+         <div class="onoffswitch">
+       <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="data.hide_online" checked>
+       <label class="onoffswitch-label" for="myonoffswitch3"></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+    <label for="EventName"> Hide in box office?<span class="req">*</span></label>
+         <div class="onoffswitch">
+       <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.hide_in_box_office" checked>
+       <label class="onoffswitch-label" for="myonoffswitch5"></label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+  </section>
+</div>
+          <!--Links Closed -->     
+     
+     
+      
+       </div>
+      
+       <div>
+           <!-- Event Detail Form -->
+   	      
+
+          
+          <div class="editor-btn">
+          <button ng-click="saveBundle(1)" class="pink-btn btn">Save</button>
+          <button class="pink-btn btn" ng-click="click_menu({id:2});">Next</button>
+        </div>   
+       </div>
+       </div>
+       <!-- Step 1 end ------------------->
+      
+
+       <!-- Step 2 start ------------------->
+       
+       <div ng-show="step_2">
+          
+       <!-- //Event Detail Form -->
+        <!--Links Start -->
+          <div class="module">
+  <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
+    <h2>What is included in this bundle?<span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+  </section>
+  <section class="gray-frame">
+    
+<div class="row">
+      <div class="col-sm-8" >
+        <div class="form-group">
+          <p for="EventName"> SmartData Event</p>
+          <p for="EventName"> Sat March 12, 2016 at 12:00 PM EST</p>
+        </div>
+ 
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <P for="EventName"> Quantity</P>
+        </div>
+      </div>
+      
+    </div>
+</section>
+</div>
+
+
+<div class="module">
+  <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
+    <h2>Test<span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+  </section>
+  <section class="gray-frame">
+ <div class="row">
+      <div class="col-sm-8" >
+        <div class="form-group">
+          <label for="EventName"> Balcony (Online Price: $150.00, Box office Price:$140.00)<span class="req">*</span></label>
+         
+        </div>
+      </div>
+     
+      <div class="col-sm-4" >
+                          <div class="form-group">
+                            <select class="form-control" name="coupon_type" ng-model="data.coupon_type" required>
+                              <option>0</option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+
+                            </select>
+                          </div>
+                        </div>
+    </div>
+  </section>
+
+  </div>
+
+
+
+<div class="module">
+  <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
+    <h2>Products<span class="right">Quantity</span></h2>
+  </section>
+   <section class="gray-frame">
+ <div class="row">
+      <div class="col-sm-8" >
+        <div class="form-group">
+          <label for="EventName"> Product 1 (Price: $10.00)<span class="req">*</span></label>
+         
+        </div>
+      </div>
+     
+      <div class="col-sm-4" >
+                          <div class="form-group">
+                            <select class="form-control" name="coupon_type" ng-model="data.coupon_type" required>
+                              <option>0</option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                            </select>
+                          </div>
+                        </div>
+    </div>
+
+     <div class="row">
+      <div class="col-sm-8" >
+        <div class="form-group">
+          <label for="EventName"> Product 2 (Price: $20.00)<span class="req">*</span></label>
+         
+        </div>
+      </div>
+     
+      <div class="col-sm-4" >
+                          <div class="form-group">
+                            <select class="form-control" name="coupon_type" ng-model="data.coupon_type" required>
+                              <option>0</option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                            </select>
+                          </div>
+                        </div>
+    </div>
+
+  </section>
+
+
+   
+     <div class="editor-btn">
+	  <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
+          <button class="pink-btn btn" ng-click="saveProduct(2)">Save</button>
+          <button class="pink-btn btn" ng-click="click_menu({id:3});">Next</button>
+     </div> 
+</div>
+          <!--Links Closed -->     
+     </div>
+       
+       
+       <!-- Step 2 end ------------------->
+       
+       <!-- Step 3 start ------------------->
+       
+       <div ng-show="step_3">
+          
+       <!-- //Event Detail Form -->
+        <!--Links Start -->
+          <div class="module">
+  <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
+    <h2>How much does the bundle cost?<span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+  </section>
+
+
+  <section class="gray-frame">
+    
+     <div class="row">
+      <div class="col-sm-12" >
+        <div class="form-group">
+          <label for="EventName"> smartData Event</label>
+        </div>
+      </div>
+     </div>
+     
+     <section class="grid-widget">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+		      <th width="25%">Price Level</th>
+		      <th width="25%">Quantity</th>
+		      <th width="25%">Online Price</th>
+		      <th width="25%">Box Office Price</th>
+        
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="add in addmore">
+                      <td>Test</td>
+                      <td>1</td>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                     <tr>
+                      <td>Test</td>
+                      <td>1</td>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                     <tr>
+                      <td>Test</td>
+                      <td>1</td>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr> 
+
+                     <tr>
+                      <td>Test</td>
+                      <td>1</td>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                     <tr>
+                      <td>Test</td>
+                      <td>1</td>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                    </tbody>
+                </table>
+              </div>
+     </section>
+     </section>
+     
+
+
+
+  <section class="gray-frame">
+    
+     <div class="row">
+      <div class="col-sm-12" >
+        <div class="form-group">
+          <label for="EventName"> Total</label>
+        </div>
+      </div>
+     </div>
+     
+     <section class="grid-widget">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+          <th width="25%">Price Level</th>
+          <th width="25%">Quantity</th>
+          <th width="25%">Online Price</th>
+          <th width="25%">Box Office Price</th>
+        
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="add in addmore">
+                      <td>Test</td>
+                      <td>1</td>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                     <tr>
+                      <td>Test</td>
+                      <td>1</td>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                     <tr>
+                      <td>Test</td>
+                      <td>1</td>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr> 
+
+                     <tr>
+                      <td>Test</td>
+                      <td>1</td>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                     <tr>
+                      <td>Test</td>
+                      <td>1</td>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+                     
+                    </tbody>
+                </table>
+              </div>
+     </section>
+     </section>
+
+
+
+
+
+  <section class="gray-frame">
+    
+     <div class="row">
+      <div class="col-sm-12" >
+        <div class="form-group">
+          <label for="EventName"> Discounted Price</label>
+        </div>
+      </div>
+     </div>
+     
+     <section class="grid-widget">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+          <th width="50%">Online Price (Service Fee)</th>
+          <th width="50%">Box Office Price (Service Fee)</th>
+          
+        
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="add in addmore">
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                      <tr>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                      <tr>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                      <tr>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                      <tr>
+                      <td>$150.00</td>
+                      <td>$140.00</td>
+                     </tr>
+
+                    </tbody>
+                </table>
+              </div>
+     </section>
+     </section>
+
+     <div class="editor-btn">
+	  <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
+          <button class="pink-btn btn" ng-click="saveProduct(3)">Save</button>
+          <button class="pink-btn btn" ng-click="saveProduct(4)">Submit</button>
+     </div> 
+</div>
+          <!--Links Closed -->     
+     
+      
+      
+       </div>
+       
+       <!-- Step 3 end ------------------->
+      
+      </form>
+    
+    </div>
+    
+    <!-- //Form COntainer --> 
+  </div>

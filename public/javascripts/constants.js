@@ -1,3 +1,4 @@
+
 var baseUrl = "//192.155.246.146:7048";
 servicebaseUrl="//192.155.246.146:5502";
 
@@ -30,6 +31,20 @@ var webservices = {
         "uploadProductImage"  :  "/event_setting/uploadProductImage",
         "saveEvent"  : "/event/saveEvent",
         "saverecurringEvent"  :  "/event/saverecurringEvent",
+
+        "getDiscounts":"/event_setting/getDiscounts",
+        "addDiscount" : "/event_setting/addDiscount",
+        "assignDiscount" : "/event_setting/assignDiscount",
+        "discountOverview" :  "/event_setting/discountOverview",
+        "changeDiscountStatus" :  "/event_setting/changeDiscountStatus",
+        "deleteDiscount" :  "/event_setting/deleteDiscount",
+
+        "getBundles": "/event_setting/getBundles",
+        "addBundle" :  "/event_setting/addBundle",
+        "bundleOverview" :  "/event_setting/bundleOverview",
+        "changeProductStatus" :  "/event_setting/changeProductStatus",
+        "getBundleProducts":"/event_setting/getBundleProducts",
+
 
 }
 
