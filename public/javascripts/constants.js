@@ -1,17 +1,7 @@
 
+var baseUrl = "//192.155.246.146:7048";
+servicebaseUrl="//192.155.246.146:5502";
 
-
-//var localbaseUrl = "//192.155.246.146:5502";
-var localbaseUrl = "http://localhost:5502";
-
-
-var baseUrl = "http://192.155.246.146:7048";
-//var baseUrl = "localhost:7048";
-
-var servicebaseUrl = "http://localhost:5502";
-
-//var localhostUrl="//192.155.246.146:5502";
-var localhostUrl="http://localhost:5502";
 
 var webservices = {	
 
@@ -21,39 +11,39 @@ var webservices = {
         "forgetPassword" : baseUrl + "/webservices/forgetPassword",
         "resetPassword" : baseUrl + "/webservices/resetPassword",
         "confirmationEmail" : baseUrl + "/webservices/confirmationEmail",
-        "getVenues":localhostUrl + "/event_setting/venueListing",
-        "addVenue" : localbaseUrl + "/event_setting/addVenue",
-        "venueOverview" : localbaseUrl + "/event_setting/venueOverview",
-        "changeVenueStatus" : localbaseUrl + "/event_setting/changeVenueStatus",
-        "deleteVenue" : localbaseUrl + "/event_setting/deleteVenue",
-        "duplicateVenue" : localbaseUrl + "/event_setting/duplicateVenue",
-        "getQuestions":localhostUrl + "/event_setting/getQuestions",
-        "addQuestion" : localbaseUrl + "/event_setting/addQuestion",
-        "questionOverview" : localbaseUrl + "/event_setting/questionOverview",
-        "changeQuestionStatus" : localbaseUrl + "/event_setting/changeQuestionStatus",
-        "deleteQuestion" : localbaseUrl + "/event_setting/deleteQuestion",
-        "getSettingCount" : localbaseUrl + "/event_setting/getSettingCount",
-        "getProducts":localhostUrl + "/event_setting/getProducts",
-        "addProduct" : localbaseUrl + "/event_setting/addProduct",
-        "productOverview" : localbaseUrl + "/event_setting/productOverview",
-        "changeProductStatus" : localbaseUrl + "/event_setting/changeProductStatus",
+        "getVenues": "/event_setting/venueListing",
+        "addVenue" :  "/event_setting/addVenue",
+        "venueOverview" :  "/event_setting/venueOverview",
+        "changeVenueStatus" :  "/event_setting/changeVenueStatus",
+        "deleteVenue" :  "/event_setting/deleteVenue",
+        "duplicateVenue" : "/event_setting/duplicateVenue",
+        "getQuestions": "/event_setting/getQuestions",
+        "addQuestion" :  "/event_setting/addQuestion",
+        "questionOverview" : "/event_setting/questionOverview",
+        "changeQuestionStatus" :  "/event_setting/changeQuestionStatus",
+        "deleteQuestion" :  "/event_setting/deleteQuestion",
+        "getSettingCount" : "/event_setting/getSettingCount",
+        "getProducts":"/event_setting/getProducts",
+        "addProduct" : "/event_setting/addProduct",
+        "productOverview" :  "/event_setting/productOverview",
+        "changeProductStatus" : "/event_setting/changeProductStatus",
 
-        "uploadProductImage"  : localbaseUrl + "/event_setting/uploadProductImage",
-        "saveEvent"  : localbaseUrl + "/event/saveEvent",
-        "saverecurringEvent"  : localbaseUrl + "/event/saverecurringEvent",
+        "uploadProductImage"  :  "/event_setting/uploadProductImage",
+        "saveEvent"  : "/event/saveEvent",
+        "saverecurringEvent"  :  "/event/saverecurringEvent",
 
-        "getDiscounts":localhostUrl + "/event_setting/getDiscounts",
-        "addDiscount" : localbaseUrl + "/event_setting/addDiscount",
-        "assignDiscount" : localbaseUrl + "/event_setting/assignDiscount",
-        "discountOverview" : localbaseUrl + "/event_setting/discountOverview",
-        "changeDiscountStatus" : localbaseUrl + "/event_setting/changeDiscountStatus",
-        "deleteDiscount" : localbaseUrl + "/event_setting/deleteDiscount",
+        "getDiscounts":"/event_setting/getDiscounts",
+        "addDiscount" : "/event_setting/addDiscount",
+        "assignDiscount" : "/event_setting/assignDiscount",
+        "discountOverview" :  "/event_setting/discountOverview",
+        "changeDiscountStatus" :  "/event_setting/changeDiscountStatus",
+        "deleteDiscount" :  "/event_setting/deleteDiscount",
 
-        "getBundles":localhostUrl + "/event_setting/getBundles",
-        "addBundle" : localbaseUrl + "/event_setting/addBundle",
-        "bundleOverview" : localbaseUrl + "/event_setting/bundleOverview",
-        "changeProductStatus" : localbaseUrl + "/event_setting/changeProductStatus",
-        "getBundleProducts":localhostUrl + "/event_setting/getBundleProducts",
+        "getBundles": "/event_setting/getBundles",
+        "addBundle" :  "/event_setting/addBundle",
+        "bundleOverview" :  "/event_setting/bundleOverview",
+        "changeProductStatus" :  "/event_setting/changeProductStatus",
+        "getBundleProducts":"/event_setting/getBundleProducts",
 
 
 }

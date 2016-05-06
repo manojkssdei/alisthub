@@ -18,6 +18,7 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
   };
   
   url.saverecurringEvent = function(jsondata,callback){
+   
        communicationService.resultViaPost(webservices.saverecurringEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
 			callback(res.data);
 		});

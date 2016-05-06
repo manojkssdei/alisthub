@@ -73,6 +73,7 @@
                     </div>
                     
                   </div>
+                  <div class="row" ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
                   <div class="row" ng-hide="select_delect_event">
                     <div class="col-xs-12">
                       <label>Select/Deselect Events</label>
@@ -130,6 +131,24 @@
                       
                     </div>
                   </div>
+                  <div class="col-sm-4 event" ng-hide="weekly_div">
+                    <div class="form-group custom-check m-t30">
+                        <select ng-model="data.weekly_option" ng-change="weekly_option_change()" class="form-control">
+                         <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
+                        </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-4 event" ng-hide="monthly_div">
+                    <div class="form-group custom-check m-t30">
+                        <select class="form-control" ng-model="data.monthly_option" ng-change="change_month()">
+                         <option ng-repeat="date in dates" value="{{date.id}}">{{date.id}}</option>
+                        </select>
+                    </div>
+                  </div>
+                  
+                  
+                  
 
                 </div>
                  <div class="row">
