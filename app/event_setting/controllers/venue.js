@@ -1,4 +1,5 @@
 var fs         = require('fs');
+var moment     = require('moment-timezone');
 var path_venue = process.cwd()+'/public/images/venues/';
 /*** Get Seller Setting Count ***/
 exports.getSettingCount = function(req,res){
@@ -68,10 +69,14 @@ exports.addVenue = function(req,res){
      
      ///////////////////////////////////////////////////////////
           if (req.body.id && req.body.id !="" && req.body.id != undefined) {
-          var query = "UPDATE `venues` SET seller_id="+req.body.seller_id+", venue_type='"+req.body.venue_type+"', venue_name='"+req.body.venue_name+"', address='"+req.body.address+"', city='"+req.body.city+"', zipcode='"+req.body.zipcode+"', state='"+req.body.state+"', country='"+req.body.country+"', status='"+req.body.status+"', latitude='"+req.body.latitude+"', longitude='"+req.body.longitude+"', created='"+req.body.created+"', fax='"+req.body.fax+"', timezone='"+req.body.timezone+"', capacity='"+req.body.capacity+"', contact_name='"+req.body.contact_name+"', phone='"+req.body.phone+"', email='"+req.body.email+"', url='"+req.body.url+"', image='"+req.body.image+"', seating_chart='"+req.body.seating_chart+"' where id="+req.body.id;
+          var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
+          req.body.modified = curtime;      
+          var query = "UPDATE `venues` SET seller_id="+req.body.seller_id+", venue_type='"+req.body.venue_type+"', venue_name='"+req.body.venue_name+"', address='"+req.body.address+"', city='"+req.body.city+"', zipcode='"+req.body.zipcode+"', state='"+req.body.state+"', country='"+req.body.country+"', status='"+req.body.status+"', latitude='"+req.body.latitude+"', longitude='"+req.body.longitude+"', modified='"+req.body.modified+"', fax='"+req.body.fax+"', timezone='"+req.body.timezone+"', capacity='"+req.body.capacity+"', contact_name='"+req.body.contact_name+"', phone='"+req.body.phone+"', email='"+req.body.email+"', url='"+req.body.url+"', image='"+req.body.image+"', seating_chart='"+req.body.seating_chart+"' where id="+req.body.id;
           }
           else
           {
+          var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
+          req.body.created = curtime;      
           var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`, `fax`, `timezone`, `capacity`, `contact_name`, `phone`, `email`, `url`, `image`, `seating_chart`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.venue_type+"', '"+req.body.venue_name+"', '"+req.body.address+"', '"+req.body.city+"', '"+req.body.zipcode+"', '"+req.body.state+"', '"+req.body.country+"', '1', '"+req.body.latitude+"', '"+req.body.longitude+"', '"+req.body.created+"', '"+req.body.fax+"', '"+req.body.timezone+"', '"+req.body.capacity+"', '"+req.body.contact_name+"', '"+req.body.phone+"', '"+req.body.email+"', '"+req.body.url+"', '"+req.body.image+"', '"+req.body.seating_chart+"')";
           }
           if (query != "") {
@@ -137,7 +142,9 @@ exports.duplicateVenue = function(req,res){
    }
   
    var data = vdata[0];
-   data.created = new Date();
+  
+   var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
+   data.created = curtime; 
    var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`, `fax`, `timezone`, `capacity`, `contact_name`, `phone`, `email`, `url`, `image`, `seating_chart`) VALUES (NULL, '"+data.seller_id+"', '"+data.venue_type+"', '"+data.venue_name+"', '"+data.address+"', '"+data.city+"', '"+data.zipcode+"', '"+data.state+"', '"+data.country+"', '"+data.status+"', '"+data.latitude+"', '"+data.longitude+"', '"+data.created+"', '"+data.fax+"', '"+data.timezone+"', '"+data.capacity+"', '"+data.contact_name+"', '"+data.phone+"', '"+data.email+"', '"+data.url+"', '"+data.image+"', '"+data.seating_chart+"')";
     
      /// To save Venue details

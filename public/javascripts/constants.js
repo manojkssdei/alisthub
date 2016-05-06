@@ -2,7 +2,6 @@
 var baseUrl = "//192.155.246.146:7048";
 servicebaseUrl="//192.155.246.146:5502";
 
-
 var webservices = {	
 
 	"getUserregister" : baseUrl + "/webservices/register",
@@ -16,20 +15,27 @@ var webservices = {
         "venueOverview" :  "/event_setting/venueOverview",
         "changeVenueStatus" :  "/event_setting/changeVenueStatus",
         "deleteVenue" :  "/event_setting/deleteVenue",
-        "duplicateVenue" : "/event_setting/duplicateVenue",
+
+        "duplicateVenue" :  "/event_setting/duplicateVenue",
         "getQuestions": "/event_setting/getQuestions",
         "addQuestion" :  "/event_setting/addQuestion",
-        "questionOverview" : "/event_setting/questionOverview",
+        "questionOverview" :  "/event_setting/questionOverview",
         "changeQuestionStatus" :  "/event_setting/changeQuestionStatus",
         "deleteQuestion" :  "/event_setting/deleteQuestion",
-        "getSettingCount" : "/event_setting/getSettingCount",
-        "getProducts":"/event_setting/getProducts",
-        "addProduct" : "/event_setting/addProduct",
+        "getSettingCount" :  "/event_setting/getSettingCount",
+        "getProducts": "/event_setting/getProducts",
+        "addProduct" :  "/event_setting/addProduct",
         "productOverview" :  "/event_setting/productOverview",
-        "changeProductStatus" : "/event_setting/changeProductStatus",
-
+        "changeProductStatus" :  "/event_setting/changeProductStatus",
         "uploadProductImage"  :  "/event_setting/uploadProductImage",
-        "saveEvent"  : "/event/saveEvent",
+        "saveEvent"  :  "/event/saveEvent",
+        "viewEvents"  :  "/event_setting/viewEvents", //makeAssignment
+        "makeAssignment"  :  "/event_setting/makeAssignment",
+        "delAssignment"  :  "/event_setting/delAssignment",
+        "deleteProduct": "/event_setting/deleteProduct",
+        "saveProductSetting"  :  "/event_setting/saveProductSetting",
+        "getProductSetting"  :  "/event_setting/getProductSetting",
+
         "saverecurringEvent"  :  "/event/saverecurringEvent",
 
         "getDiscounts":"/event_setting/getDiscounts",
@@ -42,7 +48,7 @@ var webservices = {
         "getBundles": "/event_setting/getBundles",
         "addBundle" :  "/event_setting/addBundle",
         "bundleOverview" :  "/event_setting/bundleOverview",
-        "changeProductStatus" :  "/event_setting/changeProductStatus",
+     
         "getBundleProducts":"/event_setting/getBundleProducts",
 
 
