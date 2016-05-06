@@ -73,7 +73,7 @@
                     </div>
                     
                   </div>
-                  <div class="row" ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
+             <div class="row" ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
                   <div class="row" ng-hide="select_delect_event">
                     <div class="col-xs-12">
                       <label>Select/Deselect Events</label>
@@ -113,6 +113,7 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="row">
                   <div class="col-sm-4">
                   	<label for="City">Recurring<span class="req">*</span></label>
@@ -171,9 +172,13 @@
                     </div>
                   </div>
                 </div>
+
+                             
                 <div class="row">
                   <div class="col-xs-12">
                     <label>Select/Deselect Events</label>
+                     <div class="row" ng-hide="error_time_message"  ><p class="error-fld" >{{error_time_display_message}}</p></div>
+
                     <div class="clearfix list-event-date form-inline"  ng-repeat="between in between_date track by $index">
                          <div class="col-sm-1 pull-right text-right lss-top"> <a ng-click="removediv($index)"><i class="fa fa-close"></i></a> </div>
                         
@@ -183,7 +188,7 @@
                            <div class="sel-d col-sm-4">
                              <label for="exampleInputName2">Start Time:</label>
                           <div class="input-group bootstrap-timepicker timepicker">
-                              <input   class="form-control input-small timepick" type="text" ng-model="data.starttimeloop1[$index]"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                              <input   class="form-control input-small timepick" type="text" ng-model="data.starttimeloop1[$index]" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
 			 </div>
                    
                 
@@ -191,10 +196,13 @@
                            <div class="sel-d col-sm-4">
                              <label for="exampleInputEmail2">End Time : </label>
                               <div class="input-group bootstrap-timepicker timepicker">    
-                              <input   class="form-control input-small timepick" type="text" ng-model="data.endtimeloop1[$index]"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                              <input   class="form-control input-small timepick" type="text" ng-model="data.endtimeloop1[$index]" ng-change="checkStartEndTime($index)"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
                               </div>
                     
                            </div>
+
+           
+
                       
                        </div>
       
