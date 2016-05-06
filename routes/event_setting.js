@@ -137,7 +137,7 @@ module.exports = function(app, express) {
         
         router.post('/addBundle', bundle_setting.addBundle);
 
-        router.post('/getBundleProducts', bundle_setting.getBundleProducts);
+       // router.post('/getBundleProducts', bundle_setting.getBundleProducts);
         
         router.post('/uploadBundleImage', bundle_setting.bundleUpload);
         
