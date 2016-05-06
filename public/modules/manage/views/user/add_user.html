@@ -1,0 +1,80 @@
+
+ <div class="container">
+     <h1>Add a User</h1>
+
+    <div class="form-section  wt-frame">
+      <form class="event-form" name="addUserForm" novalidate>
+       
+
+  <section class="gray-frame">
+       <div class="row">
+       <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.firstname.$invalid && !addUserForm.firstname.$pristine }">
+                    <label>First Name <span class="req">*</span></label>
+                    <!-- <font color="blue">*</font> -->
+                    <input type="text" name="firstname" ng-model="user.firstname" class="form-control" placeholder="first name" required> 
+        <p ng-show="addUserForm.firstname.$invalid && !addUserForm.firstname.$pristine" class="help-block">Enter Firstname.</p>
+                  </div>
+     
+                  <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.lastname.$invalid && !addUserForm.lastname.$pristine }">
+                    <label>Last Name <span class="req">*</span></label>
+                    <input type="text" name="lastname" ng-model="user.lastname" class="form-control" placeholder="last name" required> 
+                    <p ng-show="addUserForm.lastname.$invalid && !addUserForm.lastname.$pristine" class="help-block">Enter Last Name.</p>
+                  </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6" ng-class="{ 'has-error' : addUserForm.contact.$invalid && !addUserForm.contact.$pristine }">
+        <div class="form-group">
+          <label> Contact Number</label>
+          <input type="text" class="form-control" name="contact" placeholder="contact number"  ng-pattern="/^[0-9]{1,15}$/"  ng-model="user.user_contact"/>
+          <p ng-show="addUserForm.contact.$invalid && !addUserForm.contact.$pristine" class="help-block">Enter Numbers Only.</p>
+        </div>
+      </div>
+      <div class="col-sm-6" ng-class="{ 'has-error' : addUserForm.fax.$invalid && !addUserForm.fax.$pristine }">
+        <div class="form-group">
+          <label> Fax</label>
+          <input type="text" class="form-control" name="fax" placeholder="fax" ng-model="user.fax"/>
+          <p ng-show="addUserForm.fax.$invalid && !addUserForm.fax.$pristine" class="help-block">Enter Email Address.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      
+       <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.email.$invalid && !addUserForm.email.$pristine }">
+                    <label>Email Address <span class="req">*</span></label>
+                    <input type="email" name="email" ng-model="user.email" class="form-control" placeholder="email address" required> 
+        <p ng-show="addUserForm.email.$invalid && !addUserForm.email.$pristine" class="help-block">Enter Email Address.</p>
+                  </div>
+     
+      <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.password.$invalid && !addUserForm.password.$pristine }">
+                    <label>Password</label>
+                    
+                    <input type="password" name="password" ng-model="user.password" class="form-control" placeholder="password" > 
+        <p ng-show="addUserForm.password.$invalid && !addUserForm.password.$pristine" class="help-block">Enter Password.</p>
+                  </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+              <label>Time Zone Name</label>
+              <div class="container"></div>
+                <select class="form-control" name='selectAction' id='selectAction' ng-model="user.timezone" >
+                  <option value="">Select Time Zone</option>
+                </select>
+            </div>
+        </div>
+      </div>
+   
+
+  </section>
+   </form>
+    <div class="editor-btn">
+      <button class="pink-btn btn" ng-click="submitCreateUserForm()" ng-disabled="addUserForm.$invalid">Create User</button>          
+    </div>
+
+ </div>
+</div>
+
+ 
+

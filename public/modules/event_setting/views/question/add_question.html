@@ -19,8 +19,11 @@
                         <div class="col-sm-6" ng-class="{ 'has-error' : userForm.question_type.$invalid && !userForm.question_type.$pristine }">
                           <div class="form-group">
                             <label for="EventName">Question Type<span class="req">*</span></label>
-                            <select class="form-control" name="question_type" ng-model="data.question_type" required>
+                            <select class="form-control" name="question_type" ng-change="showDiv();" ng-model="data.question_type" required>
                               <option>Text</option>
+			      <option>Multiple Choice</option>
+			      <option>Waiver</option>
+			      <option>Address</option>
                             </select>
                           </div>
 			  <p ng-show="userForm.question_type.$invalid && !userForm.question_type.$pristine" class="help-block">Select Question type.</p>
@@ -39,12 +42,99 @@
                         <div class="col-xs-12">
 			 <label for="Venue">Required</label>
                           <div class="onoffswitch">
-			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.required" checked>
+			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.required" value="1" checked>
 			 <label class="onoffswitch-label" for="myonoffswitch4"></label>
 		       </div>
                         </div>
                       </div>
-                    		    
+		      <!-- Start Div 1 -->
+		      <div class="row" ng-show="div_1">
+                        <div class="col-xs-6">
+			 <label for="Venue">Option</label>
+                         </div>
+			<div class="col-xs-6">
+			 <label for="Venue">Manage</label>
+                        </div>
+                      </div>
+		      <div class="row" ng-show="div_1" ng-repeat="key in addmore">
+                        <div class="col-xs-6" >
+			 <input type="text" class="form-control" name="data.option" ng-model="data.option[key]"> 
+                         </div>
+			<div class="col-xs-6">
+			 <a  ng-click="removeMoreRow($index)"><i class="fa fa-trash"></i></a>
+                        </div>
+                      </div>
+		      
+		       <div class="row" ng-show="div_4">
+                        <div class="col-xs-6">
+			 <label for="Venue">Option</label>
+                         </div>
+			<div class="col-xs-6">
+			 <label for="Venue">Manage</label>
+                        </div>
+                      </div> 
+		      <div class="row" ng-show="div_4" ng-repeat="qkey in quesoptions">
+                        <div class="col-xs-6" >
+			 <label for="Venue">&nbsp;</label>
+			 <input type="text" class="form-control" ng-model="data.option[qkey.id]" value="{{qkey.option}}"> 
+                         </div>
+			<div class="col-xs-6">
+			 <label for="Venue">&nbsp;</label>
+			 <a  ng-click="removeMoreRowKey($index,qkey.id)"><i class="fa fa-trash"></i></a>
+                        </div>
+                      </div>
+		      
+		      <div class="row" ng-show="div_4">
+                        <div class="col-xs-6" >
+			 <label for="Venue">&nbsp;</label>
+			 <a ng-click="addMoreRowKey()" >Add More</a> 
+                         </div>
+			<div class="col-xs-6">
+			 
+                        </div>
+                      </div>
+		      <div class="row" ng-show="div_1">
+                        <div class="col-xs-6" >
+			 <a ng-click="addMoreRow()">Add More</a> 
+                         </div>
+			<div class="col-xs-6">
+			 
+                        </div>
+                      </div>
+                      <!-- End Div 1 -->
+		      <!-- Start Div 2  -->
+		      <div class="row" ng-show="div_2">
+                        <div class="col-xs-12">
+			 <label for="Venue">Waiver Text</label>
+			 
+			 <div ckeditor="option_ckeditor" ng-model="data.weaver_text" ready="onReady()"></div>
+                         </div>
+		      </div>
+		      
+		      <div class="row" ng-show="div_2">
+                        <div class="col-xs-12">
+			 <label for="Venue">Agreement Phrase</label>
+			 <input type="text" name="data.agree_phase" ng-model="data.agree_phase"> 
+                         </div>
+		       </div>
+		      <!-- End Div 2 -->
+		      
+		      <!-- Start Div 3  -->
+		      <div class="row" ng-show="div_3">
+                        <div class="col-xs-6">
+			 <label for="Venue">Address Mapping</label>
+			 <input type="checkbox" name="address_map_bill" ng-model="data.address_map_bill">  Map To Billing Address
+	   
+                         </div>
+			<div class="col-xs-6">
+			 <label for="Venue">&nbsp;</label>
+			  <input type="checkbox" name="address_map_ship" ng-model="data.address_map_ship">  Map To Shipping Address   
+                         </div>
+		      </div>
+		     
+		      <!-- End Div 3 -->
+		      
+		      
                     </div>
                    
                   </div>
@@ -68,6 +158,62 @@
          </div>
      </form>
      </div>
+    
+     <!---  Assigment Question view -------------->
+		
+		  <section class="grid-widget">
+                    <div class="table-responsive" ng-show="quesassignment">
+                    <h3>Assignment</h3>      
+            
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+			    <th width="40%">Event</th>
+                            <th width="20%">Created</th>
+                            <th width="23%">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr pagination-id="paginate3" dir-paginate="qdata in quesassignment | itemsPerPage: 5 | filter:filter">
+			     <td><strong>{{qdata.title}}</strong></td>
+                            <td>{{qdata.created}}</td>
+                           
+                            <td class="action">
+			      <a ng-click="delAssignment(qdata.question_id,qdata.event_id)" ng-confirm-clicks="Would you like to delete this Assignment?"><i class="fa fa-trash"></i></a>
+			    </td>
+                        </tr>
+			<tr ng-show="loader">
+			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+			</tr>
+			<tr ng-if="quesassignment == ''">
+			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+			</tr>
+		    </tbody>
+            
+                </table>
+            
+            
+                      </div>
+		      
+                  </section>
+                  
+                  <section class="grid-bottm clearfix">
+                  	     <section class="paging">
+                             <label class="lt-label"></label>
+                             
+			    <dir-pagination-controls pagination-id="paginate3" ></dir-pagination-controls>
+                        </section>
+                        <section class="gr-right pull-right">
+                            <ul class="legends">
+                                
+				<li><i class="fa fa-trash"></i><span>delete</span></li>
+                            </ul>
+                        </section>
+                   </section>
+		
+		
+		<!--- Assigmnet Question view --------------->
+    
     
     <!-- //Form COntainer --> 
   </div>

@@ -93,6 +93,28 @@ return url;
 		});
       
   };
+  
+  url.viewEvents = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.viewEvents,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+      
+  };
+  
+  url.makeAssignment = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.makeAssignment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+      
+  };
+  
+  url.delAssignment = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.delAssignment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+      
+  };
+  
     
   
 return url;
@@ -142,8 +164,137 @@ return url;
 		});
       
   };
+  
+  url.productSettingsData = function(jsondata,callback){
+    console.log(jsondata)
+      communicationService.resultViaPost(webservices.saveProductSetting,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
+  
+  url.getProductSetting = function(jsondata,callback){
+    console.log(jsondata)
+      communicationService.resultViaPost(webservices.getProductSetting,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
     
   
 return url;
 }])
+
+//discount services
+.factory('discounts', ['$q', '$timeout','communicationService', function Customers($q, $timeout,communicationService) {
+    var url = {};
+
+    url.getDiscounts = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getDiscounts,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+
+  url.addDiscount = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.addDiscount,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+
+  url.assignDiscount = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.assignDiscount,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+  
+  url.discountOverview = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.discountOverview,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+  
+  url.changeDiscountStatus = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.changeDiscountStatus,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+  
+  url.deleteDiscount = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.deleteDiscount,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+    
+  
+return url;
+}])
+// discount service ends
+
+
+
+// bundle service starts
+
+.factory('bundles', ['$q', '$timeout','communicationService', function Customers($q, $timeout,communicationService) {
+    var url = {};
+
+    url.getBundles = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getBundles,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+
+   url.getBundleProducts = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getBundleProducts,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+
+  url.addBundle = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.addBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+  
+  url.bundleOverview = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.bundleOverview,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+  
+  url.changeBundleStatus = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.changeBundleStatus,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+  
+  url.uploadBundleImage = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.uploadBundleImage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+  
+  url.deleteBundle = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.deleteBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+    
+  
+return url;
+}])
+
+// bundle service ends
+
+
 ;

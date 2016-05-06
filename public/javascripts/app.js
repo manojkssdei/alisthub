@@ -370,6 +370,33 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                         
             }
         })
+        
+        .state('assign_question', {
+            url: '/assign_question/:assign',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageQuestionController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/question/assign_question.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+        
+        
         // Add Product
         .state('add_product', {
             url: '/add_product',
@@ -419,6 +446,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
         
+        
         .state('view_products', {
             url: '/view_products/:list',
             
@@ -442,7 +470,267 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                         
             }
         })
+
+
+        // DISCOUNT START
+.state('add_discount', {
+            url: '/add_discount',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'discountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/discount/add_discount.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
         
+        .state('edit_discount', {
+            url: '/edit_discount/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'discountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/discount/add_discount.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+        .state('view_discounts', {
+            url: '/view_discounts/:list',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageDiscountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/discount/view_discount.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+
+
+        .state('assign_discount', {
+            url: '/assign_discount',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'discountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/discount/assign_discount.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+
+        //DISCOUNT END
+        
+ // start bundle routing
+        .state('add_bundle', {
+            url: '/add_bundle',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'bundleController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/bundle/add_bundle.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/bundle_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+        .state('edit_bundle', {
+            url: '/edit_bundle/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'bundleController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/bundle/add_bundle.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/bundle_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        
+
+        
+         .state('product_overview', {
+            url: '/product_overview/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'productController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/product/product_overview.html'
+
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+
+                    return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+   .state('product_setting', {
+            url: '/product_setting',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageProductController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/product/product_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+    // End Product Module
+   
+   // Start Manage Section :
+   //  Module :User   
+.state('user', {
+            url: '/user',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'userController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/manage/views/user/user.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/manage/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/manage/user_controller.js']);
+
+                    })
+               
+              }]
+                        
+            }
+        })
+
+
+        .state('user/addUser', {
+            url: '/user/addUser',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'userController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/manage/views/user/add_user.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/manage/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/manage/user_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
+        // End Manage Section :
+        /// start discount routes
+        
+        
+        
+        /// end discount routes
+
     
   }).run(['$rootScope', '$location','$state', '$localStorage',function($rootScope,$location, $state,$localStorage) {
     //To add class
@@ -468,4 +756,23 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
        localStorage.clear();
         $state.go('login');
     }
-    }]);;
+    }])
+
+ .directive('ngConfirmClicks', [
+
+    function(){
+        return {
+            priority: 1,
+            terminal: true,
+            link: function (scope, element, attr) {
+                var msg = attr.ngConfirmClick || "Are you sure?";
+                var clickAction = attr.ngClick;
+                element.bind('click',function (event) {
+                    if ( window.confirm(msg) ) {
+                        scope.$eval(clickAction)
+                    }
+                });
+            }
+        };
+}]);
+

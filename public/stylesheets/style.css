@@ -83,7 +83,8 @@ h1{ color: #333333; font-size: 40px; font-weight: 700; text-transform: uppercase
 /* Step Form CSS
    ========================================================================== */
 .stage-container {padding: 15px 0px 30px;   margin: auto; max-width: 650px; }
-
+.stage-container-product {padding: 15px 0px 30px;   margin: auto; max-width: 494px; }
+.btn-date {width:170px;}
 .stage-container .stage { cursor:pointer; display: inline-block; position: relative; text-align: center; width:161px; padding: 0 15px; float:left;	}
 .stage-container .stage:before,	.stage-container .stage:after {	position: absolute;	background-color: #969696;top: 50%; margin-top: -18px; width: 50%;height: 2px;content: '';}
 .stage-container .stage:before { left: 0; }
@@ -133,6 +134,7 @@ select.form-control{padding:6px 12px; font-style:normal; font-style:italic; colo
 .tab-content .list-event-date{ background-color: #fff; color: #333333; padding: 12px 0; margin-bottom: 8px; font-size:16px;}
 .tab-content .list-event-date a{color: #333333;}
 .editr{margin:40px 0px 50px 0px;}/*Editor*/
+.bundle-editr{margin:15px 0px 50px 0px;}/*Editor*/
 .editr label{margin-bottom:30px;}
 
 .btn{border-radius:0px; padding:8px 20px; border-radius:0px; color:#fff; font-size:14px; min-width:125px; vertical-align:middle;}
@@ -587,4 +589,11 @@ table:focus {
 .f-n{font-weight:400;}
 .f-b{font-weight:700;}
 .f-sb{font-weight:600;}
+.stage-container-3steps{
+  max-width: 485px;
+}
+.req-limit{
+   color: #039be5;
+    font-size: 14px;
+}
 

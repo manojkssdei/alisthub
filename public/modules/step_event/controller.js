@@ -2,7 +2,7 @@ angular.module("google.places",[]);
 angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
    //For Step 1
     var $serviceTest = $injector.get("venues");
-    $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=true;
+    $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
     
     $scope.days=[
       {id: '0', name: 'Sun'},
@@ -89,8 +89,22 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
      
     }
      $scope.recurring_period=function(action){
-       //console.log($scope.data.period);
        
+            var stt = new Date($scope.multiple_start_date);
+            stt = stt.getTime();
+            var endt = new Date($scope.multiple_end_date);
+            endt = endt.getTime();
+
+            if(stt >= endt) {
+            $scope.error_message=false;
+            $scope.multiple_end_date='';
+            $scope.error='End date must be greater than start date. '; 
+            $timeout(function() {
+                $scope.error='';
+                $scope.error_message=true;
+              },3000);
+            }
+
        if(($scope.multiple_start_date===undefined)||($scope.multiple_end_date==undefined))
        {
         if ((action=='start')||(action=='end')) {}else{
@@ -536,10 +550,12 @@ var tomorrow = new Date();
             $scope.data.eventtype='single';
           $scope.multiple_event_div=true;
           $scope.single_event_div=false;  
+         
         }else{
          $scope.data.eventtype='multiple';
          $scope.multiple_event_div=false;
          $scope.single_event_div=true;      
+
         }
         $scope.selected = item; 
  };
@@ -666,6 +682,25 @@ $scope.items = ['item1'];
    $scope.changedendtime=function(){
   
     if ($scope.starttime!='') {
+    
+      if( $scope.data.eventtype == "single") {
+            var stt = new Date("January 01, 2016 " + $scope.starttime);
+            stt = stt.getTime();
+            var endt = new Date("January 01, 2016 " + $scope.endtime);
+            endt = endt.getTime();
+
+            if(stt >= endt) {
+            $scope.error_message=false;
+            $scope.endtime='';
+            $scope.error='End time must be greater than start time. '; 
+            $scope.endtime='';
+            $timeout(function() {
+                $scope.error='';
+                $scope.error_message=true;
+              },3000);
+
+                   }
+      }
       $scope.select_delect_event=false;
       $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');  
     }else{
@@ -680,16 +715,38 @@ $scope.items = ['item1'];
     }
     
    }
-   
-  $scope.data = {};
-   $scope.multiplestart=function(){
+
+  $scope.checkStartEndTime=function(index){
+    console.log('working 2');
+    console.log($scope.multiple_endtime);
+    if( $scope.multiple_endtime ) {
+            var stt = new Date("January 01, 2016 " + $scope.data.starttimeloop1[index]);
+            stt = stt.getTime();
+            var endt = new Date("January 01, 2016 " + $scope.data.endtimeloop1[index]);
+            endt = endt.getTime();
+
+            if(stt >= endt) {
+            $scope.error_time_message=false;
+            $scope.data.endtimeloop1[index]='';
+            $scope.error_time_display_message='End time must be greater than start time. '; 
+            $timeout(function() {
+                $scope.error_time_display_message='';
+                $scope.error_time_message=true;
+              },3000);
+
+                   }
+                 }
+   }
     
+
+   $scope.data = {};
+   $scope.multiplestart=function(){
+
     $scope.data.starttimeloop1=[];
     
     var i=0;
     while(i<$scope.between_date.length)
     {
-        
         $scope.data.starttimeloop1.push(JSON.parse(JSON.stringify($scope.multiple_starttime)));
     
       i++;  
@@ -697,7 +754,24 @@ $scope.items = ['item1'];
     
    }
    $scope.multipleend=function(){
-    
+    if ($scope.data.period  && $scope.multiple_endtime) {
+    console.log('working 1'); 
+            var stt = new Date("January 01, 2016 " + $scope.multiple_starttime);
+            stt = stt.getTime();
+            var endt = new Date("January 01, 2016 " + $scope.multiple_endtime);
+            endt = endt.getTime();
+            if(stt >= endt) {
+            $scope.error_time_message=false;
+            $scope.multiple_endtime='';
+            $scope.error_time_display_message='End time must be greater than start time. '; 
+            $timeout(function() {
+                $scope.error_time_display_message='';
+                $scope.error_time_message=true;
+              },3000);
+
+                   }
+    }
+
   $scope.data.endtimeloop1=[];
     var j=0;
    
