@@ -131,28 +131,10 @@ module.exports = function(app, express) {
          *   Get Seller Bundle 
          *
         */
-        router.post('/getBundles', bundle_setting.getBundles);
-        
-        /* Add Seller Bundle  */
+    
         
         router.post('/addBundle', bundle_setting.addBundle);
 
-       // router.post('/getBundleProducts', bundle_setting.getBundleProducts);
-        
-        router.post('/uploadBundleImage', bundle_setting.bundleUpload);
-        
-        /* Change Status Seller Bundle  */
-        
-        router.post('/changeBundleStatus', bundle_setting.changeBundleStatus);
-        
-        
-        /* Service : Bundle Overview to Seller
-        * */
-        router.post('/bundleOverview', bundle_setting.bundleOverview);
-        
-        /* Delete Seller Bundle  */
-        
-        router.post('/deleteBundle', bundle_setting.deleteBundle);
         
          
 	app.use('/event_setting', router);
