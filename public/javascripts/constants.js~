@@ -1,17 +1,15 @@
 
 
-
-//var localbaseUrl = "//192.155.246.146:5502";
-var localbaseUrl = "http://localhost:5502";
-
+//var localbaseUrl   = "//192.155.246.146:5502";
+var localbaseUrl   = "//localhost:5502";
 
 var baseUrl = "http://192.155.246.146:7048";
-//var baseUrl = "localhost:7048";
-
-var servicebaseUrl = "http://localhost:5502";
-
+//var servicebaseUrl = "//192.155.246.146:5502";
+var servicebaseUrl = "//localhost:5502";
 //var localhostUrl="//192.155.246.146:5502";
-var localhostUrl="http://localhost:5502";
+var localhostUrl="//localhost:5502";
+
+
 
 var webservices = {	
 
@@ -41,20 +39,6 @@ var webservices = {
         "uploadProductImage"  : localbaseUrl + "/event_setting/uploadProductImage",
         "saveEvent"  : localbaseUrl + "/event/saveEvent",
         "saverecurringEvent"  : localbaseUrl + "/event/saverecurringEvent",
-
-        "getDiscounts":localhostUrl + "/event_setting/getDiscounts",
-        "addDiscount" : localbaseUrl + "/event_setting/addDiscount",
-        "assignDiscount" : localbaseUrl + "/event_setting/assignDiscount",
-        "discountOverview" : localbaseUrl + "/event_setting/discountOverview",
-        "changeDiscountStatus" : localbaseUrl + "/event_setting/changeDiscountStatus",
-        "deleteDiscount" : localbaseUrl + "/event_setting/deleteDiscount",
-
-        "getBundles":localhostUrl + "/event_setting/getBundles",
-        "addBundle" : localbaseUrl + "/event_setting/addBundle",
-        "bundleOverview" : localbaseUrl + "/event_setting/bundleOverview",
-        "changeProductStatus" : localbaseUrl + "/event_setting/changeProductStatus",
-        "getBundleProducts":localhostUrl + "/event_setting/getBundleProducts",
-
 
 }
 

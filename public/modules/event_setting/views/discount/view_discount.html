@@ -1,0 +1,103 @@
+<div class="container">
+     <h1>All Discount</h1>
+    
+    <!-- Form COntainer -->
+    
+    <div class="wt-frame form-section">
+      <form class="event-form">
+        <!-- Event Detail Form -->
+   
+          <div class="form-group row">
+          	<section class="col-sm-6">
+            	<section class="search-event">
+                    <input type="text" name="filter" class="form-control search-field" placeholder="Enter your keyword" ng-model="filter">
+                    <i class="fa fa-search"></i>
+                </section>
+            </section>
+          </div>
+          <!--Ticket Types Start -->
+          <div class="module">             	
+                <section class="gray-frame sub-fields">
+                
+                  	 <section class="grid-btn-top row">
+<section class="col-sm-12 top-buttons">
+
+  <a href="#/add_discount"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Create Discount</button></a>
+  <a href="#/assign_discount"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Assign Discount</button></a>
+  <a href="#/export_discount"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Export CSV</button></a>
+                       
+</section>
+ </section>
+                      
+                    
+                  <section class="grid-widget">
+                      <div class="table-responsive">
+                          
+            
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th width="15%">Name</th>
+                            <th width="10%" class="numbers">Type</th>
+                            <th width="14%" class="numbers">Code</th>
+                            <th width="14%" class="numbers">Discount</th>
+                            <th width="14%" class="numbers">Assigned To</th>
+                            <th width="23%">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr pagination-id="paginate2" dir-paginate="data in discountdata | itemsPerPage: 2 | filter:filter">
+                            <td><strong>{{data.coupon_name}}</strong></td>
+                            <td class="numbers">{{data.coupon_type}}</td>
+                            <td class="numbers">{{data.coupon_code}}</td>
+                            <td class="numbers">{{data.amount}}</td>
+                            <td class="numbers">{{data.assigned_to}}</td>
+                            <td class="action">
+			      <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
+			      <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
+			      <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?"><i class="fa fa-trash"></i></a>
+			    </td>
+                        </tr>
+			<tr ng-show="loader">
+			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+			</tr>
+		    </tbody>
+            
+                </table>
+            
+            
+                      </div>
+		      
+                  </section>
+                  
+                  <section class="grid-bottm clearfix">
+                  	     <section class="paging">
+                             <label class="lt-label"></label>
+                             
+			    <dir-pagination-controls pagination-id="paginate2" ></dir-pagination-controls>
+                        </section>
+                        <section class="gr-right pull-right">
+                            <ul class="legends">
+                                <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+                                <li><i class="fa fa-check-circle"></i><span>active</span></li>
+				<li><i class="fa fa-trash"></i><span>delete</span></li>
+                            </ul>
+                        </section>
+                   </section>
+                
+      			</section>
+          </div>
+          <!-- Ticket Types Closed --> 
+                 
+          
+          
+      
+      </form>
+     
+             
+          
+    </div>
+    
+    <!-- //Form COntainer --> 
+    
+  </div>
