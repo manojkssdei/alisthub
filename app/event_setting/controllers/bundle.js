@@ -5,7 +5,7 @@ exports.addBundle = function(req,res){
           var inventory=0,hide_in_box_office,status,hide_online;
         
           if (req.body.step == 1) {
-               if ((req.body.assign_inventory==true)||(req.body.assign_inventory==undefined)) {
+               if (req.body.assign_inventory==true) {
                     inventory=req.body.bundle_inventory;
                }
                if ((req.body.hide_in_box_office==false)||(req.body.hide_in_box_office==undefined)) {
