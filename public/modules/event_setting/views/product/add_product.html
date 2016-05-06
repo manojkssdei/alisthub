@@ -4,6 +4,7 @@
     <!-- Step Form -->
     
     <div class="stage-container stage-container-product clearfix">
+     
       <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
         <div class="stage-title">{{step.title}}</div> </div>
     
@@ -13,10 +14,11 @@
     
     <!-- Form COntainer -->
     
-    <div class="form-section">
-      <form class="event-form" name="userForm" novalidate>
+    <div class="form-section  wt-frame">
+      
        
        <!-- Step 1 start ------------------->
+       <form class="event-form" name="userForm" novalidate>
        <div ng-show="step_1">
         <!-- Event Detail Form -->
        <div>
@@ -109,8 +111,8 @@
                          <section class="top-buttons">
 			 <span class="file-input btn pink-btn btn-small btn-file">Choose File
 			 <input  id="inputFileToLoad_1" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,1)" file-model="file.myFiles">
-                         <!--<div id="imgTest_1" ng-model="picDatatest" width="100" height="100"></div>-->
-					 
+                         <div id="imgTest_1" ng-model="picDatatest1" width="100" height="100"></div>
+			 <img ng-src="/images/products/{{data.image_1}}" ng-show="data.image_1">		 
 			 </span>
 		         </section>
 		         </div>
@@ -119,7 +121,8 @@
                          <section class="top-buttons">
 			 <span class="file-input btn pink-btn btn-small btn-file">Choose File
 			 <input  id="inputFileToLoad_2" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,2)" file-model="file.myFiles">
-                         <!--<div id="imgTest_2" ng-model="picDatatest"></div>-->
+                         <div id="imgTest_2" ng-model="picDatatest2"></div>
+			 <img ng-src="/images/products/{{data.image_2}}" ng-show="data.image_2">
 			 </span>
 		         </section>
 			 </div>
@@ -128,7 +131,8 @@
 			 <section class="top-buttons">
 			 <span class="file-input btn pink-btn btn-small btn-file">Choose File
 			 <input  id="inputFileToLoad_3" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,3)" file-model="file.myFiles">
-                         <!--<div id="imgTest_3" ng-model="picDatatest"></div>-->
+                         <div id="imgTest_3" ng-model="picDatatest3"></div>
+			 <img ng-src="/images/products/{{data.image_3}}" ng-show="data.image_3">
 			 </span>
 		         </section>
 			 </div>
@@ -139,7 +143,8 @@
                          <section class="top-buttons">
 			 <span class="file-input btn pink-btn btn-small btn-file">Choose File
 			 <input  id="inputFileToLoad_4" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,4)" file-model="file.myFiles">
-                         <!--<div id="imgTest_4" ng-model="picDatatest"></div>-->
+                         <div id="imgTest_4" ng-model="picDatatest4"></div>
+			 <img ng-src="/images/products/{{data.image_4}}" ng-show="data.image_4">
 			 </span>
 		         </section>
 			 </div>
@@ -148,7 +153,8 @@
                          <section class="top-buttons">
 			 <span class="file-input btn pink-btn btn-small btn-file">Choose File
 			 <input  id="inputFileToLoad_5" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,5)" file-model="file.myFiles">
-                         <!--<div id="imgTest_5" ng-model="picDatatest"></div>-->
+                         <div id="imgTest_5" ng-model="picDatatest5"></div>
+			 <img ng-src="/images/products/{{data.image_5}}" ng-show="data.image_5">
 			 </span>
 		         </section>
 			 </div>
@@ -161,16 +167,17 @@
                </section>
           </div>
            <!-- Search options Closed -->
-          
+         
           <div class="editor-btn">
-          <button class="pink-btn btn" ng-click="saveProduct(1)">Save</button>
-          <button class="pink-btn btn" ng-click="click_menu({id:2});">Next</button>
+          <button class="pink-btn btn" ng-click="saveProduct(1)" ng-disabled="userForm.$invalid">Save</button>
+          <button class="pink-btn btn" ng-click="click_menu(steps[1]);" ng-disabled="userForm.$invalid">Next</button>
         </div>   
        </div>
        </div>
        <!-- Step 1 end ------------------->
+       </form>
        <!-- Step 2 start ------------------->
-       
+       <form class="event-form" name="userForm2" novalidate>
        <div ng-show="step_2">
           
        <!-- //Event Detail Form -->
@@ -181,23 +188,23 @@
   </section>
   <section class="gray-frame">
     <div class="row">
-      <div class="col-sm-4" ng-class="{ 'has-error' : userForm.retail_price.$invalid && !userForm.retail_price.$pristine }">
+      <div class="col-sm-4" ng-class="{ 'has-error' : userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine }">
         <div class="form-group">
           <label for="EventName"> Retail Price<span class="req">*</span></label>
-          <input type="text" class="form-control" name="retail_price" placeholder="Product name" ng-model="data.retail_price" required/>
+          <input type="number" class="form-control" name="retail_price" placeholder="Product Price" ng-model="data.retail_price" required/>
         </div>
-	<p ng-show="userForm.retail_price.$invalid && !userForm.retail_price.$pristine" class="help-block">Enter Retail Price.</p>
+	<p ng-show="userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine" class="help-block">Enter Retail Price.</p>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
           <label for="EventName"> Shipping Cost</label>
-          <input type="text" class="form-control" placeholder="Shipping Cost" ng-model="data.ship_cost"/>
+          <input type="number" class="form-control" placeholder="Shipping Cost" ng-model="data.ship_cost"/>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
           <label for="EventName"> Service Fee Covered</label>
-          <input type="text" class="form-control" placeholder="Service Fee Covered" ng-model="data.service_fee"/>
+          <input type="number" class="form-control" placeholder="Service Fee Covered" ng-model="data.service_fee"/>
         </div>
       </div>
     </div>
@@ -206,8 +213,8 @@
         <div class="form-group">
           <label for="EventName"> Taxable</label>
           <div class="onoffswitch">
-			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.taxable" checked>
-			 <label class="onoffswitch-label" for="myonoffswitch4"></label>
+			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch6" ng-model="data.taxable" checked>
+			 <label class="onoffswitch-label" for="myonoffswitch6"></label>
           </div>
         </div>
       </div>
@@ -225,9 +232,9 @@
       </div>
     </div>
      <div class="editor-btn">
-	  <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
+	  <button class="pink-btn btn" ng-click="click_menu(steps[0]);">Prev</button>
           <button class="pink-btn btn" ng-click="saveProduct(2)">Save</button>
-          <button class="pink-btn btn" ng-click="click_menu({id:3});">Next</button>
+          <button class="pink-btn btn" ng-click="click_menu(steps[2]);">Next</button>
      </div> 
   </section>
 </div>
@@ -236,9 +243,9 @@
        
        
        <!-- Step 2 end ------------------->
-       
+       </form>
        <!-- Step 3 start ------------------->
-       
+       <form class="event-form" name="userForm3" novalidate>
        <div ng-show="step_3">
           
        <!-- //Event Detail Form -->
@@ -252,9 +259,13 @@
      <div class="row">
       <div class="col-sm-6" ng-class="{ 'has-error' : userForm.configuration.$invalid && !userForm.configuration.$pristine }">
         <div class="form-group">
-          <label for="EventName"> Configuration</label>
-         <input type="radio" class="form-control" name="configuration" ng-model="data.configuration" value="single"/> Single  <input type="radio" class="form-control" name="configuration" ng-model="data.configuration" value="multiple"/> Multiple
-        </div>
+         <label for="EventName"> Configuration (Single/Multiple)</label>
+	 <div class="onoffswitch">
+			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch9" ng-model="data.configuration">
+			 <label class="onoffswitch-label" for="myonoffswitch9"></label>
+          </div>
+	 </div>
+	
 	<p ng-show="userForm.configuration.$invalid && !userForm.configuration.$pristine" class="help-block">Enter Configuration.</p>
       </div>
       <div class="col-sm-6">
@@ -271,34 +282,53 @@
                   <thead>
                     <tr>
                       <th width="5%">Active</th>
-		      <th width="5%">SKU</th>
-		      <th width="10%">Internal Name</th>
-		      <th width="10%">Display Name</th>
+		      <th width="14%">SKU</th>
+		      <th width="14%">Internal Name</th>
+		      <th width="14%">Display Name</th>
 		      <th width="20%">Description</th>
-		      <th width="3%">Print Voucher</th>
-                      <th width="10%">Pre Sale Limit</th>
-                      <th width="10%">Inventory</th>
-		      <th width="10%">Actions</th>
+		      <th width="3%" title="Print Voucher">Print</th>
+                      <th width="12%">Pre Sale Limit</th>
+                      <th width="12%">Inventory</th>
+		      <th width="3%">&nbsp;</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr ng-repeat="add in addmore">
-                      <td><input type="checkbox" name=""></td>
+                  <tbody>{{compdata}}
+		    <tr ng-repeat="key in componentdata">
+			 {{key}}
+                      <td><input type="checkbox" ng-model="cdata[key.id].active"></td>
                       <td>
-			 <input type="text" class="form-control" placeholder="Seller pays" ng-model="data.product_weight"/>
+			 <input type="text" class="form-control" placeholder="SKU" ng-model="cdata[key.id].sku"/>
 		      </td>
 		      <td>
-			 <input type="text" class="form-control" placeholder="Seller pays" ng-model="data.product_weight"/>
+			 <input type="text" class="form-control" placeholder="Name" ng-model="cdata[key.id].internal_name"/>
 		      </td>
 		      <td>
-			 <input type="text" class="form-control" placeholder="Seller pays" ng-model="data.product_weight"/>
+			 <input type="text" class="form-control" placeholder="Display" ng-model="cdata[key.id].display_name"/>
 		      </td>
-                      <td><textarea class="form-control" placeholder="Seller pays" ng-model="data.product_weight"/></textarea></td>
-		      <td><input type="checkbox" name=""></td>
-		      <td><input type="text" class="form-control" placeholder="Seller pays" ng-model="data.product_weight"/></td>
-		      <td><input type="text" class="form-control" placeholder="Seller pays" ng-model="data.product_weight"/></td>
-		      <td>&nbsp;</td>
+                      <td><textarea class="form-control" placeholder="Details" ng-model="cdata[key.id].description"/></textarea></td>
+		      <td><input type="checkbox" ng-model="cdata[key.id].print_voucher"></td>
+		      <td><input type="text" class="form-control" placeholder="limit" ng-model="cdata[key.id].pre_sale_limit"/></td>
+		      <td><input type="text" class="form-control" placeholder="Inventory" ng-model="cdata[key.id].inventory"/></td>
+		      <td><a  ng-click="removeMoreRowKey($index,key.id)"><i class="fa fa-trash"></i></a></td>
                     </tr>
+                    <tr ng-repeat="add in addmore">
+                      <td><input type="checkbox" ng-model="cdata[add].active"></td>
+                      <td>
+			 <input type="text" class="form-control" placeholder="SKU" ng-model="cdata[add].sku"/>
+		      </td>
+		      <td>
+			 <input type="text" class="form-control" placeholder="Name" ng-model="cdata[add].internal_name"/>
+		      </td>
+		      <td>
+			 <input type="text" class="form-control" placeholder="Display" ng-model="cdata[add].display_name"/>
+		      </td>
+                      <td><textarea class="form-control" placeholder="Details" ng-model="cdata[add].description"/></textarea></td>
+		      <td><input type="checkbox" ng-model="cdata[add].print_voucher"></td>
+		      <td><input type="text" class="form-control" placeholder="limit" ng-model="cdata[add].pre_sale_limit"/></td>
+		      <td><input type="text" class="form-control" placeholder="Inventory" ng-model="cdata[add].inventory"/></td>
+		      <td><a  ng-click="removeMoreRow($index)"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+		    
                     </tbody>
                 </table>
               </div>
@@ -314,19 +344,21 @@
         <div class="form-group">
           <label for="EventName">Purchasable Without Tickets</label>
           <div class="onoffswitch">
-			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.taxable" checked>
-			 <label class="onoffswitch-label" for="myonoffswitch4"></label>
+			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch7" ng-model="data.purchsable_ticket" checked>
+			 <label class="onoffswitch-label" for="myonoffswitch7"></label>
           </div>
         </div>
       
      </div>
      </div>
      <div class="editor-btn">
-	  <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
+	  <button class="pink-btn btn" ng-click="click_menu(steps[1]);">Prev</button>
           <button class="pink-btn btn" ng-click="saveProduct(3)">Save</button>
           <button class="pink-btn btn" ng-click="saveProduct(4)">Submit</button>
      </div> 
-    
+     <div>
+	  <span ng-hide="success_message"><p class="success-fld" ng-show="successmessage">{{ successmessage }}</p></span>
+     </div>
   </section>
 </div>
           <!--Links Closed -->     
@@ -334,10 +366,10 @@
       
       
        </div>
-       
+       </form>
        <!-- Step 3 end ------------------->
       
-      </form>
+      
     
     </div>
     

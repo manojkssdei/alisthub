@@ -25,7 +25,7 @@
                         </section>
                       </section>
                       <section class="col-sm-5 right-btns text-right">
-                      	  
+                      	 <a href="#/product_setting"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Product Setting</button></a>
                           
                       </section>
                     </section>
@@ -45,14 +45,14 @@
                     </thead>
                     <tbody>
                         <tr pagination-id="paginate2" dir-paginate="data in productdata | itemsPerPage: 2 | filter:filter">
-                            <td><strong>{{data.product_name}}</strong></td>
+                            <td><a href="#/product_overview/{{data.id}}"><strong>{{data.product_name}}</strong></a></td>
                             <td class="numbers">{{data.product_model}}</td>
 			    <td class="numbers">{{data.product_upc}}</td>
-                            <td class="numbers">{{data.status}}</td>
+                            <td class="numbers"><p ng-if="data.status == 1">Active</p><p ng-if="data.status == 0">Inactive</p></td>
                             <td class="action">
 			      <a href="#/edit_product/{{data.id}}"><i class="fa fa-edit"></i></a>
 			      <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Product status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
-			      <a ng-click="delProduct(data.id)" ng-confirm-click="Would you like to delete this Product?"><i class="fa fa-trash"></i></a>
+			      <a ng-click="delProduct(data.id)" ng-confirm-clicks="Would you like to delete this Product?"><i class="fa fa-trash"></i></a>
 			    </td>
                         </tr>
 			<tr ng-show="loader">

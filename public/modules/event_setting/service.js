@@ -93,6 +93,28 @@ return url;
 		});
       
   };
+  
+  url.viewEvents = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.viewEvents,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+      
+  };
+  
+  url.makeAssignment = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.makeAssignment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+      
+  };
+  
+  url.delAssignment = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.delAssignment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+      
+  };
+  
     
   
 return url;
@@ -142,6 +164,20 @@ return url;
 		});
       
   };
+  
+  url.productSettingsData = function(jsondata,callback){
+    console.log(jsondata)
+      communicationService.resultViaPost(webservices.saveProductSetting,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
+  
+  url.getProductSetting = function(jsondata,callback){
+    console.log(jsondata)
+      communicationService.resultViaPost(webservices.getProductSetting,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
     
   
 return url;

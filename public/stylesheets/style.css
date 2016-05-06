@@ -83,7 +83,8 @@ h1{ color: #333333; font-size: 40px; font-weight: 700; text-transform: uppercase
 /* Step Form CSS
    ========================================================================== */
 .stage-container {padding: 15px 0px 30px;   margin: auto; max-width: 650px; }
-
+.stage-container-product {padding: 15px 0px 30px;   margin: auto; max-width: 494px; }
+.btn-date {width:170px;}
 .stage-container .stage { cursor:pointer; display: inline-block; position: relative; text-align: center; width:161px; padding: 0 15px; float:left;	}
 .stage-container .stage:before,	.stage-container .stage:after {	position: absolute;	background-color: #969696;top: 50%; margin-top: -18px; width: 50%;height: 2px;content: '';}
 .stage-container .stage:before { left: 0; }
@@ -496,6 +497,7 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 .date-media{width:120px;}
 .date-d{padding:10px;}
 
+.v-map-overview{height:375px; overflow:hidden; margin-bottom:15px; }
 .v-map{height:200px; overflow:hidden; margin-bottom:15px; }
 .address-list > li{margin-top:10px; line-height:20px;}
 .address-list > li:first-child{margin-top:0;}
@@ -559,6 +561,13 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 .editor-row{padding-top:20px; padding-bottom:20px; font-size:14px; line-height:18px;}
 .editor-bottom{padding:15px 0; border-top:1px #ccc solid; text-align:center;}
 
+.bootstrap-timepicker-widget td{text-align:center; padding:5px 0;}
+.bootstrap-timepicker-widget input{width:50px; text-align:center; border:none; font-size:16px; padding:5px 0;}
+
+button[disabled], button[disabled]:hover{background:rgba(193, 41, 185, 0.4);}
+table:focus {
+    outline: none;
+}
 
 /*--------Always at Bottom---------*/
 .m-t35 {margin-top: 35px;}

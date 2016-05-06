@@ -67,6 +67,18 @@ module.exports = function(app, express) {
         
         router.post('/deleteQuestion', question_setting.deleteQuestion);
         
+        /* Assign Event question Seller   */
+        
+        router.post('/viewEvents', question_setting.viewEvents);
+        
+        /* Make Asssignment Event question Seller   */
+        
+        router.post('/makeAssignment', question_setting.makeAssignment);
+        
+        /* View Question Asssignment Event Seller   */
+        
+        router.post('/delAssignment', question_setting.delAssignment);
+        
         /*** Module : Manage Product
          *   Get Seller Products 
          *
@@ -91,6 +103,12 @@ module.exports = function(app, express) {
         /* Delete Seller Question  */
         
         router.post('/deleteProduct', product_setting.deleteProduct);
+        
+        
+        router.post('/saveProductSetting', product_setting.saveProductSettingFunc);
+        
+        router.post('/getProductSetting', product_setting.getProductSetting);
+        
         
         
          
