@@ -11,11 +11,12 @@
 <!-- Form COntainer -->
     
     <div class="form-section  wt-frame">
-      <form class="event-form" name="userForm" novalidate>
+      
        
        <!-- Step 1 start ------------------->
        <div ng-show="step_1">
         <!-- Event Detail Form -->
+        <form class="event-form" name="userForm" novalidate ng-submit="saveBundle(1)">
        <div>
           
        <!-- //Event Detail Form -->
@@ -27,13 +28,15 @@
     <h2> Details <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
   </section>
   <section class="gray-frame">
+     
     <div class="row">
-      <div class="col-sm-4" ng-class="{ 'has-error' : userForm.bundle_name.$invalid && !userForm.bundle_name.$pristine }">
+      <div class="col-sm-4">
                           <div class="form-group">
                             <label for="EventName">Name<span class="req">*</span></label>
                               <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="data.bundle_name" required/>
                           </div>
-        <p ng-show="userForm.bundle_name.$invalid && !userForm.bundle_name.$pristine" class="help-block">Enter coupon name.</p>
+        
+        <span style="color:red" ng-show="userForm.bundle_name.$dirty && userForm.bundle_name.$invalid">  <span  ng-show="userForm.bundle_name.$error.required">Enter bundle name.</span></span>
                         </div>
 
 
@@ -46,27 +49,18 @@
         </div>
       </div>
 
-        <!--<div class="col-sm-8">
-        <div class="form-group">
-          <label for="EventName"> Description</label>
-          <div class="bundle-editr" ng-class="{ 'has-error' : userForm.bundle_description.$invalid && !userForm.bundle_description.$pristine }">
-         <div ckeditor="option_ckeditor" ng-model="data.bundle_description" ready="onReady()"></div>
-        <p ng-show="userForm.bundle_description.$invalid && !userForm.bundle_description.$pristine" class="help-block">Enter Description.</p>
-      </div>
-        </div>
-      </div>-->
     </div>
 
 
 
 
     <div class="row">
-      <div class="col-sm-4"  ng-class="{ 'has-error' : userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine }" >
+      <div class="col-sm-4" >
         <div class="form-group">
           <label for="EventName"> Limit<span class="req-limit">*</span></label>
-          <input type="number" min="0" class="form-control" placeholder="Limit" ng-model="data.bundle_limit"/>
+          <input type="number" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit"/>
         </div>
-        <p ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="help-block">Enter bundle limit.</p>
+        <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="help-block">Enter bundle limit.</p>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
@@ -138,7 +132,7 @@
      
       <div class="col-sm-4">
         <div class="form-group">
-    <label for="EventName"> Hide Online?<span class="req">*</span></label>
+    <label for="EventName"> Hide Online?</label>
          <div class="onoffswitch">
        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="data.hide_online" checked>
        <label class="onoffswitch-label" for="myonoffswitch3"></label>
@@ -148,7 +142,7 @@
 
       <div class="col-sm-4">
         <div class="form-group">
-    <label for="EventName"> Hide in box office?<span class="req">*</span></label>
+    <label for="EventName"> Hide in box office?</label>
          <div class="onoffswitch">
        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.hide_in_box_office" checked>
        <label class="onoffswitch-label" for="myonoffswitch5"></label>
@@ -159,6 +153,7 @@
     </div>
 
 
+   
   </section>
 </div>
           <!--Links Closed -->     
@@ -173,10 +168,13 @@
 
           
           <div class="editor-btn">
-          <button ng-click="saveBundle(1)" class="pink-btn btn">Save</button>
+          <button type="submit" 
+ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
           <button class="pink-btn btn" ng-click="click_menu({id:2});">Next</button>
         </div>   
        </div>
+        <div ng-hide="error_message" style="color:green;">{{success}}</div>
+        </form>
        </div>
        <!-- Step 1 end ------------------->
       
@@ -539,7 +537,7 @@
        
        <!-- Step 3 end ------------------->
       
-      </form>
+      
     
     </div>
     
