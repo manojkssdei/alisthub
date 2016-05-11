@@ -1,6 +1,8 @@
 angular.module('alisthub')
 .controller('userController', function($scope,$localStorage,$injector,$http,$state,$location) {
-   
+  if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+   } 
   var $serviceTest = $injector.get("users");
     
     if(window.innerWidth>767){ 
@@ -11,20 +13,100 @@ angular.module('alisthub')
     $scope.navCollapsed = $scope.navCollapsed === false ? true: false;
     };	  
  }
- $scope.data = {};
+ $scope.user = {};
    
    $scope.steps=[
      { "title":"Details","icon":'fa fa-calendar','id':1},
      { "title":"Pricing","icon":'fa fa-tags','id':2},
      { "title":"Options","icon":'fa fa-cog','id':3}
     ];
-  
-
-  $scope.submitCreateUserForm= function()
-  {
+    $scope.getUser = function() {
     
-    var jsondata= {'firstname':$scope.user.firstname, 'lastname':$scope.user.lastname, 'contact':$scope.user.contact,'fax':$scope.user.fax,'email':$scope.user.email, 'password':$scope.user.password};
-  alert(JSON.stringify(jsondata));
+        if ($localStorage.userId!=undefined) {
+        $scope.user.seller_id      = $localStorage.userId;
+        $scope.loader = true;
+        $serviceTest.getUser($scope.user,function(response){
+            console.log(response);
+            $scope.loader = false;
+            if (response.code == 200) {
+                   $scope.userData = response.result;
+                  }else{
+                   $scope.error_message = response.error;
+            }
+            
+        });
+        
+        }
+  };
+
+    $scope.getUser();
+
+  
+/****************************************************edit user*********************************************/
+  if ($state.params.id)
+  {
+    // $scope.callfunction = 1;
+    
+    $scope.page_title = 'EDIT';
+    $scope.getuserDetail = function() {
+    
+        if ($localStorage.userId!=undefined) {
+        $scope.user.id = $state.params.id;
+        $scope.loader  = true;
+        $serviceTest.userOverview($scope.user,function(response){
+          //console.log("data found "+JSON.stringify(response));
+            $scope.loader = false;
+            if (response.code == 200) {
+                  $scope.user  = {};
+                  $scope.user = response.result[0];
+                  
+                   
+                  // $scope.user.first_name = $scope.user.first_name;
+                  // $scope.user.last_name = $scope.user.last_name;
+                  // $scope.user.contact = $scope.user.phone;
+                  // $scope.user.fax = $scope.user.fax;
+                  // $scope.user.email = $scope.user.email;
+                  
+                  }
+
+                  else{
+                   $scope.error_message = response.error;
+            }
+            
+        });
+        
+        }
+    };
+    $scope.getuserDetail();
+}
+
+
+
+/***********************************add user ************************************************************/
+  $scope.submitCreateUserForm= function(step)
+  {
+        if ($localStorage.userId!=undefined) {
+        $scope.user.seller_id   = $localStorage.userId;
+        $serviceTest.addUsers($scope.user,function(response){
+            //console.log(response);
+            if (response.code == 200) {
+                    console.log("================");
+                    console.log(response.id);
+                    // if (step == 1) {
+                    //   $scope.data.id = response.result.insertId;
+                    // }
+                    
+                    // console.log("================");
+                    //$scope.uploadFiles(response.id);
+                    $location.path("/view_user");
+                  }else{
+                    $scope.activation_message = global_message.ErrorInActivation;
+            }
+            
+        });
+        }
+
+
   }
   ////////////// upload files //////////////////////
   // $scope.file = {};

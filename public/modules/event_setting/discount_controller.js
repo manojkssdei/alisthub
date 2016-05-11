@@ -1,6 +1,8 @@
 angular.module('alisthub')
 .controller('discountController', function($scope,$localStorage,$injector,$http,$state,$location) {
-   
+   if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+   }
   var $serviceTest = $injector.get("discounts");
     
     if(window.innerWidth>767){ 
@@ -223,7 +225,14 @@ angular.module('alisthub')
  //////////////////////////////////////////////////////////////////////////
 })
 
-.controller('manageDiscountController', function($scope,$localStorage,$injector,$rootScope,$http,$state,$location) {
+
+.controller('manageDiscountController', function($scope,$localStorage,$injector,$http,$state,$location) {
+  
+  if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+   }
+   
+
   var $serviceTest = $injector.get("discounts");
     
     if(window.innerWidth>767){ 

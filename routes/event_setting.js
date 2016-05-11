@@ -19,6 +19,9 @@ module.exports = function(app, express) {
         /* GET users listing. */
         /* Module : Setting Management
         * */
+        
+        
+        
         router.post('/getSettingCount', Event_setting.getSettingCount);
        
        

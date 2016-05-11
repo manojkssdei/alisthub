@@ -6,11 +6,13 @@
     <div class="form-section  wt-frame">
       <form class="venue-form" name="userForm" id="venue-form" ng-submit="saveQuestion()" novalidate>
         <!-- Event Detail Form -->
-       <div> 
+       <div>
+	  <span ng-show="errormessage"><p class="error-fld">{{ errormessage }}</p></span>
           <!-- Location Group -->
           <div class="form-group field-group">
                <!-- Date Event Group -->
             <div class="event-date fieldSection">
+	      
               <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="tab-content">

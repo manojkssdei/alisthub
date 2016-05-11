@@ -10,6 +10,8 @@ var webservices = {
         "forgetPassword" : baseUrl + "/webservices/forgetPassword",
         "resetPassword" : baseUrl + "/webservices/resetPassword",
         "confirmationEmail" : baseUrl + "/webservices/confirmationEmail",
+        "checkTokenExpiry" : baseUrl + "/webservices/check_token_expiry",
+        "refreshTokenExpiry" : baseUrl + "/webservices/refresh_token_expiry",
         "getVenues": "/event_setting/venueListing",
         "addVenue" :  "/event_setting/addVenue",
         "venueOverview" :  "/event_setting/venueOverview",
@@ -35,9 +37,7 @@ var webservices = {
         "deleteProduct": "/event_setting/deleteProduct",
         "saveProductSetting"  :  "/event_setting/saveProductSetting",
         "getProductSetting"  :  "/event_setting/getProductSetting",
-
         "saverecurringEvent"  :  "/event/saverecurringEvent",
-
         "getDiscounts":"/event_setting/getDiscounts",
         "addDiscount" : "/event_setting/addDiscount",
         "assignDiscount" : "/event_setting/assignDiscount",
@@ -49,6 +49,10 @@ var webservices = {
         "getBundles": "/event_setting/getBundles",
         "addBundle" :  "/event_setting/addBundle",
         "bundleOverview" :  "/event_setting/bundleOverview",
+        
+        "addUser": "/user/addUser",
+        "getUser": "/user/getUser",
+        "userOverview": "/user/userOverview",
      
         "getBundleProducts":"/event_setting/getBundleProducts",
 
@@ -63,7 +67,8 @@ var global_message = {
     "ForgetPassword" : "Email has been sent to you for reset new password.",
     "ForgetEmailError" : "Please enter correct Email.",
     "ActivatedMessage" : "Your account has been activated now , you can sign in your account .",
-    "ErrorInActivation" : "There is some problem in server , Please try some time."
+    "ErrorInActivation" : "There is some problem in server , Please try some time.",
+    "QuestionAddValidation" : "Please fill all mandatory fields."
 }
 
 
@@ -71,6 +76,7 @@ var appConstants = {
 	//"authorizationKey": "dGF4aTphcHBsaWNhdGlvbg=="
         "authorizationKey" : localStorage.getItem( "ngStorage-auth_token" )
 }
+
 
 
 var headerConstants = {

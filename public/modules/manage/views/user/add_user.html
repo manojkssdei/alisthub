@@ -8,25 +8,25 @@
 
   <section class="gray-frame">
        <div class="row">
-       <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.firstname.$invalid && !addUserForm.firstname.$pristine }">
+       <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.first_name.$invalid && !addUserForm.first_name.$pristine }">
                     <label>First Name <span class="req">*</span></label>
                     <!-- <font color="blue">*</font> -->
-                    <input type="text" name="firstname" ng-model="user.firstname" class="form-control" placeholder="first name" required> 
-        <p ng-show="addUserForm.firstname.$invalid && !addUserForm.firstname.$pristine" class="help-block">Enter Firstname.</p>
+                    <input type="text" name="first_name" ng-model="user.first_name" class="form-control" placeholder="first name" ng-pattern="/^[a-z ,.'-]+$/i" required> 
+        <p ng-show="addUserForm.first_name.$invalid && !addUserForm.first_name.$pristine" class="help-block">Enter Firstname.</p>
                   </div>
      
-                  <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.lastname.$invalid && !addUserForm.lastname.$pristine }">
+                  <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.last_name.$invalid && !addUserForm.last_name.$pristine }">
                     <label>Last Name <span class="req">*</span></label>
-                    <input type="text" name="lastname" ng-model="user.lastname" class="form-control" placeholder="last name" required> 
-                    <p ng-show="addUserForm.lastname.$invalid && !addUserForm.lastname.$pristine" class="help-block">Enter Last Name.</p>
+                    <input type="text" name="last_name" ng-model="user.last_name" ng-pattern="/^[a-z ,.'-]+$/i" class="form-control" placeholder="last name" required> 
+                    <p ng-show="addUserForm.last_name.$invalid && !addUserForm.last_name.$pristine" class="help-block">Enter Last Name.</p>
                   </div>
     </div>
     <div class="row">
-      <div class="col-sm-6" ng-class="{ 'has-error' : addUserForm.contact.$invalid && !addUserForm.contact.$pristine }">
+      <div class="col-sm-6" ng-class="{ 'has-error' : addUserForm.phone.$invalid && !addUserForm.user_contact.$pristine }">
         <div class="form-group">
           <label> Contact Number</label>
-          <input type="text" class="form-control" name="contact" placeholder="contact number"  ng-pattern="/^[0-9]{1,15}$/"  ng-model="user.user_contact"/>
-          <p ng-show="addUserForm.contact.$invalid && !addUserForm.contact.$pristine" class="help-block">Enter Numbers Only.</p>
+          <input type="number" class="form-control" name="phone" placeholder="phone number"  ng-pattern="/^[0-9]{1,15}$/"  ng-model="user.phone"/>
+          <p ng-show="addUserForm.phone.$invalid && !addUserForm.phone.$pristine" class="help-block">Enter Numbers Only.</p>
         </div>
       </div>
       <div class="col-sm-6" ng-class="{ 'has-error' : addUserForm.fax.$invalid && !addUserForm.fax.$pristine }">
@@ -57,11 +57,14 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
-              <label>Time Zone Name</label>
+              <label>Timezone</label>
               <div class="container"></div>
-                <select class="form-control" name='selectAction' id='selectAction' ng-model="user.timezone" >
-                  <option value="">Select Time Zone</option>
-                </select>
+<!--                 <select class="form-control" name='selectAction' id='selectAction' ng-model="user.timezone" >
+
+ -->       <select class="scinput"  name="timezone" title="" ng-model="user.timezone">
+            <option  value="America/New_York">Eastern Time</option><option value="America/Chicago">Central Time</option><option value="America/Denver">Mountain Time</option><option value="America/Phoenix">Mountain Time (Arizona)</option><option value="America/Los_Angeles">Pacific Time</option><option value="America/Juneau">Alaskan Time</option><option value="Pacific/Honolulu">Hawaiian Time</option><option value="Pacific/Samoa">Samoa Standard Time</option>
+        </select>
+                <!-- </select> -->
             </div>
         </div>
       </div>
