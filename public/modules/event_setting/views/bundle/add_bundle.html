@@ -185,7 +185,7 @@ ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
           
        <!-- //Event Detail Form -->
         <!--Links Start -->
-          <div class="module">
+         <!-- <div class="module">
   <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
     <h2>What is included in this bundle?<span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
   </section>
@@ -244,26 +244,29 @@ ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
     </div>
   </section>
 
-  </div>
+  </div>-->
 
 
 
 <div class="module">
   <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
-    <h2>Products<span class="right">Quantity</span></h2>
+    <h2>Products<span style="float:right;">Quantity</span></h2>
   </section>
    <section class="gray-frame">
- <div class="row">
+   
+     
+ <div class="row" ng-repeat="result in res track by $index">
       <div class="col-sm-8" >
         <div class="form-group">
-          <label for="EventName"> Product 1 (Price: $10.00)<span class="req">*</span></label>
-         
+          <label for="EventName"> {{result.product_name}}{{result.product_model}} (Price: ${{result.retail_price}})<span class="req">*</span></label>
+         <!-- <div ng-init="data[$index].product_name=result.product_name"></div>-->
+         <input type="text"   ng-model="data[$index].product_name">
         </div>
       </div>
      
       <div class="col-sm-4" >
                           <div class="form-group">
-                            <select class="form-control" name="coupon_type" ng-model="data.coupon_type" required>
+                            <select class="form-control" ng-model="data[$index].coupon_type" required>
                               <option>0</option>
                               <option>1</option>
                               <option>2</option>
@@ -280,32 +283,7 @@ ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
                         </div>
     </div>
 
-     <div class="row">
-      <div class="col-sm-8" >
-        <div class="form-group">
-          <label for="EventName"> Product 2 (Price: $20.00)<span class="req">*</span></label>
-         
-        </div>
-      </div>
      
-      <div class="col-sm-4" >
-                          <div class="form-group">
-                            <select class="form-control" name="coupon_type" ng-model="data.coupon_type" required>
-                              <option>0</option>
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
-                              <option>6</option>
-                              <option>7</option>
-                              <option>8</option>
-                              <option>9</option>
-                              <option>10</option>
-                            </select>
-                          </div>
-                        </div>
-    </div>
 
   </section>
 
@@ -340,73 +318,6 @@ ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
      <div class="row">
       <div class="col-sm-12" >
         <div class="form-group">
-          <label for="EventName"> smartData Event</label>
-        </div>
-      </div>
-     </div>
-     
-     <section class="grid-widget">
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-		      <th width="25%">Price Level</th>
-		      <th width="25%">Quantity</th>
-		      <th width="25%">Online Price</th>
-		      <th width="25%">Box Office Price</th>
-        
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="add in addmore">
-                      <td>Test</td>
-                      <td>1</td>
-                      <td>$150.00</td>
-                      <td>$140.00</td>
-                     </tr>
-
-                     <tr>
-                      <td>Test</td>
-                      <td>1</td>
-                      <td>$150.00</td>
-                      <td>$140.00</td>
-                     </tr>
-
-                     <tr>
-                      <td>Test</td>
-                      <td>1</td>
-                      <td>$150.00</td>
-                      <td>$140.00</td>
-                     </tr> 
-
-                     <tr>
-                      <td>Test</td>
-                      <td>1</td>
-                      <td>$150.00</td>
-                      <td>$140.00</td>
-                     </tr>
-
-                     <tr>
-                      <td>Test</td>
-                      <td>1</td>
-                      <td>$150.00</td>
-                      <td>$140.00</td>
-                     </tr>
-
-                    </tbody>
-                </table>
-              </div>
-     </section>
-     </section>
-     
-
-
-
-  <section class="gray-frame">
-    
-     <div class="row">
-      <div class="col-sm-12" >
-        <div class="form-group">
           <label for="EventName"> Total</label>
         </div>
       </div>
@@ -425,33 +336,7 @@ ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="add in addmore">
-                      <td>Test</td>
-                      <td>1</td>
-                      <td>$150.00</td>
-                      <td>$140.00</td>
-                     </tr>
-
-                     <tr>
-                      <td>Test</td>
-                      <td>1</td>
-                      <td>$150.00</td>
-                      <td>$140.00</td>
-                     </tr>
-
-                     <tr>
-                      <td>Test</td>
-                      <td>1</td>
-                      <td>$150.00</td>
-                      <td>$140.00</td>
-                     </tr> 
-
-                     <tr>
-                      <td>Test</td>
-                      <td>1</td>
-                      <td>$150.00</td>
-                      <td>$140.00</td>
-                     </tr>
+                    
 
                      <tr>
                       <td>Test</td>
@@ -468,7 +353,7 @@ ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
 
 
 
-
+<!--
 
   <section class="gray-frame">
     
@@ -522,7 +407,7 @@ ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
               </div>
      </section>
      </section>
-
+-->
      <div class="editor-btn">
 	  <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
           <button class="pink-btn btn" ng-click="saveProduct(3)">Save</button>

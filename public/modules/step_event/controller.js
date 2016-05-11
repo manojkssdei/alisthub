@@ -489,8 +489,25 @@ var tomorrow = new Date();
   };
   
   
-    $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=true;
-     $scope.events = [
+    $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
+    $scope.custom_age=function(){
+       $scope.age_div=$scope.age_text_div=true; 
+       $scope.dynamic_age_div=$scope.return_age_text_div=false;
+       $scope.data1.ages='';
+    }
+    $scope.custom_default_age=function(){
+       $scope.age_div=$scope.age_text_div=false; 
+       $scope.dynamic_age_div=$scope.return_age_text_div=true;
+       $scope.data1.dynamic_age='';
+    }
+     $scope.ages = [
+    { "name": "All Ages",'id':0},
+    {"name": "18 and  over",'id':18},
+    {"name": "19 and over",'id':19},
+    {"name": "21 and over",'id':21},
+    
+]
+       $scope.events = [
     { "name": "Single Event",'id':1},
     {"name": "Multiple Event",'id':2}
     
@@ -511,6 +528,7 @@ var tomorrow = new Date();
      $scope.selected1=$scope.venues[0];
      $scope.selected2=$scope.steps[0];
      
+    
      $scope.click_menu=function(menu)
      {
        
@@ -594,6 +612,61 @@ $scope.items = ['item1'];
     });
 
   };
+  
+  $scope.open_price_level = function (size) {
+   
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContentPrice.html',
+      controller: 'ModalInstancePriceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+            
+          
+         
+          return $scope.items;
+        }
+      }
+    });
+
+  };
+  
+ 
+  
+   $scope.add_bundle = function (size) {
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContentBundle.html',
+      controller: 'ModalInstanceBundleCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+
+  };
+  
+   $scope.add_product = function (size) {
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContentProduct.html',
+      controller: 'ModalInstanceProductCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+
+  };
+  
+  
   var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
    var weekday = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
 
@@ -717,8 +790,7 @@ $scope.items = ['item1'];
    }
 
   $scope.checkStartEndTime=function(index){
-    console.log('working 2');
-    console.log($scope.multiple_endtime);
+ 
     if( $scope.multiple_endtime ) {
             var stt = new Date("January 01, 2016 " + $scope.data.starttimeloop1[index]);
             stt = stt.getTime();
@@ -799,6 +871,70 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
    
     $uibModalInstance.close($scope.selected.item);
   }
+
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});
+
+angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope) {
+     $scope.items = items;
+     $scope.min_price=true;
+     $scope.change_price_type=function(){
+    
+     if($scope.data1.price_type=='name_your_price')
+     {
+        $scope.min_price=false;
+        $scope.online_price=true;
+     }else{
+        $scope.online_price=false;
+        $scope.min_price=true;
+     }
+    }
+    
+    $scope.onlinePricefunc=function()
+    {
+    
+       $scope.data1.box_office_price=$scope.data1.online_price;
+    }
+    
+     $scope.suggestedPricefunc=function()
+    {
+     
+       $scope.data1.box_office_price=$scope.data1.suggested_price;
+    }
+    
+    $scope.selected = {
+      item: $scope.items[0]
+    };
+
+
+
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});
+
+angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope, $uibModalInstance, items,$rootScope) {
+     $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+
+
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});
+
+angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope) {
+     $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+
 
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');

@@ -40,3 +40,12 @@ exports.addBundle = function(req,res){
           }
 
 }
+
+exports.getBundles = function(req,res){
+       connection.query('SELECT * from products where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err, results) {
+   if (err) {
+    res.json({error:err,code:101});
+   }
+   res.json({result:results,code:200});
+});
+}
