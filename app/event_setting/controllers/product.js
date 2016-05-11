@@ -17,6 +17,63 @@ exports.getProducts = function(req,res){
 exports.addProduct = function(req,res){
      //console.log(req.body);
      var photoname1 = photoname2 = photoname3 = photoname4 = photoname5 = "";
+     /// validation start
+     var validation = true;
+          if (req.body.step == 1) {
+            
+          req.body.product_model  = req.body.product_model == 'undefined' || req.body.product_model == undefined?"":req.body.product_model;
+          req.body.product_upc    = req.body.product_upc == 'undefined' || req.body.product_upc == undefined?"":req.body.product_upc;
+          req.body.product_weight = req.body.product_weight == 'undefined' || req.body.product_weight == undefined?"":req.body.product_weight;
+          req.body.description    = req.body.description == 'undefined' || req.body.description == undefined?"":req.body.description;
+          req.body.status         = req.body.status == 'undefined' || req.body.status == undefined?"":req.body.status;
+          req.body.shippable      = req.body.shippable == 'undefined' || req.body.shippable == undefined?"":req.body.shippable;
+          if (req.body.product_name == 'undefined' || req.body.product_name == '' || req.body.product_name == null) {
+               var validation = false;
+          }
+           
+          }
+          if (req.body.step == 2) {
+                          
+          req.body.ship_cost   = req.body.ship_cost == 'undefined' || req.body.ship_cost == undefined?"":req.body.ship_cost;
+          req.body.service_fee = req.body.service_fee == 'undefined' || req.body.service_fee == undefined?"":req.body.service_fee;
+          req.body.taxable     = req.body.taxable == 'undefined' || req.body.taxable == undefined?"":req.body.taxable;
+          req.body.buyer_pays  = req.body.buyer_pays == 'undefined' || req.body.buyer_pays == undefined?"":req.body.buyer_pays;
+          req.body.seller_pays = req.body.seller_pays == 'undefined' || req.body.seller_pays == undefined?"":req.body.seller_pays;
+          
+          if (req.body.retail_price == 'undefined' || req.body.retail_price == '' || req.body.retail_price == null)
+          {
+               var validation = false;
+          }
+          }
+          
+          if (req.body.step == 3 || req.body.step == 4) {
+          if(req.body.configuration == 0)
+          {
+             if (req.body.pre_sale_limit == 'undefined' || req.body.pre_sale_limit == '' || req.body.pre_sale_limit == null)
+             {
+               var validation = false;
+             }
+             if (req.body.print_voucher == 'undefined' || req.body.print_voucher == '' || req.body.print_voucher == null)    {
+               var validation = false;
+             }
+             if (req.body.inventory == 'undefined' || req.body.inventory == '' || req.body.inventory == null)             {
+               var validation = false;
+             }
+               
+          }
+          
+          if(req.body.configuration == 1)
+          {
+              req.body.display_name        = req.body.display_name == 'undefined' || req.body.display_name == undefined?"":req.body.display_name;
+              req.body.purchsable_ticket   = req.body.purchsable_ticket == 'undefined' || req.body.purchsable_ticket == undefined?"":req.body.purchsable_ticket;
+              
+          }
+                 
+          }
+             
+     /// validation end 
+     
+     
      ///////////////////////////////////////////////////////////
           if (req.body.step == 1) {
                
@@ -103,7 +160,8 @@ exports.addProduct = function(req,res){
           
           if (req.body.id && req.body.id !="" && req.body.id != undefined && req.body.step == 1) {
           var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
-          req.body.modified = curtime;     
+          req.body.modified = curtime;
+          
           var query = "UPDATE `products` SET seller_id="+req.body.seller_id+", product_name='"+req.body.product_name+"', product_model='"+req.body.product_model+"', product_upc='"+req.body.product_upc+"', product_weight='"+req.body.product_weight+"', description='"+req.body.description+"', status='"+req.body.status+"', shippable='"+req.body.shippable+"', image_1='"+req.body.image_1+"', image_2='"+req.body.image_2+"', image_3='"+req.body.image_3+"', image_4='"+req.body.image_4+"', image_5='"+req.body.image_5+"', modified='"+req.body.modified+"' where id="+req.body.id;
                  
           }
@@ -112,7 +170,8 @@ exports.addProduct = function(req,res){
           // Step 1:
              if (req.body.step == 1) {            
             var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
-            req.body.created = curtime;   
+            req.body.created = curtime;
+            
             var query = "INSERT INTO `products` (`id`, `seller_id`, `product_name`, `product_model`, `product_upc`, `product_weight`, `description`, `status`, `image_1`, `image_2`, `image_3`, `image_4`, `image_5`, `shippable`, `created`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.product_name+"', '"+req.body.product_model+"', '"+req.body.product_upc+"', '"+req.body.product_weight+"', '"+req.body.description+"', '"+req.body.status+"', '"+req.body.image_1+"', '"+req.body.image_2+"', '"+req.body.image_3+"', '"+req.body.image_4+"', '"+req.body.image_5+"', '"+req.body.shippable+"', '"+req.body.created+"')";   
           }
          
@@ -125,9 +184,22 @@ exports.addProduct = function(req,res){
           }
           
           // Step 3:
-          if (req.body.step == 3 || req.body.step == 4) {
+          if (req.body.step == 3 || req.body.step == 4)
+          {
+               
           var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
-              req.body.modified = curtime;     
+          req.body.modified = curtime;
+          
+          if(req.body.configuration == 0)
+          {
+               
+            var query = "UPDATE `products` SET configuration="+req.body.configuration+", inventory='"+req.body.inventory+"', pre_sale_limit='"+req.body.pre_sale_limit+"', print_voucher='"+req.body.print_voucher+"', modified='"+req.body.modified+"' where id="+req.body.id;
+            
+               
+          }
+          else  // start configuration 
+          {
+              
           var query = "UPDATE `products` SET configuration="+req.body.configuration+", display_name='"+req.body.display_name+"', purchsable_ticket='"+req.body.purchsable_ticket+"', modified='"+req.body.modified+"' where id="+req.body.id;
           
           /// save product step 3 info
@@ -160,8 +232,8 @@ exports.addProduct = function(req,res){
                });
                
           }
-          
-          
+          }
+          // end configuartion end
           
           }
           
