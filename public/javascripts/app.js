@@ -724,6 +724,27 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                         
             }
         })
+       .state('view_account', {
+            url: '/view_account',
+            views: {
+                "lazyLoadView": {
+                  controller: 'accountinfoController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/myaccount/views/accountinfo/account_info.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/myaccount/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/myaccount/myaccountcontroller.js']);
+                    })
+              }]
+                        
+            }
+        })
         // End Manage Section :
         /// start discount routes
         
