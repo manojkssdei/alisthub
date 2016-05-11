@@ -15,9 +15,10 @@
     <!-- Form COntainer -->
     
     <div class="form-section  wt-frame">
-     <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
+     
 
 <div ng-hide="eventdetail_div">
+     <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
           <div class="form-group">
             <label for="eventname">Event Name<span class="req">*</span></label>
             <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="Title of your Event" required>
@@ -344,7 +345,7 @@
             <button type="button" class="btn btn-next">Next</button>
           </div>
        
-        </fieldset>
+</fieldset>
         <fieldset>
           <div class="form-top">
             <div class="form-top-left">
@@ -381,38 +382,48 @@
         <div class="editor-btn">
           <button type="submit" 
 ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
-          <button class="pink-btn btn">Next</button>
+          <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
         </div>
         <div ng-hide="error_message" style="color:green;">{{success}}</div>
       </div>
+      </form>
        </div>
  <div ng-hide="price_and_link_div">
            <!-- Event Detail Form -->
-   		  
-          <section class="row">
+   	<form  name="myForm1" novalidate>
+
+   <section class="row">
           	  <section class="col-sm-4">
                   <div class="form-group">
                     <label class="form-label">Event Inventory<span class="req">*</span></label>
-                    <input type="text" name="eventname" class="form-control" placeholder="Event Inventory">
+                    <input type="number" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" required>
+                     <span style="color:red" ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">
+  <span ng-show="myForm1.eventinventory.$error.required">Event Inventory is required</span>
+  </span>
                   </div>
+<!--
+<p>
+  <input type="submit"
+  ng-disabled="myForm1.$dirty && myForm1.$invalid ">
+</p>-->
               </section>
               <section class="col-sm-4">
                   <div class="form-group">
                     <label class="form-label">Type of Event</label>
                     <section class="radio-sec with-ftext">
                       		<section class="radio-inline">
-                              <input type="radio" id="radio1" name="radio1">
+                              <input type="radio"  name="type_of_event" ng-model="data1.type_of_event" checked>
                               <label for="radio1"><span></span>Ticketed</label>
                           </section>
                             <section class="radio-inline">
-                          <input type="radio" id="radio2" name="radio1">
+                          <input type="radio"   name="type_of_event" ng-model="data1.type_of_event">
                           <label for="radio2"><span></span>Registration</label>
                           </section>
                    </section>
                   </div>
               </section>
           </section>
-          <!--Ticket Types Start -->
+   <!--Ticket Types Start -->
           <div class="module">
              	<section class="prof-hd">
                    <i class="fa fa-ticket hdicon pos-l16"></i>
@@ -423,18 +434,18 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                   	  <section class="col-sm-7">
                       	<section class="radio-sec">
                       		<section class="radio-inline">
-                              <input type="radio" name="radio" id="radio01">
+                              <input type="radio"  name="arrange_by_price" ng-model="data1.arrange_by_price"  checked>
                               <label for="radio01"><span></span>Arrange by price</label>
                           </section>
                             <section class="radio-inline">
-                          <input type="radio" name="radio" id="radio02">
+                          <input type="radio"  name="arrange_by_price" ng-model="data1.arrange_by_price"  >
                           <label for="radio02"><span></span>Manually Arrange</label>
                           </section>
                          </section>
                       </section>
                       <section class="col-sm-5 right-btns text-right">
-                         <!-- <button class="pink-btn btn btn-small m-fw"  ng-click="open('lg')">ADD PRICE LEVEL</button>-->
-                         <button class="pink-btn btn btn-small m-fw">ADD PRICE LEVEL</button>
+                        
+                         <button class="pink-btn btn btn-small m-fw" ng-click="open_price_level('lg')">ADD PRICE LEVEL</button>
                       </section>
                     </section>
                   <section class="grid-widget">
@@ -454,7 +465,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </tr>
         </thead>
         <tbody>
-            <tr>
+           <!-- <tr>
                 <td><strong>Balcony</strong></td>
                 <td class="numbers">12</td>
                 <td class="numbers">900</td>
@@ -462,43 +473,9 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <td class="numbers">$15.00</td>
                 <td class="numbers">850</td>
                 <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr>
-                <td><strong>Dress Circle</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr>
-                <td><strong>Loge</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr>
-                <td><strong>Orchestra</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr>
-                <td><strong>Balcony</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
+            </tr>-->
+           
+           
 
         </tbody>
 
@@ -522,15 +499,21 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                   <div class="row">
                     	<div class="col-sm-12">
                           <div class="form-group row">                            
-                            <section class="col-sm-3">
+                            <section class="col-sm-3" ng-hide="age_div">
                                 <label> Ages<span class="req">*</span></label>
-                                <select class="form-control">
-                                  <option value="Ticket">All Ages</option>
+                                <select class="form-control" name="ages" ng-model="data1.ages">
+                                  <option ng-repeat="age in ages" value="{{age.id}}">{{age.name}}</option>
                                 </select>
+                               
+                            </section>
+                            <section class="col-sm-3" ng-hide="dynamic_age_div">
+                              <label>Ages<span class="req">*</span></label>
+                              <input type="text" class="form-control"  name="dynamic_age" ng-model="data1.dynamic_age">
                             </section>
                             <section class="col-sm-3 f-12">
                             	<label>&nbsp;</label>
-                                <a href="#" class="u-text with-ftext"><strong>Define a custom age limit</strong></a>
+                                <span ng-hide="age_text_div"><a ng-click="custom_age()" style="cursor: pointer;" class="u-text with-ftext"><strong>Define a custom age limit</strong></a></span>
+                                <span ng-hide="return_age_text_div"><a ng-click="custom_default_age()" style="cursor: pointer;" class="u-text with-ftext"><strong>Return to Default age limits</strong></a></span>
                             </section>
                           </div>
                         </div>
@@ -538,8 +521,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
 
       			</section>
           </div>
-          <!-- Ticket Types Closed --> 
-          
+          <!-- Ticket Types Closed -->
           <!-- Bundles Start -->
           <section class="module">
              	<section class="prof-hd">
@@ -550,7 +532,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                   <section class="grid-btn-top row">
                   	  
                       <section class="col-sm-5 pull-right text-right">
-                         <button class="pink-btn btn btn-small m-fw">ADD a Bundle</button>
+                        <button class="pink-btn btn btn-small m-fw" ng-click="add_bundle('lg')">ADD a Bundle</button>
                          <!-- <button class="pink-btn btn btn-small m-fw"  ng-click="open()">ADD a Bundle</button>-->
                       </section>
                     </section>
@@ -571,7 +553,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </tr>
         </thead>
         <tbody>
-            <tr>
+           <!-- <tr>
                 <td><strong>Balcony</strong></td>
                 <td class="numbers">12</td>
                 <td class="numbers">900</td>
@@ -580,42 +562,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <td class="numbers">850</td>
                 <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
             </tr>
-            <tr>
-                <td><strong>Dress Circle</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr>
-                <td><strong>Loge</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr>
-                <td><strong>Orchestra</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr>
-                <td><strong>Balcony</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
+            -->
 
         </tbody>
 
@@ -641,7 +588,6 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
       			</section>
           </section>
           <!-- Bundles Closed --> 
-          
           <!--Product Start -->
           <div class="module">
              	<section class="prof-hd">
@@ -651,7 +597,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <section class="gray-frame sub-fields">
                   <section class="grid-btn-top row">                  	  
                       <section class="col-sm-5 right-btns text-right">
-                          <button class="pink-btn btn btn-small m-fw"  ng-click="open()">Add Product</button>
+                         <button class="pink-btn btn btn-small m-fw" ng-click="add_product('lg')">Add Product</button>
+                          
                       </section>
                     </section>
                   <section class="grid-widget">
@@ -671,7 +618,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </tr>
         </thead>
         <tbody>
-            <tr>
+           <!-- <tr>
                 <td><strong>Balcony</strong></td>
                 <td class="numbers">12</td>
                 <td class="numbers">900</td>
@@ -679,43 +626,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <td class="numbers">$15.00</td>
                 <td class="numbers">850</td>
                 <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr>
-                <td><strong>Dress Circle</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr>
-                <td><strong>Loge</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr>
-                <td><strong>Orchestra</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr>
-                <td><strong>Balcony</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
+            </tr>-->
+            
 
         </tbody>
 
@@ -749,9 +661,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
 
       			</section>
           </div>
-          <!-- Product Closed --> 
-         
-      	  <!--Links Start -->
+          <!-- Product Closed -->
+          <!--Links Start -->
           <div class="module">
   <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
     <h2>Links <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
@@ -761,13 +672,19 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
       <div class="col-sm-6">
         <div class="form-group">
           <label for="EventName"> Video</label>
-          <input type="text" class="form-control" placeholder="Video Url"/>
+          <input type="text" name="video" ng-model="data1.video" class="form-control" placeholder="Video Url"/>
+          <span style="color:red" ng-show="myForm1.video.$dirty && myForm1.video.$invalid">
+  <span ng-show="myForm1.video.$error.required">Video is required</span>
+  </span>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <label for="EventName"> Facebook</label>
-          <input type="text" class="form-control" placeholder="Facebook Url"/>
+          <input type="text" name="facebook" ng-model="data1.facebook"  class="form-control" placeholder="Facebook Url"/>
+          <span style="color:red" ng-show="myForm1.facebook.$dirty && myForm1.facebook.$invalid">
+  <span ng-show="myForm1.video.$error.required">Facebook Url is required</span>
+  </span>
         </div>
       </div>
     </div>
@@ -775,21 +692,26 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
       <div class="col-sm-6">
         <div class="form-group">
           <label for="EventName"> Twitter</label>
-          <input type="text" class="form-control" placeholder="Twitter Url"/>
+          <input type="text" name="twitter" ng-model="data1.twitter"   class="form-control"  placeholder="Twitter Url"/>
+           <span style="color:red" ng-show="myForm1.twitter.$dirty && myForm1.twitter.$invalid">
+  <span ng-show="myForm1.twitter.$error.required">Twitter is required</span>
+  </span>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <label for="EventName"> Event Website</label>
-          <input type="text" class="form-control" placeholder="Event Website"/>
+          <input type="text" class="form-control"  name="eventwebsite" ng-model="data1.eventwebsite"   placeholder="Event Website" />
+          <span style="color:red" ng-show="myForm1.eventwebsite.$dirty && myForm1.eventwebsite.$invalid">
+  <span ng-show="myForm1.eventwebsite.$error.required">Event Website is required</span>
+  </span>
         </div>
       </div>
     </div>
   </section>
 </div>
           <!--Links Closed -->
-           
-            <!-- Search options Start -->
+          <!-- Search options Start -->
            <div class="form-group clearfix">
              	<section class="prof-hd">
                    <i class="fa fa-search hdicon pos-l16"></i>
@@ -800,7 +722,10 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 	    <div class="col-sm-6">
                           <div class="form-group">
                             <label for="EventName"> Additional Keywords/Tags</label>
-                            <input type="text" class="form-control" placeholder="Additional Keywords/Tags"/>
+                            <input type="text" name="keyword"  ng-model="data1.keyword" class="form-control" placeholder="Additional Keywords/Tags"/>
+                            <span style="color:red" ng-show="myForm1.keyword.$dirty && myForm1.keyword.$invalid">
+  <span ng-show="myForm1.keyword.$error.required">Additional Keywords/Tags is required</span>
+  </span>
                           </div>
                         </div>
                     </div>
@@ -831,12 +756,12 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
       			</section>
           </div>
            <!-- Search options Closed -->
-          
-          <div class="editor-btn">
-          <button class="gray-btn btn">Back</button>
-           <button class="pink-btn btn">Save</button>
-          <button class="pink-btn btn">Next</button>
-        </div>   
+           <div class="editor-btn">
+          <button type="button" ng-click="click_menu(steps[0])" class="gray-btn btn">Back</button>
+           <button type="submit" class="pink-btn btn">Save</button>
+          <button type="button" ng-click="click_menu(steps[2])" class="pink-btn btn">Next</button>
+        </div>
+</form>
        </div>
        <div ng-hide="look_and_feel_div"><div class="module template-view">
        <div class="main-image"><img src="images/img/f-img.jpg" alt=""/></div>
@@ -879,7 +804,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
 
       </div></div>
        <div ng-hide="setting_div">Settting Div.</div>
-</form>
+
 </div>
     
     <!-- //Form COntainer --> 
@@ -893,6 +818,123 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" ng-click="remove()">Remove</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+<script type="text/ng-template" id="myModalContentPrice.html">
+        <div  class="modal-header">
+            <h3 class="modal-title" style="float:left;">Manage Price Level</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+        </div>
+        <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="savepriceleveldata(data1)" novalidate>
+        <div  class="modal-body">
+         
+            <fieldset  class="form-group" style="padding-top:10px">
+               <div class="col-sm-4">Price Level Name<span class="req">*</span></div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.price_level" name="price_level" class="form-control"></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Price Level Type</div>
+               <div class="col-sm-8"><select ng-model="data1.price_type" name="price_type" class="form-control"
+               ng-change="change_price_type()">
+                    <option value="">---</option>
+                    <option value="fixed_price">Fixed Price</option>
+                    <option value="name_your_price">Name your Price</option>
+               </select></div>
+            </fieldset>
+            <fieldset class="form-group" ng-hide="online_price">
+               <div class="col-sm-4">Online Price(USD $)</div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.online_price" name="online_price" class="form-control" ng-blur="onlinePricefunc()"></div> 
+            </fieldset>
+            
+            <fieldset class="form-group" ng-hide="min_price">
+               <div class="col-sm-4">Minimum Price(USD $)</div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.minimum_price" name="minimum_price" class="form-control"></div>
+            </fieldset>
+            <fieldset class="form-group" ng-hide="min_price">
+               <div class="col-sm-4">Suggested Price(USD $)</div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.suggested_price" name="suggested_price" class="form-control" ng-blur="suggestedPricefunc()"></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Box Office Price(USD $)</div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.box_office_price" name="box_office_price" class="form-control"></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Quantity Available</div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.quantity_available" name="quantity_available" class="form-control"></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Hide Online</div>
+               <div class="col-sm-8">
+            <section class="radio-sec">
+                      		<section class="radio-inline">
+                              <input type="radio"  name="hide_online" ng-model="data1.hide_online"  >
+                              <label for="radio01"><span></span>Yes</label>
+                          </section>
+                            <section class="radio-inline">
+                          <input type="radio"  name="hide_online" ng-model="data1.hide_online" checked >
+                          <label for="radio02"><span></span>No</label>
+                          </section>
+                         </section>
+               </div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Hide in Box Office</div>
+               <div class="col-sm-8">
+            <section class="radio-sec">
+                      		<section class="radio-inline">
+                              <input type="radio"  name="hide_in_box_office" ng-model="data1.hide_in_box_office"  >
+                              <label for="radio01"><span></span>Yes</label>
+                          </section>
+                            <section class="radio-inline">
+                          <input type="radio"  name="hide_in_box_office" ng-model="data1.hide_in_box_office" checked >
+                          <label for="radio02"><span></span>No</label>
+                          </section>
+                         </section>
+               </div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Minimum Per Order</div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control"></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Maximum Per Order</div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control"></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Description</div>
+               <div class="col-sm-8"><textarea ng-model="data1.description" name="description" class="form-control"/></div>
+            </fieldset>
+           
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button">Submit</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+        </form>
+    </script>
+
+<script type="text/ng-template" id="myModalContentBundle.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Add a Bundle</h3>
+        </div>
+        <div class="modal-body">
+            Modal Content Price
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button">Submit</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+<script type="text/ng-template" id="myModalContentProduct.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Add a Product</h3>
+        </div>
+        <div class="modal-body">
+            Modal Content Price
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button">Submit</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
     </script>

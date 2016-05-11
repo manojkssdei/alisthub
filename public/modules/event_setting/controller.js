@@ -1,7 +1,9 @@
 angular.module("google.places",[]);
 angular.module('alisthub', ['google.places', 'angucomplete'])
 .controller('venueController', function($scope,$localStorage,$injector,$http,$state,$location) {
-   
+   if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+   }
     var $serviceTest = $injector.get("venues");
     
     if(window.innerWidth>767){ 
@@ -334,6 +336,11 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
 })
 
 .controller('manageVenueController', function($scope,$localStorage,$injector,$http,$state,$location) {
+  
+  if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+   }
+  
   var $serviceTest = $injector.get("venues");
     
     if(window.innerWidth>767){ 

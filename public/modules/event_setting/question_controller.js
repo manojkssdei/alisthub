@@ -1,6 +1,9 @@
 angular.module('alisthub')
 .controller('questionController', function($scope,$localStorage,$injector,$http,$state,$location) {
-   
+  
+  if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+  } 
   var $serviceTest = $injector.get("questions");
     
     if(window.innerWidth>767){ 
@@ -82,7 +85,7 @@ angular.module('alisthub')
             if (response.code == 200) {
                     $location.path("/view_questions/list");
                   }else{
-                    $scope.activation_message = global_message.ErrorInActivation;
+                    $scope.errormessage = global_message.QuestionAddValidation;
             }
             
         });
@@ -226,6 +229,10 @@ angular.module('alisthub')
 })
 
 .controller('manageQuestionController', function($scope,$localStorage,$injector,$rootScope,$http,$state,$location) {
+  
+  if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+   }
   var $serviceTest = $injector.get("questions");
     
     if(window.innerWidth>767){ 
@@ -254,6 +261,8 @@ angular.module('alisthub')
             if (response.code == 200) {
                    $scope.questiondata = response.result;
                    
+                   console.log('response.result' , response.result);
+
                    $scope.questiondata.forEach(function(value) {
                     $scope.ques_id.push(value.id);
                    });

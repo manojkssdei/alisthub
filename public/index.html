@@ -32,10 +32,12 @@
                           <span class="user-pic"><img src="images/user.jpg" width="36" height="36" alt=""/></span> {{name}} <i class="fa fa-angle-down"></i>
                         </button>
                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-			  <li role="menuitem"> <a href="#">My Account</a></li>
-			  <li role="menuitem"> <a href="#">Financial Settings</a></li>
-			  <li role="menuitem"> <a href="#">Shopping Cart</a></li>
+
+                  			  <li role="menuitem"> <a href="#/view_account">My Account</a></li>
+                  			  <li role="menuitem"> <a ui-sref="financial_setting">Financial Settings</a></li>
+                  			  <li role="menuitem"> <a href="#">Shopping Cart</a></li>
                           <li role="menuitem"> <a style="cursor:pointer;" ng-click="logout()">logout</a></li>
+
                         </ul>
                       </div>
                     <a href="javascript:void(0)">Help</a></div>
@@ -67,7 +69,7 @@
                   <li><a  href="javascript:void(0)">Manage</a>
                     <ul>
                         <li><a  ui-sref="javascript:void(0)">Customers</a></li>
-                        <li><a  ui-sref="javascript:void(0)">Users</a></li>
+                        <li><a  ui-sref="view_user">Users</a></li>
                         <li><a  ui-sref="javascript:void(0)">Widgets</a></li>
                         <li><a  href="javascript:void(0)">Website Manager</a></li>
                         <li><a  href="javascript:void(0)">Downloads</a></li>

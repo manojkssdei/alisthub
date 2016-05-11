@@ -25,8 +25,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var profile = require('./routes/profile')(app, express);
 
 var venues = require('./routes/event_setting')(app, express);
+
+var seller_user = require('./routes/seller_user')(app, express);
+
 require('./routes/event')(app, express);
 
 //app.use('/event_setting', venues);

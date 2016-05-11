@@ -1,8 +1,6 @@
 angular.module('alisthub')
 .controller('productController', function($scope,$localStorage,$injector,$http,$state,$location) {
-  if (!$localStorage.isuserloggedIn) {
-      $state.go('login');
-   } 
+   
   var $serviceTest = $injector.get("products");
     
     if(window.innerWidth>767){ 
@@ -104,14 +102,11 @@ angular.module('alisthub')
         $scope.step_2=true;
         $scope.step_1=$scope.step_3=false;
         $scope.selected2 = $scope.steps[1];
-                       
        }
        if (menu.id==3) {
         $scope.step_3=true;
         $scope.step_2=$scope.step_1=false;
         $scope.selected2 = $scope.steps[2];
-                     
-        
        }
        
         $scope.selected2 = menu;  
@@ -140,26 +135,6 @@ angular.module('alisthub')
             
         };
 
-  $scope.calculateBuyerPrice = function()
-  {
-    if ($scope.data.retail_price != "" && $scope.data.ship_cost != "" && $scope.data.ship_cost != null && $scope.data.ship_cost != "undefined") {
-      $scope.data.buyer_pays = $scope.data.retail_price + $scope.data.ship_cost;
-    }
-    
-  }
-  
-  $scope.showConfig = function()
-  {
-    console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-    if ($scope.data.configuration == true) {
-      $scope.data_configuration = true;
-    }
-    if ($scope.data.configuration == false) {
-      $scope.data_configuration = false;
-    }
-    
-  }
-  
       
   $scope.addProduct = function(step) {
         if ($localStorage.userId!=undefined) {
@@ -186,8 +161,6 @@ angular.module('alisthub')
         $scope.data.taxable   = $scope.data.taxable == true ? 1:0;
         $scope.data.configuration   = $scope.data.configuration == true ? 1:0;
         $scope.data.purchsable_ticket   = $scope.data.purchsable_ticket == true ? 1:0;
-        $scope.data.print_voucher       = $scope.data.print_voucher == true ? 1:0;
-        
         $scope.data.step        = step;
         
         if (step == 3 || step == 4) {
@@ -203,27 +176,17 @@ angular.module('alisthub')
                       $scope.data.id = response.result.insertId;
                       $scope.step_2=true;
                       $scope.step_1=$scope.step_3=false;
-                      $scope.click_menu($scope.steps[1]);
                     }
                     
                     if (step == 2) {
                       //$scope.data.id = response.result.insertId;
                       $scope.step_3=true;
                       $scope.step_1=$scope.step_2=false;
-                      $scope.click_menu($scope.steps[2]);
                     }
                     
                     if (step == 3) {
                       $scope.step_3=true;
                       $scope.step_1=$scope.step_2=false;
-                      $scope.successmessage = "Product has been saved successfully.";
-                      if ($scope.data.configuration == 1) {
-                        $scope.data_configuration = true;
-                      }
-                      if ($scope.data.configuration == 0) {
-                        $scope.data_configuration = false;
-                      }
-                      $scope.click_menu($scope.steps[2]);
                     }
                     
                     if (step == 4) {
@@ -293,24 +256,12 @@ angular.module('alisthub')
             if (response.code == 200) {
                   $scope.data  = {};
                   $scope.data = response.result[0];
-                  
-                  if ($scope.data.configuration == 1) {
-                    console.log("+++++++++++++++++++++++++++");
-                        $scope.data_configuration = true;
-                  }
-                  if ($scope.data.configuration == 0) {
-                    console.log("------------------------------------");
-                        $scope.data_configuration = false;
-                  }
                    
                   $scope.data.status = $scope.data.status == 1 ? true:false;
                   $scope.data.shippable = $scope.data.shippable == 1 ? true:false;
                   $scope.data.taxable   = $scope.data.taxable == 1 ? true:false;
                   $scope.data.configuration   = $scope.data.configuration == 1 ? true:false;
                   $scope.data.purchsable_ticket   = $scope.data.purchsable_ticket == 1 ? true:false;
-                  $scope.data.print_voucher       = $scope.data.print_voucher == 1 ? true:false;
-                  
-                  
                   
                   $scope.componentdata = response.component;
                   $scope.cdata = [];
@@ -339,13 +290,6 @@ angular.module('alisthub')
         }
     };
     $scope.getProductDetail();
-    if ($scope.data.configuration == 1) {
-                    console.log("+++++++++++++++++++++++++++");
-                        $scope.data_configuration = true;
-                  }
-     console.log("+++++++++++++++++++++++++++");             
-     console.log($scope.data_configuration);
-     console.log("+++++++++++++++++++++++++++");
     ////////////////////////////////////////
     $scope.editProduct = function(step) {
         if ($localStorage.userId!=undefined) {
@@ -373,7 +317,6 @@ angular.module('alisthub')
         $scope.data.taxable   = $scope.data.taxable == true ? 1:0;
         $scope.data.configuration   = $scope.data.configuration == true ? 1:0;
         $scope.data.purchsable_ticket   = $scope.data.purchsable_ticket == true ? 1:0;
-        $scope.data.print_voucher       = $scope.data.print_voucher == true ? 1:0;
         $scope.data.step        = step;
         
         if (step == 3 || step == 4) {
@@ -387,27 +330,18 @@ angular.module('alisthub')
                       //$scope.data.id = response.result.insertId;
                       $scope.step_2=true;
                       $scope.step_1=$scope.step_3=false;
-                      $scope.click_menu($scope.steps[1]);
                     }
                     
                     if (step == 2) {
                       //$scope.data.id = response.result.insertId;
                       $scope.step_3=true;
                       $scope.step_1=$scope.step_2=false;
-                      $scope.click_menu($scope.steps[2]);
                     }
                     
                     if (step == 3) {
                       $scope.step_3=true;
                       $scope.step_1=$scope.step_2=false;
                       $scope.successmessage = "Product has been saved successfully."
-                      if ($scope.data.configuration == 1) {
-                        $scope.data_configuration = true;
-                      }
-                      if ($scope.data.configuration == 0) {
-                        $scope.data_configuration = false;
-                      }
-                      $scope.click_menu($scope.steps[2]);
                     }
                     
                     if (step == 4) {
@@ -484,11 +418,6 @@ modelSetter(scope, element[0].files); // use for multiple files
 }])
 
 .controller('manageProductController', function($scope,$localStorage,$injector,$http,$state,$location) {
-  
-  if (!$localStorage.isuserloggedIn) {
-      $state.go('login');
-   }
-  
   var $serviceTest = $injector.get("products");
     
     if(window.innerWidth>767){ 

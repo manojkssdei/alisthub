@@ -1,0 +1,228 @@
+<!-- Container -->
+  <div class="container">
+    <h1>My Account</h1>
+    
+    <!-- Form COntainer -->
+    <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
+
+    <div class="wt-frame form-section">
+	    <form name="accountinfo" class="event-form"  ng-submit="accountinfo.$valid && updateUser(data)" novalidate>
+        <section class="module">
+            <section class="prof-hd" ng-click="openTab(1)">
+                <i class="fa fa-cog hdicon pos-l16"></i>
+                  <h2>Upadate User Settings <span class="rt-img"><i class="fa {{basictabclass}}"></i></span></h2>
+            </section>
+    
+            <section class="gray-frame" ng-show="basictab">
+                <div class="row">
+                  <div class="col-sm-4">
+                      <div class="form-group" ng-class="{true: 'error'}[submitted]">
+                        <label for="first_name">First Name<span class="req">*</span></label>
+                        <input type="text" class="form-control" ng-model="data.first_name" name="first_name" placeholder="First Name" required>
+                        <span class="help-inline" ng-show="submitted && accountinfo.first_name.$error.required">Please enter first name</span>
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group" ng-class="{true: 'error'}[submitted]">
+                        <label for="last_name">Last Name<span class="req">*</span></label>
+                        <input type="text" class="form-control" ng-model="data.last_name" name="last_name" placeholder="Last Name" required>
+                        <span class="help-inline" ng-show="submitted && accountinfo.last_name.$error.required">Please enter last name</span>
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="timezone">TimeZone</label>
+                        <select class="form-control" ng-model="data.timezone" placeholder="Timezone">
+                          <option value="" selected="selected">TimeZone</option>
+                          <option>TimeZone1</option>
+                        </select>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="phone_no">Phone</label>
+                      <input type="text" class="form-control" ng-model="data.phone_no" name="phone" placeholder="Phone">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="fax">Fax</label>
+                      <input type="text" class="form-control" ng-model="data.fax" name="fax" placeholder="Fax">
+                    </div>
+                  </div>
+                </div>
+          		  <div class="row">
+          		    <div class="col-sm-4">
+              		 <button type="submit" class="pink-btn btn" ng-click="submitted=true" ng-disabled="!accountinfo.$valid">Save</button>
+              		</div>
+          		  </div>
+      	    </section>
+        </section>
+	    </form>
+
+	<form name="accountmail" class="event-form"  ng-submit="accountmail.$valid && updateEmail(data)" novalidate>
+    <section class="module">
+  	  <section class="prof-hd" ng-click="openTab(2)">
+             <i class="fa fa-cog hdicon pos-l16"></i>
+              <h2>Change Email <span class="rt-img"><i class="fa {{producttabclass}}"></i></span></h2>
+      </section>
+      <section class="gray-frame" ng-show="producttab">
+      	    <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group" ng-class="{true: 'error'}[submitted2]">
+                  <label for="fname">Email Address<span class="req">*</span></label>
+                  <input type="email" class="form-control" ng-model="data.email" name="email" placeholder="Email" required>
+                  <span class="help-inline" ng-show="submitted2 && accountmail.email.$error.required">Please enter email</span>
+                  <span class="help-inline" ng-show="submitted2 && accountmail.email.$error.email">Please enter valid email</span>
+                </div>
+              </div>
+              
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="Zipcode">Second Email</label>
+                  <input type="text" class="form-control" ng-model="data.altemail" name="altemail" placeholder="Alternate Email">
+                </div>
+              </div>
+             
+              <div class="col-sm-4">
+                  <div class="form-group">
+                     <label for="Zipcode">Password<span class="req">*</span></label>
+                    <input type="password" class="form-control" ng-model="data.altpassword" name="altpassword" placeholder="Password" required>
+                    <span class="help-inline" ng-show="submitted2 && accountmail.altpassword.$error.required">Please enter password</span> 
+                  </div>
+              </div>
+            </div>
+
+      		  <div class="row">
+      		    <div class="col-sm-4">
+      		        <button class="pink-btn btn" ng-click="submitted2=true">Update Email</button>
+      		    </div>
+      		  </div>
+      </section>
+    </section>
+	</form>
+
+  <form name="accountpassword" class="event-form"  ng-submit="accountinfo.$valid && updatePassword(data)" novalidate>
+        <section class="module">
+        	<section class="prof-hd" ng-click="openTab(3)">
+                   <i class="fa fa-cog hdicon pos-l16"></i>
+                    <h2>Change Password <span class="rt-img"><i class="fa {{discounttabclass}}"></i></span></h2>
+            </section>
+            <section class="gray-frame" ng-show="discounttab">
+            	<div class="row">
+                        <div class="col-sm-4" ng-class="{ 'has-error' : accountpassword.oldpass.$invalid && !accountpassword.oldpass.$pristine }">
+                          <div class="form-group">
+                            <label for="fname">Old Password<span class="req">*</span></label>
+                            <input type="text" class="form-control" ng-model="data.oldpass" name="oldpass" placeholder="Old Password" required>
+                                                          
+                          </div>
+			  <p ng-show="accountpassword.oldpass.$invalid && !accountpassword.oldpass.$pristine" class="help-block">Enter Old Password.</p>
+                        </div>
+                        <div class="col-sm-4" ng-class="{ 'has-error' : accountpassword.newpass.$invalid && !accountpassword.newpass.$pristine }">
+                          <div class="form-group">
+                            <label for="Zipcode">New Password<span class="req">*</span></label>
+                            <input type="text" class="form-control" ng-model="data.newpass" name="newpass" placeholder="New Password" required>                                                  
+                          </div>
+			  <p ng-show="accountpassword.newpass.$invalid && !accountpassword.newpass.$pristine" class="help-block">Enter New Password.</p>
+                        </div>
+			<div class="col-sm-4" ng-class="{ 'has-error' : accountpassword.confirmpass.$invalid && !accountpassword.confirmpass.$pristine }">
+                          <div class="form-group">
+                            <label for="Zipcode">Confirm Password<span class="req">*</span></label>
+                            <input type="text" class="form-control" ng-model="data.confirmpass" name="confirmpass" placeholder="Confirm Password"  required>
+                                                       
+                          </div>
+			  <p ng-show="accountpassword.confirmpass.$invalid && !accountpassword.confirmpass.$pristine" class="help-block">Enter Confirm Password.</p>
+                        </div>
+                      </div>
+
+		 
+		  <div class="row">
+		     <div class="col-sm-4">
+		 <button class="pink-btn btn" ng-click="saveBasic(1)" ng-disabled="accountpassword.$invalid">Update Password</button>
+		 </div>
+		 </div>
+            </section>
+        </section>
+	</form>
+	<!--/Widgets-->
+        <section class="module">
+        	<section class="prof-hd" ng-click="openTab(4)">
+                   <i class="fa fa-cog hdicon pos-l16"></i>
+                    <h2>Advanced Settings<span class="rt-img"><i class="fa {{questiontabclass}}"></i></span></h2>
+            </section>
+            <section class="gray-frame" ng-show="questiontab">
+            	<div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+			    <label for="Zipcode">Advanced Settings</label>
+                            <button class="btn pink-btn btn-small" type="button">Edit Advanced Settings</button>
+                              
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                         
+                           <div class="form-group">
+			    <label for="Zipcode">Enable Settings</label>
+                            <label for="Zipcode">No Custom Settings Enable</label>
+                           </div>
+                        </div>
+			
+                      </div>
+		<div class="row">
+		     <div class="col-sm-4">
+		<button class="pink-btn btn" ng-click="saveBasic(1)">Update</button>
+		</div>
+		 </div>
+            </section>
+        </section><!--/Downloads-->
+
+        <form name="sociallink" class="event-form"  ng-submit="sociallink.$valid && updateSocial(data)" novalidate>
+  	      <section class="module">
+          	  <section class="prof-hd" ng-click="openTab(5)">
+                <i class="fa fa-cog hdicon pos-l16"></i>
+                <h2>Social Media Settings<span class="rt-img"><i class="fa {{socialtabclass}}"></i></span></h2>
+              </section>
+              <section class="gray-frame" ng-show="socialtab">
+              	  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group" ng-class="{true: 'error'}[submitted1]">
+                        <label for="facebooklink">Facebook Account</label>
+                        <input type="url" class="form-control" ng-model="data.facebook_link" name="facebook_link" placeholder="Facebook">
+                        <span class="help-inline" ng-show="submitted1 && sociallink.facebook_link.$error.url">Please enter valid url</span>
+                      </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="twitter">Twitter Account</label>
+                        <input type="url" class="form-control" ng-model="data.twitter_link" name="twitter_link" placeholder="Twitter">
+                        <span class="help-inline" ng-show="submitted1 && sociallink.twitter_link.$error.url">Please enter valid url</span>
+                      </div>
+                    </div>
+	                  
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="gplus">G<sup>+</sup></label>
+                        <input type="url" class="form-control" ng-model="data.google_plus" name="google_plus" placeholder="Google plus">
+                        <span class="help-inline" ng-show="submitted1 && sociallink.google_plus.$error.url">Please enter valid url</span>
+                      </div>
+                    </div>
+                  </div>
+            		  <div class="row">
+            		     <div class="col-sm-4">
+                		  <button type="submit" class="pink-btn btn" ng-click="submitted1=true" ng-disabled="!sociallink.$valid">Update</button>
+                		 </div>
+            		  </div>
+              </section>
+          </section>
+      	</form>
+
+    </div>
+    
+    
+    <!-- //Form COntainer --> 
+  </div>
+  <!-- //Container --> 

@@ -28,7 +28,7 @@ angular.module('communicationModule')
 		if(headerString != undefined) {
 			headerString = '{"ContentType":' + headerString + '"}';
 		}
-
+                
 		$http.get(serviceUrl, headerString)
 		.then(
 			//success
@@ -60,8 +60,7 @@ angular.module('communicationModule')
 		if(headerString != undefined) {
 			headerString = '{"ContentType":' + headerString + '"}';
 		}
-
-
+	
 		$http.post(serviceUrl, postData, headerString)
 		.then(
 			//success
@@ -72,10 +71,30 @@ angular.module('communicationModule')
 			function(response) {
 				callback(response);
 			}
-
 		);
+	}
 
-
+	/*
+	 *The function will post the postData to the provided Web Service
+	 *@serviceUrl - the Url of the web service to be called
+	 *@authenticationKey - the browser authentication key. This field is optional
+	 *@headerString - the content-type header e.g. if entered 'json', will add the 'content-type' header as 'application/json'
+	 * refer javascripts/constants.js file for more details
+	 *@postData - the json data to be posted to the web service
+	 *@callback - the callback function
+	 */
+	service.resultViaService = function(serviceUrl, postData, callback) {
+		$http({
+	        url: serviceUrl,
+	        method: 'POST',
+	        data: postData,
+	        headers: {
+	          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+	          "Accept": "application/json",
+	        }
+        }).success(function(data, status, headers, config) {
+	        callback(data);
+        });
 	}
 
 	return service;

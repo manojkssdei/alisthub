@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
     res.send(err);
    }
    res.send(results);
-});
+  });
   connection.end();
 });
 router.get('/address', function(req, res, next) {
@@ -17,8 +17,10 @@ router.get('/address', function(req, res, next) {
     res.send(err);
    }
    res.send(results);
-});
+  });
   connection.end();
 });
+
+
 
 module.exports = router;
