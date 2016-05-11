@@ -118,31 +118,26 @@ module.exports = function(app, express) {
         
 
         /*** Module : Manage Discount
-         *   Get Seller Discount 
-         *
+         *   Add list of discount Coupons by seller 
         */
         router.post('/getDiscounts', discount_setting.getDiscounts);
         
-        /* Add Seller Discount  */
-        
+        /* Add Discount Coupon by seller */
         router.post('/addDiscount', discount_setting.addDiscount);
         
         /* Assign Discount to event  */
-        
         router.post('/assignDiscount', discount_setting.assignDiscount);
         
-
-        /* Change Status Seller Discount  */
-        
+        /* Change Status of Discount Coupon*/
         router.post('/changeDiscountStatus', discount_setting.changeDiscountStatus);
         
-        
-        /* Service : Discount Overview to Seller
-        * */
+        /* Assign Discount to event  */
+        router.post('/makeDiscountAssignment', discount_setting.makeDiscountAssignment);
+
+        /* Service : Discount Overview to Seller*/
         router.post('/discountOverview', discount_setting.discountOverview);
         
         /* Delete Seller Discount  */
-        
         router.post('/deleteDiscount', discount_setting.deleteDiscount);
         
 
@@ -150,8 +145,6 @@ module.exports = function(app, express) {
          *   Get Seller Bundle 
          *
         */
-    
-        
         router.post('/addBundle', bundle_setting.addBundle);
         router.post('/getBundles', bundle_setting.getBundles);
 

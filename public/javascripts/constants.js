@@ -44,6 +44,7 @@ var webservices = {
         "discountOverview" :  "/event_setting/discountOverview",
         "changeDiscountStatus" :  "/event_setting/changeDiscountStatus",
         "deleteDiscount" :  "/event_setting/deleteDiscount",
+        "makeDiscountAssignment"  :  "/event_setting/makeDiscountAssignment",
 
         "getBundles": "/event_setting/getBundles",
         "addBundle" :  "/event_setting/addBundle",

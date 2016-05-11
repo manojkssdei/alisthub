@@ -547,11 +547,11 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
 
         .state('assign_discount', {
-            url: '/assign_discount',
+            url: '/assign_discount/:assign',
             
             views: {
                 "lazyLoadView": {
-                  controller: 'discountController', // This view will use AppCtrl loaded below in the resolve
+                  controller: 'manageDiscountController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/event_setting/views/discount/assign_discount.html'
                 }
             },
