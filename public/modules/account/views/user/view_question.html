@@ -1,5 +1,5 @@
 <div class="container">
-     <h1>View all Discount Coupons</h1>
+     <h1>View all Questions</h1>
     
     <!-- Form COntainer -->
     
@@ -21,11 +21,11 @@
                   <section class="grid-btn-top row">
                   	  <section class="col-sm-7">
                       	<section class="top-buttons">
-                            <a href="#/add_discount"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add New Discount</button></a>
+                            <a href="#/add_question"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add New Question</button></a>
                         </section>
                       </section>
                       <section class="col-sm-5 right-btns text-right">
-                      	 <a ng-click="goPath();" ng-show="enableAssign"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Assign Discount</button></a> 
+                      	 <a ng-click="goPath();" ng-show="enableAssign"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Assign Question</button></a> 
                       </section>
                     </section>
                   <section class="grid-widget">
@@ -36,33 +36,23 @@
                     <thead>
                         <tr>
 			    <th width="5%"><input type="checkbox" name="checkall" ng-model="isAllSelected"ng-click="toggleAll();"></th>
-                             <th width="15%">Name</th>
+                            <th width="15%">Name</th>
                             <th width="10%" class="numbers">Type</th>
-                            <th width="14%" class="numbers">Code</th>
-                            <th width="14%" class="numbers">Discount</th>
-                            <th width="14%" class="numbers">Discount Type</th>
                             <th width="14%" class="numbers">Assigned To</th>
                             <th width="23%">&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr pagination-id="paginate2" dir-paginate="data in discountdata | itemsPerPage: 2 | filter:filter">
-
-			    <td><input type="checkbox" name="checkall" ng-model="data.selected"  ng-click="optionToggled(data.id);" ></td>
-                            <td><strong>{{data.coupon_name}}</strong></td>
-                            <td class="numbers">{{data.coupon_type}}</td>
-
-                            <td class="numbers"><p ng-if="data.coupon_code">{{data.coupon_code}}</p><p ng-if="data.coupon_code == '' || data.coupon_code == null || data.coupon_code == undefined"> xxx </p></td>
-
-                            <td class="numbers"><p ng-if="data.amount">{{data.amount}}</p><p ng-if="data.amount == '' || data.amount == null || data.amount == undefined || data.amount == 0"> xxx </p></td>
-
-                            <td class="numbers">{{data.amount_type}}</td>
-                            <td class="numbers">{{data.assigned_to}}</td>
+                        <tr pagination-id="paginate2" dir-paginate="pdata in questiondata | itemsPerPage: 2 | filter:filter">
+			    <td><input type="checkbox" name="checkall" ng-model="pdata.selected"  ng-click="optionToggled(pdata.id);" ></td>
+                            <td><strong>{{pdata.question_name}}</strong></td>
+                            <td class="numbers">{{pdata.question_type}}</td>
+                            <td class="numbers"><p ng-if="event_count[pdata.id] > 0">{{event_count[pdata.id]}}  Events</p><p ng-if="event_count[pdata.id] == '' || event_count[pdata.id] == null">0  Event</p></td>
                             <td class="action">
-            <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
-            <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
-            <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?" ng-if="event_count[data.id] == '' || event_count[data.id] == null"><i class="fa fa-trash"></i></a>
-          </td>
+			      <a href="#/edit_question/{{pdata.id}}"><i class="fa fa-edit"></i></a>
+			      <a ng-click="changeStatus(pdata.id,pdata.status)" ng-confirm-click="Would you like to change Question status ?"><i class="fa fa-check-circle" ng-if="pdata.status == 1"></i><i class="fa fa-times" ng-if="pdata.status == 0"></i></a>
+			      <a ng-click="delQuestion(pdata.id)" ng-confirm-clicks="Would you like to delete this Question?" ng-if="event_count[pdata.id] == '' || event_count[pdata.id] == null"><i class="fa fa-trash"></i></a>
+			    </td>
                         </tr>
 			<tr ng-show="loader">
 			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>

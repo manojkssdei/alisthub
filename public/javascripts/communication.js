@@ -28,7 +28,7 @@ angular.module('communicationModule')
 		if(headerString != undefined) {
 			headerString = '{"ContentType":' + headerString + '"}';
 		}
-
+                
 		$http.get(serviceUrl, headerString)
 		.then(
 			//success

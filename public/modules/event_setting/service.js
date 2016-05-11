@@ -228,6 +228,28 @@ return url;
     });
       
   };
+
+    
+  url.viewEvents = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.viewEvents,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+  
+  url.makeDiscountAssignment = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.makeDiscountAssignment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+  
+  url.delAssignment = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.delAssignment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
     
   
 return url;

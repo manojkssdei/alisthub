@@ -107,12 +107,12 @@
                <section class="gray-frame">
                     <div class="row">
                 	 <div class="col-sm-4">
-			 <label for="EventName"> Image1 {{data.image_1}}</label>     
+			 <label for="EventName"> Image1</label>     
                          <section class="top-buttons">
 			 <span class="file-input btn pink-btn btn-small btn-file">Choose File
-			 <input  id="inputFileToLoad_1" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,1)" file-model="file.myFiles"> 
+			 <input  id="inputFileToLoad_1" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,1)" file-model="file.myFiles">
                          <div id="imgTest_1" ng-model="picDatatest1" width="100" height="100"></div>
-			 <img ng-src="/images/products/{{data.image_1}}" ng-show="data.image_1 && data.image_1 != 'undefined'">		 
+			 <img ng-src="/images/products/{{data.image_1}}" ng-show="data.image_1">		 
 			 </span>
 		         </section>
 		         </div>
@@ -122,7 +122,7 @@
 			 <span class="file-input btn pink-btn btn-small btn-file">Choose File
 			 <input  id="inputFileToLoad_2" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,2)" file-model="file.myFiles">
                          <div id="imgTest_2" ng-model="picDatatest2"></div>
-			 <img ng-src="/images/products/{{data.image_2}}" ng-show="data.image_2 && data.image_2 != 'undefined'">
+			 <img ng-src="/images/products/{{data.image_2}}" ng-show="data.image_2">
 			 </span>
 		         </section>
 			 </div>
@@ -132,7 +132,7 @@
 			 <span class="file-input btn pink-btn btn-small btn-file">Choose File
 			 <input  id="inputFileToLoad_3" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,3)" file-model="file.myFiles">
                          <div id="imgTest_3" ng-model="picDatatest3"></div>
-			 <img ng-src="/images/products/{{data.image_3}}" ng-show="data.image_3 && data.image_3 != 'undefined'">
+			 <img ng-src="/images/products/{{data.image_3}}" ng-show="data.image_3">
 			 </span>
 		         </section>
 			 </div>
@@ -144,7 +144,7 @@
 			 <span class="file-input btn pink-btn btn-small btn-file">Choose File
 			 <input  id="inputFileToLoad_4" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,4)" file-model="file.myFiles">
                          <div id="imgTest_4" ng-model="picDatatest4"></div>
-			 <img ng-src="/images/products/{{data.image_4}}" ng-show="data.image_4 && data.image_4 != 'undefined'">
+			 <img ng-src="/images/products/{{data.image_4}}" ng-show="data.image_4">
 			 </span>
 		         </section>
 			 </div>
@@ -154,7 +154,7 @@
 			 <span class="file-input btn pink-btn btn-small btn-file">Choose File
 			 <input  id="inputFileToLoad_5" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,5)" file-model="file.myFiles">
                          <div id="imgTest_5" ng-model="picDatatest5"></div>
-			 <img ng-src="/images/products/{{data.image_5}}" ng-show="data.image_5 && data.image_5 != 'undefined'">
+			 <img ng-src="/images/products/{{data.image_5}}" ng-show="data.image_5">
 			 </span>
 		         </section>
 			 </div>
@@ -171,7 +171,7 @@
           <div class="editor-btn">
 
           <button class="pink-btn btn" ng-click="saveProduct(1)" ng-disabled="userForm.$invalid">Save</button>
-          <!--<button class="pink-btn btn" ng-click="click_menu(steps[1])" ng-disabled="userForm.$invalid">Next</button>-->
+          <button class="pink-btn btn" ng-click="click_menu(steps[1]);" ng-disabled="userForm.$invalid">Next</button>
 
         </div>   
        </div>
@@ -193,14 +193,14 @@
       <div class="col-sm-4" ng-class="{ 'has-error' : userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine }">
         <div class="form-group">
           <label for="EventName"> Retail Price<span class="req">*</span></label>
-          <input type="number" class="form-control" name="retail_price" placeholder="Product Price" ng-model="data.retail_price" ng-blur="calculateBuyerPrice()" required/>
+          <input type="number" class="form-control" name="retail_price" placeholder="Product Price" ng-model="data.retail_price" required/>
         </div>
 	<p ng-show="userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine" class="help-block">Enter Retail Price.</p>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
           <label for="EventName"> Shipping Cost</label>
-          <input type="number" class="form-control" placeholder="Shipping Cost" ng-model="data.ship_cost" ng-blur="calculateBuyerPrice()"/>
+          <input type="number" class="form-control" placeholder="Shipping Cost" ng-model="data.ship_cost"/>
         </div>
       </div>
       <div class="col-sm-4">
@@ -235,8 +235,8 @@
     </div>
      <div class="editor-btn">
 	  <button class="pink-btn btn" ng-click="click_menu(steps[0]);">Prev</button>
-          <button class="pink-btn btn" ng-click="saveProduct(2)" ng-disabled="userForm2.$invalid">Save</button>
-          <button class="pink-btn btn" ng-click="click_menu(steps[2]);" ng-disabled="userForm2.$invalid">Next</button>
+          <button class="pink-btn btn" ng-click="saveProduct(2)">Save</button>
+          <button class="pink-btn btn" ng-click="click_menu(steps[2]);">Next</button>
      </div> 
   </section>
 </div>
@@ -259,67 +259,26 @@
   <section class="gray-frame">
     
      <div class="row">
-      <div class="col-sm-6" ng-class="{ 'has-error' : userForm3.configuration.$invalid && !userForm3.configuration.$pristine }">
+      <div class="col-sm-6" ng-class="{ 'has-error' : userForm.configuration.$invalid && !userForm.configuration.$pristine }">
         <div class="form-group">
          <label for="EventName"> Configuration (Single/Multiple)</label>
 	 <div class="onoffswitch">
-			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch9" ng-model="data.configuration" ng-change="showConfig();">
+			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch9" ng-model="data.configuration">
 			 <label class="onoffswitch-label" for="myonoffswitch9"></label>
           </div>
 	 </div>
 	
-	<p ng-show="userForm3.configuration.$invalid && !userForm3.configuration.$pristine" class="help-block">Enter Configuration.</p>
+	<p ng-show="userForm.configuration.$invalid && !userForm.configuration.$pristine" class="help-block">Enter Configuration.</p>
       </div>
-      
-      
-      
       <div class="col-sm-6">
-        <div class="form-group" ng-show="data_configuration">
+        <div class="form-group">
           <label for="EventName"> Display Name</label>
           <input type="text" class="form-control" placeholder="Display Name" ng-model="data.display_name"/>
         </div>
-	<div class="form-group" ng-show="!data_configuration" ng-class="{ 'has-error' : userForm3.inventory.$invalid && !userForm3.inventory.$pristine }">
-          <label for="EventName"> Inventory <span class="req">*</span></label>
-          <input type="number" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration"/>
-        <p ng-show="userForm3.inventory.$invalid && !userForm3.inventory.$pristine" class="help-block">Enter Inventory.</p>
-	</div>
-	
       </div>
      </div>
      
-     
-     <!-- Step 4  -->
-     <div class="row" ng-show="!data_configuration">
-      <div class="col-sm-6" ng-class="{ 'has-error' : userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine }">
-        <div class="form-group">
-         <label for="EventName"> Pre Sale Limit <span class="req">*</span></label>
-	 <input type="number" name="pre_sale_limit" class="form-control"  ng-model="data.pre_sale_limit" ng-required="!data_configuration">
-	</div>
-	
-	<p ng-show="userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine" class="help-block">Enter Pre Sale Limit.</p>
-      </div>
-      
-      
-      
-      <div class="col-sm-6">
-        <div class="form-group" ng-show="!data_configuration">
-         <label for="EventName"> Print Voucher </label>
-	 <div class="onoffswitch">
-			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch10" ng-model="data.print_voucher">
-			 <label class="onoffswitch-label" for="myonoffswitch10"></label>
-          </div>
-	 
-        </div>
-	<div class="form-group" ng-show="!data_configuration">
-          <label for="EventName"> &nbsp;</label>
-          
-        </div>
-      </div>
-     </div>
-     <!--- Step 4 -->
-     {{data.configuration}}
-     {{data_configuration}}
-     <section class="grid-widget" ng-show="data_configuration">
+     <section class="grid-widget">
               <div class="table-responsive">
                 <table class="table table-striped">
                   <thead>
@@ -377,7 +336,7 @@
               </div>
      </section>
      
-     <div class="row" ng-show="data_configuration">
+     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
            <button class="pink-btn btn" ng-click="addMoreRow();">Add More</button>         
@@ -394,11 +353,10 @@
       
      </div>
      </div>
-     
      <div class="editor-btn">
 	  <button class="pink-btn btn" ng-click="click_menu(steps[1]);">Prev</button>
-          <button class="pink-btn btn" ng-click="saveProduct(3)" ng-disabled="userForm3.$invalid">Save</button>
-          <button class="pink-btn btn" ng-click="saveProduct(4)" ng-disabled="userForm3.$invalid">Submit</button>
+          <button class="pink-btn btn" ng-click="saveProduct(3)">Save</button>
+          <button class="pink-btn btn" ng-click="saveProduct(4)">Submit</button>
      </div> 
      <div>
 	  <span ng-hide="success_message"><p class="success-fld" ng-show="successmessage">{{ successmessage }}</p></span>

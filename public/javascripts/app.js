@@ -112,10 +112,11 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
-              resources: ['$ocLazyLoad', function($ocLazyLoad) {
+                resources: ['$ocLazyLoad', function($ocLazyLoad) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/events/controller.js');
               }]
+              
             }
         })
         
@@ -547,11 +548,11 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
 
         .state('assign_discount', {
-            url: '/assign_discount',
+            url: '/assign_discount/:assign',
             
             views: {
                 "lazyLoadView": {
-                  controller: 'discountController', // This view will use AppCtrl loaded below in the resolve
+                  controller: 'manageDiscountController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/event_setting/views/discount/assign_discount.html'
                 }
             },
@@ -675,8 +676,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
    
    // Start Manage Section :
    //  Module :User   
-.state('user', {
-            url: '/user',
+    .state('view_user', {
+            url: '/view_user',
             
             views: {
                 "lazyLoadView": {
@@ -692,7 +693,6 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                            // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     }).then(function(){
                     return $ocLazyLoad.load(['modules/manage/user_controller.js']);
-
                     })
                
               }]
@@ -700,9 +700,32 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
 
+        .state('add_user', {
+            url: '/add_user',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'userController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/manage/views/user/add_user.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/manage/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/manage/user_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
 
-        .state('user/addUser', {
-            url: '/user/addUser',
+        .state('edit_user', {
+            url: '/edit_user/:id',
             
             views: {
                 "lazyLoadView": {
@@ -745,16 +768,69 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                         
             }
         })
+
+        .state('add_financial_setting', {
+            url: '/add_financial_setting/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'accountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/account/views/user/add_financial_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                    })
+              }]
+                        
+            }
+        })
+
+
         // End Manage Section :
         /// start discount routes
+
         
+        .state('financial_setting', {
+            url: '/financial_setting',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'accountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/account/views/user/financial_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    }).then(function(){
+                    return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                    })
+               
+              }]
+                        
+            }
+        })
         
-        
-        /// end discount routes
+        /// end Financial Setting routes
 
     
-  }).run(['$rootScope', '$location','$state', '$localStorage',function($rootScope,$location, $state,$localStorage) {
+  }).run(['$rootScope', '$location','$state', '$localStorage', '$http',function($rootScope,$location, $state,$localStorage, $http) {
+    
     //To add class
+   
+    if(!$localStorage.isuserloggedIn){
+        $location.path("/login");
+    }
     if($localStorage.isuserloggedIn){
         $rootScope.menu=$rootScope.after_login_footer_div=false;
         $rootScope.footer_login_div=true;
@@ -768,13 +844,23 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         $state.go('dashboard');
     }else{
        $rootScope.menu=$rootScope.after_login_footer_div=true;
-       $rootScope.footer_login_div=false; 
+       $rootScope.footer_login_div=false;
+       
     }
     
     $rootScope.logout=function(){
         $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
         $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
-       localStorage.clear();
+        
+        $rootScope.email=$localStorage.email="";
+        $rootScope.name=$localStorage.name="";
+        $rootScope.access_token=$localStorage.access_token="";
+        $rootScope.auth_token=$localStorage.auth_token="";
+        $rootScope.phone_no=$localStorage.phone_no="";
+        $rootScope.userId=$localStorage.userId="";
+        $rootScope.address=$localStorage.address="";
+        
+        localStorage.clear();
         $state.go('login');
     }
     }])
@@ -795,5 +881,58 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 });
             }
         };
-}]);
-
+}])
+routerApp.logauthentication = function($rootScope,$localStorage,$location,communicationService,$http)
+{
+    // checktoken expiry time
+    var serviceUrl  = webservices.checkTokenExpiry;
+    var serviceUrl2 = webservices.refreshTokenExpiry;
+    var jsonData = {};
+    jsonData.token = $localStorage.auth_token;
+    /*    
+                $http({
+                 url: serviceUrl,
+                 method: 'POST',
+                 data: jsonData,
+                 headers: {
+                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                  "Accept": "application/json",
+                 }
+                }).success(function(data, status, headers, config) {
+                console.log("999999999999999999999999999");
+                console.log(data);
+                console.log("999999999999999999999999999");
+                  
+                });*/
+        var headers = {
+                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                  "Accept": "application/json",
+                 }; 
+        
+        communicationService.resultViaPost(webservices.checkTokenExpiry,appConstants.authorizationKey,headers,jsonData, function(res,req){
+        console.log(res.data);
+        });
+                
+        /*isSession.checkSession({}, function(response)
+	{
+	    	
+	    if (response.status == 0)
+	    {
+		        $rootScope.userLoggedIn = false;
+			$rootScope.loggedInUsertype = false;
+			$localStorage.userLoggedIn = false;
+			$localStorage.loggedInUsertype = false;
+			$localStorage.session_id="";
+			$location.path('/login');
+	    }else{
+	    	$rootScope.loggedInType = $localStorage.loggedInUsertype;
+	    	$rootScope.userLoggedIn = true;
+	    }
+	    
+	    
+        });*/
+       
+        
+        
+}
+ 
