@@ -20,6 +20,12 @@ exports.getQuestions = function(req,res){
 exports.addQuestion = function(req,res){
      
      ///////////////////////////////////////////////////////////
+     if (req.body.question_type == "" || req.body.question_type == "undefined" || req.body.question_type == undefined || req.body.question_name == "" || req.body.question_name == "undefined" || req.body.question_name == undefined)
+     {
+          res.json({error:"error",type:"validation",code:101});     
+     }
+     else
+     {     
           if (req.body.id && req.body.id !="" && req.body.id != undefined) {
           var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
           req.body.modified = curtime;
@@ -98,10 +104,11 @@ exports.addQuestion = function(req,res){
                res.json({result:results,code:200});
           });
           }
-          else{
-              res.json({error:"error",code:101}); 
+          else
+          {
+              res.json({error:"error",type:"validation",code:101}); 
           }
-          
+     }
      /////////////////////////////////////////////////////////// 
      //res.json({result:"00000",code:200});
    
