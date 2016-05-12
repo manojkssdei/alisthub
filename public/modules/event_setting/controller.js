@@ -487,11 +487,12 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
     $scope.producttab = false;
     $scope.discounttab = false;
     $scope.questiontab = false;
-    
+    $scope.bundletab = false;
     $scope.venuetabclass     = "fa-caret-down";
     $scope.producttabclass   = "fa-caret-down";
     $scope.discounttabclass  = "fa-caret-down";
     $scope.questiontabclass  = "fa-caret-down";
+$scope.bundletabclass  = "fa-caret-down";
     
     $scope.openTab = function(id)
     {
@@ -500,48 +501,65 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
             $scope.producttab = false;
             $scope.discounttab = false;
             $scope.questiontab = false;
-            
+            $scope.bundletab  = false;
             // class
             $scope.venuetabclass     = "fa-caret-up";
             $scope.producttabclass   = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-down";
+           $scope.bundletabclass  = "fa-caret-down";
         }
         if (id == 2) {
             $scope.venuetab     = false;
             $scope.producttab   = true;
             $scope.discounttab = false;
             $scope.questiontab = false;
-            
+            $scope.bundletab  = false;
             // class
             $scope.venuetabclass     = "fa-caret-down";
             $scope.producttabclass   = "fa-caret-up";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-down";
+           $scope.bundletabclass  = "fa-caret-down";
         }
         if (id == 3) {
             $scope.venuetab   = false;
             $scope.producttab = false;
             $scope.discounttab  = true;
             $scope.questiontab = false;
-            
+            $scope.bundletab  = false;
             // class
             $scope.venuetabclass     = "fa-caret-down";
             $scope.producttabclass   = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-up";
             $scope.questiontabclass  = "fa-caret-down";
+            $scope.bundletabclass  = "fa-caret-down";
         }
         if (id == 4) {
             $scope.venuetab   = false;
             $scope.producttab = false;
             $scope.discounttab = false;
             $scope.questiontab  = true;
-            
+            $scope.bundletab  = false;
             // class
             $scope.venuetabclass     = "fa-caret-down";
             $scope.producttabclass   = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-up";
+           $scope.bundletab  = "fa-caret-down";
+        }
+         if (id == 5) {
+            $scope.venuetab   = false;
+            $scope.producttab = false;
+            $scope.discounttab = false;
+            $scope.bundletab  = true;
+            $scope.questiontab = false;
+            // class
+            $scope.venuetabclass     = "fa-caret-down";
+            $scope.producttabclass   = "fa-caret-down";
+            $scope.discounttabclass  = "fa-caret-down";
+            $scope.bundletabclass  = "fa-caret-up";
+           $scope.questiontabclass  = "fa-caret-down";
         }
         
     }

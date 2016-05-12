@@ -179,6 +179,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
         if ($state.params.id)
         {   $scope.user = {};
             $scope.message = false;
+            
             $scope.setPassword=function()
             {
                 
@@ -199,7 +200,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                         }).success(function(data, status, headers, config) {
                              if (data == 200)
                              {
-                             $scope.message = "Passowrd has been changed successfully.";
+                             $scope.message = "Password has been changed successfully.";
                              $scope.errormessage = '';
                              }
                              else
