@@ -1,5 +1,5 @@
 <div class="container">
-     <h1>View all Discount Coupons</h1>
+     <h1>All Discount</h1>
     
     <!-- Form COntainer -->
     
@@ -18,16 +18,18 @@
           <!--Ticket Types Start -->
           <div class="module">             	
                 <section class="gray-frame sub-fields">
-                  <section class="grid-btn-top row">
-                  	  <section class="col-sm-7">
-                      	<section class="top-buttons">
-                            <a href="#/add_discount"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add New Discount</button></a>
-                        </section>
-                      </section>
-                      <section class="col-sm-5 right-btns text-right">
-                      	 <a ng-click="goPath();" ng-show="enableAssign"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Assign Discount</button></a> 
-                      </section>
-                    </section>
+                
+                  	 <section class="grid-btn-top row">
+<section class="col-sm-12 top-buttons">
+
+  <a href="#/add_discount"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Create Discount</button></a>
+  <a href="#/assign_discount"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Assign Discount</button></a>
+  <a href="#/export_discount"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Export CSV</button></a>
+                       
+</section>
+ </section>
+                      
+                    
                   <section class="grid-widget">
                       <div class="table-responsive">
                           
@@ -35,8 +37,8 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-			    <th width="5%"><input type="checkbox" name="checkall" ng-model="isAllSelected"ng-click="toggleAll();"></th>
-                             <th width="15%">Name</th>
+                        <th width="5%"><input type="checkbox" name="checkall" ng-model="isAllSelected"ng-click="toggleAll();"></th>
+                            <th width="15%">Name</th>
                             <th width="10%" class="numbers">Type</th>
                             <th width="14%" class="numbers">Code</th>
                             <th width="14%" class="numbers">Discount</th>
@@ -47,22 +49,20 @@
                     </thead>
                     <tbody>
                         <tr pagination-id="paginate2" dir-paginate="data in discountdata | itemsPerPage: 2 | filter:filter">
-
-			    <td><input type="checkbox" name="checkall" ng-model="data.selected"  ng-click="optionToggled(data.id);" ></td>
+                          <td><input type="checkbox" name="checkall" ng-model="pdata.selected"  ng-click="optionToggled(pdata.id);" ></td>
                             <td><strong>{{data.coupon_name}}</strong></td>
                             <td class="numbers">{{data.coupon_type}}</td>
 
-                            <td class="numbers"><p ng-if="data.coupon_code">{{data.coupon_code}}</p><p ng-if="data.coupon_code == '' || data.coupon_code == null || data.coupon_code == undefined"> xxx </p></td>
+                            <td class="numbers"><p ng-if="data.coupon_code">{{data.coupon_code}}</p><p ng-if="data.coupon_code == '' || data.coupon_code == null || data.coupon_code == undefined"> ----- </p></td>
 
-                            <td class="numbers"><p ng-if="data.amount">{{data.amount}}</p><p ng-if="data.amount == '' || data.amount == null || data.amount == undefined || data.amount == 0"> xxx </p></td>
-
+                            <td class="numbers">{{data.amount}}</td>
                             <td class="numbers">{{data.amount_type}}</td>
                             <td class="numbers">{{data.assigned_to}}</td>
                             <td class="action">
-            <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
-            <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
-            <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?" ng-if="event_count[data.id] == '' || event_count[data.id] == null"><i class="fa fa-trash"></i></a>
-          </td>
+			      <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
+			      <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
+			      <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?" ng-if="event_count[pdata.id] == '' || event_count[pdata.id] == null"><i class="fa fa-trash"></i></a>
+			    </td>
                         </tr>
 			<tr ng-show="loader">
 			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
@@ -91,7 +91,6 @@
                         </section>
                    </section>
                 
-			
       			</section>
           </div>
           <!-- Ticket Types Closed --> 
@@ -100,18 +99,7 @@
           
       
       </form>
-     <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title">Remove Previous Event</h3>
-        </div>
-        <div class="modal-body">
-            Are you sure to remove this previous created Event?
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="remove()">Remove</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-        </div>
-    </script>
+     
              
           
     </div>

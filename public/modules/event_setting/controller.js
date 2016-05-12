@@ -555,7 +555,9 @@ $scope.bundletabclass  = "fa-caret-down";
             $scope.producttabclass   = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-up";
+
             $scope.bundletabclass    = "fa-caret-down";
+
         }
          if (id == 5) {
             $scope.venuetab   = false;

@@ -261,6 +261,8 @@ angular.module('alisthub')
             if (response.code == 200) {
                    $scope.questiondata = response.result;
                    
+                   console.log('response.result' , response.result);
+
                    $scope.questiondata.forEach(function(value) {
                     $scope.ques_id.push(value.id);
                    });

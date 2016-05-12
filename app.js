@@ -19,21 +19,22 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.json({limit: '10mb'})); 
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
-//app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var venues = require('./routes/event_setting')(app, express);
-
+//For my account managment
+var profile = require('./routes/profile')(app, express);
+//For event setting
+var venues = require('./routes/event_setting')(app, express); 
+//For seller user managment
 var seller_user = require('./routes/seller_user')(app, express);
-
+//For event managment 
 require('./routes/event')(app, express);
 
-//app.use('/event_setting', venues);
-//app.use('/users', users);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
