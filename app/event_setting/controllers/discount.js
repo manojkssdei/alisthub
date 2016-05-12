@@ -11,12 +11,12 @@ exports.getDiscounts = function(req,res){
    
 }
 
-/*** Add Seller Venue ***/
+/*** Add Discount Coupon ***/
 exports.addDiscount = function(req,res){
-     
-     ///////////////////////////////////////////////////////////
+          
 
-          for(var index in req.body) { 
+
+          /*for(var index in req.body) { 
           if(req.body[index] == undefined){
             req.body[index] = '';
             }
@@ -30,7 +30,84 @@ exports.addDiscount = function(req,res){
             req.body.amount_type = '';
           }
 
-          if (req.body.id && req.body.id !="" && req.body.id != undefined) {
+          */
+
+        if(req.body.amount<0 ) {
+          req.body.amount = Math.abs(req.body.amount);
+        }
+
+        if(req.body.amount_target<0 ) {
+          req.body.amount_target = Math.abs(req.body.amount_target);
+        }
+
+        function checkUnique(postData) {
+           if(postData.coupon_type != "Automatic") {
+                  var mysql_query = 'SELECT count(*) as count from discounts where seller_id = "'+postData.seller_id+'" and coupon_code= "'+ postData.coupon_code +'"';
+                    connection.query(mysql_query, function(err, results) {
+                     if (err) {
+                       console.log('err' , err);
+                     }
+                    var count = results[0].count;
+                    console.log('count',count);
+                    if(count > 0 ) {
+                      return 1; // error exist
+                    }
+                  });
+                }
+                else{
+                  return 0;
+                }
+        }
+
+        function checkPercentage(postData) {
+          if((postData.coupon_type == "Automatic" || postData.coupon_type == "Discount" ) && postData.amount_type == "Percentage" && postData.amount>100 ) {
+              return 1; // error exist
+          }
+          else{
+            return 0;
+          }
+        }
+
+         var errorMsg = [];
+
+                  var checkPercentage = checkPercentage(req.body);
+                  var checkUnique = checkUnique(req.body);
+                  if(checkUnique ||  checkPercentage ) {
+                    if(checkPercentage) {
+                      errorMsg.push('Percentage must fall between 0 and 100');
+                      console.log('errorMsg' , errorMsg );
+                    }
+
+                    if(checkUnique) {
+                      errorMsg.push('Coupons codes must be unique.');
+                      console.log('errorMsg' , errorMsg );
+                    }
+
+                      if(errorMsg.length > 0) {
+                        console.log('errorMsg' , errorMsg );
+                        res.json({error: errorMsg ,code:101}); 
+                      }
+                      else {
+                        console.log('add values to db');
+                      }
+                  }
+                  
+
+
+                
+
+                
+
+               
+
+              /*  if(errorMsg.length > 0) {
+                  console.log('------3--------' , errorMsg.length );
+                  console.log('errorMsg' , errorMsg );
+                     res.json({error: errorMsg ,code:101}); 
+                }
+                else {
+                 console.log('add values to db');
+         if (req.body.id && req.body.id !="" && req.body.id != undefined) {
           var query = "UPDATE `discounts` SET seller_id="+req.body.seller_id+", coupon_type='"+req.body.coupon_type+"', coupon_name='"+req.body.coupon_name+"', coupon_code='"+req.body.coupon_code+"' , amount_type='"+req.body.amount_type+"' , amount='"+req.body.amount+"' , amount_target='"+req.body.amount_target+"' , assigned_to='"+req.body.assigned_to+"' , created='"+req.body.created+"' where id="+req.body.id;
           }
           else if(req.body.coupon_type == "Discount")
@@ -56,11 +133,11 @@ exports.addDiscount = function(req,res){
           }
           else{
               res.json({error:"error",code:101}); 
-          }
+          } */
+
+            
+                  
           
-     /////////////////////////////////////////////////////////// 
-     //res.json({result:"00000",code:200});
-   
 }
 
 /*** Venue Overview***/
@@ -75,6 +152,7 @@ exports.discountOverview = function(req,res){
    
 }
 
+ 
 /*** Change Venue Status***/
 exports.changeDiscountStatus = function(req,res){
     //console.log(req.body.userId);
