@@ -17,6 +17,9 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
     $scope.success_message=false;
     $scope.success="";
     $scope.data = {};
+    $scope.social = {};
+    $scope.userdetail = {};
+    $scope.email = {};
 
     $scope.openTab = function(id)
     {
@@ -90,11 +93,11 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
         
     }
     
-    $scope.updateUser = function(data) {
+    $scope.updateUser = function(userdetail) {
     
         if ($localStorage.userId!=undefined) {
-            $scope.data.user_id   = $localStorage.userId;
-            $serviceTest.updateUser($scope.data,function(response){
+            $scope.userdetail.user_id   = $localStorage.userId;
+            $serviceTest.updateUser($scope.userdetail,function(response){
                 //console.log(response);
                 if (response.code == 200) {
                     $location.path("/view_account");
@@ -111,18 +114,18 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
             });
         }
     };
-    $scope.data ={"email":"manojks@smartdatainc.net"};
-    $scope.updateEmail = function() {
+    //$scope.data ={"email":"manojks@smartdatainc.net"};
+    $scope.updateEmail = function(email) {
     
         if ($localStorage.userId!=undefined) {
             //$scope.data.user_id   = $localStorage.userId;
-            console.log($scope.data);
-            console.log(webservices.updateEmail);
+            //console.log($scope.data);
+            //console.log(webservices.updateEmail);
 
             $http({
             url: webservices.updateEmail,
             method: 'POST',
-            data: $scope.data,
+            data: $scope.email,
             headers: {
               "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                   "Accept": "application/json",
@@ -172,11 +175,11 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
         }
     };
 
-    $scope.updateSocial = function(data) {
-        //console.log($scope.data); return false;
-        if ($localStorage.userId!=undefined && $scope.data!=undefined) {
-            $scope.data.user_id   = $localStorage.userId;
-            $serviceTest.updateSocial($scope.data,function(response){
+    $scope.updateSocial = function(social) {
+        //console.log($scope.social); return false;
+        if ($localStorage.userId!=undefined && $scope.social!=undefined) {
+            $scope.social.user_id   = $localStorage.userId;
+            $serviceTest.updateSocial($scope.social,function(response){
                 console.log(response);
                 if (response.code == 200) {
                     $location.path("/view_account");
@@ -199,11 +202,25 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
             $scope.data.userId      = $localStorage.userId;
             //$scope.loader = true;
             $serviceTest.getData($scope.data,function(response){
-                console.log(response);
+                //console.log(response);
                 $scope.loader = false;
                 if (response.code == 200) {
-                   $scope.data = response.result[0];
-                   console.log($scope.data.first_name);
+                   
+                   $scope.password = response.result[0];
+
+                   $scope.social.facebook_link = response.result[0].facebook_link;
+                   $scope.social.twitter_link = response.result[0].twitter_link;
+                   $scope.social.google_plus = response.result[0].google_plus;
+
+                   $scope.userdetail.first_name = response.result[0].first_name;
+                   $scope.userdetail.last_name = response.result[0].last_name;
+                   $scope.userdetail.timezone = response.result[0].timezone;
+                   $scope.userdetail.phone_no = response.result[0].phone_no;
+                   $scope.userdetail.fax = response.result[0].fax;
+                   
+                   $scope.email.email = response.result[0].email;
+
+                   //console.log($scope.data.first_name);
                 } else {
                    $scope.error_message = response.error;
                 }
