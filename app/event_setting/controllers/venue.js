@@ -9,7 +9,9 @@ exports.getSettingCount = function(req,res){
    }
    connection.query('SELECT count(*) as count from questions where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err2, qresults) {
      connection.query('SELECT count(*) as count from products where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err2, presults) {
-     res.json({venueresult:vresults[0],quesresult:qresults[0],productresult:presults[0],code:200});
+          connection.query('SELECT count(*) as count from discounts where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err2, dresults) {
+     res.json({venueresult:vresults[0],quesresult:qresults[0],productresult:presults[0],discountresult:dresults[0],code:200});
+          });
      });
    });
 });

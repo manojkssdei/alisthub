@@ -14,7 +14,8 @@ angular.module('alisthub')
     };    
  }
  $scope.data = {};
-    
+  $scope.error_message = true;
+  $scope.success_message = true; 
 
 
  $scope.coupon_type_options = [

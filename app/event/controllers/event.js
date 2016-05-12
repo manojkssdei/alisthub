@@ -68,8 +68,9 @@ exports.saverecurringEvent=function(req,res){
 }
 
 exports.getEvents=function(req,res){
+	console.log(req.body);
     var user_id=req.body.user_id;
-    var sql="SELECT events.id, events.title, events.sub_title FROM events where events.user_id="+user_id;
+    var sql="SELECT events.id, events.title, events.start_date,events.end_date,events.website_url,events.description FROM events where events.user_id="+user_id;
 //alert(sql);
    //console.log(sql); 
 
