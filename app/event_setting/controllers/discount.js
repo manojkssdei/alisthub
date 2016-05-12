@@ -37,7 +37,6 @@ exports.addDiscount = function(req,res) {
       }
     }
 
-
     if(req.body.coupon_code == undefined) {
       req.body.coupon_code = '';
     }
@@ -63,7 +62,7 @@ exports.addDiscount = function(req,res) {
                      }
                     var count = results[0].count;
                     console.log('count',count);
-                    if(count > 0 ) {
+                    if(count) {
                       return 1; // error exist
                     }
                   });
@@ -86,7 +85,7 @@ exports.addDiscount = function(req,res) {
 
                   var checkPercentage = checkPercentage(req.body);
                   var checkUnique = checkUnique(req.body);
-                  if(checkUnique ||  checkPercentage ) {
+                  if(checkUnique || checkPercentage ) {
                     if(checkPercentage) {
                       errorMsg.push('Percentage must fall between 0 and 100');
                       console.log('errorMsg' , errorMsg );
