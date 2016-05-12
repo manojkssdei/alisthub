@@ -15,13 +15,13 @@ exports.getData = function(req,res){
 
 /*** Add Seller Venue ***/
 exports.updateUser = function(req,res) {
-  //console.log(req.body);
+  //console.log(req.body); return false;
   if (req.body.user_id && req.body.user_id !="" && req.body.user_id != undefined) {
     var query = "UPDATE `users` SET first_name='"+req.body.first_name+"', last_name='"+req.body.last_name+"', timezone='"+req.body.timezone+"', phone_no='"+req.body.phone_no+"', fax='"+req.body.fax+"' where id="+req.body.user_id;
   }
   
   if (query != "") {
-    console.log(query);
+    //console.log(query);
     connection.query(query, function(err7, results) {
       if (err7) {
        res.json({error:err7,code:101});
@@ -29,7 +29,7 @@ exports.updateUser = function(req,res) {
       res.json({result:results,code:200});
     });
   } else {
-    console.log(query);
+    //console.log(query);
     res.json({error:"error",code:101}); 
   }
 }
@@ -63,7 +63,7 @@ exports.updatePassword = function(req,res) {
   }
   
   if (query != "") {
-    console.log(query);
+    //console.log(query);
     connection.query(query, function(err7, results) {
       if (err7) {
        res.json({error:err7,code:101});
@@ -71,7 +71,7 @@ exports.updatePassword = function(req,res) {
       res.json({result:results,code:200});
     });
   } else {
-    console.log(query);
+    //console.log(query);
     res.json({error:"error",code:101}); 
   }
 }
@@ -84,7 +84,7 @@ exports.updateSocial = function(req,res) {
   }
   
   if (query != "") {
-    console.log(query);
+    //console.log(query);
     connection.query(query, function(err7, results) {
       if (err7) {
        res.json({error:err7,code:101});
@@ -92,7 +92,7 @@ exports.updateSocial = function(req,res) {
       res.json({result:results,code:200});
     });
   } else {
-    console.log(query);
+    //console.log(query);
     res.json({error:"error",code:101}); 
   }
 }
