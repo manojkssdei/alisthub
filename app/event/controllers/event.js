@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /** 
 Controller for the vanue managment page 
 Created : 2016-04-20
