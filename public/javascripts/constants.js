@@ -1,10 +1,11 @@
 
 var baseUrl = "//192.155.246.146:7048";
-servicebaseUrl="//192.155.246.146:5503";
+servicebaseUrl="//192.155.246.146:5502";
 
 var webservices = {	
 
 	"getUserregister" : baseUrl + "/webservices/register",
+
     "checkUnique" : baseUrl + "/webservices/checkUnique",
     "getUserlogin" : baseUrl + "/webservices/login",
     "forgetPassword" : baseUrl + "/webservices/forgetPassword",
@@ -72,7 +73,12 @@ var webservices = {
     "updateSocial" : "/profile/updateSocial",
     "updatePassword" : baseUrl + "/webservices/updatePassword",
     "updateEmail" : baseUrl + "/webservices/updateEmail",
-    "getData" : "/profile/getData"
+    "getData" : "/profile/getData",
+
+    /* Constants for the create event step 2 price level */
+    "savepricelevel" : "/event/savepricelevel",
+    "getPricelevel" : "/event/getPricelevel",
+
 }
 
 var global_message = {
