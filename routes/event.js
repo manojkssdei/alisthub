@@ -9,6 +9,8 @@ module.exports = function(app, express) {
        router.post('/saverecurringEvent', Event.saverecurringEvent);
        router.post('/getEvents', Event.getEvents);
        router.post('/getEvent', Event.getEvent);
+       router.post('/savepricelevel', Event.savepricelevel);
+       router.post('/getPricelevel', Event.getPricelevel);
        
       
         

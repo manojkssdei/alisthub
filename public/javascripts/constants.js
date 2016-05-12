@@ -1,6 +1,6 @@
 
 var baseUrl = "//192.155.246.146:7048";
-servicebaseUrl="//192.155.246.146:5503";
+servicebaseUrl="//192.155.246.146:5502";
 
 var webservices = {	
 
@@ -60,7 +60,9 @@ var webservices = {
         "updateSocial" : "/profile/updateSocial",
         "updatePassword" : baseUrl + "/webservices/updatePassword",
         "updateEmail" : baseUrl + "/webservices/updateEmail",
-        "getData" : "/profile/getData"
+        "getData" : "/profile/getData",
+        "savepricelevel" : "/event/savepricelevel",
+        "getPricelevel" : "/event/getPricelevel",
 
 
 }
