@@ -37,7 +37,7 @@
             </section>
             <section class="gray-frame" ng-show="discounttab">
             	<ul class="btns-widget clearfix">
-                	<li><a href="#/view_discounts/list"><i class="fa fa-calendar-o icon-fa"></i>Discount Codes</a></li>
+                	<li><a href="{{redirectdiscount}}"><i class="fa fa-calendar-o icon-fa"></i>{{discountcount}} Discount Codes</a></li>
                     <li><a href="#/add_discount"><i class="fa fa-shopping-cart icon-fa"></i>Add Discount Code</a></li>
                     
                 </ul>
@@ -52,6 +52,18 @@
             	<ul class="btns-widget clearfix">
                 	<li><a href="{{redirectques}}"><i class="fa fa-plus-square-o icon-fa"></i>{{ quescount }} Question</a></li>
                     <li><a href="#/add_question"><i class="fa fa-ticket icon-fa"></i>Add Question</a></li>
+                </ul>
+            </section>
+        </section><!--/Downloads-->
+      <section class="module">
+        	<section class="prof-hd no-icon" ng-click="openTab(5)">
+                   <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
+                    <h2>Bundle <span class="rt-img"><i class="fa {{bundletabclass}}"></i></span></h2>
+            </section>
+            <section class="gray-frame" ng-show="bundletab">
+            	<ul class="btns-widget clearfix">
+                	
+                    <li><a href="#/add_bundle"><i class="fa fa-ticket icon-fa"></i>Add Bundle</a></li>
                 </ul>
             </section>
         </section><!--/Downloads-->

@@ -12,7 +12,7 @@ exports.getDiscounts = function(req,res){
 
 /*** Add Seller Venue ***/
 exports.addDiscount = function(req,res){
-     
+
      ///////////////////////////////////////////////////////////
           if (req.body.id && req.body.id !="" && req.body.id != undefined) {
           var query = "UPDATE `discounts` SET seller_id="+req.body.seller_id+", coupon_type='"+req.body.coupon_type+"', coupon_name='"+req.body.coupon_name+"', coupon_code='"+req.body.coupon_code+"' , amount_type='"+req.body.amount_type+"' , amount='"+req.body.amount+"' , assigned_to='"+req.body.assigned_to+"' , created='"+req.body.created+"' where id="+req.body.id;
