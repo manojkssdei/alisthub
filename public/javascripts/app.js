@@ -1,9 +1,8 @@
-// app.js
-/**************
+/*
 CREATED :6 April 2016
 CREATED BY: Deepak khokhar
-Montive: It defined routes to call different files.It will provide you directions where to go.
-********************/
+Description: It defined routes to call different files.It will provide you directions where to go.
+*/
 'use strict';
 angular.module("communicationModule", []);
 // Declare app level module which depends on filters, and services
@@ -16,7 +15,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
     // You can also load via resolve
     $stateProvider.
-    //login screen
+      
+      /* Setting for login screen setup */
       state('login', {
         url: "/login", // root route
         views: {
@@ -32,7 +32,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
           }]
         }
       })
-       //Authentication screen=================================
+
+      /* Setting for Sign up screen setup */
         .state('signup', {
             url: '/signup',
             
@@ -50,7 +51,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         }
         })
         
-        //Email Confirmation screen=================================
+        /* Setting for email confirmation screen */
         .state('confirm_email', {
             url: '/confirm_email/:id',
             views: {
@@ -67,7 +68,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         }        
         })
                 
-        //Authentication screen=================================
+        /* Setting for forgot password screen */
         .state('forgot-password', {
             url: '/forgot-password',
             
@@ -84,7 +85,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
           }]
         }
         })
-        // New Password
+        
+        /* Setting for new password screen */
         .state('new_password', {
             url: '/forget_password/:id',
             
@@ -102,7 +104,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         }
         })
             
-         //Events dashoard screen=================================
+        /* Setting for event dashboard screen */
         .state('dashboard', {
             url: '/dashboard',
              views: {
@@ -112,6 +114,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+                authentication:routerApp.logauthentication,
                 resources: ['$ocLazyLoad', function($ocLazyLoad) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/events/controller.js');
@@ -120,7 +123,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
         
-         //Create Event screen=================================
+        /* Setting for Create event screen */
         .state('create_an_event', {
             url: '/create_an_event',
              views: {
@@ -138,7 +141,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             
         })
         
-        //View Event screen=================================
+        /* Setting for view event screen */
         .state('view_event', {
             url: '/view_event',
             views: {
@@ -148,6 +151,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', function($ocLazyLoad) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/events/controller.js');
@@ -155,7 +159,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
         
-        //Create Event step1=================================
+        /* Setting for Create Event step1 screen */
         .state('create_event_step1', {
             url: '/create_event_step1',
             
@@ -166,6 +170,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/step_event/service.js')/*.then(function(){
@@ -178,8 +183,9 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               }]
             }
         })
+        
         // Module : Event Setting Start
-        // Submodule : Venue Management
+        /* Setting for Venue Management screen */
         .state('add_venue', {
             url: '/add_venue',
             
@@ -190,6 +196,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
@@ -204,6 +211,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
         
+        /* Setting for view Venue screen */
         .state('view_venues', {
             url: '/view_venues/:list',
             
@@ -214,20 +222,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,    
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     }).then(function(){
                     return $ocLazyLoad.load(['modules/event_setting/controller.js']);
                     })
-               
               }]
-                        
             }
         })
         
+        /* Setting for edit Venue screen */
         .state('edit_venue', {
             url: '/edit_venue/:id',
             
@@ -238,20 +244,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication, 
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     }).then(function(){
                     return $ocLazyLoad.load(['modules/event_setting/controller.js']);
                     })
-               
               }]
-                        
             }
         })
         
+        /* Setting for event setting screen */
         .state('event_setting', {
             url: '/event_setting',
             
@@ -262,20 +266,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     }).then(function(){
                     return $ocLazyLoad.load(['modules/event_setting/controller.js']);
                     })
-               
               }]
-                        
             }
         })
         
+        /* Setting for venue overview screen */
         .state('venue_overview', {
             url: '/venue_overview/:id',
             
@@ -286,20 +288,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/controller.js']);
+                })
               }]
-                        
             }
         })
         
+        /* Setting for add question screen */
         .state('add_question', {
             url: '/add_question',
             
@@ -310,20 +310,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     }).then(function(){
                     return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
                     })
-               
               }]
-                        
             }
         })
         
+        /* Setting for edit question screen */
         .state('edit_question', {
             url: '/edit_question/:id',
             
@@ -334,20 +332,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication, 
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
+                })
               }]
-                        
             }
         })
         
+        /* Setting for view question screen */
         .state('view_questions', {
             url: '/view_questions/:list',
             
@@ -358,20 +354,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication, 
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
+                })
               }]
-                        
             }
         })
         
+        /* Setting for assign question screen */
         .state('assign_question', {
             url: '/assign_question/:assign',
             
@@ -382,23 +376,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
+                })
               }]
-                        
             }
         })
         
-        
-        
-        // Add Product
+        /* Setting for add product screen */
         .state('add_product', {
             url: '/add_product',
             
@@ -409,20 +398,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
+                })
               }]
-                        
             }
         })
         
+        /* Setting for edit product screen */
         .state('edit_product', {
             url: '/edit_product/:id',
             
@@ -433,21 +420,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
+                })
               }]
-                        
             }
         })
         
-        
+        /* Setting for view products screen */
         .state('view_products', {
             url: '/view_products/:list',
             
@@ -458,23 +442,20 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
+                })
               }]
-                        
             }
         })
 
-
-        // DISCOUNT START
-.state('add_discount', {
+        // DISCOUNT Module  
+        /* Setting for add discount screen */
+        .state('add_discount', {
             url: '/add_discount',
             
             views: {
@@ -484,20 +465,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                })
               }]
-                        
             }
         })
         
+        /* Setting for edit discount screen */
         .state('edit_discount', {
             url: '/edit_discount/:id',
             
@@ -508,20 +487,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                })
               }]
-                        
             }
         })
         
+        /* Setting for view discount screen */
         .state('view_discounts', {
             url: '/view_discounts/:list',
             
@@ -532,21 +509,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                })
               }]
-                        
             }
         })
 
-
+        /* Setting for assign discount screen */
         .state('assign_discount', {
             url: '/assign_discount/:assign',
             
@@ -560,20 +534,17 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                })
               }]
-                        
             }
         })
 
         //DISCOUNT END
         
- // start bundle routing
+        // start bundle routing
+        /* Setting for add bundle screen */
         .state('add_bundle', {
             url: '/add_bundle',
             
@@ -587,17 +558,14 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/bundle_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/bundle_controller.js']);
+                })
               }]
-                        
             }
         })
         
+        /* Setting for edit bundle screen */
         .state('edit_bundle', {
             url: '/edit_bundle/:id',
             
@@ -611,19 +579,15 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/bundle_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/bundle_controller.js']);
+                })
               }]
-                        
             }
         })
         
 
-        
+        /* Setting for product overview screen */
          .state('product_overview', {
             url: '/product_overview/:id',
             
@@ -635,21 +599,19 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-
+                }).then(function(){
                     return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
-                    })
-               
+                })
               }]
-                        
             }
         })
-   .state('product_setting', {
+
+        /* Setting for product setting screen */
+        .state('product_setting', {
             url: '/product_setting',
             
             views: {
@@ -659,23 +621,20 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
+                })
               }]
-                        
             }
         })
-    // End Product Module
+        // End Product Module
    
-   // Start Manage Section :
-   //  Module :User   
+    // Start Manage Section :
+    /* Setting for view user screen */   
     .state('view_user', {
             url: '/view_user',
             
@@ -686,20 +645,18 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+               authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/manage/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/manage/user_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/manage/user_controller.js']);
+                })
               }]
-                        
             }
         })
 
+        /* Setting for add user screen */
         .state('add_user', {
             url: '/add_user',
             
@@ -713,17 +670,14 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/manage/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/manage/user_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/manage/user_controller.js']);
+                })
               }]
-                        
             }
         })
 
+        /* Setting for edit user screen */
         .state('edit_user', {
             url: '/edit_user/:id',
             
@@ -737,16 +691,14 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/manage/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/manage/user_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/manage/user_controller.js']);
+                })
               }]
-                        
             }
         })
+
+        /* Setting for view account screen */
        .state('view_account', {
             url: '/view_account',
             views: {
@@ -759,16 +711,14 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/myaccount/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/myaccount/myaccountcontroller.js']);
-                    })
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/myaccount/myaccountcontroller.js']);
+                })
               }]
-                        
             }
         })
 
+       /* Setting for add financial setting screen */
         .state('add_financial_setting', {
             url: '/add_financial_setting/:id',
             
@@ -782,13 +732,10 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/account/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/account/account_controller.js']);
-                    })
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                })
               }]
-                        
             }
         })
 
@@ -796,7 +743,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         // End Manage Section :
         /// start discount routes
 
-        
+        /* Setting for financial setting screen */
         .state('financial_setting', {
             url: '/financial_setting',
             
@@ -810,14 +757,10 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/account/service.js').then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    }).then(function(){
-                    return $ocLazyLoad.load(['modules/account/account_controller.js']);
-                    })
-               
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                })
               }]
-                        
             }
         })
         
@@ -825,6 +768,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
     
   }).run(['$rootScope', '$location','$state', '$localStorage', '$http',function($rootScope,$location, $state,$localStorage, $http) {
+     
     
     //To add class
    
@@ -882,57 +826,51 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         };
 }])
-routerApp.logauthentication = function($rootScope,$localStorage,$location,communicationService,$http)
+
+routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state)
 {
+
+
     // checktoken expiry time
+    // check web services
     var serviceUrl  = webservices.checkTokenExpiry;
     var serviceUrl2 = webservices.refreshTokenExpiry;
     var jsonData = {};
     jsonData.token = $localStorage.auth_token;
-    /*    
-                $http({
+
+              
+               
+               $http({
                  url: serviceUrl,
                  method: 'POST',
                  data: jsonData,
                  headers: {
-                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                  "Accept": "application/json",
-                 }
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        "Accept": "application/json",
+                 },
+                 
                 }).success(function(data, status, headers, config) {
-                console.log("999999999999999999999999999");
-                console.log(data);
-                console.log("999999999999999999999999999");
-                  
-                });*/
-        var headers = {
-                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                  "Accept": "application/json",
-                 }; 
-        
-        communicationService.resultViaPost(webservices.checkTokenExpiry,appConstants.authorizationKey,headers,jsonData, function(res,req){
-        console.log(res.data);
-        });
                 
-        /*isSession.checkSession({}, function(response)
-	{
-	    	
-	    if (response.status == 0)
-	    {
-		        $rootScope.userLoggedIn = false;
-			$rootScope.loggedInUsertype = false;
-			$localStorage.userLoggedIn = false;
-			$localStorage.loggedInUsertype = false;
-			$localStorage.session_id="";
-			$location.path('/login');
-	    }else{
-	    	$rootScope.loggedInType = $localStorage.loggedInUsertype;
-	    	$rootScope.userLoggedIn = true;
-	    }
-	    
-	    
-        });*/
+                if (data.code == 101)
+                {
+                    $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
+                    $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
+                    
+                    $rootScope.email=$localStorage.email="";
+                    $rootScope.name=$localStorage.name="";
+                    $rootScope.access_token=$localStorage.access_token="";
+                    $rootScope.auth_token=$localStorage.auth_token="";
+                    $rootScope.phone_no=$localStorage.phone_no="";
+                    $rootScope.userId=$localStorage.userId="";
+                    $rootScope.address=$localStorage.address="";
+                    
+                    localStorage.clear();
+                    $state.go('login');
+                    
+                    
+                }
+                               
+                });
        
-        
-        
-}
- 
+};
+

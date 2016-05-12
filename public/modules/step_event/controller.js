@@ -160,10 +160,12 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             
             data.userId=$localStorage.userId;
             $serviceTest.saveEvent(data,function(response){
+                
               if (response.code == 200) {
                    $scope.success="Event Successfully Saved.";
-                   $scope.data={};
-                   $scope.selectevent_date=$scope.starttime=$scope.endtime=$scope.startevent_time=$scope.endevent_time='';
+                  // $scope.data={};
+                   $localStorage.eventId=response.result;
+                 //  $scope.selectevent_date=$scope.starttime=$scope.endtime=$scope.startevent_time=$scope.endevent_time='';
                          $scope.error_message=false;
                          $timeout(function() {
                           
@@ -171,7 +173,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                            $scope.error_message=true;
                          },3000);
                         
-                         window.location.reload();
+                       //  window.location.reload();
               }
               });
             
@@ -825,6 +827,9 @@ $scope.items = ['item1'];
     }
     
    }
+   
+   
+   
    $scope.multipleend=function(){
     if ($scope.data.period  && $scope.multiple_endtime) {
     console.log('working 1'); 
@@ -877,7 +882,8 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
   };
 });
 
-angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope) {
+angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {
+    var $serviceTest = $injector.get("venues");
      $scope.items = items;
      $scope.min_price=true;
      $scope.change_price_type=function(){
@@ -913,6 +919,27 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   };
+  
+   //For step 2 Price level
+ $scope.savepriceleveldata=function(data1)
+ {
+  data1.userId=$localStorage.userId; 
+  data1.eventId=$localStorage.eventId; 
+         
+          $serviceTest.savepriceleveldata(data1,function(response){
+          
+              if (response!=null) {
+            if (response.code==200)
+             {
+              $scope.data1=[];
+              $serviceTest.getPricelevel({'eventId':data1.eventId},function(response){
+                console.log(response);
+              });
+              $uibModalInstance.dismiss('cancel'); 
+             }
+            }
+        }); 
+ }
 });
 
 angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope, $uibModalInstance, items,$rootScope) {

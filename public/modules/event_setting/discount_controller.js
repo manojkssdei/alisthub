@@ -1,5 +1,8 @@
 angular.module('alisthub')
-.controller('discountController', function($scope,$localStorage,$injector,$http,$state,$location) {
+.controller('discountController', function($scope,$localStorage,$injector,$http,$state,$location,$timeout,$sce) {
+   $scope.error_message = false;
+    $scope.success_message = false;
+    $scope.edit_note = false;
    if (!$localStorage.isuserloggedIn) {
       $state.go('login');
    }
@@ -71,9 +74,20 @@ angular.module('alisthub')
         $serviceTest.addDiscount($scope.data,function(response){
             console.log(response);
             if (response.code == 200) {
+                 $scope.success_message = true;
+                 $scope.success = 'Discount added successfully';
                     $location.path("/view_discounts/list");
                   }else{
-                    $scope.activation_message = global_message.ErrorInActivation;
+                    //$scope.activation_message = global_message.ErrorInActivation;
+                 $scope.error_message = true;
+                 $scope.error = '';
+                 //var errorMsg = '';
+                  for(var index in response.error) { 
+                  $scope.error+=$sce.trustAsHtml(response.error[index]+'<br/>');
+                  }
+                  $scope.trustedHtml=$sce.trustAsHtml($scope.error);
+
+
             }
             
         });
@@ -106,36 +120,16 @@ angular.module('alisthub')
   
 
     $scope.checkMandatoryFields = function( mandatoryFields ) {
-          /*
-          for(var key in $scope.data) { 
-          if($scope.data[key] == undefined){
-             $scope.data[key] = '';
-            }
-          }
-          */
           var errorExist = 0;
           var errorList = [];
-          var errorShortMessage = 'Please enter mandatory fields.';
           for(var key in mandatoryFields) { 
-            console.log('key - ' , key);
-         
-         /* if($scope.data[key] && $scope.data[key] != undefined && $scope.data[key] != "" && $scope.data[key] != "NULL"){
-             // do nothing
-            }
-          else{
-            errorExist = 1;
-            errorList.push('Enter '+key);
-          }
-          */
-
            if(!$scope.data[key] || $scope.data[key] == undefined || $scope.data[key] == "" || $scope.data[key] == "NULL"){
               errorExist = 1;
               errorList.push('Enter '+key);
-              console.log('errorList' , errorList);
             }
           }
           if(errorExist) {
-            return errorShortMessage;
+            return errorList;
           }
   }
 
@@ -143,15 +137,52 @@ angular.module('alisthub')
   $scope.page_title = 'ADD';
   $scope.callfunction = 0;
 
-
-  var mandatoryFields = { 'amount':'amount' , 'amount_type':'amount_type' , 'coupon_code':'coupon_code' , 'coupon_name':'coupon_name' , 'coupon_type': ['number'] };
+ 
   $scope.saveDiscount = function()
   {
     if ($scope.callfunction == 0) {
-       var errorMsg =  $scope.checkMandatoryFields( mandatoryFields );
-       console.log('errorMsg' , errorMsg);
-       if(!errorMsg)
+      var mandatoryFields = { 'coupon_type': 'Enter coupon type' };
+    
+    if($scope.data.coupon_type == "Discount")
+    {
+      $scope.data.amount_target = undefined;
+      mandatoryFields = { 
+                        'coupon_name':'Coupon Name is required' ,
+                        'coupon_code':'A code is required for this coupon type' ,
+                        'amount_type':'Select amount type' ,
+                        'amount':'A valid monetary amount is required for this coupon type' ,
+                        };
+    }
+        
+    if($scope.data.coupon_type == "Automatic")
+    {
+      $scope.data.coupon_code = undefined;
+      mandatoryFields = { 
+                        'coupon_name':'Coupon Name is required' ,
+                        'amount_type':'Select amount type' ,
+                        'amount':'A valid monetary amount is required for this coupon type' ,
+                        'amount_target':'A valid monetary target amount is required for this coupon type' ,
+                        };
+    }
+
+    if($scope.data.coupon_type == "Reserve" || $scope.data.coupon_type == "Presale" || $scope.data.coupon_type == "Complimentary" || $scope.data.coupon_type == "Access Code")
+    {
+       mandatoryFields = { 
+                       'coupon_name':'Coupon Name is required' ,
+                        'coupon_code':'A code is required for this coupon type' ,
+                        };
+    }
+
+        var errorMsg =  $scope.checkMandatoryFields( mandatoryFields );
+        console.log('errorList ' ,  errorMsg);
+        if(!errorMsg) {
         $scope.addDiscount();
+        }
+        else {
+          $scope.error_message = true;
+          $scope.error = 'Please enter mandatory fields.';
+        }    
+
     }
     if ($scope.callfunction == 1) {
         $scope.editDiscount();
@@ -164,6 +195,7 @@ angular.module('alisthub')
     $scope.callfunction = 1;
     
     $scope.page_title = 'EDIT';
+    $scope.edit_note = true;
     $scope.getDiscountDetail = function() {
     
         if ($localStorage.userId!=undefined) {
