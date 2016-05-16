@@ -52,7 +52,6 @@ mysql_query = 'SELECT count(*) as count from discounts where seller_id = "'+req.
     });
 }
 
-
 /** 
 Method: addDiscount
 Description:Function for adding the discount for the user 
@@ -83,46 +82,9 @@ exports.addDiscount = function(req,res) {
           req.body.amount_target = Math.abs(req.body.amount_target);
         }
 
-<<<<<<< HEAD
          var errorMsg = [];
                  if((req.body.coupon_type == "Automatic" || req.body.coupon_type == "Discount" ) && req.body.amount_type == "Percentage" && req.body.amount>100 ) {
                       console.log('Percentage error');
-=======
-        function checkUnique(postData) {
-           if(postData.coupon_type != "Automatic") {
-                  var mysql_query = 'SELECT count(*) as count from discounts where seller_id = "'+postData.seller_id+'" and coupon_code= "'+ postData.coupon_code +'"';
-                    connection.query(mysql_query, function(err, results) {
-                     if (err) {
-                       console.log('err' , err);
-                     }
-                    var count = results[0].count;
-                    console.log('count',count);
-                    if(count) {
-                      return 1; // error exist
-                    }
-                  });
-                }
-                else{
-                  return 0;
-                }
-        }
-
-        function checkPercentage(postData) {
-          if((postData.coupon_type == "Automatic" || postData.coupon_type == "Discount" ) && postData.amount_type == "Percentage" && postData.amount>100 ) {
-              return 1; // error exist
-          }
-          else{
-            return 0;
-          }
-        }
-
-         var errorMsg = [];
-
-                  var checkPercentage = checkPercentage(req.body);
-                  var checkUnique = checkUnique(req.body);
-                  if(checkUnique || checkPercentage ) {
-                    if(checkPercentage) {
->>>>>>> deepak/master
                       errorMsg.push('Percentage must fall between 0 and 100');
                       console.log('errorMsg' , errorMsg );
                 }
