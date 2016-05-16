@@ -17,17 +17,21 @@ module.exports = function(app, express) {
     	    res.header("Access-Control-Allow-Credentials", true);
     	    next();
     	}
-         /* For saving the event data */
-       router.post('/saveEvent', Event.saveEvent);
-       /* Save reoccuring event data */
-       router.post('/saverecurringEvent', Event.saverecurringEvent);
+      /* For saving the event data */
+      router.post('/saveEvent', Event.saveEvent);
+      
+      /* Save reoccuring event data */
+      router.post('/saverecurringEvent', Event.saverecurringEvent);
 
-       router.post('/savepricelevel', Event.savepricelevel);
-       router.post('/getPricelevel', Event.getPricelevel);
-        /* To get data of the all events */
-        router.post('/getEvents',supportCrossOriginScript,Event.getEvents);
-       /* To get the event data */
-       router.post('/getEvent',supportCrossOriginScript, Event.getEvent);
+      router.post('/savepricelevel', Event.savepricelevel);
+      router.post('/getPricelevel', Event.getPricelevel);
+      
+      /* To get data of the all events */
+      router.post('/getEvents',supportCrossOriginScript,Event.getEvents);
+      
+      /* To get the event data */
+      router.post('/getEvent',supportCrossOriginScript, Event.getEvent);
+
 
        
       
