@@ -556,6 +556,7 @@ $scope.bundletabclass  = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-up";
 
+
             $scope.bundletabclass    = "fa-caret-down";
 
         }

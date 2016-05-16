@@ -1,0 +1,180 @@
+<link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
+<script src="javascripts/timepicker.js" type="text/javascript"></script>
+
+<div class="container">
+     <h1>Assign Discount</h1>
+    
+    <!-- Form COntainer -->
+    
+    <div class="form-section  wt-frame">
+      <form class="venue-form" name="userForm" id="venue-form" ng-submit="assignDiscounts()" novalidate>
+        <!-- Event Detail Form -->
+       <div> 
+          <!-- Location Group -->
+          <div class="form-group field-group">
+               <!-- Date Event Group -->
+            <div class="event-date fieldSection">
+
+            <div class="row">
+               <div><p class="error-fld" ng-show="error_message" >{{error}}</p></div>
+               <!--<div><p class="error-fld" ng-show="error_message" ng-bind-html="trustedHtml"></p></div>-->
+               <div><p class="success-fld" ng-show="success_message">{{success}}</p></div>
+          </div>
+
+              <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="tab-content">
+                    <div role="tabpanel">
+                     
+                      <div class="row">
+                        <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine }" >
+                          <div class="form-group">
+                            <label for="EventName">Select Coupon<span class="req">*</span></label>
+                            <select class="form-control" name="coupon_code" ng-model="data.coupon_code" ng-required="true" >
+                            <!--<option ng-repeat="x in coupon_code" value="{{x.model}}">{{x.model}}</option>-->
+                            <option>Static coupon one</option>
+                            <option>Static coupon two</option>
+                            <option>Static coupon three</option>
+                            <option>Static coupon four</option>
+                          </select>
+                          </div>
+        <p ng-show="userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine" class="help-block">Select coupon code.</p>
+                        </div>
+
+                        <div class="col-sm-8" ng-class="{ 'has-error' : userForm.events.$invalid && !userForm.events.$pristine }" >
+                          <div class="form-group">
+                            <label for="EventName">Select one or more events</label>
+                              <input type="radio" class="assignEvents" value="all" name="events" ng-model="data.events" /> Apply coupon(s) globally across all events
+                              <input type="radio" class="assignEvents" value="one" name="amount_target" ng-model="data.amount_target" />Assign to individual event and pricing levels
+                          </div>
+        <p ng-show="userForm.events.$invalid && !userForm.events.$pristine" class="help-block">Select event.</p>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                  
+                  <!-- Tab panes -->
+                  
+                </div>
+                <div class="col-sm-12 col-md-6"></div>
+    
+              </div>
+            </div>
+          </div>
+          <!-- //Location Group -->
+      
+        <!-- //Event Detail Form -->
+         </div>
+
+
+             <div class="module">
+  <section class="prof-hd" > <!-- add  class="prof-hd"if u need to display this as tab -->
+   <i class="fa fa-link hdicon pos-l16"></i>
+    <h2> Coupon Limiting <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+  </section>
+  <section class="gray-frame">
+     
+     <div class="row">
+      <div class="col-sm-4" >
+        <div class="form-group">
+          <label for="EventName">Use Limit<span class="req-limit">*</span></label>
+          <input type="number" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit" min="0" max="100"/>
+        </div>
+        <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="help-block">Enter bundle limit.</p>
+      </div>
+
+      
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="EventName"> Timezone</label>
+          <select class="form-control" placeholder="Select Timezone" ng-model="data.timezone">
+<option>UTC-4: Atlantic Standard Time (AST)</option>
+<option>UTC-5: Eastern Standard Time (EST)</option>
+<option>UTC-6: Central Standard Time (CST)</option>
+<option>UTC-7: Mountain Standard Time (MST)</option>
+<option>UTC-8: Pacific Standard (PST)</option>
+<option>UTC-9: Alaska Standard Time (AKST)</option>
+<option>UTC-10: Hawaii-Aleutian Standard Time (HST)</option>
+<option>UTC-11: Samoa Standard Time</option>
+<option>UTC+10:Chamorro Standard Time</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+         <label for="EventName"> Taggable?</label>
+         <div class="onoffswitch">
+       <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="data.multiple_ticket_holder" checked>
+       <label class="onoffswitch-label" for="myonoffswitch2"></label>
+          </div>
+        </div>
+      </div>
+ </div>
+
+       <div class="row">
+           <div class="col-sm-6">
+          <div class="form-group">
+            <label for="EndTime">Start Date<span class="req">*</span></label>
+            <div class="form-group datepicker">
+               <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
+               <span class="input-group-btn">
+                 <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+           </div>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 event" >
+          <div class="form-group">
+            <label for="StartTime">Start Time</label>
+             <div class="input-group bootstrap-timepicker timepicker">
+              <input  ng-model="starttime" class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+            </div>
+        </div>
+        </div>
+        </div>
+
+
+         <div class="row">
+           <div class="col-sm-6">
+           <div class="form-group">
+          <label for="EndTime">End Date<span class="req">*</span></label>
+          <div class="form-group datepicker">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="multiple_end_date" is-open="popup2.opened" datepicker-options="dateOptions"  close-text="Close"  ng-change="recurring_period('end')"/>
+          <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+          </div>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 event" >
+          <div class="form-group">
+          <label for="EndTime">End Time</label>
+           <div class="input-group bootstrap-timepicker timepicker">
+            <input ng-model="endtime" class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+           </div>
+        </div>
+        </div>
+        </div>
+
+  </section>
+</div>  
+         <div class="editor-btn">
+          
+           <button class="pink-btn btn" ng-disabled="userForm.$invalid">Save Assignment</button>
+          
+          
+         </div>
+
+
+     </form>
+     </div>
+    
+    <!-- //Form COntainer --> 
+  </div>
