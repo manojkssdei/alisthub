@@ -51,6 +51,7 @@ var webservices = {
     /* Constants for the discount module */
     "getDiscounts":"/event_setting/getDiscounts",
     "addDiscount" : "/event_setting/addDiscount",
+    "checkUniqueDiscount" : "/event_setting/checkUniqueDiscount",
     "assignDiscount" : "/event_setting/assignDiscount",
     "discountOverview" :  "/event_setting/discountOverview",
     "changeDiscountStatus" :  "/event_setting/changeDiscountStatus",
