@@ -118,7 +118,7 @@ angular.module('alisthub')
   }
   
 
-    $scope.checkMandatoryFields = function( mandatoryFields ) {
+    $scope.checkMandatoryFields = function(mandatoryFields) {
           var errorExist = 0;
           var errorList = [];
           for(var key in mandatoryFields) { 
