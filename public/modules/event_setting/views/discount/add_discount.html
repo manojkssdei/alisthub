@@ -13,8 +13,10 @@
             <div class="event-date fieldSection">
 
             <div class="row">
-               <div ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
-               <div ng-hide="success_message"><p class="success-fld" >{{success}}</p></div>
+               <div><p class="error-fld" ng-show="error_message" ng-bind-html="trustedHtml"></p></div>
+               <div><p class="success-fld" ng-show="success_message">{{success}}</p></div>
+               <div><p ng-show="edit_note">Note: Changes to this coupon will affect all of the events for which this coupon is applied.</p></div>
+
           </div>
 
               <div class="row">

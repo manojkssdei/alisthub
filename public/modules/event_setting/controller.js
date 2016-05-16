@@ -448,11 +448,13 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
                    $scope.venuecount      = response.venueresult.count;
                    $scope.quescount       = response.quesresult.count;
                    $scope.productcount    = response.productresult.count;
+                   $scope.discountcount   = response.discountresult.count;
                    
                   }else{
                    $scope.venuecount      = 0;
                    $scope.quescount       = 0;
                    $scope.productcount    = 0;
+                   $scope.discountcount   = 0;
                    
             }
                 if ($scope.venuecount > 0) {
@@ -474,6 +476,13 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
                 }
                 else{
                     $scope.redirectproduct   = "#/add_product";
+                }
+                
+                if ($scope.discountcount > 0) {
+                     $scope.redirectdiscount  = "#/view_discounts/list";
+                }
+                else{
+                    $scope.redirectdiscount   = "#/add_discount";
                 }
                 
                   
@@ -546,7 +555,10 @@ $scope.bundletabclass  = "fa-caret-down";
             $scope.producttabclass   = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-up";
-           $scope.bundletab  = "fa-caret-down";
+
+
+            $scope.bundletabclass    = "fa-caret-down";
+
         }
          if (id == 5) {
             $scope.venuetab   = false;
