@@ -1132,7 +1132,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
     
     <!-- //Form COntainer --> 
   </div>
-<script type="text/ng-template" id="myModalContent.html">
+<script type="text/ng-template" id="myModalContent.html"> 
         <div class="modal-header">
             <h3 class="modal-title">Remove Previous Event</h3>
         </div>
@@ -1240,15 +1240,285 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
         </form>
     </script>
 
-<script type="text/ng-template" id="myModalContentBundle.html">
+    <script type="text/ng-template" id="myModalContentBundle.html"> 
         <div class="modal-header">
             <h3 class="modal-title">Add a Bundle</h3>
         </div>
+        <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="savepriceleveldata(data1)" novalidate>
         <div class="modal-body">
-            Modal Content Price
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Step Form -->
+        <div class="stage-container stage-container-3steps clearfix">
+          <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+            <div class="stage-title">{{step.title}}</div> </div>
         </div>
+        <!-- //Step Form --> 
+
+
+        <div class="form-section  wt-frame">
+                <!-- Step 1 start -->
+                   <div ng-show="step_1">
+                    <!-- Event Detail Form -->
+                          <form class="event-form" name="userForm" novalidate ng-submit="saveBundle(1)">
+                                 <div>
+                                    <div class="module">
+                                        <section class="prof-hd" > <!-- add  class="prof-hd"if u need to display this as tab -->
+                                         <i class="fa fa-link hdicon pos-l16"></i>
+                                          <h2> Details <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                                        </section>
+                                        <section class="gray-frame">
+                                          
+
+                                          <div class="row">
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName">Name<span class="req">*</span></label>
+                                                <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="data.bundle_name" required/>
+                                              </div>
+                                              <span style="color:red" ng-show="userForm.bundle_name.$dirty && userForm.bundle_name.$invalid">  <span  ng-show="userForm.bundle_name.$error.required">Enter bundle name.</span></span>
+                                            </div>
+                                            <div class="col-sm-8">
+                                              <div class="form-group">
+                                                <label for="EventName"> Description</label>
+                                                <div class="bundle-editr" >
+                                                  <div ckeditor="option_ckeditor" ng-model="data.bundle_description" ready="onReady()"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-sm-4" >
+                                              <div class="form-group">
+                                                <label for="EventName"> Limit<span class="req-limit">*</span></label>
+                                                <input type="number" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit"/>
+                                              </div>
+                                              <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="help-block">Enter bundle limit.</p>
+                                            </div>
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Minimum Purchase</label>
+                                                <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="data.bundle_minimum_purchase"/>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Multiple Ticket Holders?</label>
+                                                <div class="onoffswitch">
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="data.multiple_ticket_holder" checked>
+                                                  <label class="onoffswitch-label" for="myonoffswitch2"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <br/>
+                                          <br/>
+                                          <div class="row">
+                                            <div class="col-sm-12">
+                                              <div class="form-group">
+                                                <p for="EventName"> When an inventory is not set on this bundle it will fallback to the inventory of events and pricing levels in this bundle</p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <br/>
+                                          <br/>
+                                          <div class="row">
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Assign Inventory?<span class="req">*</span></label>
+                                                <div class="onoffswitch">
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.assign_inventory"  ng-model="checked" checked>
+                                                  <label class="onoffswitch-label" for="myonoffswitch4"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Inventory</label>
+                                                <input type="text" class="form-control" ng-disabled="!data.assign_inventory" placeholder="Inventory" ng-model="data.bundle_inventory"/>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Active</label>
+                                                <div class="onoffswitch">
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch1" ng-model="data.status" checked>
+                                                  <label class="onoffswitch-label" for="myonoffswitch1"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Hide Online?</label>
+                                                <div class="onoffswitch">
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="data.hide_online" checked>
+                                                  <label class="onoffswitch-label" for="myonoffswitch3"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Hide in box office?</label>
+                                                <div class="onoffswitch">
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.hide_in_box_office" checked>
+                                                  <label class="onoffswitch-label" for="myonoffswitch5"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
+
+                                       </section>
+                                  </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="editor-btn">
+                                        <button type="submit" 
+                          ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
+                                        <button class="pink-btn btn" ng-click="click_menu({id:2});">Next</button>
+                                  </div>   
+                                </div>
+                                <div ng-hide="error_message" style="color:green;">{{success}}</div>
+                        </form>
+               </div>
+               <!-- Step 1 end -->
+              
+                 
+              <!-- Step 2 start -->
+            <div ng-show="step_2">
+              <div class="module">
+                <section class="prof-hd">
+                  <i class="fa fa-link hdicon pos-l16"></i>
+                  <h2>Products<span style="float:right;">Quantity</span></h2>
+                </section>
+                <section class="gray-frame">
+                  <div class="row">
+                    <div class="col-sm-8" >
+                      <div class="form-group">
+                        <label for="EventName">  gtr e (Price: $0.00) </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4" >
+                      <div class="form-group">
+                        <select class="form-control" ng-model="coupon_type" required>
+                          <option>0</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <div class="editor-btn">
+                  <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
+                  <button class="pink-btn btn" ng-click="saveProduct(2)">Save</button>
+                  <button class="pink-btn btn" ng-click="click_menu({id:3});">Next</button>
+                </div>
+              </div>
+            </div>
+               <!-- Step 2 end -->
+               
+               <!-- Step 3 start -->
+               <div ng-show="step_3">
+                    <div class="module">
+                        <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
+                          <h2>How much does the bundle cost?<span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                        </section>
+                        <section class="gray-frame">
+                            <div class="row">
+                              <div class="col-sm-12" >
+                                <div class="form-group">
+                                  <label for="EventName"> Total</label>
+                                </div>
+                              </div>
+                           </div>
+                            <section class="grid-widget">
+                                <div class="table-responsive">
+                                  <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                          <th width="25%">Price Level</th>
+                                          <th width="25%">Quantity</th>
+                                          <th width="25%">Online Price</th>
+                                          <th width="25%">Box Office Price</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td>Test</td>
+                                        <td>1</td>
+                                        <td>$150.00</td>
+                                        <td>$140.00</td>
+                                       </tr>
+                                      </tbody>
+                                  </table>
+                                </div>
+                           </section>
+                      </section>
+                       <div class="editor-btn">
+                            <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
+                            <button class="pink-btn btn" ng-click="saveProduct(3)">Save</button>
+                            <button class="pink-btn btn" ng-click="saveProduct(4)">Submit</button>
+                      </div> 
+                  </div>
+               </div>
+               <!-- Step 3 end --> 
+          </div>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        </form>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button">Submit</button>
+            
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
     </script>
@@ -1258,7 +1528,59 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
             <h3 class="modal-title">Add a Product</h3>
         </div>
         <div class="modal-body">
-            Modal Content Price
+            
+            <fieldset class="form-group">
+               <div class="col-sm-4">Available Products</div>
+               <div class="col-sm-8"><select ng-model="data1.price_type" name="price_type" class="form-control"
+               ng-change="change_price_type()">
+                    <option value="">---</option>
+                    <option value="test1">Test 1</option>
+                    <option value="test2">Test 2</option>
+               </select></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Retail Price</div>
+               <div class="col-sm-8"><span class="form-control">17.00</span></div> 
+            </fieldset>
+            
+            <fieldset class="form-group" ng-hide="min_price">
+               <div class="col-sm-4">Price(USD $)</div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.minimum_price" name="minimum_price" class="form-control"></div>
+            </fieldset>
+            
+            <fieldset class="form-group">
+               <div class="col-sm-4">Placement</div>
+               <div class="col-sm-8">
+                  <section class="radio-sec custom-check">
+                    <section class="radio-inline">
+                      <input type="checkbox" id="checkbox03" name="listing" ng-model="data1.listing">
+                      <label for="checkbox03">Listing Page</label>
+                    </section>
+                    <section class="radio-inline">
+                      <input type="checkbox" id="checkbox04"  name="confirmation" ng-model="data1.confirmation">
+                      <label for="checkbox04"> Confirmation Page</label>
+                    </section>
+                  </section>
+               </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+               <div class="col-sm-4">Hide in Box Office</div>
+               <div class="col-sm-8">
+
+                <section class="radio-sec">
+                  <section class="radio-inline">
+                    <div class="onoffswitch">
+                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.hide_in_box_office" checked>
+                      <label class="onoffswitch-label" for="myonoffswitch5"></label>
+                    </div>
+                  </section>
+                </section>
+               </div>
+            </fieldset>
+            
+
+
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" type="button">Submit</button>
