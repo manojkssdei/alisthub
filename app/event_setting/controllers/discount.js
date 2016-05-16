@@ -22,6 +22,36 @@ exports.getDiscounts = function(req,res){
   });
 }
 
+/** 
+Method: checkUniqueDiscount
+Description:Function for checking the unique discount coupon for the user 
+Created : 2016-05-12
+Created By: Manoj kumar  
+*/
+exports.checkUniqueDiscount = function(req,res) {
+    var count =0;
+    var mysql_query = '';
+    if(req.body.id != undefined) {
+mysql_query = 'SELECT count(*) as count from discounts where id!= "'+req.body.id+ '" && seller_id = "'+req.body.seller_id+'" and coupon_code= "'+ req.body.coupon_code +'"';
+    }
+    else {
+mysql_query = 'SELECT count(*) as count from discounts where seller_id = "'+req.body.seller_id+'" and coupon_code= "'+ req.body.coupon_code +'"';
+    }
+    console.log('mysql_query ' , mysql_query);
+      connection.query(mysql_query, function(err, results) {  
+      if(err) {
+        res.json({error:err,code:101});
+      } 
+    if(results) {
+      count = results[0].count;
+      if(count > 0 ) 
+        res.json({error:'Coupons codes must be unique.',code:101});
+        else 
+       res.json({success: 'Coupon Available' ,  code:200});
+    }
+    });
+}
+
 
 /** 
 Method: addDiscount
@@ -53,6 +83,11 @@ exports.addDiscount = function(req,res) {
           req.body.amount_target = Math.abs(req.body.amount_target);
         }
 
+<<<<<<< HEAD
+         var errorMsg = [];
+                 if((req.body.coupon_type == "Automatic" || req.body.coupon_type == "Discount" ) && req.body.amount_type == "Percentage" && req.body.amount>100 ) {
+                      console.log('Percentage error');
+=======
         function checkUnique(postData) {
            if(postData.coupon_type != "Automatic") {
                   var mysql_query = 'SELECT count(*) as count from discounts where seller_id = "'+postData.seller_id+'" and coupon_code= "'+ postData.coupon_code +'"';
@@ -87,33 +122,31 @@ exports.addDiscount = function(req,res) {
                   var checkUnique = checkUnique(req.body);
                   if(checkUnique || checkPercentage ) {
                     if(checkPercentage) {
+>>>>>>> deepak/master
                       errorMsg.push('Percentage must fall between 0 and 100');
                       console.log('errorMsg' , errorMsg );
-                    }
-
-                    if(checkUnique) {
-                      errorMsg.push('Coupons codes must be unique.');
-                      console.log('errorMsg' , errorMsg );
-                    }
-
+                }
                       if(errorMsg.length > 0) {
                         console.log('errorMsg' , errorMsg );
                         res.json({error: errorMsg ,code:101}); 
                       }
                       else {
+            var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
+            req.body.created = curtime;
+
                         if (req.body.id && req.body.id !="" && req.body.id != undefined) {
           var query = "UPDATE `discounts` SET seller_id="+req.body.seller_id+", coupon_type='"+req.body.coupon_type+"', coupon_name='"+req.body.coupon_name+"', coupon_code='"+req.body.coupon_code+"' , amount_type='"+req.body.amount_type+"' , amount='"+req.body.amount+"' , amount_target='"+req.body.amount_target+"' , assigned_to='"+req.body.assigned_to+"' , created='"+req.body.created+"' where id="+req.body.id;
           }
           else if(req.body.coupon_type == "Discount")
           {
-                var query = "INSERT INTO `discounts` (`id`, `seller_id`, `coupon_type`, `coupon_name`, `coupon_code`, `amount_type`, `amount`, `assigned_to`, `created`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.coupon_type+"', '"+req.body.coupon_name+"', '"+req.body.coupon_code+"' , '"+req.body.amount_type+"' , '"+req.body.amount+"' , NULL , now())";
+                var query = "INSERT INTO `discounts` (`id`, `seller_id`, `coupon_type`, `coupon_name`, `coupon_code`, `amount_type`, `amount`, `assigned_to`, `created`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.coupon_type+"', '"+req.body.coupon_name+"', '"+req.body.coupon_code+"' , '"+req.body.amount_type+"' , '"+req.body.amount+"' , NULL , '"+req.body.created+"')";
           }      
           else if(req.body.coupon_type == "Automatic")
           {
-                  var query = "INSERT INTO `discounts` (`id`, `seller_id`, `coupon_type`, `coupon_name`, `amount_type`, `amount`, `amount_target`, `assigned_to`, `created`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.coupon_type+"', '"+req.body.coupon_name+"', '"+req.body.amount_type+"' , '"+req.body.amount+"' , '"+req.body.amount_target+"' , NULL , now())";
+                  var query = "INSERT INTO `discounts` (`id`, `seller_id`, `coupon_type`, `coupon_name`, `amount_type`, `amount`, `amount_target`, `assigned_to`, `created`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.coupon_type+"', '"+req.body.coupon_name+"', '"+req.body.amount_type+"' , '"+req.body.amount+"' , '"+req.body.amount_target+"' , NULL , '"+req.body.created+"' )";
           }
           else {
-                  var query = "INSERT INTO `discounts` (`id`, `seller_id`, `coupon_type`, `coupon_name`, `coupon_code`, `assigned_to`, `created`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.coupon_type+"', '"+req.body.coupon_name+"', '"+req.body.coupon_code+"' , NULL , now())";
+                  var query = "INSERT INTO `discounts` (`id`, `seller_id`, `coupon_type`, `coupon_name`, `coupon_code`, `assigned_to`, `created`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.coupon_type+"', '"+req.body.coupon_name+"', '"+req.body.coupon_code+"' , NULL , '"+req.body.created+"' )";
           }
          
           if (query != "") {
@@ -126,7 +159,7 @@ exports.addDiscount = function(req,res) {
           });
           }
                       }
-                  }
+                  
                   
 
             
@@ -189,10 +222,13 @@ Created : 2016-05-08
 Created By: Manoj kumar  
 */
 exports.assignDiscount = function(req,res) {
+  var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    req.body.created = curtime;
+
   if (req.body.id && req.body.id !="" && req.body.id != undefined) {
     var query = "UPDATE `discounts` SET seller_id="+req.body.seller_id+", coupon_type='"+req.body.coupon_type+"', coupon_name='"+req.body.coupon_name+"', coupon_code='"+req.body.coupon_code+"' , amount_type='"+req.body.amount_type+"' , amount='"+req.body.amount+"' , assigned_to='"+req.body.assigned_to+"' , created='"+req.body.created+"' where id="+req.body.id;
   } else {
-    var query = "INSERT INTO `discounts` (`id`, `seller_id`, `coupon_type`, `coupon_name`, `coupon_code`, `amount_type`, `amount`, `assigned_to`, `created`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.coupon_type+"', '"+req.body.coupon_name+"', '"+req.body.coupon_code+"' , '"+req.body.amount_type+"' , '"+req.body.amount+"' , NULL , now())";
+    var query = "INSERT INTO `discounts` (`id`, `seller_id`, `coupon_type`, `coupon_name`, `coupon_code`, `amount_type`, `amount`, `assigned_to`, `created`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.coupon_type+"', '"+req.body.coupon_name+"', '"+req.body.coupon_code+"' , '"+req.body.amount_type+"' , '"+req.body.amount+"' , NULL , '"+req.body.created+"' )";
   }
   
   if (query != "") {

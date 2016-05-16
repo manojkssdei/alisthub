@@ -126,6 +126,9 @@ module.exports = function(app, express) {
     */
     router.post('/getDiscounts', discount_setting.getDiscounts);
     
+    /* check unique Discount Coupon by seller */
+    router.post('/checkUniqueDiscount', discount_setting.checkUniqueDiscount);
+    
     /* Add Discount Coupon by seller */
     router.post('/addDiscount', discount_setting.addDiscount);
     
