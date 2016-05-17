@@ -6,7 +6,10 @@ Module : Event step
 */
 
 angular.module("google.places",[]);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) {
+    if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+   } 
    //For Step 1
     var $serviceTest = $injector.get("venues");
     $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
