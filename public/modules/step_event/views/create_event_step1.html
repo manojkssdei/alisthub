@@ -256,7 +256,7 @@
                       <div class="col-xs-12">
                         <div class="form-group">
                           <label for="Address">Address<span class="req">*</span></label>
-                           <input type="text" class="form-control" name="place" ng-model="data.place"  g-places-autocomplete required>
+                           <input type="text" class="form-control" name="place" ng-model="data.place"  g-places-autocomplete required  autocomplete="off">
                         </div>
                       </div>
                     </div>
@@ -313,7 +313,7 @@
                 
                 <!-- Tab panes -->
                 
-              </div>
+              
               <div class="col-sm-12 col-md-6"> <!--<img src="images/map.jpg" class="img-responsive" alt="" />-->
                <div id="map" style="height: 400px;"></div>
               </div>
@@ -375,7 +375,7 @@
       <div class="editr">
         <label>Event Description<span class="req">*</span></label>
          <div ckeditor="option_ckeditor" name="content" required="true" ng-required="true" ng-model="data.content" ready="onReady()"></div>
-         <span style="color:red" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event descriptio ins required</span></span>
+       <!--  <span style="color:red" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event descriptio ins required</span></span>-->
 
          
         <div class="editor-btn">
@@ -1266,30 +1266,8 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
         <div class="modal-header">
             <h3 class="modal-title" style="float:left;">Add a Bundle</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
         </div>
-        <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="savepriceleveldata(data1)" novalidate>
         <div class="modal-body">
-<<<<<<< HEAD
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
            
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
         <!-- Step Form -->
         <div class="stage-container stage-container-3steps clearfix">
           <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
@@ -1299,18 +1277,11 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
 
 
         <div class="form-section  wt-frame">
-<<<<<<< HEAD
-                <!-- Step 1 start -->
-                   <div ng-show="step_1">
-                    <!-- Event Detail Form -->
-                          <form class="event-form" name="userForm" novalidate ng-submit="saveBundle(1)">
-=======
                 <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
                 <!-- Step 1 start -->
                    <div ng-show="step_1">
                     <!-- Event Detail Form -->
                           <form class="event-form" name="bundleForm" ng-submit="bundleForm.$valid && updateBundle(bundle)" novalidate>
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
                                  <div>
                                     <div class="module">
                                         <section class="prof-hd" > <!-- add  class="prof-hd"if u need to display this as tab -->
@@ -1318,17 +1289,6 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                           <h2> Details <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
                                         </section>
                                         <section class="gray-frame">
-<<<<<<< HEAD
-                                          
-
-                                          <div class="row">
-                                            <div class="col-sm-4">
-                                              <div class="form-group">
-                                                <label for="EventName">Name<span class="req">*</span></label>
-                                                <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="data.bundle_name" required/>
-                                              </div>
-                                              <span style="color:red" ng-show="userForm.bundle_name.$dirty && userForm.bundle_name.$invalid">  <span  ng-show="userForm.bundle_name.$error.required">Enter bundle name.</span></span>
-=======
                                          
                                           <div class="row">
                                             <div class="col-sm-4">
@@ -1337,19 +1297,12 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                                 <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="bundle.bundle_name" required/>
                                                 <span class="help-inline" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter bundle name</span>
                                               </div>
-                                              <span ng-show="userForm.bundle_name.$dirty && userForm.bundle_name.$invalid">  <span  ng-show="userForm.bundle_name.$error.required">Enter bundle name.</span></span>
-
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
                                             </div>
                                             <div class="col-sm-8">
                                               <div class="form-group">
                                                 <label for="EventName"> Description</label>
                                                 <div class="bundle-editr" >
-<<<<<<< HEAD
-                                                  <div ckeditor="option_ckeditor" ng-model="data.bundle_description" ready="onReady()"></div>
-=======
                                                   <div ckeditor="option_ckeditor" ng-model="bundle.bundle_description" ready="onReady()"></div>
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
                                                 </div>
                                               </div>
                                             </div>
@@ -1358,37 +1311,22 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                             <div class="col-sm-4" >
                                               <div class="form-group">
                                                 <label for="EventName"> Limit<span class="req-limit">*</span></label>
-<<<<<<< HEAD
-                                                <input type="number" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit"/>
-                                              </div>
-                                              <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="help-block">Enter bundle limit.</p>
-=======
                                                 <input type="number" class="form-control" placeholder="Limit" ng-model="bundle.bundle_limit" name="bundle_limit"/>
                                                 <span class="help-inline" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter limit</span>
                                               </div>
-                                              <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="error-fld ng-binding">Enter bundle limit.</p>
-
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
+                                              
                                             </div>
                                             <div class="col-sm-4">
                                               <div class="form-group">
                                                 <label for="EventName"> Minimum Purchase</label>
-<<<<<<< HEAD
-                                                <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="data.bundle_minimum_purchase"/>
-=======
                                                 <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="bundle.bundle_minimum_purchase"/>
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
                                               </div>
                                             </div>
                                             <div class="col-sm-4">
                                               <div class="form-group">
                                                 <label for="EventName"> Multiple Ticket Holders?</label>
                                                 <div class="onoffswitch">
-<<<<<<< HEAD
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="data.multiple_ticket_holder" checked>
-=======
                                                   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="bundle.multiple_ticket_holder" checked>
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
                                                   <label class="onoffswitch-label" for="myonoffswitch2"></label>
                                                 </div>
                                               </div>
@@ -1410,11 +1348,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                               <div class="form-group">
                                                 <label for="EventName"> Assign Inventory?<span class="req">*</span></label>
                                                 <div class="onoffswitch">
-<<<<<<< HEAD
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.assign_inventory"  ng-model="checked" checked>
-=======
                                                   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="bundle.assign_inventory"  ng-model="checked" checked>
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
                                                   <label class="onoffswitch-label" for="myonoffswitch4"></label>
                                                 </div>
                                               </div>
@@ -1422,22 +1356,14 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                             <div class="col-sm-4">
                                               <div class="form-group">
                                                 <label for="EventName"> Inventory</label>
-<<<<<<< HEAD
-                                                <input type="text" class="form-control" ng-disabled="!data.assign_inventory" placeholder="Inventory" ng-model="data.bundle_inventory"/>
-=======
                                                 <input type="text" class="form-control" ng-disabled="!bundle.assign_inventory" placeholder="Inventory" ng-model="bundle.bundle_inventory"/>
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
                                               </div>
                                             </div>
                                             <div class="col-sm-4">
                                               <div class="form-group">
                                                 <label for="EventName"> Active</label>
                                                 <div class="onoffswitch">
-<<<<<<< HEAD
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch1" ng-model="data.status" checked>
-=======
                                                   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch1" ng-model="bundle.status" checked>
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
                                                   <label class="onoffswitch-label" for="myonoffswitch1"></label>
                                                 </div>
                                               </div>
@@ -1448,11 +1374,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                               <div class="form-group">
                                                 <label for="EventName"> Hide Online?</label>
                                                 <div class="onoffswitch">
-<<<<<<< HEAD
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="data.hide_online" checked>
-=======
                                                   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="bundle.hide_online" checked>
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
                                                   <label class="onoffswitch-label" for="myonoffswitch3"></label>
                                                 </div>
                                               </div>
@@ -1461,11 +1383,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                               <div class="form-group">
                                                 <label for="EventName"> Hide in box office?</label>
                                                 <div class="onoffswitch">
-<<<<<<< HEAD
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.hide_in_box_office" checked>
-=======
                                                   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="bundle.hide_in_box_office" checked>
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
                                                   <label class="onoffswitch-label" for="myonoffswitch5"></label>
                                                 </div>
                                               </div>
@@ -1479,19 +1397,10 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                 
                                 <div>
                                     <div class="editor-btn">
-<<<<<<< HEAD
-                                        <button type="submit" 
-                          ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
-                                        <button class="pink-btn btn" ng-click="click_menu({id:2});">Next</button>
-                                  </div>   
-                                </div>
-                                <div ng-hide="error_message" style="color:green;">{{success}}</div>
-=======
                                         <button type="submit" class="pink-btn btn" ng-click="submitted=true">Save</button>
                                         <button class="pink-btn btn" ng-click="click_menu({id:2});">Next</button>
                                   </div>   
                                 </div>
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
                         </form>
                </div>
                <!-- Step 1 end -->
@@ -1585,41 +1494,9 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                </div>
                <!-- Step 3 end --> 
           </div>
-<<<<<<< HEAD
-          </div>
+         </div>
         </form>
         <div class="modal-footer">
-            
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-=======
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
-        </form>
-        <div class="modal-footer">
->>>>>>> b589df417af0610d15fc01501c4fbcefd0bfe795
         </div>
     </script>
 
