@@ -561,28 +561,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               }]
             }
         })
-        
-
-        /* Setting for new assign discount screen */
-        .state('new_assign_discount', {
-            url: '/new_assign_discount',
             
-            views: {
-                "lazyLoadView": {
-                  controller: 'manageDiscountController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/event_setting/views/discount/new_assign_discount.html'
-                }
-            },
-            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
-              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
-                // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
-                }).then(function(){
-                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
-                })
-              }]
-            }
-        })
 
         //DISCOUNT END
         

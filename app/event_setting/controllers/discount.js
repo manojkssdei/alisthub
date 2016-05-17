@@ -1,7 +1,7 @@
 /** 
 Controller for the discount managment 
 Created : 2016-05-07
-Created By: Manoj kumar  
+Created By: Manoj kumar  Singh
 Module : Discount Module  
 */
 var moment       = require('moment-timezone');
@@ -11,7 +11,7 @@ var moment       = require('moment-timezone');
 Method: getDiscounts
 Description:Function for getting the discount for the user 
 Created : 2016-05-07
-Created By: Manoj kumar  
+Created By:Manoj kumar  Singh
 */
 exports.getDiscounts = function(req,res){
   connection.query('SELECT * from discounts where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err, results) {
@@ -26,7 +26,7 @@ exports.getDiscounts = function(req,res){
 Method: checkUniqueDiscount
 Description:Function for checking the unique discount coupon for the user 
 Created : 2016-05-12
-Created By: Manoj kumar  
+Created By: Manoj kumar  Singh
 */
 exports.checkUniqueDiscount = function(req,res) {
     var count =0;
@@ -57,7 +57,7 @@ mysql_query = 'SELECT count(*) as count from discounts where seller_id = "'+req.
 Method: addDiscount
 Description:Function for adding the discount for the user 
 Created : 2016-05-07
-Created By: Manoj kumar  
+Created By: Manoj kumar  Singh
 */
 exports.addDiscount = function(req,res) { 
 
@@ -134,7 +134,7 @@ exports.addDiscount = function(req,res) {
 Method: discountOverview
 Description:Function for fetching discount data 
 Created : 2016-05-08
-Created By: Manoj kumar  
+Created By: Manoj kumar  Singh
 */
 exports.discountOverview = function(req,res) {
   connection.query('SELECT * from discounts where id='+req.body.id, function(err, results) {
@@ -167,7 +167,7 @@ exports.changeDiscountStatus = function(req,res) {
 Method: deleteDiscount
 Description:Function to delete the discount entry 
 Created : 2016-05-08
-Created By: Manoj kumar  
+Created By: Manoj kumar  Singh
 */
 exports.deleteDiscount = function(req,res) {
   connection.query("Delete from discounts where id="+req.body.id, function(err, results) {
@@ -182,7 +182,7 @@ exports.deleteDiscount = function(req,res) {
 Method: assignDiscount
 Description:Function to assign the discount to event 
 Created : 2016-05-08
-Created By: Manoj kumar  
+Created By: Manoj kumar  Singh 
 */
 exports.assignDiscount = function(req,res) {
   var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -211,7 +211,7 @@ exports.assignDiscount = function(req,res) {
 Method: makeDiscountAssignment
 Description:Function to assign discount to seller for an event  
 Created : 2016-05-10
-Created By: Manoj kumar  
+Created By: Manoj kumar  Singh
 */
 exports.makeDiscountAssignment = function(req,res) {
     console.log(req.body.userId)
@@ -250,7 +250,7 @@ exports.makeDiscountAssignment = function(req,res) {
 Method: delAssignment
 Description:Function to delete assignment for event  
 Created : 2016-05-10
-Created By: Manoj kumar  
+Created By: Manoj kumar  Singh
 */
 exports.delAssignment = function(req,res){
   connection.query("Delete from discount_assignments where discount_id="+req.body.discount_id+ " and event_id="+req.body.event_id , function(err, results) {
@@ -260,3 +260,17 @@ exports.delAssignment = function(req,res){
      res.json({result:results,code:200});
   });
 }
+
+/** 
+Method: Assignment Discount
+Description:Function to Assignment Discount  
+Created : 2016-05-17
+Created By: Manoj kumar  Singh
+*/
+
+exports.exportDiscountCSV = function(req,res){
+  res.csv([
+        ["order_id", "product_name", "product_model", "UPC", "UPC_name", "UPC_display", "SKU", "SKU_name", "SKU_display", "sale_send_date", "cost", "tax", "shipping_fee", "fulfiller_fee", "buyer_fee", "seller_fee", "shipping_name", "shipping_address", "shipping_address_2", "shipping_city", "shipping_state", "shipping_zip", "shipping_country", "purchase_for", "email", "billing_address", "billing_address_2", "billing_city", "billing_state", "billing_zip", "billing_country", "event", "event_start", "legacy_sale_id"]
+     ]);
+}
+

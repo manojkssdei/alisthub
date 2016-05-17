@@ -29,11 +29,14 @@
 
         <div class="col-sm-2">
             
-            <button class="btn pink-btn btn-small"  type="button" ng-click="changeStatus(data.id,data.status)">
+            <button class="btn pink-btn btn-small"  type="button" ng-if="data.status == 0" ng-click="changeStatus(data.id,data.status)">
+            <i class="glyphicon glyphicon-pause">
+            </i>Resume Sale
+            </button>
+            <button class="btn pink-btn btn-small"  type="button" ng-if="data.status == 1" ng-click="changeStatus(data.id,data.status)">
             <i class="glyphicon glyphicon-pause">
             </i>Pause Sale
             </button>
-            
         </div>
         </div>
 
@@ -44,7 +47,8 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group">
-           <h4>Products sales are currently live.</h4>
+           <h4 ng-if="data.status == 1">Products sales are currently live.</h4>
+           <h4 ng-if="data.status == 0">Product sales are paused.</h4>
         </div>
     </div>
 </div>
@@ -128,13 +132,13 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="key in componentdata">
-                            <td><strong><p ng-if="data.configuration == true">Multiple</p><p ng-if="data.configuration == false">Single</p></strong></td>
+                            <td><strong><p ng-if="data.configuration == true || data.configuration == 1">Multiple</p><p ng-if="data.configuration == false || data.configuration == 0">Single</p></strong></td>
                             <td class="numbers">{{key.inventory}}</td>
 			    <td class="numbers">0</td>
                             <td class="numbers">0</td>
                                          
                         </tr>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+                                                                                                                                            
 			<tr ng-show="loader">
 			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
 			</tr>

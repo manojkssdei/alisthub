@@ -25,7 +25,7 @@ angular.module('alisthub')
   ////////////// upload files //////////////////////
   $scope.file = {};
   $scope.addmore = [1];
-  $scope.count = 1;
+  $scope.count = 2;
   $scope.addMoreRow = function()
   {
     $scope.count = $scope.count+1;

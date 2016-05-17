@@ -115,8 +115,6 @@ module.exports = function(app, express) {
     
     router.post('/deleteProduct', product_setting.deleteProduct);
     
-    
-
     router.post('/saveProductSetting', product_setting.saveProductSettingFunc);
     
     router.post('/getProductSetting', product_setting.getProductSetting);
@@ -155,6 +153,9 @@ module.exports = function(app, express) {
     /* Delete Seller Discount  */
     router.post('/deleteDiscount', discount_setting.deleteDiscount);
     
+    /* Export CSV discount  */
+    /////////////////////// Export CSV  ////////////////////////////////
+    router.get('/exportDiscountCSV', discount_setting.exportDiscountCSV); 
 
     /*** Module : Manage Bundle
      *   Get Seller Bundle 

@@ -356,7 +356,7 @@ exports.exportProductSales = function(req,res){
 }
 
 exports.exportProductSalesQuery = function(req,res){
- query = connection.query('select * from products', function(err, rows, fields) {
+query = connection.query('select * from products', function(err, rows, fields) {
                 if (err) {
                     res.send(err);
                 }
