@@ -60,10 +60,13 @@
                       </div>
 		      <div class="row" ng-show="div_1" ng-repeat="key in addmore">
                         <div class="col-xs-6" >
+			 <label for="Venue">&nbsp;</label>
 			 <input type="text" class="form-control" name="data.option" ng-model="data.option[key]"> 
-                         </div>
+                       
+			</div>
 			<div class="col-xs-6">
-			 <a  ng-click="removeMoreRow($index)"><i class="fa fa-trash"></i></a>
+			 <label for="Venue">&nbsp;</label>
+			 <a  ng-click="removeMoreRow($index,key)"><i class="fa fa-trash"></i></a>
                         </div>
                       </div>
 		      
@@ -97,6 +100,7 @@
                       </div>
 		      <div class="row" ng-show="div_1">
                         <div class="col-xs-6" >
+			 <label for="Venue">&nbsp;</label>
 			 <a ng-click="addMoreRow()">Add More</a> 
                          </div>
 			<div class="col-xs-6">

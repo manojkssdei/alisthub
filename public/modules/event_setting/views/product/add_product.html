@@ -317,8 +317,7 @@
       </div>
      </div>
      <!--- Step 4 -->
-     {{data.configuration}}
-     {{data_configuration}}
+     
      <section class="grid-widget" ng-show="data_configuration">
               <div class="table-responsive">
                 <table class="table table-striped">
@@ -335,9 +334,9 @@
 		      <th width="3%">&nbsp;</th>
                     </tr>
                   </thead>
-                  <tbody>{{compdata}}
+                  <tbody>
 		    <tr ng-repeat="key in componentdata">
-			 {{key}}
+			 
                       <td><input type="checkbox" ng-model="cdata[key.id].active"></td>
                       <td>
 			 <input type="text" class="form-control" placeholder="SKU" ng-model="cdata[key.id].sku"/>
@@ -369,7 +368,7 @@
 		      <td><input type="checkbox" ng-model="cdata[add].print_voucher"></td>
 		      <td><input type="text" class="form-control" placeholder="limit" ng-model="cdata[add].pre_sale_limit"/></td>
 		      <td><input type="text" class="form-control" placeholder="Inventory" ng-model="cdata[add].inventory"/></td>
-		      <td><a  ng-click="removeMoreRow($index)"><i class="fa fa-trash"></i></a></td>
+		      <td><a  ng-click="removeMoreRow($index,add)"><i class="fa fa-trash"></i></a></td>
                     </tr>
 		    
                     </tbody>
