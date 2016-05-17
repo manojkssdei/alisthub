@@ -613,10 +613,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
     if (menu.id==6) {
 
-      if(objectForm.myForm.$valid==true){
+     // if(objectForm.myForm.$valid==true){
         $scope.eventdetail_div=$scope.look_and_feel_div=$scope.setting_div=true;
         $scope.price_and_link_div=false;  
-      } else {
+     /* } else {
         $scope.error_message = false;
         $scope.error="Please update the event detail data.";
         $timeout(function() {
@@ -624,7 +624,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             $scope.error_message=true;
             $scope.error='';
         },3000);
-      }
+      }*/
     }
 
     if (menu.id==7) {
@@ -730,12 +730,26 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       }
     });
   };
-  
+  // Add Price level
   $scope.open_price_level = function (size) {
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContentPrice.html',
       controller: 'ModalInstancePriceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+  //delete Price level
+  $scope.delete_price_level = function (size) {
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'deletePricelevel.html',
+      controller: 'DeletePricelevelCtrl',
       size: size,
       resolve: {
         items: function () {
@@ -938,7 +952,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
    
    $scope.multipleend=function(){
     if ($scope.data.period  && $scope.multiple_endtime) {
-    console.log('working 1'); 
+    
             var stt = new Date("January 01, 2016 " + $scope.multiple_starttime);
             stt = stt.getTime();
             var endt = new Date("January 01, 2016 " + $scope.multiple_endtime);
@@ -986,6 +1000,25 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   };
+});
+
+angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {
+     $scope.items = items;
+    $scope.selected = {
+      item: $scope.items[0]
+    };
+    
+    $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+  
+  $scope.remove=function(index){
+  
+    $scope.price_level.splice(index,1);
+   
+    $uibModalInstance.close($scope.selected.item);
+  }
+  
 });
 
 angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {

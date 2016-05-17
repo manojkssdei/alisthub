@@ -468,14 +468,14 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
         </thead>
         <tbody>
           
-            <tr ng-repeat="price in price_level">
+            <tr ng-repeat="price in price_level track by $index">
                 <td><strong>{{price.price_level_name}}</strong></td>
                 <td class="numbers">0</td>
                 <td class="numbers">{{price.quantity_available}}</td>
                 <td class="numbers">${{price.online_price}}</td>
                 <td class="numbers">${{price.box_office_price}}</td>
                 <td class="numbers">{{price.max_per_order}}</td>
-                <td class="action"><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a href="javascript:void(0)"><i class="fa fa-check-circle"></i></a><a href="javascript:void(0)"><i class="fa fa-trash"></i></a></td>
+                <td class="action"><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a href="javascript:void(0)"><i class="fa fa-check-circle"></i></a><a ng-click="delete_price_level($index)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
             </tr>
            
            
@@ -1157,6 +1157,18 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
     
     <!-- //Form COntainer --> 
   </div>
+  <script type="text/ng-template" id="deletePricelevel.html">
+     <div class="modal-header">
+            <h3 class="modal-title">Remove Price level</h3>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to remove this price level?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="remove()">Remove</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+  </script>
 <script type="text/ng-template" id="myModalContent.html"> 
         <div class="modal-header">
             <h3 class="modal-title">Remove Previous Event</h3>

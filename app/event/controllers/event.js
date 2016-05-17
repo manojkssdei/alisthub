@@ -148,7 +148,7 @@ exports.savepricelevel=function(req,res){
 
 exports.getPricelevel=function(req,res){
     var eventId=req.body.eventId;
-    var sql="SELECT * FROM price_levels  where event_id="+eventId;
+    var sql="SELECT * FROM price_levels";
     
     connection.query(sql,function(err,result){
        
