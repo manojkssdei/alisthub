@@ -1,14 +1,14 @@
 angular.module('alisthub')
-.controller('discountController', function($scope,$localStorage,$injector,$http,$state,$location,$timeout,$sce) {
+.controller('discountController', function($scope,$localStorage, $rootScope,$injector,$http,$state,$location,$timeout,$sce) {
    $scope.error_message = false;
-    $scope.success_message = false;
+    $scope.success_message = false; 
     $scope.edit_note = false;
    if (!$localStorage.isuserloggedIn) {
       $state.go('login');
    }
   var $serviceTest = $injector.get("discounts");
     
-    if(window.innerWidth>767){ 
+    if(window.innerWidth>767){  
     $scope.navCollapsed = false;    
     }else{
     $scope.navCollapsed = true;
@@ -276,7 +276,7 @@ angular.module('alisthub')
 })
 
 
-.controller('manageDiscountController', function($scope,$localStorage,$injector,$http,$state,$location) {
+.controller('manageDiscountController', function($scope,$localStorage,$rootScope,$injector,$http,$state,$location) {
   
   if (!$localStorage.isuserloggedIn) {
       $state.go('login');

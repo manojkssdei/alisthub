@@ -828,30 +828,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         localStorage.clear();
         $state.go('login');
     }
-    }])
-
- .directive('ngConfirmClicks', [
-
-    function(){
-        return {
-            priority: 1,
-            terminal: true,
-            link: function (scope, element, attr) {
-                var msg = attr.ngConfirmClick || "Are you sure?";
-                var clickAction = attr.ngClick;
-                element.bind('click',function (event) {
-                    if ( window.confirm(msg) ) {
-                        scope.$eval(clickAction)
-                    }
-                });
-            }
-        };
-}])
-
-routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state)
-{
-
-
+    ///////////////////////////////////////////////////////////
     // checktoken expiry time
     // check web services
     var serviceUrl  = webservices.checkTokenExpiry;
@@ -892,6 +869,74 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
                 }
                                
                 });
+    
+    
+    /////////////////////////////////////////////////////////
+    
+    }])
+
+ .directive('ngConfirmClicks', [
+
+    function(){
+        return {
+            priority: 1,
+            terminal: true,
+            link: function (scope, element, attr) {
+                var msg = attr.ngConfirmClick || "Are you sure?";
+                var clickAction = attr.ngClick;
+                element.bind('click',function (event) {
+                    if ( window.confirm(msg) ) {
+                        scope.$eval(clickAction)
+                    }
+                });
+            }
+        };
+}])
+
+routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state)
+{
+
+
+    // checktoken expiry time
+    // check web services
+    /*var serviceUrl  = webservices.checkTokenExpiry;
+    var serviceUrl2 = webservices.refreshTokenExpiry;
+    var jsonData = {};
+    jsonData.token = $localStorage.auth_token;
+
+              
+               
+               $http({
+                 url: serviceUrl,
+                 method: 'POST',
+                 data: jsonData,
+                 headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        "Accept": "application/json",
+                 },
+                 
+                }).success(function(data, status, headers, config) {
+                
+                if (data.code == 101)
+                {
+                    $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
+                    $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
+                    
+                    $rootScope.email=$localStorage.email="";
+                    $rootScope.name=$localStorage.name="";
+                    $rootScope.access_token=$localStorage.access_token="";
+                    $rootScope.auth_token=$localStorage.auth_token="";
+                    $rootScope.phone_no=$localStorage.phone_no="";
+                    $rootScope.userId=$localStorage.userId="";
+                    $rootScope.address=$localStorage.address="";
+                    
+                    localStorage.clear();
+                    $state.go('login');
+                    
+                    
+                }
+                               
+                });*/
        
 };
 
