@@ -217,25 +217,28 @@
             </div>
           </div>
 
-        <div class="form-group field-group">
-          <label for="Location">Location<span class="req">*</span></label>
-          <!-- Date Event Group -->
-          <div class="event-date fieldSection">
-            <div class="row">
-              <div class="col-sm-12 col-md-6">
-                <ul class="nav nav-tabs responsive-tabs">
-               <li ng-repeat="venue in venues" ng-click="select_venue(venue)" ng-class="{active: isActive1(venue)}" ><a class="pointer" href="javascript:void(0)" >{{venue.name}}</a> </li>
-                 </ul>
-             
-            <div class="tab-content">
-                  <div role="tabpanel"  id="venue-event" ng-hide="venue_event_div">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label for="EventName">Venue Type<span class="req">*</span></label>
-                          <select class="form-control" ng-model="data.venuetype">
-                            <option>Ticket</option>
-                          </select>
+ <div class="form-group field-group">
+            <label for="Location">Location<span class="req">*</span></label>
+            <!-- Date Event Group -->
+            <div class="event-date fieldSection">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <ul class="nav nav-tabs responsive-tabs">
+                 <li ng-repeat="venue in venues" ng-click="select_venue(venue)" ng-class="{active: isActive1(venue)}" ><a class="pointer" href="javascript:void(0)" >{{venue.name}}</a> </li>
+                   </ul>
+               
+              <div class="tab-content">
+                    <div role="tabpanel"  id="venue-event" ng-hide="venue_event_div">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="EventName">Venue Type<span class="req">*</span></label>
+                            <select class="form-control" ng-model="data.venuetype">
+                              <option>General Admission</option>
+                              <option>Seated</option>
+                            </select>
+                          </div>
+
                         </div>
                       </div>
                     </div>
@@ -371,12 +374,17 @@
      
       <div class="editr">
         <label>Event Description<span class="req">*</span></label>
-         <div ckeditor="option_ckeditor" name="content" required ng-model="data.content" ready="onReady()"></div>
-          <div class="editor-btn">
-            <button type="submit" ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
-            <button type="button" ng-disabled="myForm.$invalid" ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
-          </div>
-          <div ng-hide="error_message" style="color:green;">{{success}}</div>
+         <div ckeditor="option_ckeditor" name="content" required="true" ng-required="true" ng-model="data.content" ready="onReady()"></div>
+         <span style="color:red" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event descriptio ins required</span></span>
+
+         
+        <div class="editor-btn">
+          <button type="submit" 
+ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
+          <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
+        </div>
+        <div ng-hide="error_message" style="color:green;">{{success}}</div>
+
       </div>
   </form>
 </div>
@@ -1268,6 +1276,8 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                                 <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="bundle.bundle_name" required/>
                                                 <span class="help-inline" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter bundle name</span>
                                               </div>
+                                              <span ng-show="userForm.bundle_name.$dirty && userForm.bundle_name.$invalid">  <span  ng-show="userForm.bundle_name.$error.required">Enter bundle name.</span></span>
+
                                             </div>
                                             <div class="col-sm-8">
                                               <div class="form-group">
@@ -1285,7 +1295,8 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                                 <input type="number" class="form-control" placeholder="Limit" ng-model="bundle.bundle_limit" name="bundle_limit"/>
                                                 <span class="help-inline" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter limit</span>
                                               </div>
-                                              
+                                              <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="error-fld ng-binding">Enter bundle limit.</p>
+
                                             </div>
                                             <div class="col-sm-4">
                                               <div class="form-group">

@@ -17,9 +17,6 @@ angular.module('alisthub')
     };    
  }
  $scope.data = {};
-  $scope.error_message = true;
-  $scope.success_message = true; 
-
 
  $scope.coupon_type_options = [
         {'type' : "Discount" , 'description' : 'Discount Coupons are applied per ticket—except for bundled tickets, which applies coupons per bundle. Create a Discount Coupon to offer a discount on each ticket or bundle.'},
