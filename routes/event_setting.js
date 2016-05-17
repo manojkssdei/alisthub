@@ -8,8 +8,8 @@ Module : Setting Management
 module.exports = function(app, express) {
 
 	var router = express.Router();
-       
-
+        var csv = require('express-csv');
+  
 	Event_setting     = require('./../app/event_setting/controllers/venue.js');
         
     question_setting  = require('./../app/event_setting/controllers/question.js');
@@ -119,12 +119,18 @@ module.exports = function(app, express) {
     
     router.post('/getProductSetting', product_setting.getProductSetting);
     
+    /* Export CSV product sales  */
+    /////////////////////// Export CSV  ////////////////////////////////
+    router.get('/exportProductSales', product_setting.exportProductSales); 
     
 
     /*** Module : Manage Discount
      *   Add list of discount Coupons by seller 
     */
     router.post('/getDiscounts', discount_setting.getDiscounts);
+    
+    /* check unique Discount Coupon by seller */
+    router.post('/checkUniqueDiscount', discount_setting.checkUniqueDiscount);
     
     /* Add Discount Coupon by seller */
     router.post('/addDiscount', discount_setting.addDiscount);
@@ -151,6 +157,6 @@ module.exports = function(app, express) {
     */
     router.post('/addBundle', bundle_setting.addBundle);
     router.post('/getBundles', bundle_setting.getBundles);
-
+    
     app.use('/event_setting', router);
 }

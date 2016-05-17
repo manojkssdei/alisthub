@@ -54,6 +54,14 @@ Created By: Manoj kumar
 */
 exports.addVenue = function(req,res) {
      var photoname =  chartname = "";  
+     if(req.body.timezone == undefined) { req.body.timezone = ''; }
+     if(req.body.capacity == undefined) { req.body.capacity = ''; }
+     if(req.body.contact_name == undefined) { req.body.contact_name = ''; }
+     if(req.body.phone == undefined) { req.body.phone = ''; }
+     if(req.body.fax == undefined) { req.body.fax = ''; }
+     if(req.body.email == undefined) { req.body.email = ''; }
+     if(req.body.url == undefined) { req.body.url = ''; }
+     
      if (req.body.imagedata && req.body.imagedata != "" && req.body.imagedata != undefined) {
         var photoname = req.body.seller_id+'_image_'+Date.now() + '.jpg';
         var imagename = path_venue+'/'+photoname;

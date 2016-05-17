@@ -5,15 +5,16 @@
     <!-- Step Form -->
     
     <div class="stage-container clearfix">
-      <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
-        <div class="stage-title">{{step.title}}</div> </div>
-    
+      <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)">
+      <div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+      <div class="stage-title">{{step.title}}</div> </div>
     </div>
     
     <!-- //Step Form --> 
     
     <!-- Form COntainer -->
-    
+    <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
+    <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
     <div class="form-section  wt-frame">
      
 
@@ -159,7 +160,7 @@
                       <label for="StartTime">Start Time<span class="req">*</span></label>
                      
                          <div class="input-group bootstrap-timepicker timepicker">
-                         <input  ng-model="multiple_starttime"  class="form-control input-small timepick" type="text" ng-change="multiplestart()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                         <input  ng-model="multiple_starttime"  class="form-control input-small timepick" type="text" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
                          </div>
                     </div>
                   </div>
@@ -167,7 +168,7 @@
                     <div class="form-group">
                       <label for="EndTime">End Time</label>
                          <div class="input-group bootstrap-timepicker timepicker">
-                         <input  ng-model="multiple_endtime"  class="form-control input-small timepick" type="text" ng-change="multipleend()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                         <input  ng-model="multiple_endtime"  class="form-control input-small timepick" type="text" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
                          </div>
                       
                     </div>
@@ -233,93 +234,93 @@
                           <div class="form-group">
                             <label for="EventName">Venue Type<span class="req">*</span></label>
                             <select class="form-control" ng-model="data.venuetype">
-                              <option>Ticket</option>
+                              <option>General Admission</option>
+                              <option>Seated</option>
                             </select>
                           </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xs-12">
-                          <div class="form-group">
-                            <label for="Venue">Venue<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.venuename" name="venuename" value="" required>
-                              <span style="color:red" ng-show="myForm.venuename.$dirty && myForm.venuename.$invalid">  <span  ng-show="myForm.venuename.$error.required">Venue name is required</span></span>
-                            <input type="hidden" class="form-control" ng-model="data.venueid">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xs-12">
-                          <div class="form-group">
-                            <label for="Address">Address<span class="req">*</span></label>
-                             <input type="text" class="form-control" name="place" ng-model="data.place"  g-places-autocomplete required>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="City">City<span class="req">*</span></label>
-                            <input type="text" class="form-control" name="city" ng-model="data.city" required>
-                              <span style="color:red" ng-show="myForm.city.$dirty && myForm.city.$invalid">  <span  ng-show="myForm.city.$error.required">City is required</span></span>
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="Zipcode">Zipcode<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" required>
-                           <span style="color:red" ng-show="myForm.zipcode.$dirty && myForm.zipcode.$invalid">  <span  ng-show="myForm.zipcode.$error.required">Zipcode is required</span></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="City">State<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.state" name="state" required>
-                              <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
-                              
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="Zipcode">Country<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.country" name="country" required>
-                              <span style="color:red" ng-show="myForm.country.$dirty && myForm.country.$invalid">  <span  ng-show="myForm.country.$error.required">Country is required</span></span>
-                            <input type="hidden" class="form-control" ng-model="data.latitude">
-                            <input type="hidden" class="form-control" ng-model="data.longitude">
-                          </div>
+
                         </div>
                       </div>
                     </div>
-                    <div role="tabpanel"  id="location-event" ng-hide="location_event_div">
-                         <div class="row">
-                        <div class="col-sm-12 loc-list">
-                         
-                  	 <ul>
-                              
-                            <li ng-repeat="venue in total_venue track by $index">
-                                   <i class="fa fa-map-marker"></i>
-                                    <a ng-click="venue_info(venue)">{{venue.venue_name}}</a>
-                                       <span>{{venue.address}}, {{venue.city}}&nbsp;,&nbsp;{{venue.state}}&nbsp;,&nbsp;{{venue.zipcode}}</span>
-                            </li>
-                          
-                        </ul>
-                  	  </div>
-                     </div>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="form-group">
+                          <label for="Venue">Venue<span class="req">*</span></label>
+                          <input type="text" class="form-control" ng-model="data.venuename" name="venuename" value="" required>
+                            <span style="color:red" ng-show="myForm.venuename.$dirty && myForm.venuename.$invalid">  <span  ng-show="myForm.venuename.$error.required">Venue name is required</span></span>
+                          <input type="hidden" class="form-control" ng-model="data.venueid">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="form-group">
+                          <label for="Address">Address<span class="req">*</span></label>
+                           <input type="text" class="form-control" name="place" ng-model="data.place"  g-places-autocomplete required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="City">City<span class="req">*</span></label>
+                          <input type="text" class="form-control" name="city" ng-model="data.city" required>
+                            <span style="color:red" ng-show="myForm.city.$dirty && myForm.city.$invalid">  <span  ng-show="myForm.city.$error.required">City is required</span></span>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="Zipcode">Zipcode<span class="req">*</span></label>
+                          <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" required>
+                         <span style="color:red" ng-show="myForm.zipcode.$dirty && myForm.zipcode.$invalid">  <span  ng-show="myForm.zipcode.$error.required">Zipcode is required</span></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="City">State<span class="req">*</span></label>
+                          <input type="text" class="form-control" ng-model="data.state" name="state" required>
+                            <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
+                            
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="Zipcode">Country<span class="req">*</span></label>
+                          <input type="text" class="form-control" ng-model="data.country" name="country" required>
+                            <span style="color:red" ng-show="myForm.country.$dirty && myForm.country.$invalid">  <span  ng-show="myForm.country.$error.required">Country is required</span></span>
+                          <input type="hidden" class="form-control" ng-model="data.latitude">
+                          <input type="hidden" class="form-control" ng-model="data.longitude">
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  
-                  <!-- Tab panes -->
-                  
+                  <div role="tabpanel"  id="location-event" ng-hide="location_event_div">
+                       <div class="row">
+                      <div class="col-sm-12 loc-list">
+                      <ul>
+                        <li ng-repeat="venue in total_venue track by $index">
+                          <i class="fa fa-map-marker"></i>
+                          <a ng-click="venue_info(venue)">{{venue.venue_name}}</a>
+                          <span>{{venue.address}}, {{venue.city}}&nbsp;,&nbsp;{{venue.state}}&nbsp;,&nbsp;{{venue.zipcode}}</span>
+                        </li>
+                      </ul>
+                	  </div>
+                   </div>
+                  </div>
                 </div>
-                <div class="col-sm-12 col-md-6"> <!--<img src="images/map.jpg" class="img-responsive" alt="" />-->
-                 <div id="map" style="height: 400px;"></div>
-                </div>
+                
+                <!-- Tab panes -->
+                
+              </div>
+              <div class="col-sm-12 col-md-6"> <!--<img src="images/map.jpg" class="img-responsive" alt="" />-->
+               <div id="map" style="height: 400px;"></div>
               </div>
             </div>
           </div>
- <fieldset>
+        </div>
+       <fieldset>
           <div class="form-top">
             <div class="form-top-left">
               <h3>Step 2 / 3</h3>
@@ -344,40 +345,38 @@
             <button type="button" class="btn btn-previous">Previous</button>
             <button type="button" class="btn btn-next">Next</button>
           </div>
-       
-</fieldset>
-        <fieldset>
-          <div class="form-top">
-            <div class="form-top-left">
-              <h3>Step 3 / 3</h3>
-              <p>Social media profiles:</p>
-            </div>
-            <div class="form-top-right"> <i class="fa fa-twitter"></i> </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-top">
+          <div class="form-top-left">
+            <h3>Step 3 / 3</h3>
+            <p>Social media profiles:</p>
           </div>
-          <div class="form-bottom">
-            <div class="form-group">
-              <label class="sr-only" for="form-facebook">Facebook</label>
-              <input type="text" name="form-facebook" placeholder="Facebook..." class="form-facebook form-control" id="form-facebook">
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="form-twitter">Twitter</label>
-              <input type="text" name="form-twitter" placeholder="Twitter..." class="form-twitter form-control" id="form-twitter">
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="form-google-plus">Google plus</label>
-              <input type="text" name="form-google-plus" placeholder="Google plus..." class="form-google-plus form-control" id="form-google-plus">
-            </div>
-            <button type="button" class="btn btn-previous">Previous</button>
-            <button type="button" class="btn">Sign me up!</button>
+          <div class="form-top-right"> <i class="fa fa-twitter"></i> </div>
+        </div>
+        <div class="form-bottom">
+          <div class="form-group">
+            <label class="sr-only" for="form-facebook">Facebook</label>
+            <input type="text" name="form-facebook" placeholder="Facebook..." class="form-facebook form-control" id="form-facebook">
           </div>
-        </fieldset>
+          <div class="form-group">
+            <label class="sr-only" for="form-twitter">Twitter</label>
+            <input type="text" name="form-twitter" placeholder="Twitter..." class="form-twitter form-control" id="form-twitter">
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="form-google-plus">Google plus</label>
+            <input type="text" name="form-google-plus" placeholder="Google plus..." class="form-google-plus form-control" id="form-google-plus">
+          </div>
+          <button type="button" class="btn btn-previous">Previous</button>
+          <button type="button" class="btn">Sign me up!</button>
+        </div>
+      </fieldset>
      
       <div class="editr">
-              
-                    
-
         <label>Event Description<span class="req">*</span></label>
-         <div ckeditor="option_ckeditor" name="content" required ng-model="data.content" ready="onReady()"></div>
+         <div ckeditor="option_ckeditor" name="content" required="true" ng-required="true" ng-model="data.content" ready="onReady()"></div>
+         <span style="color:red" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event descriptio ins required</span></span>
+
          
         <div class="editor-btn">
           <button type="submit" 
@@ -385,10 +384,12 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
         </div>
         <div ng-hide="error_message" style="color:green;">{{success}}</div>
+
       </div>
-      </form>
-       </div>
- <div ng-hide="price_and_link_div">
+  </form>
+</div>
+
+<div ng-hide="price_and_link_div">
            <!-- Event Detail Form -->
    	<form  name="myForm1" novalidate>
 
@@ -1135,7 +1136,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
     
     <!-- //Form COntainer --> 
   </div>
-<script type="text/ng-template" id="myModalContent.html">
+<script type="text/ng-template" id="myModalContent.html"> 
         <div class="modal-header">
             <h3 class="modal-title">Remove Previous Event</h3>
         </div>
@@ -1243,16 +1244,268 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
         </form>
     </script>
 
-<script type="text/ng-template" id="myModalContentBundle.html">
+    <script type="text/ng-template" id="myModalContentBundle.html"> 
         <div class="modal-header">
-            <h3 class="modal-title">Add a Bundle</h3>
+            <h3 class="modal-title" style="float:left;">Add a Bundle</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
         </div>
         <div class="modal-body">
-            Modal Content Price
+           
+        <!-- Step Form -->
+        <div class="stage-container stage-container-3steps clearfix">
+          <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+            <div class="stage-title">{{step.title}}</div> </div>
         </div>
+        <!-- //Step Form --> 
+
+
+        <div class="form-section  wt-frame">
+                <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
+                <!-- Step 1 start -->
+                   <div ng-show="step_1">
+                    <!-- Event Detail Form -->
+                          <form class="event-form" name="bundleForm" ng-submit="bundleForm.$valid && updateBundle(bundle)" novalidate>
+                                 <div>
+                                    <div class="module">
+                                        <section class="prof-hd" > <!-- add  class="prof-hd"if u need to display this as tab -->
+                                         <i class="fa fa-link hdicon pos-l16"></i>
+                                          <h2> Details <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                                        </section>
+                                        <section class="gray-frame">
+                                         
+                                          <div class="row">
+                                            <div class="col-sm-4">
+                                              <div class="form-group" ng-class="{true: 'error'}[submitted]">
+                                                <label for="EventName">Name<span class="req">*</span></label>
+                                                <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="bundle.bundle_name" required/>
+                                                <span class="help-inline" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter bundle name</span>
+                                              </div>
+                                              <span ng-show="userForm.bundle_name.$dirty && userForm.bundle_name.$invalid">  <span  ng-show="userForm.bundle_name.$error.required">Enter bundle name.</span></span>
+
+                                            </div>
+                                            <div class="col-sm-8">
+                                              <div class="form-group">
+                                                <label for="EventName"> Description</label>
+                                                <div class="bundle-editr" >
+                                                  <div ckeditor="option_ckeditor" ng-model="bundle.bundle_description" ready="onReady()"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-sm-4" >
+                                              <div class="form-group">
+                                                <label for="EventName"> Limit<span class="req-limit">*</span></label>
+                                                <input type="number" class="form-control" placeholder="Limit" ng-model="bundle.bundle_limit" name="bundle_limit"/>
+                                                <span class="help-inline" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter limit</span>
+                                              </div>
+                                              <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="error-fld ng-binding">Enter bundle limit.</p>
+
+                                            </div>
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Minimum Purchase</label>
+                                                <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="bundle.bundle_minimum_purchase"/>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Multiple Ticket Holders?</label>
+                                                <div class="onoffswitch">
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="bundle.multiple_ticket_holder" checked>
+                                                  <label class="onoffswitch-label" for="myonoffswitch2"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <br/>
+                                          <br/>
+                                          <div class="row">
+                                            <div class="col-sm-12">
+                                              <div class="form-group">
+                                                <p for="EventName"> When an inventory is not set on this bundle it will fallback to the inventory of events and pricing levels in this bundle</p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <br/>
+                                          <br/>
+                                          <div class="row">
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Assign Inventory?<span class="req">*</span></label>
+                                                <div class="onoffswitch">
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="bundle.assign_inventory"  ng-model="checked" checked>
+                                                  <label class="onoffswitch-label" for="myonoffswitch4"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Inventory</label>
+                                                <input type="text" class="form-control" ng-disabled="!bundle.assign_inventory" placeholder="Inventory" ng-model="bundle.bundle_inventory"/>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Active</label>
+                                                <div class="onoffswitch">
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch1" ng-model="bundle.status" checked>
+                                                  <label class="onoffswitch-label" for="myonoffswitch1"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Hide Online?</label>
+                                                <div class="onoffswitch">
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="bundle.hide_online" checked>
+                                                  <label class="onoffswitch-label" for="myonoffswitch3"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                              <div class="form-group">
+                                                <label for="EventName"> Hide in box office?</label>
+                                                <div class="onoffswitch">
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="bundle.hide_in_box_office" checked>
+                                                  <label class="onoffswitch-label" for="myonoffswitch5"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
+
+                                       </section>
+                                  </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="editor-btn">
+                                        <button type="submit" class="pink-btn btn" ng-click="submitted=true">Save</button>
+                                        <button class="pink-btn btn" ng-click="click_menu({id:2});">Next</button>
+                                  </div>   
+                                </div>
+                        </form>
+               </div>
+               <!-- Step 1 end -->
+              
+                 
+              <!-- Step 2 start -->
+            <div ng-show="step_2">
+              <div class="module">
+                <section class="prof-hd">
+                  <i class="fa fa-link hdicon pos-l16"></i>
+                  <h2>Products<span style="float:right;">Quantity</span></h2>
+                </section>
+                <section class="gray-frame">
+                  <div class="row">
+                    <div class="col-sm-8" >
+                      <div class="form-group">
+                        <label for="EventName">  gtr e (Price: $0.00) </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4" >
+                      <div class="form-group">
+                        <select class="form-control" ng-model="coupon_type" required>
+                          <option>0</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <div class="editor-btn">
+                  <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
+                  <button class="pink-btn btn" ng-click="saveProduct(2)">Save</button>
+                  <button class="pink-btn btn" ng-click="click_menu({id:3});">Next</button>
+                </div>
+              </div>
+            </div>
+               <!-- Step 2 end -->
+               
+               <!-- Step 3 start -->
+               <div ng-show="step_3">
+                    <div class="module">
+                        <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
+                          <h2>How much does the bundle cost?<span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                        </section>
+                        <section class="gray-frame">
+                            <div class="row">
+                              <div class="col-sm-12" >
+                                <div class="form-group">
+                                  <label for="EventName"> Total</label>
+                                </div>
+                              </div>
+                           </div>
+                            <section class="grid-widget">
+                                <div class="table-responsive">
+                                  <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                          <th width="25%">Price Level</th>
+                                          <th width="25%">Quantity</th>
+                                          <th width="25%">Online Price</th>
+                                          <th width="25%">Box Office Price</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td>Test</td>
+                                        <td>1</td>
+                                        <td>$150.00</td>
+                                        <td>$140.00</td>
+                                       </tr>
+                                      </tbody>
+                                  </table>
+                                </div>
+                           </section>
+                      </section>
+                       <div class="editor-btn">
+                            <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
+                            <button class="pink-btn btn" ng-click="saveProduct(3)">Save</button>
+                            <button class="pink-btn btn" ng-click="saveProduct(4)">Submit</button>
+                      </div> 
+                  </div>
+               </div>
+               <!-- Step 3 end --> 
+          </div>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        </form>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button">Submit</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
     </script>
 
@@ -1261,7 +1514,59 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
             <h3 class="modal-title">Add a Product</h3>
         </div>
         <div class="modal-body">
-            Modal Content Price
+            
+            <fieldset class="form-group">
+               <div class="col-sm-4">Available Products</div>
+               <div class="col-sm-8"><select ng-model="data1.price_type" name="price_type" class="form-control"
+               ng-change="change_price_type()">
+                    <option value="">---</option>
+                    <option value="test1">Test 1</option>
+                    <option value="test2">Test 2</option>
+               </select></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Retail Price</div>
+               <div class="col-sm-8"><span class="form-control">17.00</span></div> 
+            </fieldset>
+            
+            <fieldset class="form-group" ng-hide="min_price">
+               <div class="col-sm-4">Price(USD $)</div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.minimum_price" name="minimum_price" class="form-control"></div>
+            </fieldset>
+            
+            <fieldset class="form-group">
+               <div class="col-sm-4">Placement</div>
+               <div class="col-sm-8">
+                  <section class="radio-sec custom-check">
+                    <section class="radio-inline">
+                      <input type="checkbox" id="checkbox03" name="listing" ng-model="data1.listing">
+                      <label for="checkbox03">Listing Page</label>
+                    </section>
+                    <section class="radio-inline">
+                      <input type="checkbox" id="checkbox04"  name="confirmation" ng-model="data1.confirmation">
+                      <label for="checkbox04"> Confirmation Page</label>
+                    </section>
+                  </section>
+               </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+               <div class="col-sm-4">Hide in Box Office</div>
+               <div class="col-sm-8">
+
+                <section class="radio-sec">
+                  <section class="radio-inline">
+                    <div class="onoffswitch">
+                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.hide_in_box_office" checked>
+                      <label class="onoffswitch-label" for="myonoffswitch5"></label>
+                    </div>
+                  </section>
+                </section>
+               </div>
+            </fieldset>
+            
+
+
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" type="button">Submit</button>

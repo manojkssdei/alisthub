@@ -92,6 +92,7 @@ exports.saverecurringEvent=function(req,res){
 }
 
 
+
 /** 
 Method: getEvents
 Description:Function to get event data  
