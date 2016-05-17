@@ -28,7 +28,7 @@
 			      <option>Address</option>
                             </select>
                           </div>
-			  <p ng-show="userForm.question_type.$invalid && !userForm.question_type.$pristine" class="help-block">Select Question type.</p>
+			  <p ng-show="userForm.question_type.$invalid && !userForm.question_type.$pristine" class="error-fld ng-binding">Select Question type.</p>
                         </div>
                       </div>
                       <div class="row">
@@ -37,7 +37,7 @@
                             <label for="Venue">Question<span class="req">*</span></label>
                             <textarea class="form-control" name="question_name" ng-model="data.question_name" required></textarea>
                           </div>
-			  <p ng-show="userForm.question_name.$invalid && !userForm.question_name.$pristine" class="help-block">Enter Question name.</p>
+			  <p ng-show="userForm.question_name.$invalid && !userForm.question_name.$pristine" class="error-fld ng-binding">Enter Question name.</p>
                         </div>
                       </div>
                       <div class="row">

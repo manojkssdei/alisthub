@@ -233,7 +233,8 @@
                           <div class="form-group">
                             <label for="EventName">Venue Type<span class="req">*</span></label>
                             <select class="form-control" ng-model="data.venuetype">
-                              <option>Ticket</option>
+                              <option>General Admission</option>
+                              <option>Seated</option>
                             </select>
                           </div>
                         </div>
@@ -377,7 +378,9 @@
                     
 
         <label>Event Description<span class="req">*</span></label>
-         <div ckeditor="option_ckeditor" name="content" required ng-model="data.content" ready="onReady()"></div>
+         <div ckeditor="option_ckeditor" name="content" required="true" ng-required="true" ng-model="data.content" ready="onReady()"></div>
+         <span style="color:red" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event descriptio ins required</span></span>
+
          
         <div class="editor-btn">
           <button type="submit" 
@@ -1292,7 +1295,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                                 <label for="EventName">Name<span class="req">*</span></label>
                                                 <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="data.bundle_name" required/>
                                               </div>
-                                              <span style="color:red" ng-show="userForm.bundle_name.$dirty && userForm.bundle_name.$invalid">  <span  ng-show="userForm.bundle_name.$error.required">Enter bundle name.</span></span>
+                                              <span ng-show="userForm.bundle_name.$dirty && userForm.bundle_name.$invalid">  <span  ng-show="userForm.bundle_name.$error.required">Enter bundle name.</span></span>
                                             </div>
                                             <div class="col-sm-8">
                                               <div class="form-group">
@@ -1309,7 +1312,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                                 <label for="EventName"> Limit<span class="req-limit">*</span></label>
                                                 <input type="number" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit"/>
                                               </div>
-                                              <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="help-block">Enter bundle limit.</p>
+                                              <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="error-fld ng-binding">Enter bundle limit.</p>
                                             </div>
                                             <div class="col-sm-4">
                                               <div class="form-group">

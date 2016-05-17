@@ -12,13 +12,13 @@
                     <label>First Name <span class="req">*</span></label>
                     <!-- <font color="blue">*</font> -->
                     <input type="text" name="first_name" ng-model="user.first_name" class="form-control" placeholder="first name" ng-pattern="/^[a-z ,.'-]+$/i" required> 
-        <p ng-show="addUserForm.first_name.$invalid && !addUserForm.first_name.$pristine" class="help-block">Enter Firstname.</p>
+        <p ng-show="addUserForm.first_name.$invalid && !addUserForm.first_name.$pristine" class="error-fld ng-binding">Enter Firstname.</p>
                   </div>
      
                   <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.last_name.$invalid && !addUserForm.last_name.$pristine }">
                     <label>Last Name <span class="req">*</span></label>
                     <input type="text" name="last_name" ng-model="user.last_name" ng-pattern="/^[a-z ,.'-]+$/i" class="form-control" placeholder="last name" required> 
-                    <p ng-show="addUserForm.last_name.$invalid && !addUserForm.last_name.$pristine" class="help-block">Enter Last Name.</p>
+                    <p ng-show="addUserForm.last_name.$invalid && !addUserForm.last_name.$pristine" class="error-fld ng-binding">Enter Last Name.</p>
                   </div>
     </div>
     <div class="row">
@@ -26,14 +26,14 @@
         <div class="form-group">
           <label> Contact Number</label>
           <input type="number" class="form-control" name="phone" placeholder="phone number"  ng-pattern="/^[0-9]{1,15}$/"  ng-model="user.phone"/>
-          <p ng-show="addUserForm.phone.$invalid && !addUserForm.phone.$pristine" class="help-block">Enter Numbers Only.</p>
+          <p ng-show="addUserForm.phone.$invalid && !addUserForm.phone.$pristine" class="error-fld ng-binding">Enter Numbers Only.</p>
         </div>
       </div>
       <div class="col-sm-6" ng-class="{ 'has-error' : addUserForm.fax.$invalid && !addUserForm.fax.$pristine }">
         <div class="form-group">
           <label> Fax</label>
           <input type="text" class="form-control" name="fax" placeholder="fax" ng-model="user.fax"/>
-          <p ng-show="addUserForm.fax.$invalid && !addUserForm.fax.$pristine" class="help-block">Enter Email Address.</p>
+          <p ng-show="addUserForm.fax.$invalid && !addUserForm.fax.$pristine" class="error-fld ng-binding">Enter Email Address.</p>
         </div>
       </div>
     </div>
@@ -43,14 +43,14 @@
        <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.email.$invalid && !addUserForm.email.$pristine }">
                     <label>Email Address <span class="req">*</span></label>
                     <input type="email" name="email" ng-model="user.email" class="form-control" placeholder="email address" required> 
-        <p ng-show="addUserForm.email.$invalid && !addUserForm.email.$pristine" class="help-block">Enter Email Address.</p>
+        <p ng-show="addUserForm.email.$invalid && !addUserForm.email.$pristine" class="error-fld ng-binding">Enter Email Address.</p>
                   </div>
      
       <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.password.$invalid && !addUserForm.password.$pristine }">
                     <label>Password</label>
                     
                     <input type="password" name="password" ng-model="user.password" class="form-control" placeholder="password" > 
-        <p ng-show="addUserForm.password.$invalid && !addUserForm.password.$pristine" class="help-block">Enter Password.</p>
+        <p ng-show="addUserForm.password.$invalid && !addUserForm.password.$pristine" class="error-fld ng-binding">Enter Password.</p>
                   </div>
     </div>
 
