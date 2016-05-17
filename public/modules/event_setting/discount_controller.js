@@ -1,5 +1,7 @@
 angular.module('alisthub')
-.controller('discountController', function($scope,$localStorage, $rootScope,$injector,$http,$state,$location,$timeout,$sce) {
+
+.controller('discountController', function($scope,$localStorage,$injector,$http,$state,$location,$rootScope,$timeout,$sce) {
+
    $scope.error_message = false;
     $scope.success_message = false; 
     $scope.edit_note = false;
@@ -17,8 +19,6 @@ angular.module('alisthub')
     };    
  }
  $scope.data = {};
-  $scope.error_message = true;
-  $scope.success_message = true; 
 
 
  $scope.coupon_type_options = [
@@ -276,7 +276,9 @@ angular.module('alisthub')
 })
 
 
-.controller('manageDiscountController', function($scope,$localStorage,$rootScope,$injector,$http,$state,$location) {
+
+.controller('manageDiscountController', function($scope,$localStorage,$injector,$http,$state,$rootScope,$location) {
+
   
   if (!$localStorage.isuserloggedIn) {
       $state.go('login');

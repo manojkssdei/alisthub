@@ -52,6 +52,7 @@ mysql_query = 'SELECT count(*) as count from discounts where seller_id = "'+req.
     });
 }
 
+
 /** 
 Method: addDiscount
 Description:Function for adding the discount for the user 

@@ -22,6 +22,7 @@ exports.getSettingCount = function(req,res){
    connection.query('SELECT count(*) as count from questions where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err2, qresults) {
      connection.query('SELECT count(*) as count from products where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err2, presults) {
           connection.query('SELECT count(*) as count from discounts where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err2, dresults) {
+            console.log({venueresult:vresults[0],quesresult:qresults[0],productresult:presults[0],discountresult:dresults[0],code:200});
      res.json({venueresult:vresults[0],quesresult:qresults[0],productresult:presults[0],discountresult:dresults[0],code:200});
           });
      });
@@ -53,7 +54,9 @@ Created : 2016-04-19
 Created By: Manoj kumar  
 */
 exports.addVenue = function(req,res) {
-     var photoname =  chartname = "";  
+
+     var photoname =  chartname = "";
+
      if(req.body.timezone == undefined) { req.body.timezone = ''; }
      if(req.body.capacity == undefined) { req.body.capacity = ''; }
      if(req.body.contact_name == undefined) { req.body.contact_name = ''; }

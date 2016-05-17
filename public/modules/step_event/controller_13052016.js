@@ -1,19 +1,7 @@
-/** 
-Anguler Controller to manage event steps 
-Created : 2016-04-19
-Created By: Deepak khokkar  
-Module : Event step  
-*/
-
 angular.module("google.places",[]);
 angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
-   
-  if (!$localStorage.isuserloggedIn) {
-      $state.go('login');
-  } 
    //For Step 1
     var $serviceTest = $injector.get("venues");
-    
     $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
     
     $scope.days=[
@@ -30,23 +18,6 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                  {id:11},{id:12},{id:13},{id:14},{id:15},{id:16},{id:17},{id:18},{id:19},{id:20},
                  {id:21},{id:22},{id:23},{id:24},{id:25},{id:26},{id:27},{id:28},{id:29},{id:30},{id:31}
                  ];
-
-
-    $eventId=$localStorage.eventId;
-    $serviceTest.getPricelevel({'eventId':$eventId},function(response){
-        
-        $rootScope.price_level=response.results;
-    });
-
-
-
-    /** 
-    Method: change_month
-    Description:Function to be execute when a month change occures 
-    Created : 2016-04-19
-    Created By:  Deepak khokkar  
-    */
-
     $scope.change_month=function(){
       
        var monthly_start=new Date($scope.multiple_start_date);
@@ -63,102 +34,96 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
           }
           $scope.between_date=dateArray;
     }
-
-    /* Variable initialized */
     $scope.timeperiod=[
       {id: 'daily', name: 'Daily'},
       {id: 'hourly', name: 'Hourly'},
       {id:'weekly',name:'Weekly'},
       {id:'monthly',name:'Monthly'}
     ]
-    /* Remove div from cloned object */
     $scope.removediv=function(index){
         $scope.between_date.splice(index,1);
     }
-
-    /** 
-    Method: weekly_option_change
-    Description:Function to be execute when a week change occures 
-    Created : 2016-04-19
-    Created By:  Deepak khokkar  
-    */
     $scope.weekly_div=true;
-    $scope.weekly_option_change=function() {
-      var weekly_start=new Date($scope.multiple_start_date);
-      var weekly_end=new Date($scope.multiple_end_date);
-      var dateArray = new Array();
-      while (weekly_start<=weekly_end) {
-        var currentDate=JSON.parse(JSON.stringify(weekly_start));
-        if (weekly_start.getDay()==$scope.data.weekly_option) {
-          dateArray.push(currentDate);
-        }
-        weekly_start.setDate(weekly_start.getDate() + 1);
-      }
-      $scope.between_date=dateArray;
+    $scope.weekly_option_change=function(){
+        
+         var weekly_start=new Date($scope.multiple_start_date);
+         var weekly_end=new Date($scope.multiple_end_date);
+        var dateArray = new Array();
+         while (weekly_start<=weekly_end)
+          {
+            var currentDate=JSON.parse(JSON.stringify(weekly_start));
+            
+           if (weekly_start.getDay()==$scope.data.weekly_option) {
+           
+              dateArray.push(currentDate);
+              
+           }
+            weekly_start.setDate(weekly_start.getDate() + 1);
+          }
+          $scope.between_date=dateArray;
     }
     
-    /** 
-    Method: select_checkbox
-    Description:Function to be execute when a checkbox selected 
-    Created : 2016-04-19
-    Created By:  Deepak khokkar  
-    */
     $scope.select_checkbox=function($event){
         var dateArray = new Array();
-        angular.forEach($scope.days, function(day){
-        if (!!day.selected)  {
+       angular.forEach($scope.days, function(day){
+        if (!!day.selected) 
+        {
           dDate1=new Date($scope.multiple_start_date);
           dDate2=new Date($scope.multiple_end_date);
          
-          while (dDate1<=dDate2) {
+           while (dDate1<=dDate2)
+          {
             var currentDate=JSON.parse(JSON.stringify(dDate1));
             if (dDate1.getDay()==day.id) {
+           
               dateArray.push(currentDate);
-            }
+              
+           }
             dDate1.setDate(dDate1.getDate() + 1);
           }
+          
         }
       })
-      $scope.between_date=dateArray; 
+    
+       $scope.between_date=dateArray; 
+     
     }
+     $scope.recurring_period=function(action){
+       
+            var stt = new Date($scope.multiple_start_date);
+            stt = stt.getTime();
+            var endt = new Date($scope.multiple_end_date);
+            endt = endt.getTime();
 
-    /** 
-    Method: recurring_period
-    Description:Function for reccuring process 
-    Created : 2016-04-19
-    Created By:  Deepak khokkar  
-    */
-    $scope.recurring_period=function(action) {
-        var stt = new Date($scope.multiple_start_date);
-        stt = stt.getTime();
-        var endt = new Date($scope.multiple_end_date);
-        endt = endt.getTime();
-
-        if(stt >= endt) {
-          $scope.error_message=false;
-          $scope.multiple_end_date='';
-          $scope.error='End date must be greater than start date. '; 
-          $timeout(function() {
-              $scope.error='';
-              $scope.error_message=true;
-          },3000);
-        }
-
-         if(($scope.multiple_start_date===undefined)||($scope.multiple_end_date==undefined)) {
-          if ((action=='start')||(action=='end')) { } else {
-            $scope.error="Please select start date and end date.";
+            if(stt >= endt) {
             $scope.error_message=false;
+            $scope.multiple_end_date='';
+            $scope.error='End date must be greater than start date. '; 
             $timeout(function() {
-                 
-              $scope.error='';
-              $scope.error_message=true;
-              $scope.data.period='';
-            },3000);
-          }
-         } else {
-          if ($scope.data.period=='daily') {
+                $scope.error='';
+                $scope.error_message=true;
+              },3000);
+            }
+
+       if(($scope.multiple_start_date===undefined)||($scope.multiple_end_date==undefined))
+       {
+        if ((action=='start')||(action=='end')) {}else{
+        $scope.error="Please select start date and end date.";
+        $scope.error_message=false;
+        $timeout(function() {
+             
+          $scope.error='';
+          $scope.error_message=true;
+          $scope.data.period='';
+        },3000);
+        }
+       }else{
+      
+        
+        if ($scope.data.period=='daily') {
             $scope.weekly_div=$scope.monthly_div=$scope.days_div=true;
             if ($scope.data.period!=undefined) {
+                
                 currentDate=new Date($scope.multiple_start_date);
                 endDate=new Date($scope.multiple_end_date);
                 
@@ -166,28 +131,26 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                 while (currentDate <= endDate) {
                     between.push(new Date(currentDate));
                     currentDate.setDate(currentDate.getDate() + 1);
+                    
                 }
                 $scope.between_date=between;  
             }
-          } else if ($scope.data.period=='hourly') {
-              $scope.days_div=false;$scope.weekly_div=$scope.monthly_div=true;
-              $scope.between_date=[];
-          } else if ($scope.data.period=='weekly') {
-             $scope.weekly_div=false;$scope.days_div=$scope.monthly_div=true;
-          } else if ($scope.data.period=='monthly') {
-              $scope.weekly_div=$scope.days_div=true;$scope.monthly_div=false;
-          }
-        } 
+        }
+        else if ($scope.data.period=='hourly') {
+            $scope.days_div=false;$scope.weekly_div=$scope.monthly_div=true;
+            $scope.between_date=[];
+        }else if ($scope.data.period=='weekly') {
+           $scope.weekly_div=false;$scope.days_div=$scope.monthly_div=true;
+        }else if ($scope.data.period=='monthly'){
+            $scope.weekly_div=$scope.days_div=true;$scope.monthly_div=false;
+            
+        }
+      
+       } 
     }
     
-    /** 
-    Method: savedata
-    Description:Function for save the data of recurring event 
-    Created : 2016-04-25
-    Created By:  Deepak khokkar  
-    */
-
-    $scope.savedata=function(data) {
+     $scope.savedata=function(data)
+    {
         if (data.eventtype=='single') {
           if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
             data.eventdate=$scope.single_start_date;
@@ -197,32 +160,49 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             
             data.userId=$localStorage.userId;
             $serviceTest.saveEvent(data,function(response){
+                console.log(response);
               if (response.code == 200) {
-                 $scope.success="Event Successfully Saved.";
-                 $localStorage.eventId=response.result;
-                 $scope.error_message=false;
-                 $timeout(function() {
-                   $scope.success='';
-                   $scope.error_message=true;
-                 },3000);
+                   $scope.success="Event Successfully Saved.";
+                  // $scope.data={};
+                   $localStorage.eventId=response.result;
+                 //  $scope.selectevent_date=$scope.starttime=$scope.endtime=$scope.startevent_time=$scope.endevent_time='';
+                         $scope.error_message=false;
+                         $timeout(function() {
+                          
+                           $scope.success='';
+                           $scope.error_message=true;
+                         },3000);
+                        
+                       //  window.location.reload();
               }
-            });
-          }  
-        } else {
+              });
+            
+        }  
+        }else{
+
+         
           data.userId=$localStorage.userId;
+         
           $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-            if (response.code == 200) {
-              $scope.success="Event Successfully Saved.";
-              $scope.data={};
-              $scope.error_message=false;
-              $timeout(function() {
-               $scope.success='';
-               $scope.error_message=true;
-              },3000);
-              window.location.reload();
-            }
-          }); 
+          
+              if (response.code == 200) {
+                   $scope.success="Event Successfully Saved.";
+                   $scope.data={};
+                        $scope.error_message=false;
+
+                         $timeout(function() {
+                          
+                           $scope.success='';
+                           $scope.error_message=true;
+                         },3000);
+                        
+                          window.location.reload();
+              }
+              }); 
         }
+        
+        
+    
     }
     
    
@@ -401,14 +381,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
    
 
    
-  var now = new Date();
-  if (now.getMonth() == 11) {
-      var current = new Date(now.getFullYear() + 1, 0, 1);
-  } else {
-      var current = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-  }
-  
-  $scope.inlineOptions = {
+   var now = new Date();
+if (now.getMonth() == 11) {
+    var current = new Date(now.getFullYear() + 1, 0, 1);
+} else {
+    var current = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+}
+$scope.inlineOptions = {
     customClass: getDayClass,
     minDate: new Date(),
     showWeeks: true
@@ -425,7 +404,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   // Disable weekend selection
   function disabled(data) {
     var date = data.date,
-    mode = data.mode;
+      mode = data.mode;
     return '';
     //mode === 'day' && (date.getDay() === 0 || date.getDay() === 6)
   }
@@ -438,33 +417,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.open2 = function() {
     $scope.popup2.opened = true;
   };
-
-  ////
-   $scope.open3 = function() {
-    $scope.popup3.opened = true;
-  };
-   $scope.open4 = function() {
-    $scope.popup4.opened = true;
-  };
-  ////
-  
-  $scope.popup1 = {
+ $scope.popup1 = {
     opened: false
   };
-  $scope.popup2 = {
+   $scope.popup2 = {
     opened: false
   };
-  //////
-   $scope.popup3 = {
-    opened: false
-  };
-   $scope.popup4 = {
-    opened: false
-  };
-  ////
-  
-
-  $scope.option_ckeditor = {
+$scope.option_ckeditor = {
     language: 'en',
     allowedContent: true,
     entities: false
@@ -474,8 +433,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.onReady = function () {
     // ...
   };
-  
-  $scope.options = {
+ $scope.options = {
     customClass: getDayClass,
     minDate: new Date(),
     showWeeks: true
@@ -487,7 +445,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     showWeeks: true
   };
 
-  var tomorrow = new Date();
+var tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   var afterTomorrow = new Date(tomorrow);
   afterTomorrow.setDate(tomorrow.getDate() + 1);
@@ -507,13 +465,16 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       mode = data.mode;
     if (mode === 'day') {
       var dayToCheck = new Date(date).setHours(0,0,0,0);
+
       for (var i = 0; i < $scope.events.length; i++) {
         var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
         if (dayToCheck === currentDay) {
           return $scope.events[i].status;
         }
       }
     }
+
     return '';
   }
   
@@ -522,202 +483,124 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.hstep = 1;
   $scope.mstep = 1;
 
+
+
   $scope.ismeridian = true;
   $scope.toggleMode = function() {
     $scope.ismeridian = ! $scope.ismeridian;
   };
   
-  $scope.success_message=false;
-  $scope.error_message=true;
-
-  $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
-  $scope.custom_age=function(){
-     $scope.age_div=$scope.age_text_div=true; 
-     $scope.dynamic_age_div=$scope.return_age_text_div=false;
-     $scope.data1.ages='';
-  }
-
-  $scope.custom_default_age=function(){
-     $scope.age_div=$scope.age_text_div=false; 
-     $scope.dynamic_age_div=$scope.return_age_text_div=true;
-     $scope.data1.dynamic_age='';
-  }
-
-  $scope.ages = [
-  { "name": "All Ages",'id':0},
-  {"name": "18 and  over",'id':18},
-  {"name": "19 and over",'id':19},
-  {"name": "21 and over",'id':21},
-  ]
   
-
-  $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
-  $scope.custom_age=function(){
-     $scope.age_div=$scope.age_text_div=true; 
-     $scope.dynamic_age_div=$scope.return_age_text_div=false;
-     $scope.data1.ages='';
-  }
-
-  $scope.custom_default_age=function(){
-     $scope.age_div=$scope.age_text_div=false; 
-     $scope.dynamic_age_div=$scope.return_age_text_div=true;
-     $scope.data1.dynamic_age='';
-  }
-
-  $scope.ages = [
-  { "name": "All Ages",'id':0},
-  {"name": "18 and  over",'id':18},
-  {"name": "19 and over",'id':19},
-  {"name": "21 and over",'id':21},
-  ]
-  
-
-  $scope.events = [
+    $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
+    $scope.custom_age=function(){
+       $scope.age_div=$scope.age_text_div=true; 
+       $scope.dynamic_age_div=$scope.return_age_text_div=false;
+       $scope.data1.ages='';
+    }
+    $scope.custom_default_age=function(){
+       $scope.age_div=$scope.age_text_div=false; 
+       $scope.dynamic_age_div=$scope.return_age_text_div=true;
+       $scope.data1.dynamic_age='';
+    }
+     $scope.ages = [
+    { "name": "All Ages",'id':0},
+    {"name": "18 and  over",'id':18},
+    {"name": "19 and over",'id':19},
+    {"name": "21 and over",'id':21},
+    
+]
+       $scope.events = [
     { "name": "Single Event",'id':1},
     {"name": "Multiple Event",'id':2}
-  ]
-  
-  $scope.venues = [
+    
+]
+     $scope.venues = [
     { "name": "Add New Venue",'id':3},
     {"name": "Use Past Location",'id':4}
-  ]
-  
-  $scope.steps=[
-
-     { "title":"Events Details","icon":'fa fa-calendar','id':5,"formname":'myForm'},
-     { "title":"Price & Links","icon":'fa fa-tags','id':6,"formname":'myForm'},
-     { "title":"Look & Feel","icon":'fa fa-eye','id':7,"formname":'myForm1'},
-     { "title":"Setting","icon":'fa fa-cog','id':8,"formname":'event-form'}
-
-  ];
+    
+]
+     $scope.steps=[
+     { "title":"Events Details","icon":'fa fa-calendar','id':5},
+     { "title":"Price & Links","icon":'fa fa-tags','id':6},
+     { "title":"Look & Feel","icon":'fa fa-eye','id':7},
+     { "title":"Setting","icon":'fa fa-cog','id':8}
+    ];
      
-  $scope.selected=$scope.events[0];
-  $scope.selected1=$scope.venues[0];
-  $scope.selected2=$scope.steps[0];
-   
-
-  /** 
-  Method: click_menu
-  Description:Function for changing the tab 
-  Created : 2016-04-25
-  Created By:  Deepak khokkar  
-  */
-
-  $scope.click_menu=function(menu,valid) {
-    var objectForm = this;
-
-    if (menu.id==5) {
-      $scope.eventdetail_div=false;
-      $scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=true;
-    }
-
-    if (menu.id==6) {
-
-      if(objectForm.myForm.$valid==true){
-        $scope.eventdetail_div=$scope.look_and_feel_div=$scope.setting_div=true;
-        $scope.price_and_link_div=false;  
-      } else {
-        $scope.error_message = false;
-        $scope.error="Please update the event detail data.";
-        $timeout(function() {
-            $scope.error='';
-            $scope.error_message=true;
-            $scope.error='';
-        },3000);
-      }
-    }
-
-    if (menu.id==7) {
-      if(objectForm.myForm.$valid==true){
+     $scope.selected=$scope.events[0];
+     $scope.selected1=$scope.venues[0];
+     $scope.selected2=$scope.steps[0];
+     
+    
+     $scope.click_menu=function(menu)
+     {
+       
+       if (menu.id==5) {
+        
+        $scope.eventdetail_div=false;
+        $scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=true;
+       }
+       if (menu.id==6) {
+         $scope.eventdetail_div=$scope.look_and_feel_div=$scope.setting_div=true;
+        $scope.price_and_link_div=false;
+       }
+       if (menu.id==7) {
         $scope.eventdetail_div=$scope.price_and_link_div=$scope.setting_div=true;
         $scope.look_and_feel_div=false;
-      } else {
-        $scope.error_message = false;
-        $scope.error="Please update the event detail data.";
-        $timeout(function() {
-            $scope.error='';
-            $scope.error_message=true;
-            $scope.error='';
-        },3000);
-      }
-    }
-
-    if (menu.id==8) {
-      if(objectForm.myForm.$valid==true){
+       }
+       if (menu.id==8) {
         $scope.eventdetail_div=$scope.look_and_feel_div=$scope.price_and_link_div=true;
         $scope.setting_div=false;
-      } else {
-        $scope.error_message = false;
-        $scope.error="Please update the event detail data.";
-        $timeout(function() {
-            $scope.error='';
-            $scope.error_message=true;
-            $scope.error='';
-        },3000);
-      }
-
-    }
-    $scope.selected2 = menu;  
-  }
-
-  /** 
-  Method: select_venue
-  Description:Function for vanue select 
-  Created : 2016-04-25
-  Created By:  Deepak khokkar  
-  */
+       }
+        $scope.selected2 = menu;  
+     }
      
-  $scope.select_venue=function(venue){
-    if(venue.id==3) {
-      $scope.venue_event_div=false;
-      $scope.location_event_div=true;
-    } else {
-      $scope.venue_event_div=true;
-      $scope.location_event_div=false;
-    }
-    $scope.selected1 = venue; 
-  }
+     $scope.select_venue=function(venue){
+       if(venue.id==3)
+       {
+        $scope.venue_event_div=false;
+        $scope.location_event_div=true;
+       }else{
+        $scope.venue_event_div=true;
+        $scope.location_event_div=false;
+       }
+       $scope.selected1 = venue; 
+     }
+     $scope.select= function(item) {
+        if (item.id==1) {
+            $scope.data.eventtype='single';
+          $scope.multiple_event_div=true;
+          $scope.single_event_div=false;  
+         
+        }else{
+         $scope.data.eventtype='multiple';
+         $scope.multiple_event_div=false;
+         $scope.single_event_div=true;      
 
-  /** 
-  Method: select
-  Description:Function for select event type : single / multiple   
-  Created : 2016-04-25
-  Created By:  Deepak khokkar  
-  */
+        }
+        $scope.selected = item; 
+ };
 
-
-
-  $scope.select= function(item) {
-    if (item.id==1) {
-      $scope.data.eventtype='single';
-      $scope.multiple_event_div=true;
-      $scope.single_event_div=false;  
-    } else {
-     $scope.data.eventtype='multiple';
-     $scope.multiple_event_div=false;
-     $scope.single_event_div=true;      
-    }
-    $scope.selected = item; 
-  };
-
-
-  $scope.isActive = function(item) {
-    return $scope.selected === item;
-  };
+ $scope.isActive = function(item) {
+        
+        return $scope.selected === item;
+ };
   $scope.isActive1 = function(venue) {
-    return $scope.selected1 === venue;
-  };
+        
+        return $scope.selected1 === venue;
+ };
  
-  $scope.isActive2 = function(step2) {
-    return $scope.selected2 === step2;
-  };
+ $scope.isActive2 = function(step2) {
+        
+        return $scope.selected2 === step2;
+ };
  
-  //For Step 2
-  $scope.items = ['item1'];
+//For Step 2
+$scope.items = ['item1'];
 
   $scope.animationsEnabled = true;
 
   $scope.open = function (size) {
+
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContent.html',
@@ -729,9 +612,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         }
       }
     });
+
   };
   
   $scope.open_price_level = function (size) {
+   
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContentPrice.html',
@@ -739,13 +624,20 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       size: size,
       resolve: {
         items: function () {
+            
+          
+         
           return $scope.items;
         }
       }
     });
+
   };
   
-  $scope.add_bundle = function (size) {
+ 
+  
+   $scope.add_bundle = function (size) {
+
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContentBundle.html',
@@ -757,9 +649,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         }
       }
     });
+
   };
   
-  $scope.add_product = function (size) {
+   $scope.add_product = function (size) {
+
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContentProduct.html',
@@ -771,43 +665,43 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         }
       }
     });
+
   };
   
   
   var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-  var weekday = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+   var weekday = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
 
-  /** 
-  Method: single_eventstart
-  Description:Function for select event type : single / multiple   
-  Created : 2016-04-25
-  Created By:  Deepak khokkar  
-  */
-  $scope.single_eventstart=function() {
-    if($rootScope.selectevent_date==undefined) {
-      $scope.select_delect_event=false;
-      var d=new Date($scope.start_date);
-      var curr_date = d.getDate();
-      var curr_month = d.getMonth();
-      var day=d.getDay();
-      var curr_year = d.getFullYear();
-      var cur_mon=d.getMonth()+1;
-      $rootScope.single_start_date=curr_year+"-"+cur_mon+"-"+curr_date;
-      $rootScope.selectevent_date=weekday[day]+" "+m_names[curr_month]+" "+curr_date + "," + curr_year;  
-    } else {
+  
+   $scope.single_eventstart=function()
+   {
+    if($rootScope.selectevent_date==undefined)
+    {
+        $scope.select_delect_event=false;
+        var d=new Date($scope.start_date);
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth();
+        var day=d.getDay();
+        var curr_year = d.getFullYear();
+        var cur_mon=d.getMonth()+1;
+        $rootScope.single_start_date=curr_year+"-"+cur_mon+"-"+curr_date;
+        $rootScope.selectevent_date=weekday[day]+" "+m_names[curr_month]+" "+curr_date + "," + curr_year;  
+    }else{
       var modalInstance = $uibModal.open({
-        animation: $scope.animationsEnabled,
-        templateUrl: 'myModalContent.html',
-        controller: 'ModalInstanceCtrl',
-        size: '',
-        resolve: {
-          items: function () {
-            return $scope.items;
-          }
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      size: '',
+      resolve: {
+        items: function () {
+            
+            
+          return $scope.items;
         }
-      });
+      }
+    });
     }
-  }
+   }
    
   /* $scope.single_eventend=function()
    {
@@ -1037,9 +931,9 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
               if (response!=null) {
             if (response.code==200)
              {
-              $scope.data1=$rootScope.price_level=[];
+              $scope.data1=[];
               $serviceTest.getPricelevel({'eventId':data1.eventId},function(response){
-                $rootScope.price_level=response.results;
+                console.log(response);
               });
               $uibModalInstance.dismiss('cancel'); 
              }
@@ -1048,79 +942,28 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
  }
 });
 
-  
-
-  angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope, $uibModalInstance, items,$rootScope,$injector,$localStorage,$location) {
-    var $serviceTest = $injector.get("venues");
-
-    $scope.items = items;
-    $scope.selected = {
-      item: $scope.items[0]
-    };
+angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope, $uibModalInstance, items,$rootScope) {
+     $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
 
 
-    $scope.steps=[
-     { "title":"Details","icon":'fa fa-calendar','id':1},
-     { "title":"Quantities","icon":'fa fa-cog','id':2},
-     { "title":"Price","icon":'fa fa-tags','id':3}
-    ];
 
-    $scope.click_menu=function(menu) {
-       if (menu.id==1) {
-        $scope.step_1=true;
-        $scope.step_2=$scope.step_3=false;
-       }
-       if (menu.id==2) {
-        $scope.step_2=true;
-        $scope.step_1=$scope.step_3=false;
-       }
-       if (menu.id==3) {
-        console.log($scope.data);
-        $scope.step_3=true;
-        $scope.step_2=$scope.step_1=false;
-       }
-       $scope.selected2 = menu;  
-    }
-    $scope.click_menu({id:1});
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});
 
-    /* bundle tab stop */
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-
-    $scope.updateBundle = function(bundle) {
-        if ($localStorage.userId!=undefined) {
-            $scope.bundle.seller_id   = $localStorage.userId;
-            $scope.bundle.step   = 1;
-            $serviceTest.updateBundle($scope.bundle,function(response){
-                //console.log(response);
-                if (response.code == 200) {
-                    $scope.success_message = true;
-                    $scope.success="Bundle information has been added.";
-                    $timeout(function() {
-                        $scope.error='';
-                        $scope.success_message=false;
-                        $scope.success='';
-                    },3000);
-                } else {
-                   $scope.activation_message = global_message.ErrorInActivation;
-                }
-            });
-        }
-    };
+angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope) {
+     $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
 
 
-  });
 
-
-  angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope) {
-    $scope.items = items;
-    $scope.selected = {
-      item: $scope.items[0]
-    };
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-
-  });
-
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});

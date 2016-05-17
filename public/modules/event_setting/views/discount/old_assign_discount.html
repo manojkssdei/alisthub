@@ -26,7 +26,7 @@
                             <label for="EventName">Select Coupon<span class="req">*</span></label>
                               <input type="text" class="form-control" name="coupon_name" placeholder="Coupon name" ng-model="data.coupon_name" required/>
                           </div>
-        <p ng-show="userForm.coupon_name.$invalid && !userForm.coupon_name.$pristine" class="help-block">Enter coupon name.</p>
+        <p ng-show="userForm.coupon_name.$invalid && !userForm.coupon_name.$pristine" class="error-fld ng-binding">Enter coupon name.</p>
                         </div>
 
                          <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_type.$invalid && !userForm.coupon_type.$pristine }">
@@ -35,7 +35,7 @@
 
                             <input type="radio" class="form-control" name="coupon_name" placeholder="Coupon name" ng-model="data.coupon_name" required/> Apply Coupon(s) globally across all events
                           </div>
-        <p ng-show="userForm.coupon_type.$invalid && !userForm.coupon_type.$pristine" class="help-block">Select coupon type.</p>
+        <p ng-show="userForm.coupon_type.$invalid && !userForm.coupon_type.$pristine" class="error-fld ng-binding">Select coupon type.</p>
                         </div>
 
 
@@ -45,7 +45,7 @@
                             <input type="radio" class="form-control" name="coupon_name" placeholder="Coupon name" ng-model="data.coupon_name" required/> Assign to individual events and pricing levels 
 
                           </div>
-        <p ng-show="userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine" class="help-block">Enter code.</p>
+        <p ng-show="userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine" class="error-fld ng-binding">Enter code.</p>
                         </div>
 
                       </div>
@@ -62,7 +62,7 @@
                             <label for="EventName">Use Limit<span class="req">*</span></label>
                               <input type="text" class="form-control" name="amount" placeholder="Amount in dollars" ng-model="data.amount" required/>
                           </div>
-        <p ng-show="userForm.amount.$invalid && !userForm.amount.$pristine" class="help-block">Enter limit.</p>
+        <p ng-show="userForm.amount.$invalid && !userForm.amount.$pristine" class="error-fld ng-binding">Enter limit.</p>
                         </div>
 
 
@@ -82,7 +82,7 @@
 
                             </select>
                           </div>
-        <p ng-show="userForm.amount_type.$invalid && !userForm.amount_type.$pristine" class="help-block">Select amount type.</p>
+        <p ng-show="userForm.amount_type.$invalid && !userForm.amount_type.$pristine" class="error-fld ng-binding">Select amount type.</p>
                         </div>
 
                           <div class="col-sm-4">
