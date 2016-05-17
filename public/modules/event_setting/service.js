@@ -193,6 +193,13 @@ return url;
     });
       
   };
+  
+  url.checkUniqueDiscount = function(jsondata,callback) {
+    communicationService.resultViaPost(webservices.checkUniqueDiscount , appConstants.authorizationKey , headerConstants.json , jsondata, function(res,req) {
+      callback(res.data);
+    });
+    
+  };
 
   url.addDiscount = function(jsondata,callback){
        communicationService.resultViaPost(webservices.addDiscount,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){

@@ -1,5 +1,5 @@
 angular.module('alisthub')
-.controller('discountController', function($scope,$localStorage,$injector,$http,$state,$location,$timeout,$sce) {
+.controller('discountController', function($scope,$localStorage,$injector,$http,$state,$location,$rootScope,$timeout,$sce) {
    $scope.error_message = false;
     $scope.success_message = false;
     $scope.edit_note = false;
@@ -17,8 +17,7 @@ angular.module('alisthub')
     };    
  }
  $scope.data = {};
-  $scope.error_message = true;
-  $scope.success_message = true; 
+    
 
 
  $scope.coupon_type_options = [
@@ -78,16 +77,12 @@ angular.module('alisthub')
                  $scope.success = 'Discount added successfully';
                     $location.path("/view_discounts/list");
                   }else{
-                    //$scope.activation_message = global_message.ErrorInActivation;
                  $scope.error_message = true;
                  $scope.error = '';
-                 //var errorMsg = '';
                   for(var index in response.error) { 
-                  $scope.error+=$sce.trustAsHtml(response.error[index]+'<br/>');
+                  $scope.error+=$sce.trustAsHtml(response.error[index]);
                   }
                   $scope.trustedHtml=$sce.trustAsHtml($scope.error);
-
-
             }
             
         });
@@ -137,11 +132,28 @@ angular.module('alisthub')
   $scope.page_title = 'ADD';
   $scope.callfunction = 0;
 
- 
+ $scope.checkUniqueDiscount = function() {
+  if($localStorage.userId != undefined && $scope.data.coupon_code != undefined )
+  {
+     $scope.data.seller_id = $localStorage.userId ;
+     if ($scope.callfunction == 1) {
+     $scope.data.id          = $state.params.id;
+     }
+     $serviceTest.checkUniqueDiscount($scope.data , function (response) {
+     console.log('response - ' , response );
+      if (response.code == 101) {
+         $scope.error_message = true;
+         $scope.error = response.error;
+      }
+      if (response.code == 200) {
+         $scope.error_message = false;
+      }
+   });
+  }
+ }
   $scope.saveDiscount = function()
   {
-    if ($scope.callfunction == 0) {
-      var mandatoryFields = { 'coupon_type': 'Enter coupon type' };
+         var mandatoryFields = { 'coupon_type': 'Enter coupon type' };
     
     if($scope.data.coupon_type == "Discount")
     {
@@ -173,19 +185,18 @@ angular.module('alisthub')
                         };
     }
 
-        var errorMsg =  $scope.checkMandatoryFields( mandatoryFields );
-        console.log('errorList ' ,  errorMsg);
-        if(!errorMsg) {
+    var errorMsg =  $scope.checkMandatoryFields( mandatoryFields );
+    if(!errorMsg) {
+      if ($scope.callfunction == 0) {
         $scope.addDiscount();
-        }
-        else {
-          $scope.error_message = true;
-          $scope.error = 'Please enter mandatory fields.';
-        }    
-
-    }
+      }
     if ($scope.callfunction == 1) {
         $scope.editDiscount();
+      }
+    }
+    else{
+       $scope.error_message = true;
+       $scope.error = 'Please enter mandatory fields.';
     }
   }
   
@@ -227,7 +238,12 @@ angular.module('alisthub')
             if (response.code == 200) {
                     $location.path("/view_discounts/list");
                   }else{
-                   $scope.activation_message = global_message.ErrorInActivation;
+                  $scope.error_message = true;
+                  $scope.error = '';
+                  for(var index in response.error) { 
+                  $scope.error+=$sce.trustAsHtml(response.error[index]);
+                  }
+                  $scope.trustedHtml=$sce.trustAsHtml($scope.error);
             }
             
         });
@@ -259,7 +275,7 @@ angular.module('alisthub')
 })
 
 
-.controller('manageDiscountController', function($scope,$localStorage,$injector,$http,$state,$location) {
+.controller('manageDiscountController', function($scope,$localStorage,$injector,$http,$state,$rootScope,$location) {
   
   if (!$localStorage.isuserloggedIn) {
       $state.go('login');

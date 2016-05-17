@@ -10,7 +10,7 @@ module.exports = function(app, express) {
 	var router = express.Router();
        
 
-	Event_setting     = require('./../app/event_setting/controllers/venue.js');
+    Event_setting     = require('./../app/event_setting/controllers/venue.js');
         
     question_setting  = require('./../app/event_setting/controllers/question.js');
     
@@ -128,6 +128,9 @@ module.exports = function(app, express) {
     
     /* Add Discount Coupon by seller */
     router.post('/addDiscount', discount_setting.addDiscount);
+    
+    /* check unique Discount Coupon by seller */
+    router.post('/checkUniqueDiscount', discount_setting.checkUniqueDiscount);
     
     /* Assign Discount to event  */
     router.post('/assignDiscount', discount_setting.assignDiscount);
