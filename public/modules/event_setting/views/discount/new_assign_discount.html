@@ -47,7 +47,7 @@
                               <input type="radio" class="assignEvents" value="all" name="events" ng-model="data.events" /> Apply coupon(s) globally across all events
                               <input type="radio" class="assignEvents" value="one" name="amount_target" ng-model="data.amount_target" />Assign to individual event and pricing levels
                           </div>
-        <p ng-show="userForm.events.$invalid && !userForm.events.$pristine" class="help-block">Select event.</p>
+        <p ng-show="userForm.events.$invalid && !userForm.events.$pristine" class="error-fld ng-binding">Select event.</p>
                         </div>
                       </div>
 
@@ -82,7 +82,7 @@
           <label for="EventName">Use Limit<span class="req-limit">*</span></label>
           <input type="number" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit" min="0" max="100"/>
         </div>
-        <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="help-block">Enter bundle limit.</p>
+        <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="error-fld ng-binding">Enter bundle limit.</p>
       </div>
 
       

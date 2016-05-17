@@ -1,12 +1,17 @@
-angular.module('alisthub').controller('loginController', function($http,$location,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage) {
+angular.module('alisthub').controller('loginController', function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage) {
         
         if ($localStorage.isuserloggedIn) {
                 $rootScope.class_status = 0;
                 $state.go('dashboard');
         }
         $rootScope.class_status=1;
-
+        
         $scope.activation_message = false;
+        //$rootScope.SignupSuccessMessage = false;
+$rootScope.signup_success_message = true;
+        if($rootScope.SignupSuccessMessage) {
+            $rootScope.signup_success_message = false;
+        }
         $scope.user = {};
         if ($state.params.id) {
               //  confirmationEmail
@@ -54,7 +59,8 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                 }).success(function(data, status, headers, config) {
                 
                   if ((data.message=='error')||(data.user==undefined)) {
-                   $scope.error="Error occurred during login.";
+                   //$scope.error="Error occurred during login.";
+                   $scope.error=global_message.LoginNotMatchingError;
                    $scope.error_message=false;
                    $timeout(function() {
                         
@@ -82,13 +88,13 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
             }
 
         };
-}).controller('signupcontroller',function($http,$scope,$rootScope,$location, $state,communicationService){
+}).controller('signupcontroller',function($http,$scope,$rootScope,$location,$timeout, $state,communicationService){
 
         // function to submit the form after all validation has occurred            
         $scope.unique  = false;
         $scope.message = "";
         $scope.unique_type  = 0; 
-
+        //$scope.disabledBtn = false;
         // function to submit the form after all validation has occurred
         $rootScope.class_status = 1;
 
@@ -114,7 +120,13 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                  $scope.message = global_message.SavingError;
                 }
                 else {
-                 $scope.message = global_message.SignupSuccess;
+                  $rootScope.SignupSuccessMessage = global_message.SignupSuccess;
+                  $scope.message = global_message.SignupSuccess;
+                  /*$timeout(function() {
+                     $scope.message = global_message.SignupSuccess;
+                   },3000);
+                   */
+                 $location.path("/login");
                 }
             
             });
@@ -123,6 +135,8 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
         $scope.checkUnique = function() {
         var serviceUrl = webservices.checkUnique;
         var jsonData = $scope.user;
+        console.log('$scope.user.email ' , $scope.user.email);
+        if($scope.user.email) {
           $http({
             url: serviceUrl,
             method: 'POST',
@@ -133,6 +147,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
             }
             }).success(function(data, status, headers, config) {
                  if (data == 300) {
+                    //$scope.disabledBtn = true;
                  $scope.unique = global_message.EmailAvailable;
                  $scope.unique_type  = 1;
                  }
@@ -141,9 +156,13 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                  $scope.unique_type  = 2;
                  }
             });
+           }else{
+                 $scope.unique = global_message.EmailEmpty;
+                 $scope.unique_type  = 3;
+           }
         };
     
-    }).controller('forgotcontroller',function($http,$scope,$rootScope,$location, $state,communicationService,$timeout){
+    }).controller('forgotcontroller',function($http,$scope,$rootScope,$location,$timeout, $state,communicationService,$timeout){
         $rootScope.class_status=1;
         
         $scope.forgotPassword=function(){

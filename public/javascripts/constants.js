@@ -91,7 +91,9 @@ var global_message = {
     "ForgetEmailError" : "Please enter correct Email.",
     "ActivatedMessage" : "Your account has been activated now , you can sign in your account .",
     "ErrorInActivation" : "There is some problem in server , Please try some time.",
-    "QuestionAddValidation" : "Please fill all mandatory fields."
+    "QuestionAddValidation" : "Please fill all mandatory fields.",
+    "LoginNotMatchingError" : "The email and password you entered don't match.",
+    "EmailEmpty" : "Enter a valid email "
 }
 
 var appConstants = {

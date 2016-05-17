@@ -1,5 +1,8 @@
 angular.module('alisthub').controller('accountinfoController', function($scope,$localStorage,$injector,$http,$state,$location,$timeout) {
 
+    if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+    } 
     var $serviceTest = $injector.get("profile");
     console.log($localStorage);
     $scope.basictab   = false;

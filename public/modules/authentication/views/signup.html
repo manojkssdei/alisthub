@@ -15,12 +15,12 @@
                   <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.firstname.$invalid && !userSignupForm.firstname.$pristine }">
                     <label>First Name</label>
                     <input type="text" name="firstname" ng-model="user.firstname" class="form-control" placeholder="first name" required> 
-		    <p ng-show="userSignupForm.firstname.$invalid && !userSignupForm.firstname.$pristine" class="help-block">Enter Firstname.</p>
+		    <p ng-show="userSignupForm.firstname.$invalid && !userSignupForm.firstname.$pristine" class="error-fld ng-binding">Enter Firstname.</p>
                   </div>
                   <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.lastname.$invalid && !userSignupForm.lastname.$pristine }">
                     <label>Last Name</label>
                     <input type="text" name="lastname" ng-model="user.lastname" class="form-control" placeholder="last name" required>
-		    <p ng-show="userSignupForm.lastname.$invalid && !userSignupForm.lastname.$pristine" class="help-block">Enter Lastname.</p>
+		    <p ng-show="userSignupForm.lastname.$invalid && !userSignupForm.lastname.$pristine" class="error-fld ng-binding">Enter Lastname.</p>
                   </div>
               </div>
               <div class="form-group row">
@@ -29,30 +29,34 @@
                     <input type="email" placeholder="email-address"  ng-model="user.email" class="form-control" name="email" ng-blur="checkUnique();">
 			<span ng-hide="success_message"><p class="success-fld" ng-show="unique && unique_type == 1">{{unique}}</p></span>
 			<span ng-hide="error_message"><p class="error-fld" ng-show="unique && unique_type == 2">{{unique}}</p></span>
-			<p ng-show="userSignupForm.email.$invalid && !userSignupForm.email.$pristine" class="help-block">Enter a valid email.</p>
+      <span ng-hide="error_message"><p class="error-fld" ng-show="unique && unique_type == 3">{{unique}}</p></span>
+			<p ng-show="userSignupForm.email.$invalid && !userSignupForm.email.$pristine" class="error-fld ng-binding">Enter a valid email.</p>
                   </div>
                   <div class="col-sm-6 section-col"  ng-class="{ 'has-error' : userSignupForm.password.$invalid && !userSignupForm.password.$pristine }">
                     <label>Password</label>
                     <input type="password" placeholder="password" class="form-control" name="password" ng-model="user.password"  ng-minlength="3" ng-maxlength="12" required>
-		     <p ng-show="userSignupForm.password.$error.minlength" class="help-block">Password is too short.</p>
-		     <p ng-show="userSignupForm.password.$error.maxlength" class="help-block">Password is too long.</p>
+		     <p ng-show="userSignupForm.password.$error.minlength" class="error-fld ng-binding">Password is too short.</p>
+		     <p ng-show="userSignupForm.password.$error.maxlength" class="error-fld ng-binding">Password is too long.</p>
                   </div>
               </div>
 	      <div class="form-group row">
                  <!-- <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.organization.$invalid && !userSignupForm.organization.$pristine }">
                     <label>Organization</label>
                     <input type="text" name="organization" class="form-control" placeholder="Organization" ng-model="user.organization" required>
-			<p ng-show="userSignupForm.organization.$invalid && !userSignupForm.organization.$pristine" class="help-block">Enter an organization name.</p>
+			<p ng-show="userSignupForm.organization.$invalid && !userSignupForm.organization.$pristine" class="error-fld ng-binding">Enter an organization name.</p>
                   </div>
               
                   <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.username.$invalid && !userSignupForm.username.$pristine }">
                     <label>User Name</label>
                     <input type="text" name="username" class="form-control" placeholder="User Name" ng-model="user.username" required>
-			<p ng-show="userSignupForm.username.$invalid && !userSignupForm.username.$pristine" class="help-block">Enter your username.</p>
+			<p ng-show="userSignupForm.username.$invalid && !userSignupForm.username.$pristine" class="error-fld ng-binding">Enter your username.</p>
                   </div>--> 
               </div>
         </section>
-        <p><button  type="submit" class="btn-l m-fw"  ng-disabled="userSignupForm.$invalid">Sign up</button></p>
+        <p><button  type="submit" class="btn-l m-fw"  ng-disabled="userSignupForm.$invalid" id="signupBtn">Sign up</button></p>
+
+           <!--<p><button  type="submit" class="btn-l m-fw"  ng-disabled="userSignupForm.$invalid && disabledBtn" id="signupBtn">Sign up</button></p>-->
+
         <section class="otherlinks">
             <p><a ui-sref="login" class="signup-link">Already registered! Login here</a></p>
         </section>
