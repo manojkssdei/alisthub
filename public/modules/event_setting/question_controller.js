@@ -28,7 +28,7 @@ angular.module('alisthub')
   {
     $scope.count = $scope.quesoptions.length+1;
     
-    $scope.quesoptions.push({id:1,question_id:1,option:"",created:""});
+    $scope.quesoptions.push({id:$scope.count,question_id:1,option:"",created:""});
   }
   $scope.removeMoreRow = function(key)
   {

@@ -1,5 +1,7 @@
 angular.module('alisthub')
-.controller('discountController', function($scope,$localStorage, $rootScope,$injector,$http,$state,$location,$timeout,$sce) {
+
+.controller('discountController', function($scope,$localStorage,$injector,$http,$state,$location,$rootScope,$timeout,$sce) {
+
    $scope.error_message = false;
     $scope.success_message = false; 
     $scope.edit_note = false;
@@ -17,6 +19,7 @@ angular.module('alisthub')
     };    
  }
  $scope.data = {};
+
 
  $scope.coupon_type_options = [
         {'type' : "Discount" , 'description' : 'Discount Coupons are applied per ticket—except for bundled tickets, which applies coupons per bundle. Create a Discount Coupon to offer a discount on each ticket or bundle.'},
@@ -273,7 +276,9 @@ angular.module('alisthub')
 })
 
 
-.controller('manageDiscountController', function($scope,$localStorage,$rootScope,$injector,$http,$state,$location) {
+
+.controller('manageDiscountController', function($scope,$localStorage,$injector,$http,$state,$rootScope,$location) {
+
   
   if (!$localStorage.isuserloggedIn) {
       $state.go('login');
