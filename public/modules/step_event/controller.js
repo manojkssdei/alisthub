@@ -1049,12 +1049,32 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   });
 
 
-  angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope) {
+  angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {
     $scope.items = items;
+    $scope.data = {};
+    var $serviceTest = $injector.get("venues");
     $scope.selected = {
       item: $scope.items[0]
     };
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
+
+    $scope.getProduct = function() { 
+      if ($localStorage.userId!=undefined) {
+        $scope.data.userId      = $localStorage.userId;
+        $serviceTest.getProducts($scope.data,function(response){
+          console.log(response);
+          $scope.loader = false;
+          if (response.code == 200) {
+            //console.log($scope.data.first_name);
+          } else {
+            $scope.error_message = response.error;
+          }
+        });
+      }
+    };
+
+    $scope.getProduct();
+
   });
