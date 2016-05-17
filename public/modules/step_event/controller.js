@@ -13,7 +13,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   } 
    //For Step 1
     var $serviceTest = $injector.get("venues");
-    
+     
     $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
     
     $scope.days=[
@@ -990,6 +990,10 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
 
 angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {
     var $serviceTest = $injector.get("venues");
+    $scope.data1 = {
+        hide_online: 0,
+        hide_in_box_office:0
+      };
      $scope.items = items;
      $scope.min_price=true;
      $scope.change_price_type=function(){

@@ -498,6 +498,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
         
+        
         /* Setting for view discount screen */
         .state('view_discounts', {
             url: '/view_discounts/:list',
@@ -787,6 +788,19 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         })
         
         /// end Financial Setting routes
+        
+         ///////*advance setting*///////
+        .state('advance_setting', {
+            url: '/advance_setting',
+            
+            views: {
+                "lazyLoadView": {
+      
+                  templateUrl: 'modules/step_event/views/advance_setting.html'
+                }
+            }
+          
+        })
 
     
   }).run(['$rootScope', '$location','$state', '$localStorage', '$http',function($rootScope,$location, $state,$localStorage, $http) {

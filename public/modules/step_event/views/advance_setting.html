@@ -1,0 +1,920 @@
+<!-- <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" /> -->
+<!-- <script src="javascripts/timepicker.js" type="text/javascript"></script> -->
+<style>
+.border{
+	border: 5px solid black;
+}
+
+.col-md-4.col-sm-4{
+	padding-top: 3px;
+}
+
+textarea
+{
+width:80% !important;
+margin-left: 11px;
+}
+
+.inner-body{
+	width: 90%;
+	background: #F3F3F3;
+	margin: 40px auto;
+	padding: 20px;
+}
+.outer-body { background: #ffffff; width: 80%; margin: 0 auto;}
+
+</style>
+<h1>Event advance setting</h1>
+<div class="outer-body clearfix">
+<div class="inner-body">
+<!-- <h1>Event advance setting</h1> -->
+
+
+		<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test2">
+					<label for="test2">Hide Event time</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
+					<label class="onoffswitch-label" for="myonoffswitch"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+		<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test3">
+					<label for="test3">Hide Event Date and Time</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch1">
+					<label class="onoffswitch-label" for="myonoffswitch1"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+		<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test4">
+					<label for="test4">Hide Vanue Info</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2">
+					<label class="onoffswitch-label" for="myonoffswitch2"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+	<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test5">
+					<label for="test5">Hide "x days away"</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3">
+					<label class="onoffswitch-label" for="myonoffswitch3"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test5">
+					<label for="test5">Hide "x days away"</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4">
+					<label class="onoffswitch-label" for="myonoffswitch4"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+		<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test6">
+					<label for="test6">Hide Calender link</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5">
+					<label class="onoffswitch-label" for="myonoffswitch5"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test7">
+					<label for="test7">Hide Age limit</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch6">
+					<label class="onoffswitch-label" for="myonoffswitch6"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+		<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test8">
+					<label for="test8">Hide Price Range</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch7">
+					<label class="onoffswitch-label" for="myonoffswitch7"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+				<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test9">
+					<label for="test9">Hide "Best Aviliable"</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch8">
+					<label class="onoffswitch-label" for="myonoffswitch8"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+				<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test10">
+					<label for="test10">Hide Presale Date</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch9">
+					<label class="onoffswitch-label" for="myonoffswitch9"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+               <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test12"/><label for="test12"><b>Presale Instruction Text</b></label>
+                          <textarea name="textarea" class="form-control" cols="" rows="5"></textarea>
+                    	</section>
+                    </section>
+                     <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test13"/><label for="test13">Presale Placeholder Text</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="5"></textarea>
+                    	</section>
+                    </section>
+
+
+	<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test11">
+					<label for="test11">Hide Presale Event in Series</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch10">
+					<label class="onoffswitch-label" for="myonoffswitch10"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+	<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test12">
+					<label for="test12">Hide From Search Engine</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch11">
+					<label class="onoffswitch-label" for="myonoffswitch11"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+			<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test13">
+					<label for="test13">Hide Social Media</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch12">
+					<label class="onoffswitch-label" for="myonoffswitch12"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+			<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test14">
+					<label for="test14">Hide "Invite Friends"</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch13">
+					<label class="onoffswitch-label" for="myonoffswitch13"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+               <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test15"/><label for="test15">Checkout Text</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="5"></textarea>
+                    	</section>
+                    </section>
+
+
+
+               <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test16"/><label for="test16">Conformation Page Text</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="5"></textarea>
+                    	</section>
+                    </section>
+
+
+
+               <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test17"/><label for="test17">Recipt Remind Text</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="5"></textarea>
+                    	</section>
+                    </section>
+
+
+
+               <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test18"/><label for="test18">Conformation Email Text</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="5"></textarea>
+                    	</section>
+                    </section>
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test19">
+					<label for="test19">Hide Ticket Holder Name</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch14">
+					<label class="onoffswitch-label" for="myonoffswitch14"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test20">
+					<label for="test20">Don't Send Remind Email</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch15">
+					<label class="onoffswitch-label" for="myonoffswitch15"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test21">
+					<label for="test21">Hide Event Date/Time in Event Reminder</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch16">
+					<label class="onoffswitch-label" for="myonoffswitch16"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test22">
+					<label for="test22">Hide Vanue in Event Reminder</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch17">
+					<label class="onoffswitch-label" for="myonoffswitch17"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test23">
+					<label for="test23">Hide Ticket info in Event Reminder</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch18">
+					<label class="onoffswitch-label" for="myonoffswitch18"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+               <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test24"/><label for="test24">Custom Event Remind Message</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="5"></textarea>
+                    	</section>
+                    </section>
+
+
+
+
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test25">
+					<label for="test25">Hide Event Date on Ticket</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch19">
+					<label class="onoffswitch-label" for="myonoffswitch19"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test26">
+					<label for="test26">Use Late/Long Coords</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch20">
+					<label class="onoffswitch-label" for="myonoffswitch20"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test27">
+					<label for="test27">Hide Premiere Price Level Discount</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch21">
+					<label class="onoffswitch-label" for="myonoffswitch21"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+               <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test28"/><label for="test28">Additional Recipt Text</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="5"></textarea>
+                    	</section>
+                    </section>
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test29">
+					<label for="test29">Show Sale Barcode in Text</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch22">
+					<label class="onoffswitch-label" for="myonoffswitch22"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+		<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test30">
+					<label for="test30">Disable Autocomplete in The Box Office</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch23">
+					<label class="onoffswitch-label" for="myonoffswitch23"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+				<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test31">
+					<label for="test31">Dropdown For Reccuring Events</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch24">
+					<label class="onoffswitch-label" for="myonoffswitch24"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+		   <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test32"/><label for="test32">Sales Closed Message</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="2"></textarea>
+                    	</section>
+                    </section>
+
+
+                    <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test34"/><label for="test34">Custom Sold Out Message</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="2"></textarea>
+                    	</section>
+                    </section>
+
+
+
+                <section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test35">
+					<label for="test35">Embed - Show Navebar Saller Name</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch25">
+					<label class="onoffswitch-label" for="myonoffswitch25"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+        <section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test36">
+					<label for="test36">Embed - Show Header Banner</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch26">
+					<label class="onoffswitch-label" for="myonoffswitch26"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+ <section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test37">
+					<label for="test37">Embed - Hide Vanue Names On Events List</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch27">
+					<label class="onoffswitch-label" for="myonoffswitch27"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+		 <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test38"/><label for="test38">Footer Message On Event Pages</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="2"></textarea>
+                    	</section>
+                    </section>
+
+
+
+ <section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test39">
+					<label for="test39">Force Show On Seller Homepage</label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch28">
+					<label class="onoffswitch-label" for="myonoffswitch28"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+
+ <section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test40">
+					<label for="test40">Hide Stage Front </label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch29">
+					<label class="onoffswitch-label" for="myonoffswitch29"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+
+		 <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test41"/><label for="test41">Stage Front Name</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="2"></textarea>
+                    	</section>
+                    </section>
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test42">
+					<label for="test42">Lock Question Answer </label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch30">
+					<label class="onoffswitch-label" for="myonoffswitch30"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test44">
+					<label for="test44">Lock Ticket Names </label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch31">
+					<label class="onoffswitch-label" for="myonoffswitch31"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test45">
+					<label for="test45">Hide 'Back To Event Button </label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch32">
+					<label class="onoffswitch-label" for="myonoffswitch32"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+		 <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test46"/><label for="test46">Custom Shipping Text Instruction</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="1"></textarea>
+                    	</section>
+                    </section>
+
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test47">
+					<label for="test47">Upsell Matching Items </label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch33">
+					<label class="onoffswitch-label" for="myonoffswitch33"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test48">
+					<label for="test48">Ignore Cart Limit When Unselling </label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch34">
+					<label class="onoffswitch-label" for="myonoffswitch34"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test49">
+					<label for="test49">Hide 'Look For Different Seats' Option </label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch35">
+					<label class="onoffswitch-label" for="myonoffswitch35"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+
+		 <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test50"/><label for="test50">Analytics - Facebook Conversion Pixel ID</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="1"></textarea>
+                    	</section>
+                    </section>
+
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test51">
+					<label for="test51">Analytics - Facebook Audiance New Pixel </label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch36">
+					<label class="onoffswitch-label" for="myonoffswitch36"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+
+		 <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test52"/><label for="test52">Analytics - Facebook Custom Audiance Pixel ID</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="1"></textarea>
+                    	</section>
+                    </section>
+
+
+
+
+
+<section class="form-group field-group">
+			<section class="row">
+				<section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+					<p class="radio-inline">
+					<input type="checkbox" id="test53">
+					<label for="test53">Allow Extended Event Name </label>
+					</p>
+				</section>
+				<section class="col-md-4 col-sm-4">
+					<div class="onoffswitch mt-3">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch37">
+					<label class="onoffswitch-label" for="myonoffswitch37"></label>
+					</div>
+				</section>
+			</section>
+		</section>
+
+
+		 <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test54"/><label for="test54">Twitter Share Text </label>
+                          <textarea name="textarea" class="form-control" cols="" rows="1"></textarea>
+                    	</section>
+                    </section>
+
+
+
+
+
+		 <section class="radio-sec custom-check sm-8">
+                    	<section class="form-group">
+                            <input type="checkbox" id="test55"/><label for="test55">Twitter Share TEXT</label>
+                          <textarea name="textarea" class="form-control" cols="" rows="5"></textarea>
+                    	</section>
+                    </section>
+                          
+        <div class="editor-btn">
+        <button class="pink-btn btn">cancel</button>
+ 
+      </div>
+
+
+</div>
+
+</div>
