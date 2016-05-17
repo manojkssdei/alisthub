@@ -496,7 +496,9 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     $scope.ismeridian = ! $scope.ismeridian;
   };
   
-  
+  $scope.success_message=false;
+  $scope.error_message=true;
+
   $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
   $scope.custom_age=function(){
      $scope.age_div=$scope.age_text_div=true; 
@@ -528,10 +530,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   ]
   
   $scope.steps=[
-     { "title":"Events Details","icon":'fa fa-calendar','id':5},
-     { "title":"Price & Links","icon":'fa fa-tags','id':6},
-     { "title":"Look & Feel","icon":'fa fa-eye','id':7},
-     { "title":"Setting","icon":'fa fa-cog','id':8}
+     { "title":"Events Details","icon":'fa fa-calendar','id':5,"formname":'myForm'},
+     { "title":"Price & Links","icon":'fa fa-tags','id':6,"formname":'myForm'},
+     { "title":"Look & Feel","icon":'fa fa-eye','id':7,"formname":'myForm1'},
+     { "title":"Setting","icon":'fa fa-cog','id':8,"formname":'event-form'}
   ];
      
   $scope.selected=$scope.events[0];
@@ -545,25 +547,57 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   Created : 2016-04-25
   Created By:  Deepak khokkar  
   */
-  $scope.click_menu=function(menu) {
+  $scope.click_menu=function(menu,valid) {
+    var objectForm = this;
+    
     if (menu.id==5) {
       $scope.eventdetail_div=false;
       $scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=true;
     }
 
     if (menu.id==6) {
-      $scope.eventdetail_div=$scope.look_and_feel_div=$scope.setting_div=true;
-      $scope.price_and_link_div=false;
+      if(objectForm.myForm.$valid==true){
+        $scope.eventdetail_div=$scope.look_and_feel_div=$scope.setting_div=true;
+        $scope.price_and_link_div=false;  
+      } else {
+        $scope.error_message = false;
+        $scope.error="Please update the event detail data.";
+        $timeout(function() {
+            $scope.error='';
+            $scope.error_message=true;
+            $scope.error='';
+        },3000);
+      }
     }
 
     if (menu.id==7) {
-      $scope.eventdetail_div=$scope.price_and_link_div=$scope.setting_div=true;
-      $scope.look_and_feel_div=false;
+      if(objectForm.myForm.$valid==true){
+        $scope.eventdetail_div=$scope.price_and_link_div=$scope.setting_div=true;
+        $scope.look_and_feel_div=false;
+      } else {
+        $scope.error_message = false;
+        $scope.error="Please update the event detail data.";
+        $timeout(function() {
+            $scope.error='';
+            $scope.error_message=true;
+            $scope.error='';
+        },3000);
+      }
     }
 
     if (menu.id==8) {
-      $scope.eventdetail_div=$scope.look_and_feel_div=$scope.price_and_link_div=true;
-      $scope.setting_div=false;
+      if(objectForm.myForm.$valid==true){
+        $scope.eventdetail_div=$scope.look_and_feel_div=$scope.price_and_link_div=true;
+        $scope.setting_div=false;
+      } else {
+        $scope.error_message = false;
+        $scope.error="Please update the event detail data.";
+        $timeout(function() {
+            $scope.error='';
+            $scope.error_message=true;
+            $scope.error='';
+        },3000);
+      }
     }
     $scope.selected2 = menu;  
   }
@@ -955,7 +989,8 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
 });
 
   
-  angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope, $uibModalInstance, items,$rootScope) {
+  angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope, $uibModalInstance, items,$rootScope,$injector,$localStorage,$location) {
+    var $serviceTest = $injector.get("venues");
     $scope.items = items;
     $scope.selected = {
       item: $scope.items[0]
@@ -989,6 +1024,28 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
+
+    $scope.updateBundle = function(bundle) {
+        if ($localStorage.userId!=undefined) {
+            $scope.bundle.seller_id   = $localStorage.userId;
+            $scope.bundle.step   = 1;
+            $serviceTest.updateBundle($scope.bundle,function(response){
+                //console.log(response);
+                if (response.code == 200) {
+                    $scope.success_message = true;
+                    $scope.success="Bundle information has been added.";
+                    $timeout(function() {
+                        $scope.error='';
+                        $scope.success_message=false;
+                        $scope.success='';
+                    },3000);
+                } else {
+                   $scope.activation_message = global_message.ErrorInActivation;
+                }
+            });
+        }
+    };
+
   });
 
 
