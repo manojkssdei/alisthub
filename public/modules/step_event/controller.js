@@ -15,7 +15,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     var $serviceTest = $injector.get("venues");
      
     $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
-    
+    $rootScope.success_message1=false;
     $scope.days=[
       {id: '0', name: 'Sun'},
       {id: '1', name: 'Mon'},
@@ -745,7 +745,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     });
   };
   //delete Price level
-  $scope.delete_price_level = function (size) {
+  $scope.delete_price_level = function (size,index,price_id) {
+    
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'deletePricelevel.html',
@@ -753,6 +754,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       size: size,
       resolve: {
         items: function () {
+            $rootScope.delete_price_level_id=index;
+            $rootScope.price_leveldelete_id=price_id;
           return $scope.items;
         }
       }
@@ -1002,7 +1005,8 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
   };
 });
 
-angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {
+angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
+    
      $scope.items = items;
     $scope.selected = {
       item: $scope.items[0]
@@ -1012,16 +1016,29 @@ angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $
     $uibModalInstance.dismiss('cancel');
   };
   
-  $scope.remove=function(index){
-  
-    $scope.price_level.splice(index,1);
-   
+  $scope.remove=function(){
+ 
+  var $serviceTest = $injector.get("venues");
+   $serviceTest.removepricelevel({'price_leveldelete_id':$rootScope.price_leveldelete_id},function(response){
+    if (response.code==200) {
+        $rootScope.success_message1 = true;
+                    $rootScope.success1="Price level has been removed.";
+                    $timeout(function() {
+                        $rootScope.error='';
+                        $rootScope.success_message1=false;
+                        $rootScope.success1='';
+                    },3000);
+        $rootScope.price_level.splice($rootScope.delete_price_level_id,1);
+    }
     $uibModalInstance.close($scope.selected.item);
+      
+   });
+  
   }
   
 });
 
-angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {
+angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
     var $serviceTest = $injector.get("venues");
     $scope.data1 = {
         hide_online: 0,
@@ -1076,6 +1093,13 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
              {
               $scope.data1=$rootScope.price_level=[];
               $serviceTest.getPricelevel({'eventId':data1.eventId},function(response){
+                $rootScope.success_message1 = true;
+                    $rootScope.success1="Price level has been added.";
+                    $timeout(function() {
+                        $rootScope.error='';
+                        $rootScope.success_message1=false;
+                        $rootScope.success1='';
+                    },3000);
                 $rootScope.price_level=response.results;
               });
               $uibModalInstance.dismiss('cancel'); 

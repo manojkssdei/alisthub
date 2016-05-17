@@ -450,7 +450,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                       </section>
                     </section>
                   <section class="grid-widget">
-                   
+                  <span ng-show="success_message1" ><p class="success-fld ng-binding">{{success1}}</p></span> 
       	  <div class="table-responsive">
           	  
 
@@ -475,7 +475,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <td class="numbers">${{price.online_price}}</td>
                 <td class="numbers">${{price.box_office_price}}</td>
                 <td class="numbers">{{price.max_per_order}}</td>
-                <td class="action"><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a href="javascript:void(0)"><i class="fa fa-check-circle"></i></a><a ng-click="delete_price_level($index)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
+                <td class="action"><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a href="javascript:void(0)"><i class="fa fa-check-circle"></i></a><a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
             </tr>
            
            

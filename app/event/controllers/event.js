@@ -148,7 +148,7 @@ exports.savepricelevel=function(req,res){
 
 exports.getPricelevel=function(req,res){
     var eventId=req.body.eventId;
-    var sql="SELECT * FROM price_levels";
+    var sql="SELECT * FROM price_levels where event_id="+eventId;
     
     connection.query(sql,function(err,result){
        
@@ -156,6 +156,20 @@ exports.getPricelevel=function(req,res){
            res.send({err:"error",code:101}); 
         }
            res.send({"results":result,code:200});  
+        
+    });
+}
+
+exports.removepricelevel=function(req,res){
+    var price_leveldelete_id=req.body.price_leveldelete_id;
+    var sql="Delete FROM price_levels where id="+price_leveldelete_id;
+    
+    connection.query(sql,function(err,result){
+       
+        if (err) {
+           res.send({err:"error",code:101}); 
+        }
+           res.send({"message":"success",code:200});  
         
     });
 }

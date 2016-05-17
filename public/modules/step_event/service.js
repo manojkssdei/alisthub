@@ -36,6 +36,12 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 			callback(res.data);
 		});
   };
+  
+  url.removepricelevel = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.removepricelevel,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+			callback(res.data);
+		});
+  };
 
   url.updateBundle = function(jsondata,callback){
     communicationService.resultViaPost(webservices.addBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
