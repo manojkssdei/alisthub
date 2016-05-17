@@ -11,14 +11,14 @@
              <div class="col-sm-4 section-col" ng-class="{ 'has-error' : productoverviewform.tax_rate.$invalid && !productoverviewform.tax_rate.$pristine }">
               <label>Tax Rate</label>
                <input type="number"  name="tax_rate" ng-model="products.tax_rate" class="form-control" placeholder="%">
-            <p ng-show="productoverviewform.tax_rate.$invalid && !productoverviewform.tax_rate.$pristine" class="help-block">Enter Numbers or decimal Only.</p>
+            <p ng-show="productoverviewform.tax_rate.$invalid && !productoverviewform.tax_rate.$pristine" class="error-fld ng-binding">Enter Numbers or decimal Only.</p>
                   </div>
 
    
   <div class="col-sm-4 section-col"ng-class="{ 'has-error' : productoverviewform.flat_fee.$invalid && !productoverviewform.flat_fee.$pristine }">
                     <label>Shiping Flat Fee </label>
                     <input type="number" name="flat_fee"  ng-model="products.flat_fee" class="form-control" placeholder="$">
-                            <p ng-show="productoverviewform.flat_fee.$invalid && !productoverviewform.flat_fee.$pristine" class="help-block">Enter Numbers or decimal Only.</p> 
+                            <p ng-show="productoverviewform.flat_fee.$invalid && !productoverviewform.flat_fee.$pristine" class="error-fld ng-binding">Enter Numbers or decimal Only.</p> 
                   
                   </div>
 
@@ -26,13 +26,13 @@
          <div class="col-sm-4 section-col"ng-class="{ 'has-error' : productoverviewform.service_fee.$invalid && !productoverviewform.service_fee.$pristine }">
           <label> Service Fee Covered</label>
           <input type="number" class="form-control" name="service_fee"    ng-model="products.service_fee" placeholder="%"/>
-            <p ng-show="productoverviewform.service_fee.$invalid && !productoverviewform.service_fee.$pristine" class="help-block">Enter Numbers or decimal Only.</p> 
+            <p ng-show="productoverviewform.service_fee.$invalid && !productoverviewform.service_fee.$pristine" class="error-fld ng-binding">Enter Numbers or decimal Only.</p> 
         </div>
 
       <div class="col-sm-12 editr" ng-class="{ 'has-error' : productoverviewform.description.$invalid && !productoverviewform.description.$pristine }">
         <label>Description</label>
          <div ckeditor="option_ckeditor" ng-model="products.description" ready="onReady()"></div>
-        <p ng-show="productoverviewform.description.$invalid && !productoverviewform.description.$pristine" class="help-block">Enter Description.</p>
+        <p ng-show="productoverviewform.description.$invalid && !productoverviewform.description.$pristine" class="error-fld ng-binding">Enter Description.</p>
 
       </div>
 </div>

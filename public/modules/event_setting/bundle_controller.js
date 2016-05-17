@@ -1,6 +1,10 @@
 angular.module('alisthub')
 .controller('bundleController', function($scope,$localStorage,$injector,$http,$state,$location,$timeout) {
    
+  if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+  } 
+  
   var $serviceTest = $injector.get("bundles");
     
     if(window.innerWidth>767){ 

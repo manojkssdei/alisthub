@@ -36,7 +36,7 @@
           <label for="EventName"> Name<span class="req">*</span></label>
           <input type="text" class="form-control" name="product_name" placeholder="Product name" ng-model="data.product_name" required/>
         </div>
-	<p ng-show="userForm.product_name.$invalid && !userForm.product_name.$pristine" class="help-block">Enter Name.</p>
+	<p ng-show="userForm.product_name.$invalid && !userForm.product_name.$pristine" class="error-fld ng-binding">Enter Name.</p>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
@@ -87,7 +87,7 @@
       <div class="editr" ng-class="{ 'has-error' : userForm.description.$invalid && !userForm.description.$pristine }">
         <label>Description</label>
          <div ckeditor="option_ckeditor" ng-model="data.description" ready="onReady()"></div>
-        <p ng-show="userForm.description.$invalid && !userForm.description.$pristine" class="help-block">Enter Description.</p>
+        <p ng-show="userForm.description.$invalid && !userForm.description.$pristine" class="error-fld ng-binding">Enter Description.</p>
       </div>
       
        </div>
@@ -195,7 +195,7 @@
           <label for="EventName"> Retail Price<span class="req">*</span></label>
           <input type="number" class="form-control" name="retail_price" placeholder="Product Price" ng-model="data.retail_price" ng-blur="calculateBuyerPrice()" required/>
         </div>
-	<p ng-show="userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine" class="help-block">Enter Retail Price.</p>
+	<p ng-show="userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine" class="error-fld ng-binding">Enter Retail Price.</p>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
@@ -268,7 +268,7 @@
           </div>
 	 </div>
 	
-	<p ng-show="userForm3.configuration.$invalid && !userForm3.configuration.$pristine" class="help-block">Enter Configuration.</p>
+	<p ng-show="userForm3.configuration.$invalid && !userForm3.configuration.$pristine" class="error-fld ng-binding">Enter Configuration.</p>
       </div>
       
       
@@ -281,7 +281,7 @@
 	<div class="form-group" ng-show="!data_configuration" ng-class="{ 'has-error' : userForm3.inventory.$invalid && !userForm3.inventory.$pristine }">
           <label for="EventName"> Inventory <span class="req">*</span></label>
           <input type="number" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration"/>
-        <p ng-show="userForm3.inventory.$invalid && !userForm3.inventory.$pristine" class="help-block">Enter Inventory.</p>
+        <p ng-show="userForm3.inventory.$invalid && !userForm3.inventory.$pristine" class="error-fld ng-binding">Enter Inventory.</p>
 	</div>
 	
       </div>
@@ -296,7 +296,7 @@
 	 <input type="number" name="pre_sale_limit" class="form-control"  ng-model="data.pre_sale_limit" ng-required="!data_configuration">
 	</div>
 	
-	<p ng-show="userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine" class="help-block">Enter Pre Sale Limit.</p>
+	<p ng-show="userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine" class="error-fld ng-binding">Enter Pre Sale Limit.</p>
       </div>
       
       

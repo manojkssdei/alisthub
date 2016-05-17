@@ -223,6 +223,7 @@ input[type="radio"] + label span:after { position: absolute; height: 12px; width
 input[type="radio"]:checked + label span:after { background-color: #c129b9; }
 input[type="radio"] + label span, input[type="radio"]:checked + label span { -webkit-transition: background-color 0.2s linear; -o-transition: background-color 0.2s linear; -moz-transition: background-color 0.2s linear; transition: background-color 0.2s linear; }
 input[type="radio"].assignEvents { display: block; }
+
 /*===========Radio===========*/
 
 .custom-check input[type="checkbox"]:not(:checked),

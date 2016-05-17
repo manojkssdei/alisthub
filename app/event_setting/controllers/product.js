@@ -342,3 +342,29 @@ exports.getProductSetting = function(req,res){
      res.json({result:results,code:200});
   });
 }
+
+/** 
+Method: exportProductSales
+Description:Function to export the product sales 
+Created : 2016-05-16
+Created By: Manoj kumar  Singh
+*/ 
+exports.exportProductSales = function(req,res){
+  res.csv([
+        ["order_id", "product_name", "product_model", "UPC", "UPC_name", "UPC_display", "SKU", "SKU_name", "SKU_display", "sale_send_date", "cost", "tax", "shipping_fee", "fulfiller_fee", "buyer_fee", "seller_fee", "shipping_name", "shipping_address", "shipping_address_2", "shipping_city", "shipping_state", "shipping_zip", "shipping_country", "purchase_for", "email", "billing_address", "billing_address_2", "billing_city", "billing_state", "billing_zip", "billing_country", "event", "event_start", "legacy_sale_id"]
+     ]);
+}
+
+exports.exportProductSalesQuery = function(req,res){
+ query = connection.query('select * from products', function(err, rows, fields) {
+                if (err) {
+                    res.send(err);
+                }
+                var headers = {};
+                for (key in rows[0]) {
+                    headers[key] = key;
+                }
+                rows.unshift(headers);
+                res.csv(rows);
+        });
+}

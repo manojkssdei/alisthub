@@ -6,7 +6,7 @@
     <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
 
     <div class="wt-frame form-section">
-	    <form name="accountinfo" class="event-form"  ng-submit="accountinfo.$valid && updateUser(userdetail)" novalidate>
+	    <form name="accountinfo" class="event-form" ng-submit="accountinfo.$valid && updateUser(userdetail)" novalidate>
         <section class="module">
             <section class="prof-hd" ng-click="openTab(1)">
                 <i class="fa fa-cog hdicon pos-l16"></i>
@@ -119,14 +119,14 @@
                             <input type="text" class="form-control" ng-model="data.oldpass" name="oldpass" placeholder="Old Password" required>
                                                           
                           </div>
-			  <p ng-show="accountpassword.oldpass.$invalid && !accountpassword.oldpass.$pristine" class="help-block">Enter Old Password.</p>
+			  <p ng-show="accountpassword.oldpass.$invalid && !accountpassword.oldpass.$pristine" class="error-fld ng-binding">Enter Old Password.</p>
                         </div>
                         <div class="col-sm-4" ng-class="{ 'has-error' : accountpassword.newpass.$invalid && !accountpassword.newpass.$pristine }">
                           <div class="form-group">
                             <label for="Zipcode">New Password<span class="req">*</span></label>
                             <input type="text" class="form-control" ng-model="data.newpass" name="newpass" placeholder="New Password" required>                                                  
                           </div>
-			  <p ng-show="accountpassword.newpass.$invalid && !accountpassword.newpass.$pristine" class="help-block">Enter New Password.</p>
+			  <p ng-show="accountpassword.newpass.$invalid && !accountpassword.newpass.$pristine" class="error-fld ng-binding">Enter New Password.</p>
                         </div>
 			<div class="col-sm-4" ng-class="{ 'has-error' : accountpassword.confirmpass.$invalid && !accountpassword.confirmpass.$pristine }">
                           <div class="form-group">
@@ -134,7 +134,7 @@
                             <input type="text" class="form-control" ng-model="data.confirmpass" name="confirmpass" placeholder="Confirm Password"  required>
                                                        
                           </div>
-			  <p ng-show="accountpassword.confirmpass.$invalid && !accountpassword.confirmpass.$pristine" class="help-block">Enter Confirm Password.</p>
+			  <p ng-show="accountpassword.confirmpass.$invalid && !accountpassword.confirmpass.$pristine" class="error-fld ng-binding">Enter Confirm Password.</p>
                         </div>
                       </div>
 

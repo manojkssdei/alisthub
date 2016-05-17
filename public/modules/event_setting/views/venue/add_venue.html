@@ -24,7 +24,7 @@
 			      <option>Seated</option>
                             </select>
                           </div>
-			  <p ng-show="userForm.venue_type.$invalid && !userForm.venue_type.$pristine" class="help-block">Select Venue type.</p>
+			  <p ng-show="userForm.venue_type.$invalid && !userForm.venue_type.$pristine" class="error-fld ng-binding">Select Venue type.</p>
                         </div>
                       </div>
                       <div class="row">
@@ -33,7 +33,7 @@
                             <label for="Venue">Venue<span class="req">*</span></label>
                             <input type="text" class="form-control" name="venue_name" ng-model="data.venue_name" required>
                           </div>
-			  <p ng-show="userForm.venue_name.$invalid && !userForm.venue_name.$pristine" class="help-block">Enter Venue name.</p>
+			  <p ng-show="userForm.venue_name.$invalid && !userForm.venue_name.$pristine" class="error-fld ng-binding">Enter Venue name.</p>
                         </div>
                       </div>
                       <div class="row">
@@ -42,7 +42,7 @@
                             <label for="Address">Address<span class="req">*</span></label>
                             <input type="text" class="form-control" name="place" ng-model="place"  g-places-autocomplete required>
                           </div>
-			  <p ng-show="userForm.place.$invalid && !userForm.place.$pristine" class="help-block">Enter Address.</p>
+			  <p ng-show="userForm.place.$invalid && !userForm.place.$pristine" class="error-fld ng-binding">Enter Address.</p>
                         </div>
                       </div>
                       <div class="row">
@@ -51,14 +51,14 @@
                             <label for="City">City<span class="req">*</span></label>
                             <input type="text" class="form-control" name="city" ng-model="data.city" required>
                           </div>
-			  <p ng-show="userForm.city.$invalid && !userForm.city.$pristine" class="help-block">Enter City.</p>
+			  <p ng-show="userForm.city.$invalid && !userForm.city.$pristine" class="error-fld ng-binding">Enter City.</p>
                         </div>
                         <div class="col-sm-6" ng-class="{ 'has-error' : userForm.zipcode.$invalid && !userForm.zipcode.$pristine }">
                           <div class="form-group">
                             <label for="Zipcode">Zipcode<span class="req">*</span></label>
                             <input type="text" class="form-control" name="zipcode" ng-model="data.zipcode" required>
                           </div>
-			  <p ng-show="userForm.zipcode.$invalid && !userForm.zipcode.$pristine" class="help-block">Enter Zipcode.</p>
+			  <p ng-show="userForm.zipcode.$invalid && !userForm.zipcode.$pristine" class="error-fld ng-binding">Enter Zipcode.</p>
                         </div>
                       </div>
                       <div class="row">
@@ -67,14 +67,14 @@
                             <label for="City">State<span class="req">*</span></label>
 			    <input type="text" class="form-control" name="state" ng-model="data.state" required>                            
                           </div>
-			   <p ng-show="userForm.state.$invalid && !userForm.state.$pristine" class="help-block">Enter State.</p>
+			   <p ng-show="userForm.state.$invalid && !userForm.state.$pristine" class="error-fld ng-binding">Enter State.</p>
                         </div>
                         <div class="col-sm-6" ng-class="{ 'has-error' : userForm.country.$invalid && !userForm.country.$pristine }">
                           <div class="form-group">
                             <label for="Zipcode">Country<span class="req">*</span></label>
                             <input type="text" class="form-control" name="country" ng-model="data.country" required>                           	    
                           </div>
-			  <p ng-show="userForm.country.$invalid && !userForm.country.$pristine" class="help-block">Enter Country.</p>
+			  <p ng-show="userForm.country.$invalid && !userForm.country.$pristine" class="error-fld ng-binding">Enter Country.</p>
                         </div>
                       </div>
 		       <div class="row">

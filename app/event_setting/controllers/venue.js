@@ -54,8 +54,9 @@ Created : 2016-04-19
 Created By: Manoj kumar  
 */
 exports.addVenue = function(req,res) {
+
      var photoname =  chartname = "";
-     
+
      if(req.body.timezone == undefined) { req.body.timezone = ''; }
      if(req.body.capacity == undefined) { req.body.capacity = ''; }
      if(req.body.contact_name == undefined) { req.body.contact_name = ''; }
