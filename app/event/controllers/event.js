@@ -130,7 +130,7 @@ exports.getEvent=function(req,res) {
 
 exports.savepricelevel=function(req,res){
     var data=req.body;
-    
+   
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
    
     if (data.price_level!=undefined) {

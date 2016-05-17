@@ -30,19 +30,15 @@ angular.module('alisthub')
     
     $scope.quesoptions.push({id:$scope.count,question_id:1,option:"",created:""});
   }
-  $scope.removeMoreRow = function(key)
+  $scope.removeMoreRow = function(key,id)
   {
-    //$scope.addmore.pop(key);
     $scope.addmore.splice(key, 1);
-    $scope.addmore.pop(key);
+    $scope.data.option[id] = null;
+    
   }
   $scope.removeMoreRowKey = function(key,id)
   {
     $scope.quesoptions.splice(key, 1);
-    console.log("============");
-    console.log(id);
-    console.log($scope.data.option[id]);
-    console.log("============");
     $scope.data.option[id] = null;
   }
   
