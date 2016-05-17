@@ -449,6 +449,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                       </section>
                     </section>
                   <section class="grid-widget">
+                   
       	  <div class="table-responsive">
           	  
 
@@ -465,15 +466,16 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </tr>
         </thead>
         <tbody>
-           <!-- <tr>
-                <td><strong>Balcony</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
+          
+            <tr ng-repeat="price in price_level">
+                <td><strong>{{price.price_level_name}}</strong></td>
+                <td class="numbers">0</td>
+                <td class="numbers">{{price.quantity_available}}</td>
+                <td class="numbers">${{price.online_price}}</td>
+                <td class="numbers">${{price.box_office_price}}</td>
+                <td class="numbers">{{price.max_per_order}}</td>
                 <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>-->
+            </tr>
            
            
 
@@ -603,7 +605,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     </section>
                   <section class="grid-widget">
       	  <div class="table-responsive">
-          	   
+          	  
 
     <table class="table table-striped">
         <thead>
@@ -618,6 +620,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </tr>
         </thead>
         <tbody>
+          
            <!-- <tr>
                 <td><strong>Balcony</strong></td>
                 <td class="numbers">12</td>

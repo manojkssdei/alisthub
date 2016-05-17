@@ -2,6 +2,7 @@ angular.module("google.places",[]);
 angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
    //For Step 1
     var $serviceTest = $injector.get("venues");
+    
     $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
     
     $scope.days=[
@@ -18,6 +19,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                  {id:11},{id:12},{id:13},{id:14},{id:15},{id:16},{id:17},{id:18},{id:19},{id:20},
                  {id:21},{id:22},{id:23},{id:24},{id:25},{id:26},{id:27},{id:28},{id:29},{id:30},{id:31}
                  ];
+    $eventId=$localStorage.eventId;
+    $serviceTest.getPricelevel({'eventId':$eventId},function(response){
+        
+        $rootScope.price_level=response.results;
+    });
     $scope.change_month=function(){
       
        var monthly_start=new Date($scope.multiple_start_date);
@@ -931,9 +937,9 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
               if (response!=null) {
             if (response.code==200)
              {
-              $scope.data1=[];
+              $scope.data1=$rootScope.price_level=[];
               $serviceTest.getPricelevel({'eventId':data1.eventId},function(response){
-                console.log(response);
+                $rootScope.price_level=response.results;
               });
               $uibModalInstance.dismiss('cancel'); 
              }
