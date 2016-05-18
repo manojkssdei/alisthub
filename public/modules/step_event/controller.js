@@ -10,7 +10,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
    
   if (!$localStorage.isuserloggedIn) {
       $state.go('login');
-  } 
+  }
+  $scope.loader = false;
    //For Step 1
     var $serviceTest = $injector.get("venues");
      
@@ -179,6 +180,48 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
           }
         } 
     }
+    
+    //update price level
+    $scope.getPrice=function(id){
+        $rootScope.data1={};
+        $serviceTest.getSinglePricelevel({'id':id},function(response){
+            if (response.code==200) {
+                $scope.open_price_level('lg');
+                
+                $rootScope.data1=response.results[0];
+                
+            }
+           
+            
+           
+        }); 
+    }
+    
+    //change status of price level
+    $scope.changeStatus = function(id,status) {
+        
+        $scope.data = {};
+        if ($localStorage.userId!=undefined) {
+        $scope.data.id   = id;
+         $scope.data.status   = status==1?0:1;
+         $scope.loader = true;
+        $serviceTest.changePricelevelStatus($scope.data,function(response){
+            
+            if (response.code == 200) {
+                     $eventId=$localStorage.eventId;
+                    $serviceTest.getPricelevel({'eventId':$eventId},function(response){
+                        
+                        $rootScope.price_level=response.results;
+                    });
+                    $scope.loader = false;
+                  }else{
+                    $scope.activation_message = global_message.ErrorInActivation;
+                    $scope.loader = false;
+            }
+            
+        });
+        }
+  };
     
     /** 
     Method: savedata
@@ -1040,6 +1083,12 @@ angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $
 
 angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
     var $serviceTest = $injector.get("venues");
+    $scope.data1=$rootScope.data1;
+    console.log($scope.data1);
+    console.log($rootScope.data1);
+    if ($rootScope.data1!=undefined) {
+        
+    }
     $scope.data1 = {
         hide_online: 0,
         hide_in_box_office:0

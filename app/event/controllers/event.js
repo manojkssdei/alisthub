@@ -173,3 +173,41 @@ exports.removepricelevel=function(req,res){
         
     });
 }
+/** 
+Method: changePricelevelStatus
+Description:Function to change Price level data status 
+Created : 2016-05-18
+Created By: Deepak khokhar  
+*/
+exports.changePricelevelStatus = function(req,res) { 
+  connection.query("UPDATE price_levels SET is_active='"+req.body.status+"' where id="+req.body.id, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
+}
+
+
+/** 
+Method: updatePricelevel
+Description:Function to change Price level data status 
+Created : 2016-05-18
+Created By: Deepak khokhar  
+*/
+exports.getSinglePricelevel = function(req,res) {
+    
+   var sql="select * FROM price_levels where id="+req.body.id;
+    
+    connection.query(sql,function(err,result){
+       
+        if (err) {
+           res.send({err:"error",code:101}); 
+        }else{
+           res.send({"results":result,code:200}); 
+        }
+             
+        
+        
+    });
+}
