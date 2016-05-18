@@ -741,14 +741,35 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
 
-       /* Setting for add financial setting screen */
+       /* Setting for add alist financial setting screen */
         .state('add_financial_setting', {
-            url: '/add_financial_setting/:id',
+            url: '/add_financial_setting/alist',
             
             views: {
                 "lazyLoadView": {
                   controller: 'accountController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/account/views/user/add_financial_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                })
+              }]
+            }
+        })
+
+        /* Setting for adding custom financial setting screen */
+        .state('add_custom_financial_setting', {
+            url: '/add_financial_setting/custom',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'accountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/account/views/user/custom_financial_setting.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -844,6 +865,32 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         $state.go('login');
     }
     ///////////////////////////////////////////////////////////
+    
+    
+    }])
+
+ .directive('ngConfirmClicks', [
+
+    function(){
+        return {
+            priority: 1,
+            terminal: true,
+            link: function (scope, element, attr) {
+                var msg = attr.ngConfirmClick || "Are you sure?";
+                var clickAction = attr.ngClick;
+                element.bind('click',function (event) {
+                    if ( window.confirm(msg) ) {
+                        scope.$eval(clickAction)
+                    }
+                });
+            }
+        };
+}])
+
+routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state)
+{
+
+
     // checktoken expiry time
     // check web services
     var serviceUrl  = webservices.checkTokenExpiry;
@@ -884,74 +931,6 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
                                
                 });
-    
-    
-    /////////////////////////////////////////////////////////
-    
-    }])
-
- .directive('ngConfirmClicks', [
-
-    function(){
-        return {
-            priority: 1,
-            terminal: true,
-            link: function (scope, element, attr) {
-                var msg = attr.ngConfirmClick || "Are you sure?";
-                var clickAction = attr.ngClick;
-                element.bind('click',function (event) {
-                    if ( window.confirm(msg) ) {
-                        scope.$eval(clickAction)
-                    }
-                });
-            }
-        };
-}])
-
-routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state)
-{
-
-
-    // checktoken expiry time
-    // check web services
-    /*var serviceUrl  = webservices.checkTokenExpiry;
-    var serviceUrl2 = webservices.refreshTokenExpiry;
-    var jsonData = {};
-    jsonData.token = $localStorage.auth_token;
-
-              
-               
-               $http({
-                 url: serviceUrl,
-                 method: 'POST',
-                 data: jsonData,
-                 headers: {
-                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                        "Accept": "application/json",
-                 },
-                 
-                }).success(function(data, status, headers, config) {
-                
-                if (data.code == 101)
-                {
-                    $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
-                    $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
-                    
-                    $rootScope.email=$localStorage.email="";
-                    $rootScope.name=$localStorage.name="";
-                    $rootScope.access_token=$localStorage.access_token="";
-                    $rootScope.auth_token=$localStorage.auth_token="";
-                    $rootScope.phone_no=$localStorage.phone_no="";
-                    $rootScope.userId=$localStorage.userId="";
-                    $rootScope.address=$localStorage.address="";
-                    
-                    localStorage.clear();
-                    $state.go('login');
-                    
-                    
-                }
-                               
-                });*/
        
 };
 

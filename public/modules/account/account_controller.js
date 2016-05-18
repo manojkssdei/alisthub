@@ -19,8 +19,10 @@ angular.module('alisthub')
   $scope.enableState = true;
   $scope.error_message = false;
   $scope.success_message = false; 
+  console.log('$state.current.name' , $state.current.name);
 
 /* View state field when country is US and disble in all other country cases*/
+  
   $scope.showState = function()
   {
     if ($scope.user.country != "US") {
@@ -32,7 +34,7 @@ angular.module('alisthub')
   }
 
 /* Fetch the existing financial details of seller*/
-  if ($localStorage.userId!=undefined) {
+  if ($localStorage.userId!=undefined && $state.current.name == "add_financial_setting") {
         $scope.user.userId      = $localStorage.userId;
         $serviceTest.getFinancialDetails($scope.user,function(response){
             if (response.code == 200) {
@@ -41,7 +43,7 @@ angular.module('alisthub')
         });
         
   }
-  
+
 /* Check mandatory fields */
   $scope.checkMandatoryFields = function(mandatoryFields) {
           var errorExist = 0;
