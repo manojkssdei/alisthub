@@ -57,6 +57,8 @@ var webservices = {
     "changeDiscountStatus" :  "/event_setting/changeDiscountStatus",
     "deleteDiscount" :  "/event_setting/deleteDiscount",
     "makeDiscountAssignment"  :  "/event_setting/makeDiscountAssignment",
+    "exportDiscountCSV"  :  "/event_setting/exportDiscountCSV",
+    "getSelectedDiscount" :  "/event_setting/getSelectedDiscount",
 
     /* Constants for the bundle module */
     "getBundles": "/event_setting/getBundles",
@@ -93,7 +95,8 @@ var global_message = {
     "ErrorInActivation" : "There is some problem in server , Please try some time.",
     "QuestionAddValidation" : "Please fill all mandatory fields.",
     "LoginNotMatchingError" : "The email and password you entered don't match.",
-    "EmailEmpty" : "Enter a valid email "
+    "EmailEmpty" : "Enter a valid email ",
+    "LoginAuthNotMatchingError" : "Your account has not been activated till now . Please go to email to complete activation process."
 }
 
 var appConstants = {

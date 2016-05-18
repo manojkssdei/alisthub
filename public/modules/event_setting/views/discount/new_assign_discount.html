@@ -21,44 +21,121 @@
                <div><p class="success-fld" ng-show="success_message">{{success}}</p></div>
           </div>
 
-              <div class="row">
+          <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="tab-content">
                     <div role="tabpanel">
                      
+                      <div class="row" ng-repeat="list in discountlist">
+                         <div class="col-sm-4">
+                          <div class="form-group">
+                            <label for="EventName">&nbsp;</label>
+                            <strong>Discount Name</strong>
+                          </div>
+                         </div>
+                         
+                         <div class="col-sm-2">
+                          <div class="form-group">
+                            <label for="EventName">&nbsp;</label>
+                            <strong>Discount Code</strong>
+                          </div>
+                         </div>
+                         
+                         <div class="col-sm-2 pull-left text-left lss-top">
+                          <div class="form-group">
+                            <label for="EventName">&nbsp;</label>
+                             <strong>Action</strong>
+                          </div>
+                         </div>
+                         <div class="col-sm-4 pull-left text-left lss-top">
+                          <div class="form-group">
+                            <label for="EventName">&nbsp;</label>
+                             &nbsp;
+                          </div>
+                         </div>
+                         
+                      </div>
+                     </div>
+                    </div>
+                  <!-- Tab panes -->
+                </div>
+                <div class="col-sm-12 col-md-6"></div>
+           </div>
+          
+          <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="tab-content">
+                    <div role="tabpanel">
+                     
+                      <div class="row" ng-repeat="list in discountlist">
+                         <div class="col-sm-4">
+                          <div class="form-group">
+                            <label for="EventName">&nbsp;</label>
+                            {{list.coupon_name}}
+                          </div>
+                         </div>
+                         
+                         <div class="col-sm-2">
+                          <div class="form-group">
+                            <label for="EventName">&nbsp;</label>
+                            {{list.coupon_code}}
+                          </div>
+                         </div>
+                         
+                         <div class="col-sm-2 pull-left text-left lss-top">
+                          <div class="form-group">
+                            <label for="EventName">&nbsp;</label>
+                             <a ng-click="removediv($index,list.id)"><i class="fa fa-close"></i></a>
+                          </div>
+                         </div>
+                        
+                        <div class="col-sm-2 pull-left text-left lss-top">
+                          <div class="form-group">
+                            <label for="EventName">&nbsp;</label>
+                             &nbsp;
+                          </div>
+                         </div>
+                        
+                      </div>
+                     </div>
+                    </div>
+                  <!-- Tab panes -->
+                </div>
+                <div class="col-sm-12 col-md-6"></div>
+           </div>
+          
+          
+          
+          <div class="row">
+               <div class="col-sm-12 col-md-12">
+                    <div class="tab-content">
+                    <div role="tabpanel">
+                     
                       <div class="row">
-                        <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine }" >
+                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine }" >
                           <div class="form-group">
                             <label for="EventName">Select Coupon<span class="req">*</span></label>
                             <select class="form-control" name="coupon_code" ng-model="data.coupon_code" ng-required="true" >
-                            <!--<option ng-repeat="x in coupon_code" value="{{x.model}}">{{x.model}}</option>-->
-                            <option>Static coupon one</option>
-                            <option>Static coupon two</option>
-                            <option>Static coupon three</option>
-                            <option>Static coupon four</option>
-                          </select>
+                            <option ng-repeat="list in discountlist" value="{{list.id}}">{{list.coupon_name}}({{list.coupon_code}})</option>
+                            </select>
                           </div>
         <p ng-show="userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine" class="help-block">Select coupon code.</p>
                         </div>
 
-                        <div class="col-sm-8" ng-class="{ 'has-error' : userForm.events.$invalid && !userForm.events.$pristine }" >
+                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.events.$invalid && !userForm.events.$pristine }" >
                           <div class="form-group">
                             <label for="EventName">Select one or more events</label>
-                              <input type="radio" class="assignEvents" value="all" name="events" ng-model="data.events" /> Apply coupon(s) globally across all events
-                              <input type="radio" class="assignEvents" value="one" name="amount_target" ng-model="data.amount_target" />Assign to individual event and pricing levels
+                              <input type="radio" class="assignEvents" value="all" name="events" ng-click="enableBox(1)" ng-model="data.events" /> Apply coupon(s) globally across all events
+                              <input type="radio" class="assignEvents" value="one" name="amount_target" ng-click="enableBox(2)"  ng-model="data.events" />Assign to individual event and pricing levels
                           </div>
 
         <p ng-show="userForm.events.$invalid && !userForm.events.$pristine" class="error-fld ng-binding">Select event.</p>
 
                         </div>
                       </div>
-
-
+                     </div>
                     </div>
-                  </div>
-                  
                   <!-- Tab panes -->
-                  
                 </div>
                 <div class="col-sm-12 col-md-6"></div>
     
@@ -71,7 +148,7 @@
          </div>
 
 
-             <div class="module">
+  <div class="module" ng-show="enable_coupan_box">
   <section class="prof-hd" > <!-- add  class="prof-hd"if u need to display this as tab -->
    <i class="fa fa-link hdicon pos-l16"></i>
     <h2> Coupon Limiting <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
@@ -103,7 +180,7 @@
 <option>UTC-9: Alaska Standard Time (AKST)</option>
 <option>UTC-10: Hawaii-Aleutian Standard Time (HST)</option>
 <option>UTC-11: Samoa Standard Time</option>
-<option>UTC+10:Chamorro Standard Time</option>
+<option>UTC+10: Chamorro Standard Time</option>
           </select>
         </div>
       </div>
@@ -120,7 +197,7 @@
  </div>
 
        <div class="row">
-           <div class="col-sm-6">
+          <div class="col-sm-6">
           <div class="form-group">
             <label for="EndTime">Start Date<span class="req">*</span></label>
             <div class="form-group datepicker">
@@ -136,8 +213,8 @@
           <div class="form-group">
             <label for="StartTime">Start Time</label>
              <div class="input-group bootstrap-timepicker timepicker">
-              <input  ng-model="starttime" class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-            </div>
+                          <input  ng-model="starttime"  class="form-control input-small timepick" ng-change="changedstarttime()" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+             </div>
         </div>
         </div>
         </div>
@@ -161,8 +238,8 @@
           <div class="form-group">
           <label for="EndTime">End Time</label>
            <div class="input-group bootstrap-timepicker timepicker">
-            <input ng-model="endtime" class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-           </div>
+                          <input ng-model="endtime" class="form-control input-small timepick" ng-change="changedendtime()" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                         </div>
         </div>
         </div>
         </div>
@@ -170,13 +247,8 @@
   </section>
 </div>  
          <div class="editor-btn">
-          
-           <button class="pink-btn btn" ng-disabled="userForm.$invalid">Save Assignment</button>
-          
-          
+          <button class="pink-btn btn" ng-disabled="userForm.$invalid">Save Assignment</button>
          </div>
-
-
      </form>
      </div>
     

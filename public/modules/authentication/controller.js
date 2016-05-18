@@ -60,13 +60,24 @@ $rootScope.signup_success_message = true;
                 
                   if ((data.message=='error')||(data.user==undefined)) {
                    //$scope.error="Error occurred during login.";
-                   $scope.error=global_message.LoginNotMatchingError;
-                   $scope.error_message=false;
-                   $timeout(function() {
-                        
-                     $scope.error='';
-                     $scope.error_message=true;
-                   },3000);
+                        if (data.errorMsg=='AccountBlocked') {
+                        $scope.error=global_message.LoginAuthNotMatchingError;
+                        $scope.error_message=false;
+                        $timeout(function() {
+                             
+                          $scope.error='';
+                          $scope.error_message=true;
+                        },3000);
+                        }
+                        else{
+                        $scope.error=global_message.LoginNotMatchingError;
+                        $scope.error_message=false;
+                        $timeout(function() {
+                             
+                          $scope.error='';
+                          $scope.error_message=true;
+                        },3000);    
+                        }
                   }else{
                         $rootScope.class_status = 0;
                         $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=true;

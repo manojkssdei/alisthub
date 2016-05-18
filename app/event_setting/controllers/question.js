@@ -1,7 +1,7 @@
 /** 
 Controller for the question managment 
 Created : 2016-05-02
-Created By: Manoj kumar  
+Created By: Manoj kumar Singh
 Module : manage question 
 */
 var moment       = require('moment-timezone');
