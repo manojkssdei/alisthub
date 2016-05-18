@@ -162,6 +162,7 @@ module.exports = function(app, express) {
      *
     */
     router.post('/addBundle', bundle_setting.addBundle);
+    router.post('/updateBundle', bundle_setting.updateBundle);
     router.post('/getBundles', bundle_setting.getBundles);
     
     app.use('/event_setting', router);

@@ -42,6 +42,7 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 			callback(res.data);
 		});
   };
+
   
   //change price levels
   url.changePricelevelStatus = function(jsondata,callback){
@@ -57,9 +58,19 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 		});
   };
   
+
+//add Bundle
+
+  url.addBundle = function(jsondata,callback){
+
+    communicationService.resultViaPost(webservices.addBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
 //update bundles
   url.updateBundle = function(jsondata,callback){
-    communicationService.resultViaPost(webservices.addBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    communicationService.resultViaPost(webservices.updateBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
       callback(res.data);
     });
   };
@@ -69,7 +80,12 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
       callback(res.data);
     });
   };
-  
+ //get Bundles 
+  url.getBundles = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getBundles,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
   
 return url;
 
