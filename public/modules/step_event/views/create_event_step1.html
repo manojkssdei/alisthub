@@ -551,8 +551,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <th width="14%" class="numbers">Box Office Price</th>
                 <th width="13%" class="numbers">Per-Sale Limit</th>
                 <th width="14%" class="numbers">Max Inventory Set</th>
-                <th width="12%" class="numbers">Manage</th>
-                <th width="23%">&nbsp;</th>
+                <th width="23%">Manage</th>
             </tr>
         </thead>
         <tbody>
@@ -569,10 +568,9 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             <tr ng-repeat="bundle in bundleList track by $index">
                 <td><strong>{{bundle.bundle_name}}</strong></td>
                 <td class="numbers">$22</td>
-                <td class="numbers">{{bundle.quantity_available}}</td>
+                <td class="numbers">$33</td>
                 <td class="numbers">${{bundle.bundle_limit}}</td>
                 <td class="numbers">${{bundle.bundle_inventory}}</td>
-                <td class="numbers">{{bundle.bundle_inventory}}</td>
                 <td class="action"><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a href="javascript:void(0)"><i class="fa fa-check-circle"></i></a><a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
             </tr>
 
@@ -1295,7 +1293,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
            
         <!-- Step Form -->
         <div class="stage-container stage-container-3steps clearfix">
-          <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+          <div class="stage" ng-repeat="step in steps" data-ng-class="{current: $index + 1 === selectedClass}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
             <div class="stage-title">{{step.title}}</div> </div>
         </div>
         <!-- //Step Form --> 
@@ -1423,7 +1421,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                 <div>
                                     <div class="editor-btn">
                                         <button type="submit" class="pink-btn btn" ng-click="submitted=true">Save</button>
-                                        <button class="pink-btn btn" ng-click="click_menu({id:2});">Next</button>
+                                        <button type="submit" class="pink-btn btn" ng-click="submitted=true && click_menu({id:2});">Next</button>
                                   </div>   
                                 </div>
                         </form>
@@ -1456,7 +1454,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                   <div class="editor-btn">
                     <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
                     <button class="pink-btn btn" ng-click="submitted2=true">Save</button>
-                    <button class="pink-btn btn" ng-click="click_menu({id:3});">Next</button>
+                    <button class="pink-btn btn" ng-click="submitted2=true && click_menu({id:3});">Next</button>
                   </div>
                 </form>
               </div>
@@ -1503,7 +1501,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                        <div class="editor-btn">
                             <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
                             <button class="pink-btn btn" ng-click="updateQty()">Save</button>
-                            <button class="pink-btn btn" ng-click="updateQty()">Submit</button>
+                            <button class="pink-btn btn" ng-click="updateQty('submit')">Submit</button>
                       </div> 
                   </div>
                </div>
