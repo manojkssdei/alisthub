@@ -783,6 +783,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   };
   // Add Price level
   $scope.open_price_level = function (size) {
+    $rootScope.data1={};
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContentPrice.html',
@@ -1091,16 +1092,22 @@ angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $
 
 angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
     var $serviceTest = $injector.get("venues");
-    $scope.data1=$rootScope.data1;
-    console.log($scope.data1);
-    console.log($rootScope.data1);
-    if ($rootScope.data1!=undefined) {
-        
-    }
-    $scope.data1 = {
+
+   
+    if ($rootScope.data1.id==undefined) {
+         $scope.data1 = {
         hide_online: 0,
         hide_in_box_office:0
       };
+    }else{
+        $scope.data1.price_level=$rootScope.data1.price_level_name;
+        $scope.data1.price_type=$rootScope.data1.price_level_type;
+        $scope.data1.minimum_per_order=$rootScope.data1.min_per_order;
+        $scope.data1.maximum_per_order=$rootScope.data1.max_per_order;
+        //$scope.data1.description=$rootScope.data1.description;
+         $scope.data1=$rootScope.data1; 
+    }
+   
      $scope.items = items;
      $scope.min_price=true;
      $scope.change_price_type=function(){
@@ -1143,7 +1150,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   data1.userId=$localStorage.userId; 
   data1.eventId=$localStorage.eventId; 
          
-          $serviceTest.savepriceleveldata(data1,function(response){
+         $serviceTest.savepriceleveldata(data1,function(response){
           
               if (response!=null) {
             if (response.code==200)
@@ -1151,7 +1158,11 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
               $scope.data1=$rootScope.price_level=[];
               $serviceTest.getPricelevel({'eventId':data1.eventId},function(response){
                 $rootScope.success_message1 = true;
+                   if (data1.id!=undefined) {
+                    $rootScope.success1="Price level has been updated.";
+                   }else{
                     $rootScope.success1="Price level has been added.";
+                   }
                     $timeout(function() {
                         $rootScope.error='';
                         $rootScope.success_message1=false;

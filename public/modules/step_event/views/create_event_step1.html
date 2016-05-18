@@ -397,7 +397,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           	  <section class="col-sm-4">
                   <div class="form-group">
                     <label class="form-label">Event Inventory<span class="req">*</span></label>
-                    <input type="number" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" required>
+                    <input type="number" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" required  min="0">
                      <span style="color:red" ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">
   <span ng-show="myForm1.eventinventory.$error.required">Event Inventory is required</span>
   </span>
@@ -477,7 +477,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <td class="numbers">${{price.online_price}}</td>
                 <td class="numbers">${{price.box_office_price}}</td>
                 <td class="numbers">{{price.max_per_order}}</td>
-                <td class="action"><a ng-click="getPrice(price.id)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a ng-click="changeStatus(price.id,price.is_active)" ng-confirm-click="Would you like to change Price level status ?"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a><a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
+                <td class="action"><a ng-click="getPrice(price.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a ng-click="changeStatus(price.id,price.is_active)" ng-confirm-click="Would you like to change Price level status ?"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a><a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
             </tr>
             <tr ng-show="loader">
 			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
@@ -1201,10 +1201,10 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
         </div>
         <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="savepriceleveldata(data1)" novalidate>
         <div  class="modal-body">
-         {{data1}}
+        <!-- {{data1}}-->
             <fieldset  class="form-group" style="padding-top:10px">
                <div class="col-sm-4">Price Level Name<span class="req">*</span></div>
-               <div class="col-sm-8"><input type="text" ng-model="data1.price_level" name="price_level" class="form-control" required></div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.price_level" name="price_level" class="form-control" required><input type="hidden" ng-model="data1.id"></div>
                <span style="color:red" ng-show="pricelevelForm.price_level.$dirty && pricelevelForm.price_level.$invalid">
                 <span ng-show="pricelevelForm.price_level.$error.required">Price Level Name is required</span>
                </span>
@@ -1220,24 +1220,24 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </fieldset>
             <fieldset class="form-group" ng-hide="online_price">
                <div class="col-sm-4">Online Price(USD $)</div>
-               <div class="col-sm-8"><input type="text" ng-model="data1.online_price" name="online_price" class="form-control" ng-blur="onlinePricefunc()"></div> 
+               <div class="col-sm-8"><input type="number" ng-model="data1.online_price" name="online_price" class="form-control" ng-blur="onlinePricefunc()"  min="0"></div> 
             </fieldset>
             
             <fieldset class="form-group" ng-hide="min_price">
                <div class="col-sm-4">Minimum Price(USD $)</div>
-               <div class="col-sm-8"><input type="text" ng-model="data1.minimum_price" name="minimum_price" class="form-control"></div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.minimum_price" name="minimum_price" class="form-control"  min="0"></div>
             </fieldset>
             <fieldset class="form-group" ng-hide="min_price">
                <div class="col-sm-4">Suggested Price(USD $)</div>
-               <div class="col-sm-8"><input type="text" ng-model="data1.suggested_price" name="suggested_price" class="form-control" ng-blur="suggestedPricefunc()"></div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.suggested_price" name="suggested_price" class="form-control" ng-blur="suggestedPricefunc()"  min="0"></div>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Box Office Price(USD $)</div>
-               <div class="col-sm-8"><input type="text" ng-model="data1.box_office_price" name="box_office_price" class="form-control"></div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.box_office_price" name="box_office_price" class="form-control"  min="0"></div>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Quantity Available</div>
-               <div class="col-sm-8"><input type="text" ng-model="data1.quantity_available" name="quantity_available" class="form-control"></div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.quantity_available" name="quantity_available" class="form-control"  min="0"></div>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Hide Online</div>
@@ -1272,11 +1272,11 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Minimum Per Order</div>
-               <div class="col-sm-8"><input type="text" ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control"></div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control"  min="0"></div>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Maximum Per Order</div>
-               <div class="col-sm-8"><input type="text" ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control"></div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control"  min="0"></div>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Description</div>
