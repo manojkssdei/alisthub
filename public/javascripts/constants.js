@@ -82,6 +82,11 @@ var webservices = {
     "getPricelevel" : "/event/getPricelevel",
     "removepricelevel" : "/event/removepricelevel",
 
+    /* Constants for saving the financial settings */
+    "addFinancialDetails" : "/account/addFinancialDetails",
+    "getFinancialDetails" : "/account/getFinancialDetails",
+    
+
 }
 
 var global_message = {

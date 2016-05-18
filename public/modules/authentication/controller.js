@@ -148,8 +148,13 @@ $rootScope.signup_success_message = true;
             }).success(function(data, status, headers, config) {
                  if (data == 300) {
                     //$scope.disabledBtn = true;
-                 $scope.unique = global_message.EmailAvailable;
                  $scope.unique_type  = 1;
+                 $scope.unique = global_message.EmailAvailable;
+                 $timeout(function() {
+                    $scope.unique = '';
+                    $scope.unique_type  = '';
+                   },3000);
+                   
                  }
                  else{
                  $scope.unique = global_message.EmailExist;
@@ -157,14 +162,16 @@ $rootScope.signup_success_message = true;
                  }
             });
            }else{
+            console.log('in else 3');
                  $scope.unique = global_message.EmailEmpty;
                  $scope.unique_type  = 3;
            }
         };
     
     }).controller('forgotcontroller',function($http,$scope,$rootScope,$location,$timeout, $state,communicationService,$timeout){
+        $scope.menu=true;
         $rootScope.class_status=1;
-        
+
         $scope.forgotPassword=function(){
           
             $scope.message = false;
