@@ -547,16 +547,16 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
         <thead>
             <tr>
                 <th width="15%">Name</th>
-                <th width="10%" class="numbers">Sold</th>
-                <th width="14%" class="numbers">Remaining</th>
-                <th width="13%" class="numbers">Price</th>
-                <th width="14%" class="numbers">Box office <span class="l-b">Price</span></th>
-                <th width="12%" class="numbers">Limit</th>
+                <th width="10%" class="numbers">Price</th>
+                <th width="14%" class="numbers">Box Office Price</th>
+                <th width="13%" class="numbers">Per-Sale Limit</th>
+                <th width="14%" class="numbers">Max Inventory Set</th>
+                <th width="12%" class="numbers">Manage</th>
                 <th width="23%">&nbsp;</th>
             </tr>
         </thead>
         <tbody>
-           <!-- <tr>
+            <!-- <tr>
                 <td><strong>Balcony</strong></td>
                 <td class="numbers">12</td>
                 <td class="numbers">900</td>
@@ -566,6 +566,15 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
             </tr>
             -->
+            <tr ng-repeat="bundle in bundleList track by $index">
+                <td><strong>{{bundle.bundle_name}}</strong></td>
+                <td class="numbers">$22</td>
+                <td class="numbers">{{bundle.quantity_available}}</td>
+                <td class="numbers">${{bundle.bundle_limit}}</td>
+                <td class="numbers">${{bundle.bundle_inventory}}</td>
+                <td class="numbers">{{bundle.bundle_inventory}}</td>
+                <td class="action"><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a href="javascript:void(0)"><i class="fa fa-check-circle"></i></a><a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
+            </tr>
 
         </tbody>
 
@@ -1493,8 +1502,8 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                       </section>
                        <div class="editor-btn">
                             <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
-                            <button class="pink-btn btn" ng-click="saveProduct(3)">Save</button>
-                            <button class="pink-btn btn" ng-click="saveProduct(4)">Submit</button>
+                            <button class="pink-btn btn" ng-click="updateQty()">Save</button>
+                            <button class="pink-btn btn" ng-click="updateQty()">Submit</button>
                       </div> 
                   </div>
                </div>
