@@ -39,12 +39,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     });
 
     $scope.eventBundle = {};
-    $localStorage.eventId = 1966;
+    
     $scope.eventBundle.eventId = $localStorage.eventId; 
     $scope.eventBundle.userId = $localStorage.userId;
 
     $serviceTest.getBundles($scope.eventBundle,function(response){
-      $rootScope.bundleList = response.results;
+      //$rootScope.bundleList = response.results;
+      $rootScope.bundleList = response.result;
     });
 
 
@@ -1173,11 +1174,13 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope, $uibModalInstance, items,$rootScope,$injector,$localStorage,$location,$timeout) {
     var $serviceTest = $injector.get("venues");
     $scope.data = {};
+    $scope.eventBundle = {};
     $scope.items = items;
     $scope.selected = {
       item: $scope.items[0]
     };
 
+    $scope.bundleList = $rootScope.bundleList;
 
     $scope.steps=[
      { "title":"Details","icon":'fa fa-calendar','id':1},
@@ -1186,22 +1189,29 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     ];
 
     $scope.click_menu=function(menu) {
+       $scope.selectedClass = 1; 
        if (menu.id==1) {
+        $scope.selectedClass = 1;
         $scope.step_1=true;
         $scope.step_2=$scope.step_3=false;
        }
        if (menu.id==2) {
+        $scope.selectedClass = 2;
         $scope.step_2=true;
         $scope.step_1=$scope.step_3=false;
        }
        if (menu.id==3) {
-        console.log($scope.data);
+        $scope.selectedClass = 3;
         $scope.step_3=true;
         $scope.step_2=$scope.step_1=false;
        }
-       $scope.selected2 = menu;  
+       //$scope.selected2 = menu;  
     }
     $scope.click_menu({id:1});
+
+    $scope.isActive2 = function(step2) {
+      return $scope.selected2 === step2;
+    };
 
     /* bundle tab stop */
     $scope.cancel = function () {
@@ -1232,7 +1242,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       }
     };
 
-    $scope.updateQty = function(product) {
+    $scope.updateQty = function(status) {
       //console.log($scope.productList);
       $scope.bundle.bundle_id = $localStorage.bundleId;
       $scope.bundle.product_json = $scope.productList;
@@ -1240,6 +1250,18 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       $serviceTest.updateBundle($scope.bundle,function(response){
         //console.log(response);
         if (response.code == 200) {
+
+          $scope.eventBundle.eventId = $localStorage.eventId; 
+          $scope.eventBundle.userId = $localStorage.userId;
+
+          $serviceTest.getBundles($scope.eventBundle,function(response){
+            $rootScope.bundleList = response.result;
+          });
+
+          if(status=='submit') {
+            $scope.cancel();
+          }
+          
           $scope.success = "Bundle updated successfully.";
           $timeout(function() {
             $scope.error = '';
