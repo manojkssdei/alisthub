@@ -40,7 +40,8 @@ exports.getVenue = function(req,res){
     //console.log(req.body.userId);
      connection.query('SELECT * from venues where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err, results) {
    if (err) {
-    res.json({error:err,code:101});
+      console.log("=========================");
+      res.json({error:err,code:101});
    }
    res.json({result:results,code:200});
 });

@@ -1425,41 +1425,31 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
               <!-- Step 2 start -->
             <div ng-show="step_2">
               <div class="module">
-                <section class="prof-hd">
-                  <i class="fa fa-link hdicon pos-l16"></i>
-                  <h2>Products<span style="float:right;">Quantity</span></h2>
-                </section>
-                <section class="gray-frame">
-                  <div class="row">
-                    <div class="col-sm-8" >
-                      <div class="form-group">
-                        <label for="EventName">  gtr e (Price: $0.00) </label>
+                <form class="" name="bundlestep2" ng-submit="bundlestep2.$valid && updateQty()" novalidate>
+                  <section class="prof-hd">
+                    <i class="fa fa-link hdicon pos-l16"></i>
+                    <h2>Products<span style="float:right;">Quantity</span></h2>
+                  </section>
+                  <section class="gray-frame">
+                    <div class="row" ng-repeat="product in productList" >
+                      <div class="col-sm-8" >
+                        <div class="form-group">
+                          <label for="EventName">  {{product.product_name}} (Price: {{product.retail_price}}) </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-4" >
+                        <div class="form-group">
+                          <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="productList[$index].qty"/>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-sm-4" >
-                      <div class="form-group">
-                        <select class="form-control" ng-model="coupon_type" required>
-                          <option>0</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          <option>6</option>
-                          <option>7</option>
-                          <option>8</option>
-                          <option>9</option>
-                          <option>10</option>
-                        </select>
-                      </div>
-                    </div>
+                  </section>
+                  <div class="editor-btn">
+                    <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
+                    <button class="pink-btn btn" ng-click="submitted2=true">Save</button>
+                    <button class="pink-btn btn" ng-click="click_menu({id:3});">Next</button>
                   </div>
-                </section>
-                <div class="editor-btn">
-                  <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
-                  <button class="pink-btn btn" ng-click="saveProduct(2)">Save</button>
-                  <button class="pink-btn btn" ng-click="click_menu({id:3});">Next</button>
-                </div>
+                </form>
               </div>
             </div>
                <!-- Step 2 end -->
@@ -1490,11 +1480,11 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                       </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                        <td>Test</td>
-                                        <td>1</td>
-                                        <td>$150.00</td>
-                                        <td>$140.00</td>
+                                        <tr ng-repeat="product in productList">
+                                        <td>{{product.product_name}}</td>
+                                        <td>{{product.qty}}</td>
+                                        <td>${{product.qty*product.retail_price}}</td>
+                                        <td>${{product.qty*product.retail_price}}</td>
                                        </tr>
                                       </tbody>
                                   </table>
