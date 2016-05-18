@@ -148,16 +148,18 @@ exports.savepricelevel=function(req,res){
 
 exports.getPricelevel=function(req,res){
     var eventId=req.body.eventId;
-    var sql="SELECT * FROM price_levels where event_id="+eventId;
-    
-    connection.query(sql,function(err,result){
-       
-        if (err) {
-           res.send({err:"error",code:101}); 
-        }
-           res.send({"results":result,code:200});  
-        
-    });
+    if(eventId!=undefined){
+      var sql="SELECT * FROM price_levels where event_id="+eventId;
+      connection.query(sql,function(err,result){
+         
+          if (err) {
+             res.send({err:"error",code:101}); 
+          }
+             res.send({"results":result,code:200});  
+      });  
+    } else {
+      res.send({"results":{},code:200});
+    }
 }
 
 exports.removepricelevel=function(req,res){
@@ -170,6 +172,44 @@ exports.removepricelevel=function(req,res){
            res.send({err:"error",code:101}); 
         }
            res.send({"message":"success",code:200});  
+        
+    });
+}
+/** 
+Method: changePricelevelStatus
+Description:Function to change Price level data status 
+Created : 2016-05-18
+Created By: Deepak khokhar  
+*/
+exports.changePricelevelStatus = function(req,res) { 
+  connection.query("UPDATE price_levels SET is_active='"+req.body.status+"' where id="+req.body.id, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
+}
+
+
+/** 
+Method: updatePricelevel
+Description:Function to change Price level data status 
+Created : 2016-05-18
+Created By: Deepak khokhar  
+*/
+exports.getSinglePricelevel = function(req,res) {
+    
+   var sql="select * FROM price_levels where id="+req.body.id;
+    
+    connection.query(sql,function(err,result){
+       
+        if (err) {
+           res.send({err:"error",code:101}); 
+        }else{
+           res.send({"results":result,code:200}); 
+        }
+             
+        
         
     });
 }
