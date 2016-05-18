@@ -25,6 +25,9 @@ module.exports = function(app, express) {
 
       router.post('/savepricelevel', Event.savepricelevel);
       router.post('/getPricelevel', Event.getPricelevel);
+      router.post('/removepricelevel', Event.removepricelevel);
+      router.post('/changePricelevelStatus', Event.changePricelevelStatus);
+      router.post('/getSinglePricelevel', Event.getSinglePricelevel);
       
       /* To get data of the all events */
       router.post('/getEvents',supportCrossOriginScript,Event.getEvents);

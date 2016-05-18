@@ -498,6 +498,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
         
+        
         /* Setting for view discount screen */
         .state('view_discounts', {
             url: '/view_discounts/:list',
@@ -740,14 +741,35 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
 
-       /* Setting for add financial setting screen */
+       /* Setting for add alist financial setting screen */
         .state('add_financial_setting', {
-            url: '/add_financial_setting/:id',
+            url: '/add_financial_setting/alist',
             
             views: {
                 "lazyLoadView": {
                   controller: 'accountController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/account/views/user/add_financial_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                })
+              }]
+            }
+        })
+
+        /* Setting for adding custom financial setting screen */
+        .state('add_custom_financial_setting', {
+            url: '/add_financial_setting/custom',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'accountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/account/views/user/custom_financial_setting.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -787,6 +809,19 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         })
         
         /// end Financial Setting routes
+        
+         ///////*advance setting*///////
+        .state('advance_setting', {
+            url: '/advance_setting',
+            
+            views: {
+                "lazyLoadView": {
+      
+                  templateUrl: 'modules/step_event/views/advance_setting.html'
+                }
+            }
+          
+        })
 
     
   }).run(['$rootScope', '$location','$state', '$localStorage', '$http',function($rootScope,$location, $state,$localStorage, $http) {
@@ -829,6 +864,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         localStorage.clear();
         $state.go('login');
     }
+
     
     
     }])

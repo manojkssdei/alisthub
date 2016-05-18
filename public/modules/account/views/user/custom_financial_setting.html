@@ -1,0 +1,68 @@
+<div class="container">
+    <h1>Financial Setting</h1>
+    <div class="form-section  wt-frame">
+        <form class="event-form" name="addUserForm" novalidate>
+            <section class="gray-frame">
+                <div>
+                    <p class="error-fld" ng-show="error_message" >{{error}}</p>
+                </div>
+                <div>
+                    <p class="success-fld" ng-show="success_message">{{success}}</p>
+                </div>
+                <div class="row">
+
+                <div class="col-sm-12 section-col" ng-class="{ 'has-error' : addUserForm.provider.$invalid && !addUserForm.provider.$pristine }">
+                        <label>Provider <span class="req">*</span></label>
+                        <select class="form-control"  name="provider" title="" ng-model="user.provider" required>
+                            <option>Paypal Express</option>
+                            <option>Paypal Flow</option>
+                            </select>
+                           <p ng-show="addUserForm.provider.$invalid && !addUserForm.provider.$pristine" class="error-fld ng-binding">Select Provider.</p>
+                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" ng-class="{ 'has-error' : addUserForm.merchant_login_id.$invalid && !addUserForm.merchant_login_id.$pristine }">
+                        <div class="form-group">
+                            <label> Merchant Account Login/ID</label>
+                            <input type="text" class="form-control" name="merchant_login_id" placeholder="Merchant Account Login/ID"  ng-model="user.merchant_login_id"/>
+                            <span ng-show="addUserForm.merchant_login_id.$error.pattern">Enter Merchant Account Login/ID</span>
+                        </div>
+                    </div>
+                </div>
+
+                  <div class="row">
+                    <div class="col-sm-12" ng-class="{ 'has-error' : addUserForm.merchant_transaction_key.$invalid && !addUserForm.merchant_transaction_key.$pristine }">
+                        <div class="form-group">
+                            <label> Transaction Key / Password</label>
+                            <input type="text" class="form-control" name="merchant_transaction_key" placeholder="Transaction Key / Password"  ng-model="user.merchant_transaction_key"/>
+                            <span ng-show="addUserForm.merchant_transaction_key.$error.pattern">Transaction Key / Password</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-12" ng-class="{ 'has-error' : addUserForm.merchant_card_types.$invalid && !addUserForm.merchant_card_types.$pristine }">
+                        <div class="form-group">
+                            <label> Card Types</label>
+                            <input type="checkbox" class="form-control" ng-model="user.merchant_card_types" ng-true-value="'Visa'" >Visa
+                            
+                            <input type="checkbox" class="form-control" ng-model="user.merchant_card_types" ng-true-value="'Master Card'" >Master Card
+                            
+                            <input type="checkbox" class="form-control" ng-model="user.merchant_card_types" ng-true-value="'Discover'" >Discover
+                            
+                            <input type="checkbox" class="form-control" ng-model="user.merchant_card_types" ng-true-value="'American Express'" >American Express
+
+                            <span ng-show="addUserForm.merchant_card_types.$error.pattern">Select Card Type</span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+        </form>
+        <div class="editor-btn">
+            <button class="pink-btn btn" ng-click="submitFinancialDetails()" ng-disabled="addUserForm.$invalid">Add Credit Card Processing</button>          
+        </div>
+    </div>
+</div>

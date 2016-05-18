@@ -1,10 +1,9 @@
 angular.module('alisthub')
-.controller('accountController', function($scope,$localStorage,$injector,$http,$state,$location) {
+.controller('accountController', function($scope,$localStorage,$injector,$http,$state,$location,$sce) {
   if (!$localStorage.isuserloggedIn) {
       $state.go('login');
    } 
   var $serviceTest = $injector.get("account");
-    
     if(window.innerWidth>767){ 
     $scope.navCollapsed = false;	  
     }else{
@@ -13,11 +12,17 @@ angular.module('alisthub')
     $scope.navCollapsed = $scope.navCollapsed === false ? true: false;
     };	  
  }
-  $scope.data = {};
+
+ 
   $scope.user = {};
-  
   $scope.user.country = "US";
   $scope.enableState = true;
+  $scope.error_message = false;
+  $scope.success_message = false; 
+  console.log('$state.current.name' , $state.current.name);
+
+/* View state field when country is US and disble in all other country cases*/
+  
   $scope.showState = function()
   {
     if ($scope.user.country != "US") {
@@ -26,190 +31,75 @@ angular.module('alisthub')
     else{
       $scope.enableState = true;
     }
-    
   }
-  ////////////////////////////////////////////
-  
-  
-  $scope.showDiv = function()
-  {
-    $scope.div_1 = false;
-    $scope.div_2 = false;
-    $scope.div_3 = false;
-    $scope.div_4 = false;
-    if($scope.data.question_type == "Multiple Choice")
-    {
-      $scope.div_1 = true;
-    }
-        
-    if($scope.data.question_type == "Waiver")
-    {
-      $scope.div_2 = true;
-    }
-    
-    if($scope.data.question_type == "Address")
-    {
-      $scope.div_3 = true;
-    }
-  }
-  ////////////////////////////////////////////
-  
-  
-  $scope.addQuestion = function() {
-    
-        if ($localStorage.userId!=undefined) {
-        $scope.data.seller_id   = $localStorage.userId;
-        $scope.data.required    = $scope.data.required == true ? 1 : 0;
-        if ($scope.data.question_type == "Address") {
-          $scope.data.address_map_bill    = $scope.data.address_map_bill == true ? 1 : 0;
-          $scope.data.address_map_ship    = $scope.data.address_map_ship == true ? 1 : 0;
-        }
-        
-        $serviceTest.addQuestion($scope.data,function(response){
-            console.log(response);
-            if (response.code == 200) {
-                    $location.path("/view_questions/list");
-                  }else{
-                    $scope.activation_message = global_message.ErrorInActivation;
-            }
-            
-        });
-        }
-  };
-  
-  $scope.getQuestion = function() {
-    
-        if ($localStorage.userId!=undefined) {
-        $scope.data.userId      = $localStorage.userId;
-        $scope.loader = true;
-        $serviceTest.getQuestions($scope.data,function(response){
-            console.log(response);
-            $scope.loader = false;
-            if (response.code == 200) {
-                   $scope.questiondata = response.result;
-                  }else{
-                   $scope.error_message = response.error;
-            }
-            
-        });
-        
-        }
-  };
-  
-  /// View listing venues 
-  if ($state.params.list) {
-    $scope.getQuestion();
-  }
-  
-  $scope.page_title = 'ADD';
-  $scope.callfunction = 0;
-  $scope.saveQuestion = function()
-  {
-    if ($scope.callfunction == 0) {
-        $scope.addQuestion();
-    }
-    if ($scope.callfunction == 1) {
-        $scope.editQuestion();
-    }
-  }
-  
-  // Edit Venue 
-  if ($state.params.id)
-  {
-    $scope.callfunction = 1;
-    
-    $scope.page_title = 'EDIT';
-    $scope.getQuestionDetail = function() {
-    
-        if ($localStorage.userId!=undefined) {
-        $scope.data.id      = $state.params.id;
-        $scope.loader = true;
-        console.log($state.params.id);
-        $serviceTest.questionOverview($scope.data,function(response){
-            console.log(response);
-            $scope.loader = false;
-            if (response.code == 200) {
-                   $scope.data  = {};
-                   $scope.data = response.result[0];
-                   //$scope.place = response.result[0].address;
-                   $scope.data.required    = response.result[0].required == 1 ? true : false;
-                   
-                   if ($scope.data.question_type == "Waiver") {
-                    $scope.div_2 = true;
-                   }
-                   if ($scope.data.question_type == "Multiple Choice") {
-                    $scope.div_4 = true;
-                    $scope.quesoptions = response.options;
-                    $scope.data.option = [];
-                    $scope.quesoptions.forEach(function(entry){
-                       $scope.data.option[entry.id] = entry.option;
-                    })
-                                      
-                   }
-                   if ($scope.data.question_type == "Address") {
-                    $scope.div_3 = true;
-                    $scope.data.address_map_bill    = $scope.data.address_map_bill == 1 ? true : false;
-                    $scope.data.address_map_ship    = $scope.data.address_map_ship == 1 ? true : false;
-                   }
-                   
-                   /////////////////////////////////////////////////////
-                   $scope.quesassignment = response.quesassignment;
-                   
-                   //////////////////////////////////////////////////////
-                  }else{
-                   $scope.error_message = response.error;
-            }
-            
-        });
-        
-        }
-    };
-    //$scope.getQuestionDetail();
-    ////////////////////////////////////////
-    $scope.editQuestion = function() {
-        if ($localStorage.userId!=undefined) {
-        $scope.data.seller_id   = $localStorage.userId;
-        $scope.data.id          = $state.params.id;
-        $scope.data.required    = $scope.data.required == true ? 1 : 0;
-        
-        if ($scope.data.question_type == "Address") {
-          $scope.data.address_map_bill    = $scope.data.address_map_bill == true ? 1 : 0;
-          $scope.data.address_map_ship    = $scope.data.address_map_ship == true ? 1 : 0;
-        }
-        
-        
-        $serviceTest.addQuestion($scope.data,function(response){
-            if (response.code == 200) {
-                    $location.path("/view_questions/list");
-                  }else{
-                   $scope.activation_message = global_message.ErrorInActivation;
-            }
-            
-        });
-        }
-    };
-    
-    ///////////////////////////////////////
-    $scope.delAssignment = function(id,event)
-    {
-      $scope.ques = {};
-       if ($localStorage.userId!=undefined) {
-        $scope.ques.question_id   = id;
-        $scope.ques.event_id     = event;
-               
-        $serviceTest.delAssignment($scope.ques,function(response){
-            if (response.code == 200) {
-                    $scope.getQuestionDetail();
-                  }else{
-                   $scope.activation_message = global_message.ErrorInActivation;
-            }
-            
-        });
-        }
-    }
-    
-  }
-  
- //////////////////////////////////////////////////////////////////////////
-})
 
+/* Fetch the existing financial details of seller*/
+  if ($localStorage.userId!=undefined && $state.current.name == "add_financial_setting") {
+        $scope.user.userId      = $localStorage.userId;
+        $serviceTest.getFinancialDetails($scope.user,function(response){
+            if (response.code == 200) {
+                   $scope.user = response.result[0];
+                  }
+        });
+        
+  }
+
+/* Check mandatory fields */
+  $scope.checkMandatoryFields = function(mandatoryFields) {
+          var errorExist = 0;
+          var errorList = [];
+          for(var key in mandatoryFields) { 
+           if(!$scope.user[key] || $scope.user[key] == undefined || $scope.user[key] == "" || $scope.user[key] == "NULL"){
+              errorExist = 1;
+              errorList.push('Enter '+key);
+            }
+          }
+          if(errorExist) {
+            return errorList;
+          }
+  }
+
+/*Save financial details of seller*/
+  $scope.addFinancialDetails = function() {
+        if ($localStorage.userId!=undefined) {
+        $scope.user.seller_id   = $localStorage.userId;
+        $serviceTest.addFinancialDetails($scope.user,function(response){
+            if (response.code == 200) {
+                 $scope.success_message = true;
+                 $scope.success = 'Financial information saved successfully';
+                  }else{
+                 $scope.error_message = true;
+                 $scope.error = response.error;
+            }
+            
+        });
+        }
+  };
+
+/* Submit form data*/
+  $scope.submitFinancialDetails = function()
+  {
+    var mandatoryFields = { 
+                        'first_name':'Enter First Name' ,
+                        'last_name':'Enter Last Name' ,
+                        'email':'Enter Email' ,
+                        'cheque_name':'Enter Name For Cheque' ,
+                        'address':'Enter address' ,
+                        'country':'Select a Country' ,
+                        };
+
+    var errorMsg =  $scope.checkMandatoryFields( mandatoryFields );
+    if(!errorMsg) {
+        $scope.addFinancialDetails();
+    }
+    else{
+       $scope.error_message = true;
+       $scope.error = 'Enter all required fields.';
+       /*for(var index in errorMsg) { 
+       $scope.error+=errorMsg[index];
+       }*/
+    }
+  }
+
+
+})

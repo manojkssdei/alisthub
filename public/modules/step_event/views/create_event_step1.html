@@ -450,7 +450,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                       </section>
                     </section>
                   <section class="grid-widget">
-                   
+                  <span ng-show="success_message1" ><p class="success-fld ng-binding">{{success1}}</p></span> 
+                  <span><p>{{activation_message}}</p></span> 
       	  <div class="table-responsive">
           	  
 
@@ -465,18 +466,22 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <th width="12%" class="numbers">Limit</th>
                 <th width="23%">&nbsp;</th>
             </tr>
+            
         </thead>
         <tbody>
           
-            <tr ng-repeat="price in price_level">
+            <tr ng-repeat="price in price_level track by $index">
                 <td><strong>{{price.price_level_name}}</strong></td>
                 <td class="numbers">0</td>
                 <td class="numbers">{{price.quantity_available}}</td>
                 <td class="numbers">${{price.online_price}}</td>
                 <td class="numbers">${{price.box_office_price}}</td>
                 <td class="numbers">{{price.max_per_order}}</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
+                <td class="action"><a ng-click="getPrice(price.id)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a ng-click="changeStatus(price.id,price.is_active)" ng-confirm-click="Would you like to change Price level status ?"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a><a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
             </tr>
+            <tr ng-show="loader">
+			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+	   </tr>
            
            
 
@@ -547,16 +552,15 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
         <thead>
             <tr>
                 <th width="15%">Name</th>
-                <th width="10%" class="numbers">Sold</th>
-                <th width="14%" class="numbers">Remaining</th>
-                <th width="13%" class="numbers">Price</th>
-                <th width="14%" class="numbers">Box office <span class="l-b">Price</span></th>
-                <th width="12%" class="numbers">Limit</th>
-                <th width="23%">&nbsp;</th>
+                <th width="10%" class="numbers">Price</th>
+                <th width="14%" class="numbers">Box Office Price</th>
+                <th width="13%" class="numbers">Per-Sale Limit</th>
+                <th width="14%" class="numbers">Max Inventory Set</th>
+                <th width="23%">Manage</th>
             </tr>
         </thead>
         <tbody>
-           <!-- <tr>
+            <!-- <tr>
                 <td><strong>Balcony</strong></td>
                 <td class="numbers">12</td>
                 <td class="numbers">900</td>
@@ -566,6 +570,14 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
             </tr>
             -->
+            <tr ng-repeat="bundle in bundleList track by $index">
+                <td><strong>{{bundle.bundle_name}}</strong></td>
+                <td class="numbers">$22</td>
+                <td class="numbers">$33</td>
+                <td class="numbers">${{bundle.bundle_limit}}</td>
+                <td class="numbers">${{bundle.bundle_inventory}}</td>
+                <td class="action"><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a href="javascript:void(0)"><i class="fa fa-check-circle"></i></a><a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
+            </tr>
 
         </tbody>
 
@@ -815,17 +827,17 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
     
     <!-- Form COntainer -->
     <div ng-hide="setting_div">
-    <div class="wt-frame form-section">
+          
       <form class="event-form">
         
           <section class="form-group field-group">
             <label>Delivery Methods</label>
             <section class="gray-frame sub-fields">
-              <label>Print at Home</label>
+            	<label>Print at Home</label>
                 <section class="row">
-                  <section class="col-sm-8">
+                	<section class="col-sm-8">
                         <section class="radio-sec">
-                          <section class="radio-inline">
+                      		<section class="radio-inline">
                               <input type="radio" name="radio1" id="radio1">
                               <label for="radio1"><span></span>Always Available</label>
                             </section>
@@ -842,7 +854,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     </section>
                     <section class="col-sm-4 mob-mt20">
                         <section class="radio-sec custom-check">
-                          <p class="radio-inline">
+                      		<p class="radio-inline">
                                 <input type="checkbox" id="test1">
                                 <label for="test1">Sun</label>
                           </p>
@@ -855,9 +867,9 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           
           <section class="form-group field-group">
             <label>Sales Times</label>
-            <section class="gray-frame sub-fields">             
+            <section class="gray-frame sub-fields">            	
                 <section class="row">
-                  <div class="col-sm-4">
+                	   <div class="col-sm-4">
                         <div class="form-group">
                             <label>Online Sales Open<span class="req">*</span></label>
                             <div class="form-group datepicker">
@@ -868,8 +880,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                         </div>
                   </div>
                     <div class="col-sm-8">
-                      <section class="row text-drop">
-                          <section class="col-sm-4 form-group"><select class="form-control">
+                     	<section class="row text-drop">
+                        	<section class="col-sm-4 form-group"><select class="form-control">
                                   <option value=" ">HR</option>
                                 </select></section>
                             <section class="col-sm-4 form-group"><select class="form-control">
@@ -886,10 +898,10 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                         <input type="checkbox" id="test2">
                         <label for="test2">Immediately</label>
                   </p>
-               </section> 
+               </section>
                        
                 <section class="row">
-                  <div class="col-sm-4">
+                	 <div class="col-sm-4">
                         <div class="form-group">
                             <label>Online Sales Open<span class="req">*</span></label>
                                   <div class="form-group datepicker">
@@ -900,8 +912,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                   </div>
                   </div>
                     <div class="col-sm-8">
-                      <section class="row text-drop">
-                          <section class="col-sm-4 form-group"><select class="form-control">
+                     	<section class="row text-drop">
+                        	<section class="col-sm-4 form-group"><select class="form-control">
                                   <option value=" ">HR</option>
                                 </select></section>
                             <section class="col-sm-4 form-group"><select class="form-control">
@@ -917,7 +929,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           </section><!--/Sales Times-->
           
           <section class="form-group field-group">
-            <section class="row">
+          	<section class="row">
               <label class="col-md-2 col-sm-4">Donations </label>
               <section class="col-md-4 col-sm-4">
                     <div class="onoffswitch mt-3">
@@ -926,13 +938,13 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     </div>
                 </section>
             </section>
-            <section class="gray-frame sub-fields" style="display:none;">             
+            <section class="gray-frame sub-fields" style="display:none;">            	
                sss
             </section>
           </section><!--/Donations-->
           
         <section class="form-group field-group">
-            <section class="row">
+          	<section class="row">
               <label class="col-md-2 col-sm-4">Custom Fee </label>
               <section class="col-md-4 col-sm-4">
                     <div class="onoffswitch mt-3">
@@ -941,10 +953,10 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     </div>
                 </section>
             </section>
-            <section class="gray-frame sub-fields">             
+            <section class="gray-frame sub-fields">            	
                <section class="row">
-                  <section class="col-sm-6">
-                      <section class="form-group">
+               		<section class="col-sm-6">
+                    	<section class="form-group">
                             <label>Fee Name</label>
                             <input type="text" placeholder="Fee Name" class="form-control" value=" " name=" ">
                         </section>
@@ -952,8 +964,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                </section>
                
                <section class="row">
-                  <section class="col-sm-4">
-                      <section class="form-group">
+               		<section class="col-sm-4">
+                    	<section class="form-group">
                             <label>Fee Type</label>
                             <select class="form-control">
                               <option value=" ">Fixed Amount</option>
@@ -962,14 +974,14 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     </section>
                     
                     <section class="col-sm-4">
-                      <section class="form-group">
+                    	<section class="form-group">
                             <label>Amount ($)</label>
                             <input type="text" placeholder="Fee Name" class="form-control" value=" " name=" ">
                         </section>
                     </section>
                     
                     <section class="col-sm-4">
-                      <section class="form-group">
+                    	<section class="form-group">
                             <label>When to Apply Fee</label>
                             <select class="form-control">
                               <option value=" ">Before Discount</option>
@@ -981,7 +993,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           </section><!--/Custom Fee-->
           
           <section class="form-group field-group">
-            <section class="row">
+          	<section class="row">
                 <label class="col-md-2 col-sm-4">Question </label>
                 <section class="col-md-4 col-sm-4">
                     <div class="onoffswitch mt-3">
@@ -990,10 +1002,10 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     </div>
                 </section>
             </section>
-            <section class="gray-frame sub-fields">             
+            <section class="gray-frame sub-fields">            	
                <section class="row">
-                  <section class="col-sm-6">
-                      <section class="form-group">
+               		<section class="col-sm-6">
+                    	<section class="form-group">
                             <label>Type</label>
                             <select class="form-control">
                               <option value=" ">Fixed Amount</option>
@@ -1003,11 +1015,11 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                </section>
                
                <section class="row">
-                  <section class="col-sm-8">
-                      <section class="form-group">
+               		<section class="col-sm-8">
+                    	<section class="form-group">
                             <label>Question</label>
                           <textarea name="textarea" class="form-control" cols=" " rows="5"></textarea>
-                      </section>
+                    	</section>
                     </section>
                    
                </section>
@@ -1024,10 +1036,10 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </section>
           </section><!--/Question-->
           
-          <section class="form-group field-group">            
+          <section class="form-group field-group">          	
             <label>Additional Settings </label>
                
-               <section class="gray-frame sub-fields">              
+               <section class="gray-frame sub-fields">            	
                    <section class="row">
                         <section class="col-sm-6">
                             <section class="row">
@@ -1049,7 +1061,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                             </section>
                         </section>
                         <section class="col-sm-6">
-                          <section class="form-group">
+                       	  <section class="form-group">
                                 <label>Ticket Note</label>
                                 <input type="text" name="StartTime" value="" class="form-control" placeholder="Ticket Note">
                             </section>
@@ -1075,7 +1087,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                             </section>
                         </section>
                         <section class="col-sm-6">
-                          <section class="form-group">
+                       	  <section class="form-group">
                                 <label>Ticket Layout</label>
                                 <input type="text" name="StartTime" value="" class="form-control" placeholder="Ticket Layout">
                             </section>
@@ -1095,24 +1107,24 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
         <section class="form-group field-group">
               <label>Public Contact Info </label>
             
-            <section class="gray-frame sub-fields">             
+            <section class="gray-frame sub-fields">           	
                <section class="row">
-                  <section class="col-sm-4">
-                      <section class="form-group">
+               		<section class="col-sm-4">
+                    	<section class="form-group">
                             <label>Public Name</label>
                           <input type="text" placeholder="Public Name" class="form-control" value="" name="">
                         </section>
                     </section>
                     
                     <section class="col-sm-4">
-                      <section class="form-group">
+                    	<section class="form-group">
                             <label>Public Email</label>
                           <input type="text" placeholder="Public Email" class="form-control" value="" name="">
                         </section>
                     </section>
                     
                     <section class="col-sm-4">
-                      <section class="form-group">
+                    	<section class="form-group">
                             <label>Public Phone</label>
                             <input type="text" placeholder="Public Phone" class="form-control" value="" name="">
                         </section>
@@ -1124,13 +1136,13 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           <section class="form-group field-group">
               <label>Advanced Settings</label>
             
-            <section class="gray-frame sub-fields">             
+            <section class="gray-frame sub-fields">           	
                <section class="content f-sb">
-                  <p>Make modifications to various customer-facing features, including your event listing, checkout process and Print@home tickets, using these advanced customizations. Do not make any adjustments if you're uncertain as to what will be modified </p>
-                <br>
-                  <p>Any changes you mode to the Default Advanced Settings will automatically be set on this event You can turn any setting off or on, and even override the default, during this step </p>
-                  <br
-                    <p><button class="pink-btn btn btn-small m-fw">Edit Event Advanced Setting</button></p>
+               		<p>Make modifications to various customer-facing features, including your event listing, checkout process and Print@home tickets, using these advanced customizations. Do not make any adjustments if you're uncertain as to what will be modified </p>
+                  <br>
+               		<p>Any changes you mode to the Default Advanced Settings will automatically be set on this event You can turn any setting off or on, and even override the default, during this step </p>
+                  <br>
+                    <p><a ui-sref="advance_setting"><button class="pink-btn btn btn-small m-fw"  >Edit Event Advanced Setting</button></a></p>
                </section>
             </section>
           </section><!--/Advanced Settings-->
@@ -1142,7 +1154,10 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           <button class="pink-btn btn">Next</button>
         </div>
       </div>
-    </div>
+    
+       </div>
+
+</div>
     
     <!-- //Form COntainer --> 
        
@@ -1154,6 +1169,18 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
     
     <!-- //Form COntainer --> 
   </div>
+  <script type="text/ng-template" id="deletePricelevel.html">
+     <div class="modal-header">
+            <h3 class="modal-title">Remove Price level</h3>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to remove this price level?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="remove()">Remove</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+  </script>
 <script type="text/ng-template" id="myModalContent.html"> 
         <div class="modal-header">
             <h3 class="modal-title">Remove Previous Event</h3>
@@ -1172,7 +1199,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
         </div>
         <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="savepriceleveldata(data1)" novalidate>
         <div  class="modal-body">
-         
+         {{data1}}
             <fieldset  class="form-group" style="padding-top:10px">
                <div class="col-sm-4">Price Level Name<span class="req">*</span></div>
                <div class="col-sm-8"><input type="text" ng-model="data1.price_level" name="price_level" class="form-control" required></div>
@@ -1219,7 +1246,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                               <label for="radio01"><span></span>Yes</label>
                           </section>
                             <section class="radio-inline">
-                          <input id="radio02" type="radio"  name="hide_online" ng-model="data1.hide_online" checked value="0">
+                          <input id="radio02" type="radio"  name="hide_online" ng-model="data1.hide_online"  value="0">
                           <label for="radio02"><span></span>No</label>
                           </section>
                          </section>
@@ -1228,13 +1255,14 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             <fieldset class="form-group">
                <div class="col-sm-4">Hide in Box Office</div>
                <div class="col-sm-8">
+                   
             <section class="radio-sec">
                       		<section class="radio-inline">
                               <input type="radio" id="radio03" name="hide_in_box_office" ng-model="data1.hide_in_box_office" value="1" >
                               <label for="radio03"><span></span>Yes</label>
                           </section>
                             <section class="radio-inline">
-                          <input type="radio" id="radio04"  name="hide_in_box_office" ng-model="data1.hide_in_box_office" checked value="0" >
+                          <input type="radio" id="radio04"  name="hide_in_box_office" ng-model="data1.hide_in_box_office"  value="0" >
                           <label for="radio04"><span></span>No</label>
                           </section>
                          </section>
@@ -1270,7 +1298,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
            
         <!-- Step Form -->
         <div class="stage-container stage-container-3steps clearfix">
-          <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+          <div class="stage" ng-repeat="step in steps" data-ng-class="{current: $index + 1 === selectedClass}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
             <div class="stage-title">{{step.title}}</div> </div>
         </div>
         <!-- //Step Form --> 
@@ -1398,7 +1426,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                 <div>
                                     <div class="editor-btn">
                                         <button type="submit" class="pink-btn btn" ng-click="submitted=true">Save</button>
-                                        <button class="pink-btn btn" ng-click="click_menu({id:2});">Next</button>
+                                        <button type="submit" class="pink-btn btn" ng-click="submitted=true && click_menu({id:2});">Next</button>
                                   </div>   
                                 </div>
                         </form>
@@ -1409,41 +1437,31 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
               <!-- Step 2 start -->
             <div ng-show="step_2">
               <div class="module">
-                <section class="prof-hd">
-                  <i class="fa fa-link hdicon pos-l16"></i>
-                  <h2>Products<span style="float:right;">Quantity</span></h2>
-                </section>
-                <section class="gray-frame">
-                  <div class="row">
-                    <div class="col-sm-8" >
-                      <div class="form-group">
-                        <label for="EventName">  gtr e (Price: $0.00) </label>
+                <form class="" name="bundlestep2" ng-submit="bundlestep2.$valid && updateQty()" novalidate>
+                  <section class="prof-hd">
+                    <i class="fa fa-link hdicon pos-l16"></i>
+                    <h2>Products<span style="float:right;">Quantity</span></h2>
+                  </section>
+                  <section class="gray-frame">
+                    <div class="row" ng-repeat="product in productList" >
+                      <div class="col-sm-8" >
+                        <div class="form-group">
+                          <label for="EventName">  {{product.product_name}} (Price: {{product.retail_price}}) </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-4" >
+                        <div class="form-group">
+                          <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="productList[$index].qty"/>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-sm-4" >
-                      <div class="form-group">
-                        <select class="form-control" ng-model="coupon_type" required>
-                          <option>0</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          <option>6</option>
-                          <option>7</option>
-                          <option>8</option>
-                          <option>9</option>
-                          <option>10</option>
-                        </select>
-                      </div>
-                    </div>
+                  </section>
+                  <div class="editor-btn">
+                    <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
+                    <button class="pink-btn btn" ng-click="submitted2=true">Save</button>
+                    <button class="pink-btn btn" ng-click="submitted2=true && click_menu({id:3});">Next</button>
                   </div>
-                </section>
-                <div class="editor-btn">
-                  <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
-                  <button class="pink-btn btn" ng-click="saveProduct(2)">Save</button>
-                  <button class="pink-btn btn" ng-click="click_menu({id:3});">Next</button>
-                </div>
+                </form>
               </div>
             </div>
                <!-- Step 2 end -->
@@ -1474,11 +1492,11 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                       </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                        <td>Test</td>
-                                        <td>1</td>
-                                        <td>$150.00</td>
-                                        <td>$140.00</td>
+                                        <tr ng-repeat="product in productList">
+                                        <td>{{product.product_name}}</td>
+                                        <td>{{product.qty}}</td>
+                                        <td>${{product.qty*product.retail_price}}</td>
+                                        <td>${{product.qty*product.retail_price}}</td>
                                        </tr>
                                       </tbody>
                                   </table>
@@ -1487,8 +1505,8 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                       </section>
                        <div class="editor-btn">
                             <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
-                            <button class="pink-btn btn" ng-click="saveProduct(3)">Save</button>
-                            <button class="pink-btn btn" ng-click="saveProduct(4)">Submit</button>
+                            <button class="pink-btn btn" ng-click="updateQty()">Save</button>
+                            <button class="pink-btn btn" ng-click="updateQty('submit')">Submit</button>
                       </div> 
                   </div>
                </div>

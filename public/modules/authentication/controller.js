@@ -60,6 +60,7 @@ $rootScope.signup_success_message = true;
                 
                   if ((data.message=='error')||(data.user==undefined)) {
                    //$scope.error="Error occurred during login.";
+
                         if (data.errorMsg=='AccountBlocked') {
                         $scope.error=global_message.LoginAuthNotMatchingError;
                         $scope.error_message=false;
@@ -78,6 +79,7 @@ $rootScope.signup_success_message = true;
                           $scope.error_message=true;
                         },3000);    
                         }
+
                   }else{
                         $rootScope.class_status = 0;
                         $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=true;
@@ -99,7 +101,7 @@ $rootScope.signup_success_message = true;
             }
 
         };
-}).controller('signupcontroller',function($http,$scope,$rootScope,$location,$timeout, $state,communicationService){
+}).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage){
 
         // function to submit the form after all validation has occurred            
         $scope.unique  = false;
@@ -159,8 +161,13 @@ $rootScope.signup_success_message = true;
             }).success(function(data, status, headers, config) {
                  if (data == 300) {
                     //$scope.disabledBtn = true;
-                 $scope.unique = global_message.EmailAvailable;
                  $scope.unique_type  = 1;
+                 $scope.unique = global_message.EmailAvailable;
+                 $timeout(function() {
+                    $scope.unique = '';
+                    $scope.unique_type  = '';
+                   },3000);
+                   
                  }
                  else{
                  $scope.unique = global_message.EmailExist;
@@ -168,14 +175,16 @@ $rootScope.signup_success_message = true;
                  }
             });
            }else{
+            console.log('in else 3');
                  $scope.unique = global_message.EmailEmpty;
                  $scope.unique_type  = 3;
            }
         };
     
-    }).controller('forgotcontroller',function($http,$scope,$rootScope,$location,$timeout, $state,communicationService,$timeout){
+    }).controller('forgotcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage){
+        $scope.menu=true;
         $rootScope.class_status=1;
-        
+
         $scope.forgotPassword=function(){
           
             $scope.message = false;
