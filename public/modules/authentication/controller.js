@@ -60,7 +60,9 @@ $rootScope.signup_success_message = true;
                 
                   if ((data.message=='error')||(data.user==undefined)) {
                    //$scope.error="Error occurred during login.";
-                   $scope.error=global_message.LoginNotMatchingError;
+                   var errorMsg = data.errorMsg;
+                   $scope.error=global_message[errorMsg];
+                   //$scope.error=global_message.LoginNotMatchingError;
                    $scope.error_message=false;
                    $timeout(function() {
                         
@@ -88,7 +90,7 @@ $rootScope.signup_success_message = true;
             }
 
         };
-}).controller('signupcontroller',function($http,$scope,$rootScope,$location,$timeout, $state,communicationService){
+}).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage){
 
         // function to submit the form after all validation has occurred            
         $scope.unique  = false;
@@ -168,7 +170,7 @@ $rootScope.signup_success_message = true;
            }
         };
     
-    }).controller('forgotcontroller',function($http,$scope,$rootScope,$location,$timeout, $state,communicationService,$timeout){
+    }).controller('forgotcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage){
         $scope.menu=true;
         $rootScope.class_status=1;
 
