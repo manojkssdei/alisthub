@@ -79,6 +79,7 @@ var webservices = {
     /* Constants for the create event step 2 price level */
     "savepricelevel" : "/event/savepricelevel",
     "getPricelevel" : "/event/getPricelevel",
+    "removepricelevel" : "/event/removepricelevel",
 
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",
