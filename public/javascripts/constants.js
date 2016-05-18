@@ -61,6 +61,7 @@ var webservices = {
     /* Constants for the bundle module */
     "getBundles": "/event_setting/getBundles",
     "addBundle" :  "/event_setting/addBundle",
+    "updateBundle" : "/event_setting/updateBundle",
     "bundleOverview" :  "/event_setting/bundleOverview",
     "getBundleProducts":"/event_setting/getBundleProducts",
 
@@ -92,12 +93,12 @@ var global_message = {
     "EmailAvailable" : "Available",
     "EmailExist" : "Already Exist!",
     "SavingError" : "Error in saving !",
-    "SignupSuccess" : "Email send to you , Please go to email to activate your account.",
-    "ForgetPassword" : "Email has been sent to you for reset new password.",
+    "SignupSuccess" : "Please check your inbox to activate your account.",
+    "ForgetPassword" : "Email has been sent to you, reset your password now.",
     "ForgetEmailError" : "Please enter correct Email.",
-    "ActivatedMessage" : "Your account has been activated now , you can sign in your account .",
-    "ErrorInActivation" : "There is some problem in server , Please try some time.",
-    "QuestionAddValidation" : "Please fill all mandatory fields.",
+    "ActivatedMessage" : "Your account has been activated, please sign in.",
+    "ErrorInActivation" : "There is some problem, please try after some time.",
+    "QuestionAddValidation" : "Please fill all the mandatory fields.",
     "LoginNotMatchingError" : "The email and password you entered don't match.",
     "EmailEmpty" : "Enter a valid email "
 }

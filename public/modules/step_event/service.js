@@ -43,8 +43,14 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 		});
   };
 
-  url.updateBundle = function(jsondata,callback){
+  url.addBundle = function(jsondata,callback){
     communicationService.resultViaPost(webservices.addBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  url.updateBundle = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.updateBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
       callback(res.data);
     });
   };
@@ -55,6 +61,11 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
     });
   };
   
+  url.getBundles = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getBundles,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
   
 return url;
 
