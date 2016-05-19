@@ -64,6 +64,9 @@ var webservices = {
     "updateBundle" : "/event_setting/updateBundle",
     "bundleOverview" :  "/event_setting/bundleOverview",
     "getBundleProducts":"/event_setting/getBundleProducts",
+    "changeBundleStatus" : "/event_setting/changeBundleStatus",
+    "removeBundle" : "/event_setting/removeBundle",
+    "getBundleDetail" : "/event_setting/getBundleDetail",
 
     /* Constants for the manage users */
     "addUser": "/user/addUser",
