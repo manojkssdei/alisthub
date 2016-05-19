@@ -670,7 +670,8 @@ var tomorrow = new Date();
   if ($localStorage.discount == "" || $localStorage.discount == "undefined") {
     $location.path("/view_discounts/list"); 
   }
-   
+  $scope.discountlist = {};
+  $scope.alldiscountlist = {};
   var $serviceTest = $injector.get("discounts");
     
     if(window.innerWidth>767){ 
@@ -703,7 +704,7 @@ var tomorrow = new Date();
     }
   }
   
-  
+   
   /** Description : To get selected discount codes details.
   Created : 2016-05-18
   Created By:  Manoj Kumar Singh  
@@ -721,7 +722,26 @@ var tomorrow = new Date();
         $serviceTest.getSelectedDiscount($scope.cdata,function(response){
             if (response.code == 200) {
                   //$localStorage.discount = '';
-                  $scope.discountlist =  response.result; 
+                  //$scope.discountlist = [];
+                  
+                  //$scope.discountlist    =  response.result;
+                  //$scope.alldiscountlist =  response.allcode;
+                  //$scope.componentdata  = response.result;
+                  
+                  response.result.forEach(function(entry){
+                    $scope.discountlist[entry.id] = {};
+                    $scope.discountlist[entry.id].coupon_name = entry.coupon_name;
+                    $scope.discountlist[entry.id].coupon_code = entry.coupon_code;
+                    
+                  })
+                  response.allcode.forEach(function(entry2){
+                    $scope.alldiscountlist[entry2.id] = {};
+                    $scope.alldiscountlist[entry2.id].coupon_name = entry2.coupon_name;
+                    $scope.alldiscountlist[entry2.id].coupon_code = entry2.coupon_code;
+                    
+                  })
+                  
+                            
             }else{
                //  $scope.eventdata = "";
             }
@@ -733,8 +753,34 @@ var tomorrow = new Date();
   if ($state.params.assign) {
     $scope.getSelectedDiscount();
   }
-   
   
+  $scope.enableDiscountDiv = false;   
+  
+  $scope.removeMoreRow = function(key,id)
+  {
+    console.log(key+"::::::"+id);
+    console.log($scope.discountlist);
+    //$scope.discountlist.splice(key, 1);
+    //delete $scope.discountlist[key];
+    $scope.discountlist[id] = "";
+     
+    if ($scope.discountlist.length == 0) {
+      $scope.enableDiscountDiv = true;
+    }
+  }
+  
+  $scope.addMoreRow = function()
+  {
+    $scope.enableDiscountDiv = true;
+  }
+  
+  $scope.pushDiscount = function()
+  {
+    var current_data = $scope.alldiscountlist[$scope.add_code];
+    $scope.discountlist[$scope.add_code] = {};
+    $scope.discountlist[$scope.add_code].coupon_name = current_data.coupon_name;
+    $scope.discountlist[$scope.add_code].coupon_code = current_data.coupon_code;
+  }
   //// Make Assign ment service start
   $scope.makeAssignment = function() {
         $scope.adata = {};

@@ -435,61 +435,68 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
 })
 
 .controller('eventSettingController', function($scope,$localStorage,$injector,$http,$state,$location) {
-   
+    if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+    }
+    
     var $serviceTest = $injector.get("venues");
     $scope.data = {};
-       
+    
+    $scope.getGlobalSetting = function()
+    {   
         if ($localStorage.userId!=undefined) {
-        $scope.data.userId      = $localStorage.userId;
-        $scope.loader = true;
-        $serviceTest.getSettingCount($scope.data,function(response){
-            $scope.loader = false;
-            if (response.code == 200) {
-                   $scope.venuecount      = response.venueresult.count;
-                   $scope.quescount       = response.quesresult.count;
-                   $scope.productcount    = response.productresult.count;
-                   $scope.discountcount   = response.discountresult.count;
-                   
-                  }else{
-                   $scope.venuecount      = 0;
-                   $scope.quescount       = 0;
-                   $scope.productcount    = 0;
-                   $scope.discountcount   = 0;
-                   
-            }
-                if ($scope.venuecount > 0) {
-                     $scope.redirectvenue   = "#/view_venues/list";
+            $scope.data.userId      = $localStorage.userId;
+            $scope.loader = true;
+            $serviceTest.getSettingCount($scope.data,function(response){
+                $scope.loader = false;
+                if (response.code == 200) {
+                       $scope.venuecount      = response.venueresult.count;
+                       $scope.quescount       = response.quesresult.count;
+                       $scope.productcount    = response.productresult.count;
+                       $scope.discountcount   = response.discountresult.count;
+                       
+                      }else{
+                       $scope.venuecount      = 0;
+                       $scope.quescount       = 0;
+                       $scope.productcount    = 0;
+                       $scope.discountcount   = 0;
+                       
                 }
-                else{
-                    $scope.redirectvenue   = "#/add_venue";
-                }
-                
-                if ($scope.quescount > 0) {
-                     $scope.redirectques   = "#/view_questions/list";
-                }
-                else{
-                    $scope.redirectques   = "#/add_question";
-                }
-                
-                if ($scope.productcount > 0) {
-                     $scope.redirectproduct   = "#/view_products/list";
-                }
-                else{
-                    $scope.redirectproduct   = "#/add_product";
-                }
-                
-                if ($scope.discountcount > 0) {
-                     $scope.redirectdiscount  = "#/view_discounts/list";
-                }
-                else{
-                    $scope.redirectdiscount   = "#/add_discount";
-                }
-                
-                  
-        });
-        
-        }
+                    if ($scope.venuecount > 0) {
+                         $scope.redirectvenue   = "#/view_venues/list";
+                    }
+                    else{
+                        $scope.redirectvenue   = "#/add_venue";
+                    }
+                    
+                    if ($scope.quescount > 0) {
+                         $scope.redirectques   = "#/view_questions/list";
+                    }
+                    else{
+                        $scope.redirectques   = "#/add_question";
+                    }
+                    
+                    if ($scope.productcount > 0) {
+                         $scope.redirectproduct   = "#/view_products/list";
+                    }
+                    else{
+                        $scope.redirectproduct   = "#/add_product";
+                    }
+                    
+                    if ($scope.discountcount > 0) {
+                         $scope.redirectdiscount  = "#/view_discounts/list";
+                    }
+                    else{
+                        $scope.redirectdiscount   = "#/add_discount";
+                    }
+                    
+                      
+            });
             
+        }
+    }
+    
+    $scope.getGlobalSetting();
     
     
     $scope.venuetab   = false;
@@ -501,7 +508,7 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
     $scope.producttabclass   = "fa-caret-down";
     $scope.discounttabclass  = "fa-caret-down";
     $scope.questiontabclass  = "fa-caret-down";
-$scope.bundletabclass  = "fa-caret-down";
+    $scope.bundletabclass  = "fa-caret-down";
     
     $scope.openTab = function(id)
     {

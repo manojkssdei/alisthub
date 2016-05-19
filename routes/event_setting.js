@@ -7,12 +7,11 @@ Module : Setting Management
 
 module.exports = function(app, express) {
 
-	var router = express.Router();
+    var router = express.Router();
 
-        var csv = require('express-csv');
+    var csv = require('express-csv');
   
-	Event_setting     = require('./../app/event_setting/controllers/venue.js');
-
+    Event_setting     = require('./../app/event_setting/controllers/venue.js');
         
     question_setting  = require('./../app/event_setting/controllers/question.js');
     

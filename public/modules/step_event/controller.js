@@ -31,7 +31,22 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                  {id:11},{id:12},{id:13},{id:14},{id:15},{id:16},{id:17},{id:18},{id:19},{id:20},
                  {id:21},{id:22},{id:23},{id:24},{id:25},{id:26},{id:27},{id:28},{id:29},{id:30},{id:31}
                  ];
-
+    
+    if ($localStorage.userId!=undefined) {
+       
+        $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
+            if (response!=null) {
+            if (response.code == 200)
+            {
+              $scope.total_venue=response.result;
+            }
+            }else{
+             $scope.total_venue=[];   
+            }
+            
+        });
+    }
+    
 
     $eventId=$localStorage.eventId;
     $serviceTest.getPricelevel({'eventId':$eventId},function(response){
@@ -434,20 +449,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       map.fitBounds(bounds);
     }
      
-    if ($localStorage.userId!=undefined) {
-       
-        $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
-            if (response!=null) {
-            if (response.code==200)
-             {
-              $scope.total_venue=response.result;
-             }
-            }else{
-             $scope.total_venue=[];   
-            }
-            
-        });
-    }
+    
  
  
    
