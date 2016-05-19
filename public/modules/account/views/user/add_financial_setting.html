@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6" ng-class="{ 'has-error' : addUserForm.phone.$invalid && !addUserForm.user_contact.$pristine }">
+                    <div class="col-sm-6" ng-class="{ 'has-error' : addUserForm.phone.$invalid && !addUserForm.phone.$pristine }">
                         <div class="form-group">
                             <label> Contact Number</label>
                             <input type="text" class="form-control" name="phone" placeholder="Contact Number"  ng-pattern="/^\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})$/"  ng-model="user.phone"/>

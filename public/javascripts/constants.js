@@ -93,16 +93,23 @@ var webservices = {
 
 var global_message = {
     "EmailAvailable" : "Available",
-    "EmailExist" : "Already Exist!",
+    "EmailExist" : "This email is already registered.Please try another.",
     "SavingError" : "Error in saving !",
-    "SignupSuccess" : "Please check your inbox to activate your account.",
-    "ForgetPassword" : "Email has been sent to you, reset your password now.",
-    "ForgetEmailError" : "Please enter correct Email.",
+    "SignupSuccess" : "Registration email sent to your registered email. Open your email to finish signup.If you don't see alistixs email in your inbox within 15 minutes, look for it in your junk mail folder. If you find it there, please mark the email as 'Not Junk'.",
+    "ForgetPassword" : "Check your registered email to reset your password quickly.",
+    "ForgetEmailError" : "Your search didn't match any accounts. Enter your registered email address again.",
     "ActivatedMessage" : "Your account has been activated, please sign in.",
     "ErrorInActivation" : "There is some problem, please try after some time.",
     "QuestionAddValidation" : "Please fill all the mandatory fields.",
     "LoginNotMatchingError" : "The email and password you entered don't match.",
-    "EmailEmpty" : "Enter a valid email "
+    "EmailEmpty" : "Enter a valid email ",
+    //"AccountNotActivated" : "Verify your registered email to complete the sign-up process.",
+    "AccountNotActivated" : "You have not verified your email account, please see the verification email you must have received in your registered email",
+    "AccountBlocked" : "Account Blocked",
+    "InfoNotUpdated" : "Some error",
+    "InvalidPassword" : "The password that you've entered is incorrect.",
+    "InvalidEmail" : "The email address that you've entered doesn't match any account.",
+    "InvalidUserPassword" : "The email and password you entered don't match",
 }
 
 var appConstants = {
