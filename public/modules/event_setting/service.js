@@ -264,6 +264,20 @@ return url;
     });
       
   };
+  
+  url.exportDiscountCSV = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.exportDiscountCSV,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+  
+  url.getSelectedDiscount = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getSelectedDiscount,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
     
   
 return url;
