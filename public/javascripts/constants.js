@@ -4,8 +4,7 @@ servicebaseUrl="//192.155.246.146:5502";
 
 var webservices = {	
 
-	"getUserregister" : baseUrl + "/webservices/register",
-
+    "getUserregister" : baseUrl + "/webservices/register",
     "checkUnique" : baseUrl + "/webservices/checkUnique",
     "getUserlogin" : baseUrl + "/webservices/login",
     "forgetPassword" : baseUrl + "/webservices/forgetPassword",

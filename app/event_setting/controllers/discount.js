@@ -306,23 +306,36 @@ Created : 2016-05-17
 Created By: Manoj kumar  Singh
 */
 
-exports.getSelectedDiscount = function(req,res){
+exports.getSelectedDiscount = function(req,res)
+{
      var condition = "";
+     var condition2 = "";
      if (req.body.seller_id != "" && req.body.seller_id  != null && req.body.seller_id  != "undefined") {
           condition = " seller_id ="+req.body.seller_id;
+          condition2 = " seller_id ="+req.body.seller_id;
      }
      if (req.body.ids != "" && req.body.ids  != "[]" && req.body.ids  != "undefined") {
           var strold = String(req.body.ids);
           var strnew = strold.substr(0, strold.length);
           condition += " AND id IN ("+strnew+")";
+          //condition2 += " AND id NOT IN ("+strnew+")";
      }
      
-     query = connection.query('select * from discounts where '+condition, function(err, results) {
-        if (err) {
-         res.json({error:err,code:101});
-        }
-        else{
-        res.json({result:results,code:200});
-        }
-     });
+     if (condition != "") {
+          connection.query('select * from discounts where '+condition, function(err, results) {
+             if (err) {
+              res.json({error:err,code:101});
+             }
+             else{
+             ///////////////////////////////////////////
+             connection.query('select * from discounts where '+condition2, function(err2, results2) {
+             res.json({result:results,allcode:results2,code:200});
+             });
+             //////////////////////////////////////////
+             }
+          });
+     }
+     else {
+          res.json({error:"error",code:101});
+     }
 }
