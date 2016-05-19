@@ -155,15 +155,28 @@ module.exports = function(app, express) {
     
     /* Export CSV discount  */
     /////////////////////// Export CSV  ////////////////////////////////
-    router.get('/exportDiscountCSV', discount_setting.exportDiscountCSV); 
+    router.get('/exportDiscountCSV', discount_setting.exportDiscountCSV);
+    
+    /* Get selected discount  */
+    /////////////////////// Export CSV  ////////////////////////////////
+    router.post('/getSelectedDiscount', discount_setting.getSelectedDiscount); 
 
     /*** Module : Manage Bundle
      *   Get Seller Bundle 
      *
     */
+    /* Add bundle for event  */
     router.post('/addBundle', bundle_setting.addBundle);
+    /* update bundle for event  */
     router.post('/updateBundle', bundle_setting.updateBundle);
+    /* get bundle lists */
     router.post('/getBundles', bundle_setting.getBundles);
-    
+    /* change the bundle status */
+    router.post('/changeBundleStatus', bundle_setting.changeBundleStatus);
+    /* remove the bundle  */
+    router.post('/removeBundle', bundle_setting.removeBundle);
+    /* Get bundle details  */
+    router.post('/getBundleDetail', bundle_setting.getBundleDetail);
+
     app.use('/event_setting', router);
 }

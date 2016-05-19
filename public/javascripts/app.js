@@ -544,11 +544,11 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /* Setting for new assign discount screen */
         .state('new_assign_discount', {
-            url: '/new_assign_discount',
+            url: '/new_assign_discount/:assign',
             
             views: {
                 "lazyLoadView": {
-                  controller: 'manageDiscountController', // This view will use AppCtrl loaded below in the resolve
+                  controller: 'assignDiscountController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/event_setting/views/discount/new_assign_discount.html'
                 }
             },
@@ -557,7 +557,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js','javascripts/bootstrap-timepicker.js']);
                 })
               }]
             }
@@ -906,7 +906,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         localStorage.clear();
         $state.go('login');
     }
-    ///////////////////////////////////////////////////////////
+
     
     
     }])
