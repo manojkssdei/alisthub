@@ -783,6 +783,48 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
 
+        /* Setting for view the custom financial listing screen */
+        .state('view_custom_financial_setting', {
+            url: '/view_custom_financial_setting/:list',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageAccountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/account/views/user/view_custom_financial_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                })
+              }]
+            }
+        })
+
+        /* Setting for edit custom financial merchant account details screen */
+        .state('edit_financial_setting', {
+            url: '/edit_financial_setting/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'accountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/account/views/user/custom_financial_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                })
+              }]
+            }
+        })
+
 
         // End Manage Section :
         /// start discount routes

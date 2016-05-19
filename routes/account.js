@@ -15,5 +15,17 @@ module.exports = function(app, express) {
     /* For getting the financial data */
     router.post('/getFinancialDetails', account_setting.getFinancialDetails);
    
+    /* For saving the merchant financial data */
+    router.post('/addCustomFinancialDetails', account_setting.addCustomFinancialDetails);
+    
+    /* For saving the merchant financial data */
+    router.post('/viewCustomFinancialSetting', account_setting.viewCustomFinancialSetting);
+  
+   /* For getting the merchant financial data */
+    router.post('/getCustomFinancialSetting', account_setting.getCustomFinancialSetting);
+    
+    /* For checking if merchant financial data already exist*/
+    router.post('/checkAlreadyAddedMerchant', account_setting.checkAlreadyAddedMerchant);
+   
     app.use('/account', router);
 }
