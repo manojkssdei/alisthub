@@ -155,7 +155,11 @@ module.exports = function(app, express) {
     
     /* Export CSV discount  */
     /////////////////////// Export CSV  ////////////////////////////////
-    router.get('/exportDiscountCSV', discount_setting.exportDiscountCSV); 
+    router.get('/exportDiscountCSV', discount_setting.exportDiscountCSV);
+    
+    /* Get selected discount  */
+    /////////////////////// Export CSV  ////////////////////////////////
+    router.post('/getSelectedDiscount', discount_setting.getSelectedDiscount); 
 
     /*** Module : Manage Bundle
      *   Get Seller Bundle 

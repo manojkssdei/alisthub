@@ -57,6 +57,8 @@ var webservices = {
     "changeDiscountStatus" :  "/event_setting/changeDiscountStatus",
     "deleteDiscount" :  "/event_setting/deleteDiscount",
     "makeDiscountAssignment"  :  "/event_setting/makeDiscountAssignment",
+    "exportDiscountCSV"  :  "/event_setting/exportDiscountCSV",
+    "getSelectedDiscount" :  "/event_setting/getSelectedDiscount",
 
     /* Constants for the bundle module */
     "getBundles": "/event_setting/getBundles",
@@ -106,13 +108,15 @@ var global_message = {
     "QuestionAddValidation" : "Please fill all the mandatory fields.",
     "LoginNotMatchingError" : "The email and password you entered don't match.",
     "EmailEmpty" : "Enter a valid email ",
-    //"AccountNotActivated" : "Verify your registered email to complete the sign-up process.",
+
+    "LoginAuthNotMatchingError" : "Your account has not been activated till now . Please go to email to complete activation process.",
     "AccountNotActivated" : "You have not verified your email account, please see the verification email you must have received in your registered email",
     "AccountBlocked" : "Account Blocked",
     "InfoNotUpdated" : "Some error",
     "InvalidPassword" : "The password that you've entered is incorrect.",
     "InvalidEmail" : "The email address that you've entered doesn't match any account.",
     "InvalidUserPassword" : "The email and password you entered don't match",
+
 }
 
 var appConstants = {
