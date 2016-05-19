@@ -87,7 +87,10 @@ var webservices = {
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",
     "getFinancialDetails" : "/account/getFinancialDetails",
-    
+    "addCustomFinancialDetails" : "/account/addCustomFinancialDetails",
+    "viewCustomFinancialSetting" : "/account/viewCustomFinancialSetting",
+    "getCustomFinancialSetting" : "/account/getCustomFinancialSetting",
+    "checkAlreadyAddedMerchant" : "/account/checkAlreadyAddedMerchant",
 
 }
 
