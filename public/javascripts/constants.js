@@ -47,6 +47,9 @@ var webservices = {
     "saveProductSetting"  :  "/event_setting/saveProductSetting",
     "getProductSetting"  :  "/event_setting/getProductSetting",
     "saverecurringEvent"  :  "/event/saverecurringEvent",
+        /////get event category////
+     "getEventsdetail":"/event/getEventsdetail",
+    
 
     /* Constants for the discount module */
     "getDiscounts":"/event_setting/getDiscounts",
@@ -89,6 +92,13 @@ var webservices = {
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",
     "getFinancialDetails" : "/account/getFinancialDetails",
+
+
+      "saveEvent"  :  "/series/saveEvent",
+    "savepricelevel" : "/series/savepricelevel",
+    "getPricelevel" : "/series/getPricelevel",
+      "saverecurringEvent"  :  "/series/saverecurringEvent",
+
     
 
 }

@@ -184,6 +184,30 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
         
+////////////create series.//////////
+
+         .state('create_series', {
+            url: '/create_series',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'createseriesController',
+                  templateUrl: 'modules/event_series/views/create_event_series.html'
+                }
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_series/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_series/controller.js']);
+                })
+              }]
+            }
+          
+        })
+
         // Module : Event Setting Start
         /* Setting for Venue Management screen */
         .state('add_venue', {

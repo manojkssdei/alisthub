@@ -16,6 +16,7 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 		});
       
   };
+
   //save recurring events
   url.saverecurringEvent = function(jsondata,callback){
    
@@ -86,6 +87,12 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
       callback(res.data);
     });
   };
+
+  url.postEventdata = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getEventsdetail,appConstants.authorizationKey,headerConstants.json,jsondata,function(res,req){
+      callback(res.data);
+    });
+     };
   
 return url;
 
