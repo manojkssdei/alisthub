@@ -1,75 +1,60 @@
-  <div class="container">
-      <h1>ALL USERS</h1>
-
-
-            <div class="module">              
-                <section class="gray-frame sub-fields">
-                  <section class="grid-btn-top row">
-                      <section class="col-sm-7">
-                        <section class="top-buttons">
-                            <a href="#/add_user"  ><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add Users</button></a>
-                        </section>
-                      </section>
-                      <section class="col-sm-5 right-btns text-right">
-                          
-                          
-                      </section>
+<div class="container">
+    <h1>ALL USERS</h1>
+    <div class="module">
+        <section class="gray-frame sub-fields">
+            <section class="grid-btn-top row">
+                <section class="col-sm-7">
+                    <section class="top-buttons">
+                        <a href="#/add_user"  ><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add Users</button></a>
                     </section>
-
-    
-<section class="grid-widget">
-                      <div class="table-responsive">
-                          
-            
-                <table class="table table-striped">
-                             <thead>
-                            <tr>
-                            <th width="7%">ID</th>
-                            <th width="25%" class="numbers">EMAIL</th>
-                            <th width="20%" class="numbers">FIRST NAME</th>
-                            <th width="20%" class="numbers">LAST NAME</th>
-                            <th width="120%" class="numbers">MANAGE</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                          <tr  pagination-id="paginate2" dir-paginate="data in userData | itemsPerPage: 2 | filter:filter">
-                            <td><strong>{{data.seller_id}}</strong></td>
-                            <td class="numbers">{{data.email}}</td>
-                            <td class="numbers">{{data.first_name}}</td>
-                            <td class="numbers">{{data.last_name}}</td>
-                            <td class="action"><a href="#/edit_user/{{data.id}}"><i class="fa fa-edit"></i></a><a href="#/user/delete_user"><i class="fa fa-trash"></i></a></td>
-                        </tr>   
-                    </tbody>
-            
-                </table>
-            
-            
-                      </div>
-                  </section>
-                  
-                  <section class="grid-bottm clearfix">
-                        <section class="paging">
-                             <label class="lt-label">Page</label>
-                             <ul class="page-list">
-                                <li class="first-page page-btn"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                <li class="prev-page page-btn"><a href="#"><i class="fa fa-angle-left"></i></a></li>   
-                                <li class="active"><a href="#">1</a></li>    
-                                <li><a href="#">2</a></li>      
-                                <li><a href="#">3</a></li> 
-                                <li class="next-page page-btn"><a href="#"><i class="fa fa-angle-right"></i></i></a></li>  
-                                <li class="last-page page-btn"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>  
-                             </ul>
-                        </section>
-                        <section class="gr-right pull-right">
-                            <ul class="legends">
-                                <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                                <li><i class="fa fa-trash"></i><span>delete</span></li>
-                            </ul>
-                        </section>
-                   </section>
-                
                 </section>
-          </div>
-           </div>
+                <section class="col-sm-5 right-btns text-right">
+                </section>
+            </section>
+            <section class="grid-widget">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th width="7%">ID</th>
+                                <th width="25%" class="numbers">EMAIL</th>
+                                <th width="20%" class="numbers">FIRST NAME</th>
+                                <th width="20%" class="numbers">LAST NAME</th>
+                                <th width="120%" class="numbers">MANAGE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  pagination-id="paginate2" dir-paginate="data in userData | itemsPerPage: 2 | filter:filter">
+                                <td><strong>{{data.seller_id}}</strong></td>
+                                <td class="numbers">{{data.email}}</td>
+                                <td class="numbers">{{data.first_name}}</td>
+                                <td class="numbers">{{data.last_name}}</td>
+                                <td class="action"><a href="#/edit_user/{{data.id}}"><i class="fa fa-edit"></i></a><a href="#/user/delete_user"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section class="grid-bottm clearfix">
+                <section class="paging">
+                    <label class="lt-label">Page</label>
+                    <ul class="page-list">
+                        <li class="first-page page-btn"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                        <li class="prev-page page-btn"><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li class="next-page page-btn"><a href="#"><i class="fa fa-angle-right"></i></i></a></li>
+                        <li class="last-page page-btn"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                    </ul>
+                </section>
+                <section class="gr-right pull-right">
+                    <ul class="legends">
+                        <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+                        <li><i class="fa fa-trash"></i><span>delete</span></li>
+                    </ul>
+                </section>
+            </section>
+        </section>
+    </div>
+</div>
