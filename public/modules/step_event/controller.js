@@ -542,9 +542,18 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
     $scope.price_and_link_data=function(data1)
     {
-        console.log(data1);
+        data1.eventId=$localStorage.eventId;
         $serviceTest.postSecondStepdata(data1,function(response){
-            console.log(response);
+            if (response.code=200) {
+               $scope.success="Price & links Successfully Saved.";
+              $scope.data1={};
+              $scope.error_message=false;
+              $timeout(function() {
+               $scope.success='';
+               $scope.error_message=true;
+              },3000);
+              window.location.reload();
+            }
         });
     }
 

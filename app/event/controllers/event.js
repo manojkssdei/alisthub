@@ -297,5 +297,29 @@ Created By: Deepak khokhar
 */
 exports.savesecondstepdata=function(req,res)
 {
-    console.log(req.body);
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+ if (req.body.category1!=undefined) {
+    var $sql1="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category1+"','"+curtime+"')";
+  connection.query($sql1,function(err,res){
+    });
+ }
+ if (req.body.category2!=undefined) {
+    var $sql2="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category2+"','"+curtime+"')";
+  connection.query($sql2,function(err,res){
+    });
+ }
+ if (req.body.category3!=undefined) {
+    var $sql3="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category3+"','"+curtime+"')";
+  connection.query($sql3,function(err,res){
+    });
+ }
+  
+  
+   connection.query("UPDATE events SET `website_url`='"+req.body.eventwebsite+"',`keyword`='"+req.body.keyword+"',`inventory`='"+req.body.eventinventory+"',`facebook_url`='"+req.body.facebook+"',`twitter_url`='"+req.body.twitter+"',`video`='"+req.body.video+"',`type_of_event`='"+req.body.type_of_event+"',`custom_ages`='"+req.body.custom_ages+"',`price_type`='"+req.body.price+"' where id="+req.body.eventId, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }else{
+     res.json({result:results,code:200});
+     }
+  });
 }
