@@ -154,14 +154,12 @@ angular.module('alisthub')
         $scope.checkAlreadyAddedMerchant = function() {
             if ($localStorage.userId != undefined) {
                 $scope.user.seller_id = $localStorage.userId;
-                console.log('$scope .user', $scope.user);
                 $serviceTest.checkAlreadyAddedMerchant($scope.user, function(response) {
-                    console.log(response);
                     $scope.loader = false;
                     if (response.code == 200) {
                         if (response.result[0] != undefined) {
-                            $rootScope.success_already = global_message.merchantTypeExist;
-                            console.log('response.result[0]', response.result[0]);
+                            $rootScope.success = true;
+                            $rootScope.success_message = global_message.merchantTypeExist;
                             $location.path("/edit_financial_setting/" + response.result[0].id);
                         }
                     } else {
@@ -177,12 +175,16 @@ angular.module('alisthub')
             $scope.callfunction = 1;
             $scope.page_title = 'EDIT';
             $scope.button_title = 'Edit';
-            $scope.success_message_already = false;
             $scope.success_message = false;
 
             if ($rootScope.success) {
-                $scope.success_message_already = true;
-                $scope.success_already = $rootScope.success_already;
+                $scope.success = $rootScope.success_message;
+                $scope.success_message = true;
+                 $timeout(function() {
+                    $scope.success_message = false;
+                    $scope.success = '';
+                    $rootScope.success = '';
+                }, 3000);
             }
 
             $scope.getCustomFinancialDetail = function() {

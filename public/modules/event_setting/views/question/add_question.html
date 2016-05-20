@@ -27,8 +27,9 @@
 			      <option>Waiver</option>
 			      <option>Address</option>
                             </select>
+                            <p ng-show="userForm.question_type.$invalid && !userForm.question_type.$pristine" class="error-fld ng-binding">Select Question type.</p>
                           </div>
-			  <p ng-show="userForm.question_type.$invalid && !userForm.question_type.$pristine" class="error-fld ng-binding">Select Question type.</p>
+			  
                         </div>
                       </div>
                       <div class="row">
@@ -36,8 +37,9 @@
                           <div class="form-group">
                             <label for="Venue">Question<span class="req">*</span></label>
                             <textarea class="form-control" name="question_name" ng-model="data.question_name" required></textarea>
+                          <p ng-show="userForm.question_name.$invalid && !userForm.question_name.$pristine" class="error-fld ng-binding">Enter Question name.</p>
                           </div>
-			  <p ng-show="userForm.question_name.$invalid && !userForm.question_name.$pristine" class="error-fld ng-binding">Enter Question name.</p>
+			  
                         </div>
                       </div>
                       <div class="row">
