@@ -549,7 +549,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                $scope.success='';
                $scope.error_message=true;
               },3000);
-              window.location.reload();
+             // window.location.reload();
             }
         });
     }

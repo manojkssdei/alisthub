@@ -1291,7 +1291,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                 <!-- Step 1 start -->
                    <div ng-show="step_1">
                     <!-- Event Detail Form -->
-                          <form class="event-form" name="bundleForm" ng-submit="bundleForm.$valid && updateBundle(bundle)" novalidate>
+                          <form  name="bundleForm" ng-submit="bundleForm.$valid && updateBundle(bundle)" novalidate>
                           <input type="hidden" name="id" ng-model="bundle.id"/>
 
                                  <div>
