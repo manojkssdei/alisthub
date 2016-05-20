@@ -4,8 +4,7 @@ servicebaseUrl="//192.155.246.146:5502";
 
 var webservices = {	
 
-	"getUserregister" : baseUrl + "/webservices/register",
-
+    "getUserregister" : baseUrl + "/webservices/register",
     "checkUnique" : baseUrl + "/webservices/checkUnique",
     "getUserlogin" : baseUrl + "/webservices/login",
     "forgetPassword" : baseUrl + "/webservices/forgetPassword",
@@ -88,6 +87,7 @@ var webservices = {
     "removepricelevel" : "/event/removepricelevel",
     "changePricelevelStatus" : "/event/changePricelevelStatus",
     "getSinglePricelevel" : "/event/getSinglePricelevel",
+    "postPriceChange" : "/event/postPriceChange",
 
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",

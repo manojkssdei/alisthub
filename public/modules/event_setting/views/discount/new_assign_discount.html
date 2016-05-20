@@ -22,93 +22,46 @@
           </div>
 
           <div class="row">
-                <div class="col-sm-12 col-md-12">
-                    <div class="tab-content">
-                    <div role="tabpanel">
-                     
-                      <div class="row" ng-repeat="list in discountlist">
-                         <div class="col-sm-4">
-                          <div class="form-group">
-                            <label for="EventName">&nbsp;</label>
-                            <strong>Discount Name</strong>
-                          </div>
-                         </div>
-                         
-                         <div class="col-sm-2">
-                          <div class="form-group">
-                            <label for="EventName">&nbsp;</label>
-                            <strong>Discount Code</strong>
-                          </div>
-                         </div>
-                         
-                         <div class="col-sm-2 pull-left text-left lss-top">
-                          <div class="form-group">
-                            <label for="EventName">&nbsp;</label>
-                             <strong>Action</strong>
-                          </div>
-                         </div>
-                         <div class="col-sm-4 pull-left text-left lss-top">
-                          <div class="form-group">
-                            <label for="EventName">&nbsp;</label>
-                             &nbsp;
-                          </div>
-                         </div>
-                         
-                      </div>
-                     </div>
-                    </div>
-                  <!-- Tab panes -->
+                <div class="col-sm-8 col-md-8">
+                    <table class="table table-striped">
+                    <thead>
+                         <tr>
+			    <th width="40%">Discount Name</th>
+                            <th width="40%">Discount Code</th>
+                            <th width="20%">Action</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                         <tr ng-repeat="(key,list) in discountlist">
+			    <td>{{list.coupon_name}}</td>
+                            <td>{{list.coupon_code}}</td>
+                            <td><a ng-click="removeMoreRow($index,key)"><i class="fa fa-close"></i></a></td>
+                         </tr>
+                    </tbody>
+                    </table>
+                 <!-- Tab panes -->
                 </div>
-                <div class="col-sm-12 col-md-6"></div>
+                <div class="col-sm-4 col-md-4"></div>
            </div>
-          
-          <div class="row">
-                <div class="col-sm-12 col-md-12">
-                    <div class="tab-content">
-                    <div role="tabpanel">
-                     
-                      <div class="row" ng-repeat="list in discountlist">
-                         <div class="col-sm-4">
-                          <div class="form-group">
-                            <label for="EventName">&nbsp;</label>
-                            {{list.coupon_name}}
-                          </div>
-                         </div>
-                         
-                         <div class="col-sm-2">
-                          <div class="form-group">
-                            <label for="EventName">&nbsp;</label>
-                            {{list.coupon_code}}
-                          </div>
-                         </div>
-                         
-                         <div class="col-sm-2 pull-left text-left lss-top">
-                          <div class="form-group">
-                            <label for="EventName">&nbsp;</label>
-                             <a ng-click="removediv($index,list.id)"><i class="fa fa-close"></i></a>
-                          </div>
-                         </div>
-                        
-                        <div class="col-sm-2 pull-left text-left lss-top">
-                          <div class="form-group">
-                            <label for="EventName">&nbsp;</label>
-                             &nbsp;
-                          </div>
-                         </div>
-                        
-                      </div>
-                     </div>
-                    </div>
-                  <!-- Tab panes -->
-                </div>
-                <div class="col-sm-12 col-md-6"></div>
-           </div>
-          <div class="row">
-               <div class="col-sm-12 col-md-12">
-                    
+          <div class="row" ng-show="enableDiscountDiv">
+               <div class="col-sm-4 col-md-4">
+                    <select class="form-control" name="add_code" ng-model="add_code" ng-change="pushDiscount();">
+                            <option ng-repeat="(key,list) in alldiscountlist" value="{{key}}">{{list.coupon_name}}({{list.coupon_code}})</option>
+                    </select>
                </div>
           </div>
           
+          <div class="row">
+               <div class="col-sm-12 col-md-12">
+                  <label for="EventName">&nbsp;</label>   
+                 <a ng-click="addMoreRow()">Add Another Discount</a>   
+               </div>
+          </div>
+          <div class="row">
+               <div class="col-sm-12 col-md-12">
+                 &nbsp;  
+               </div>
+          </div>
           
           <div class="row">
                <div class="col-sm-12 col-md-12">

@@ -224,3 +224,34 @@ exports.getSinglePricelevel = function(req,res) {
         
     });
 }
+
+/** 
+Method: updatePriceChange
+Description:Function to change Price level data status 
+Created : 2016-05-18
+Created By: Deepak khokhar  
+*/
+exports.postPriceChange = function(req,res) {
+    
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    var Date1=new Date(req.body.startdate_pricechange);
+    var mon=Date1.getMonth()+1;
+    var month;
+  var date=Date1.getFullYear()+"-"+mon+"-"+Date1.getDate();
+    if (req.body.interval=='pm')
+    {
+      month=parseInt(req.body.month)+12;
+      month.toString();
+    }else{
+        month=req.body.month;
+    }
+    var change_price_date=date+" "+month+":"+req.body.time+":00";
+ 
+ connection.query("UPDATE price_levels SET `new_price`='"+req.body.new_price+"',`apply_to`='"+req.body.apply+"',`price_change_datetime`='"+change_price_date+"' where id="+req.body.price_change_id, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }else{
+     res.json({result:results,code:200});
+     }
+  });
+}

@@ -35,7 +35,6 @@ angular.module('alisthub')
   
   $scope.removeMoreRow = function(key,id)
   {
-    
     $scope.addmore.splice(key, 1);
     $scope.cdata[id] = null;
   }

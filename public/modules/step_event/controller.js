@@ -26,12 +26,31 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       {id: '5', name: 'Fri'},
       {id: '6', name: 'Sat'}
     ]
+    
+    
+    
     $scope.dates=[
                  {id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9},{id:10},
                  {id:11},{id:12},{id:13},{id:14},{id:15},{id:16},{id:17},{id:18},{id:19},{id:20},
                  {id:21},{id:22},{id:23},{id:24},{id:25},{id:26},{id:27},{id:28},{id:29},{id:30},{id:31}
                  ];
 
+    if ($localStorage.userId!=undefined) {
+       
+        $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
+            if (response!=null) {
+
+            if (response.code == 200)
+            {
+              $scope.total_venue=response.result;
+            }
+
+            }else{
+             $scope.total_venue=[];   
+            }
+            
+        });
+    }
 
     $eventId=$localStorage.eventId;
     $serviceTest.getPricelevel({'eventId':$eventId},function(response){
@@ -434,23 +453,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       map.fitBounds(bounds);
     }
      
-    if ($localStorage.userId!=undefined) {
-       
-        $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
-            if (response!=null) {
-            if (response.code==200)
-             {
-              $scope.total_venue=response.result;
-             }
-            }else{
-             $scope.total_venue=[];   
-            }
-            
-        });
-    }
- 
- 
-   
+    
 
    
   var now = new Date();
@@ -463,7 +466,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.inlineOptions = {
     customClass: getDayClass,
     minDate: new Date(),
-    showWeeks: true
+    showWeeks: true 
   };
 
   $scope.dateOptions = {
@@ -616,13 +619,6 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
      $scope.data1.dynamic_age='';
   }
 
-  $scope.ages = [
-  { "name": "All Ages",'id':0},
-  {"name": "18 and  over",'id':18},
-  {"name": "19 and over",'id':19},
-  {"name": "21 and over",'id':21},
-  ]
-  
 
   $scope.events = [
     { "name": "Single Event",'id':1},
@@ -797,6 +793,32 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       }
     });
   };
+  
+  $scope.pricechangefunc=function(data2)
+  {
+    console.log(data2);
+  }
+  
+  //Schedule Price change
+  $scope.price_change=function(size,priceid)
+  {
+    
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'pricechange.html',
+      controller: 'PricechangeCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          $rootScope.price_change_id=priceid;
+          return $scope.items;
+        }
+      }
+    });
+  
+  }
+  
+  
   //delete Price level
   $scope.delete_price_level = function (size,index,price_id) {
     
@@ -1459,7 +1481,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       if ($localStorage.userId!=undefined) {
         $scope.data.userId      = $localStorage.userId;
         $serviceTest.getProducts($scope.data,function(response){
-          console.log(response);
+          
           $scope.loader = false;
           if (response.code == 200) {
             //console.log($scope.data.first_name);
@@ -1472,4 +1494,79 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
 
     $scope.getProduct();
 
+  });
+  
+   /*
+  Code for product popup
+  */
+  angular.module('alisthub').controller('PricechangeCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
+    var $serviceTest = $injector.get("venues");
+   $scope.open1 = function() {
+    $scope.popup1.opened = true;
+  };
+  
+  $scope.popup1 = {
+    opened: false
+  }; 
+    $scope.months=[
+      {id: '01', name: '1'},
+      {id: '02', name: '2'},
+      {id: '03', name: '3'},
+      {id: '04', name: '4'},
+      {id: '05', name: '5'},
+      {id: '06', name: '6'},
+      {id: '07', name: '7'},
+      {id: '08', name: '8'},
+      {id: '09', name: '9'},
+      {id: '10', name: '10'},
+      {id: '11', name: '11'},
+      {id: '12', name: '12'},
+    ]
+    $scope.timeinterval=[
+      {id: '00', name: '00'},
+      {id: '15', name: '15'},
+      {id: '30', name: '30'},
+      {id: '45', name: '45'}
+    ]
+    $scope.interval=[
+        {id: 'am', name: 'am'},
+      {id: 'pm', name: 'pm'},
+    ];
+    $scope.apply=[
+        {id: 'all', name: 'All'},
+      {id: 'online_price', name: 'Online Sales'},
+      {id: 'box_office', name: 'Box Office'},
+    ];
+     $scope.pricechangefunc=function(data2)
+     {
+       $rootScope.success_message1 = true;
+        data2.price_change_id=$rootScope.price_change_id;
+        $serviceTest.postPriceChange(data2,function(response){
+           if (response.code==200) {
+             $rootScope.success1 = "Price change has been updated successfully.";
+             $timeout(function() {
+              $rootScope.error = '';
+              $rootScope.success_message1 = false;
+              $rootScope.success1 = '';
+            },3000);
+           }else{
+            $rootScope.error1 = "Error in price change update.";
+             $timeout(function() {
+              $rootScope.error1 = '';
+              $rootScope.success_message1 = false;
+              $rootScope.success1 = '';
+            },3000);
+           }
+            $uibModalInstance.dismiss('cancel');
+        });
+     }
+    $scope.data2={};
+    $scope.data2.month=$scope.months[0].id;
+    $scope.data2.time=$scope.timeinterval[0].id;
+    $scope.data2.interval=$scope.interval[0].id;
+    $scope.data2.apply=$scope.apply[0].id;
+    
+     $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
   });

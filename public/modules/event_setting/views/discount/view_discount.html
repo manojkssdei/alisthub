@@ -51,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr pagination-id="paginate2" dir-paginate="data in discountdata | itemsPerPage: 2 | filter:filter">
+                         <tr pagination-id="paginate2" dir-paginate="data in discountdata | itemsPerPage: 2 | filter:filter">
 
 			    <td><input type="checkbox" name="checkall" ng-model="data.selected"  ng-click="optionToggled(data.id);" ></td>
                             <td><strong>{{data.coupon_name}}</strong></td>
@@ -68,10 +68,10 @@
             <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
             <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?" ng-if="event_count[data.id] == '' || event_count[data.id] == null"><i class="fa fa-trash"></i></a>
           </td>
-                        </tr>
-			<tr ng-show="loader">
+                         </tr>
+			 <tr ng-show="loader">
 			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
-			</tr>
+			 </tr>
 		    </tbody>
             
                 </table>
