@@ -5,7 +5,7 @@ Created : 2016-05-09
 Created By: Manoj
 Module : Question 
 */
-    .controller('questionController', function($scope, $localStorage, $injector, $http, $state, $location) {
+    .controller('questionController', function($scope,$rootScope,$timeout, $localStorage, $injector, $http, $state, $location) {
 
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
@@ -77,6 +77,8 @@ Module : Question
                 }
                 $serviceTest.addQuestion($scope.data, function(response) {
                     if (response.code == 200) {
+                        $rootScope.success_message = true;
+                        $rootScope.success = global_message.questionAdded;
                         $location.path("/view_questions/list");
                     } else {
                         $scope.errormessage = global_message.QuestionAddValidation;
@@ -177,6 +179,8 @@ Module : Question
 
                     $serviceTest.addQuestion($scope.data, function(response) {
                         if (response.code == 200) {
+                            $rootScope.success_message = true;
+                            $rootScope.success = global_message.questionUpdated;
                             $location.path("/view_questions/list");
                         } else {
                             $scope.activation_message = global_message.ErrorInActivation;
@@ -208,7 +212,7 @@ Created : 2016-05-09
 Created By: Manoj
 Module : Question 
 */
-.controller('manageQuestionController', function($scope, $localStorage, $injector, $rootScope, $http, $state, $location) {
+.controller('manageQuestionController', function($scope,$rootScope,$timeout, $localStorage, $injector, $rootScope, $http, $state, $location) {
 
     if (!$localStorage.isuserloggedIn) {
         $state.go('login');
@@ -227,6 +231,18 @@ Module : Question
     $scope.data = {};
     $scope.ques_id = [];
     $scope.event_count = [];
+
+    if ($rootScope.success_message) {
+                $scope.success_message = true;
+                $scope.success = $rootScope.success;
+                $timeout(function() {
+                    $scope.success_message = false;
+                    $scope.success = '';
+                    $rootScope.success = '';
+                }, 3000);
+            }
+
+
     /*Get all questions details*/
     $scope.getQuestion = function() {
         if ($localStorage.userId != undefined) {

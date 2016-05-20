@@ -171,6 +171,13 @@ var global_message = {
 
     /* Constants for Question */
     "QuestionAddValidation" : "Please fill all the mandatory fields.",
+    "questionUpdated" : 'Question updated successfully',
+    "questionAdded" : 'Question added successfully',
+
+    /*discount*/
+    "discountUpdated" : 'Discount updated successfully',
+    "discountAdded" : 'Discount added successfully',
+
 }
 
 var appConstants = {
