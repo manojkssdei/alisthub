@@ -1,102 +1,83 @@
 <div class="container">
-     <h1>View all Products</h1>
-    
+    <h1>View all Products</h1>
     <!-- Form COntainer -->
-    
     <div class="wt-frame form-section">
-      <form class="event-form">
-        <!-- Event Detail Form -->
-   
-          <div class="form-group row">
-          	<section class="col-sm-6">
-            	<section class="search-event">
-                    <input type="text" name="filter" class="form-control search-field" placeholder="Enter your keyword" ng-model="filter">
-                    <i class="fa fa-search"></i>
-                </section>
-            </section>
-          </div>
-          <!--Ticket Types Start -->
-          <div class="module">             	
-                <section class="gray-frame sub-fields">
-                  <section class="grid-btn-top row">
-                  	  <section class="col-sm-7">
-                      	<section class="top-buttons">
-                            <a href="#/add_product"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add New Product</button></a>
-                        </section>
-                      </section>
-                      <section class="col-sm-5 right-btns text-right">
-                      	 <a href="#/product_setting"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Product Setting</button></a>
-                          
-                      </section>
+        <form class="event-form">
+            <!-- Event Detail Form -->
+            <div class="form-group row">
+                <section class="col-sm-6">
+                    <section class="search-event">
+                        <input type="text" name="filter" class="form-control search-field" placeholder="Enter your keyword" ng-model="filter">
+                        <i class="fa fa-search"></i>
                     </section>
-                  <section class="grid-widget">
-                      <div class="table-responsive">
-                          
-            
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th width="15%">NAME</th>
-                            <th width="10%" class="numbers">MODEL</th>
-			    <th width="10%" class="numbers">UPC</th>
-                            <th width="14%" class="numbers">STATUS</th>
-                            <th width="23%">&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr pagination-id="paginate2" dir-paginate="data in productdata | itemsPerPage: 2 | filter:filter">
-                            <td><a href="#/product_overview/{{data.id}}"><strong>{{data.product_name}}</strong></a></td>
-                            <td class="numbers">{{data.product_model}}</td>
-			    <td class="numbers">{{data.product_upc}}</td>
-                            <td class="numbers"><p ng-if="data.status == 1">Active</p><p ng-if="data.status == 0">Inactive</p></td>
-                            <td class="action">
-			      <a href="#/edit_product/{{data.id}}"><i class="fa fa-edit"></i></a>
-			      <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Product status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
-			      <a ng-click="delProduct(data.id)" ng-confirm-clicks="Would you like to delete this Product?"><i class="fa fa-trash"></i></a>
-			      <a href="/event_setting/exportProductSales"><i class="fa fa-file"></i></a>
-			    </td>
-                        </tr>
-			<tr ng-show="loader">
-			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
-			</tr>
-		    </tbody>
-            
-                </table>
-            
-            
-                      </div>
-		      
-                  </section>
-                  
-                  <section class="grid-bottm clearfix">
-                  	     <section class="paging">
-                             <label class="lt-label"></label>
-                             
-			    <dir-pagination-controls pagination-id="paginate2" ></dir-pagination-controls>
+                </section>
+            </div>
+            <!--Ticket Types Start -->
+            <div class="module">
+                <section class="gray-frame sub-fields">
+                    <section class="grid-btn-top row">
+                        <section class="col-sm-7">
+                            <section class="top-buttons">
+                                <a href="#/add_product"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add New Product</button></a>
+                            </section>
+                        </section>
+                        <section class="col-sm-5 right-btns text-right">
+                            <a href="#/product_setting"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Product Setting</button></a>
+                        </section>
+                    </section>
+                    <section class="grid-widget">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="15%">NAME</th>
+                                        <th width="10%" class="numbers">MODEL</th>
+                                        <th width="10%" class="numbers">UPC</th>
+                                        <th width="14%" class="numbers">STATUS</th>
+                                        <th width="23%">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr pagination-id="paginate2" dir-paginate="data in productdata | itemsPerPage: 2 | filter:filter">
+                                        <td><a href="#/product_overview/{{data.id}}"><strong>{{data.product_name}}</strong></a></td>
+                                        <td class="numbers">{{data.product_model}}</td>
+                                        <td class="numbers">{{data.product_upc}}</td>
+                                        <td class="numbers">
+                                            <p ng-if="data.status == 1">Active</p>
+                                            <p ng-if="data.status == 0">Inactive</p>
+                                        </td>
+                                        <td class="action">
+                                            <a href="#/edit_product/{{data.id}}"><i class="fa fa-edit"></i></a>
+                                            <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Product status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
+                                            <a ng-click="delProduct(data.id)" ng-confirm-clicks="Would you like to delete this Product?"><i class="fa fa-trash"></i></a>
+                                            <a href="/event_setting/exportProductSales"><i class="fa fa-file"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="loader">
+                                        <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <section class="grid-bottm clearfix">
+                        <section class="paging">
+                            <label class="lt-label"></label>
+                            <dir-pagination-controls pagination-id="paginate2" ></dir-pagination-controls>
                         </section>
                         <section class="gr-right pull-right">
                             <ul class="legends">
                                 <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
                                 <li><i class="fa fa-check-circle"></i><span>active</span></li>
-				<li><i class="fa fa-trash"></i><span>delete</span></li>
-				<li><i class="fa fa-file"></i><span>Export Sales Info</span></li>
+                                <li><i class="fa fa-trash"></i><span>delete</span></li>
+                                <li><i class="fa fa-file"></i><span>Export Sales Info</span></li>
                             </ul>
                         </section>
-                   </section>
-                
-      			</section>
-          </div>
-          <!-- Ticket Types Closed --> 
-                 
-          
-          
-      
-      </form>
-     
-             
-          
+                    </section>
+                </section>
+            </div>
+            <!-- Ticket Types Closed --> 
+        </form>
     </div>
-    
     <!-- //Form COntainer --> 
-    
-  </div>
+</div>

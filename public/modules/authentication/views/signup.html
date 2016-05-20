@@ -1,67 +1,60 @@
-
 <!-- Header -->
-   <section class="header animated bounce"><a href="#"><img src="images/logo-l.png" alt=""/></a></section>
-  <!-- //Header --> 
-  
-  <section class="container">
-  	<section class="login-frame animated bounceInLeft">
-    	<h1>Signup Now!</h1>
-	<form name="userSignupForm" ng-submit="submitRegistrationform()" novalidate>
-        <p class="tagline">We do the right things to prove our integrity and reliability to earn your trust. </p>
-	<span ng-hide="success_message"><p class="success-fld" ng-show="message">{{ message }}</p></span>
-	<span ng-hide="error_message"><p class="error-fld" ng-show="errormessage">{{ errormessage }}</p></span>
-        <section class="signup form-widget">
-              <div class="form-group row">
-                  <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.firstname.$invalid && !userSignupForm.firstname.$pristine }">
-                    <label>First Name</label>
-                    <input type="text" name="firstname" ng-model="user.firstname" class="form-control" placeholder="First Name" required> 
-		    <p ng-show="userSignupForm.firstname.$invalid && !userSignupForm.firstname.$pristine" class="error-fld ng-binding">Enter Firstname.</p>
-                  </div>
-                  <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.lastname.$invalid && !userSignupForm.lastname.$pristine }">
-                    <label>Last Name</label>
-                    <input type="text" name="lastname" ng-model="user.lastname" class="form-control" placeholder="Last Name" required>
-		    <p ng-show="userSignupForm.lastname.$invalid && !userSignupForm.lastname.$pristine" class="error-fld ng-binding">Enter Lastname.</p>
-                  </div>
-              </div>
-              <div class="form-group row">
-                  <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.email.$error.required}">
-                    <label>Email</label>
-                    <input type="email" placeholder="Email"  ng-model="user.email" class="form-control" name="email" ng-blur="checkUnique();" required="true">
-			<span ng-hide="success_message"><p class="success-fld" ng-show="unique && unique_type == 1">{{unique}}</p></span>
-			<span ng-hide="error_message"><p class="error-fld" ng-show="!userSignupForm.email.$error.required && unique && unique_type == 2">{{unique}}</p></span>
-      <span ng-hide="error_message"><p class="error-fld ng-binding" ng-show="(unique && unique_type == 3 ) || (userSignupForm.email.$error.required  && userSignupForm.email.$invalid && !userSignupForm.email.$pristine)">Enter a valid email</p></span>
-			
-                  </div>
-                  <div class="col-sm-6 section-col"  ng-class="{ 'has-error' : userSignupForm.password.$error.required || userSignupForm.password.$invalid && !userSignupForm.password.$pristine }">
-                    <label>Password</label>
-                    <input type="password" placeholder="Password" class="form-control" name="password" ng-model="user.password"  ng-minlength="3" ng-maxlength="12" required>
-		     <p ng-show="userSignupForm.password.$error.required   && userSignupForm.password.$invalid && !userSignupForm.password.$pristine" class="error-fld ng-binding">Enter Password</p>
-         <p ng-show="userSignupForm.password.$error.minlength" class="error-fld ng-binding">Password is too short.</p>
-		     <p ng-show="userSignupForm.password.$error.maxlength" class="error-fld ng-binding">Password is too long.</p>
-                  </div>
-              </div>
-	      <div class="form-group row">
-                 <!-- <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.organization.$invalid && !userSignupForm.organization.$pristine }">
-                    <label>Organization</label>
-                    <input type="text" name="organization" class="form-control" placeholder="Organization" ng-model="user.organization" required>
-			<p ng-show="userSignupForm.organization.$invalid && !userSignupForm.organization.$pristine" class="error-fld ng-binding">Enter an organization name.</p>
-                  </div>
-              
-                  <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.username.$invalid && !userSignupForm.username.$pristine }">
-                    <label>User Name</label>
-                    <input type="text" name="username" class="form-control" placeholder="User Name" ng-model="user.username" required>
-			<p ng-show="userSignupForm.username.$invalid && !userSignupForm.username.$pristine" class="error-fld ng-binding">Enter your username.</p>
-                  </div>--> 
-              </div>
-        </section>
-        <p><button  type="submit" class="btn-l m-fw"  ng-disabled="userSignupForm.$invalid || unique_type == 2 || unique_type == 3" id="signupBtn">Sign up</button></p>
-
-           <!--<p><button  type="submit" class="btn-l m-fw"  ng-disabled="userSignupForm.$invalid && disabledBtn" id="signupBtn">Sign up</button></p>-->
-
-        <section class="otherlinks">
-            <p><a ui-sref="login" class="signup-link">Already registered! Login here</a></p>
-        </section>
-	</form>
+<section class="header animated bounce"><a href="#"><img src="images/logo-l.png" alt=""/></a></section>
+<!-- //Header --> 
+<section class="container">
+    <section class="login-frame animated bounceInLeft">
+        <h1>Signup Now!</h1>
+        <form name="userSignupForm" ng-submit="submitRegistrationform()" novalidate>
+            <p class="tagline">We do the right things to prove our integrity and reliability to earn your trust. </p>
+            <span ng-hide="success_message">
+                <p class="success-fld" ng-show="message">{{ message }}</p>
+            </span>
+            <span ng-hide="error_message">
+                <p class="error-fld" ng-show="errormessage">{{ errormessage }}</p>
+            </span>
+            <section class="signup form-widget">
+                <div class="form-group row">
+                    <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.firstname.$invalid && !userSignupForm.firstname.$pristine }">
+                        <label>First Name</label>
+                        <input type="text" name="firstname" ng-model="user.firstname" class="form-control" placeholder="First Name" required> 
+                        <p ng-show="userSignupForm.firstname.$invalid && !userSignupForm.firstname.$pristine" class="error-fld ng-binding">Enter Firstname.</p>
+                    </div>
+                    <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.lastname.$invalid && !userSignupForm.lastname.$pristine }">
+                        <label>Last Name</label>
+                        <input type="text" name="lastname" ng-model="user.lastname" class="form-control" placeholder="Last Name" required>
+                        <p ng-show="userSignupForm.lastname.$invalid && !userSignupForm.lastname.$pristine" class="error-fld ng-binding">Enter Lastname.</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.email.$error.required}">
+                        <label>Email</label>
+                        <input type="email" placeholder="Email"  ng-model="user.email" class="form-control" name="email" ng-blur="checkUnique();" required="true">
+                        <span ng-hide="success_message">
+                            <p class="success-fld" ng-show="unique && unique_type == 1">{{unique}}</p>
+                        </span>
+                        <span ng-hide="error_message">
+                            <p class="error-fld" ng-show="!userSignupForm.email.$error.required && unique && unique_type == 2">{{unique}}</p>
+                        </span>
+                        <span ng-hide="error_message">
+                            <p class="error-fld ng-binding" ng-show="(unique && unique_type == 3 ) || (userSignupForm.email.$error.required  && userSignupForm.email.$invalid && !userSignupForm.email.$pristine)">Enter a valid email</p>
+                        </span>
+                    </div>
+                    <div class="col-sm-6 section-col"  ng-class="{ 'has-error' : userSignupForm.password.$error.required || userSignupForm.password.$invalid && !userSignupForm.password.$pristine }">
+                        <label>Password</label>
+                        <input type="password" placeholder="Password" class="form-control" name="password" ng-model="user.password"  ng-minlength="3" ng-maxlength="12" required>
+                        <p ng-show="userSignupForm.password.$error.required   && userSignupForm.password.$invalid && !userSignupForm.password.$pristine" class="error-fld ng-binding">Enter Password</p>
+                        <p ng-show="userSignupForm.password.$error.minlength" class="error-fld ng-binding">Password is too short.</p>
+                        <p ng-show="userSignupForm.password.$error.maxlength" class="error-fld ng-binding">Password is too long.</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                </div>
+            </section>
+            <p><button  type="submit" class="btn-l m-fw"  ng-disabled="userSignupForm.$invalid || unique_type == 2 || unique_type == 3" id="signupBtn">Sign up</button></p>
+            <section class="otherlinks">
+                <p><a ui-sref="login" class="signup-link">Already registered! Login here</a></p>
+            </section>
+        </form>
     </section>
-  </section>
- <div id="push"></div>
+</section>
+<div id="push"></div>
