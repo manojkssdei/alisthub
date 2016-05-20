@@ -166,7 +166,6 @@ Created By:Harpreet Kaur
 */
 exports.viewCustomFinancialSetting = function(req, res) {
     var query = 'SELECT * from custom_financial_settings where seller_id=' + req.body.seller_id ;
-    console.log(query);
     connection.query(query, function(err, results) {
         if (err) {
             res.json({ error: err, code: 101 });
@@ -184,7 +183,6 @@ Created By:Harpreet Kaur
 */
 exports.checkAlreadyAddedMerchant = function(req, res) {
     var query = 'SELECT * from custom_financial_settings where seller_id=' + req.body.seller_id +' && merchant_type = "'+ req.body.merchant_type+'"';
-    console.log('query ' , query );
     connection.query(query, function(err, results) {
         if (err) {
             res.json({ error: err, code: 101 });
@@ -202,8 +200,6 @@ Created By:Harpreet Kaur
 */
 exports.getCustomFinancialSetting = function(req, res) {
 var query = 'SELECT * from custom_financial_settings where id='+ req.body.id+' && seller_id=' + req.body.seller_id;
-    console.log('req.body' , req.body);
-    console.log('query' , query);
     connection.query(query, function(err, results) {
         if (err) {
             res.json({ error: err, code: 101 });

@@ -28,8 +28,8 @@
                                     <div class="form-group">
                                         <label for="EventName"> Name<span class="req">*</span></label>
                                         <input type="text" class="form-control" name="product_name" placeholder="Product name" ng-model="data.product_name" required/>
+                                        <p ng-show="userForm.product_name.$invalid && !userForm.product_name.$pristine" class="error-fld ng-binding">Enter Name.</p>
                                     </div>
-                                    <p ng-show="userForm.product_name.$invalid && !userForm.product_name.$pristine" class="error-fld ng-binding">Enter Name.</p>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -180,20 +180,20 @@
                             <div class="col-sm-4" ng-class="{ 'has-error' : userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine }">
                                 <div class="form-group">
                                     <label for="EventName"> Retail Price<span class="req">*</span></label>
-                                    <input type="number" class="form-control" name="retail_price" placeholder="Product Price" ng-model="data.retail_price" ng-blur="calculateBuyerPrice()" required/>
+                                    <input type="number" min="0" class="form-control" name="retail_price" placeholder="Product Price" ng-model="data.retail_price" ng-blur="calculateBuyerPrice()" required/>
+                                    <p ng-show="userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine" class="error-fld ng-binding">Enter Retail Price.</p>
                                 </div>
-                                <p ng-show="userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine" class="error-fld ng-binding">Enter Retail Price.</p>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="EventName"> Shipping Cost</label>
-                                    <input type="number" class="form-control" placeholder="Shipping Cost" ng-model="data.ship_cost" ng-blur="calculateBuyerPrice()"/>
+                                    <input type="number" min="0" class="form-control" placeholder="Shipping Cost" ng-model="data.ship_cost" ng-blur="calculateBuyerPrice()"/>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="EventName"> Service Fee Covered</label>
-                                    <input type="number" class="form-control" placeholder="Service Fee Covered" ng-model="data.service_fee"/>
+                                    <input type="number" min="0" class="form-control" placeholder="Service Fee Covered" ng-model="data.service_fee"/>
                                 </div>
                             </div>
                         </div>
@@ -250,8 +250,8 @@
                                         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch9" ng-model="data.configuration" ng-change="showConfig();">
                                         <label class="onoffswitch-label" for="myonoffswitch9"></label>
                                     </div>
+                                    <p ng-show="userForm3.configuration.$invalid && !userForm3.configuration.$pristine" class="error-fld ng-binding">Enter Configuration.</p>
                                 </div>
-                                <p ng-show="userForm3.configuration.$invalid && !userForm3.configuration.$pristine" class="error-fld ng-binding">Enter Configuration.</p>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group" ng-show="data_configuration">
@@ -260,7 +260,7 @@
                                 </div>
                                 <div class="form-group" ng-show="!data_configuration" ng-class="{ 'has-error' : userForm3.inventory.$invalid && !userForm3.inventory.$pristine }">
                                     <label for="EventName"> Inventory <span class="req">*</span></label>
-                                    <input type="number" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration"/>
+                                    <input type="number" min="0" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration" required />
                                     <p ng-show="userForm3.inventory.$invalid && !userForm3.inventory.$pristine" class="error-fld ng-binding">Enter Inventory.</p>
                                 </div>
                             </div>
@@ -270,9 +270,9 @@
                             <div class="col-sm-6" ng-class="{ 'has-error' : userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine }">
                                 <div class="form-group">
                                     <label for="EventName"> Pre Sale Limit <span class="req">*</span></label>
-                                    <input type="number" name="pre_sale_limit" class="form-control"  ng-model="data.pre_sale_limit" ng-required="!data_configuration">
+                                    <input type="number" min="0" name="pre_sale_limit" class="form-control"  ng-model="data.pre_sale_limit" ng-required="!data_configuration">
+                                    <p ng-show="userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine" class="error-fld ng-binding">Enter Pre Sale Limit.</p>
                                 </div>
-                                <p ng-show="userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine" class="error-fld ng-binding">Enter Pre Sale Limit.</p>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group" ng-show="!data_configuration">
