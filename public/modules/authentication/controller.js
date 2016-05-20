@@ -13,10 +13,10 @@ $rootScope.signup_success_message = true;
             $rootScope.signup_success_message = false;
         }
         $scope.user = {};
-        if ($state.params.id) {
+        if ($state.params.confirm_email_id) {
               //  confirmationEmail
                 var serviceUrl = webservices.confirmationEmail;
-                $scope.user.token = $state.params.id;
+                $scope.user.token = $state.params.confirm_email_id;
                 var jsonData=$scope.user;
                 $http({
                  url: serviceUrl,

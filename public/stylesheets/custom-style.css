@@ -1,3 +1,4 @@
 .input-group-addon,.fa.fa-close { cursor: pointer;}
 .m-t30{ margin-top:30px;}
 .help-inline{margin-top: 3px; color: red;}
+.welcometxt .btn-group.dropdown{ float: left;}

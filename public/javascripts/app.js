@@ -53,7 +53,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /* Setting for email confirmation screen */
         .state('confirm_email', {
-            url: '/confirm_email/:id',
+            url: '/confirm_email/:confirm_email_id',
             views: {
           "lazyLoadView": {
             controller: 'loginController', // This view will use AppCtrl loaded below in the resolve
@@ -88,7 +88,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /* Setting for new password screen */
         .state('new_password', {
-            url: '/forget_password/:id',
+            url: '/forget_password/:forget_password_id',
             
             views: {
           "lazyLoadView": {
@@ -866,14 +866,17 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         })
 
     
-  }).run(['$rootScope', '$location','$state', '$localStorage', '$http',function($rootScope,$location, $state,$localStorage, $http) {
+  }).run(['$rootScope', '$location','$state', '$localStorage', '$http','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$stateParams) {
      
     
     //To add class
-   
+   console.log($state.params);
+   if($stateParams.confirm_email_id != undefined || !$stateParams.confirm_email_id || $stateParams.forget_password_id != undefined || !$stateParams.forget_password_id){}else{
     if(!$localStorage.isuserloggedIn){
         $location.path("/login");
     }
+   }
+  
     if($localStorage.isuserloggedIn){
         $rootScope.menu=$rootScope.after_login_footer_div=false;
         $rootScope.footer_login_div=true;
