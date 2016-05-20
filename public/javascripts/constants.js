@@ -4,8 +4,7 @@ servicebaseUrl="//192.155.246.146:5502";
 
 var webservices = {	
 
-	"getUserregister" : baseUrl + "/webservices/register",
-
+    "getUserregister" : baseUrl + "/webservices/register",
     "checkUnique" : baseUrl + "/webservices/checkUnique",
     "getUserlogin" : baseUrl + "/webservices/login",
     "forgetPassword" : baseUrl + "/webservices/forgetPassword",
@@ -69,6 +68,9 @@ var webservices = {
     "updateBundle" : "/event_setting/updateBundle",
     "bundleOverview" :  "/event_setting/bundleOverview",
     "getBundleProducts":"/event_setting/getBundleProducts",
+    "changeBundleStatus" : "/event_setting/changeBundleStatus",
+    "removeBundle" : "/event_setting/removeBundle",
+    "getBundleDetail" : "/event_setting/getBundleDetail",
 
     /* Constants for the manage users */
     "addUser": "/user/addUser",
@@ -88,18 +90,27 @@ var webservices = {
     "removepricelevel" : "/event/removepricelevel",
     "changePricelevelStatus" : "/event/changePricelevelStatus",
     "getSinglePricelevel" : "/event/getSinglePricelevel",
+    "postPriceChange" : "/event/postPriceChange",
 
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",
     "getFinancialDetails" : "/account/getFinancialDetails",
 
 
-      "saveEvent"  :  "/series/saveEvent",
+ 
+    //Financial Settings   
+
+    "addCustomFinancialDetails" : "/account/addCustomFinancialDetails",
+    "viewCustomFinancialSetting" : "/account/viewCustomFinancialSetting",
+    "getCustomFinancialSetting" : "/account/getCustomFinancialSetting",
+    "checkAlreadyAddedMerchant" : "/account/checkAlreadyAddedMerchant",
+
+    //series events
+    "saveEvent"  :  "/series/saveEvent",
     "savepricelevel" : "/series/savepricelevel",
     "getPricelevel" : "/series/getPricelevel",
       "saverecurringEvent"  :  "/series/saverecurringEvent",
 
-    
 
 }
 

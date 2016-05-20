@@ -477,7 +477,11 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <td class="numbers">${{price.online_price}}</td>
                 <td class="numbers">${{price.box_office_price}}</td>
                 <td class="numbers">{{price.max_per_order}}</td>
-                <td class="action"><a ng-click="getPrice(price.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a ng-click="changeStatus(price.id,price.is_active)" ng-confirm-click="Would you like to change Price level status ?"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a><a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
+                <td class="action">
+                    <a ng-click="getPrice(price.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                    <a ng-click="price_change('lg',price.id)" style="cursor: pointer;"><i class="fa fa-tags"></i></a>
+                    <a ng-click="changeStatus(price.id,price.is_active)" ng-confirm-click="Would you like to change Price level status ?" style="cursor: pointer;"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a>
+                    <a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
             </tr>
             <tr ng-show="loader">
 			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
@@ -541,51 +545,43 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                   	  
                       <section class="col-sm-5 pull-right text-right">
                         <button class="pink-btn btn btn-small m-fw" ng-click="add_bundle('lg')">ADD a Bundle</button>
-                         <!-- <button class="pink-btn btn btn-small m-fw"  ng-click="open()">ADD a Bundle</button>-->
                       </section>
                     </section>
                   <section class="grid-widget">
-      	  <div class="table-responsive">
-          	  
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th width="15%">Name</th>
-                <th width="10%" class="numbers">Price</th>
-                <th width="14%" class="numbers">Box Office Price</th>
-                <th width="13%" class="numbers">Per-Sale Limit</th>
-                <th width="14%" class="numbers">Max Inventory Set</th>
-                <th width="23%">Manage</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- <tr>
-                <td><strong>Balcony</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            -->
-            <tr ng-repeat="bundle in bundleList track by $index">
-                <td><strong>{{bundle.bundle_name}}</strong></td>
-                <td class="numbers">$22</td>
-                <td class="numbers">$33</td>
-                <td class="numbers">${{bundle.bundle_limit}}</td>
-                <td class="numbers">${{bundle.bundle_inventory}}</td>
-                <td class="action"><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a href="javascript:void(0)"><i class="fa fa-check-circle"></i></a><a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
-            </tr>
-
-        </tbody>
-
-    </table>
-
-
-          </div>
-      </section>
+                  <span ng-show="success_message_bundle" class="ng-hide"><p class="success-fld ng-binding">{{success_bundle}}</p></span>
+              	  <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th width="15%">Name</th>
+                                <th width="10%" class="numbers">Price</th>
+                                <th width="14%" class="numbers">Box Office Price</th>
+                                <th width="13%" class="numbers">Per-Sale Limit</th>
+                                <th width="14%" class="numbers">Max Inventory Set</th>
+                                <th width="23%">Manage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="bundle in bundleList track by $index">
+                                <td><strong>{{bundle.bundle_name}}</strong></td>
+                                <td class="numbers">$22</td>
+                                <td class="numbers">$33</td>
+                                <td class="numbers">${{bundle.bundle_limit}}</td>
+                                <td class="numbers">${{bundle.bundle_inventory}}</td>
+                                <td class="action">
+                                  <a ng-click="add_bundle('lg',bundle.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                                  <a href="javascript:void(0)"><i class="fa fa-tags"></i></a>
+                                  <a ng-click="changeBundleStatus(bundle.id,bundle.status)" ng-confirm-click="Would you like to change bundle status ?"><i class="fa fa-check-circle" ng-if="bundle.status == 1"></i><i class="fa fa-times" ng-if="bundle.status == 0"></i></a>
+                                  <a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <tr ng-show="loader_bundle">
+                                  <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                  </section>
                   
                   <section class="grid-bottm clearfix">
                     <section class="gr-right pull-right">
@@ -596,7 +592,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                             <li><i class="fa fa-trash"></i><span>delete</span></li>
                         </ul>
                     </section>
-                </section>
+                  </section>
                 
                   
 
@@ -1310,6 +1306,8 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                    <div ng-show="step_1">
                     <!-- Event Detail Form -->
                           <form class="event-form" name="bundleForm" ng-submit="bundleForm.$valid && updateBundle(bundle)" novalidate>
+                          <input type="hidden" name="id" ng-model="bundle.id"/>
+
                                  <div>
                                     <div class="module">
                                         <section class="prof-hd" > <!-- add  class="prof-hd"if u need to display this as tab -->
@@ -1518,6 +1516,19 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
         </div>
     </script>
 
+    <script type="text/ng-template" id="deleteBundle.html">
+       <div class="modal-header">
+              <h3 class="modal-title">Remove Bundle</h3>
+          </div>
+          <div class="modal-body">
+              Are you sure you want to remove this bundle?
+          </div>
+          <div class="modal-footer">
+              <button class="btn btn-primary" type="button" ng-click="removeBundle()">Remove</button>
+              <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+          </div>
+    </script>
+
 <script type="text/ng-template" id="myModalContentProduct.html">
         <div class="modal-header">
             <h3 class="modal-title">Add a Product</h3>
@@ -1583,5 +1594,62 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
         </div>
     </script>
 
-
+<script type="text/ng-template" id="pricechange.html">
+      <form class="pricechangeform" name="pricechangeform" ng-submit="pricechangefunc(data2)" novalidate>
+        <div class="modal-header">
+           <h3 class="modal-title" style="float:left;">Schedule Price Change</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+        </div>
+        <div class="modal-body">
+            <fieldset class="form-group">
+               <div class="col-sm-3">Price to change on</div>
+               <div class="col-sm-3">
+                   <!-- <input type="text" name="date" ng-model="data2.date" class="form-control"  value="">-->
+                   <div class="form-group datepicker">
+                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data2.startdate_pricechange" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" />
+                         <span class="input-group-btn">
+                           <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                     </div>
+               </div>
+               <div class="col-sm-2">
+                    <select name="month" ng-model="data2.month" class="form-control">
+                         <option ng-repeat="mon in months" value="{{mon.id}}">{{mon.name}}</option>
+                    </select>
+               </div>
+               <div class="col-sm-2">
+                    <select name="time" ng-model="data2.time" class="form-control">
+                         <option ng-repeat="time in timeinterval" value="{{time.id}}">{{time.name}}</option>
+                    </select>
+               </div>
+               <div class="col-sm-2">
+                    <select name="interval" ng-model="data2.interval" class="form-control">
+                         <option ng-repeat="int in interval" value="{{int.id}}">{{int.name}}</option>
+                    </select>
+               </div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-3">New Price (USD $)</div>
+               <div class="col-sm-9">
+                    <input type="number" name="new_price" ng-model="data2.new_price" class="form-control" value="" required min="0">
+                    <span style="color:red" ng-show="pricechangeform.new_price.$dirty && pricechangeform.new_price.$invalid">
+                <span ng-show="pricechangeform.new_price.$error.required">New Price is required</span>
+               </span>
+               </div>
+              
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-3">Apply to</div>
+               <div class="col-sm-9">
+                    <select name="price" ng-model="data2.apply"  class="form-control" >
+                         <option ng-repeat="applied in apply" value="{{applied.id}}">{{applied.name}}</option>
+                    </select>
+               </div>
+              
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary"  
+ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 

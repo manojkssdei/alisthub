@@ -59,6 +59,13 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 		});
   };
   
+  //change price levels
+  url.postPriceChange = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.postPriceChange,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+			callback(res.data);
+		});
+  };
+  
 
 //add Bundle
 
@@ -75,24 +82,48 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
       callback(res.data);
     });
   };
-//get Products
+  //get Products
   url.getProducts = function(jsondata,callback){
     communicationService.resultViaPost(webservices.getProducts,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
       callback(res.data);
     });
   };
- //get Bundles 
+  
+  //get getBundleDetail
+  url.getBundleDetail = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getBundleDetail,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+  //get Bundles 
   url.getBundles = function(jsondata,callback){
     communicationService.resultViaPost(webservices.getBundles,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
       callback(res.data);
     });
   };
+//get post events
 
   url.postEventdata = function(jsondata,callback){
        communicationService.resultViaPost(webservices.getEventsdetail,appConstants.authorizationKey,headerConstants.json,jsondata,function(res,req){
       callback(res.data);
     });
      };
+
+  //change price levels
+  url.changeBundleStatus = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.changeBundleStatus,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+  //remove Bundle
+  url.removeBundle = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.removeBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
   
 return url;
 
