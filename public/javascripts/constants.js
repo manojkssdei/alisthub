@@ -83,6 +83,7 @@ var webservices = {
     "removepricelevel" : "/event/removepricelevel",
     "changePricelevelStatus" : "/event/changePricelevelStatus",
     "getSinglePricelevel" : "/event/getSinglePricelevel",
+    "postPriceChange" : "/event/postPriceChange",
 
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",

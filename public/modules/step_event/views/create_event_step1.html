@@ -477,7 +477,11 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <td class="numbers">${{price.online_price}}</td>
                 <td class="numbers">${{price.box_office_price}}</td>
                 <td class="numbers">{{price.max_per_order}}</td>
-                <td class="action"><a ng-click="getPrice(price.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-tags"></i></a><a ng-click="changeStatus(price.id,price.is_active)" ng-confirm-click="Would you like to change Price level status ?"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a><a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
+                <td class="action">
+                    <a ng-click="getPrice(price.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                    <a ng-click="price_change('lg',price.id)" style="cursor: pointer;"><i class="fa fa-tags"></i></a>
+                    <a ng-click="changeStatus(price.id,price.is_active)" ng-confirm-click="Would you like to change Price level status ?" style="cursor: pointer;"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a>
+                    <a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
             </tr>
             <tr ng-show="loader">
 			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
@@ -1583,5 +1587,62 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
         </div>
     </script>
 
-
+<script type="text/ng-template" id="pricechange.html">
+      <form class="pricechangeform" name="pricechangeform" ng-submit="pricechangefunc(data2)" novalidate>
+        <div class="modal-header">
+           <h3 class="modal-title" style="float:left;">Schedule Price Change</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+        </div>
+        <div class="modal-body">
+            <fieldset class="form-group">
+               <div class="col-sm-3">Price to change on</div>
+               <div class="col-sm-3">
+                   <!-- <input type="text" name="date" ng-model="data2.date" class="form-control"  value="">-->
+                   <div class="form-group datepicker">
+                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data2.startdate_pricechange" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" />
+                         <span class="input-group-btn">
+                           <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                     </div>
+               </div>
+               <div class="col-sm-2">
+                    <select name="month" ng-model="data2.month" class="form-control">
+                         <option ng-repeat="mon in months" value="{{mon.id}}">{{mon.name}}</option>
+                    </select>
+               </div>
+               <div class="col-sm-2">
+                    <select name="time" ng-model="data2.time" class="form-control">
+                         <option ng-repeat="time in timeinterval" value="{{time.id}}">{{time.name}}</option>
+                    </select>
+               </div>
+               <div class="col-sm-2">
+                    <select name="interval" ng-model="data2.interval" class="form-control">
+                         <option ng-repeat="int in interval" value="{{int.id}}">{{int.name}}</option>
+                    </select>
+               </div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-3">New Price (USD $)</div>
+               <div class="col-sm-9">
+                    <input type="number" name="new_price" ng-model="data2.new_price" class="form-control" value="" required min="0">
+                    <span style="color:red" ng-show="pricechangeform.new_price.$dirty && pricechangeform.new_price.$invalid">
+                <span ng-show="pricechangeform.new_price.$error.required">New Price is required</span>
+               </span>
+               </div>
+              
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-3">Apply to</div>
+               <div class="col-sm-9">
+                    <select name="price" ng-model="data2.apply"  class="form-control" >
+                         <option ng-repeat="applied in apply" value="{{applied.id}}">{{applied.name}}</option>
+                    </select>
+               </div>
+              
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary"  
+ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 
