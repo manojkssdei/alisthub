@@ -890,11 +890,9 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         })
 
     
-<<<<<<< HEAD
-  }).run(['$rootScope', '$location','$state', '$localStorage', '$http', '$timeout','$window',function($rootScope,$location, $state,$localStorage, $http,$timeout,$window) {
-=======
-  }).run(['$rootScope', '$location','$state', '$localStorage', '$http','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$stateParams) {
->>>>>>> pb/master
+
+  }).run(['$rootScope', '$location','$state', '$localStorage', '$http', '$timeout','$window','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$timeout,$window,$stateParams) {
+
      
     $timeout(callAtTimeout, 20*20*3000);
     
