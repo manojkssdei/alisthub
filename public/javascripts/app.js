@@ -890,8 +890,30 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         })
 
     
+<<<<<<< HEAD
+  }).run(['$rootScope', '$location','$state', '$localStorage', '$http', '$timeout','$window',function($rootScope,$location, $state,$localStorage, $http,$timeout,$window) {
+=======
   }).run(['$rootScope', '$location','$state', '$localStorage', '$http','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$stateParams) {
+>>>>>>> pb/master
      
+    $timeout(callAtTimeout, 20*20*3000);
+    
+    function callAtTimeout()
+    {
+        $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
+        $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
+                    
+                    $rootScope.email=$localStorage.email="";
+                    $rootScope.name=$localStorage.name="";
+                    $rootScope.access_token=$localStorage.access_token="";
+                    $rootScope.auth_token=$localStorage.auth_token="";
+                    $rootScope.phone_no=$localStorage.phone_no="";
+                    $rootScope.userId=$localStorage.userId="";
+                    $rootScope.address=$localStorage.address="";
+                    
+                    localStorage.clear();
+                    $state.go('login');
+    } 
     
     //To add class
    console.log($state.params);
@@ -911,7 +933,37 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         $rootScope.userId=$localStorage.userId;
         $rootScope.address=$localStorage.address;
         $rootScope.class_status = false;
-        $state.go('dashboard');
+    ////////////////////////////////////////////////
+     
+        
+    var serviceUrl = webservices.checkTokenExpiry; 
+    var url = serviceUrl+"?token="+$localStorage.auth_token+"&callback=jsonp_callback";
+
+    $http.jsonp(url);
+  
+    $window.jsonp_callback = function(data) {
+     
+     if (data.code == 101)
+                {   console.log("Token Test"); 
+                    $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
+                    $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
+                    
+                    $rootScope.email=$localStorage.email="";
+                    $rootScope.name=$localStorage.name="";
+                    $rootScope.access_token=$localStorage.access_token="";
+                    $rootScope.auth_token=$localStorage.auth_token="";
+                    $rootScope.phone_no=$localStorage.phone_no="";
+                    $rootScope.userId=$localStorage.userId="";
+                    $rootScope.address=$localStorage.address="";
+                    
+                    localStorage.clear();
+                    $state.go('login');
+                    
+                    
+                }
+    }
+    ///////////////////////////////////////////////
+        
     }else{
        $rootScope.menu=$rootScope.after_login_footer_div=true;
        $rootScope.footer_login_div=false;
@@ -956,32 +1008,37 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         };
 }])
 
-routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state)
+routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state,$timeout,$window)
 {
 
-
+    $timeout(callAtTimeout, 20*20*3000);
+    function callAtTimeout()
+    {
+        $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
+        $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
+                    
+                    $rootScope.email=$localStorage.email="";
+                    $rootScope.name=$localStorage.name="";
+                    $rootScope.access_token=$localStorage.access_token="";
+                    $rootScope.auth_token=$localStorage.auth_token="";
+                    $rootScope.phone_no=$localStorage.phone_no="";
+                    $rootScope.userId=$localStorage.userId="";
+                    $rootScope.address=$localStorage.address="";
+                    localStorage.clear();
+                    $state.go('login');
+    }
     // checktoken expiry time
     // check web services
-    var serviceUrl  = webservices.checkTokenExpiry;
-    var serviceUrl2 = webservices.refreshTokenExpiry;
-    var jsonData = {};
-    jsonData.token = $localStorage.auth_token;
+    var serviceUrl = webservices.checkTokenExpiry; 
+    var url = serviceUrl+"?token="+$localStorage.auth_token+"&callback=jsonp_callback";
 
-              
-               
-               $http({
-                 url: serviceUrl,
-                 method: 'POST',
-                 data: jsonData,
-                 headers: {
-                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                        "Accept": "application/json",
-                 },
-                 
-                }).success(function(data, status, headers, config) {
-                
-                if (data.code == 101)
+    $http.jsonp(url);
+  
+    $window.jsonp_callback = function(data) {
+     
+     if (data.code == 101)
                 {
+                    console.log("Token expire");
                     $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
                     $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
                     
@@ -998,8 +1055,16 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
                     
                     
                 }
-                               
-                });
+                else
+                {
+                    console.log("Token live");
+                    //$state.go('dashboard');
+                }
+     
+     
+    }
+    
+    
        
 };
 
