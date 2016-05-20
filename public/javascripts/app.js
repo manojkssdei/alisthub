@@ -912,7 +912,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
     } 
     
     //To add class
-   console.log($state.params);
+ 
    if($stateParams.confirm_email_id != undefined || !$stateParams.confirm_email_id || $stateParams.forget_password_id != undefined || !$stateParams.forget_password_id){}else{
     if(!$localStorage.isuserloggedIn){
         $location.path("/login");
