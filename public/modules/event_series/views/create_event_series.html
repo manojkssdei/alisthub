@@ -1,105 +1,60 @@
-<link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
-<script src="javascripts/timepicker.js" type="text/javascript"></script>
+<!-- <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" /> -->
+<!-- <script src="javascripts/timepicker.js" type="text/javascript"></script> -->
+
 <div class="container">
-     <h1>Create an Event</h1>
+       <h1>Create an Event Series</h1>
     <!-- Step Form -->
     
     <div class="stage-container clearfix">
-      <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)">
-      <div class="stage-icon"><i class="{{step.icon}}"></i> </div>
-      <div class="stage-title">{{step.title}}</div> </div>
+        <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)">
+          <div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+          <div class="stage-title">{{step.title}}</div> 
+        </div>
+    
     </div>
     
     <!-- //Step Form --> 
     
     <!-- Form COntainer -->
-    <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
-    <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
+    
     <div class="form-section  wt-frame">
      
 
-<div ng-hide="eventdetail_div">
+     <div ng-hide="eventdetail_div" class="eventseries">
      <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
           <div class="form-group">
-            <label for="eventname">Event Name<span class="req">*</span></label>
-            <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="Title of your Event" required>
-             <span style="color:red" ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">  <span  ng-show="myForm.eventname.$error.required">Event name is required</span></span>
+              <label for="eventname">Series Name<span class="req">*</span></label>
+              <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="Name of given Series" required>
+              <span style="color:red" ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">  <span  ng-show="myForm.eventname.$error.required">Series name is required</span></span>
           </div>
            <div class="form-group field-group">
-            <label>Date and Time<span class="req">*</span></label>
+              <label>Date and Time<span class="req">*</span></label>
+            </div>
+          
             <div class="event-date fieldSection"> 
-              <!-- Nav tabs -->
+    <!-- Nav tabs -->
               <div class="content-tab">
-                <ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
-               <li ng-repeat="event in events" ng-click="select(event)" ng-class="{active: isActive(event)}" ><a class="pointer" href="javascript:void(0)" >{{event.name}}</a>
-                    <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype" >
-               </li>
-              
-                </ul>
-              </div>
+                    <ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
+                     <li ng-repeat="event in events" ng-click="select(event)" ng-class="{active: isActive(event)}" ><a class="pointer multiple_div" href="javascript:void(0)" >{{event.name}}</a>
+                     <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype" >
+                     </li>
+                    
+                    </ul>
+               </div>
               
               <!-- Tab panes -->
               <div class="tab-content">
-                <div role="tabpanel" class="active"  id="single-event" ng-hide="single_event_div">
-                  <div class="row">
-                    <div class="col-sm-4">
-                     
-                      <div class="form-group">
-                       <!-- <label>From</label>-->
-                        
-                       <uib-datepicker ng-model="start_date" class="well well-sm" datepicker-options="options" ng-change="single_eventstart(this)"></uib-datepicker>
- 
-                      </div>
-                        <!-- <div class="form-group">
-                        <label>To</label>
-                        <uib-datepicker ng-model="end_date" class="well well-sm" datepicker-options="options1" ng-change="single_eventend()"></uib-datepicker>
-                      </div>-->
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-4">
-                   <div class="form-group">
-                        <label for="StartTime">Start Time</label>
-                         <div class="input-group bootstrap-timepicker timepicker">
-                          <input  ng-model="starttime" ng-change="changedstarttime()"  class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                        </div>
-                    </div>
-                   </div>
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label for="EndTime">End Time</label>
-                         <div class="input-group bootstrap-timepicker timepicker">
-                          <input ng-model="endtime" ng-change="changedendtime()" class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                         </div>
-                      </div>
-                    </div>
-                    
-                  </div>
-             <div class="row" ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
-                  <div class="row" ng-hide="select_delect_event">
-                    <div class="col-xs-12">
-                      <label>Select/Deselect Events</label>
-                      <div class="clearfix list-event-date">
-                      <div class="col-sm-3 pull-right text-right lss-top"> <a  href="javascript:void(0)" ng-click="remove_event()"><i class="fa fa-close"></i></a> </div>
-                        <div class="col-sm-3"> {{selectevent_date }} <span style="display:none;">{{single_start_date}}</span> </div>
-                        <div class="col-sm-3"> Start Time :{{startevent_time}}</div>
-                        <div class="col-sm-3"> End Time :{{endevent_time}} </div>
-                        
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div role="tabpanel"  id="multiple-event"  ng-hide="multiple_event_div">
-                   
-               <div ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
+                
+                <div role="tabpanel"  id="multiple-event">
+             
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="EndTime">Start Date<span class="req">*</span></label>
                       <div class="form-group datepicker">
-                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
-                         <span class="input-group-btn">
-                           <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                      </div>
                     </div>
                   </div>
@@ -108,9 +63,9 @@
                       <label for="EndTime">End Date<span class="req">*</span></label>
                       <div class="form-group datepicker">
                         <input type="text" class="form-control" uib-datepicker-popup ng-model="multiple_end_date" is-open="popup2.opened" datepicker-options="dateOptions"  close-text="Close"  ng-change="recurring_period('end')"/>
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -118,10 +73,10 @@
 
                 <div class="row">
                   <div class="col-sm-4">
-                  	<label for="City">Recurring<span class="req">*</span></label>
+                  	 <label for="City">Recurring<span class="req">*</span></label>
                     <div class="form-group">                      
                       <select class="form-control" ng-model="data.period" ng-change="recurring_period('period')">
-                        <option ng-repeat="option in timeperiod" value="{{option.id}}">{{option.name}}</option>
+                      <option ng-repeat="option in timeperiod" value="{{option.id}}">{{option.name}}</option>
                       </select>
                     </div>
                   </div>
@@ -149,17 +104,12 @@
                         </select>
                     </div>
                   </div>
-                  
-                  
-                  
-
                 </div>
                  <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="StartTime">Start Time<span class="req">*</span></label>
-                     
-                         <div class="input-group bootstrap-timepicker timepicker">
+                      <div class="input-group bootstrap-timepicker timepicker">
                          <input  ng-model="multiple_starttime"  class="form-control input-small timepick" type="text" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
                          </div>
                     </div>
@@ -177,24 +127,23 @@
 
                              
                 <div class="row">
-                  <div class="col-xs-12">
-                    <label>Select/Deselect Events</label>
-                     <div class="row" ng-hide="error_time_message"  ><p class="error-fld" >{{error_time_display_message}}</p></div>
-
-                    <div class="clearfix list-event-date form-inline"  ng-repeat="between in between_date track by $index">
-                         <div class="col-sm-1 pull-right text-right lss-top"> <a ng-click="removediv($index)"><i class="fa fa-close"></i></a> </div>
+                <div class="col-xs-12">
+                     <label>Select/Deselect Events</label>
+                    <div class="row" ng-hide="error_time_message"  ><p class="error-fld" >{{error_time_display_message}}</p></div>
+                      <div class="clearfix list-event-date form-inline"  ng-repeat="between in between_date track by $index">
+                       <div class="col-sm-1 pull-right text-right lss-top">
+                         <a ng-click="removediv($index)"><i class="fa fa-close"></i></a> 
+                       </div>
                         
-                           <div class="sel-d col-sm-3">
-                             <label> {{between| date:'EEEE MMMM dd,yyyy'}} </label>
-                           </div>
-                           <div class="sel-d col-sm-4">
+                        <div class="sel-d col-sm-3">
+                          <label> {{between| date:'EEEE MMMM dd,yyyy'}} </label>
+                        </div>
+                          <div class="sel-d col-sm-4">
                              <label for="exampleInputName2">Start Time:</label>
-                          <div class="input-group bootstrap-timepicker timepicker">
+                            <div class="input-group bootstrap-timepicker timepicker">
                               <input   class="form-control input-small timepick" type="text" ng-model="data.starttimeloop1[$index]" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-			 </div>
-                   
-                
-                           </div>
+			                      </div>
+                          </div>
                            <div class="sel-d col-sm-4">
                              <label for="exampleInputEmail2">End Time : </label>
                               <div class="input-group bootstrap-timepicker timepicker">    
@@ -202,10 +151,6 @@
                               </div>
                     
                            </div>
-
-           
-
-                      
                        </div>
       
                   </div>
@@ -215,9 +160,7 @@
                 </div>
               </div>
             </div>
-          </div>
-
- <div class="form-group field-group">
+            <div class="form-group field-group">
             <label for="Location">Location<span class="req">*</span></label>
             <!-- Date Event Group -->
             <div class="event-date fieldSection">
@@ -233,94 +176,198 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="EventName">Venue Type<span class="req">*</span></label>
-                            <select class="form-control" ng-model="data.venuetype">
-                              <option>General Admission</option>
-                              <option>Seated</option>
+                            <select class="form-control" ng-model="data.venuetype" autocomplete="off">
+                              <option>Ticket</option>
                             </select>
                           </div>
-
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="form-group">
+                            <label for="Venue">Venue<span class="req">*</span></label>
+                            <input type="text" class="form-control" ng-model="data.venuename" name="venuename" value="" autocomplete="off" required>
+                              <span style="color:red" ng-show="myForm.venuename.$dirty && myForm.venuename.$invalid">  <span  ng-show="myForm.venuename.$error.required">Venue name is required</span></span>
+                            <input type="hidden" class="form-control" ng-model="data.venueid">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="form-group">
+                            <label for="Address">Address<span class="req">*</span></label>
+                             <input type="text" class="form-control" name="place" ng-model="data.place" autocomplete="off" g-places-autocomplete required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="City">City<span class="req">*</span></label>
+                            <input type="text" class="form-control" name="city" ng-model="data.city" autocomplete="off" required>
+                              <span style="color:red" ng-show="myForm.city.$dirty && myForm.city.$invalid">  <span  ng-show="myForm.city.$error.required">City is required</span></span>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="Zipcode">Zipcode<span class="req">*</span></label>
+                            <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" autocomplete="off" required>
+                           <span style="color:red" ng-show="myForm.zipcode.$dirty && myForm.zipcode.$invalid">  <span  ng-show="myForm.zipcode.$error.required">Zipcode is required</span></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="City">State<span class="req">*</span></label>
+                            <input type="text" class="form-control" ng-model="data.state" name="state" autocomplete="off" required>
+                              <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
+                              
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="Zipcode">Country<span class="req">*</span></label>
+                            <input type="text" class="form-control" ng-model="data.country" name="country" autocomplete="off" required>
+                              <span style="color:red" ng-show="myForm.country.$dirty && myForm.country.$invalid">  <span  ng-show="myForm.country.$error.required">Country is required</span></span>
+                            <input type="hidden" class="form-control" ng-model="data.latitude">
+                            <input type="hidden" class="form-control" ng-model="data.longitude">
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="form-group">
-                          <label for="Venue">Venue<span class="req">*</span></label>
-                          <input type="text" class="form-control" ng-model="data.venuename" name="venuename" value="" required>
-                            <span style="color:red" ng-show="myForm.venuename.$dirty && myForm.venuename.$invalid">  <span  ng-show="myForm.venuename.$error.required">Venue name is required</span></span>
-                          <input type="hidden" class="form-control" ng-model="data.venueid">
-                        </div>
+                    <div role="tabpanel"  id="location-event" ng-hide="location_event_div">
+                         <div class="row">
+                        <div class="col-sm-12 loc-list">
+                         
+                     <ul>
+                              
+                            <li ng-repeat="venue in total_venue track by $index">
+                                   <i class="fa fa-map-marker"></i>
+                                    <a ng-click="venue_info(venue)">{{venue.venue_name}}</a>
+                                       <span>{{venue.address}}, {{venue.city}}&nbsp;,&nbsp;{{venue.state}}&nbsp;,&nbsp;{{venue.zipcode}}</span>
+                            </li>
+                          
+                        </ul>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="form-group">
-                          <label for="Address">Address<span class="req">*</span></label>
-                           <input type="text" class="form-control" name="place" ng-model="data.place"  g-places-autocomplete required  autocomplete="off">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label for="City">City<span class="req">*</span></label>
-                          <input type="text" class="form-control" name="city" ng-model="data.city" required>
-                            <span style="color:red" ng-show="myForm.city.$dirty && myForm.city.$invalid">  <span  ng-show="myForm.city.$error.required">City is required</span></span>
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label for="Zipcode">Zipcode<span class="req">*</span></label>
-                          <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" required>
-                         <span style="color:red" ng-show="myForm.zipcode.$dirty && myForm.zipcode.$invalid">  <span  ng-show="myForm.zipcode.$error.required">Zipcode is required</span></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label for="City">State<span class="req">*</span></label>
-                          <input type="text" class="form-control" ng-model="data.state" name="state" required>
-                            <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
-                            
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label for="Zipcode">Country<span class="req">*</span></label>
-                          <input type="text" class="form-control" ng-model="data.country" name="country" required>
-                            <span style="color:red" ng-show="myForm.country.$dirty && myForm.country.$invalid">  <span  ng-show="myForm.country.$error.required">Country is required</span></span>
-                          <input type="hidden" class="form-control" ng-model="data.latitude">
-                          <input type="hidden" class="form-control" ng-model="data.longitude">
-                        </div>
-                      </div>
+                     </div>
                     </div>
                   </div>
-                  <div role="tabpanel"  id="location-event" ng-hide="location_event_div">
-                       <div class="row">
-                      <div class="col-sm-12 loc-list">
-                      <ul>
-                        <li ng-repeat="venue in total_venue track by $index">
-                          <i class="fa fa-map-marker"></i>
-                          <a ng-click="venue_info(venue)">{{venue.venue_name}}</a>
-                          <span>{{venue.address}}, {{venue.city}}&nbsp;,&nbsp;{{venue.state}}&nbsp;,&nbsp;{{venue.zipcode}}</span>
-                        </li>
-                      </ul>
-                	  </div>
-                   </div>
-                  </div>
+                  
+                  <!-- Tab panes -->
+                  
                 </div>
-                
-                <!-- Tab panes -->
-                
-              
-              <div class="col-sm-12 col-md-6"> <!--<img src="images/map.jpg" class="img-responsive" alt="" />-->
-               <div id="map" style="height: 400px;"></div>
+                <div class="col-sm-12 col-md-6"> <!--<img src="images/map.jpg" class="img-responsive" alt="" />-->
+                 <div id="map" style="height: 400px;"></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-       <fieldset>
+          <div class="editr">
+              
+                    
+
+        <label>Event Description<span class="req">*</span></label>
+         <div ckeditor="option_ckeditor" name="content" required ng-model="data.content" ready="onReady()"></div>
+         <!-- create the setting section for series-->
+
+<div class="form-group field-group">
+            <label for="Location">Settings</label>
+            <!-- Date Event Group -->
+            <div class="event-date fieldSection">
+              <div class="row">
+        <div class="col-sm-12">
+        <div class="col-sm-4">
+                      <label class="form-label">Type of Event</label>
+                    </div>
+                    <div class="col-sm-4">
+                     <label for="EventName"> Categories<span class="req">*</span></label>
+                    </div>
+
+                    <div class="col-sm-4">
+                     <label> Ages<span class="req">*</span></label>
+                    </div>
+                    </div>
+                    <section class="radio-sec with-ftext col-sm-12">
+                        <div class="col-sm-4">
+
+                          <section class="radio-inline">
+                              <input type="radio"  name="type_of_event" ng-model="data1.type_of_event" checked>
+                              <label for="radio1"><span></span>Ticketed</label>
+                          </section>
+                          <section class="radio-inline">
+                          <input type="radio"   name="type_of_event" ng-model="data1.type_of_event">
+                          <label for="radio2"><span></span>Registration</label>
+                          </section>
+                        </div>
+                        <div class="col-sm-4">
+                   
+
+                            <select class="form-control">
+                              <option value="Ticket">Art/exhibit</option>
+                            </select>
+                        
+                        </div>
+                        <div class="col-sm-4">
+                                <select class="form-control" name="ages" ng-model="data1.ages">
+                                  <option ng-repeat="age in ages" value="{{age.id}}">{{age.name}}</option>
+                                </select>
+                               
+                          <div class="col-sm-12">
+                          <section>
+                                <span ng-hide="age_text_div">
+                                <a ng-click="custom_age()" style="cursor: pointer;" class="u-text with-ftext">
+                                <strong>Define a custom age limit</strong>
+                                </a></span>
+                                <span ng-hide="return_age_text_div"><a ng-click="custom_default_age()" style="cursor: pointer;" class="u-text with-ftext"><strong>Return to Default age limits</strong></a></span>
+                            </section>
+                            </div>
+                            
+                        </div>
+                         <div class="col-sm-12">
+                      <label class="form-label">Series Website</label>
+                   <input type="text" name="website" ng-model="website" class="form-control" required>
+                   </div>
+                  
+
+                     <div class="col-sm-12">
+                   <br>
+                   <br>
+                        <label class="form-label">Images</label>
+                         <div class="col-sm-12">
+                           <div class="col-sm-6">
+                             <input type="file" name="choose file"  width="10%" height="10%"/required>
+                           </div>
+                          <div class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+            
+                            <p class="radio-inline">
+                            <input type="checkbox" id="test2">
+                            <label for="test2">Display image an event Listing</label>
+                           </p>
+                          </div>
+                        </div>
+                     </section>
+                     
+
+                </div>
+              
+
+              </div>
+                <div class="editor-btn">
+                    <button type="submit" 
+                   ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
+                  <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
+              </div>
+        <div ng-hide="error_message" style="color:green;">{{success}}</div>
+      
+      </form>
+       </div>
+       </div>
+       </section>
+  </div>
+
+ 
+ <fieldset>
           <div class="form-top">
             <div class="form-top-left">
               <h3>Step 2 / 3</h3>
@@ -345,52 +392,41 @@
             <button type="button" class="btn btn-previous">Previous</button>
             <button type="button" class="btn btn-next">Next</button>
           </div>
-      </fieldset>
-      <fieldset>
-        <div class="form-top">
-          <div class="form-top-left">
-            <h3>Step 3 / 3</h3>
-            <p>Social media profiles:</p>
+       
+</fieldset>
+        <fieldset>
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3>Step 3 / 3</h3>
+              <p>Social media profiles:</p>
+            </div>
+            <div class="form-top-right"> <i class="fa fa-twitter"></i> </div>
           </div>
-          <div class="form-top-right"> <i class="fa fa-twitter"></i> </div>
-        </div>
-        <div class="form-bottom">
-          <div class="form-group">
-            <label class="sr-only" for="form-facebook">Facebook</label>
-            <input type="text" name="form-facebook" placeholder="Facebook..." class="form-facebook form-control" id="form-facebook">
+          <div class="form-bottom">
+            <div class="form-group">
+              <label class="sr-only" for="form-facebook">Facebook</label>
+              <input type="text" name="form-facebook" placeholder="Facebook..." class="form-facebook form-control" id="form-facebook">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="form-twitter">Twitter</label>
+              <input type="text" name="form-twitter" placeholder="Twitter..." class="form-twitter form-control" id="form-twitter">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="form-google-plus">Google plus</label>
+              <input type="text" name="form-google-plus" placeholder="Google plus..." class="form-google-plus form-control" id="form-google-plus">
+            </div>
+            <button type="button" class="btn btn-previous">Previous</button>
+            <button type="button" class="btn">Sign me up!</button>
           </div>
-          <div class="form-group">
-            <label class="sr-only" for="form-twitter">Twitter</label>
-            <input type="text" name="form-twitter" placeholder="Twitter..." class="form-twitter form-control" id="form-twitter">
-          </div>
-          <div class="form-group">
-            <label class="sr-only" for="form-google-plus">Google plus</label>
-            <input type="text" name="form-google-plus" placeholder="Google plus..." class="form-google-plus form-control" id="form-google-plus">
-          </div>
-          <button type="button" class="btn btn-previous">Previous</button>
-          <button type="button" class="btn">Sign me up!</button>
-        </div>
-      </fieldset>
+        </fieldset>
      
-      <div class="editr">
-        <label>Event Description<span class="req">*</span></label>
-         <div ckeditor="option_ckeditor" name="content"  required ng-model="data.content" ready="onReady()"></div>
-         <span style="color:red" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event description is required</span></span>
-         
+      
+       
 
-         
-        <div class="editor-btn">
-          <button type="submit" 
-ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
-          <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
-        </div>
-        <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
 
-      </div>
-  </form>
-</div>
 
-<div ng-hide="price_and_link_div">
+<!--price and link part -->
+ <div ng-hide="price_and_link_div">
            <!-- Event Detail Form -->
    	<form  name="myForm1" novalidate>
 
@@ -398,7 +434,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           	  <section class="col-sm-4">
                   <div class="form-group">
                     <label class="form-label">Event Inventory<span class="req">*</span></label>
-                    <input type="number" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" required  min="0">
+                    <input type="number" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" required>
                      <span style="color:red" ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">
   <span ng-show="myForm1.eventinventory.$error.required">Event Inventory is required</span>
   </span>
@@ -451,8 +487,6 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                       </section>
                     </section>
                   <section class="grid-widget">
-                  <span ng-show="success_message1" ><p class="success-fld ng-binding">{{success1}}</p></span> 
-                  <span><p>{{activation_message}}</p></span> 
       	  <div class="table-responsive">
           	  
 
@@ -467,26 +501,17 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 <th width="12%" class="numbers">Limit</th>
                 <th width="23%">&nbsp;</th>
             </tr>
-            
         </thead>
         <tbody>
-          
-            <tr ng-repeat="price in price_level track by $index">
-                <td><strong>{{price.price_level_name}}</strong></td>
-                <td class="numbers">0</td>
-                <td class="numbers">{{price.quantity_available}}</td>
-                <td class="numbers">${{price.online_price}}</td>
-                <td class="numbers">${{price.box_office_price}}</td>
-                <td class="numbers">{{price.max_per_order}}</td>
-                <td class="action">
-                    <a ng-click="getPrice(price.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-                    <a ng-click="price_change('lg',price.id)" style="cursor: pointer;"><i class="fa fa-tags"></i></a>
-                    <a ng-click="changeStatus(price.id,price.is_active)" ng-confirm-click="Would you like to change Price level status ?" style="cursor: pointer;"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a>
-                    <a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr ng-show="loader">
-			    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
-	   </tr>
+           <!-- <tr>
+                <td><strong>Balcony</strong></td>
+                <td class="numbers">12</td>
+                <td class="numbers">900</td>
+                <td class="numbers">$10.00</td>
+                <td class="numbers">$15.00</td>
+                <td class="numbers">850</td>
+                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
+            </tr>-->
            
            
 
@@ -546,43 +571,44 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                   	  
                       <section class="col-sm-5 pull-right text-right">
                         <button class="pink-btn btn btn-small m-fw" ng-click="add_bundle('lg')">ADD a Bundle</button>
+                         <!-- <button class="pink-btn btn btn-small m-fw"  ng-click="open()">ADD a Bundle</button>-->
                       </section>
                     </section>
                   <section class="grid-widget">
-                  <span ng-show="success_message_bundle" class="ng-hide"><p class="success-fld ng-binding">{{success_bundle}}</p></span>
-              	  <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th width="15%">Name</th>
-                                <th width="10%" class="numbers">Price</th>
-                                <th width="14%" class="numbers">Box Office Price</th>
-                                <th width="13%" class="numbers">Per-Sale Limit</th>
-                                <th width="14%" class="numbers">Max Inventory Set</th>
-                                <th width="23%">Manage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="bundle in bundleList track by $index">
-                                <td><strong>{{bundle.bundle_name}}</strong></td>
-                                <td class="numbers">$22</td>
-                                <td class="numbers">$33</td>
-                                <td class="numbers">${{bundle.bundle_limit}}</td>
-                                <td class="numbers">${{bundle.bundle_inventory}}</td>
-                                <td class="action">
-                                  <a ng-click="add_bundle('lg',bundle.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-                                  <a href="javascript:void(0)"><i class="fa fa-tags"></i></a>
-                                  <a ng-click="changeBundleStatus(bundle.id,bundle.status)" ng-confirm-click="Would you like to change bundle status ?"><i class="fa fa-check-circle" ng-if="bundle.status == 1"></i><i class="fa fa-times" ng-if="bundle.status == 0"></i></a>
-                                  <a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            <tr ng-show="loader_bundle">
-                                  <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                  </section>
+      	  <div class="table-responsive">
+          	  
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th width="15%">Name</th>
+                <th width="10%" class="numbers">Sold</th>
+                <th width="14%" class="numbers">Remaining</th>
+                <th width="13%" class="numbers">Price</th>
+                <th width="14%" class="numbers">Box office <span class="l-b">Price</span></th>
+                <th width="12%" class="numbers">Limit</th>
+                <th width="23%">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+           <!-- <tr>
+                <td><strong>Balcony</strong></td>
+                <td class="numbers">12</td>
+                <td class="numbers">900</td>
+                <td class="numbers">$10.00</td>
+                <td class="numbers">$15.00</td>
+                <td class="numbers">850</td>
+                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
+            </tr>
+            -->
+
+        </tbody>
+
+    </table>
+
+
+          </div>
+      </section>
                   
                   <section class="grid-bottm clearfix">
                     <section class="gr-right pull-right">
@@ -593,7 +619,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                             <li><i class="fa fa-trash"></i><span>delete</span></li>
                         </ul>
                     </section>
-                  </section>
+                </section>
                 
                   
 
@@ -615,7 +641,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     </section>
                   <section class="grid-widget">
       	  <div class="table-responsive">
-          	  
+          	   
 
     <table class="table table-striped">
         <thead>
@@ -630,7 +656,6 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </tr>
         </thead>
         <tbody>
-          
            <!-- <tr>
                 <td><strong>Balcony</strong></td>
                 <td class="numbers">12</td>
@@ -651,6 +676,10 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
       </section>
                   
                   <section class="grid-bottm clearfix">
+                    <section class="col-sm-3 f-12">
+                              <label>&nbsp;</label>
+                                <span><a style="cursor: pointer;" class="u-text with-ftext"><strong>Please set your fulfillment setting</strong></a></span>
+                            </section>
                     <section class="gr-right pull-right">
                     	<ul class="legends">
                         	<li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
@@ -675,107 +704,19 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
       			</section>
           </div>
           <!-- Product Closed -->
-          <!--Links Start -->
-          <div class="module">
-  <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
-    <h2>Links <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
-  </section>
-  <section class="gray-frame">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="EventName"> Video</label>
-          <input type="text" name="video" ng-model="data1.video" class="form-control" placeholder="Video Url"/>
-          <span style="color:red" ng-show="myForm1.video.$dirty && myForm1.video.$invalid">
-  <span ng-show="myForm1.video.$error.required">Video is required</span>
-  </span>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="EventName"> Facebook</label>
-          <input type="text" name="facebook" ng-model="data1.facebook"  class="form-control" placeholder="Facebook Url"/>
-          <span style="color:red" ng-show="myForm1.facebook.$dirty && myForm1.facebook.$invalid">
-  <span ng-show="myForm1.video.$error.required">Facebook Url is required</span>
-  </span>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="EventName"> Twitter</label>
-          <input type="text" name="twitter" ng-model="data1.twitter"   class="form-control"  placeholder="Twitter Url"/>
-           <span style="color:red" ng-show="myForm1.twitter.$dirty && myForm1.twitter.$invalid">
-  <span ng-show="myForm1.twitter.$error.required">Twitter is required</span>
-  </span>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="EventName"> Event Website</label>
-          <input type="text" class="form-control"  name="eventwebsite" ng-model="data1.eventwebsite"   placeholder="Event Website" />
-          <span style="color:red" ng-show="myForm1.eventwebsite.$dirty && myForm1.eventwebsite.$invalid">
-  <span ng-show="myForm1.eventwebsite.$error.required">Event Website is required</span>
-  </span>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-          <!--Links Closed -->
-          <!-- Search options Start -->
-           <div class="form-group clearfix">
-             	<section class="prof-hd">
-                   <i class="fa fa-search hdicon pos-l16"></i>
-                    <h2>Search options <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
-            </section>
-                <section class="gray-frame">
-                	<div class="row">
-                	    <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="EventName"> Additional Keywords/Tags</label>
-                            <input type="text" name="keyword"  ng-model="data1.keyword" class="form-control" placeholder="Additional Keywords/Tags"/>
-                            <span style="color:red" ng-show="myForm1.keyword.$dirty && myForm1.keyword.$invalid">
-  <span ng-show="myForm1.keyword.$error.required">Additional Keywords/Tags is required</span>
-  </span>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                	<div class="col-sm-4">
-                          <div class="form-group">
-                            <label for="EventName"> Categories<span class="req">*</span></label>
-                            <select class="form-control">
-                              <option value="Ticket">Dance</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-sm-4 text-drop">
-                          <div class="form-group">
-                            <select class="form-control">
-                              <option value="Ticket">Comedy</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-sm-4 text-drop">
-                          <div class="form-group">
-                            <select class="form-control">
-                              <option value="Ticket">Singing</option>
-                            </select>
-                          </div>
-                        </div></div>
-
-      			</section>
-          </div>
-           <!-- Search options Closed -->
+        
+          
            <div class="editor-btn">
-          <button type="button" ng-click="click_menu(steps[0])" class="gray-btn btn">Back</button>
+          <button type="button" ng-click="click_menu(steps[0])" class="gray-btn btn">Previous</button>
            <button type="submit" class="pink-btn btn">Save</button>
           <button type="button" ng-click="click_menu(steps[2])" class="pink-btn btn">Next</button>
         </div>
 </form>
        </div>
+
+
+
+       <!-- look and feel start-->
        <div ng-hide="look_and_feel_div"><div class="module template-view">
        <div class="main-image"><img src="images/img/f-img.jpg" alt=""/></div>
          
@@ -816,14 +757,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           
 
       </div></div>
-       
-       <!-- Add step-4 ------->
-       
-       <!-- setting form -->
-
-    
-    <!-- Form COntainer -->
-    <div ng-hide="setting_div">
+       <div ng-hide="setting_div">
           
       <form class="event-form">
         
@@ -1157,27 +1091,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
 </div>
     
     <!-- //Form COntainer --> 
-       
-       
-       
-       
-       <!-- End step-4 ------>
-</div>
-    
-    <!-- //Form COntainer --> 
   </div>
-  <script type="text/ng-template" id="deletePricelevel.html">
-     <div class="modal-header">
-            <h3 class="modal-title">Remove Price level</h3>
-        </div>
-        <div class="modal-body">
-            Are you sure you want to remove this price level?
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="remove()">Remove</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-        </div>
-  </script>
 <script type="text/ng-template" id="myModalContent.html"> 
         <div class="modal-header">
             <h3 class="modal-title">Remove Previous Event</h3>
@@ -1196,10 +1110,10 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
         </div>
         <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="savepriceleveldata(data1)" novalidate>
         <div  class="modal-body">
-        <!-- {{data1}}-->
+         
             <fieldset  class="form-group" style="padding-top:10px">
                <div class="col-sm-4">Price Level Name<span class="req">*</span></div>
-               <div class="col-sm-8"><input type="text" ng-model="data1.price_level" name="price_level" class="form-control" required><input type="hidden" ng-model="data1.id"></div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.price_level" name="price_level" class="form-control" required></div>
                <span style="color:red" ng-show="pricelevelForm.price_level.$dirty && pricelevelForm.price_level.$invalid">
                 <span ng-show="pricelevelForm.price_level.$error.required">Price Level Name is required</span>
                </span>
@@ -1215,24 +1129,24 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </fieldset>
             <fieldset class="form-group" ng-hide="online_price">
                <div class="col-sm-4">Online Price(USD $)</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.online_price" name="online_price" class="form-control" ng-blur="onlinePricefunc()"  min="0"></div> 
+               <div class="col-sm-8"><input type="text" ng-model="data1.online_price" name="online_price" class="form-control" ng-blur="onlinePricefunc()"></div> 
             </fieldset>
             
             <fieldset class="form-group" ng-hide="min_price">
                <div class="col-sm-4">Minimum Price(USD $)</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.minimum_price" name="minimum_price" class="form-control"  min="0"></div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.minimum_price" name="minimum_price" class="form-control"></div>
             </fieldset>
             <fieldset class="form-group" ng-hide="min_price">
                <div class="col-sm-4">Suggested Price(USD $)</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.suggested_price" name="suggested_price" class="form-control" ng-blur="suggestedPricefunc()"  min="0"></div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.suggested_price" name="suggested_price" class="form-control" ng-blur="suggestedPricefunc()"></div>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Box Office Price(USD $)</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.box_office_price" name="box_office_price" class="form-control"  min="0"></div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.box_office_price" name="box_office_price" class="form-control"></div>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Quantity Available</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.quantity_available" name="quantity_available" class="form-control"  min="0"></div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.quantity_available" name="quantity_available" class="form-control"></div>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Hide Online</div>
@@ -1243,7 +1157,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                               <label for="radio01"><span></span>Yes</label>
                           </section>
                             <section class="radio-inline">
-                          <input id="radio02" type="radio"  name="hide_online" ng-model="data1.hide_online"  value="0">
+                          <input id="radio02" type="radio"  name="hide_online" ng-model="data1.hide_online" checked value="0">
                           <label for="radio02"><span></span>No</label>
                           </section>
                          </section>
@@ -1252,14 +1166,13 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             <fieldset class="form-group">
                <div class="col-sm-4">Hide in Box Office</div>
                <div class="col-sm-8">
-                   
             <section class="radio-sec">
                       		<section class="radio-inline">
                               <input type="radio" id="radio03" name="hide_in_box_office" ng-model="data1.hide_in_box_office" value="1" >
                               <label for="radio03"><span></span>Yes</label>
                           </section>
                             <section class="radio-inline">
-                          <input type="radio" id="radio04"  name="hide_in_box_office" ng-model="data1.hide_in_box_office"  value="0" >
+                          <input type="radio" id="radio04"  name="hide_in_box_office" ng-model="data1.hide_in_box_office" checked value="0" >
                           <label for="radio04"><span></span>No</label>
                           </section>
                          </section>
@@ -1267,11 +1180,11 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Minimum Per Order</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control"  min="0"></div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control"></div>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Maximum Per Order</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control"  min="0"></div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control"></div>
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Description</div>
@@ -1289,26 +1202,24 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
 
     <script type="text/ng-template" id="myModalContentBundle.html"> 
         <div class="modal-header">
-            <h3 class="modal-title" style="float:left;">Add a Bundle</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+            <h3 class="modal-title">Add a Bundle</h3>
         </div>
+        <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="savepriceleveldata(data1)" novalidate>
         <div class="modal-body">
-           
+      
         <!-- Step Form -->
         <div class="stage-container stage-container-3steps clearfix">
-          <div class="stage" ng-repeat="step in steps" data-ng-class="{current: $index + 1 === selectedClass}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+          <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
             <div class="stage-title">{{step.title}}</div> </div>
         </div>
         <!-- //Step Form --> 
 
 
         <div class="form-section  wt-frame">
-                <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
                 <!-- Step 1 start -->
                    <div ng-show="step_1">
                     <!-- Event Detail Form -->
-                          <form class="event-form" name="bundleForm" ng-submit="bundleForm.$valid && updateBundle(bundle)" novalidate>
-                          <input type="hidden" name="id" ng-model="bundle.id"/>
-
+                          <form class="event-form" name="userForm" novalidate ng-submit="saveBundle(1)">
                                  <div>
                                     <div class="module">
                                         <section class="prof-hd" > <!-- add  class="prof-hd"if u need to display this as tab -->
@@ -1316,20 +1227,21 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                           <h2> Details <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
                                         </section>
                                         <section class="gray-frame">
-                                         
+                                          
+
                                           <div class="row">
                                             <div class="col-sm-4">
-                                              <div class="form-group" ng-class="{true: 'error'}[submitted]">
+                                              <div class="form-group">
                                                 <label for="EventName">Name<span class="req">*</span></label>
-                                                <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="bundle.bundle_name" required/>
-                                                <span class="help-inline" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter bundle name</span>
+                                                <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="data.bundle_name" required/>
                                               </div>
+                                              <span style="color:red" ng-show="userForm.bundle_name.$dirty && userForm.bundle_name.$invalid">  <span  ng-show="userForm.bundle_name.$error.required">Enter bundle name.</span></span>
                                             </div>
                                             <div class="col-sm-8">
                                               <div class="form-group">
                                                 <label for="EventName"> Description</label>
                                                 <div class="bundle-editr" >
-                                                  <div ckeditor="option_ckeditor" ng-model="bundle.bundle_description" ready="onReady()"></div>
+                                                  <div ckeditor="option_ckeditor" ng-model="data.bundle_description" ready="onReady()"></div>
                                                 </div>
                                               </div>
                                             </div>
@@ -1338,22 +1250,21 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                             <div class="col-sm-4" >
                                               <div class="form-group">
                                                 <label for="EventName"> Limit<span class="req-limit">*</span></label>
-                                                <input type="number" class="form-control" placeholder="Limit" ng-model="bundle.bundle_limit" name="bundle_limit"/>
-                                                <span class="help-inline" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter limit</span>
+                                                <input type="number" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit"/>
                                               </div>
-                                              
+                                              <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="help-block">Enter bundle limit.</p>
                                             </div>
                                             <div class="col-sm-4">
                                               <div class="form-group">
                                                 <label for="EventName"> Minimum Purchase</label>
-                                                <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="bundle.bundle_minimum_purchase"/>
+                                                <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="data.bundle_minimum_purchase"/>
                                               </div>
                                             </div>
                                             <div class="col-sm-4">
                                               <div class="form-group">
                                                 <label for="EventName"> Multiple Ticket Holders?</label>
                                                 <div class="onoffswitch">
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="bundle.multiple_ticket_holder" checked>
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="data.multiple_ticket_holder" checked>
                                                   <label class="onoffswitch-label" for="myonoffswitch2"></label>
                                                 </div>
                                               </div>
@@ -1375,7 +1286,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                               <div class="form-group">
                                                 <label for="EventName"> Assign Inventory?<span class="req">*</span></label>
                                                 <div class="onoffswitch">
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="bundle.assign_inventory"  ng-model="checked" checked>
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.assign_inventory"  ng-model="checked" checked>
                                                   <label class="onoffswitch-label" for="myonoffswitch4"></label>
                                                 </div>
                                               </div>
@@ -1383,14 +1294,14 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                             <div class="col-sm-4">
                                               <div class="form-group">
                                                 <label for="EventName"> Inventory</label>
-                                                <input type="text" class="form-control" ng-disabled="!bundle.assign_inventory" placeholder="Inventory" ng-model="bundle.bundle_inventory"/>
+                                                <input type="text" class="form-control" ng-disabled="!data.assign_inventory" placeholder="Inventory" ng-model="data.bundle_inventory"/>
                                               </div>
                                             </div>
                                             <div class="col-sm-4">
                                               <div class="form-group">
                                                 <label for="EventName"> Active</label>
                                                 <div class="onoffswitch">
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch1" ng-model="bundle.status" checked>
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch1" ng-model="data.status" checked>
                                                   <label class="onoffswitch-label" for="myonoffswitch1"></label>
                                                 </div>
                                               </div>
@@ -1401,7 +1312,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                               <div class="form-group">
                                                 <label for="EventName"> Hide Online?</label>
                                                 <div class="onoffswitch">
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="bundle.hide_online" checked>
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="data.hide_online" checked>
                                                   <label class="onoffswitch-label" for="myonoffswitch3"></label>
                                                 </div>
                                               </div>
@@ -1410,7 +1321,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                               <div class="form-group">
                                                 <label for="EventName"> Hide in box office?</label>
                                                 <div class="onoffswitch">
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="bundle.hide_in_box_office" checked>
+                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.hide_in_box_office" checked>
                                                   <label class="onoffswitch-label" for="myonoffswitch5"></label>
                                                 </div>
                                               </div>
@@ -1424,10 +1335,12 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                 
                                 <div>
                                     <div class="editor-btn">
-                                        <button type="submit" class="pink-btn btn" ng-click="submitted=true">Save</button>
-                                        <button type="submit" class="pink-btn btn" ng-click="submitted=true && click_menu({id:2});">Next</button>
+                                        <button type="submit" 
+                          ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
+                                        <button class="pink-btn btn" ng-click="click_menu({id:2});">Next</button>
                                   </div>   
                                 </div>
+                                <div ng-hide="error_message" style="color:green;">{{success}}</div>
                         </form>
                </div>
                <!-- Step 1 end -->
@@ -1436,31 +1349,41 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
               <!-- Step 2 start -->
             <div ng-show="step_2">
               <div class="module">
-                <form class="" name="bundlestep2" ng-submit="bundlestep2.$valid && updateQty()" novalidate>
-                  <section class="prof-hd">
-                    <i class="fa fa-link hdicon pos-l16"></i>
-                    <h2>Products<span style="float:right;">Quantity</span></h2>
-                  </section>
-                  <section class="gray-frame">
-                    <div class="row" ng-repeat="product in productList" >
-                      <div class="col-sm-8" >
-                        <div class="form-group">
-                          <label for="EventName">  {{product.product_name}} (Price: {{product.retail_price}}) </label>
-                        </div>
-                      </div>
-                      <div class="col-sm-4" >
-                        <div class="form-group">
-                          <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="productList[$index].qty"/>
-                        </div>
+                <section class="prof-hd">
+                  <i class="fa fa-link hdicon pos-l16"></i>
+                  <h2>Products<span style="float:right;">Quantity</span></h2>
+                </section>
+                <section class="gray-frame">
+                  <div class="row">
+                    <div class="col-sm-8" >
+                      <div class="form-group">
+                        <label for="EventName">  gtr e (Price: $0.00) </label>
                       </div>
                     </div>
-                  </section>
-                  <div class="editor-btn">
-                    <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
-                    <button class="pink-btn btn" ng-click="submitted2=true">Save</button>
-                    <button class="pink-btn btn" ng-click="submitted2=true && click_menu({id:3});">Next</button>
+                    <div class="col-sm-4" >
+                      <div class="form-group">
+                        <select class="form-control" ng-model="coupon_type" required>
+                          <option>0</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                </form>
+                </section>
+                <div class="editor-btn">
+                  <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
+                  <button class="pink-btn btn" ng-click="saveProduct(2)">Save</button>
+                  <button class="pink-btn btn" ng-click="click_menu({id:3});">Next</button>
+                </div>
               </div>
             </div>
                <!-- Step 2 end -->
@@ -1491,11 +1414,11 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                       </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="product in productList">
-                                        <td>{{product.product_name}}</td>
-                                        <td>{{product.qty}}</td>
-                                        <td>${{product.qty*product.retail_price}}</td>
-                                        <td>${{product.qty*product.retail_price}}</td>
+                                        <tr>
+                                        <td>Test</td>
+                                        <td>1</td>
+                                        <td>$150.00</td>
+                                        <td>$140.00</td>
                                        </tr>
                                       </tbody>
                                   </table>
@@ -1504,30 +1427,43 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                       </section>
                        <div class="editor-btn">
                             <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
-                            <button class="pink-btn btn" ng-click="updateQty()">Save</button>
-                            <button class="pink-btn btn" ng-click="updateQty('submit')">Submit</button>
+                            <button class="pink-btn btn" ng-click="saveProduct(3)">Save</button>
+                            <button class="pink-btn btn" ng-click="saveProduct(4)">Submit</button>
                       </div> 
                   </div>
                </div>
                <!-- Step 3 end --> 
           </div>
-         </div>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
         </form>
         <div class="modal-footer">
+            
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
-    </script>
-
-    <script type="text/ng-template" id="deleteBundle.html">
-       <div class="modal-header">
-              <h3 class="modal-title">Remove Bundle</h3>
-          </div>
-          <div class="modal-body">
-              Are you sure you want to remove this bundle?
-          </div>
-          <div class="modal-footer">
-              <button class="btn btn-primary" type="button" ng-click="removeBundle()">Remove</button>
-              <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-          </div>
     </script>
 
 <script type="text/ng-template" id="myModalContentProduct.html">
@@ -1595,62 +1531,5 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
         </div>
     </script>
 
-<script type="text/ng-template" id="pricechange.html">
-      <form class="pricechangeform" name="pricechangeform" ng-submit="pricechangefunc(data2)" novalidate>
-        <div class="modal-header">
-           <h3 class="modal-title" style="float:left;">Schedule Price Change</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
-        </div>
-        <div class="modal-body">
-            <fieldset class="form-group">
-               <div class="col-sm-3">Price to change on</div>
-               <div class="col-sm-3">
-                   <!-- <input type="text" name="date" ng-model="data2.date" class="form-control"  value="">-->
-                   <div class="form-group datepicker">
-                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data2.startdate_pricechange" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" />
-                         <span class="input-group-btn">
-                           <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
-                     </div>
-               </div>
-               <div class="col-sm-2">
-                    <select name="month" ng-model="data2.month" class="form-control">
-                         <option ng-repeat="mon in months" value="{{mon.id}}">{{mon.name}}</option>
-                    </select>
-               </div>
-               <div class="col-sm-2">
-                    <select name="time" ng-model="data2.time" class="form-control">
-                         <option ng-repeat="time in timeinterval" value="{{time.id}}">{{time.name}}</option>
-                    </select>
-               </div>
-               <div class="col-sm-2">
-                    <select name="interval" ng-model="data2.interval" class="form-control">
-                         <option ng-repeat="int in interval" value="{{int.id}}">{{int.name}}</option>
-                    </select>
-               </div>
-            </fieldset>
-            <fieldset class="form-group">
-               <div class="col-sm-3">New Price (USD $)</div>
-               <div class="col-sm-9">
-                    <input type="number" name="new_price" ng-model="data2.new_price" class="form-control" value="" required min="0">
-                    <span style="color:red" ng-show="pricechangeform.new_price.$dirty && pricechangeform.new_price.$invalid">
-                <span ng-show="pricechangeform.new_price.$error.required">New Price is required</span>
-               </span>
-               </div>
-              
-            </fieldset>
-            <fieldset class="form-group">
-               <div class="col-sm-3">Apply to</div>
-               <div class="col-sm-9">
-                    <select name="price" ng-model="data2.apply"  class="form-control" >
-                         <option ng-repeat="applied in apply" value="{{applied.id}}">{{applied.name}}</option>
-                    </select>
-               </div>
-              
-            </fieldset>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary"  
-ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-        </div>
-    </script>
+
 

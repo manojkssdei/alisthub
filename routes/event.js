@@ -28,12 +28,16 @@ module.exports = function(app, express) {
       router.post('/removepricelevel', Event.removepricelevel);
       router.post('/changePricelevelStatus', Event.changePricelevelStatus);
       router.post('/getSinglePricelevel', Event.getSinglePricelevel);
+      router.post('/postPriceChange', Event.postPriceChange);
       
       /* To get data of the all events */
       router.post('/getEvents',supportCrossOriginScript,Event.getEvents);
       
       /* To get the event data */
       router.post('/getEvent',supportCrossOriginScript, Event.getEvent);
+
+          /*get event category*///
+        router.post('/getEventsdetail',supportCrossOriginScript, Event.getEventsdetail);
 
 
        

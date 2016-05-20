@@ -224,3 +224,67 @@ exports.getSinglePricelevel = function(req,res) {
         
     });
 }
+
+
+
+exports.getEventsdetail=function(req,res)
+{
+    console.log("var",req.body.var);
+
+    if(req.body.var=='ages')
+    {
+     $sql='SELECT name,age from ages';
+    }else if(req.body.var=='steps'){
+      $sql='SELECT title,icon,step_id from steps';
+    }else if(req.body.var=='event_types'){
+      $sql='SELECT name,event_id from event_types';
+    }else if(req.body.var=='event_venue'){
+      $sql='SELECT name,vanue_id from event_venue';
+    }else if(req.body.var=='event_category'){
+      $sql='SELECT category_id,name from event_category';
+    }
+     connection.query($sql, function(err, results) 
+     {
+      if (err) {
+        res.json({error:err,code:101});
+       }
+       else
+     {
+      res.json({results:results,code:200});
+    }
+   
+   
+});
+ }  
+
+/** 
+Method: updatePriceChange
+Description:Function to change Price level data status 
+Created : 2016-05-18
+Created By: Deepak khokhar  
+*/
+exports.postPriceChange = function(req,res) {
+    
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    var Date1=new Date(req.body.startdate_pricechange);
+    var mon=Date1.getMonth()+1;
+    var month;
+  var date=Date1.getFullYear()+"-"+mon+"-"+Date1.getDate();
+    if (req.body.interval=='pm')
+    {
+      month=parseInt(req.body.month)+12;
+      month.toString();
+    }else{
+        month=req.body.month;
+    }
+    var change_price_date=date+" "+month+":"+req.body.time+":00";
+ 
+ connection.query("UPDATE price_levels SET `new_price`='"+req.body.new_price+"',`apply_to`='"+req.body.apply+"',`price_change_datetime`='"+change_price_date+"' where id="+req.body.price_change_id, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }else{
+     res.json({result:results,code:200});
+     }
+  });
+
+}
