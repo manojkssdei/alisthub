@@ -109,7 +109,7 @@ var webservices = {
     "saveEvent"  :  "/series/saveEvent",
     "savepricelevel" : "/series/savepricelevel",
     "getPricelevel" : "/series/getPricelevel",
-      "saverecurringEvent"  :  "/series/saverecurringEvent",
+    "saverecurringEvent"  :  "/series/saverecurringEvent",
 
 
 }
@@ -120,6 +120,7 @@ var global_message = {
     "SavingError" : "Error in saving !",
     "SignupSuccess" : "Registration email sent to your registered email. Open your email to finish signup.If you don't see alistixs email in your inbox within 15 minutes, look for it in your junk mail folder. If you find it there, please mark the email as 'Not Junk'.",
     "ForgetPassword" : "Check your registered email to reset your password quickly.",
+    "ForgetEmailBlank": "Please enter registered email address.",
     "ForgetEmailError" : "Your search didn't match any accounts. Enter your registered email address again.",
     "ActivatedMessage" : "Your account has been activated, please sign in.",
     "ErrorInActivation" : "There is some problem, please try after some time.",
