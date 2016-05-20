@@ -16,6 +16,7 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 		});
       
   };
+
   //save recurring events
   url.saverecurringEvent = function(jsondata,callback){
    
@@ -101,6 +102,13 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
       callback(res.data);
     });
   };
+//get post events
+
+  url.postEventdata = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getEventsdetail,appConstants.authorizationKey,headerConstants.json,jsondata,function(res,req){
+      callback(res.data);
+    });
+     };
 
   //change price levels
   url.changeBundleStatus = function(jsondata,callback){
@@ -115,6 +123,7 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
       callback(res.data);
     });
   };
+
   
 return url;
 

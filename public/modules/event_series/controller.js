@@ -1,22 +1,17 @@
-/** 
-Anguler Controller to manage event steps 
-Created : 2016-04-19
-Created By: Deepak khokkar  
-Module : Event step  
-*/
 
 angular.module("google.places",[]);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
-   
-  if (!$localStorage.isuserloggedIn) {
-      $state.go('login');
-  }
-  $scope.loader = false;
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('createseriesController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
    //For Step 1
+
+
+
+
+
+
+
     var $serviceTest = $injector.get("venues");
-     
     $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
-    $rootScope.success_message1=false;
+    
     $scope.days=[
       {id: '0', name: 'Sun'},
       {id: '1', name: 'Mon'},
@@ -26,48 +21,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       {id: '5', name: 'Fri'},
       {id: '6', name: 'Sat'}
     ]
-    
-    
-    
     $scope.dates=[
                  {id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9},{id:10},
                  {id:11},{id:12},{id:13},{id:14},{id:15},{id:16},{id:17},{id:18},{id:19},{id:20},
                  {id:21},{id:22},{id:23},{id:24},{id:25},{id:26},{id:27},{id:28},{id:29},{id:30},{id:31}
                  ];
-
-    if ($localStorage.userId!=undefined) {
-       
-        $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
-            if (response!=null) {
-
-            if (response.code == 200)
-            {
-              $scope.total_venue=response.result;
-            }
-
-            }else{
-             $scope.total_venue=[];   
-            }
-            
-        });
-    }
-
-    $eventId=$localStorage.eventId;
-    $serviceTest.getPricelevel({'eventId':$eventId},function(response){
-      $rootScope.price_level=response.results;
-    });
-
-    $scope.eventBundle = {};
-    
-    $scope.eventBundle.eventId = $localStorage.eventId; 
-    $scope.eventBundle.userId = $localStorage.userId;
-
-    $serviceTest.getBundles($scope.eventBundle,function(response){
-      //$rootScope.bundleList = response.results;
-      $rootScope.bundleList = response.result;
-    });
-
-
 
     /** 
     Method: change_month
@@ -75,7 +33,6 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     Created : 2016-04-19
     Created By:  Deepak khokkar  
     */
-
     $scope.change_month=function(){
       
        var monthly_start=new Date($scope.multiple_start_date);
@@ -208,48 +165,6 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
           }
         } 
     }
-    
-    //update price level
-    $scope.getPrice=function(id){
-        $rootScope.data1={};
-        $serviceTest.getSinglePricelevel({'id':id},function(response){
-            if (response.code==200) {
-                $scope.open_price_level('lg');
-                
-                $rootScope.data1=response.results[0];
-                
-            }
-           
-            
-           
-        }); 
-    }
-    
-    //change status of price level
-    $scope.changeStatus = function(id,status) {
-        
-        $scope.data = {};
-        if ($localStorage.userId!=undefined) {
-        $scope.data.id   = id;
-         $scope.data.status   = status==1?0:1;
-         $scope.loader = true;
-        $serviceTest.changePricelevelStatus($scope.data,function(response){
-            
-            if (response.code == 200) {
-                     $eventId=$localStorage.eventId;
-                    $serviceTest.getPricelevel({'eventId':$eventId},function(response){
-                        
-                        $rootScope.price_level=response.results;
-                    });
-                    $scope.loader = false;
-                  }else{
-                    $scope.activation_message = global_message.ErrorInActivation;
-                    $scope.loader = false;
-            }
-            
-        });
-        }
-    };
     
     /** 
     Method: savedata
@@ -453,76 +368,26 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       map.fitBounds(bounds);
     }
      
-    
-
-
- ////////////////////////////////////////////
- //category
- ///////////////
- $serviceTest.postEventdata({'var':'ages'},function(response){
-
+    if ($localStorage.userId!=undefined) {
+       
+        $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
             if (response!=null) {
             if (response.code==200)
              {
-              $scope.ages=response.results;
-              console.log("*******",response);
-             }
-            }
-
-
-        });
-
- ///////////////////////////////////////////////
- ///////// ages
- ////////////////////////////
-  $serviceTest.postEventdata({'var':'steps'},function(response){
-            if (response!=null) {
-            if (response.code==200)
-             {
-               $scope.steps=response.results;
-             }
-            }
-
-
-        });
-
-
-
-  ///////////////////////////////steps event///////////////
-   $serviceTest.postEventdata({'var':'event_types'},function(response){
-            if (response!=null) {
-            if (response.code==200)
-             {
-              $scope.events=response.results;
-             }
-            }
-
-        });
-   //////////event type///////////
-      $serviceTest.postEventdata({'var':'event_venue'},function(response){
-            if (response!=null) {
-            if (response.code==200)
-             {
-               $scope.venues=response.results;
-             }
-            }
-            
-
-        });
-      ////////venue///////
-          $serviceTest.postEventdata({'var':'event_category'},function(response){
-            if (response!=null) {
-            if (response.code==200)
-             {
-              $scope.total_venue=response.results;
+              $scope.total_venue=response.result;
              }
             }else{
-             $scope.total_venue=[];
+             $scope.total_venue=[];   
             }
-
+            
         });
+    }
 
 
+
+
+ 
+   
 
    
   var now = new Date();
@@ -535,7 +400,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.inlineOptions = {
     customClass: getDayClass,
     minDate: new Date(),
-    showWeeks: true 
+    showWeeks: true
   };
 
   $scope.dateOptions = {
@@ -562,30 +427,24 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.open2 = function() {
     $scope.popup2.opened = true;
   };
-
-  ////
    $scope.open3 = function() {
     $scope.popup3.opened = true;
   };
    $scope.open4 = function() {
     $scope.popup4.opened = true;
   };
-  ////
-  
   $scope.popup1 = {
     opened: false
   };
   $scope.popup2 = {
     opened: false
   };
-  //////
-   $scope.popup3 = {
+    $scope.popup3 = {
     opened: false
   };
-   $scope.popup4 = {
+    $scope.popup4 = {
     opened: false
   };
-  ////
   
 
   $scope.option_ckeditor = {
@@ -593,6 +452,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     allowedContent: true,
     entities: false
   };
+
 
   // Called when the editor is completely ready.
   $scope.onReady = function () {
@@ -651,31 +511,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     $scope.ismeridian = ! $scope.ismeridian;
   };
   
-  $scope.success_message=false;
-  $scope.error_message=true;
-
-  $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
-  $scope.custom_age=function(){
-     $scope.age_div=$scope.age_text_div=true; 
-     $scope.dynamic_age_div=$scope.return_age_text_div=false;
-     $scope.data1.ages='';
-  }
-
-  $scope.custom_default_age=function(){
-     $scope.age_div=$scope.age_text_div=false; 
-     $scope.dynamic_age_div=$scope.return_age_text_div=true;
-     $scope.data1.dynamic_age='';
-  }
-
-  // $scope.ages = [
-  // { "name": "All Ages",'id':0},
-  // {"name": "18 and  over",'id':18},
-  // {"name": "19 and over",'id':19},
-  // {"name": "21 and over",'id':21},
-  // ]
   
-
-  $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
+  $scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
   $scope.custom_age=function(){
      $scope.age_div=$scope.age_text_div=true; 
      $scope.dynamic_age_div=$scope.return_age_text_div=false;
@@ -688,10 +525,16 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
      $scope.data1.dynamic_age='';
   }
 
-
+  $scope.ages = [
+  { "name": "All Ages",'id':0},
+  {"name": "18 and  over",'id':18},
+  {"name": "19 and over",'id':19},
+  {"name": "21 and over",'id':21},
+  ]
+  
   $scope.events = [
-    { "name": "Single Event",'id':1},
-    {"name": "Multiple Event",'id':2}
+ 
+    {"name": "Multiple Event",'id':1}
   ]
   
   $scope.venues = [
@@ -700,12 +543,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   ]
   
   $scope.steps=[
-
-     { "title":"Events Details","icon":'fa fa-calendar','id':5,"formname":'myForm'},
-     { "title":"Price & Links","icon":'fa fa-tags','id':6,"formname":'myForm'},
-     { "title":"Look & Feel","icon":'fa fa-eye','id':7,"formname":'myForm1'},
-     { "title":"Setting","icon":'fa fa-cog','id':8,"formname":'event-form'}
-
+     { "title":"Events Details","icon":'fa fa-calendar','id':5},
+     { "title":"Price & Links","icon":'fa fa-tags','id':6},
+     { "title":"Look & Feel","icon":'fa fa-eye','id':7},
+     { "title":"Setting","icon":'fa fa-cog','id':8}
   ];
      
   $scope.selected=$scope.events[0];
@@ -719,9 +560,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   Created : 2016-04-25
   Created By:  Deepak khokkar  
   */
-
-  $scope.click_menu=function(menu,valid) {
-    var objectForm = this;
+  $scope.click_menu=function(menu) {
 
     if (menu.id==5) {
       $scope.eventdetail_div=false;
@@ -729,50 +568,18 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     }
 
     if (menu.id==6) {
-
-     // if(objectForm.myForm.$valid==true){
-        $scope.eventdetail_div=$scope.look_and_feel_div=$scope.setting_div=true;
-        $scope.price_and_link_div=false;  
-     /* } else {
-        $scope.error_message = false;
-        $scope.error="Please update the event detail data.";
-        $timeout(function() {
-            $scope.error='';
-            $scope.error_message=true;
-            $scope.error='';
-        },3000);
-      }*/
+      $scope.eventdetail_div=$scope.look_and_feel_div=$scope.setting_div=true;
+      $scope.price_and_link_div=false;
     }
 
     if (menu.id==7) {
-      if(objectForm.myForm.$valid==true){
-        $scope.eventdetail_div=$scope.price_and_link_div=$scope.setting_div=true;
-        $scope.look_and_feel_div=false;
-      } else {
-        $scope.error_message = false;
-        $scope.error="Please update the event detail data.";
-        $timeout(function() {
-            $scope.error='';
-            $scope.error_message=true;
-            $scope.error='';
-        },3000);
-      }
+      $scope.eventdetail_div=$scope.price_and_link_div=$scope.setting_div=true;
+      $scope.look_and_feel_div=false;
     }
 
     if (menu.id==8) {
-      if(objectForm.myForm.$valid==true){
-        $scope.eventdetail_div=$scope.look_and_feel_div=$scope.price_and_link_div=true;
-        $scope.setting_div=false;
-      } else {
-        $scope.error_message = false;
-        $scope.error="Please update the event detail data.";
-        $timeout(function() {
-            $scope.error='';
-            $scope.error_message=true;
-            $scope.error='';
-        },3000);
-      }
-
+      $scope.eventdetail_div=$scope.look_and_feel_div=$scope.price_and_link_div=true;
+      $scope.setting_div=false;
     }
     $scope.selected2 = menu;  
   }
@@ -803,20 +610,14 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   */
 
 
-
   $scope.select= function(item) {
-    if (item.id==1) {
-      $scope.data.eventtype='single';
-      $scope.multiple_event_div=true;
-      $scope.single_event_div=false;  
-    } else {
+    
      $scope.data.eventtype='multiple';
      $scope.multiple_event_div=false;
      $scope.single_event_div=true;      
-    }
+    
     $scope.selected = item; 
   };
-
 
   $scope.isActive = function(item) {
     return $scope.selected === item;
@@ -847,9 +648,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       }
     });
   };
-  // Add Price level
+  
   $scope.open_price_level = function (size) {
-    $rootScope.data1={};
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContentPrice.html',
@@ -863,51 +663,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     });
   };
   
-  $scope.pricechangefunc=function(data2)
-  {
-    console.log(data2);
-  }
-  
-  //Schedule Price change
-  $scope.price_change=function(size,priceid)
-  {
-    
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'pricechange.html',
-      controller: 'PricechangeCtrl',
-      size: size,
-      resolve: {
-        items: function () {
-          $rootScope.price_change_id=priceid;
-          return $scope.items;
-        }
-      }
-    });
-  
-  }
-  
-  
-  //delete Price level
-  $scope.delete_price_level = function (size,index,price_id) {
-    
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'deletePricelevel.html',
-      controller: 'DeletePricelevelCtrl',
-      size: size,
-      resolve: {
-        items: function () {
-            $rootScope.delete_price_level_id=index;
-            $rootScope.price_leveldelete_id=price_id;
-          return $scope.items;
-        }
-      }
-    });
-  };
-  
-  $scope.add_bundle = function (size,bundleId) {
-    $rootScope.editBundleId = bundleId;
+  $scope.add_bundle = function (size) {
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContentBundle.html',
@@ -1100,7 +856,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
    
    $scope.multipleend=function(){
     if ($scope.data.period  && $scope.multiple_endtime) {
-    
+    console.log('working 1'); 
             var stt = new Date("January 01, 2016 " + $scope.multiple_starttime);
             stt = stt.getTime();
             var endt = new Date("January 01, 2016 " + $scope.multiple_endtime);
@@ -1128,96 +884,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
    
    }
 
-
-  /** Module: Event page Step 2*/ 
-  $scope.eventBundle = {};
-  $scope.success_message_bundle = false;
-  $scope.loader_bundle = false;
-  //change status of price level
-  $scope.changeBundleStatus = function(id,status) {
-      $scope.data = {};
-      if ($localStorage.userId!=undefined) {
-        $scope.data.id   = id;
-        $scope.data.status   = status==1?0:1;
-        $scope.loader_bundle = true;
-        $serviceTest.changeBundleStatus($scope.data,function(response){
-          if (response.code == 200) {
-
-            $scope.success_message_bundle = true;
-            $scope.success_bundle = "Bundle status changed successfully.";
-            $timeout(function() {
-              $scope.error = '';
-              $scope.success_message_bundle = false;
-              $scope.success_bundle = '';
-            },3000);
-
-            $scope.eventBundle.eventId = $localStorage.eventId; 
-            $scope.eventBundle.userId = $localStorage.userId;
-            $serviceTest.getBundles($scope.eventBundle,function(response){
-              $rootScope.bundleList = response.result;
-            });
-            $scope.loader_bundle = false;
-          } else {
-            $scope.activation_message = global_message.ErrorInActivation;
-            $scope.loader_bundle = false;
-          }
-        });
-      }
-  };
-
-  //delete Price level
-  $scope.delete_bundle = function (size,index,bundle_id) {
-    
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'deleteBundle.html',
-      controller: 'deleteBundleCtrl',
-      size: size,
-      resolve: {
-      items: function () {
-          $rootScope.bundleIdDelete = index;
-          $rootScope.bundleDeleteId = bundle_id;
-        return $scope.items;
-      }
-      }
-    });
-  };
-
 });
-
-
-angular.module('alisthub').controller('deleteBundleCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
-    
-    $scope.items = items;
-    $scope.selected = {
-      item: $scope.items[0]
-    };
-    
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-  
-    $scope.removeBundle=function() {
-      var $serviceTest = $injector.get("venues");
-      $serviceTest.removeBundle({'bundleDeleteId':$rootScope.bundleDeleteId},function(response){
-          if (response.code==200) {
-
-              $rootScope.success_message_bundle = true;
-              $rootScope.success_bundle="Bundle status changed successfully.";
-              $timeout(function() {
-                  $rootScope.error='';
-                  $rootScope.success_message_bundle = false;
-                  $rootScope.success_bundle = "";
-
-              },3000);
-              $rootScope.bundleList.splice($rootScope.bundleIdDelete,1);
-          }
-          $uibModalInstance.close($scope.selected.item);
-      });
-    }
-
-});
-
 angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uibModalInstance, items,$rootScope) {
      $scope.items = items;
   $scope.selected = {
@@ -1239,57 +906,8 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
   };
 });
 
-angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
-    
-     $scope.items = items;
-    $scope.selected = {
-      item: $scope.items[0]
-    };
-    
-    $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
-  
-  $scope.remove=function(){
- 
-  var $serviceTest = $injector.get("venues");
-   $serviceTest.removepricelevel({'price_leveldelete_id':$rootScope.price_leveldelete_id},function(response){
-    if (response.code==200) {
-        $rootScope.success_message1 = true;
-                    $rootScope.success1="Price level has been removed.";
-                    $timeout(function() {
-                        $rootScope.error='';
-                        $rootScope.success_message1=false;
-                        $rootScope.success1='';
-                    },3000);
-        $rootScope.price_level.splice($rootScope.delete_price_level_id,1);
-    }
-    $uibModalInstance.close($scope.selected.item);
-      
-   });
-  
-  }
-  
-});
-
-angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
+angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {
     var $serviceTest = $injector.get("venues");
-
-   
-    if ($rootScope.data1.id==undefined) {
-         $scope.data1 = {
-        hide_online: 0,
-        hide_in_box_office:0
-      };
-    }else{
-        $scope.data1.price_level=$rootScope.data1.price_level_name;
-        $scope.data1.price_type=$rootScope.data1.price_level_type;
-        $scope.data1.minimum_per_order=$rootScope.data1.min_per_order;
-        $scope.data1.maximum_per_order=$rootScope.data1.max_per_order;
-        //$scope.data1.description=$rootScope.data1.description;
-         $scope.data1=$rootScope.data1; 
-    }
-   
      $scope.items = items;
      $scope.min_price=true;
      $scope.change_price_type=function(){
@@ -1332,25 +950,14 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   data1.userId=$localStorage.userId; 
   data1.eventId=$localStorage.eventId; 
          
-         $serviceTest.savepriceleveldata(data1,function(response){
+          $serviceTest.savepriceleveldata(data1,function(response){
           
               if (response!=null) {
             if (response.code==200)
              {
-              $scope.data1=$rootScope.price_level=[];
+              $scope.data1=[];
               $serviceTest.getPricelevel({'eventId':data1.eventId},function(response){
-                $rootScope.success_message1 = true;
-                   if (data1.id!=undefined) {
-                    $rootScope.success1="Price level has been updated.";
-                   }else{
-                    $rootScope.success1="Price level has been added.";
-                   }
-                    $timeout(function() {
-                        $rootScope.error='';
-                        $rootScope.success_message1=false;
-                        $rootScope.success1='';
-                    },3000);
-                $rootScope.price_level=response.results;
+                console.log(response);
               });
               $uibModalInstance.dismiss('cancel'); 
              }
@@ -1359,22 +966,12 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
  }
 });
 
-  /*
-  Module for the bundle popup
-  */
-
-  angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope, $uibModalInstance, items,$rootScope,$injector,$localStorage,$location,$timeout) {
-    var $serviceTest = $injector.get("venues");
-    $scope.data = {};
-    $scope.eventBundle = {};
+  
+  angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope, $uibModalInstance, items,$rootScope) {
     $scope.items = items;
     $scope.selected = {
       item: $scope.items[0]
     };
-    $scope.bundle = {};
-    $scope.editBundle = {};
-
-    $scope.bundleList = $rootScope.bundleList;
 
     $scope.steps=[
      { "title":"Details","icon":'fa fa-calendar','id':1},
@@ -1383,29 +980,22 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     ];
 
     $scope.click_menu=function(menu) {
-       $scope.selectedClass = 1; 
        if (menu.id==1) {
-        $scope.selectedClass = 1;
         $scope.step_1=true;
         $scope.step_2=$scope.step_3=false;
        }
        if (menu.id==2) {
-        $scope.selectedClass = 2;
         $scope.step_2=true;
         $scope.step_1=$scope.step_3=false;
        }
        if (menu.id==3) {
-        $scope.selectedClass = 3;
+        console.log($scope.data);
         $scope.step_3=true;
         $scope.step_2=$scope.step_1=false;
        }
-       //$scope.selected2 = menu;  
+       $scope.selected2 = menu;  
     }
     $scope.click_menu({id:1});
-
-    $scope.isActive2 = function(step2) {
-      return $scope.selected2 === step2;
-    };
 
     /* bundle tab stop */
     $scope.cancel = function () {
@@ -1414,228 +1004,20 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
 
 
 
-    $scope.getBundleDetail = function() { 
-      if ($localStorage.userId!=undefined) {
-        $scope.editBundle.userId = $localStorage.userId;
-        $scope.editBundle.editBundleId = $rootScope.editBundleId;
-
-        $serviceTest.getBundleDetail($scope.editBundle,function(response){
-          $scope.loader = false;
-          if (response.code == 200) {
-            console.log(response);
-            $scope.bundle = response.result[0];
-          } else {
-            $scope.error_message = response.error;
-          }
-        });
-      }
-    }; 
-
-
-    $scope.updateBundle = function(bundle) {
-      if ($localStorage.userId!=undefined) {
-        $scope.bundle.seller_id   = $localStorage.userId;
-        $scope.bundle.step   = 1;
-        $scope.bundle.event_id = $localStorage.eventId;
-
-        if($localStorage.bundleId!=undefined){
-          $scope.bundle.id = $localStorage.bundleId;
-        }
-
-        $serviceTest.addBundle($scope.bundle,function(response){
-          //console.log(response);
-          if (response.code == 200) {
-            if(bundle.id==undefined){
-              $localStorage.bundleId = response.result.insertId;  
-              $scope.success = "Bundle information has been added.";
-            } else {
-              $localStorage.bundleId = bundle.id;
-              $scope.success = "Bundle information has been updated successfully.";
-
-              $scope.eventBundle.eventId = $localStorage.eventId; 
-              $scope.eventBundle.userId = $localStorage.userId;
-
-              $serviceTest.getBundles($scope.eventBundle,function(response){
-                $rootScope.bundleList = response.result;
-              });
-            }
-            
-            $scope.success_message = true;
-            
-            $timeout(function() {
-              $scope.error = '';
-              $scope.success_message = false;
-              $scope.success = '';
-            },3000);
-          } else {
-            $scope.activation_message = global_message.ErrorInActivation;
-          }
-        });
-      }
-    };
-
-    $scope.updateQty = function(status) {
-      //console.log($scope.productList);
-      $scope.bundle.bundle_id = $localStorage.bundleId;
-      $scope.bundle.product_json = $scope.productList;
-
-      $serviceTest.updateBundle($scope.bundle,function(response){
-        //console.log(response);
-        if (response.code == 200) {
-
-          $scope.eventBundle.eventId = $localStorage.eventId; 
-          $scope.eventBundle.userId = $localStorage.userId;
-
-          $serviceTest.getBundles($scope.eventBundle,function(response){
-            $rootScope.bundleList = response.result;
-          });
-
-          if(status=='submit') {
-            $scope.cancel();
-          }
-          
-          $scope.success = "Bundle updated successfully.";
-          $timeout(function() {
-            $scope.error = '';
-            $scope.success_message = false;
-            $scope.success = '';
-          },3000);
-        } else {
-          $scope.activation_message = global_message.ErrorInActivation;
-        }
-      });
-    };
-
-    $scope.getProduct = function() { 
-      if ($localStorage.userId!=undefined) {
-        $scope.data.userId      = $localStorage.userId;
-        $serviceTest.getProducts($scope.data,function(response){
-          console.log(response);
-          $scope.loader = false;
-          if (response.code == 200) {
-            $scope.productList = response.result;
-          } else {
-            $scope.error_message = response.error;
-          }
-        });
-      }
-    }; 
-
-    // Get product list 
-    $scope.getProduct();
-    // get bundle details at edit time
-    if($rootScope.editBundleId!=undefined){
-      $scope.getBundleDetail();
-    }
 
   });
+  // $scope.advance_set=function()
+  // {
 
-  
-  /*
-  Code for product popup
-  */
-  angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {
+  // }
+
+
+  angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope) {
     $scope.items = items;
-    $scope.data = {};
-    var $serviceTest = $injector.get("venues");
     $scope.selected = {
       item: $scope.items[0]
     };
     $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-
-
-    $scope.getProduct = function() { 
-      if ($localStorage.userId!=undefined) {
-        $scope.data.userId      = $localStorage.userId;
-        $serviceTest.getProducts($scope.data,function(response){
-          
-          $scope.loader = false;
-          if (response.code == 200) {
-            //console.log($scope.data.first_name);
-          } else {
-            $scope.error_message = response.error;
-          }
-        });
-      }
-    }; 
-
-    $scope.getProduct();
-
-  });
-  
-   /*
-  Code for product popup
-  */
-  angular.module('alisthub').controller('PricechangeCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
-    var $serviceTest = $injector.get("venues");
-   $scope.open1 = function() {
-    $scope.popup1.opened = true;
-  };
-  
-  $scope.popup1 = {
-    opened: false
-  }; 
-    $scope.months=[
-      {id: '01', name: '1'},
-      {id: '02', name: '2'},
-      {id: '03', name: '3'},
-      {id: '04', name: '4'},
-      {id: '05', name: '5'},
-      {id: '06', name: '6'},
-      {id: '07', name: '7'},
-      {id: '08', name: '8'},
-      {id: '09', name: '9'},
-      {id: '10', name: '10'},
-      {id: '11', name: '11'},
-      {id: '12', name: '12'},
-    ]
-    $scope.timeinterval=[
-      {id: '00', name: '00'},
-      {id: '15', name: '15'},
-      {id: '30', name: '30'},
-      {id: '45', name: '45'}
-    ]
-    $scope.interval=[
-        {id: 'am', name: 'am'},
-      {id: 'pm', name: 'pm'},
-    ];
-    $scope.apply=[
-        {id: 'all', name: 'All'},
-      {id: 'online_price', name: 'Online Sales'},
-      {id: 'box_office', name: 'Box Office'},
-    ];
-     $scope.pricechangefunc=function(data2)
-     {
-       $rootScope.success_message1 = true;
-        data2.price_change_id=$rootScope.price_change_id;
-        $serviceTest.postPriceChange(data2,function(response){
-           if (response.code==200) {
-             $rootScope.success1 = "Price change has been updated successfully.";
-             $timeout(function() {
-              $rootScope.error = '';
-              $rootScope.success_message1 = false;
-              $rootScope.success1 = '';
-            },3000);
-           }else{
-            $rootScope.error1 = "Error in price change update.";
-             $timeout(function() {
-              $rootScope.error1 = '';
-              $rootScope.success_message1 = false;
-              $rootScope.success1 = '';
-            },3000);
-           }
-            $uibModalInstance.dismiss('cancel');
-        });
-     }
-    $scope.data2={};
-    $scope.data2.month=$scope.months[0].id;
-    $scope.data2.time=$scope.timeinterval[0].id;
-    $scope.data2.interval=$scope.interval[0].id;
-    $scope.data2.apply=$scope.apply[0].id;
-    
-     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
   });
