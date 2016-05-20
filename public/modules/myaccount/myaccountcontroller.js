@@ -4,7 +4,6 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
       $state.go('login');
     } 
     var $serviceTest = $injector.get("profile");
-    console.log($localStorage);
     $scope.basictab   = false;
     $scope.producttab = false;
     $scope.discounttab = false;
@@ -96,16 +95,15 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
         
     }
     
+    /*Update user details*/
     $scope.updateUser = function(userdetail) {
-    
         if ($localStorage.userId!=undefined) {
             $scope.userdetail.user_id   = $localStorage.userId;
             $serviceTest.updateUser($scope.userdetail,function(response){
-                //console.log(response);
                 if (response.code == 200) {
                     $location.path("/view_account");
                     $scope.success_message = true;
-                    $scope.success="User information updated successfully.";
+                    $scope.success=global_message.userInfoUpated;
                     $timeout(function() {
                         $scope.error='';
                         $scope.success_message=false;
@@ -117,14 +115,10 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
             });
         }
     };
-    //$scope.data ={"email":"manojks@smartdatainc.net"};
-    $scope.updateEmail = function(email) {
-    
-        if ($localStorage.userId!=undefined) {
-            //$scope.data.user_id   = $localStorage.userId;
-            //console.log($scope.data);
-            //console.log(webservices.updateEmail);
 
+    /*Update email of user*/
+    $scope.updateEmail = function(email) {
+        if ($localStorage.userId!=undefined) {
             $http({
             url: webservices.updateEmail,
             method: 'POST',
@@ -134,38 +128,19 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                   "Accept": "application/json",
                 }
             }).success(function(data, status, headers, config) {
-                console.log(data);
             });
-            /*return false;
-            $serviceTest.updateEmail($scope.data,function(response){
-                console.log(response);
-                return false;
-                if (response.code == 200) {
-                    $location.path("/view_account");
-                    $scope.success_message = true;
-                    $scope.success="User Email updated successfully.";
-                    $timeout(function() {
-                        $scope.error='';
-                        $scope.success_message=false;
-                        $scope.success='';
-                    },3000);
-                } else {
-                   $scope.activation_message = global_message.ErrorInActivation;
-                }
-            });*/
         }
     };
 
+    /*Update password of user*/
     $scope.updatePassword = function(data) {
-    
         if ($localStorage.userId!=undefined) {
             $scope.data.user_id   = $localStorage.userId;
             $serviceTest.updatePassword($scope.data,function(response){
-                console.log(response);
                 if (response.code == 200) {
                     $location.path("/view_account");
                     $scope.success_message = true;
-                    $scope.success="Password updated successfully.";
+                    $scope.success=global_message.passwordChanged;
                     $timeout(function() {
                         $scope.error='';
                         $scope.success_message=false;
@@ -178,16 +153,15 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
         }
     };
 
+    /*Update social details of user*/
     $scope.updateSocial = function(social) {
-        //console.log($scope.social); return false;
         if ($localStorage.userId!=undefined && $scope.social!=undefined) {
             $scope.social.user_id   = $localStorage.userId;
             $serviceTest.updateSocial($scope.social,function(response){
-                console.log(response);
                 if (response.code == 200) {
                     $location.path("/view_account");
                     $scope.success_message = true;
-                    $scope.success="Information updated successfully.";
+                    $scope.success=global_message.infoSaved;
                     $timeout(function() {
                         $scope.error='';
                         $scope.success_message=false;
@@ -199,18 +173,15 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
             });
         }
     };
-
+   
+    /*Get details of user*/
     $scope.getData = function() {
         if ($localStorage.userId!=undefined) {
             $scope.data.userId      = $localStorage.userId;
-            //$scope.loader = true;
             $serviceTest.getData($scope.data,function(response){
-                //console.log(response);
                 $scope.loader = false;
                 if (response.code == 200) {
-                   
                    $scope.password = response.result[0];
-
                    $scope.social.facebook_link = response.result[0].facebook_link;
                    $scope.social.twitter_link = response.result[0].twitter_link;
                    $scope.social.google_plus = response.result[0].google_plus;
@@ -222,8 +193,6 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                    $scope.userdetail.fax = response.result[0].fax;
                    
                    $scope.email.email = response.result[0].email;
-
-                   //console.log($scope.data.first_name);
                 } else {
                    $scope.error_message = response.error;
                 }

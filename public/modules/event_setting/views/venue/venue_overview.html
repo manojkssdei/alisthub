@@ -1,86 +1,73 @@
-  
-  
 <!-- Container -->
-  <div class="container">
-     <h1>Venue Overview</h1>
-    
+<div class="container">
+    <h1>Venue Overview</h1>
     <!-- Form COntainer -->
-    
     <div class="wt-frame form-section">
-      <form class="event-form">
-   	    <section class="top-buttons bb-1 text-right">
+        <form class="event-form">
+            <section class="top-buttons bb-1 text-right">
                 <a href="#/edit_venue/{{data.id}}" class="btn pink-btn btn-small">Edit</a>
-            </section><!--/Top Buttons-->
-          <section class="form-group field-group row">
-          	  <section class="col-sm-6">              		
-              	   <section class="form-group field-group">
+            </section>
+            <!--/Top Buttons-->
+            <section class="form-group field-group row">
+                <section class="col-sm-6">
+                    <section class="form-group field-group">
                         <div class="media">
-                              <section class="media-left">
-                              		
-                              </section>
-                              <div class="media-body content">
-                                  
-                              </div>
+                            <section class="media-left">
+                            </section>
+                            <div class="media-body content">
                             </div>
-                   </section><!--/Package-->
-                  
-                   <section class="form-group field-group">
-                    <h4>Venue Details</h4>
-                    <section class="gray-frame sub-fields">            	
-                        <section class="content">
-                            <p>Venue Type : {{data.venue_type}}</p>
-			    <p>Venue Name : {{data.venue_name}}</p>
-			    <p>Capacity : {{data.capacity}}</p>
-                        </section>                
+                        </div>
                     </section>
-		    <h4>Address</h4>
-		    <section class="gray-frame sub-fields">            	
-                        <section class="content">
-			   <p>Address : {{data.address}}</p>
-                           <p>City : {{data.city}}</p>
-			   <p>State : {{data.state}}</p>
-			   <p>Country : {{data.country}}</p>
-			   <p>Zipcode : {{data.zipcode}}</p>
-                        </section>                
+                    <!--/Package-->
+                    <section class="form-group field-group">
+                        <h4>Venue Details</h4>
+                        <section class="gray-frame sub-fields">
+                            <section class="content">
+                                <p>Venue Type : {{data.venue_type}}</p>
+                                <p>Venue Name : {{data.venue_name}}</p>
+                                <p>Capacity : {{data.capacity}}</p>
+                            </section>
+                        </section>
+                        <h4>Address</h4>
+                        <section class="gray-frame sub-fields">
+                            <section class="content">
+                                <p>Address : {{data.address}}</p>
+                                <p>City : {{data.city}}</p>
+                                <p>State : {{data.state}}</p>
+                                <p>Country : {{data.country}}</p>
+                                <p>Zipcode : {{data.zipcode}}</p>
+                            </section>
+                        </section>
+                        <h4>Contact</h4>
+                        <section class="gray-frame sub-fields">
+                            <section class="content">
+                                <p>Contact Name : {{data.contact_name}}</p>
+                                <p>Phone : {{data.phone}}</p>
+                                <p>Fax : {{data.fax}}</p>
+                                <p>Email : {{data.email}}</p>
+                                <p>URL : {{data.url}}</p>
+                            </section>
+                        </section>
                     </section>
-		    <h4>Contact</h4>
-		    <section class="gray-frame sub-fields">            	
-                        <section class="content">
-                            <p>Contact Name : {{data.contact_name}}</p>
-			    <p>Phone : {{data.phone}}</p>
-			    <p>Fax : {{data.fax}}</p>
-			    <p>Email : {{data.email}}</p>
-			    <p>URL : {{data.url}}</p>
-                        </section>                
+                    <!--/Package Details-->
+                </section>
+                <!--/Left-->
+                <section class="col-sm-6">
+                    <section class="panel panel-primary">
+                        <section class="panel-heading">
+                            <h5 class="m-b0">Venue Map</h5>
+                        </section>
+                        <section class="panel-body">
+                            <section class="v-map-overview">
+                                <div id="map" style="height:400px;"></div>
+                            </section>
+                        </section>
                     </section>
-                  </section><!--/Package Details-->
-                  
-                  
-              </section><!--/Left-->
-              
-              <section class="col-sm-6">
-              	                  
-                  <section class="panel panel-primary">
-                  	   <section class="panel-heading"><h5 class="m-b0">Venue Map</h5></section>                       
-                       <section class="panel-body">
-                       		<section class="v-map-overview"><div id="map" style="height:400px;"></div> </section>
-                            <!--<ul class="address-list">
-                            	<li><p><strong>smartData Enterprises (l) Ltd.</strong></p>
-                                <p>E-37 Industrial Area, S.A.S Nagar,</p>
-                                <p>Mohali(Punjab), 160071</p></li>
-                            </ul>-->
-                            
-                       </section>
-                  </section>
-              </section>
-          </section>
-        
-      </form>
-      
+                </section>
+            </section>
+        </form>
     </div>
-    
     <!-- //Form COntainer --> 
-  </div>
-  <!-- //Container --> 
-  
+</div>
+<!-- //Container --> 
 </div>
