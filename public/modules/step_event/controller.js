@@ -53,6 +53,9 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         });
     }
 
+    $localStorage.eventId = 1966;             
+
+
     $eventId=$localStorage.eventId;
     $serviceTest.getPricelevel({'eventId':$eventId},function(response){
       $rootScope.price_level=response.results;
