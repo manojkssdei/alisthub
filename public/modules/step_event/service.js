@@ -124,7 +124,7 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
     });
   };
 //post second Step data
-url.postSecondStepdata=function(){
+url.postSecondStepdata=function(jsondata,callback){
     communicationService.resultViaPost(webservices.secondStepdata,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
       callback(res.data);
     });
