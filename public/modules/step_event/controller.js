@@ -39,17 +39,19 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
        
         $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
             if (response!=null) {
-            if (response.code==200)
-             {
+
+            if (response.code == 200)
+            {
               $scope.total_venue=response.result;
-             }
+            }
+
             }else{
              $scope.total_venue=[];   
             }
             
         });
     }
-    
+
     $eventId=$localStorage.eventId;
     $serviceTest.getPricelevel({'eventId':$eventId},function(response){
       $rootScope.price_level=response.results;
@@ -247,7 +249,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             
         });
         }
-  };
+    };
     
     /** 
     Method: savedata
@@ -464,7 +466,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.inlineOptions = {
     customClass: getDayClass,
     minDate: new Date(),
-    showWeeks: true
+    showWeeks: true 
   };
 
   $scope.dateOptions = {
@@ -835,7 +837,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     });
   };
   
-  $scope.add_bundle = function (size) {
+  $scope.add_bundle = function (size,bundleId) {
+    $rootScope.editBundleId = bundleId;
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContentBundle.html',
@@ -1056,7 +1059,96 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
    
    }
 
+
+  /** Module: Event page Step 2*/ 
+  $scope.eventBundle = {};
+  $scope.success_message_bundle = false;
+  $scope.loader_bundle = false;
+  //change status of price level
+  $scope.changeBundleStatus = function(id,status) {
+      $scope.data = {};
+      if ($localStorage.userId!=undefined) {
+        $scope.data.id   = id;
+        $scope.data.status   = status==1?0:1;
+        $scope.loader_bundle = true;
+        $serviceTest.changeBundleStatus($scope.data,function(response){
+          if (response.code == 200) {
+
+            $scope.success_message_bundle = true;
+            $scope.success_bundle = "Bundle status changed successfully.";
+            $timeout(function() {
+              $scope.error = '';
+              $scope.success_message_bundle = false;
+              $scope.success_bundle = '';
+            },3000);
+
+            $scope.eventBundle.eventId = $localStorage.eventId; 
+            $scope.eventBundle.userId = $localStorage.userId;
+            $serviceTest.getBundles($scope.eventBundle,function(response){
+              $rootScope.bundleList = response.result;
+            });
+            $scope.loader_bundle = false;
+          } else {
+            $scope.activation_message = global_message.ErrorInActivation;
+            $scope.loader_bundle = false;
+          }
+        });
+      }
+  };
+
+  //delete Price level
+  $scope.delete_bundle = function (size,index,bundle_id) {
+    
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'deleteBundle.html',
+      controller: 'deleteBundleCtrl',
+      size: size,
+      resolve: {
+      items: function () {
+          $rootScope.bundleIdDelete = index;
+          $rootScope.bundleDeleteId = bundle_id;
+        return $scope.items;
+      }
+      }
+    });
+  };
+
 });
+
+
+angular.module('alisthub').controller('deleteBundleCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
+    
+    $scope.items = items;
+    $scope.selected = {
+      item: $scope.items[0]
+    };
+    
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+  
+    $scope.removeBundle=function() {
+      var $serviceTest = $injector.get("venues");
+      $serviceTest.removeBundle({'bundleDeleteId':$rootScope.bundleDeleteId},function(response){
+          if (response.code==200) {
+
+              $rootScope.success_message_bundle = true;
+              $rootScope.success_bundle="Bundle status changed successfully.";
+              $timeout(function() {
+                  $rootScope.error='';
+                  $rootScope.success_message_bundle = false;
+                  $rootScope.success_bundle = "";
+
+              },3000);
+              $rootScope.bundleList.splice($rootScope.bundleIdDelete,1);
+          }
+          $uibModalInstance.close($scope.selected.item);
+      });
+    }
+
+});
+
 angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uibModalInstance, items,$rootScope) {
      $scope.items = items;
   $scope.selected = {
@@ -1210,6 +1302,8 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     $scope.selected = {
       item: $scope.items[0]
     };
+    $scope.bundle = {};
+    $scope.editBundle = {};
 
     $scope.bundleList = $rootScope.bundleList;
 
@@ -1249,18 +1343,56 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       $uibModalInstance.dismiss('cancel');
     };
 
+
+
+    $scope.getBundleDetail = function() { 
+      if ($localStorage.userId!=undefined) {
+        $scope.editBundle.userId = $localStorage.userId;
+        $scope.editBundle.editBundleId = $rootScope.editBundleId;
+
+        $serviceTest.getBundleDetail($scope.editBundle,function(response){
+          $scope.loader = false;
+          if (response.code == 200) {
+            console.log(response);
+            $scope.bundle = response.result[0];
+          } else {
+            $scope.error_message = response.error;
+          }
+        });
+      }
+    }; 
+
+
     $scope.updateBundle = function(bundle) {
       if ($localStorage.userId!=undefined) {
         $scope.bundle.seller_id   = $localStorage.userId;
         $scope.bundle.step   = 1;
         $scope.bundle.event_id = $localStorage.eventId;
 
+        if($localStorage.bundleId!=undefined){
+          $scope.bundle.id = $localStorage.bundleId;
+        }
+
         $serviceTest.addBundle($scope.bundle,function(response){
           //console.log(response);
           if (response.code == 200) {
-            $localStorage.bundleId = response.result.insertId;
+            if(bundle.id==undefined){
+              $localStorage.bundleId = response.result.insertId;  
+              $scope.success = "Bundle information has been added.";
+            } else {
+              $localStorage.bundleId = bundle.id;
+              $scope.success = "Bundle information has been updated successfully.";
+
+              $scope.eventBundle.eventId = $localStorage.eventId; 
+              $scope.eventBundle.userId = $localStorage.userId;
+
+              $serviceTest.getBundles($scope.eventBundle,function(response){
+                $rootScope.bundleList = response.result;
+              });
+            }
+            
             $scope.success_message = true;
-            $scope.success = "Bundle information has been added.";
+            
             $timeout(function() {
               $scope.error = '';
               $scope.success_message = false;
@@ -1320,8 +1452,12 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       }
     }; 
 
+    // Get product list 
     $scope.getProduct();
-
+    // get bundle details at edit time
+    if($rootScope.editBundleId!=undefined){
+      $scope.getBundleDetail();
+    }
 
   });
 

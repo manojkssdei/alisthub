@@ -115,7 +115,7 @@ angular.module('alisthub')
   }
   
 
-    $scope.checkMandatoryFields = function(mandatoryFields) {
+  $scope.checkMandatoryFields = function(mandatoryFields) {
           var errorExist = 0;
           var errorList = [];
           for(var key in mandatoryFields) { 
@@ -279,11 +279,12 @@ angular.module('alisthub')
 
 .controller('manageDiscountController', function($scope,$localStorage,$injector,$http,$state,$rootScope,$location) {
 
-  
   if (!$localStorage.isuserloggedIn) {
       $state.go('login');
    }
-   
+   if ($localStorage.userId!=undefined) {
+    $scope.seller_id   = $localStorage.userId;
+   }
 
   var $serviceTest = $injector.get("discounts");
     
@@ -316,13 +317,7 @@ angular.module('alisthub')
                    $scope.discountdata.forEach(function(value) {
                     $scope.disc_id.push(value.id);
                    });
-                   
-                   /*response.counts.forEach(function(value) {
-                    $scope.event_count[value.question_id] = value.count;
-                   });
-                   */
-                   
-                   
+                  
                   }else{
                    $scope.error_message = response.error;
             }
@@ -340,7 +335,7 @@ angular.module('alisthub')
   
   //////////////////// Duplicate Venue ////////////////
   
-    $scope.changeStatus = function(id,status) {
+  $scope.changeStatus = function(id,status) {
         $scope.data = {};
         if ($localStorage.userId!=undefined) {
         $scope.data.id   = id;
@@ -377,7 +372,6 @@ angular.module('alisthub')
     
     $scope.getcheckedbox = function(id)
     {
-      console.log(id);
       $scope.checkbox.push(id);
       if (id != "" && id != null && id != "undefined") {
        $scope.enableAssign = true;
@@ -385,8 +379,6 @@ angular.module('alisthub')
       else{
        $scope.enableAssign = false; 
       }
-      
-      
     }
   
   $scope.toggleAll = function() {
@@ -425,17 +417,13 @@ angular.module('alisthub')
   $scope.goPath = function()
   {
     if ($scope.listQues == 1) {
-          //$scope.adata.discount    = $scope.disc_id;
-          $rootScope.discount = $localStorage.discount = $scope.disc_id;
-        }
-        else{
-          //$scope.adata.discount    = $scope.checkbox;
-          $rootScope.discount = $localStorage.discount = $scope.checkbox;
-        }
-        //console.log($rootScope.discount);
-        console.log($localStorage.discount);
-    $location.path("/assign_discount/assign");    
-        
+        $rootScope.discount = $localStorage.discount = $scope.disc_id;
+    }
+    else{
+        $rootScope.discount = $localStorage.discount = $scope.checkbox;
+    }
+    //$location.path("/assign_discount/assign");
+    $location.path("/new_assign_discount/assign"); 
   }
   
   
@@ -514,8 +502,6 @@ angular.module('alisthub')
   }
   
   //// Make Assign ment service start
-  
-  
   $scope.makeAssignment = function() {
         $scope.adata = {};
         if ($localStorage.userId!=undefined) {
@@ -529,10 +515,9 @@ angular.module('alisthub')
         }
         
         $scope.adata.discount     = $localStorage.discount;
-               console.log('$scope.adata ', $scope.adata);
+        
         $serviceTest.makeDiscountAssignment($scope.adata,function(response){
             if (response.code == 200) {
-                    //$scope.eventdata = response.result;
                     $rootScope.discount = $localStorage.discount = "";
                     $location.path("/view_discounts/list");
                     
@@ -547,13 +532,37 @@ angular.module('alisthub')
           $scope.eventdata = "";
         }
   };
-  
-  
-  
-  
   //// Make Assign ment service end
   
-  ///////////////////   Date calender start
+  
+  ///// Code start to Export Discounts module
+  ///// Date : 2016-05-17
+  if ($scope.listQues == 1) {
+        $scope.common_ids = $scope.disc_id;
+  }
+  else{
+        $scope.common_ids = $scope.checkbox;
+  }
+  
+  $scope.exportDiscountCSV = function()
+  {
+    $serviceTest.exportDiscountCSV($scope.adata,function(response){
+            if (response.code == 200) {
+                    //$scope.eventdata = response.result;
+                    $rootScope.discount = $localStorage.discount = "";
+                    //$location.path("/view_discounts/list");
+                    
+                  }else{
+                  //  $scope.eventdata = "";
+                  
+            }
+            
+    });
+  }
+  //// Code end to Export Discount module
+  
+  
+ ///////////////////   Date calender start
   var now = new Date();
 if (now.getMonth() == 11) {
     var current = new Date(now.getFullYear() + 1, 0, 1);
@@ -581,8 +590,6 @@ $scope.inlineOptions = {
     return '';
     //mode === 'day' && (date.getDay() === 0 || date.getDay() === 6)
   }
-
-
 
   $scope.open1 = function() {
     $scope.popup1.opened = true;
@@ -650,7 +657,284 @@ var tomorrow = new Date();
 
     return '';
   }
-  
+})
+.controller('assignDiscountController', function($scope,$localStorage,$injector,$http,$state,$rootScope,$location) {
+
+  if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+  }
+  if ($localStorage.userId!=undefined) {
+    $scope.seller_id   = $localStorage.userId;
+  }
+   
+  if ($localStorage.discount == "" || $localStorage.discount == "undefined") {
+    $location.path("/view_discounts/list"); 
+  }
+  $scope.discountlist = {};
+  $scope.alldiscountlist = {};
+  var $serviceTest = $injector.get("discounts");
+    
+    if(window.innerWidth>767){ 
+    $scope.navCollapsed = false;    
+    }else{
+    $scope.navCollapsed = true;
+    $scope.toggleMenu = function() {
+    $scope.navCollapsed = $scope.navCollapsed === false ? true: false;
+    };    
+    }
+    
+  /** 
+  Method: Enable Discount limiting box
+  Description:Enable Discount limiting box   
+  Created : 2016-05-18
+  Created By:  Manoj Kumar Singh  
+  */
+  $scope.enable_coupan_box = false;
+  $scope.enable_event_box  = false;
+  $scope.enableBox = function(id)
+  {
+    if (id == 1) {
+      $scope.enable_coupan_box = true;
+      $scope.enable_event_box  = false;
+    }
+    if (id == 2) {
+      $scope.enable_coupan_box = true;
+      $scope.enable_event_box  = true;
+      
+    }
+  }
   
    
+  /** Description : To get selected discount codes details.
+  Created : 2016-05-18
+  Created By:  Manoj Kumar Singh  
+  **/ 
+  //assign
+  $scope.getSelectedDiscount = function() {
+    $scope.cdata = {};
+    if ($localStorage.userId!=undefined) {
+        $scope.cdata.seller_id   = $localStorage.userId;
+        $scope.cdata.ids         = $localStorage.discount;
+        if ($scope.cdata.ids == "") {
+          $location.path("/view_discounts/list"); 
+        }
+        else{
+        $serviceTest.getSelectedDiscount($scope.cdata,function(response){
+            if (response.code == 200) {
+                  //$localStorage.discount = '';
+                  //$scope.discountlist = [];
+                  
+                  //$scope.discountlist    =  response.result;
+                  //$scope.alldiscountlist =  response.allcode;
+                  //$scope.componentdata  = response.result;
+                  
+                  response.result.forEach(function(entry){
+                    $scope.discountlist[entry.id] = {};
+                    $scope.discountlist[entry.id].coupon_name = entry.coupon_name;
+                    $scope.discountlist[entry.id].coupon_code = entry.coupon_code;
+                    
+                  })
+                  response.allcode.forEach(function(entry2){
+                    $scope.alldiscountlist[entry2.id] = {};
+                    $scope.alldiscountlist[entry2.id].coupon_name = entry2.coupon_name;
+                    $scope.alldiscountlist[entry2.id].coupon_code = entry2.coupon_code;
+                    
+                  })
+                  
+                            
+            }else{
+               //  $scope.eventdata = "";
+            }
+        });
+        
+        }
+    }   
+  }
+  if ($state.params.assign) {
+    $scope.getSelectedDiscount();
+  }
+  
+  $scope.enableDiscountDiv = false;   
+  
+  $scope.removeMoreRow = function(key,id)
+  {
+    console.log(key+"::::::"+id);
+    console.log($scope.discountlist);
+    //$scope.discountlist.splice(key, 1);
+    //delete $scope.discountlist[key];
+    $scope.discountlist[id] = "";
+     
+    if ($scope.discountlist.length == 0) {
+      $scope.enableDiscountDiv = true;
+    }
+  }
+  
+  $scope.addMoreRow = function()
+  {
+    $scope.enableDiscountDiv = true;
+  }
+  
+  $scope.pushDiscount = function()
+  {
+    var current_data = $scope.alldiscountlist[$scope.add_code];
+    $scope.discountlist[$scope.add_code] = {};
+    $scope.discountlist[$scope.add_code].coupon_name = current_data.coupon_name;
+    $scope.discountlist[$scope.add_code].coupon_code = current_data.coupon_code;
+  }
+  //// Make Assign ment service start
+  $scope.makeAssignment = function() {
+        $scope.adata = {};
+        if ($localStorage.userId!=undefined) {
+        $scope.adata.seller_id   = $localStorage.userId;
+        
+        $scope.adata.discount    = $localStorage.discount;
+        
+        $serviceTest.makeDiscountAssignment($scope.adata,function(response){
+            if (response.code == 200) {
+                    $rootScope.discount = $localStorage.discount = "";
+                    $location.path("/view_discounts/list");
+                    
+                  }else{
+                  //  $scope.eventdata = "";
+                  
+            }
+            
+        });
+        }
+        else{
+          $scope.eventdata = "";
+        }
+  };
+  //// Make Assign ment service end
+    
+  ///////////////////   Date calender start
+   $scope.open = function (size) {
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+  
+  var now = new Date();
+if (now.getMonth() == 11) {
+    var current = new Date(now.getFullYear() + 1, 0, 1);
+} else {
+    var current = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+}
+$scope.inlineOptions = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: true
+  };
+
+  $scope.dateOptions = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+    
+    //minDate: new Date(),
+    startingDay: 1
+  };
+
+  // Disable weekend selection
+  function disabled(data) {
+    var date = data.date,
+      mode = data.mode;
+    return '';
+    //mode === 'day' && (date.getDay() === 0 || date.getDay() === 6)
+  }
+
+  $scope.open1 = function() {
+    $scope.popup1.opened = true;
+  };
+  $scope.open2 = function() {
+    $scope.popup2.opened = true;
+  };
+ $scope.popup1 = {
+    opened: false
+  };
+   $scope.popup2 = {
+    opened: false
+  };
+$scope.option_ckeditor = {
+    language: 'en',
+    allowedContent: true,
+    entities: false
+  };
+
+  // Called when the editor is completely ready.
+  $scope.onReady = function () {
+    // ...
+  };
+ $scope.options = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: true
+  };
+  
+  $scope.options1 = {
+    customClass: getDayClass,
+    initDate: current,
+    showWeeks: true
+  };
+
+var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date(tomorrow);
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [
+    {
+      date: tomorrow,
+      status: 'full'
+    },
+    {
+      date: afterTomorrow,
+      status: 'partially'
+    }
+  ];
+
+  function getDayClass(data) {
+    var date = data.date,
+      mode = data.mode;
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+      for (var i = 0; i < $scope.events.length; i++) {
+        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+        if (dayToCheck === currentDay) {
+          return $scope.events[i].status;
+        }
+      }
+    }
+
+    return '';
+  }
 })
+
+angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uibModalInstance, items,$rootScope) {
+     $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+
+  $scope.remove=function(){
+  
+    delete $rootScope.selectevent_date;
+    delete $rootScope.startevent_time;
+    delete $rootScope.endevent_time;
+   
+    $uibModalInstance.close($scope.selected.item);
+  }
+
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});

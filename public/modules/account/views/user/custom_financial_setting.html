@@ -1,68 +1,206 @@
 <div class="container">
-    <h1>Financial Setting</h1>
+    <h1>{{page_title}} Financial Setting</h1>
     <div class="form-section  wt-frame">
-        <form class="event-form" name="addUserForm" novalidate>
+        <form class="event-form" name="customMerchantForm" novalidate>
             <section class="gray-frame">
                 <div>
                     <p class="error-fld" ng-show="error_message" >{{error}}</p>
                 </div>
                 <div>
                     <p class="success-fld" ng-show="success_message">{{success}}</p>
-                </div>
-                <div class="row">
 
-                <div class="col-sm-12 section-col" ng-class="{ 'has-error' : addUserForm.provider.$invalid && !addUserForm.provider.$pristine }">
-                        <label>Provider <span class="req">*</span></label>
-                        <select class="form-control"  name="provider" title="" ng-model="user.provider" required>
+                    <p class="success-fld" ng-show="success_message_already">{{success_already}}</p>
+                </div>
+
+                <div class="row">
+                <div class="col-sm-6 section-col" ng-class="{ 'has-error' : customMerchantForm.merchant_type.$invalid && !customMerchantForm.merchant_type.$pristine }">
+                        <label>Merchant Type <span class="req">*</span></label>
+                        <select class="form-control"  name="merchant_type" title="" ng-model="user.merchant_type" ng-change="showPageLayout();" required >
                             <option>Paypal Express</option>
-                            <option>Paypal Flow</option>
+                            <option>PayFlow</option>
                             </select>
-                           <p ng-show="addUserForm.provider.$invalid && !addUserForm.provider.$pristine" class="error-fld ng-binding">Select Provider.</p>
+                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.merchant_type.$invalid && !customMerchantForm.merchant_type.$pristine">Select Merchant Type</p>
                             </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12" ng-class="{ 'has-error' : addUserForm.merchant_login_id.$invalid && !addUserForm.merchant_login_id.$pristine }">
+
+                <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.organization.$invalid && !customMerchantForm.organization.$pristine }">
                         <div class="form-group">
-                            <label> Merchant Account Login/ID</label>
-                            <input type="text" class="form-control" name="merchant_login_id" placeholder="Merchant Account Login/ID"  ng-model="user.merchant_login_id"/>
-                            <span ng-show="addUserForm.merchant_login_id.$error.pattern">Enter Merchant Account Login/ID</span>
+                            <label> Organization</label>
+                            <input type="text" class="form-control" name="organization" placeholder="Organization"  ng-model="user.organization"/>
+                           <p class="error-fld ng-binding"  ng-show="customMerchantForm.organization.$invalid && !customMerchantForm.organization.$pristine">Enter Organization Name</p>
+                        </div>
+                    </div>
+                </div>
+              
+
+                <div class="row">
+                    <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.description.$invalid && !customMerchantForm.description.$pristine }">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" class="form-control" name="description" placeholder="Description"  ng-model="user.description" />
+                           
+                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.description.$invalid && !customMerchantForm.description.$pristine">Enter Description</p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.memo.$invalid && !customMerchantForm.memo.$pristine }">
+                        <div class="form-group">
+                            <label> Memo</label>
+                            <input type="text" class="form-control" name="memo" placeholder="Memo that appear on credit card statements"  ng-model="user.memo"/>
+                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.memo.$invalid && !customMerchantForm.memo.$pristine">Enter memo that appear on credit card statements</p>
                         </div>
                     </div>
                 </div>
 
-                  <div class="row">
-                    <div class="col-sm-12" ng-class="{ 'has-error' : addUserForm.merchant_transaction_key.$invalid && !addUserForm.merchant_transaction_key.$pristine }">
+                 <div class="row">
+                    <div class="col-sm-6 section-col" ng-class="{ 'has-error' : customMerchantForm.currency_code.$invalid && !customMerchantForm.currency_code.$pristine }">
+                        <label>Currency <span class="req">*</span></label>
+                            <select class="form-control"  name="currency_code" title="" ng-model="user.currency_code" required>
+                                <option value="USD">US Dollar</option>
+                                <option value="AUD">Australian Dollar</option>
+                                <option value="BBD">Barbados Dollar</option>
+                                <option value="BRL">Brazilian Real</option>
+                                <option value="CAD">Canadian Dollar</option>
+                                <option value="CZK">Czech Korona</option>
+                                <option value="DKK">Danish Krone</option>
+                                <option value="EUR">Euro</option>
+                                <option value="HKD">Hong Kong Dollar</option>
+                                <option value="HUF">Hungarian Forint</option>
+                                <option value="INR">Indian Rupee</option>
+                                <option value="ILS">Israeli Shekel</option>
+                                <option value="JPY">Japanese Yen</option>
+                                <option value="MXN">Mexican Pesos</option>
+                                <option value="NZD">New Zealand Dollar</option>
+                                <option value="NOK">Norwegian Krone</option>
+                                <option value="PEN">Peruvian Nuevo Sol</option>
+                                <option value="PHP">Philippine Peso</option>
+                                <option value="PLN">Polish Zloty</option>
+                                <option value="GBP">Pound Sterling</option>
+                                <option value="SGD">Singapore Dollar</option>
+                                <option value="ZAR">South African Rand</option>
+                                <option value="SEK">Swedish Krona</option>
+                                <option value="CHF">Swiss Franc</option>
+                            </select>
+                        <p ng-show="customMerchantForm.currency_code.$invalid && !customMerchantForm.currency_code.$pristine" class="error-fld ng-binding">Select Currency Code.</p>
+
+                    </div>
+                    <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.store_number.$invalid && !customMerchantForm.store_number.$pristine }">
                         <div class="form-group">
-                            <label> Transaction Key / Password</label>
-                            <input type="text" class="form-control" name="merchant_transaction_key" placeholder="Transaction Key / Password"  ng-model="user.merchant_transaction_key"/>
-                            <span ng-show="addUserForm.merchant_transaction_key.$error.pattern">Transaction Key / Password</span>
+                            <label> Store Number</label>
+                            <input type="text" class="form-control" name="store_number" placeholder="Store Number"  ng-model="user.store_number"/>
+                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.store_number.$invalid && !customMerchantForm.store_number.$pristine">Enter Store Number</p>
                         </div>
                     </div>
                 </div>
 
+                 <div class="row">
+                     <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.account_id.$invalid && !customMerchantForm.account_id.$pristine }">
+                        <div class="form-group">
+                            <label> Account Id <span class="req">*</span></label>
+                            <input type="text" class="form-control" name="account_id" placeholder="Partner in PayFlow or Signature in PayPal"  ng-model="user.account_id" required/>
+                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.account_id.$invalid && !customMerchantForm.account_id.$pristine">Enter Account Id</p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.account_password.$invalid && !customMerchantForm.account_password.$pristine }">
+                        <div class="form-group">
+                            <label> Password<span class="req">*</span></label>
+                            <input type="password" class="form-control" name="account_password" placeholder="Password in PayFlow or Paypal"  ng-model="user.account_password" required/>
+                            
+                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.account_password.$invalid && !customMerchantForm.account_password.$pristine">Enter Password</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" ng-show="payFlow_div">
+                    <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.vendor.$invalid && !customMerchantForm.vendor.$pristine }">
+                        <div class="form-group">
+                            <label> Vendor</label>
+                            <input type="text" class="form-control" name="vendor" placeholder="Name of vendor or Merchant Id from Payflow settings."  ng-model="user.vendor"/>
+                            
+                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.vendor.$invalid && !customMerchantForm.vendor.$pristine">Enter Vendor</p>
+                        </div>
+                    </div>
+
+                     <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.capture_mode.$invalid && !customMerchantForm.capture_mode.$pristine }">
+                        <div class="form-group">
+                            <label> Capture Mode</label>
+                            <div class="onoffswitch">
+                         <input type="checkbox" checked="checked" ng-true-value="1" ng-false-value="0" ng-model="user.capture_mode" id="myonoffswitch4" class="onoffswitch-checkbox ng-untouched ng-valid ng-dirty ng-valid-parse" name="capture_mode" >
+                         <label for="myonoffswitch4" class="onoffswitch-label"></label>
+                           </div>
+
+                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.capture_mode.$invalid && !customMerchantForm.capture_mode.$pristine">Select Capture Mode</p>
+                        </div>
+
+                        
+
+                    </div>
+                </div>
+
+
 
                 <div class="row">
-                    <div class="col-sm-12" ng-class="{ 'has-error' : addUserForm.merchant_card_types.$invalid && !addUserForm.merchant_card_types.$pristine }">
+                    <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.merchant_card_types.$invalid && !customMerchantForm.merchant_card_types.$pristine }">
                         <div class="form-group">
                             <label> Card Types</label>
-                            <input type="checkbox" class="form-control" ng-model="user.merchant_card_types" ng-true-value="'Visa'" >Visa
-                            
-                            <input type="checkbox" class="form-control" ng-model="user.merchant_card_types" ng-true-value="'Master Card'" >Master Card
-                            
-                            <input type="checkbox" class="form-control" ng-model="user.merchant_card_types" ng-true-value="'Discover'" >Discover
-                            
-                            <input type="checkbox" class="form-control" ng-model="user.merchant_card_types" ng-true-value="'American Express'" >American Express
-
-                            <span ng-show="addUserForm.merchant_card_types.$error.pattern">Select Card Type</span>
                         </div>
                     </div>
                 </div>
 
+    <div class="row">
+                    <div class="col-sm-1">
+                        <div class="form-group">
+                            <input type="checkbox" class="form-control" ng-model="user.visa" ng-true-value="1" >
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group">
+                            <span class="merchant-card-types">Visa</span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <div class="form-group">
+                           <input type="checkbox" class="form-control" ng-model="user.discover" ng-true-value="1" >
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group">
+                            <span class="merchant-card-types">Discover</span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <div class="form-group">
+                            <input type="checkbox" class="form-control" ng-model="user.master_card" ng-true-value="1" >
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                             <span class="merchant-card-types">Master Card</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group">
+                            <input type="checkbox" class="form-control" ng-model="user.american_express" ng-true-value="1" >
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                             <span class="merchant-card-types">American Express</span>
+                        </div>
+                    </div>
+
+                     
+
+                </div>
 
             </section>
         </form>
         <div class="editor-btn">
-            <button class="pink-btn btn" ng-click="submitFinancialDetails()" ng-disabled="addUserForm.$invalid">Add Credit Card Processing</button>          
+            <button class="pink-btn btn" ng-click="submitCustomFinancialDetails()" ng-disabled="customMerchantForm.$invalid">Add Credit Card Processing</button>          
         </div>
     </div>
 </div>

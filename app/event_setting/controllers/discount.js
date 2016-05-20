@@ -18,7 +18,12 @@ exports.getDiscounts = function(req,res){
     if (err) {
       res.json({error:err,code:101});
     }
-    res.json({result:results,code:200});
+    
+    var event_count = "SELECT count(*) AS count, discount_id FROM question_assignments WHERE seller_id ="+req.body.userId+" GROUP BY discount_id";
+     connection.query(event_count, function(err2, cresults) {
+      res.json({result:results,counts:cresults,code:200});
+     });
+    
   });
 }
 
@@ -269,8 +274,68 @@ Created By: Manoj kumar  Singh
 */
 
 exports.exportDiscountCSV = function(req,res){
-  res.csv([
-        ["order_id", "product_name", "product_model", "UPC", "UPC_name", "UPC_display", "SKU", "SKU_name", "SKU_display", "sale_send_date", "cost", "tax", "shipping_fee", "fulfiller_fee", "buyer_fee", "seller_fee", "shipping_name", "shipping_address", "shipping_address_2", "shipping_city", "shipping_state", "shipping_zip", "shipping_country", "purchase_for", "email", "billing_address", "billing_address_2", "billing_city", "billing_state", "billing_zip", "billing_country", "event", "event_start", "legacy_sale_id"]
-     ]);
+     var condition = "";
+     if (req.query.seller != "" && req.query.seller  != "[]" && req.query.seller  != "undefined") {
+          condition = " seller_id ="+req.query.seller;
+     }
+     if (req.query.ids != "" && req.query.ids  != "[]" && req.query.ids  != "undefined") {
+          var strold = req.query.ids;
+          var strnew = strold.substr(1, strold.length-2);
+          condition += " AND id IN ("+strnew+")";
+     }
+     console.log('select * from discounts where '+condition);
+     
+     query = connection.query('select * from discounts where '+condition, function(err, rows, fields) {
+                if (err) {
+                    res.send(err);
+                }
+                var headers = {};
+                for (key in rows[0]) {
+                    headers[key] = key;
+                }
+                rows.unshift(headers);
+                res.csv(rows);
+     });
 }
 
+
+/** 
+Method: Get Selected Discount
+Description:Get Selected Discount  
+Created : 2016-05-17
+Created By: Manoj kumar  Singh
+*/
+
+exports.getSelectedDiscount = function(req,res)
+{
+     var condition = "";
+     var condition2 = "";
+     if (req.body.seller_id != "" && req.body.seller_id  != null && req.body.seller_id  != "undefined") {
+          condition = " seller_id ="+req.body.seller_id;
+          condition2 = " seller_id ="+req.body.seller_id;
+     }
+     if (req.body.ids != "" && req.body.ids  != "[]" && req.body.ids  != "undefined") {
+          var strold = String(req.body.ids);
+          var strnew = strold.substr(0, strold.length);
+          condition += " AND id IN ("+strnew+")";
+          //condition2 += " AND id NOT IN ("+strnew+")";
+     }
+     
+     if (condition != "") {
+          connection.query('select * from discounts where '+condition, function(err, results) {
+             if (err) {
+              res.json({error:err,code:101});
+             }
+             else{
+             ///////////////////////////////////////////
+             connection.query('select * from discounts where '+condition2, function(err2, results2) {
+             res.json({result:results,allcode:results2,code:200});
+             });
+             //////////////////////////////////////////
+             }
+          });
+     }
+     else {
+          res.json({error:"error",code:101});
+     }
+}

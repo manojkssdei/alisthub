@@ -4,8 +4,7 @@ servicebaseUrl="//192.155.246.146:5502";
 
 var webservices = {	
 
-	"getUserregister" : baseUrl + "/webservices/register",
-
+    "getUserregister" : baseUrl + "/webservices/register",
     "checkUnique" : baseUrl + "/webservices/checkUnique",
     "getUserlogin" : baseUrl + "/webservices/login",
     "forgetPassword" : baseUrl + "/webservices/forgetPassword",
@@ -57,6 +56,8 @@ var webservices = {
     "changeDiscountStatus" :  "/event_setting/changeDiscountStatus",
     "deleteDiscount" :  "/event_setting/deleteDiscount",
     "makeDiscountAssignment"  :  "/event_setting/makeDiscountAssignment",
+    "exportDiscountCSV"  :  "/event_setting/exportDiscountCSV",
+    "getSelectedDiscount" :  "/event_setting/getSelectedDiscount",
 
     /* Constants for the bundle module */
     "getBundles": "/event_setting/getBundles",
@@ -64,6 +65,9 @@ var webservices = {
     "updateBundle" : "/event_setting/updateBundle",
     "bundleOverview" :  "/event_setting/bundleOverview",
     "getBundleProducts":"/event_setting/getBundleProducts",
+    "changeBundleStatus" : "/event_setting/changeBundleStatus",
+    "removeBundle" : "/event_setting/removeBundle",
+    "getBundleDetail" : "/event_setting/getBundleDetail",
 
     /* Constants for the manage users */
     "addUser": "/user/addUser",
@@ -88,7 +92,10 @@ var webservices = {
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",
     "getFinancialDetails" : "/account/getFinancialDetails",
-    
+    "addCustomFinancialDetails" : "/account/addCustomFinancialDetails",
+    "viewCustomFinancialSetting" : "/account/viewCustomFinancialSetting",
+    "getCustomFinancialSetting" : "/account/getCustomFinancialSetting",
+    "checkAlreadyAddedMerchant" : "/account/checkAlreadyAddedMerchant",
 
 }
 
@@ -104,13 +111,15 @@ var global_message = {
     "QuestionAddValidation" : "Please fill all the mandatory fields.",
     "LoginNotMatchingError" : "The email and password you entered don't match.",
     "EmailEmpty" : "Enter a valid email ",
-    //"AccountNotActivated" : "Verify your registered email to complete the sign-up process.",
+
+    "LoginAuthNotMatchingError" : "Your account has not been activated till now . Please go to email to complete activation process.",
     "AccountNotActivated" : "You have not verified your email account, please see the verification email you must have received in your registered email",
     "AccountBlocked" : "Account Blocked",
     "InfoNotUpdated" : "Some error",
     "InvalidPassword" : "The password that you've entered is incorrect.",
     "InvalidEmail" : "The email address that you've entered doesn't match any account.",
     "InvalidUserPassword" : "The email and password you entered don't match",
+
 }
 
 var appConstants = {

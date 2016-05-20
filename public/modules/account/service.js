@@ -15,5 +15,35 @@ angular.module('alisthub').factory('account', ['$q', '$timeout','communicationSe
     });
   };
 
+  url.addCustomFinancialDetails = function(jsondata,callback){
+      console.log('addCustomFinancialDetails');
+       communicationService.resultViaPost(webservices.addCustomFinancialDetails,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  url.viewCustomFinancialSetting = function(jsondata,callback){
+      console.log('view_custom_financial_setting');
+       communicationService.resultViaPost(webservices.viewCustomFinancialSetting,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  url.getCustomFinancialSetting = function(jsondata,callback){
+      console.log('getCustomFinancialSetting');
+       communicationService.resultViaPost(webservices.getCustomFinancialSetting,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  url.checkAlreadyAddedMerchant = function(jsondata,callback){
+      console.log('checkAlreadyAddedMerchant');
+       communicationService.resultViaPost(webservices.checkAlreadyAddedMerchant,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  
+
 return url;
 }])

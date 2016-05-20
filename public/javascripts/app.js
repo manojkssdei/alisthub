@@ -544,11 +544,11 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /* Setting for new assign discount screen */
         .state('new_assign_discount', {
-            url: '/new_assign_discount',
+            url: '/new_assign_discount/:assign',
             
             views: {
                 "lazyLoadView": {
-                  controller: 'manageDiscountController', // This view will use AppCtrl loaded below in the resolve
+                  controller: 'assignDiscountController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/event_setting/views/discount/new_assign_discount.html'
                 }
             },
@@ -557,7 +557,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js','javascripts/bootstrap-timepicker.js']);
                 })
               }]
             }
@@ -783,6 +783,48 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
 
+        /* Setting for view the custom financial listing screen */
+        .state('view_custom_financial_setting', {
+            url: '/view_custom_financial_setting/:list',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageAccountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/account/views/user/view_custom_financial_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                })
+              }]
+            }
+        })
+
+        /* Setting for edit custom financial merchant account details screen */
+        .state('edit_financial_setting', {
+            url: '/edit_financial_setting/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'accountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/account/views/user/custom_financial_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                })
+              }]
+            }
+        })
+
 
         // End Manage Section :
         /// start discount routes
@@ -864,7 +906,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         localStorage.clear();
         $state.go('login');
     }
-    ///////////////////////////////////////////////////////////
+
     
     
     }])
