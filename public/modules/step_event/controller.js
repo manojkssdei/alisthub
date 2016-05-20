@@ -1474,8 +1474,8 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
         //console.log($scope.bundle);
         $serviceTest.addBundle($scope.bundle,function(response){
           //console.log(response);
-          if (response.code == 200) {
-            if(bundle.id==undefined,bundle.id==''){
+          if (response.code == 200) { 
+            if(bundle.id==undefined && bundle.id==''){
               $localStorage.bundleId = response.result.insertId;  
               $scope.success = "Bundle information has been added.";
             } else {
