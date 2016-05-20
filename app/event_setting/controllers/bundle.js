@@ -80,12 +80,17 @@ Created : 2016-04-26
 Created By: Manoj kumar  
 */
 exports.getBundles = function(req,res){
-  connection.query('SELECT * from bundles where seller_id='+req.body.userId+ ' and event_id='+ req.body.eventId +' ORDER BY created DESC', function(err, results) {
-    if (err) {
-      res.json({error:err,code:101});
-    }
-    res.json({result:results,code:200});
-  });
+  if(req.body.eventId!=undefined){
+    connection.query('SELECT * from bundles where seller_id='+req.body.userId+ ' and event_id='+ req.body.eventId +' ORDER BY created DESC', function(err, results) {
+      if (err) {
+        res.json({error:err,code:101});
+      }
+      res.json({result:results,code:200});
+    });  
+  } else {
+    res.json({result:{},code:200});
+  }
+  
   
 }
 
