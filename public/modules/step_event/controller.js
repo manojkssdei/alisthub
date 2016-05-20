@@ -453,8 +453,12 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       map.fitBounds(bounds);
     }
      
-    
-
+  $scope.data1={};  
+   $scope.data1 = {
+        type_of_event: 0,
+        price:0
+      };
+     
 
  ////////////////////////////////////////////
  //category
@@ -465,7 +469,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             if (response.code==200)
              {
               $scope.ages=response.results;
-              console.log("*******",response);
+             
+              $scope.data1.custom_ages=($scope.ages[0].age).toString();
              }
             }
 
@@ -473,23 +478,30 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         });
 
  ///////////////////////////////////////////////
- ///////// ages
+ ///////// steps
  ////////////////////////////
-  $serviceTest.postEventdata({'var':'steps'},function(response){
-            if (response!=null) {
+ /* $serviceTest.postEventdata({'var':'steps'},function(response){
             if (response.code==200)
              {
                $scope.steps=response.results;
+               console.log($scope.steps);
              }
-            }
+           
 
 
-        });
+        });*/
+  $scope.steps=[
 
+     { "title":"Events Details","icon":'fa fa-calendar','id':5,"formname":'myForm'},
+     { "title":"Price & Links","icon":'fa fa-tags','id':6,"formname":'myForm'},
+     { "title":"Look & Feel","icon":'fa fa-eye','id':7,"formname":'myForm1'},
+     { "title":"Setting","icon":'fa fa-cog','id':8,"formname":'event-form'}
+
+  ];
 
 
   ///////////////////////////////steps event///////////////
-   $serviceTest.postEventdata({'var':'event_types'},function(response){
+  /* $serviceTest.postEventdata({'var':'event_types'},function(response){
             if (response!=null) {
             if (response.code==200)
              {
@@ -497,9 +509,9 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
              }
             }
 
-        });
+        });*/
    //////////event type///////////
-      $serviceTest.postEventdata({'var':'event_venue'},function(response){
+    /*  $serviceTest.postEventdata({'var':'event_venue'},function(response){
             if (response!=null) {
             if (response.code==200)
              {
@@ -508,21 +520,29 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             }
             
 
-        });
-      ////////venue///////
+        });*/
+      ////////get Event Category///////
+      
           $serviceTest.postEventdata({'var':'event_category'},function(response){
-            if (response!=null) {
+            
+            
             if (response.code==200)
              {
-              $scope.total_venue=response.results;
+              $scope.cat1=$scope.cat2=$scope.cat3=response.results;
+              $scope.data1.category1=($scope.cat1[0].category_id).toString();
+             
+              
              }
-            }else{
-             $scope.total_venue=[];
-            }
 
         });
 
-
+    $scope.price_and_link_data=function(data1)
+    {
+        console.log(data1);
+        $serviceTest.postSecondStepdata(data1,function(response){
+            console.log(response);
+        });
+    }
 
    
   var now = new Date();
@@ -596,9 +616,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
   // Called when the editor is completely ready.
   $scope.onReady = function () {
-    // ...
+   $scope.hello();
   };
-  
+  $scope.hello=function(){
+    
+  }
   $scope.options = {
     customClass: getDayClass,
     minDate: new Date(),
@@ -667,12 +689,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
      $scope.data1.dynamic_age='';
   }
 
-  // $scope.ages = [
-  // { "name": "All Ages",'id':0},
-  // {"name": "18 and  over",'id':18},
-  // {"name": "19 and over",'id':19},
-  // {"name": "21 and over",'id':21},
-  // ]
+  
   
 
   $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
@@ -699,18 +716,15 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     {"name": "Use Past Location",'id':4}
   ]
   
-  $scope.steps=[
-
-     { "title":"Events Details","icon":'fa fa-calendar','id':5,"formname":'myForm'},
-     { "title":"Price & Links","icon":'fa fa-tags','id':6,"formname":'myForm'},
-     { "title":"Look & Feel","icon":'fa fa-eye','id':7,"formname":'myForm1'},
-     { "title":"Setting","icon":'fa fa-cog','id':8,"formname":'event-form'}
-
-  ];
+ 
      
   $scope.selected=$scope.events[0];
   $scope.selected1=$scope.venues[0];
   $scope.selected2=$scope.steps[0];
+  
+  
+  
+  
    
 
   /** 

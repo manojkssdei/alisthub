@@ -374,8 +374,9 @@
      
       <div class="editr">
         <label>Event Description<span class="req">*</span></label>
-         <div ckeditor="option_ckeditor" name="content"  required ng-model="data.content" ready="onReady()"></div>
-         <span style="color:red" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event description is required</span></span>
+         <div ckeditor="option_ckeditor" name="content"  required ng-model="data.content" ready="onReady()" value=''></div>
+        
+         <!--<span style="color:red;" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event description is required</span></span>-->
          
 
          
@@ -392,7 +393,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
 
 <div ng-hide="price_and_link_div">
            <!-- Event Detail Form -->
-   	<form  name="myForm1" novalidate>
+   	<form  name="myForm1" novalidate ng-submit="price_and_link_data(data1)">
 
    <section class="row">
           	  <section class="col-sm-4">
@@ -414,12 +415,12 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     <label class="form-label">Type of Event</label>
                     <section class="radio-sec with-ftext">
                       		<section class="radio-inline">
-                              <input type="radio"  name="type_of_event" ng-model="data1.type_of_event" checked>
-                              <label for="radio1"><span></span>Ticketed</label>
+                              <input id="radio111" type="radio"  name="type_of_event" ng-model="data1.type_of_event"  value="0">
+                              <label for="radio111"><span></span>Ticketed</label>
                           </section>
                             <section class="radio-inline">
-                          <input type="radio"   name="type_of_event" ng-model="data1.type_of_event">
-                          <label for="radio2"><span></span>Registration</label>
+                          <input id="radio2222" type="radio"   name="type_of_event" ng-model="data1.type_of_event" value="1">
+                          <label for="radio2222"><span></span>Registration</label>
                           </section>
                    </section>
                   </div>
@@ -436,12 +437,12 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                   	  <section class="col-sm-7">
                       	<section class="radio-sec">
                       		<section class="radio-inline">
-                              <input type="radio"  name="arrange_by_price" ng-model="data1.arrange_by_price"  checked>
-                              <label for="radio01"><span></span>Arrange by price</label>
+                              <input type="radio" id="radio011"  name="price" ng-model="data1.price"   value="0">
+                              <label for="radio011"><span></span>Arrange by price</label>
                           </section>
                             <section class="radio-inline">
-                          <input type="radio"  name="arrange_by_price" ng-model="data1.arrange_by_price"  >
-                          <label for="radio02"><span></span>Manually Arrange</label>
+                          <input id="radio022" type="radio"  name="price" ng-model="data1.price"  value="1">
+                          <label for="radio022"><span></span>Manually Arrange</label>
                           </section>
                          </section>
                       </section>
@@ -514,8 +515,9 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                           <div class="form-group row">                            
                             <section class="col-sm-3" ng-hide="age_div">
                                 <label> Ages<span class="req">*</span></label>
-                                <select class="form-control" name="ages" ng-model="data1.ages">
-                                  <option ng-repeat="age in ages" value="{{age.id}}">{{age.name}}</option>
+                                <select class="form-control" name="custom_ages" ng-model="data1.custom_ages">
+                                   
+                                  <option ng-repeat="age in ages" value="{{age.age}}">{{age.name}}</option>
                                 </select>
                                
                             </section>
@@ -631,15 +633,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
         </thead>
         <tbody>
           
-           <!-- <tr>
-                <td><strong>Balcony</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>-->
+          
             
 
         </tbody>
@@ -660,19 +654,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                         </ul>
                     </section>
                 </section>
-                
-                  <!--<div class="row">
-                    	<div class="col-sm-12">
-                          <div class="form-group row">                           
-                            
-                            <section class="col-sm-5 f-12">
-                                <a href="#" class="u-text"><strong>Please set your Fulfillment Settings</strong></a>
-                            </section>
-                          </div>
-                        </div>
-                </div>-->
-
-      			</section>
+               </section>
           </div>
           <!-- Product Closed -->
           <!--Links Start -->
@@ -746,22 +728,23 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 	<div class="col-sm-4">
                           <div class="form-group">
                             <label for="EventName"> Categories<span class="req">*</span></label>
-                            <select class="form-control">
-                              <option value="Ticket">Dance</option>
+                            
+                            <select class="form-control" name="category1" ng-model="data1.category1">
+                            <option ng-repeat="cat in cat1" value="{{cat.category_id}}" >{{cat.name}}</option>
                             </select>
                           </div>
                         </div>
                         <div class="col-sm-4 text-drop">
                           <div class="form-group">
-                            <select class="form-control">
-                              <option value="Ticket">Comedy</option>
+                            <select class="form-control" ng-model="data1.category2">
+                             <option ng-repeat="cat in cat1" value="{{cat.category_id}}">{{cat.name}}</option>  
                             </select>
                           </div>
                         </div>
                         <div class="col-sm-4 text-drop">
                           <div class="form-group">
-                            <select class="form-control">
-                              <option value="Ticket">Singing</option>
+                            <select class="form-control" ng-model="data1.category3">
+                             <option ng-repeat="cat in cat1" value="{{cat.category_id}}">{{cat.name}}</option> 
                             </select>
                           </div>
                         </div></div>
