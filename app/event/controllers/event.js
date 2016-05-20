@@ -225,6 +225,38 @@ exports.getSinglePricelevel = function(req,res) {
     });
 }
 
+
+
+exports.getEventsdetail=function(req,res)
+{
+    console.log("var",req.body.var);
+
+    if(req.body.var=='ages')
+    {
+     $sql='SELECT name,age from ages';
+    }else if(req.body.var=='steps'){
+      $sql='SELECT title,icon,step_id from steps';
+    }else if(req.body.var=='event_types'){
+      $sql='SELECT name,event_id from event_types';
+    }else if(req.body.var=='event_venue'){
+      $sql='SELECT name,vanue_id from event_venue';
+    }else if(req.body.var=='event_category'){
+      $sql='SELECT category_id,name from event_category';
+    }
+     connection.query($sql, function(err, results) 
+     {
+      if (err) {
+        res.json({error:err,code:101});
+       }
+       else
+     {
+      res.json({results:results,code:200});
+    }
+   
+   
+});
+ }  
+
 /** 
 Method: updatePriceChange
 Description:Function to change Price level data status 
@@ -254,4 +286,5 @@ exports.postPriceChange = function(req,res) {
      res.json({result:results,code:200});
      }
   });
+
 }

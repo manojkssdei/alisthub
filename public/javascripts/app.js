@@ -53,7 +53,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /* Setting for email confirmation screen */
         .state('confirm_email', {
-            url: '/confirm_email/:id',
+            url: '/confirm_email/:confirm_email_id',
             views: {
           "lazyLoadView": {
             controller: 'loginController', // This view will use AppCtrl loaded below in the resolve
@@ -88,7 +88,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /* Setting for new password screen */
         .state('new_password', {
-            url: '/forget_password/:id',
+            url: '/forget_password/:forget_password_id',
             
             views: {
           "lazyLoadView": {
@@ -184,6 +184,30 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
         
+////////////create series.//////////
+
+         .state('create_series', {
+            url: '/create_series',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'createseriesController',
+                  templateUrl: 'modules/event_series/views/create_event_series.html'
+                }
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_series/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_series/controller.js']);
+                })
+              }]
+            }
+          
+        })
+
         // Module : Event Setting Start
         /* Setting for Venue Management screen */
         .state('add_venue', {
@@ -866,14 +890,17 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         })
 
     
-  }).run(['$rootScope', '$location','$state', '$localStorage', '$http',function($rootScope,$location, $state,$localStorage, $http) {
+  }).run(['$rootScope', '$location','$state', '$localStorage', '$http','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$stateParams) {
      
     
     //To add class
-   
+   console.log($state.params);
+   if($stateParams.confirm_email_id != undefined || !$stateParams.confirm_email_id || $stateParams.forget_password_id != undefined || !$stateParams.forget_password_id){}else{
     if(!$localStorage.isuserloggedIn){
         $location.path("/login");
     }
+   }
+  
     if($localStorage.isuserloggedIn){
         $rootScope.menu=$rootScope.after_login_footer_div=false;
         $rootScope.footer_login_div=true;

@@ -4,8 +4,8 @@ Created : 2016-05-17
 Created By: Deepak Khokkar
 Module : SignUp ,Login, Forget Password Module ,Email Confirmation 
 */
-angular.module('alisthub').controller('loginController', function($http, $location, $timeout, $scope, $ocLazyLoad, $rootScope, $state, $timeout, $localStorage) {
-
+angular.module('alisthub').controller('loginController', function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage) {
+        
     if ($localStorage.isuserloggedIn) {
         $rootScope.class_status = 0;
         $state.go('dashboard');
@@ -24,10 +24,9 @@ angular.module('alisthub').controller('loginController', function($http, $locati
     Created By: Deepak Khokkar
     Module : Email Confirmation - signup process
     */
-    if ($state.params.id) {
-        
+    if ($state.params.confirm_email_id) {
         var serviceUrl = webservices.confirmationEmail;
-        $scope.user.token = $state.params.id;
+        $scope.user.token = $state.params.confirm_email_id;
         var jsonData = $scope.user;
         $http({
             url: serviceUrl,

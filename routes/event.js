@@ -36,6 +36,9 @@ module.exports = function(app, express) {
       /* To get the event data */
       router.post('/getEvent',supportCrossOriginScript, Event.getEvent);
 
+          /*get event category*///
+        router.post('/getEventsdetail',supportCrossOriginScript, Event.getEventsdetail);
+
 
        
       
