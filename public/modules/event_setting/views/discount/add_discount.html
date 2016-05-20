@@ -1,123 +1,101 @@
 <div class="container">
-     <h1>{{page_title}} Discount</h1>
-    
+    <h1>{{page_title}} Discount</h1>
     <!-- Form COntainer -->
-    
     <div class="form-section  wt-frame">
-      <form class="venue-form" name="userForm" id="venue-form" ng-submit="saveDiscount()" novalidate>
-        <!-- Event Detail Form -->
-       <div> 
-          <!-- Location Group -->
-          <div class="form-group field-group">
-               <!-- Date Event Group -->
-            <div class="event-date fieldSection">
-
-            <div class="row">
-               <div><p class="error-fld" ng-show="error_message" >{{error}}</p></div>
-               <!--<div><p class="error-fld" ng-show="error_message" ng-bind-html="trustedHtml"></p></div>-->
-               <div><p class="success-fld" ng-show="success_message">{{success}}</p></div>
-               <div><p ng-show="edit_note">Note: Changes to this coupon will affect all of the events for which this coupon is applied.</p></div>
-          </div>
-
-              <div class="row">
-                <div class="col-sm-12 col-md-12">
-                    <div class="tab-content">
-                    <div role="tabpanel">
-                      <div class="row">
-                        <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_type.$invalid && !userForm.coupon_type.$pristine }">
-                          <div class="form-group">
-                            <label for="EventName">Coupon Type<span class="req">*</span></label>
-                            <select class="form-control" name="coupon_type" ng-change="showPageLayout();" ng-model="data.coupon_type" ng-required = "true">
-                          <option>Discount</option>
-                          <option>Automatic</option>
-                          <option>Reserve</option>
-                          <option>Presale</option>
-                          <option>Complimentary</option>
-                          <option>Access Code</option>
-                            </select>
-                          </div>
-        <p ng-show="userForm.coupon_type.$invalid && !userForm.coupon_type.$pristine" class="error-fld ng-binding">Select coupon type.</p>
+        <form class="venue-form" name="userForm" id="venue-form" ng-submit="saveDiscount()" novalidate>
+            <!-- Event Detail Form -->
+            <div>
+                <!-- Location Group -->
+                <div class="form-group field-group">
+                    <!-- Date Event Group -->
+                    <div class="event-date fieldSection">
+                        <div class="row">
+                            <div>
+                                <p class="error-fld" ng-show="error_message" >{{error}}</p>
+                            </div>
+                            <!--<div><p class="error-fld" ng-show="error_message" ng-bind-html="trustedHtml"></p></div>-->
+                            <div>
+                                <p class="success-fld" ng-show="success_message">{{success}}</p>
+                            </div>
+                            <div>
+                                <p ng-show="edit_note">Note: Changes to this coupon will affect all of the events for which this coupon is applied.</p>
+                            </div>
                         </div>
-
-                        <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_name.$invalid && !userForm.coupon_name.$pristine }">
-                          <div class="form-group">
-                            <label for="EventName">Coupon Name<span class="req">*</span></label>
-                              <input type="text" class="form-control" name="coupon_name" placeholder="Coupon name" ng-model="data.coupon_name" ng-required = "true"/>
-                          </div>
-        <p ng-show="userForm.coupon_name.$invalid && !userForm.coupon_name.$pristine" class="error-fld ng-binding">Enter coupon name.</p>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="tab-content">
+                                    <div role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_type.$invalid && !userForm.coupon_type.$pristine }">
+                                                <div class="form-group">
+                                                    <label for="EventName">Coupon Type<span class="req">*</span></label>
+                                                    <select class="form-control" name="coupon_type" ng-change="showPageLayout();" ng-model="data.coupon_type" ng-required = "true">
+                                                        <option>Discount</option>
+                                                        <option>Automatic</option>
+                                                        <option>Reserve</option>
+                                                        <option>Presale</option>
+                                                        <option>Complimentary</option>
+                                                        <option>Access Code</option>
+                                                    </select>
+                                                    <p ng-show="userForm.coupon_type.$invalid && !userForm.coupon_type.$pristine" class="error-fld ng-binding">Select coupon type.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_name.$invalid && !userForm.coupon_name.$pristine }">
+                                                <div class="form-group">
+                                                    <label for="EventName">Coupon Name<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="coupon_name" placeholder="Coupon name" ng-model="data.coupon_name" ng-required = "true"/>
+                                                    <p ng-show="userForm.coupon_name.$invalid && !userForm.coupon_name.$pristine" class="error-fld ng-binding">Enter coupon name.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine }" ng-show="coupon_code_div">
+                                                <div class="form-group">
+                                                    <label for="EventName">Code<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="coupon_code" placeholder="Coupon code" ng-model="data.coupon_code" ng-required = "data.coupon_type !='Automatic'" ng-blur="checkUniqueDiscount()"/>
+                                                    <p ng-show="userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine" id="coupon_code_error_div" class="error-fld ng-binding">Enter code.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4" ng-class="{ 'has-error' : userForm.amount_type.$invalid && !userForm.amount_type.$pristine }" ng-show="amount_type_div">
+                                                <div class="form-group">
+                                                    <label for="EventName">Amount Type<span class="req">*</span></label>
+                                                    <select class="form-control" name="amount_type" ng-model="data.amount_type" ng-required = "data.coupon_type =='Automatic' || data.coupon_type =='Discount'" >
+                                                        <option ng-repeat="x in amount_type" value="{{x.model}}">{{x.model}}</option>
+                                                    </select>
+                                                    <p ng-show="userForm.amount_type.$invalid && !userForm.amount_type.$pristine" class="error-fld ng-binding">Select amount type.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4" ng-class="{ 'has-error' : userForm.amount.$invalid && !userForm.amount.$pristine }" ng-show="amount_div">
+                                                <div class="form-group">
+                                                    <label for="EventName">Amount{{data.amount_type.symbol}}<span class="req">*</span></label>
+                                                    <input type="number" min=0 class="form-control" name="amount" placeholder="Amount in dollars" ng-model="data.amount" ng-required = "data.coupon_type =='Automatic' || data.coupon_type =='Discount'" />
+                                                    <p ng-show="userForm.amount.$invalid && !userForm.amount.$pristine" class="error-fld ng-binding">Enter amount.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4" ng-class="{ 'has-error' : userForm.amount_target.$invalid && !userForm.amount_target.$pristine }" ng-show="amount_target_div">
+                                                <div class="form-group">
+                                                    <label for="EventName">Amount Target($)<span class="req">*</span></label>
+                                                    <input type="number" min=0 class="form-control" name="amount_target" placeholder="Amount in dollars" ng-model="data.amount_target" ng-required = "data.coupon_type =='Automatic'"/>
+                                                    <p ng-show="userForm.amount_target.$invalid && !userForm.amount_target.$pristine" class="error-fld ng-binding">Enter target amount.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tab panes -->
+                            </div>
+                            <div class="col-sm-12 col-md-6"></div>
                         </div>
-
-                        <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine }" ng-show="coupon_code_div">
-                          <div class="form-group">
-                            <label for="EventName">Code<span class="req">*</span></label>
-                            <input type="text" class="form-control" name="coupon_code" placeholder="Coupon code" ng-model="data.coupon_code" ng-required = "data.coupon_type !='Automatic'" ng-blur="checkUniqueDiscount()"/>
-                          </div>
-        <p ng-show="userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine" id="coupon_code_error_div" class="error-fld ng-binding">Enter code.</p>
-                        </div>
-
-                      </div>
-                      <div class="row">
-
-                        <div class="col-sm-4" ng-class="{ 'has-error' : userForm.amount_type.$invalid && !userForm.amount_type.$pristine }" ng-show="amount_type_div">
-                          <div class="form-group">
-                            <label for="EventName">Amount Type<span class="req">*</span></label>
-                           
-
-                            <select class="form-control" name="amount_type" ng-model="data.amount_type" ng-required = "data.coupon_type =='Automatic' || data.coupon_type =='Discount'" >
-
-                            <option ng-repeat="x in amount_type" value="{{x.model}}">{{x.model}}</option>
-</select>
-                          </div>
-        <p ng-show="userForm.amount_type.$invalid && !userForm.amount_type.$pristine" class="error-fld ng-binding">Select amount type.</p>
-                        </div>
-
-                        <div class="col-sm-4" ng-class="{ 'has-error' : userForm.amount.$invalid && !userForm.amount.$pristine }" ng-show="amount_div">
-                          <div class="form-group">
-                            <label for="EventName">Amount{{data.amount_type.symbol}}<span class="req">*</span></label>
-                              <input type="number" min=0 class="form-control" name="amount" placeholder="Amount in dollars" ng-model="data.amount" ng-required = "data.coupon_type =='Automatic' || data.coupon_type =='Discount'" />
-                          </div>
-        <p ng-show="userForm.amount.$invalid && !userForm.amount.$pristine" class="error-fld ng-binding">Enter amount.</p>
-                        </div>
-
-                         <div class="col-sm-4" ng-class="{ 'has-error' : userForm.amount_target.$invalid && !userForm.amount_target.$pristine }" ng-show="amount_target_div">
-                          <div class="form-group">
-                            <label for="EventName">Amount Target($)<span class="req">*</span></label>
-                              <input type="number" min=0 class="form-control" name="amount_target" placeholder="Amount in dollars" ng-model="data.amount_target" ng-required = "data.coupon_type =='Automatic'"/>
-                          </div>
-        <p ng-show="userForm.amount_target.$invalid && !userForm.amount_target.$pristine" class="error-fld ng-binding">Enter target amount.</p>
-                        </div>
-
-
-
-                      </div>
-                      
-                            
                     </div>
-                   
-                  </div>
-                  
-                  <!-- Tab panes -->
-                  
                 </div>
-                <div class="col-sm-12 col-md-6"></div>
-    
-              </div>
+                <!-- //Location Group -->
+                <!-- //Event Detail Form -->
             </div>
-          </div>
-          <!-- //Location Group -->
-      
-        <!-- //Event Detail Form -->
-         </div>
-         <div class="editor-btn">
-          
-           <button class="pink-btn btn" ng-disabled="userForm.$invalid">Save</button>
-           <button class="pink-btn btn" ng-disabled="userForm.$invalid">Save and Assign</button>
-          
-         </div>
-
-
-     </form>
-     </div>
-    
+            <div class="editor-btn">
+                <button class="pink-btn btn" ng-disabled="userForm.$invalid">Save</button>
+                <button class="pink-btn btn" ng-disabled="userForm.$invalid">Save and Assign</button>
+            </div>
+        </form>
+    </div>
     <!-- //Form COntainer --> 
-  </div>
+</div>

@@ -36,16 +36,15 @@ Description:Function to get the venue of seller
 Created : 2016-04-19
 Created By: Manoj kumar  
 */
+
 exports.getVenue = function(req,res){
-    //console.log(req.body.userId);
-     connection.query('SELECT * from venues where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err, results) {
-   if (err) {
-      console.log("=========================");
+  connection.query('SELECT * from venues where seller_id='+req.body.userId+ '  ORDER BY created DESC', function(err, results) {
+    if (err) {
       res.json({error:err,code:101});
-   }
-   res.json({result:results,code:200});
-});
-   
+    }
+    res.json({result:results,code:200});
+  });
+  
 }
 
 /** 

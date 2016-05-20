@@ -4,8 +4,7 @@ servicebaseUrl="//192.155.246.146:5502";
 
 var webservices = {	
 
-	"getUserregister" : baseUrl + "/webservices/register",
-
+    "getUserregister" : baseUrl + "/webservices/register",
     "checkUnique" : baseUrl + "/webservices/checkUnique",
     "getUserlogin" : baseUrl + "/webservices/login",
     "forgetPassword" : baseUrl + "/webservices/forgetPassword",
@@ -47,6 +46,9 @@ var webservices = {
     "saveProductSetting"  :  "/event_setting/saveProductSetting",
     "getProductSetting"  :  "/event_setting/getProductSetting",
     "saverecurringEvent"  :  "/event/saverecurringEvent",
+        /////get event category////
+     "getEventsdetail":"/event/getEventsdetail",
+    
 
     /* Constants for the discount module */
     "getDiscounts":"/event_setting/getDiscounts",
@@ -88,35 +90,87 @@ var webservices = {
     "removepricelevel" : "/event/removepricelevel",
     "changePricelevelStatus" : "/event/changePricelevelStatus",
     "getSinglePricelevel" : "/event/getSinglePricelevel",
+    "postPriceChange" : "/event/postPriceChange",
 
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",
     "getFinancialDetails" : "/account/getFinancialDetails",
-    
+
+
+ 
+    //Financial Settings   
+
+    "addCustomFinancialDetails" : "/account/addCustomFinancialDetails",
+    "viewCustomFinancialSetting" : "/account/viewCustomFinancialSetting",
+    "getCustomFinancialSetting" : "/account/getCustomFinancialSetting",
+    "checkAlreadyAddedMerchant" : "/account/checkAlreadyAddedMerchant",
+
+    //series events
+    "saveEvent"  :  "/series/saveEvent",
+    "savepricelevel" : "/series/savepricelevel",
+    "getPricelevel" : "/series/getPricelevel",
+      "saverecurringEvent"  :  "/series/saverecurringEvent",
+
 
 }
 
 var global_message = {
+    /* global */
+    "fillMandatoryField" : 'Enter all required fields.',
+    /* Constants for Check Unique Email */
     "EmailAvailable" : "Available",
+    
+    /* Constants for Sign Up Process */
     "EmailExist" : "This email is already registered.Please try another.",
     "SavingError" : "Error in saving !",
     "SignupSuccess" : "Registration email sent to your registered email. Open your email to finish signup.If you don't see alistixs email in your inbox within 15 minutes, look for it in your junk mail folder. If you find it there, please mark the email as 'Not Junk'.",
+    
+    /* Constants for Forget Process */
     "ForgetPassword" : "Check your registered email to reset your password quickly.",
     "ForgetEmailError" : "Your search didn't match any accounts. Enter your registered email address again.",
+    "passwordChanged" : "Password has been changed successfully.",
+    "serverErrorPasswordReset" : "There some problem in server side to set new password , try after some time .",
+    "retypeSamePassword" :"Please retype same password." ,
+    
+    /* Constants for Email Confirmation - signup process */
     "ActivatedMessage" : "Your account has been activated, please sign in.",
     "ErrorInActivation" : "There is some problem, please try after some time.",
-    "QuestionAddValidation" : "Please fill all the mandatory fields.",
+    "AccountNotActivated" : "You have not verified your email account, please see the verification email you must have received in your registered email",
+  
+     /* Constants for Login */
     "LoginNotMatchingError" : "The email and password you entered don't match.",
     "EmailEmpty" : "Enter a valid email ",
-
     "LoginAuthNotMatchingError" : "Your account has not been activated till now . Please go to email to complete activation process.",
-    "AccountNotActivated" : "You have not verified your email account, please see the verification email you must have received in your registered email",
     "AccountBlocked" : "Account Blocked",
     "InfoNotUpdated" : "Some error",
     "InvalidPassword" : "The password that you've entered is incorrect.",
     "InvalidEmail" : "The email address that you've entered doesn't match any account.",
     "InvalidUserPassword" : "The email and password you entered don't match",
 
+    /* Constants for Financial information */
+    "savedFinancialInformation" : 'Financial information saved successfully',
+    "savedMerchantFinancialInformation" : 'Merchant Financial information saved successfully',
+    "selectMerchantType" : 'Select Merchant Type',
+    "selectCurrencyCode" : 'Select Currency Code',
+    "emptyAccountiD" : 'Enter Account Id',
+    "emptyPassword" : 'Enter Password',
+    "merchantTypeExist" : 'This merchant type already exist in our records.Please update the existing one.',
+    "enterFirstName" : 'Enter First Name',
+    "enterLastName" : 'Enter Last Name',
+    "enterEmail" : 'Enter Email',
+    "enterChequeName" : 'Enter Name For Cheque',
+    "enterAddress" : 'Enter address',
+    "selectCountry" : 'Select a Country',
+
+    /* Constants for Product information */
+    "productSaved" : "Product has been saved successfully.",
+
+    /* Constants for Users */
+    "userInfoUpated" : "User information updated successfully.",
+    "infoSaved" : "Information updated successfully.",
+
+    /* Constants for Question */
+    "QuestionAddValidation" : "Please fill all the mandatory fields.",
 }
 
 var appConstants = {

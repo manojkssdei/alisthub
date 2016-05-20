@@ -53,7 +53,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /* Setting for email confirmation screen */
         .state('confirm_email', {
-            url: '/confirm_email/:id',
+            url: '/confirm_email/:confirm_email_id',
             views: {
           "lazyLoadView": {
             controller: 'loginController', // This view will use AppCtrl loaded below in the resolve
@@ -88,7 +88,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /* Setting for new password screen */
         .state('new_password', {
-            url: '/forget_password/:id',
+            url: '/forget_password/:forget_password_id',
             
             views: {
           "lazyLoadView": {
@@ -184,6 +184,30 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
         
+////////////create series.//////////
+
+         .state('create_series', {
+            url: '/create_series',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'createseriesController',
+                  templateUrl: 'modules/event_series/views/create_event_series.html'
+                }
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_series/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_series/controller.js']);
+                })
+              }]
+            }
+          
+        })
+
         // Module : Event Setting Start
         /* Setting for Venue Management screen */
         .state('add_venue', {
@@ -783,6 +807,48 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
 
+        /* Setting for view the custom financial listing screen */
+        .state('view_custom_financial_setting', {
+            url: '/view_custom_financial_setting/:list',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageAccountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/account/views/user/view_custom_financial_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                })
+              }]
+            }
+        })
+
+        /* Setting for edit custom financial merchant account details screen */
+        .state('edit_financial_setting', {
+            url: '/edit_financial_setting/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'accountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/account/views/user/custom_financial_setting.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/account/account_controller.js']);
+                })
+              }]
+            }
+        })
+
 
         // End Manage Section :
         /// start discount routes
@@ -824,14 +890,39 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         })
 
     
-  }).run(['$rootScope', '$location','$state', '$localStorage', '$http',function($rootScope,$location, $state,$localStorage, $http) {
+<<<<<<< HEAD
+  }).run(['$rootScope', '$location','$state', '$localStorage', '$http', '$timeout','$window',function($rootScope,$location, $state,$localStorage, $http,$timeout,$window) {
+=======
+  }).run(['$rootScope', '$location','$state', '$localStorage', '$http','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$stateParams) {
+>>>>>>> pb/master
      
+    $timeout(callAtTimeout, 20*20*3000);
+    
+    function callAtTimeout()
+    {
+        $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
+        $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
+                    
+                    $rootScope.email=$localStorage.email="";
+                    $rootScope.name=$localStorage.name="";
+                    $rootScope.access_token=$localStorage.access_token="";
+                    $rootScope.auth_token=$localStorage.auth_token="";
+                    $rootScope.phone_no=$localStorage.phone_no="";
+                    $rootScope.userId=$localStorage.userId="";
+                    $rootScope.address=$localStorage.address="";
+                    
+                    localStorage.clear();
+                    $state.go('login');
+    } 
     
     //To add class
-   
+   console.log($state.params);
+   if($stateParams.confirm_email_id != undefined || !$stateParams.confirm_email_id || $stateParams.forget_password_id != undefined || !$stateParams.forget_password_id){}else{
     if(!$localStorage.isuserloggedIn){
         $location.path("/login");
     }
+   }
+  
     if($localStorage.isuserloggedIn){
         $rootScope.menu=$rootScope.after_login_footer_div=false;
         $rootScope.footer_login_div=true;
@@ -842,7 +933,37 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         $rootScope.userId=$localStorage.userId;
         $rootScope.address=$localStorage.address;
         $rootScope.class_status = false;
-        $state.go('dashboard');
+    ////////////////////////////////////////////////
+     
+        
+    var serviceUrl = webservices.checkTokenExpiry; 
+    var url = serviceUrl+"?token="+$localStorage.auth_token+"&callback=jsonp_callback";
+
+    $http.jsonp(url);
+  
+    $window.jsonp_callback = function(data) {
+     
+     if (data.code == 101)
+                {   console.log("Token Test"); 
+                    $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
+                    $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
+                    
+                    $rootScope.email=$localStorage.email="";
+                    $rootScope.name=$localStorage.name="";
+                    $rootScope.access_token=$localStorage.access_token="";
+                    $rootScope.auth_token=$localStorage.auth_token="";
+                    $rootScope.phone_no=$localStorage.phone_no="";
+                    $rootScope.userId=$localStorage.userId="";
+                    $rootScope.address=$localStorage.address="";
+                    
+                    localStorage.clear();
+                    $state.go('login');
+                    
+                    
+                }
+    }
+    ///////////////////////////////////////////////
+        
     }else{
        $rootScope.menu=$rootScope.after_login_footer_div=true;
        $rootScope.footer_login_div=false;
@@ -887,32 +1008,37 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         };
 }])
 
-routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state)
+routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state,$timeout,$window)
 {
 
-
+    $timeout(callAtTimeout, 20*20*3000);
+    function callAtTimeout()
+    {
+        $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
+        $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
+                    
+                    $rootScope.email=$localStorage.email="";
+                    $rootScope.name=$localStorage.name="";
+                    $rootScope.access_token=$localStorage.access_token="";
+                    $rootScope.auth_token=$localStorage.auth_token="";
+                    $rootScope.phone_no=$localStorage.phone_no="";
+                    $rootScope.userId=$localStorage.userId="";
+                    $rootScope.address=$localStorage.address="";
+                    localStorage.clear();
+                    $state.go('login');
+    }
     // checktoken expiry time
     // check web services
-    var serviceUrl  = webservices.checkTokenExpiry;
-    var serviceUrl2 = webservices.refreshTokenExpiry;
-    var jsonData = {};
-    jsonData.token = $localStorage.auth_token;
+    var serviceUrl = webservices.checkTokenExpiry; 
+    var url = serviceUrl+"?token="+$localStorage.auth_token+"&callback=jsonp_callback";
 
-              
-               
-               $http({
-                 url: serviceUrl,
-                 method: 'POST',
-                 data: jsonData,
-                 headers: {
-                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                        "Accept": "application/json",
-                 },
-                 
-                }).success(function(data, status, headers, config) {
-                
-                if (data.code == 101)
+    $http.jsonp(url);
+  
+    $window.jsonp_callback = function(data) {
+     
+     if (data.code == 101)
                 {
+                    console.log("Token expire");
                     $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
                     $localStorage.menu=$localStorage.after_login_footer_div=$rootScope.menu=$rootScope.after_login_footer_div=true;
                     
@@ -929,8 +1055,16 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
                     
                     
                 }
-                               
-                });
+                else
+                {
+                    console.log("Token live");
+                    //$state.go('dashboard');
+                }
+     
+     
+    }
+    
+    
        
 };
 
