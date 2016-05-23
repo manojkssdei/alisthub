@@ -1,4 +1,24 @@
-<div ng-hide="look_and_feel_div"><div class="module template-view">
+<div ng-hide="look_and_feel_div" ng-controller="step3Controller">
+ <!-- Form COntainer -->
+    
+    
+      <h2 class="head">Choose campaign template from below</h2>
+       <section class="module row">
+       		<section class="col-sm-3 temp-view" ng-repeat="template in templates track by $index">
+            	<section class="form-group">
+                    <p class="temp-image"><img src="{{template.image}}" alt=""/></p>	
+                    <section class="top-buttons text-center">
+		      <a ng-click="preview_btn($index)"><button class="btn pink-btn btn-small mw-100" type="button">Preview</button></a>
+		      <a ng-click="select_btn($index)"><button class="btn pink-btn btn-small mw-100" type="button">Select</button></a>
+		    </section>
+                </section>
+            </section>
+            
+       </section>
+    
+    
+    <!-- //Form COntainer --> 
+  <div class="module template-view" ng-hide="module_div">
        <div class="main-image"><img src="images/img/f-img.jpg" alt=""/></div>
          
           <!--With Right Img start-->
@@ -37,4 +57,5 @@
           <!--Footer Closed-->
           
 
-      </div></div>
+      </div>
+</div>
