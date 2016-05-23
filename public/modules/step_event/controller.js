@@ -5,18 +5,67 @@ Created By: Deepak khokkar
 Module : Event step  
 */
 
+
 angular.module("google.places",[]);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
-   
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad) { 
+   //If user is not logged in and then log him out.
   if (!$localStorage.isuserloggedIn) {
       $state.go('login');
   }
   $scope.loader = false;
+  $scope.step1html = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.step1html = 'modules/step_event/views/step1html.html';
+        }, function(e) {
+            console.log(e);
+        });
+    // For bundle html
+  $scope.bundlehtml = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.bundlehtml = 'modules/step_event/views/bundlehtml.html';
+        }, function(e) {
+            console.log(e);
+        });
+    //for Price level html
+   $scope.pricelevelhtml = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.pricelevelhtml = 'modules/step_event/views/pricelevelhtml.html';
+        }, function(e) {
+            console.log(e);
+        });
+    //For step 2 html
+   $scope.step2html = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.step2html = 'modules/step_event/views/step2.html';
+        }, function(e) {
+            console.log(e);
+        });
+    //for step3 html
+  $scope.step3html = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.step3html = 'modules/step_event/views/step3.html';
+        }, function(e) {
+            console.log(e);
+        });
+    //For step4 html
+  $scope.step4html = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.step4html = 'modules/step_event/views/step4.html';
+        }, function(e) {
+            console.log(e);
+        });
    //For Step 1
     var $serviceTest = $injector.get("venues");
-     
+    //To show or hide divs
     $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
     $rootScope.success_message1=false;
+    //For recurring days
     $scope.days=[
       {id: '0', name: 'Sun'},
       {id: '1', name: 'Mon'},
@@ -28,7 +77,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     ]
     
     
-    
+    //for dates selection
     $scope.dates=[
                  {id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9},{id:10},
                  {id:11},{id:12},{id:13},{id:14},{id:15},{id:16},{id:17},{id:18},{id:19},{id:20},
@@ -37,7 +86,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
 
     if ($localStorage.userId!=undefined) {
-       
+      //To get venues of a user 
         $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
             if (response!=null) {
 
@@ -54,15 +103,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     }
 
     $eventId=$localStorage.eventId;
-    $serviceTest.getPricelevel({'eventId':$eventId},function(response){
-      $rootScope.price_level=response.results;
-    });
+    
 
     $scope.eventBundle = {};
     
     $scope.eventBundle.eventId = $localStorage.eventId; 
     $scope.eventBundle.userId = $localStorage.userId;
-
+   //To get bundles
     $serviceTest.getBundles($scope.eventBundle,function(response){
       //$rootScope.bundleList = response.results;
       $rootScope.bundleList = response.result;
@@ -226,6 +273,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         }); 
     }
     
+    // To get Price level.
+    $serviceTest.getPricelevel({'eventId':$eventId},function(response){
+      $rootScope.price_level=response.results;
+    });
     //change status of price level
     $scope.changeStatus = function(id,status) {
         
@@ -303,6 +354,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
      $scope.data = {};
      $scope.locations = [];
      $scope.locations[0]=[];
+     // To show google map
       var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,
        center: new google.maps.LatLng(32.7990, -86.8073),
@@ -461,9 +513,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       };
      
 
- ////////////////////////////////////////////
- //category
- ///////////////
+ //To get ages
  $serviceTest.postEventdata({'var':'ages'},function(response){
 
             if (response!=null) {
@@ -478,19 +528,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
         });
 
- ///////////////////////////////////////////////
- ///////// steps
- ////////////////////////////
- /* $serviceTest.postEventdata({'var':'steps'},function(response){
-            if (response.code==200)
-             {
-               $scope.steps=response.results;
-               console.log($scope.steps);
-             }
-           
-
-
-        });*/
+ //To get steps
   $scope.steps=[
 
      { "title":"Events Details","icon":'fa fa-calendar','id':5,"formname":'myForm'},
@@ -522,8 +560,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             
 
         });*/
-      ////////get Event Category///////
       
+      //To get Event Category
           $serviceTest.postEventdata({'var':'event_category'},function(response){
             
             
@@ -536,7 +574,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
              }
 
         });
-
+    
+    //To save step2 data.
     $scope.price_and_link_data=function(data1)
     {
         data1.eventId=$localStorage.eventId;
@@ -687,47 +726,34 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.error_message=true;
 
   $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
+  
+  //To show custom age div
+  
   $scope.custom_age=function(){
      $scope.age_div=$scope.age_text_div=true; 
      $scope.dynamic_age_div=$scope.return_age_text_div=false;
      $scope.data1.ages='';
   }
 
+  //To show default age
   $scope.custom_default_age=function(){
      $scope.age_div=$scope.age_text_div=false; 
      $scope.dynamic_age_div=$scope.return_age_text_div=true;
      $scope.data1.dynamic_age='';
   }
-
-  
-  
-
-  $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
-  $scope.custom_age=function(){
-     $scope.age_div=$scope.age_text_div=true; 
-     $scope.dynamic_age_div=$scope.return_age_text_div=false;
-     $scope.data1.ages='';
-  }
-
-  $scope.custom_default_age=function(){
-     $scope.age_div=$scope.age_text_div=false; 
-     $scope.dynamic_age_div=$scope.return_age_text_div=true;
-     $scope.data1.dynamic_age='';
-  }
-
-
-  $scope.events = [
+//Default Event
+ $scope.events = [
     { "name": "Single Event",'id':1},
     {"name": "Multiple Event",'id':2}
   ]
-  
+ //To show default venues 
   $scope.venues = [
     { "name": "Add New Venue",'id':3},
     {"name": "Use Past Location",'id':4}
   ]
   
  
-     
+// To show selected event,venue and step.
   $scope.selected=$scope.events[0];
   $scope.selected1=$scope.venues[0];
   $scope.selected2=$scope.steps[0];
@@ -746,18 +772,19 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
   $scope.click_menu=function(menu,valid) {
     var objectForm = this;
-
+    //To go to step1 event Details
     if (menu.id==5) {
       $scope.eventdetail_div=false;
       $scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=true;
     }
-
+    
+    ///TO move to price and level
     if (menu.id==6) {
 
-     // if(objectForm.myForm.$valid==true){
+      if(objectForm.myForm.$valid==true){
         $scope.eventdetail_div=$scope.look_and_feel_div=$scope.setting_div=true;
         $scope.price_and_link_div=false;  
-     /* } else {
+      } else {
         $scope.error_message = false;
         $scope.error="Please update the event detail data.";
         $timeout(function() {
@@ -765,10 +792,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             $scope.error_message=true;
             $scope.error='';
         },3000);
-      }*/
+      }
     }
-
-    if (menu.id==7) {
+     //look and feel div
+     if (menu.id==7) {
       if(objectForm.myForm.$valid==true){
         $scope.eventdetail_div=$scope.price_and_link_div=$scope.setting_div=true;
         $scope.look_and_feel_div=false;
@@ -782,7 +809,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         },3000);
       }
     }
-
+    //Event Setting div
     if (menu.id==8) {
       if(objectForm.myForm.$valid==true){
         $scope.eventdetail_div=$scope.look_and_feel_div=$scope.price_and_link_div=true;
@@ -887,10 +914,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     });
   };
   
-  $scope.pricechangefunc=function(data2)
-  {
-    console.log(data2);
-  }
+ 
   
   //Schedule Price change
   $scope.price_change=function(size,priceid)
@@ -930,6 +954,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     });
   };
   
+  //Add bundle pop up
   $scope.add_bundle = function (size,bundleId) {
     $rootScope.editBundleId = bundleId;
     var modalInstance = $uibModal.open({
@@ -945,6 +970,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     });
   };
   
+  //Add Product pop up
   $scope.add_product = function (size) {
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
@@ -1023,7 +1049,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     }
     
    }*/
-   
+   //To remove event of an event
    $scope.remove_event=function()
    {
     var modalInstance = $uibModal.open({
@@ -1039,13 +1065,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       }
     });
    }
-   
+   // Start time change func
    $scope.changedstarttime=function(){
     $scope.select_delect_event=false;
     $rootScope.startevent_time=$filter('date')($scope.starttime, 'shortTime');
     
    } 
-   
+   //Ebd time change func
    $scope.changedendtime=function(){
   
     if ($scope.starttime!='') {
@@ -1082,7 +1108,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     }
     
    }
-
+ // To check start end time.
   $scope.checkStartEndTime=function(index){
  
     if( $scope.multiple_endtime ) {
@@ -1106,6 +1132,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     
 
    $scope.data = {};
+   //To multiple start
    $scope.multiplestart=function(){
 
     $scope.data.starttimeloop1=[];
@@ -1121,7 +1148,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
    }
    
    
-   
+   //To multiple end date
    $scope.multipleend=function(){
     if ($scope.data.period  && $scope.multiple_endtime) {
     
@@ -1157,7 +1184,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.eventBundle = {};
   $scope.success_message_bundle = false;
   $scope.loader_bundle = false;
-  //change status of price level
+  //change status of Bundle
   $scope.changeBundleStatus = function(id,status) {
       $scope.data = {};
       if ($localStorage.userId!=undefined) {
@@ -1189,7 +1216,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       }
   };
 
-  //delete Price level
+  //delete Bundle
   $scope.delete_bundle = function (size,index,bundle_id) {
     
     var modalInstance = $uibModal.open({
@@ -1220,7 +1247,7 @@ angular.module('alisthub').controller('deleteBundleCtrl', function($scope, $uibM
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
-  
+   //Remove Bundle data
     $scope.removeBundle=function() {
       var $serviceTest = $injector.get("venues");
       $serviceTest.removeBundle({'bundleDeleteId':$rootScope.bundleDeleteId},function(response){
@@ -1248,7 +1275,7 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
     item: $scope.items[0]
   };
 
-
+ // Remove data of popup
   $scope.remove=function(){
   
     delete $rootScope.selectevent_date;
@@ -1273,7 +1300,7 @@ angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $
     $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   };
-  
+  //Remove Price level
   $scope.remove=function(){
  
   var $serviceTest = $injector.get("venues");
@@ -1316,6 +1343,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
    
      $scope.items = items;
      $scope.min_price=true;
+     //To change Price type function
      $scope.change_price_type=function(){
     
      if($scope.data1.price_type=='name_your_price')
@@ -1327,13 +1355,13 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
         $scope.min_price=true;
      }
     }
-    
+    //Online price function
     $scope.onlinePricefunc=function()
     {
     
        $scope.data1.box_office_price=$scope.data1.online_price;
     }
-    
+    //Suggested Price function
      $scope.suggestedPricefunc=function()
     {
      
@@ -1350,7 +1378,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     $uibModalInstance.dismiss('cancel');
   };
   
-   //For step 2 Price level
+   //For step 2 Save Price level
  $scope.savepriceleveldata=function(data1)
  {
   data1.userId=$localStorage.userId; 
@@ -1403,7 +1431,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     $scope.error_message = true;
 
     $scope.bundleList = $rootScope.bundleList;
-
+    //Bundle Steps
     $scope.steps=[
      { "title":"Details","icon":'fa fa-calendar','id':1},
      { "title":"Quantities","icon":'fa fa-cog','id':2},
@@ -1528,7 +1556,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     };
     
     //console.log($rootScope.price_level);
-
+ //To get Total of Bundle
     $scope.getTotal = function(){
         var totalQty = 0;
         var totalOnline = 0;
@@ -1563,7 +1591,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
         }
         return input;
     };
-
+  //Update quantity
     $scope.updateQty = function(status) {
       console.log($scope.price_level);
       $scope.bundle.bundle_id = $localStorage.bundleId;
@@ -1599,7 +1627,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
         }
       });
     };
-
+//To get Products
     $scope.getProduct = function() { 
       if ($localStorage.userId!=undefined) {
         $scope.data.userId      = $localStorage.userId;
@@ -1639,7 +1667,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       $uibModalInstance.dismiss('cancel');
     };
 
-
+//To get Product
     $scope.getProduct = function() { 
       if ($localStorage.userId!=undefined) {
         $scope.data.userId      = $localStorage.userId;
@@ -1670,7 +1698,8 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   
   $scope.popup1 = {
     opened: false
-  }; 
+  };
+  //To get Months
     $scope.months=[
       {id: '01', name: '1'},
       {id: '02', name: '2'},
@@ -1685,6 +1714,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       {id: '11', name: '11'},
       {id: '12', name: '12'},
     ]
+    //To get time interval
     $scope.timeinterval=[
       {id: '00', name: '00'},
       {id: '15', name: '15'},
@@ -1700,6 +1730,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       {id: 'online_price', name: 'Online Sales'},
       {id: 'box_office', name: 'Box Office'},
     ];
+    //Price change function
      $scope.pricechangefunc=function(data2)
      {
        $rootScope.success_message1 = true;
