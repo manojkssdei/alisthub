@@ -16,7 +16,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.step1html = '';
 
         $ocLazyLoad.inject('alisthub').then(function() {
-            $scope.step1html = 'modules/step_event/views/step1html.html';
+            $scope.step1html = global_message.step1html;
         }, function(e) {
             console.log(e);
         });
@@ -24,7 +24,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.bundlehtml = '';
 
         $ocLazyLoad.inject('alisthub').then(function() {
-            $scope.bundlehtml = 'modules/step_event/views/bundlehtml.html';
+            $scope.bundlehtml = global_message.bundlehtml;
         }, function(e) {
             console.log(e);
         });
@@ -32,7 +32,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
    $scope.pricelevelhtml = '';
 
         $ocLazyLoad.inject('alisthub').then(function() {
-            $scope.pricelevelhtml = 'modules/step_event/views/pricelevelhtml.html';
+            $scope.pricelevelhtml = global_message.pricelevelhtml;
         }, function(e) {
             console.log(e);
         });
@@ -40,7 +40,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
    $scope.step2html = '';
 
         $ocLazyLoad.inject('alisthub').then(function() {
-            $scope.step2html = 'modules/step_event/views/step2.html';
+            $scope.step2html = global_message.step2html;
         }, function(e) {
             console.log(e);
         });
@@ -48,7 +48,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.step3html = '';
 
         $ocLazyLoad.inject('alisthub').then(function() {
-            $scope.step3html = 'modules/step_event/views/step3.html';
+            $scope.step3html = global_message.step3html;
         }, function(e) {
             console.log(e);
         });
@@ -56,7 +56,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.step4html = '';
 
         $ocLazyLoad.inject('alisthub').then(function() {
-            $scope.step4html = 'modules/step_event/views/step4.html';
+            $scope.step4html = global_message.step4html;
         }, function(e) {
             console.log(e);
         });
@@ -214,7 +214,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         if(stt >= endt) {
           $scope.error_message=false;
           $scope.multiple_end_date='';
-          $scope.error='End date must be greater than start date. '; 
+          $scope.error=global_message.date_error; 
           $timeout(function() {
               $scope.error='';
               $scope.error_message=true;
@@ -223,7 +223,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
          if(($scope.multiple_start_date===undefined)||($scope.multiple_end_date==undefined)) {
           if ((action=='start')||(action=='end')) { } else {
-            $scope.error="Please select start date and end date.";
+            $scope.error="";
             $scope.error_message=false;
             $timeout(function() {
                  
@@ -321,7 +321,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             data.userId=$localStorage.userId;
             $serviceTest.saveEvent(data,function(response){
               if (response.code == 200) {
-                 $scope.success="Event Successfully Saved.";
+                 $scope.success=global_message.event_step1;
                  $localStorage.eventId=response.result;
                  $scope.error_message=false;
                  $timeout(function() {
@@ -335,7 +335,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
           data.userId=$localStorage.userId;
           $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
             if (response.code == 200) {
-              $scope.success="Event Successfully Saved.";
+              $scope.success=global_message.event_step1;
               $scope.data={};
               $scope.error_message=false;
               $timeout(function() {
@@ -581,8 +581,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         data1.eventId=$localStorage.eventId;
         $serviceTest.postSecondStepdata(data1,function(response){
             if (response.code=200) {
-               $scope.success="Price & links Successfully Saved.";
-              $scope.data1={};
+               $scope.success=global_message.event_step2;
+           
               $scope.error_message=false;
               $timeout(function() {
                $scope.success='';
@@ -786,7 +786,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         $scope.price_and_link_div=false;  
       } else {
         $scope.error_message = false;
-        $scope.error="Please update the event detail data.";
+        $scope.error=global_message.event_step1_msg;
         $timeout(function() {
             $scope.error='';
             $scope.error_message=true;
@@ -801,7 +801,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         $scope.look_and_feel_div=false;
       } else {
         $scope.error_message = false;
-        $scope.error="Please update the event detail data.";
+        $scope.error=global_message.event_step1_msg;
         $timeout(function() {
             $scope.error='';
             $scope.error_message=true;
@@ -816,7 +816,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         $scope.setting_div=false;
       } else {
         $scope.error_message = false;
-        $scope.error="Please update the event detail data.";
+        $scope.error=global_message.event_step1_msg;
         $timeout(function() {
             $scope.error='';
             $scope.error_message=true;
@@ -1085,7 +1085,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             if(stt >= endt) {
             $scope.error_message=false;
             $scope.endtime='';
-            $scope.error='End time must be greater than start time. '; 
+            $scope.error=global_message.date_comparison; 
             $scope.endtime='';
             $timeout(function() {
                 $scope.error='';
@@ -1098,7 +1098,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');  
     }else{
         $scope.error_message=false;
-        $scope.error='Kindly select start time.';
+        $scope.error=global_message.start_date;
         $scope.endtime='';
         $timeout(function() {
                           
@@ -1120,7 +1120,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             if(stt >= endt) {
             $scope.error_time_message=false;
             $scope.data.endtimeloop1[index]='';
-            $scope.error_time_display_message='End time must be greater than start time. '; 
+            $scope.error_time_display_message=global_message.date_comparison; 
             $timeout(function() {
                 $scope.error_time_display_message='';
                 $scope.error_time_message=true;
@@ -1159,7 +1159,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             if(stt >= endt) {
             $scope.error_time_message=false;
             $scope.multiple_endtime='';
-            $scope.error_time_display_message='End time must be greater than start time. '; 
+            $scope.error_time_display_message=global_message.date_comparison; 
             $timeout(function() {
                 $scope.error_time_display_message='';
                 $scope.error_time_message=true;
@@ -1195,7 +1195,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
           if (response.code == 200) {
 
             $scope.success_message_bundle = true;
-            $scope.success_bundle = "Bundle status changed successfully.";
+            $scope.success_bundle = global_message.bundle_save;
             $timeout(function() {
               $scope.error = '';
               $scope.success_message_bundle = false;
@@ -1254,7 +1254,7 @@ angular.module('alisthub').controller('deleteBundleCtrl', function($scope, $uibM
           if (response.code==200) {
 
               $rootScope.success_message_bundle = true;
-              $rootScope.success_bundle="Bundle status changed successfully.";
+              $rootScope.success_bundle=global_message.bundle_save;
               $timeout(function() {
                   $rootScope.error='';
                   $rootScope.success_message_bundle = false;
@@ -1307,7 +1307,7 @@ angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $
    $serviceTest.removepricelevel({'price_leveldelete_id':$rootScope.price_leveldelete_id},function(response){
     if (response.code==200) {
         $rootScope.success_message1 = true;
-                    $rootScope.success1="Price level has been removed.";
+                    $rootScope.success1=global_message.price_level_remove;
                     $timeout(function() {
                         $rootScope.error='';
                         $rootScope.success_message1=false;
@@ -1393,9 +1393,9 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
               $serviceTest.getPricelevel({'eventId':data1.eventId},function(response){
                 $rootScope.success_message1 = true;
                    if (data1.id!=undefined) {
-                    $rootScope.success1="Price level has been updated.";
+                    $rootScope.success1=global_message.price_level_update;
                    }else{
-                    $rootScope.success1="Price level has been added.";
+                    $rootScope.success1=global_message.price_level_add;
                    }
                     $timeout(function() {
                         $rootScope.error='';
@@ -1454,7 +1454,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
               $scope.step_1=$scope.step_3=false;     
           } else {
             $scope.error_message = false;
-            $scope.error="Please update the step 1";
+            $scope.error=global_message.error_in_step1;
             $timeout(function() {
                 $scope.error='';
                 $scope.error_message=true;
@@ -1471,7 +1471,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
             $scope.step_2=$scope.step_1=false;    
           } else {
             $scope.error_message = false;
-            $scope.error="Please update the step 1";
+            $scope.error=global_message.error_in_step1;
             $timeout(function() {
                 $scope.error='';
                 $scope.error_message=true;
@@ -1528,10 +1528,10 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
           if (response.code == 200) { 
             if(bundle.id==undefined && bundle.id==''){
               $localStorage.bundleId = response.result.insertId;  
-              $scope.success = "Bundle information has been added.";
+              $scope.success = global_message.bundle_add;
             } else {
               $localStorage.bundleId = bundle.id;
-              $scope.success = "Bundle information has been updated successfully.";
+              $scope.success = global_message.bundle_update;
 
               $scope.eventBundle.eventId = $localStorage.eventId; 
               $scope.eventBundle.userId = $localStorage.userId;
@@ -1616,7 +1616,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
             $scope.cancel();
           }
           
-          $scope.success = "Bundle updated successfully.";
+          $scope.success = global_message.bundle_update;
           $timeout(function() {
             $scope.error = '';
             $scope.success_message = false;
@@ -1737,14 +1737,14 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
         data2.price_change_id=$rootScope.price_change_id;
         $serviceTest.postPriceChange(data2,function(response){
            if (response.code==200) {
-             $rootScope.success1 = "Price change has been updated successfully.";
+             $rootScope.success1 = global_message.price_level_update;
              $timeout(function() {
               $rootScope.error = '';
               $rootScope.success_message1 = false;
               $rootScope.success1 = '';
             },3000);
            }else{
-            $rootScope.error1 = "Error in price change update.";
+            $rootScope.error1 = global_message.price_level_error;
              $timeout(function() {
               $rootScope.error1 = '';
               $rootScope.success_message1 = false;
