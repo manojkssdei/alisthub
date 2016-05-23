@@ -105,14 +105,7 @@ var webservices = {
     "getCustomFinancialSetting" : "/account/getCustomFinancialSetting",
     "checkAlreadyAddedMerchant" : "/account/checkAlreadyAddedMerchant",
 
-
-    //series events
-    "saveEvent"  :  "/series/saveEvent",
-    "savepricelevel" : "/series/savepricelevel",
-    "getPricelevel" : "/series/getPricelevel",
-    "saverecurringEvent"  :  "/series/saverecurringEvent",
-
-    //save second step data
+   //save second step data
     "secondStepdata":"/event/savesecondstepdata"
 
 
