@@ -1,3 +1,9 @@
+/** 
+Angular Events Home Controller
+Created : 2016-04-05
+Created By: Deepak Khokkar
+Module : Events Home 
+*/
 angular.module('alisthub').controller('eventhomeController', function($scope,$localStorage,$rootScope,$state) {
     $rootScope.class_status=false;
    $scope.upcoming_event_data=$scope.past_event_data=$scope.event_package_data = [
@@ -17,7 +23,4 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
    if (!$localStorage.isuserloggedIn) {
       $state.go('login');
    }
- 
- 
- 
 })

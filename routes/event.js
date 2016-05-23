@@ -38,7 +38,8 @@ module.exports = function(app, express) {
 
           /*get event category*///
         router.post('/getEventsdetail',supportCrossOriginScript, Event.getEventsdetail);
-
+        /*save second step data*///
+        router.post('/savesecondstepdata',supportCrossOriginScript, Event.savesecondstepdata);
 
        
       

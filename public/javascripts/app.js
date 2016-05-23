@@ -889,10 +889,9 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
           
         })
 
-    
 
   }).run(['$rootScope', '$location','$state', '$localStorage', '$http', '$timeout','$window','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$timeout,$window,$stateParams) {
-    
+
     $timeout(callAtTimeout, 20*20*3000);
     
     function callAtTimeout()
@@ -913,7 +912,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
     } 
     
     //To add class
-   console.log($state.params);
+ 
    if($stateParams.confirm_email_id != undefined || !$stateParams.confirm_email_id || $stateParams.forget_password_id != undefined || !$stateParams.forget_password_id){}else{
     if(!$localStorage.isuserloggedIn){
         $location.path("/login");

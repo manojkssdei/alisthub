@@ -374,8 +374,9 @@
      
       <div class="editr">
         <label>Event Description<span class="req">*</span></label>
-         <div ckeditor="option_ckeditor" name="content"  required ng-model="data.content" ready="onReady()"></div>
-         <span style="color:red" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event description is required</span></span>
+         <div ckeditor="option_ckeditor" name="content"  required ng-model="data.content" ready="onReady()" value=''></div>
+        
+         <!--<span style="color:red;" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event description is required</span></span>-->
          
 
          
@@ -392,7 +393,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
 
 <div ng-hide="price_and_link_div">
            <!-- Event Detail Form -->
-   	<form  name="myForm1" novalidate>
+   	<form  name="myForm1" novalidate ng-submit="price_and_link_data(data1)">
 
    <section class="row">
           	  <section class="col-sm-4">
@@ -414,12 +415,12 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     <label class="form-label">Type of Event</label>
                     <section class="radio-sec with-ftext">
                       		<section class="radio-inline">
-                              <input type="radio"  name="type_of_event" ng-model="data1.type_of_event" checked>
-                              <label for="radio1"><span></span>Ticketed</label>
+                              <input id="radio111" type="radio"  name="type_of_event" ng-model="data1.type_of_event"  value="0">
+                              <label for="radio111"><span></span>Ticketed</label>
                           </section>
                             <section class="radio-inline">
-                          <input type="radio"   name="type_of_event" ng-model="data1.type_of_event">
-                          <label for="radio2"><span></span>Registration</label>
+                          <input id="radio2222" type="radio"   name="type_of_event" ng-model="data1.type_of_event" value="1">
+                          <label for="radio2222"><span></span>Registration</label>
                           </section>
                    </section>
                   </div>
@@ -436,12 +437,12 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                   	  <section class="col-sm-7">
                       	<section class="radio-sec">
                       		<section class="radio-inline">
-                              <input type="radio"  name="arrange_by_price" ng-model="data1.arrange_by_price"  checked>
-                              <label for="radio01"><span></span>Arrange by price</label>
+                              <input type="radio" id="radio011"  name="price" ng-model="data1.price"   value="0">
+                              <label for="radio011"><span></span>Arrange by price</label>
                           </section>
                             <section class="radio-inline">
-                          <input type="radio"  name="arrange_by_price" ng-model="data1.arrange_by_price"  >
-                          <label for="radio02"><span></span>Manually Arrange</label>
+                          <input id="radio022" type="radio"  name="price" ng-model="data1.price"  value="1">
+                          <label for="radio022"><span></span>Manually Arrange</label>
                           </section>
                          </section>
                       </section>
@@ -514,8 +515,9 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                           <div class="form-group row">                            
                             <section class="col-sm-3" ng-hide="age_div">
                                 <label> Ages<span class="req">*</span></label>
-                                <select class="form-control" name="ages" ng-model="data1.ages">
-                                  <option ng-repeat="age in ages" value="{{age.id}}">{{age.name}}</option>
+                                <select class="form-control" name="custom_ages" ng-model="data1.custom_ages">
+                                   
+                                  <option ng-repeat="age in ages" value="{{age.age}}">{{age.name}}</option>
                                 </select>
                                
                             </section>
@@ -565,12 +567,13 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                         <tbody>
                             <tr ng-repeat="bundle in bundleList track by $index">
                                 <td><strong>{{bundle.bundle_name}}</strong></td>
-                                <td class="numbers">$22</td>
-                                <td class="numbers">$33</td>
+                                <td class="numbers">${{bundle.total_online}}</td>
+                                <td class="numbers">${{bundle.total_boxoffice}}</td>
                                 <td class="numbers">${{bundle.bundle_limit}}</td>
                                 <td class="numbers">${{bundle.bundle_inventory}}</td>
                                 <td class="action">
-                                  <a ng-click="add_bundle('lg',bundle.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                                  <!--<a ng-click="add_bundle('lg',bundle.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>-->
+                                  <a href="javascript:void(0);" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
                                   <a href="javascript:void(0)"><i class="fa fa-tags"></i></a>
                                   <a ng-click="changeBundleStatus(bundle.id,bundle.status)" ng-confirm-click="Would you like to change bundle status ?"><i class="fa fa-check-circle" ng-if="bundle.status == 1"></i><i class="fa fa-times" ng-if="bundle.status == 0"></i></a>
                                   <a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
@@ -631,15 +634,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
         </thead>
         <tbody>
           
-           <!-- <tr>
-                <td><strong>Balcony</strong></td>
-                <td class="numbers">12</td>
-                <td class="numbers">900</td>
-                <td class="numbers">$10.00</td>
-                <td class="numbers">$15.00</td>
-                <td class="numbers">850</td>
-                <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-            </tr>-->
+          
             
 
         </tbody>
@@ -660,19 +655,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                         </ul>
                     </section>
                 </section>
-                
-                  <!--<div class="row">
-                    	<div class="col-sm-12">
-                          <div class="form-group row">                           
-                            
-                            <section class="col-sm-5 f-12">
-                                <a href="#" class="u-text"><strong>Please set your Fulfillment Settings</strong></a>
-                            </section>
-                          </div>
-                        </div>
-                </div>-->
-
-      			</section>
+               </section>
           </div>
           <!-- Product Closed -->
           <!--Links Start -->
@@ -746,22 +729,23 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                 	<div class="col-sm-4">
                           <div class="form-group">
                             <label for="EventName"> Categories<span class="req">*</span></label>
-                            <select class="form-control">
-                              <option value="Ticket">Dance</option>
+                            
+                            <select class="form-control" name="category1" ng-model="data1.category1">
+                            <option ng-repeat="cat in cat1" value="{{cat.category_id}}" >{{cat.name}}</option>
                             </select>
                           </div>
                         </div>
                         <div class="col-sm-4 text-drop">
                           <div class="form-group">
-                            <select class="form-control">
-                              <option value="Ticket">Comedy</option>
+                            <select class="form-control" ng-model="data1.category2">
+                             <option ng-repeat="cat in cat1" value="{{cat.category_id}}">{{cat.name}}</option>  
                             </select>
                           </div>
                         </div>
                         <div class="col-sm-4 text-drop">
                           <div class="form-group">
-                            <select class="form-control">
-                              <option value="Ticket">Singing</option>
+                            <select class="form-control" ng-model="data1.category3">
+                             <option ng-repeat="cat in cat1" value="{{cat.category_id}}">{{cat.name}}</option> 
                             </select>
                           </div>
                         </div></div>
@@ -774,6 +758,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
            <button type="submit" class="pink-btn btn">Save</button>
           <button type="button" ng-click="click_menu(steps[2])" class="pink-btn btn">Next</button>
         </div>
+           <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
 </form>
        </div>
        <div ng-hide="look_and_feel_div"><div class="module template-view">
@@ -1299,14 +1284,14 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
             <div class="stage-title">{{step.title}}</div> </div>
         </div>
         <!-- //Step Form --> 
-
+        <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
 
         <div class="form-section  wt-frame">
                 <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
                 <!-- Step 1 start -->
                    <div ng-show="step_1">
                     <!-- Event Detail Form -->
-                          <form class="event-form" name="bundleForm" ng-submit="bundleForm.$valid && updateBundle(bundle)" novalidate>
+                          <form  name="bundleForm" ng-submit="bundleForm.$valid && updateBundle(bundle)" novalidate>
                           <input type="hidden" name="id" ng-model="bundle.id"/>
 
                                  <div>
@@ -1322,7 +1307,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                               <div class="form-group" ng-class="{true: 'error'}[submitted]">
                                                 <label for="EventName">Name<span class="req">*</span></label>
                                                 <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="bundle.bundle_name" required/>
-                                                <span class="help-inline" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter bundle name</span>
+                                                <p class="help-inline error-fld ng-binding" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter bundle name</p>
                                               </div>
                                             </div>
                                             <div class="col-sm-8">
@@ -1339,7 +1324,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                               <div class="form-group">
                                                 <label for="EventName"> Limit<span class="req-limit">*</span></label>
                                                 <input type="number" class="form-control" placeholder="Limit" ng-model="bundle.bundle_limit" name="bundle_limit"/>
-                                                <span class="help-inline" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter limit</span>
+                                                <p class="help-inline error-fld ng-binding" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter limit</p>
                                               </div>
                                               
                                             </div>
@@ -1434,35 +1419,60 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
               
                  
               <!-- Step 2 start -->
-            <div ng-show="step_2">
-              <div class="module">
-                <form class="" name="bundlestep2" ng-submit="bundlestep2.$valid && updateQty()" novalidate>
-                  <section class="prof-hd">
-                    <i class="fa fa-link hdicon pos-l16"></i>
-                    <h2>Products<span style="float:right;">Quantity</span></h2>
-                  </section>
-                  <section class="gray-frame">
-                    <div class="row" ng-repeat="product in productList" >
-                      <div class="col-sm-8" >
-                        <div class="form-group">
-                          <label for="EventName">  {{product.product_name}} (Price: {{product.retail_price}}) </label>
+              <div ng-show="step_2">
+                <div class="module">
+                  <form class="" name="bundlestep2" ng-submit="bundlestep2.$valid && updateQty()" novalidate>
+                    
+
+                    <section class="prof-hd">
+                      <i class="fa fa-link hdicon pos-l16"></i>
+                      <h2>Event<span style="float:right;">Quantity</span></h2>
+                    </section>
+                    <section class="gray-frame">
+                      <div class="row" ng-repeat="price in price_level" >
+                        <div class="col-sm-8" >
+                          <div class="form-group">
+                            <label for="EventName">  {{price.price_level_name}} (Online Price: {{price.online_price}}, Box Office Price: {{price.box_office_price}}) </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" >
+                          <div class="form-group">
+                            <select class="form-control" ng-model="price_level[$index].qty">
+                              <option ng-repeat="n in range(price.min_per_order,price.max_per_order)" value="{{n}}">{{n}}</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-sm-4" >
-                        <div class="form-group">
-                          <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="productList[$index].qty"/>
+                    </section>
+
+                    <section class="prof-hd">
+                      <i class="fa fa-link hdicon pos-l16"></i>
+                      <h2>Products<span style="float:right;">Quantity</span></h2>
+                    </section>
+                    <section class="gray-frame">
+                      <div class="row" ng-repeat="product in productList" >
+                        <div class="col-sm-8" >
+                          <div class="form-group">
+                            <label for="EventName">  {{product.product_name}} (Price: {{product.retail_price}}) </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" >
+                          <div class="form-group">
+                            <select class="form-control" ng-model="productList[$index].qty">
+                              <option ng-repeat="n in range(1,product.inventory)" value="{{n}}">{{n}}</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
+                    </section>
+                    <div class="editor-btn">
+                      <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
+                      <button class="pink-btn btn" ng-click="submitted2=true">Save</button>
+                      <button class="pink-btn btn" ng-click="submitted2=true && click_menu({id:3});">Next</button>
                     </div>
-                  </section>
-                  <div class="editor-btn">
-                    <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
-                    <button class="pink-btn btn" ng-click="submitted2=true">Save</button>
-                    <button class="pink-btn btn" ng-click="submitted2=true && click_menu({id:3});">Next</button>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
-            </div>
                <!-- Step 2 end -->
                
                <!-- Step 3 start -->
@@ -1475,7 +1485,39 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                             <div class="row">
                               <div class="col-sm-12" >
                                 <div class="form-group">
-                                  <label for="EventName"> Total</label>
+                                  <label for="EventName"> Event</label>
+                                </div>
+                              </div>
+                           </div>
+                            <section class="grid-widget">
+                                <div class="table-responsive">
+                                  <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                          <th width="25%">Price Level</th>
+                                          <th width="25%">Quantity</th>
+                                          <th width="25%">Online Price</th>
+                                          <th width="25%">Box Office Price</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="price in price_level">
+                                        <td>{{price.price_level_name}}</td>
+                                        <td>{{price.qty}}</td>
+                                        <td>${{price.online_price * price.qty}}</td>
+                                        <td>${{price.box_office_price * price.qty}}</td>
+                                       </tr>
+                                      </tbody>
+                                  </table>
+                                </div>
+                           </section>
+                      </section>
+                      <br/>
+                      <section class="gray-frame">
+                            <div class="row">
+                              <div class="col-sm-12" >
+                                <div class="form-group">
+                                  <label for="EventName"> Product</label>
                                 </div>
                               </div>
                            </div>
@@ -1502,10 +1544,72 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                 </div>
                            </section>
                       </section>
-                       <div class="editor-btn">
-                            <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
-                            <button class="pink-btn btn" ng-click="updateQty()">Save</button>
-                            <button class="pink-btn btn" ng-click="updateQty('submit')">Submit</button>
+
+                      <section class="gray-frame">
+                            <div class="row">
+                              <div class="col-sm-12" >
+                                <div class="form-group">
+                                  <label for="EventName"> Total</label>
+                                </div>
+                              </div>
+                           </div>
+                            <section class="grid-widget">
+                                <div class="table-responsive">
+                                  <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                          <th width="25%">Price Level</th>
+                                          <th width="25%">Quantity</th>
+                                          <th width="25%">Online Price</th>
+                                          <th width="25%">Box Office Price</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>Total</td>
+                                        <td>{{totalQty}}</td>
+                                        <td>{{totalOnline}}</td>
+                                        <td>{{totalBoxoffice}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                           </section>
+                      </section>
+
+                      <section class="gray-frame">
+                            <div class="row">
+                              <div class="col-sm-12" >
+                                <div class="form-group">
+                                  <label for="EventName">Discounted Price </label>
+                                </div>
+                              </div>
+                           </div>
+                            <section class="grid-widget">
+                                <div class="table-responsive">
+                                  <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                          <th width="50%">Online Price (Service Fee)</th>
+                                          <th width="50%">Box Office Price (Service Fee)</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>$<input type="text" name="totalOnline" ng-model="totalOnline"/> ($23)</td>
+                                        <td>$<input type="text" name="totalBoxoffice" ng-model="totalBoxoffice"/> ($36)</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                           </section>
+                      </section>
+
+
+                      <div class="editor-btn">
+                        <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
+                        <button class="pink-btn btn" ng-click="updateQty()">Save</button>
+                        <button class="pink-btn btn" ng-click="updateQty('submit')">Submit</button>
                       </div> 
                   </div>
                </div>

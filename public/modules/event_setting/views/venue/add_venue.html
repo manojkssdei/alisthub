@@ -1,216 +1,215 @@
 <div class="container">
-     <h1>{{page_title}} Venue</h1>
-    
+    <h1>{{page_title}} Venue</h1>
     <!-- Form COntainer -->
-    
     <div class="form-section wt-frame">
-      <form class="venue-form" name="userForm" ng-submit="saveVenue()" novalidate>
-        <!-- Event Detail Form -->
-       <div> 
-          <!-- Location Group -->
-          <div class="form-group field-group">
-               <!-- Date Event Group -->
-            <div class="event-date fieldSection">
-              <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <div class="tab-content">
-                    <div role="tabpanel"  id="venue-event" ng-hide="venue_event_div">
-                      <div class="row">
-                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.venue_type.$invalid && !userForm.venue_type.$pristine }">
-                          <div class="form-group">
-                            <label for="EventName">Venue Type<span class="req">*</span></label>
-                            <select class="form-control" name="venue_type" ng-model="data.venue_type" required>
-                              <option>General Admission</option>
-			      <option>Seated</option>
-                            </select>
-                          </div>
-			  <p ng-show="userForm.venue_type.$invalid && !userForm.venue_type.$pristine" class="error-fld ng-binding">Select Venue type.</p>
+        <form class="venue-form" name="userForm" ng-submit="saveVenue()" novalidate>
+            <!-- Event Detail Form -->
+            <div>
+                <!-- Location Group -->
+                <div class="form-group field-group">
+                    <!-- Date Event Group -->
+                    <div class="event-date fieldSection">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="tab-content">
+                                    <div role="tabpanel"  id="venue-event" ng-hide="venue_event_div">
+                                        <div class="row">
+                                            <div class="col-sm-6" ng-class="{ 'has-error' : userForm.venue_type.$invalid && !userForm.venue_type.$pristine }">
+                                                <div class="form-group">
+                                                    <label for="EventName">Venue Type<span class="req">*</span></label>
+                                                    <select class="form-control" name="venue_type" ng-model="data.venue_type" required>
+                                                        <option>General Admission</option>
+                                                        <option>Seated</option>
+                                                    </select>
+                                                    <p ng-show="userForm.venue_type.$invalid && !userForm.venue_type.$pristine" class="error-fld ng-binding">Select Venue type.</p>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12" ng-class="{ 'has-error' : userForm.venue_name.$invalid && !userForm.venue_name.$pristine }">
+                                                <div class="form-group">
+                                                    <label for="Venue">Venue<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="venue_name" ng-model="data.venue_name" required>
+                                                <p ng-show="userForm.venue_name.$invalid && !userForm.venue_name.$pristine" class="error-fld ng-binding">Enter Venue name.</p>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12" ng-class="{ 'has-error' : userForm.place.$invalid && !userForm.place.$pristine }">
+                                                <div class="form-group">
+                                                    <label for="Address">Address<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="place" ng-model="place"  g-places-autocomplete required>
+                                                <p ng-show="userForm.place.$invalid && !userForm.place.$pristine" class="error-fld ng-binding">Enter Address.</p>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6" ng-class="{ 'has-error' : userForm.city.$invalid && !userForm.city.$pristine }">
+                                                <div class="form-group">
+                                                    <label for="City">City<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="city" ng-model="data.city" required>
+                                                <p ng-show="userForm.city.$invalid && !userForm.city.$pristine" class="error-fld ng-binding">Enter City.</p>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-sm-6" ng-class="{ 'has-error' : userForm.zipcode.$invalid && !userForm.zipcode.$pristine }">
+                                                <div class="form-group">
+                                                    <label for="Zipcode">Zipcode<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="zipcode" ng-model="data.zipcode" required>
+                                                <p ng-show="userForm.zipcode.$invalid && !userForm.zipcode.$pristine" class="error-fld ng-binding">Enter Zipcode.</p></div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6" ng-class="{ 'has-error' : userForm.state.$invalid && !userForm.state.$pristine }">
+                                                <div class="form-group">
+                                                    <label for="City">State<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="state" ng-model="data.state" required>                            
+                                                <p ng-show="userForm.state.$invalid && !userForm.state.$pristine" class="error-fld ng-binding">Enter State.</p>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-sm-6" ng-class="{ 'has-error' : userForm.country.$invalid && !userForm.country.$pristine }">
+                                                <div class="form-group">
+                                                    <label for="Zipcode">Country<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="country" ng-model="data.country" required>
+                                                    <p ng-show="userForm.country.$invalid && !userForm.country.$pristine" class="error-fld ng-binding">Enter Country.</p>                                
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="City">Timezone<span class="req"></span></label>
+                                                    <select class="form-control" name="timezone" ng-model="data.timezone">
+                                                        <option>Select Timezone</option>
+                                                        <option>International Date Line West</option>
+                                                        <option>Midway Island, Samoa</option>
+                                                        <option>Hawaii</option>
+                                                        <option>Alaska</option>
+                                                        <option>Pacific Time (US & Canada)</option>
+                                                        <option>Tijuana, Baja California</option>
+                                                        <option>Arizona</option>
+                                                        <option>Chihuahua, La Paz, Mazatlan</option>
+                                                        <option>Mountain Time (US & Canada)</option>
+                                                        <option>Central America</option>
+                                                        <option>Central Time (US & Canada)</option>
+                                                        <option>Guadalajara, Mexico City, Monterrey</option>
+                                                        <option>Saskatchewan</option>
+                                                        <option>Bogota, Lima, Quito, Rio Branco</option>
+                                                        <option>Eastern Time (US & Canada)</option>
+                                                        <option>Indiana (East)</option>
+                                                        <option>Atlantic Time (Canada)</option>
+                                                        <option>Caracas, La Paz</option>
+                                                        <option>Manaus</option>
+                                                        <option>Santiago</option>
+                                                        <option>Newfoundland</option>
+                                                        <option>Brasilia</option>
+                                                        <option>Buenos Aires, Georgetown</option>
+                                                        <option>Greenland</option>
+                                                        <option>Montevideo</option>
+                                                        <option>Mid-Atlantic</option>
+                                                        <option>Cape Verde Is.</option>
+                                                        <option>Azores</option>
+                                                        <option>Casablanca, Monrovia, Reykjavik</option>
+                                                        <option>Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London</option>
+                                                        <option>Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
+                                                        <option>Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="Zipcode">Capacity<span class="req"></span></label>
+                                                    <input type="text" class="form-control" name="capacity" ng-model="data.capacity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="City">Contact Name<span class="req"></span></label>
+                                                    <input type="text" class="form-control" name="contact_name" ng-model="data.contact_name">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="Zipcode">Phone<span class="req"></span></label>
+                                                    <input type="text" class="form-control" name="phone" ng-model="data.phone">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="City">Fax<span class="req"></span></label>
+                                                    <input type="text" class="form-control" name="fax" ng-model="data.fax">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="Zipcode">Email<span class="req"></span></label>
+                                                    <input type="text" class="form-control" name="email" ng-model="data.email">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="City">URL<span class="req"></span></label>
+                                                    <input type="text" class="form-control" name="url" ng-model="data.url">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="City">Image<span class="req"></span></label>
+                                                    
+                                                    <input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles">
+                                                    <p>
+                                                    <div id="imgTest" ng-model="picDatatest"></div>
+                                                    &nbsp;</p>
+                                                    <p>
+                                                    <div id="data.image" ng-if="data.image != 'undefined'"><img ng-src="/images/venues/{{ data.image }}"></div>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="Zipcode">Seating Chart<span class="req"></span></label>
+                                                    <input  id="inputFileToLoad5" type="file" onchange="angular.element(this).scope().encodeChartFileAsURL(this)" file-model="file.seating_chart">
+                                                    <p>
+                                                    <div id="imgTest5" ng-model="picDatatest5"></div>
+                                                    &nbsp;</p>
+                                                    <p>
+                                                    <div id="data.seating_chart" ng-if="data.seating_chart != 'undefined'"><img ng-src="/images/venues/{{ data.seating_chart }}"></div>
+                                                    </p>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tab panes -->
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="map" style="height: 400px;"></div>
+                            </div>
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xs-12" ng-class="{ 'has-error' : userForm.venue_name.$invalid && !userForm.venue_name.$pristine }">
-                          <div class="form-group">
-                            <label for="Venue">Venue<span class="req">*</span></label>
-                            <input type="text" class="form-control" name="venue_name" ng-model="data.venue_name" required>
-                          </div>
-			  <p ng-show="userForm.venue_name.$invalid && !userForm.venue_name.$pristine" class="error-fld ng-binding">Enter Venue name.</p>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xs-12" ng-class="{ 'has-error' : userForm.place.$invalid && !userForm.place.$pristine }">
-                          <div class="form-group">
-                            <label for="Address">Address<span class="req">*</span></label>
-                            <input type="text" class="form-control" name="place" ng-model="place"  g-places-autocomplete required>
-                          </div>
-			  <p ng-show="userForm.place.$invalid && !userForm.place.$pristine" class="error-fld ng-binding">Enter Address.</p>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.city.$invalid && !userForm.city.$pristine }">
-                          <div class="form-group">
-                            <label for="City">City<span class="req">*</span></label>
-                            <input type="text" class="form-control" name="city" ng-model="data.city" required>
-                          </div>
-			  <p ng-show="userForm.city.$invalid && !userForm.city.$pristine" class="error-fld ng-binding">Enter City.</p>
-                        </div>
-                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.zipcode.$invalid && !userForm.zipcode.$pristine }">
-                          <div class="form-group">
-                            <label for="Zipcode">Zipcode<span class="req">*</span></label>
-                            <input type="text" class="form-control" name="zipcode" ng-model="data.zipcode" required>
-                          </div>
-			  <p ng-show="userForm.zipcode.$invalid && !userForm.zipcode.$pristine" class="error-fld ng-binding">Enter Zipcode.</p>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.state.$invalid && !userForm.state.$pristine }">
-                          <div class="form-group">
-                            <label for="City">State<span class="req">*</span></label>
-			    <input type="text" class="form-control" name="state" ng-model="data.state" required>                            
-                          </div>
-			   <p ng-show="userForm.state.$invalid && !userForm.state.$pristine" class="error-fld ng-binding">Enter State.</p>
-                        </div>
-                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.country.$invalid && !userForm.country.$pristine }">
-                          <div class="form-group">
-                            <label for="Zipcode">Country<span class="req">*</span></label>
-                            <input type="text" class="form-control" name="country" ng-model="data.country" required>                           	    
-                          </div>
-			  <p ng-show="userForm.country.$invalid && !userForm.country.$pristine" class="error-fld ng-binding">Enter Country.</p>
-                        </div>
-                      </div>
-		       <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="City">Timezone<span class="req"></span></label>
-                            <select class="form-control" name="timezone" ng-model="data.timezone">
-                              <option>Select Timezone</option>
-			      <option>International Date Line West</option>
-			      <option>Midway Island, Samoa</option>
-			      <option>Hawaii</option>
-			      <option>Alaska</option>
-			      <option>Pacific Time (US & Canada)</option>
-			      <option>Tijuana, Baja California</option>
-			      <option>Arizona</option>
-			      <option>Chihuahua, La Paz, Mazatlan</option>
-			      <option>Mountain Time (US & Canada)</option>
-			      <option>Central America</option>
-			      <option>Central Time (US & Canada)</option>
-			      <option>Guadalajara, Mexico City, Monterrey</option>
-			      <option>Saskatchewan</option>
-			      <option>Bogota, Lima, Quito, Rio Branco</option>
-			      <option>Eastern Time (US & Canada)</option>
-			      <option>Indiana (East)</option>
-			      <option>Atlantic Time (Canada)</option>
-			      <option>Caracas, La Paz</option>
-			      <option>Manaus</option>
-			      <option>Santiago</option>
-			      <option>Newfoundland</option>
-			      <option>Brasilia</option>
-			      <option>Buenos Aires, Georgetown</option>
-			      <option>Greenland</option>
-			      <option>Montevideo</option>
-			      <option>Mid-Atlantic</option>
-			      <option>Cape Verde Is.</option>
-			      <option>Azores</option>
-			      <option>Casablanca, Monrovia, Reykjavik</option>
-			      <option>Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London</option>
-			      <option>Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
-			      <option>Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="Zipcode">Capacity<span class="req"></span></label>
-                            <input type="text" class="form-control" name="capacity" ng-model="data.capacity">
-                          </div>
-                        </div>
-                      </div>
-		      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="City">Contact Name<span class="req"></span></label>
-                            <input type="text" class="form-control" name="contact_name" ng-model="data.contact_name">
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="Zipcode">Phone<span class="req"></span></label>
-                            <input type="text" class="form-control" name="phone" ng-model="data.phone">
-                          </div>
-                        </div>
-                      </div>
-		      
-		      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="City">Fax<span class="req"></span></label>
-                            <input type="text" class="form-control" name="fax" ng-model="data.fax">
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="Zipcode">Email<span class="req"></span></label>
-                            <input type="text" class="form-control" name="email" ng-model="data.email">
-                          </div>
-                        </div>
-                      </div>
-		      
-		      <div class="row">
-                        <div class="col-sm-12">
-                          <div class="form-group">
-                            <label for="City">URL<span class="req"></span></label>
-                            <input type="text" class="form-control" name="url" ng-model="data.url">
-                          </div>
-                        </div>
-                      </div>
-		      
-		      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="City">Image<span class="req"></span></label>
-                            <!--<input type="file" class="form-control" name="image" ng-model="data.image">-->
-			    <input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles">
-                            
-			    <p><div id="imgTest" ng-model="picDatatest"></div>&nbsp;</p>
-			    <p><div id="data.image" ng-if="data.image != 'undefined'"><img ng-src="/images/venues/{{ data.image }}"></div> 
-			    </p>
-			  </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="Zipcode">Seating Chart<span class="req"></span></label>
-                            <input  id="inputFileToLoad5" type="file" onchange="angular.element(this).scope().encodeChartFileAsURL(this)" file-model="file.seating_chart">
-			      <p><div id="imgTest5" ng-model="picDatatest5"></div>&nbsp;</p>
-			      <p><div id="data.seating_chart" ng-if="data.seating_chart != 'undefined'"><img ng-src="/images/venues/{{ data.seating_chart }}"></div>
-			      </p>
-			    <!--<input type="file" class="form-control" name="seating_chart" ng-model="data.seating_chart">-->
-                          </div>
-                        </div>
-                      </div>
-		      
                     </div>
-                   
-                  </div>
-                  
-                  <!-- Tab panes -->
-                  
                 </div>
-                <div class="col-sm-12 col-md-6"> <div id="map" style="height: 400px;"></div> </div>
-		
-              </div>
+                <!-- //Location Group -->
+                <!-- //Event Detail Form -->
             </div>
-          </div>
-          <!-- //Location Group -->
-      
-        <!-- //Event Detail Form -->
-         </div>
-         <div class="editor-btn">
-          
-           <button class="pink-btn btn" ng-disabled="userForm.$invalid">Save</button>
-          
-         </div>
-     </form>
-     </div>
-    
+            <div class="editor-btn">
+                <button class="pink-btn btn" ng-disabled="userForm.$invalid">Save</button>
+            </div>
+        </form>
+    </div>
     <!-- //Form COntainer --> 
-  </div>
+</div>
