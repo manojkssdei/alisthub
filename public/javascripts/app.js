@@ -166,8 +166,9 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             views: {
                 "lazyLoadView": {
                   controller: 'stepeventController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/step_event/views/create_event_step1.html'
-                }
+                  templateUrl: 'modules/step_event/views/create_event_step1.html',
+				},
+				
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
               authentication:routerApp.logauthentication,  
@@ -183,8 +184,10 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               }]
             }
         })
+		
+		
         
-////////////create series.//////////
+        /*********create series.****************/
 
          .state('create_series', {
             url: '/create_series',
