@@ -85,8 +85,8 @@ var webservices = {
     "getData" : "/profile/getData",
 
     /* Constants for the create event step 2 price level */
-    //"savepricelevel" : "/event/savepricelevel",
-    //"getPricelevel" : "/event/getPricelevel",
+    "savepricelevel" : "/event/savepricelevel",
+    "getPricelevel" : "/event/getPricelevel",
     "removepricelevel" : "/event/removepricelevel",
     "changePricelevelStatus" : "/event/changePricelevelStatus",
     "getSinglePricelevel" : "/event/getSinglePricelevel",
@@ -106,11 +106,7 @@ var webservices = {
     "checkAlreadyAddedMerchant" : "/account/checkAlreadyAddedMerchant",
 
 
-    //series events
-    "saveEvent"  :  "/series/saveEvent",
-    "savepricelevel" : "/series/savepricelevel",
-    "getPricelevel" : "/series/getPricelevel",
-    "saverecurringEvent"  :  "/series/saverecurringEvent",
+    
 
     //save second step data
     "secondStepdata":"/event/savesecondstepdata"
@@ -193,3 +189,20 @@ var appConstants = {
 var headerConstants = {
 	"json": "application/json"
 }
+
+/*************************************** SHOW CLICKS SERVICES CENTER *********************************************/
+/*****************************************************************************************************************/ 
+/*Showclick Server posting services declaration 
+Created : 2016-05-23
+Created By: Manoj Singh */
+/******************************************************************************************************************/
+/******************************************************************************************************************/
+
+var showclixServer="https://admin.showclix.com";
+
+var showclix_webservices = {
+    /* Services for Sign up on showclicks Seller */
+    "generate_token" : showclixServer + "/api/registration",
+    
+    
+};
