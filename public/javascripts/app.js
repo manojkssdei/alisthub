@@ -187,7 +187,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 		
 		
         
-////////////create series.//////////
+        /*********create series.****************/
 
          .state('create_series', {
             url: '/create_series',
