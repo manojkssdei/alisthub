@@ -6,20 +6,50 @@ Module : SignUp ,Login, Forget Password Module ,Email Confirmation
 */
 angular.module('alisthub').controller('loginController', function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage) {
         
-    if ($localStorage.isuserloggedIn) {
-        $rootScope.class_status = 0;
-        $state.go('dashboard');
-    }
-    $rootScope.class_status = 1;
+        if ($localStorage.isuserloggedIn) {
+                $rootScope.class_status = 0;
+                $state.go('dashboard');
+        }
+        $rootScope.class_status=1;
+        
+        $scope.activation_message = false;
+        //$rootScope.SignupSuccessMessage = false;
+        $rootScope.signup_success_message = true;
+        if($rootScope.SignupSuccessMessage) {
+            $rootScope.signup_success_message = false;
+        }
+        $scope.user = {};
+        if ($state.params.confirm_email_id) {
+              //  confirmationEmail
+                var serviceUrl = webservices.confirmationEmail;
+                $scope.user.token = $state.params.confirm_email_id;
+                var jsonData=$scope.user;
+                $http({
+                 url: serviceUrl,
+                 method: 'POST',
+                 data: jsonData,
+                 headers: {
+                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                  "Accept": "application/json",
+                 }
+                }).success(function(data, status, headers, config) {
+                
+                  if (data == 200) {
+                   $scope.activation_message = global_message.ActivatedMessage;
+                   $timeout(function() {
+                         $scope.activation_message='';
+                    },3000);
+                  }else{
+                   $scope.activation_message = global_message.ErrorInActivation;
+                   $timeout(function() {
+                         $scope.activation_message='';
+                    },3000);
+                  }
+                });
+        }
 
-    $scope.activation_message = false;
-    //$rootScope.SignupSuccessMessage = false;
-    $rootScope.signup_success_message = true;
-    if ($rootScope.SignupSuccessMessage) {
-        $rootScope.signup_success_message = false;
-    }
-    $scope.user = {};
 
+   
     /*  
     Created By: Deepak Khokkar
     Module : Email Confirmation - signup process
@@ -102,8 +132,9 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
             });
         }
 
-    };
-}).controller('signupcontroller', function($http, $location, $timeout, $scope, $ocLazyLoad, $rootScope, $state, $timeout, $localStorage) {
+       };
+}).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage,$window){
+
 
     // function to submit the form after all validation has occurred            
     $scope.unique = false;
@@ -112,153 +143,206 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
     //$scope.disabledBtn = false;
     $rootScope.class_status = 1;
 
-    /*  
-    Created By: Deepak Khokkar
-    Module : Sign Up Process
-    */
-    $scope.submitRegistrationform = function() {
-        var serviceUrl = webservices.getUserregister;
-        $scope.user.hosturl = servicebaseUrl;
-        var jsonData = $scope.user;
-
-        $http({
-            url: serviceUrl,
-            method: 'POST',
-            data: jsonData,
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                "Accept": "application/json",
-            }
-        }).success(function(data, status, headers, config) {
-
-            if (data == 101) {
-                $scope.message = global_message.EmailExist;
-            } else if (data == "err") {
-                $scope.message = global_message.SavingError;
-            } else {
-                $rootScope.SignupSuccessMessage = global_message.SignupSuccess;
-                $scope.message = global_message.SignupSuccess;
-                /*$timeout(function() {
-                   $scope.message = global_message.SignupSuccess;
-                 },3000);
-                 */
-                $location.path("/login");
-            }
-
-        });
-    };
-
-    /*  
-    Created By: Deepak Khokkar
-    Module : Check Unique Email
-    */
-    $scope.checkUnique = function() {
-        var serviceUrl = webservices.checkUnique;
-        var jsonData = $scope.user;
-        console.log('$scope.user.email ', $scope.user.email);
-        if ($scope.user.email) {
-            $http({
-                url: serviceUrl,
-                method: 'POST',
-                data: jsonData,
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                    "Accept": "application/json",
-                }
-            }).success(function(data, status, headers, config) {
-                if (data == 300) {
-                    //$scope.disabledBtn = true;
-                    $scope.unique_type = 1;
-                    $scope.unique = global_message.EmailAvailable;
-                    $timeout(function() {
-                        $scope.unique = '';
-                        $scope.unique_type = '';
-                    }, 3000);
-
-                } else {
-                    $scope.unique = global_message.EmailExist;
-                    $scope.unique_type = 2;
-                }
-            });
-        } else {
-            console.log('in else 3');
-            $scope.unique = global_message.EmailEmpty;
-            $scope.unique_type = 3;
-        }
-    };
-
-}).controller('forgotcontroller', function($http, $location, $timeout, $scope, $ocLazyLoad, $rootScope, $state, $timeout, $localStorage) {
-    $scope.menu = true;
-    $rootScope.class_status = 1;
-
-    /*  
-    Created By: Deepak Khokkar
-    Module : Forgot Password
-    */
-    $scope.forgotPassword = function() {
-
-        $scope.message = false;
-        var serviceUrl = webservices.forgetPassword;
-        $scope.user.hosturl = servicebaseUrl;
-        var jsonData = $scope.user;
-        $http({
-            url: serviceUrl,
-            method: 'POST',
-            data: jsonData,
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                "Accept": "application/json",
-            }
-        }).success(function(data, status, headers, config) {
-            if (data == 200) {
-                $scope.message = global_message.ForgetPassword;
-                $scope.errormessage = '';
-            } else {
-                $scope.errormessage = global_message.ForgetEmailError;
-                $scope.message = '';
-            }
-            $timeout(function() {
-                $scope.errormessage = '';
-                $scope.message = '';
-            }, 3000);
-        });
-    }
-
-    /*  
-    Created By: Deepak Khokkar
-    Module : Set New Password
-    */
-    if ($state.params.id) {
-        $scope.user = {};
-        $scope.message = false;
-
-        $scope.setPassword = function() {
-            if ($scope.user.password == $scope.user.repassword) {
-                var serviceUrl = webservices.resetPassword;
-                $scope.user.token = $state.params.id;
-                $scope.user.password = $scope.user.password;
-                var jsonData = $scope.user;
+        $scope.submitRegistrationform = function()
+        {
+         
+                var serviceUrl = webservices.getUserregister;
+                $scope.user.hosturl  = servicebaseUrl;
+                var jsonData=$scope.user;
+                
                 $http({
                     url: serviceUrl,
                     method: 'POST',
                     data: jsonData,
                     headers: {
-                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                        "Accept": "application/json",
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                    "Accept": "application/json",
                     }
-                }).success(function(data, status, headers, config) {
-                    if (data == 200) {
-                        $scope.message = global_message.passwordChanged;
-                        $scope.errormessage = '';
-                    } else {
-                        $scope.message = global_message.serverErrorPasswordReset;
-                        $scope.errormessage = '';
-                    }
-                })
-
-            } else {
-                $scope.errormessage = global_message.retypeSamePassword;
+                    }).success(function(data, status, headers, config) {
+                    
+                        if (data == 101) {
+                         $scope.errormessage = global_message.EmailExist;
+                         $timeout(function() {
+                                   $scope.errormessage = '';
+                                   
+                              },3000);
+                        }
+                        else if (data == "err") {
+                         $scope.errormessage = global_message.SavingError;
+                         $timeout(function() {
+                                   $scope.errormessage = '';
+                                   
+                              },3000);
+                        }
+                        else {
+                          $rootScope.SignupSuccessMessage = global_message.SignupSuccess;
+                          $scope.message = global_message.SignupSuccess;
+                          /*$timeout(function() {
+                             $scope.message = global_message.SignupSuccess;
+                           },3000);
+                           */
+                         $location.path("/login");
+                        }
+                    
+                    });
+         
+        
+        };
+        
+        $scope.checkUnique = function() {
+        var serviceUrl = webservices.checkUnique;
+        var jsonData = $scope.user;
+        console.log('$scope.user.email ' , $scope.user.email);
+        if($scope.user.email)
+        {
+             /////////////////////////////////////////////////////////////////////
+                var url = serviceUrl+"?data="+JSON.stringify($scope.user)+"&callback=jsonp_callback";
+                    
+                $http.jsonp(url);
+                      
+                $window.jsonp_callback = function(data) {
+                         console.log(data);
+                         if (data.code == 300) {
+                             $scope.unique_type  = 1;
+                             $scope.unique = global_message.EmailAvailable;
+                             $timeout(function() {
+                                   $scope.unique = '';
+                                   $scope.unique_type  = '';
+                              },3000);
+                             }
+                             else{
+                             $scope.unique = global_message.EmailExist;
+                             $scope.unique_type  = 2;
+                             }
+                                                
+                         
+                } 
+          
+            ////////////////////////////////////////////////////////////////////
+          
+           }else{
+            console.log('in else 3');
+                 $scope.unique = global_message.EmailEmpty;
+                 $scope.unique_type  = 3;
+           }
+        };
+    
+    }).controller('forgotcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage,$window){
+        $scope.menu=true;
+        $rootScope.class_status=1;
+        $scope.user = {}; 
+        $scope.forgotPassword=function(){
+            if (!$scope.user.email) {
+                $scope.errormessage = global_message.ForgetEmailBlank;
+                $scope.message = '';
+                $timeout(function() {
+                 
+                    $scope.errormessage='';
+                    $scope.message='';
+                },3000);
+            }
+            else
+            {               
+                $scope.message = false;
+                $scope.user.hosturl  = servicebaseUrl;
+                
+                /////////////////////////////////////////////////////////////////
+                var serviceUrl = webservices.forgetPassword;
+                var url = serviceUrl+"?data="+JSON.stringify($scope.user)+"&callback=jsonp_callback";
+            
+                $http.jsonp(url);
+              
+                $window.jsonp_callback = function(data) {
+                 console.log(data);
+                 if (data.code == 200) {
+                     $scope.message = global_message.ForgetPassword;
+                     $scope.errormessage ='';
+                     $timeout(function() {
+                 
+                    $scope.errormessage='';
+                    $scope.message='';
+                  },3000);
+                     }
+                     else{
+                     $scope.errormessage = global_message.ForgetEmailError;
+                     $scope.message = '';
+                     $timeout(function() {
+                 
+                    $scope.errormessage='';
+                    $scope.message='';
+                     },3000);
+                     }
+                 
+                 
+                 
+                }
+                
+                ////////////////////////////////////////////////////////////////
+                       
+                
             }
         }
-    }
-});
+        if ($state.params.forget_password_id)
+        {
+            $scope.user = {};
+            $scope.message = false;
+            
+            $scope.setPassword=function()
+            {
+                
+                if($scope.user.password == $scope.user.repassword)
+                {
+                   var serviceUrl = webservices.resetPassword;
+                   $scope.user.token  = $state.params.forget_password_id;
+                   $scope.user.password  = $scope.user.password;
+                   var jsonData = $scope.user;
+                   
+                   
+                   $http({
+                        url: serviceUrl,
+                        method: 'POST',
+                        data: jsonData,
+                        headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        "Accept": "application/json",
+                        }
+                        }).success(function(data, status, headers, config) {
+                             if (data == 200)
+                             {
+                             $scope.message = "Password has been changed successfully.";
+                             $scope.errormessage = '';
+                             $timeout(function() {
+                 
+                                $scope.errormessage='';
+                                $scope.message='';
+                              },3000);
+                             }
+                             else
+                             {
+                             $scope.message = "There some problem in server side to set new password , try after some time .";
+                             $scope.errormessage = '';
+                             $timeout(function() {
+                 
+                                $scope.errormessage='';
+                                $scope.message='';
+                             },3000);
+                             }
+                        })
+                   
+                }
+                else{
+                     $scope.errormessage = "Please retype same password.";
+                     $timeout(function() {
+                 
+                    $scope.errormessage='';
+                    $scope.message='';
+                  },3000);
+                }
+              
+                
+           }
+
+        }
+
+
+})
