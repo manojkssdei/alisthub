@@ -70,8 +70,14 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
 
             if (data == 200) {
                 $scope.activation_message = global_message.ActivatedMessage;
+                $timeout(function() {
+                         $scope.activation_message='';
+                    },3000);
             } else {
                 $scope.activation_message = global_message.ErrorInActivation;
+                $timeout(function() {
+                         $scope.activation_message='';
+                    },3000);
             }
         });
     }
@@ -272,15 +278,9 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                     $scope.message='';
                      },3000);
                      }
-                 
-                 
-                 
                 }
-                
                 ////////////////////////////////////////////////////////////////
-                       
-                
-            }
+           }
         }
         if ($state.params.forget_password_id)
         {
