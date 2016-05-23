@@ -5,7 +5,7 @@ Created By: Harpreet Kaur
 Module : Discount 
 */
 angular.module('alisthub')
-.controller('discountController', function($scope, $localStorage, $injector, $http, $state, $location, $rootScope, $timeout, $sce) {
+.controller('discountController', function($scope,$timeout, $localStorage, $injector, $http, $state, $location, $rootScope, $timeout, $sce) {
 
     /*Default setting of discount*/
     $scope.data = {};
@@ -72,8 +72,8 @@ angular.module('alisthub')
             $scope.data.seller_id = $localStorage.userId;
             $serviceTest.addDiscount($scope.data, function(response) {
                 if (response.code == 200) {
-                    $scope.success_message = true;
-                    $scope.success = 'Discount added successfully';
+                    $rootScope.success_message = true;
+                    $rootScope.success = global_message.discountAdded;
                     $location.path("/view_discounts/list");
                 } else {
                     $scope.error_message = true;
@@ -82,6 +82,11 @@ angular.module('alisthub')
                         $scope.error += $sce.trustAsHtml(response.error[index]);
                     }
                     $scope.trustedHtml = $sce.trustAsHtml($scope.error);
+
+                  $timeout(function() {
+                    $scope.error_message = false;
+                    $scope.error = '';
+                  }, 3000);
                 }
 
             });
@@ -139,6 +144,12 @@ angular.module('alisthub')
                 if (response.code == 101) {
                     $scope.error_message = true;
                     $scope.error = response.error;
+
+                    $timeout(function() {
+                    $scope.error_message = false;
+                    $scope.error = '';
+                  }, 3000);
+
                 }
                 if (response.code == 200) {
                     $scope.error_message = false;
@@ -189,6 +200,11 @@ angular.module('alisthub')
         } else {
             $scope.error_message = true;
             $scope.error = global_message.fillMandatoryField;
+
+            $timeout(function() {
+                    $scope.error_message = false;
+                    $scope.error = '';
+                  }, 3000);
         }
     }
 
@@ -227,6 +243,8 @@ angular.module('alisthub')
                 $scope.data.id = $state.params.id;
                 $serviceTest.addDiscount($scope.data, function(response) {
                     if (response.code == 200) {
+                         $rootScope.success_message = true;
+                         $rootScope.success = global_message.discountUpdated;
                         $location.path("/view_discounts/list");
                     } else {
                         $scope.error_message = true;
@@ -263,7 +281,7 @@ Created : 2016-05-16
 Created By: Harpreet Kaur
 Module : Discount 
 */
-.controller('manageDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $location) {
+.controller('manageDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $location , $timeout) {
 
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
@@ -286,6 +304,17 @@ Module : Discount
         $scope.data = {};
         $scope.disc_id = [];
         $scope.event_count = [];
+
+        if ($rootScope.success_message) {
+                $scope.success_message = true;
+                $scope.success = $rootScope.success;
+                $timeout(function() {
+                    $scope.success_message = false;
+                    $scope.success = '';
+                    $rootScope.success = '';
+                }, 3000);
+            }
+
 
 /*Get discount coupons using seller id*/
         $scope.getDiscount = function() {

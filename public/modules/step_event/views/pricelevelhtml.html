@@ -1,0 +1,166 @@
+<script type="text/ng-template" id="deletePricelevel.html">
+     <div class="modal-header">
+            <h3 class="modal-title">Remove Price level</h3>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to remove this price level?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="remove()">Remove</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+  </script>
+  <script type="text/ng-template" id="myModalContentPrice.html">
+        <div  class="modal-header">
+            <h3 class="modal-title" style="float:left;">Manage Price Level</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+        </div>
+        <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="savepriceleveldata(data1)" novalidate>
+        <div  class="modal-body">
+        <!-- {{data1}}-->
+            <fieldset  class="form-group" style="padding-top:10px">
+               <div class="col-sm-4">Price Level Name<span class="req">*</span></div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.price_level" name="price_level" class="form-control" required><input type="hidden" ng-model="data1.id"></div>
+               <span style="color:red" ng-show="pricelevelForm.price_level.$dirty && pricelevelForm.price_level.$invalid">
+                <span ng-show="pricelevelForm.price_level.$error.required">Price Level Name is required</span>
+               </span>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Price Level Type</div>
+               <div class="col-sm-8"><select ng-model="data1.price_type" name="price_type" class="form-control"
+               ng-change="change_price_type()">
+                    <option value="">---</option>
+                    <option value="fixed_price">Fixed Price</option>
+                    <option value="name_your_price">Name your Price</option>
+               </select></div>
+            </fieldset>
+            <fieldset class="form-group" ng-hide="online_price">
+               <div class="col-sm-4">Online Price(USD $)</div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.online_price" name="online_price" class="form-control" ng-blur="onlinePricefunc()"  min="0"></div> 
+            </fieldset>
+            
+            <fieldset class="form-group" ng-hide="min_price">
+               <div class="col-sm-4">Minimum Price(USD $)</div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.minimum_price" name="minimum_price" class="form-control"  min="0"></div>
+            </fieldset>
+            <fieldset class="form-group" ng-hide="min_price">
+               <div class="col-sm-4">Suggested Price(USD $)</div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.suggested_price" name="suggested_price" class="form-control" ng-blur="suggestedPricefunc()"  min="0"></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Box Office Price(USD $)</div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.box_office_price" name="box_office_price" class="form-control"  min="0"></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Quantity Available</div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.quantity_available" name="quantity_available" class="form-control"  min="0"></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Hide Online</div>
+               <div class="col-sm-8">
+            <section class="radio-sec">
+                      		<section class="radio-inline">
+                              <input id="radio01" type="radio"  name="hide_online" ng-model="data1.hide_online"  value="1">
+                              <label for="radio01"><span></span>Yes</label>
+                          </section>
+                            <section class="radio-inline">
+                          <input id="radio02" type="radio"  name="hide_online" ng-model="data1.hide_online"  value="0">
+                          <label for="radio02"><span></span>No</label>
+                          </section>
+                         </section>
+               </div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Hide in Box Office</div>
+               <div class="col-sm-8">
+                   
+            <section class="radio-sec">
+                      		<section class="radio-inline">
+                              <input type="radio" id="radio03" name="hide_in_box_office" ng-model="data1.hide_in_box_office" value="1" >
+                              <label for="radio03"><span></span>Yes</label>
+                          </section>
+                            <section class="radio-inline">
+                          <input type="radio" id="radio04"  name="hide_in_box_office" ng-model="data1.hide_in_box_office"  value="0" >
+                          <label for="radio04"><span></span>No</label>
+                          </section>
+                         </section>
+               </div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Minimum Per Order</div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control"  min="0"></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Maximum Per Order</div>
+               <div class="col-sm-8"><input type="number" ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control"  min="0"></div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-4">Description</div>
+               <div class="col-sm-8"><textarea ng-model="data1.description" name="description" class="form-control"/></div>
+            </fieldset>
+           
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary"  
+ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+        </form>
+    </script>
+	<script type="text/ng-template" id="pricechange.html">
+      <form class="pricechangeform" name="pricechangeform" ng-submit="pricechangefunc(data2)" novalidate>
+        <div class="modal-header">
+           <h3 class="modal-title" style="float:left;">Schedule Price Change</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+        </div>
+        <div class="modal-body">
+            <fieldset class="form-group">
+               <div class="col-sm-3">Price to change on</div>
+               <div class="col-sm-3">
+                   <!-- <input type="text" name="date" ng-model="data2.date" class="form-control"  value="">-->
+                   <div class="form-group datepicker">
+                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data2.startdate_pricechange" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" />
+                         <span class="input-group-btn">
+                           <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                     </div>
+               </div>
+               <div class="col-sm-2">
+                    <select name="month" ng-model="data2.month" class="form-control">
+                         <option ng-repeat="mon in months" value="{{mon.id}}">{{mon.name}}</option>
+                    </select>
+               </div>
+               <div class="col-sm-2">
+                    <select name="time" ng-model="data2.time" class="form-control">
+                         <option ng-repeat="time in timeinterval" value="{{time.id}}">{{time.name}}</option>
+                    </select>
+               </div>
+               <div class="col-sm-2">
+                    <select name="interval" ng-model="data2.interval" class="form-control">
+                         <option ng-repeat="int in interval" value="{{int.id}}">{{int.name}}</option>
+                    </select>
+               </div>
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-3">New Price (USD $)</div>
+               <div class="col-sm-9">
+                    <input type="number" name="new_price" ng-model="data2.new_price" class="form-control" value="" required min="0">
+                    <span style="color:red" ng-show="pricechangeform.new_price.$dirty && pricechangeform.new_price.$invalid">
+                <span ng-show="pricechangeform.new_price.$error.required">New Price is required</span>
+               </span>
+               </div>
+              
+            </fieldset>
+            <fieldset class="form-group">
+               <div class="col-sm-3">Apply to</div>
+               <div class="col-sm-9">
+                    <select name="price" ng-model="data2.apply"  class="form-control" >
+                         <option ng-repeat="applied in apply" value="{{applied.id}}">{{applied.name}}</option>
+                    </select>
+               </div>
+              
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary"  
+ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>

@@ -5,16 +5,59 @@ Created By: Deepak khokkar
 Module : Event step  
 */
 
+
 angular.module("google.places",[]);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad) { 
    
   if (!$localStorage.isuserloggedIn) {
       $state.go('login');
   }
   $scope.loader = false;
+  $scope.step1html = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.step1html = 'modules/step_event/views/step1html.html';
+        }, function(e) {
+            console.log(e);
+        });
+  $scope.bundlehtml = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.bundlehtml = 'modules/step_event/views/bundlehtml.html';
+        }, function(e) {
+            console.log(e);
+        });
+   $scope.pricelevelhtml = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.pricelevelhtml = 'modules/step_event/views/pricelevelhtml.html';
+        }, function(e) {
+            console.log(e);
+        });
+   $scope.step2html = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.step2html = 'modules/step_event/views/step2.html';
+        }, function(e) {
+            console.log(e);
+        });
+  $scope.step3html = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.step3html = 'modules/step_event/views/step3.html';
+        }, function(e) {
+            console.log(e);
+        });
+  $scope.step4html = '';
+
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.step4html = 'modules/step_event/views/step4.html';
+        }, function(e) {
+            console.log(e);
+        });
    //For Step 1
     var $serviceTest = $injector.get("venues");
-     
+    
     $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
     $rootScope.success_message1=false;
     $scope.days=[
@@ -539,9 +582,18 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
     $scope.price_and_link_data=function(data1)
     {
-        console.log(data1);
+        data1.eventId=$localStorage.eventId;
         $serviceTest.postSecondStepdata(data1,function(response){
-            console.log(response);
+            if (response.code=200) {
+               $scope.success="Price & links Successfully Saved.";
+              $scope.data1={};
+              $scope.error_message=false;
+              $timeout(function() {
+               $scope.success='';
+               $scope.error_message=true;
+              },3000);
+             // window.location.reload();
+            }
         });
     }
 
