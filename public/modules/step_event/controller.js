@@ -102,7 +102,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         });
     }
 
-    $localStorage.eventId = 1977; 
+    //$localStorage.eventId = 1977; 
     $eventId=$localStorage.eventId;
     
 
