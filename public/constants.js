@@ -95,11 +95,9 @@ var webservices = {
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",
     "getFinancialDetails" : "/account/getFinancialDetails",
-    
-    /* constants for fetching the common data*/
-    "getCountries" : "/common/getCountries",
-    "getUSAStates" : "/common/getUSAStates",
 
+
+ 
     //Financial Settings   
 
     "addCustomFinancialDetails" : "/account/addCustomFinancialDetails",
@@ -107,19 +105,9 @@ var webservices = {
     "getCustomFinancialSetting" : "/account/getCustomFinancialSetting",
     "checkAlreadyAddedMerchant" : "/account/checkAlreadyAddedMerchant",
 
-
-    
-
     //save second step data
-    "secondStepdata":"/event/savesecondstepdata",
+    "secondStepdata":"/event/savesecondstepdata"
 
-    // advance settings of events
-    "saveAdvanceSettings" : "/event/saveAdvanceSettings",
-    "getAdvanceSetting" : "/event/getAdvanceSetting",
-    
-    //Step 3 look and feel
-    "getlookAndFeeltemplate":"event/getlookAndFeeltemplate",
-    "getpreviewImage":"event/getpreviewImage",
 
 }
 
@@ -136,7 +124,6 @@ var global_message = {
     
     /* Constants for Forget Process */
     "ForgetPassword" : "Check your registered email to reset your password quickly.",
-    "ForgetEmailBlank": "Please enter registered email address.",
     "ForgetEmailError" : "Your search didn't match any accounts. Enter your registered email address again.",
     "passwordChanged" : "Password has been changed successfully.",
     "serverErrorPasswordReset" : "There some problem in server side to set new password , try after some time .",
@@ -187,31 +174,6 @@ var global_message = {
     /*discount*/
     "discountUpdated" : 'Discount updated successfully',
     "discountAdded" : 'Discount added successfully',
-    /*Create Event */
-    "step1html":'modules/step_event/views/step1html.html',
-    "bundlehtml":'modules/step_event/views/bundlehtml.html',
-    "pricelevelhtml":'modules/step_event/views/pricelevelhtml.html',
-    "step2html":'modules/step_event/views/step2.html',
-    "step3html":'modules/step_event/views/step3.html',
-    "step4html":'modules/step_event/views/step4.html',
-    "date_error":"Please select start date and end date.",
-    "event_step1":"Event Successfully Saved.",
-    "event_step2":"Price & links Successfully Saved.",
-    "event_step1_msg":"Please update the event detail data.",
-    "date_comparison":'End time must be greater than start time. ',
-    "start_date":'Kindly select start time.',
-    "bundle_save":"Bundle status changed successfully.",
-    "price_level_remove":"Price level has been removed.",
-    "price_level_add":"Price level has been added.",
-    "price_level_update":"Price level change has been updated.",
-    "price_level_error":"Error in price change updation.",
-    "error_in_step1":"Please update the step 1",
-    "bundle_update":"Bundle information has been updated successfully.",
-    "bundle_add":"Bundle information has been added.",
-
-    /**/
-    "advanceSettingSaved" : "Advance settings saved successfully",
-    "advanceSettingSavingError" : "Error while saving advance settings",
 
 }
 

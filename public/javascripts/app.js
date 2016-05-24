@@ -187,7 +187,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 		
 		
         
-////////////create series.//////////
+        /*********create series.****************/
 
          .state('create_series', {
             url: '/create_series',
@@ -941,11 +941,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
 
 
-
   }).run(['$rootScope', '$location','$state', '$localStorage', '$http', '$timeout','$window','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$timeout,$window,$stateParams) {
 
-
-     
     $timeout(callAtTimeout, 20*20*3000);
     
     function callAtTimeout()
