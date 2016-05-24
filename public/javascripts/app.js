@@ -783,6 +783,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/account/service.js').then(function(){
                 }).then(function(){
+                return $ocLazyLoad.load(['modules/common/service.js']);
+                }).then(function(){
                 return $ocLazyLoad.load(['modules/account/account_controller.js']);
                 })
               }]
@@ -803,6 +805,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/common/service.js']);
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/account/account_controller.js']);
                 })
@@ -825,6 +829,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/account/service.js').then(function(){
                 }).then(function(){
+                return $ocLazyLoad.load(['modules/common/service.js']);
+                }).then(function(){
                 return $ocLazyLoad.load(['modules/account/account_controller.js']);
                 })
               }]
@@ -845,6 +851,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/account/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/common/service.js']);
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/account/account_controller.js']);
                 })
@@ -871,6 +879,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/account/service.js').then(function(){
                 }).then(function(){
+                return $ocLazyLoad.load(['modules/common/service.js']);
+                }).then(function(){
                 return $ocLazyLoad.load(['modules/account/account_controller.js']);
                 })
               }]
@@ -879,18 +889,56 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /// end Financial Setting routes
         
-         ///////*advance setting*///////
+        /* advance_settings screen for create events */
         .state('advance_setting', {
             url: '/advance_setting',
             
             views: {
                 "lazyLoadView": {
-      
-                  templateUrl: 'modules/step_event/views/advance_setting.html'
-                }
+                  controller: 'advanceSetting', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/step_event/views/advance_setting.html',
+        },
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/step_event/service.js')/*.then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    })*/.then(function(){
+                    return $ocLazyLoad.load(['modules/step_event/controller.js','javascripts/bootstrap-timepicker.js']);
+                    })
+               
+              }]
             }
-          
         })
+
+ /* advance_settings screen for create events */
+        .state('edit_advance_setting', {
+            url: '/edit_advance_setting/:event_id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'advanceSetting', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/step_event/views/advance_setting.html',
+        },
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/step_event/service.js')/*.then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    })*/.then(function(){
+                    return $ocLazyLoad.load(['modules/step_event/controller.js','javascripts/bootstrap-timepicker.js']);
+                    })
+               
+              }]
+            }
+        })
+
 
 
   }).run(['$rootScope', '$location','$state', '$localStorage', '$http', '$timeout','$window','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$timeout,$window,$stateParams) {
