@@ -37,7 +37,7 @@ var webservices = {
     "uploadProductImage"  :  "/event_setting/uploadProductImage",
     
     /* Constants for the event and event setting */
-    //"saveEvent"  :  "/event/saveEvent",
+    "saveEvent"  :  "/event/saveEvent",
     "viewEvents"  :  "/event_setting/viewEvents", //makeAssignment
     
     "makeAssignment"  :  "/event_setting/makeAssignment",
@@ -45,7 +45,7 @@ var webservices = {
     "deleteProduct": "/event_setting/deleteProduct",
     "saveProductSetting"  :  "/event_setting/saveProductSetting",
     "getProductSetting"  :  "/event_setting/getProductSetting",
-    //"saverecurringEvent"  :  "/event/saverecurringEvent",
+    "saverecurringEvent"  :  "/event/saverecurringEvent",
         /////get event category////
      "getEventsdetail":"/event/getEventsdetail",
     
@@ -85,8 +85,8 @@ var webservices = {
     "getData" : "/profile/getData",
 
     /* Constants for the create event step 2 price level */
-    //"savepricelevel" : "/event/savepricelevel",
-    //"getPricelevel" : "/event/getPricelevel",
+    "savepricelevel" : "/event/savepricelevel",
+    "getPricelevel" : "/event/getPricelevel",
     "removepricelevel" : "/event/removepricelevel",
     "changePricelevelStatus" : "/event/changePricelevelStatus",
     "getSinglePricelevel" : "/event/getSinglePricelevel",
@@ -106,16 +106,14 @@ var webservices = {
     "checkAlreadyAddedMerchant" : "/account/checkAlreadyAddedMerchant",
 
 
-    //series events
-    "saveEvent"  :  "/series/saveEvent",
-    "savepricelevel" : "/series/savepricelevel",
-    "getPricelevel" : "/series/getPricelevel",
-    "saverecurringEvent"  :  "/series/saverecurringEvent",
+    
 
     //save second step data
-    "secondStepdata":"/event/savesecondstepdata"
+    "secondStepdata":"/event/savesecondstepdata",
 
-
+    //Step 3 look and feel
+    "getlookAndFeeltemplate":"event/getlookAndFeeltemplate",
+    "getpreviewImage":"event/getpreviewImage",
 
 }
 

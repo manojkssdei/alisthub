@@ -605,4 +605,31 @@ table:focus {
      line-height: 1.62857;
      display:block;
 }
+/*-------20160523--------*/
+.temp-image{padding:3px; border:1px #ccc solid; margin-bottom:10px; text-align:center;}
+.temp-image img{max-width:100%;}
+.head{font-size:18px; margin-bottom:15px; border-bottom:1px #ccc solid; padding-bottom:15px;}
+.temp-view:hover .temp-image{border-color:#0275d0;}
+
+/*--------Always at Bottom---------*/
+.m-t35 {margin-top: 35px;}
+.m-t40 {margin-top: 40px;}
+
+.mt-3{margin-top:-3px;}
+
+.m-b0{margin-bottom:0px;}
+.m-b20{margin-bottom:20px;}
+
+.p-t10{padding-top:10px;}
+
+.u-text{text-decoration:underline;}
+.u-text:hover{text-decoration:none;}
+
+.bb-1{border-bottom:1px #ccc solid;}
+
+.f-n{font-weight:400;}
+.f-b{font-weight:700;}
+.f-sb{font-weight:600;}
+
+.mw-100{min-width:100px;}
 
