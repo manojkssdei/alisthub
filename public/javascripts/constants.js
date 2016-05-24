@@ -112,6 +112,18 @@ var webservices = {
     "getPricelevel" : "/series/getPricelevel",
     "saverecurringEvent"  :  "/series/saverecurringEvent",
 
+
+    //package events
+     "saveEvent"  :  "/package/saveEvent",
+    "savepricelevel" : "/package/savepricelevel",
+    "getPricelevel" : "/package/getPricelevel",
+    "saverecurringEvent"  :  "/package/saverecurringEvent",
+    //add schedul///////////
+        "add_schedule"  :  "/add_schedule/add_schedule",
+    "saverecurringschedule"  :  "/add_schedule/saverecurringschedule",
+
+     
+
     //save second step data
     "secondStepdata":"/event/savesecondstepdata"
 
