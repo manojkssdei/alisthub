@@ -9,7 +9,8 @@ angular.module('alisthub')
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
         }
-        var $serviceTest = $injector.get("account");
+        var $serviceTest = $injector.get("account" );
+        var $serviceTestCommon = $injector.get("common");
         if (window.innerWidth > 767) {
             $scope.navCollapsed = false;
         } else {
@@ -21,17 +22,46 @@ angular.module('alisthub')
 
         /*Default setting for financial information */
         $scope.user = {};
-        $scope.user.country = "US";
+        $scope.user.country = "United States";
         $scope.enableState = true;
         $scope.error_message = false;
         $scope.success_message = false;
         $scope.payFlow_div = false;
         $scope.page_title = 'ADD';
         $scope.button_title = 'Add';
+        $scope.countriesOptions = [];
+        $scope.usaStatesOptions = [];
+
+        if ($localStorage.userId != undefined ) {
+            $scope.user.seller_id = $localStorage.userId;
+        }
+
+       if($state.current.url == "/add_financial_setting/alist") {
+        /*Get list of countries */
+        $serviceTestCommon.getCountries($scope.user, function(response) {
+                if (response.code == 200) {
+                     $scope.countries = response.result;
+                    for (var key in $scope.countries) {
+                       // conCode = $scope.countries[key].countryCode;
+                        //$scope.countriesOptions.push({label:$scope.countries[key].countryName,value:conCode});
+                        $scope.countriesOptions.push($scope.countries[key].countryName);
+                    }
+                }
+        });
+        /*Get list of usa states */
+        $serviceTestCommon.getUSAStates($scope.user, function(response) {
+                if (response.code == 200) {
+                     $scope.usaStates = response.result;
+                    for (var key in $scope.usaStates) {
+                        $scope.usaStatesOptions.push($scope.usaStates[key].state_name);
+                    }
+                }
+        });
+     }
 
         /* View state field when country is US and disble in all other country cases*/
         $scope.showState = function() {
-            if ($scope.user.country != "US") {
+            if ($scope.user.country != "United States") {
                 $scope.enableState = false;
             } else {
                 $scope.enableState = true;
@@ -50,6 +80,8 @@ angular.module('alisthub')
             $serviceTest.getFinancialDetails($scope.user, function(response) {
                 if (response.code == 200) {
                     $scope.user = response.result[0];
+                    $scope.showState();
+                    //showState$scope.user.country.value = response.result[0].country;
                 }
             });
         }
