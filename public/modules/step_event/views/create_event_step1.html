@@ -161,7 +161,7 @@
                       <label for="StartTime">Start Time<span class="req">*</span></label>
                      
                          <div class="input-group bootstrap-timepicker timepicker">
-                         <input  ng-model="multiple_starttime"  class="form-control input-small timepick" type="text" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                         <input  ng-model="multiple_starttime"  class="form-control input-small timepick" type="text" ng-change="multiplestart()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
                          </div>
                     </div>
                   </div>
@@ -169,7 +169,7 @@
                     <div class="form-group">
                       <label for="EndTime">End Time</label>
                          <div class="input-group bootstrap-timepicker timepicker">
-                         <input  ng-model="multiple_endtime"  class="form-control input-small timepick" type="text" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                         <input  ng-model="multiple_endtime"  class="form-control input-small timepick" type="text" ng-change="multipleend()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
                          </div>
                       
                     </div>
