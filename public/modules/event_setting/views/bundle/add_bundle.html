@@ -45,7 +45,7 @@
                                 <div class="col-sm-4" >
                                     <div class="form-group">
                                         <label for="EventName"> Limit<span class="req-limit">*</span></label>
-                                        <input type="number" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit"/>
+                                        <input type="number" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit" min="0" />
                                     </div>
                                     <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="error-fld ng-binding">Enter bundle limit.</p>
                                 </div>

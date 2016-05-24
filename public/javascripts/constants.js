@@ -95,9 +95,11 @@ var webservices = {
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",
     "getFinancialDetails" : "/account/getFinancialDetails",
+    
+    /* constants for fetching the common data*/
+    "getCountries" : "/common/getCountries",
+    "getUSAStates" : "/common/getUSAStates",
 
-
- 
     //Financial Settings   
 
     "addCustomFinancialDetails" : "/account/addCustomFinancialDetails",
@@ -106,8 +108,11 @@ var webservices = {
     "checkAlreadyAddedMerchant" : "/account/checkAlreadyAddedMerchant",
 
     //save second step data
-    "secondStepdata":"/event/savesecondstepdata"
+    "secondStepdata":"/event/savesecondstepdata",
 
+    // advance settings of events
+    "saveAdvanceSettings" : "/event/saveAdvanceSettings",
+    "getAdvanceSetting" : "/event/getAdvanceSetting",
 
 }
 
@@ -174,6 +179,10 @@ var global_message = {
     /*discount*/
     "discountUpdated" : 'Discount updated successfully',
     "discountAdded" : 'Discount added successfully',
+
+    /**/
+    "advanceSettingSaved" : "Advance settings saved successfully",
+    "advanceSettingSavingError" : "Error while saving advance settings",
 
 }
 

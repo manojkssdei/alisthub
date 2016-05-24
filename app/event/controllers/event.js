@@ -323,3 +323,152 @@ exports.savesecondstepdata=function(req,res)
      }
   });
 }
+
+
+
+
+/** 
+Method: getAdvanceSetting
+Description:Function to get advance settings details of events
+Created : 2016-05-20
+Created By: Harpreet Kaur 
+*/
+
+exports.getAdvanceSetting = function(req,res){
+  connection.query('SELECT * from event_advance_settings where seller_id='+req.body.seller_id+ ' && event_id = '+req.body.event_id, function(err, results) {
+    if (err) {
+      res.json({error:err,code:101});
+    }
+    else{
+          res.json({result:results,code:200});
+         }
+  });
+}
+
+
+/** 
+Method: saveAdvanceSettings
+Description:Function to save advance settings of events
+Created : 2016-05-20
+Created By: Harpreet Kaur 
+*/
+
+exports.saveAdvanceSettings = function(req,res) {
+    
+ var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+ var query_fields = '';
+
+ var advance_settings_fields = [
+'hide_event_time',
+'hide_event_date_time',
+'hide_venue_info',
+'hide_x_days_away',
+'hide_calender_link',
+'hide_calender_icon',
+'hide_age_limit',
+'hide_price_range',
+'hide_best_available',
+'hide_presale_date',
+'presale_instuction_text',
+'presale_placeholder_text',
+'hide_presale_event_in_series',
+'hide_from_search_engine',
+'hide_social_media',
+'hide_invite_friends',
+'checkout_text',
+'confirmation_page_text',
+'receipt_reminder_text',
+'confirmation_email_text',
+'hide_ticket_holder_name',
+'donot_send_reminder_email',
+'hide_event_date_time_in_event_reminder',
+'hide_venue_in_event_reminder',
+'hide_ticket_info_in_event_reminder',
+'custom_event_reminder_message',
+'hide_event_date_on_ticket',
+'use_lat_long_coords',
+'hide_premiere_price_level_discount',
+'additional_receipt_text',
+'show_sale_barcode_in_text',
+'disable_autocomplete_in_the_box_office',
+'dropdown_for_reccuring_events',
+'suggested_donation_amount',
+'sales_closed_message',
+'custom_sold_out_message',
+'embed_show_navbar_seller_name',
+'embed_show_header_banner',
+'embed_hide_venue_names_on_events_list',
+'footer_message_on_event_pages',
+'force_show_on_seller_homepage',
+'hide_stage_front',
+'stage_front_name',
+'lock_question_answer',
+'lock_ticket_names',
+'lock_order_names',
+'hide_back_to_event_button',
+'custom_shipping_text_instruction',
+'upsell_matching_items',
+'ignore_cart_limit_when_upselling',
+'hide_look_for_different_seats_option',
+'analytics_facebook_conversion_pixel_id',
+'analytics_facebook_audiance_new_pixel',
+'analytics_facebook_custom_audiance_pixel_id',
+'allow_extended_event_names',
+'twitter_share_text',
+'name_change_cutoff',
+'email_reply_to',
+'email_reply_to_name',
+'enable_sidekick_for_thermal_printing',
+'acceptable_locales',
+'custom_title_prefix',
+'show_support_link_in_email',
+'collect_addresses_on_free_orders',
+'ask_questions_on_checkout',
+'cancel_ticket_button_on_receipt',
+'custom_ticket_cancelation_message',
+'additional_email_for_receipts',
+'access_code_request_text',
+'access_code_instructions_text',
+'show_bundle_details_by_default' ];
+
+console.log('req.body' , req.body);
+for(var key in advance_settings_fields) {
+  var field_name = advance_settings_fields[key];
+  var checkboxkey = field_name+'_cbox';
+  if(req.body[checkboxkey] != null && req.body[checkboxkey] != "undefined") {
+    if (req.body[field_name] != null && req.body[field_name] != "undefined") {
+        query_fields += " `"+field_name+"` = '"+req.body[field_name]+"' ,";
+    }
+  }
+}
+
+var table_name = 'event_advance_settings';
+var created = " created = '"+curtime+"'"; 
+var modified = " modified = '"+curtime+"'";
+
+if(req.body.event_id) {
+var query1 = "UPDATE `"+table_name+"` SET "+ query_fields + modified +" where id = "+req.body.id+" && event_id = "+req.body.event_id+" && seller_id = "+req.body.seller_id;
+}
+else
+{
+var query1 = "INSERT INTO  `"+table_name+"` SET event_id = "+req.body.event_id+" , seller_id = "+req.body.seller_id +", "+ query_fields + created;
+}
+
+console.log('query_value ' , query1);
+
+  connection.query(query1, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }else{
+
+     connection.query(" select * from  `"+table_name+"` where event_id = "+req.body.event_id+" && seller_id = "+req.body.seller_id, function(error, result) {
+         if (error) {
+          res.json({error:error,code:101});
+         }else{
+          res.json({result:result,code:200});
+         }
+      });
+     }
+  });
+
+}
