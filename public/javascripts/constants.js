@@ -208,7 +208,7 @@ var appConstants = {
 }
 
 var headerConstants = {
-	"json": "application/json"
+	"json": "application/json",
 }
 
 /*************************************** SHOW CLICKS SERVICES CENTER *********************************************/
@@ -220,10 +220,17 @@ Created By: Manoj Singh */
 /******************************************************************************************************************/
 
 var showclixServer="https://admin.showclix.com";
+var showclixAPIServer="http://api.showclix.com";
+
+var showclix_headerConstants = {
+                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                  "Accept": "application/json",
+                 };
 
 var showclix_webservices = {
-    /* Services for Sign up on showclicks Seller */
-    "generate_token" : showclixServer + "/api/registration",
-    
+    /* Service To generate token on showclicks */
+    "generateToken" : showclixServer + "/api/registration",
+     /* Services for Sign up on showclicks Seller */
+    "signUp" : showclixAPIServer +"/Seller",
     
 };

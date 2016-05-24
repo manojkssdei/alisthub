@@ -26,10 +26,15 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
           }
         },
         resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
-          resources: ['$ocLazyLoad', function($ocLazyLoad) {
-            // you can lazy load files for an existing module
-            return $ocLazyLoad.load('modules/authentication/controller.js');
-          }]
+          resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/authentication/showclix_services.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/authentication/controller.js']);
+                })
+           }]
+          
+          
         }
       })
 
@@ -44,10 +49,13 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
           }
         },
         resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
-          resources: ['$ocLazyLoad', function($ocLazyLoad) {
-            // you can lazy load files for an existing module
-            return $ocLazyLoad.load('modules/authentication/controller.js');
-          }]
+          resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/authentication/showclix_services.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/authentication/controller.js']);
+                })
+           }]
         }
         })
         

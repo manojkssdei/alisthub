@@ -641,7 +641,7 @@ Module : Export Discount
             return '';
         }
     })
-    .controller('assignDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $location) {
+    .controller('assignDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $uibModal, $location) {
 
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
@@ -739,9 +739,14 @@ Module : Export Discount
 
         $scope.removeMoreRow = function(key, id) {
             $scope.discountlist[id] = "";
-
+            console.log(key +"::"+ id );
+            delete $scope.discountlist[id];
+            console.log($scope.discountlist);
             if ($scope.discountlist.length == 0) {
                 $scope.enableDiscountDiv = true;
+            }
+            else{
+                $scope.enableDiscountDiv = false;
             }
         }
 
@@ -779,7 +784,24 @@ Module : Export Discount
             }
         };
         //// Make Assign ment service end
-
+        $scope.items = {};
+        ///// Start Event Popup
+        $scope.showEventPopup = function(size) {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'eventModalContent.html',
+                controller: 'EventModalInstanceCtrl',
+                size: size,
+                resolve: {
+                    items: function() {
+                        return $scope.items;
+                    }
+                }
+            });
+        };
+        
+        ///// End Event Pupup
+        
         ///////////////////   Date calender start
         $scope.open = function(size) {
             var modalInstance = $uibModal.open({
@@ -909,4 +931,183 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
     $scope.cancel = function() {
         $uibModalInstance.dismiss('cancel');
     };
+});
+
+angular.module('alisthub').controller('EventModalInstanceCtrl', function($localStorage, $scope, $uibModalInstance, items, $rootScope, $injector) {
+    var $serviceTest = $injector.get("discounts");
+    $scope.eventtoggleAll = function() {
+            if ($scope.eventisAllSelected) {
+                var toggleStatus = true;
+                $scope.enableEventAssign = true;
+                $scope.listEvent = 1;
+            } else {
+                var toggleStatus = false;
+                $scope.enableEventAssign = false;
+            }
+            angular.forEach($scope.eventdata, function(itm) { itm.selected = toggleStatus; });
+        }
+
+        $scope.eventcheckbox = [];
+        $scope.eventoptionToggled = function(idn) {
+
+            if ($scope.eventcheckbox.indexOf(idn) !== -1) {
+                $scope.eventcheckbox.pop(idn);
+            } else {
+                $scope.eventcheckbox.push(idn);
+            }
+            if ($scope.eventcheckbox.length > 0) {
+                $scope.enableEventAssign = true;
+            } else {
+                $scope.enableEventAssign = false;
+            }
+
+            $scope.eventisAllSelected = $scope.eventdata.every(function(itm) {
+                return itm.selected; })
+        }
+    
+    
+    
+    /** View list of all Events for assigning discount coupons ***/
+        $scope.event_id = [];
+        $scope.loader = false;
+        $scope.viewEvents = function() {
+            $scope.data = {};
+            if ($localStorage.userId != undefined) {
+                $scope.data.seller_id = $localStorage.userId;
+                $scope.loader = true;
+                if ($scope.dt) {
+                    $scope.data.search_date = $scope.dt;
+                }
+                if ($scope.search_type) {
+                    $scope.data.search_type = $scope.search_type;
+                }
+                $serviceTest.viewEvents($scope.data, function(response) {
+                    $scope.loader = false;
+                    if (response.code == 200) {
+                        $scope.eventdata = response.result;
+                        $scope.eventdata.forEach(function(value) {
+                            $scope.event_id.push(value.id);
+                        });
+
+                    } else {
+                        $scope.eventdata = "";
+                    }
+
+                });
+            } else {
+                $scope.eventdata = "";
+            }
+    };
+    
+    $scope.viewEvents();
+    
+    $scope.items = items;
+       
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+    $scope.remove = function() {
+
+        $uibModalInstance.close($scope.selected.item);
+    }
+
+    $scope.cancel = function() {
+        $uibModalInstance.dismiss('cancel');
+    };
+    
+    ////////////////////////////////////////////////////////////////////////////////////
+    var now = new Date();
+        if (now.getMonth() == 11) {
+            var current = new Date(now.getFullYear() + 1, 0, 1);
+        } else {
+            var current = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+        }
+        $scope.inlineOptions = {
+            customClass: getDayClass,
+            minDate: new Date(),
+            showWeeks: true
+        };
+
+        $scope.dateOptions = {
+            dateDisabled: disabled,
+            formatYear: 'yy',
+
+            //minDate: new Date(),
+            startingDay: 1
+        };
+
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return '';
+            //mode === 'day' && (date.getDay() === 0 || date.getDay() === 6)
+        }
+
+        $scope.open1 = function() {
+            $scope.popup1.opened = true;
+        };
+        $scope.open2 = function() {
+            $scope.popup2.opened = true;
+        };
+        $scope.popup1 = {
+            opened: false
+        };
+        $scope.popup2 = {
+            opened: false
+        };
+        $scope.option_ckeditor = {
+            language: 'en',
+            allowedContent: true,
+            entities: false
+        };
+
+        // Called when the editor is completely ready.
+        $scope.onReady = function() {
+            // ...
+        };
+        $scope.options = {
+            customClass: getDayClass,
+            minDate: new Date(),
+            showWeeks: true
+        };
+
+        $scope.options1 = {
+            customClass: getDayClass,
+            initDate: current,
+            showWeeks: true
+        };
+
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        var afterTomorrow = new Date(tomorrow);
+        afterTomorrow.setDate(tomorrow.getDate() + 1);
+        $scope.events = [{
+                date: tomorrow,
+                status: 'full'
+            },
+            {
+                date: afterTomorrow,
+                status: 'partially'
+            }
+        ];
+
+        function getDayClass(data) {
+            var date = data.date,
+                mode = data.mode;
+            if (mode === 'day') {
+                var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+                for (var i = 0; i < $scope.events.length; i++) {
+                    var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                    if (dayToCheck === currentDay) {
+                        return $scope.events[i].status;
+                    }
+                }
+            }
+
+            return '';
+        }
+    ///////////////////////////////////////////////////////////////////////////////////
 });

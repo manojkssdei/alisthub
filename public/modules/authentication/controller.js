@@ -4,7 +4,7 @@ Created : 2016-05-17
 Created By: Deepak Khokkar
 Module : SignUp ,Login, Forget Password Module ,Email Confirmation 
 */
-angular.module('alisthub').controller('loginController', function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage) {
+angular.module('alisthub').controller('loginController', function($http,$location,$timeout,$scope, $injector, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage) {
         
         if ($localStorage.isuserloggedIn) {
                 $rootScope.class_status = 0;
@@ -18,6 +18,20 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
         if($rootScope.SignupSuccessMessage) {
             $rootScope.signup_success_message = false;
         }
+        
+        ///////////// TESTING SHOWCLIX ////////////////////////
+        var $showclixService = $injector.get("showclix");
+        
+        $scope.showclix_data = {};
+        $scope.showclix_data = {"email":"manojks@smartdatainc.net","password":"manojks@2015"};
+        /*$showclixService.generateToken($scope.showclix_data, function(response) {
+                console.log("*******************************************");
+                console.log(response);
+                console.log("*******************************************");
+        });*/
+        ////////////// TESTING SHOWCLIX ///////////////////////
+       
+        
         $scope.user = {};
         if ($state.params.confirm_email_id) {
               //  confirmationEmail
@@ -139,12 +153,13 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
         }
 
        };
-}).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage,$window){
+}).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad, $injector,$rootScope,$state, $timeout,$localStorage,$window){
 
-
+    var $showclixService = $injector.get("showclix");
     // function to submit the form after all validation has occurred            
     $scope.unique = false;
     $scope.message = "";
+    $scope.user = {};
     $scope.unique_type = 0;
     //$scope.disabledBtn = false;
     $rootScope.class_status = 1;
@@ -156,7 +171,22 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                 $scope.user.hosturl  = servicebaseUrl;
                 var jsonData=$scope.user;
                 
-                $http({
+                ///////////// TESTING SHOWCLIX ////////////////////////
+                
+                
+                $scope.showclix_data = {};
+                $scope.showclix_data = {"first_name":"Manoj","last_name":"Singh","city":"Newyork","state":"Newyork","phone":"6767676767","email":"manojks@smartdatainc.net","password":"manojks@2015"};
+                //first_name last_name city state  phone email
+                $showclixService.signUp($scope.showclix_data, function(response) {
+                        console.log("*******************************************");
+                        console.log(response);
+                        console.log("*******************************************");
+                });
+                ////////////// TESTING SHOWCLIX ///////////////////////
+                
+                
+                
+                /*$http({
                     url: serviceUrl,
                     method: 'POST',
                     data: jsonData,
@@ -183,14 +213,14 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                         else {
                           $rootScope.SignupSuccessMessage = global_message.SignupSuccess;
                           $scope.message = global_message.SignupSuccess;
-                          /*$timeout(function() {
-                             $scope.message = global_message.SignupSuccess;
-                           },3000);
-                           */
+                          //$timeout(function() {
+                          //   $scope.message = global_message.SignupSuccess;
+                          // },3000);
+                           
                          $location.path("/login");
                         }
                     
-                    });
+                    });*/
          
         
         };
