@@ -109,9 +109,11 @@ var webservices = {
     
 
     //save second step data
-    "secondStepdata":"/event/savesecondstepdata"
+    "secondStepdata":"/event/savesecondstepdata",
 
-
+    //Step 3 look and feel
+    "getlookAndFeeltemplate":"event/getlookAndFeeltemplate",
+    "getpreviewImage":"event/getpreviewImage",
 
 }
 
