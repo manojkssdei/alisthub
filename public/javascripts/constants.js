@@ -37,7 +37,7 @@ var webservices = {
     "uploadProductImage"  :  "/event_setting/uploadProductImage",
     
     /* Constants for the event and event setting */
-    //"saveEvent"  :  "/event/saveEvent",
+    "saveEvent"  :  "/event/saveEvent",
     "viewEvents"  :  "/event_setting/viewEvents", //makeAssignment
     
     "makeAssignment"  :  "/event_setting/makeAssignment",
@@ -45,7 +45,7 @@ var webservices = {
     "deleteProduct": "/event_setting/deleteProduct",
     "saveProductSetting"  :  "/event_setting/saveProductSetting",
     "getProductSetting"  :  "/event_setting/getProductSetting",
-    //"saverecurringEvent"  :  "/event/saverecurringEvent",
+    "saverecurringEvent"  :  "/event/saverecurringEvent",
         /////get event category////
      "getEventsdetail":"/event/getEventsdetail",
     
@@ -85,8 +85,8 @@ var webservices = {
     "getData" : "/profile/getData",
 
     /* Constants for the create event step 2 price level */
-    //"savepricelevel" : "/event/savepricelevel",
-    //"getPricelevel" : "/event/getPricelevel",
+    "savepricelevel" : "/event/savepricelevel",
+    "getPricelevel" : "/event/getPricelevel",
     "removepricelevel" : "/event/removepricelevel",
     "changePricelevelStatus" : "/event/changePricelevelStatus",
     "getSinglePricelevel" : "/event/getSinglePricelevel",
@@ -106,11 +106,7 @@ var webservices = {
     "checkAlreadyAddedMerchant" : "/account/checkAlreadyAddedMerchant",
 
 
-    //series events
-    "saveEvent"  :  "/series/saveEvent",
-    "savepricelevel" : "/series/savepricelevel",
-    "getPricelevel" : "/series/getPricelevel",
-    "saverecurringEvent"  :  "/series/saverecurringEvent",
+    
 
 
     //package events
@@ -195,6 +191,27 @@ var global_message = {
     /*discount*/
     "discountUpdated" : 'Discount updated successfully',
     "discountAdded" : 'Discount added successfully',
+    /*Create Event */
+    "step1html":'modules/step_event/views/step1html.html',
+    "bundlehtml":'modules/step_event/views/bundlehtml.html',
+    "pricelevelhtml":'modules/step_event/views/pricelevelhtml.html',
+    "step2html":'modules/step_event/views/step2.html',
+    "step3html":'modules/step_event/views/step3.html',
+    "step4html":'modules/step_event/views/step4.html',
+    "date_error":"Please select start date and end date.",
+    "event_step1":"Event Successfully Saved.",
+    "event_step2":"Price & links Successfully Saved.",
+    "event_step1_msg":"Please update the event detail data.",
+    "date_comparison":'End time must be greater than start time. ',
+    "start_date":'Kindly select start time.',
+    "bundle_save":"Bundle status changed successfully.",
+    "price_level_remove":"Price level has been removed.",
+    "price_level_add":"Price level has been added.",
+    "price_level_update":"Price level change has been updated.",
+    "price_level_error":"Error in price change updation.",
+    "error_in_step1":"Please update the step 1",
+    "bundle_update":"Bundle information has been updated successfully.",
+    "bundle_add":"Bundle information has been added.",
 
 }
 
