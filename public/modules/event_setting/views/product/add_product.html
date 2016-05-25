@@ -9,6 +9,11 @@
     </div>
     <!-- //Step Form --> 
     <!-- Form COntainer -->
+    <div>
+                            <span >
+                                <p class="success-fld" ng-show="successmessage">{{ successmessage }}</p>
+                            </span>
+                        </div>
     <div class="form-section  wt-frame">
         <!-- Step 1 start ------------------->
         <form class="event-form" name="userForm" novalidate>
@@ -17,11 +22,7 @@
                 <div>
                     <!-- //Event Detail Form -->
                     <!--Links Start -->
-                     <div>
-                            <span ng-hide="success_message">
-                                <p class="success-fld" ng-show="successmessage">{{ successmessage }}</p>
-                            </span>
-                        </div>
+                     
                     <div class="module">
                         <section class="prof-hd">
                             <i class="fa fa-link hdicon pos-l16"></i>
