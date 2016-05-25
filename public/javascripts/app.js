@@ -210,6 +210,55 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
           
         })
+         ////////////////*************EVENT PACKAGE****************************/////
+           .state('create_package', {
+            url: '/create_package',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'createpackageController',
+                  templateUrl: 'modules/event_package/views/event_package.html'
+                }
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_package/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_package/controller.js']);
+                })
+              }]
+            }
+          
+        })
+
+
+//**************add more scheduling***********************//
+
+ .state('add_schedule', {
+            url: '/add_schedule',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'schedule_controller',
+                  templateUrl: 'modules/event_series/views/add_schedule.html'
+                }
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_series/schedule_service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_series/schedule_controller.js']);
+                })
+              }]
+            }
+          
+        })
+
+
 
         // Module : Event Setting Start
         /* Setting for Venue Management screen */

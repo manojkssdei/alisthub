@@ -7,7 +7,8 @@ Module : Step 3 Event step
 
 angular.module('alisthub').controller('step3Controller', function($scope,$localStorage, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,Lookservice) {
     
-     
+    $scope.campaign_div=false;
+    $scope.module_div=true;
    if ($localStorage.userId!=undefined) {
       //To get venues of a user 
         Lookservice.getlookAndFeel({},function(response){
@@ -29,7 +30,7 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
 
     $scope.animationsEnabled = true;  
       
-    $scope.module_div=true;
+   
     $scope.preview_btn=function($index,size)
     {
        $rootScope.templateId=$index;
@@ -46,9 +47,27 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
           });
     }
     
-    $scope.select_btn=function($index)
+    $scope.select_btn=function(index)
     {
-        console.log($index);
+         Lookservice.getTemplate({'templateId':index},function(response){
+            if (response!=null) {
+
+            if (response.code == 200)
+            {
+               $scope.look_and_feel_description=response.result[0].description;
+               
+               $scope.desc=$sce.trustAsHtml($scope.look_and_feel_description);
+               
+               $scope.module_div=false;
+               $scope.campaign_div=true;
+            }
+
+            }else{
+               $scope.look_and_feel_description=[];   
+            }
+            
+        });
+       
     }
 });
 angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,Lookservice) {
