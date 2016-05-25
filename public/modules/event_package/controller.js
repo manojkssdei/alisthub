@@ -1,0 +1,660 @@
+
+angular.module("google.places",[]);
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('createpackageController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
+   //For Step 1
+
+
+
+
+
+
+
+    var $serviceTest = $injector.get("venues");
+    $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
+    
+    $scope.days=[
+      {id: '0', name: 'Sun'},
+      {id: '1', name: 'Mon'},
+      {id: '2', name: 'Tues'},
+      {id: '3', name: 'Wed'},
+      {id: '4', name: 'Thurs'},
+      {id: '5', name: 'Fri'},
+      {id: '6', name: 'Sat'}
+    ]
+    $scope.dates=[
+                 {id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9},{id:10},
+                 {id:11},{id:12},{id:13},{id:14},{id:15},{id:16},{id:17},{id:18},{id:19},{id:20},
+                 {id:21},{id:22},{id:23},{id:24},{id:25},{id:26},{id:27},{id:28},{id:29},{id:30},{id:31}
+                 ];
+
+    /** 
+    Method: change_month
+    Description:Function to be execute when a month change occures 
+    Created : 2016-04-19
+    Created By:  Deepak khokkar  
+    */
+    $scope.change_month=function(){
+      
+       var monthly_start=new Date($scope.multiple_start_date);
+       var monthly_end=new Date($scope.multiple_end_date);
+       var dateArray = new Array();
+       while (monthly_start<=monthly_end)
+          {
+            if(monthly_start.getDate()==$scope.data.monthly_option)
+            {
+              var currentDate=JSON.parse(JSON.stringify(monthly_start));
+              dateArray.push(currentDate);
+            }
+            monthly_start.setDate(monthly_start.getDate() + 1);
+          }
+          $scope.between_date=dateArray;
+    }
+
+    /* Variable initialized */
+    $scope.timeperiod=[
+      {id: 'daily', name: 'Daily'},
+      {id: 'hourly', name: 'Hourly'},
+      {id:'weekly',name:'Weekly'},
+      {id:'monthly',name:'Monthly'}
+    ]
+    /* Remove div from cloned object */
+    $scope.removediv=function(index){
+        $scope.between_date.splice(index,1);
+    }
+
+    /** 
+    Method: weekly_option_change
+    Description:Function to be execute when a week change occures 
+    Created : 2016-04-19
+    Created By:  Deepak khokkar  
+    */
+    $scope.weekly_div=true;
+    $scope.weekly_option_change=function() {
+      var weekly_start=new Date($scope.multiple_start_date);
+      var weekly_end=new Date($scope.multiple_end_date);
+      var dateArray = new Array();
+      while (weekly_start<=weekly_end) {
+        var currentDate=JSON.parse(JSON.stringify(weekly_start));
+        if (weekly_start.getDay()==$scope.data.weekly_option) {
+          dateArray.push(currentDate);
+        }
+        weekly_start.setDate(weekly_start.getDate() + 1);
+      }
+      $scope.between_date=dateArray;
+    }
+    
+    /** 
+    Method: select_checkbox
+    Description:Function to be execute when a checkbox selected 
+    Created : 2016-04-19
+    Created By:  Deepak khokkar  
+    */
+    $scope.select_checkbox=function($event){
+        var dateArray = new Array();
+        angular.forEach($scope.days, function(day){
+        if (!!day.selected)  {
+          dDate1=new Date($scope.multiple_start_date);
+          dDate2=new Date($scope.multiple_end_date);
+         
+          while (dDate1<=dDate2) {
+            var currentDate=JSON.parse(JSON.stringify(dDate1));
+            if (dDate1.getDay()==day.id) {
+              dateArray.push(currentDate);
+            }
+            dDate1.setDate(dDate1.getDate() + 1);
+          }
+        }
+      })
+      $scope.between_date=dateArray; 
+    }
+
+    /** 
+    Method: recurring_period
+    Description:Function for reccuring process 
+    Created : 2016-04-19
+    Created By:  Deepak khokkar  
+    */
+    $scope.recurring_period=function(action) {
+        var stt = new Date($scope.multiple_start_date);
+        stt = stt.getTime();
+        var endt = new Date($scope.multiple_end_date);
+        endt = endt.getTime();
+
+        if(stt >= endt) {
+          $scope.error_message=false;
+          $scope.multiple_end_date='';
+          $scope.error='End date must be greater than start date. '; 
+          $timeout(function() {
+              $scope.error='';
+              $scope.error_message=true;
+          },3000);
+        }
+
+         if(($scope.multiple_start_date===undefined)||($scope.multiple_end_date==undefined)) {
+          if ((action=='start')||(action=='end')) { } else {
+            $scope.error="Please select start date and end date.";
+            $scope.error_message=false;
+            $timeout(function() {
+                 
+              $scope.error='';
+              $scope.error_message=true;
+              $scope.data.period='';
+            },3000);
+          }
+         } else {
+          if ($scope.data.period=='daily') {
+            $scope.weekly_div=$scope.monthly_div=$scope.days_div=true;
+            if ($scope.data.period!=undefined) {
+                currentDate=new Date($scope.multiple_start_date);
+                endDate=new Date($scope.multiple_end_date);
+                
+                var between=[];
+                while (currentDate <= endDate) {
+                    between.push(new Date(currentDate));
+                    currentDate.setDate(currentDate.getDate() + 1);
+                }
+                $scope.between_date=between;  
+            }
+          } else if ($scope.data.period=='hourly') {
+              $scope.days_div=false;$scope.weekly_div=$scope.monthly_div=true;
+              $scope.between_date=[];
+          } else if ($scope.data.period=='weekly') {
+             $scope.weekly_div=false;$scope.days_div=$scope.monthly_div=true;
+          } else if ($scope.data.period=='monthly') {
+              $scope.weekly_div=$scope.days_div=true;$scope.monthly_div=false;
+          }
+        } 
+    }
+
+
+
+//////////////////////////////////////////////////////
+   $scope.upcoming_event_data=$scope.past_event_data=$scope.event_package_data = [
+            {id:4110591, event:'The Lion King',desc:'Minskoff theatre (New York, NY)',date:'Sat Mar 12 2016 at 12:00pm',sold:'10',inventory:'900'},
+            {id:4110592, event:'The Lion King2',desc:'Minskoff1 theatre1 (New York, NY)',date:'Sat Mar 12 2016 at 12:00pm',sold:'20',inventory:'500'},
+            {id:4110593, event:'The Lion King3',desc:'Minskoff1 theatre1 (New York, NY)',date:'Sat Mar 12 2016 at 12:00pm',sold:'30',inventory:'600'}
+        ];
+    if(window.innerWidth>767){ 
+    $scope.navCollapsed = false;    
+    }else{
+    $scope.navCollapsed = true;
+    $scope.toggleMenu = function() {
+    $scope.navCollapsed = $scope.navCollapsed === false ? true: false;
+    };    
+ }
+ 
+   
+
+   ///////////////////////////////////////////////////////////
+  var now = new Date();
+  if (now.getMonth() == 11) {
+      var current = new Date(now.getFullYear() + 1, 0, 1);
+  } else {
+      var current = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+  }
+  
+  $scope.inlineOptions = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: true
+  };
+
+  $scope.dateOptions = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+    
+    minDate: new Date(),
+    startingDay: 1
+  };
+
+  // Disable weekend selection
+  function disabled(data) {
+    var date = data.date,
+    mode = data.mode;
+    return '';
+    //mode === 'day' && (date.getDay() === 0 || date.getDay() === 6)
+  }
+
+
+
+  $scope.open1 = function() {
+    $scope.popup1.opened = true;
+  };
+  $scope.open2 = function() {
+    $scope.popup2.opened = true;
+  };
+   $scope.open3 = function() {
+    $scope.popup3.opened = true;
+  };
+   $scope.open4 = function() {
+    $scope.popup4.opened = true;
+  };
+  $scope.popup1 = {
+    opened: false
+  };
+  $scope.popup2 = {
+    opened: false
+  };
+    $scope.popup3 = {
+    opened: false
+  };
+    $scope.popup4 = {
+    opened: false
+  };
+  
+
+  $scope.option_ckeditor = {
+    language: 'en',
+    allowedContent: true,
+    entities: false
+  };
+
+
+  // Called when the editor is completely ready.
+  $scope.onReady = function () {
+    // ...
+  };
+  
+  $scope.options = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: true
+  };
+  
+  $scope.options1 = {
+    customClass: getDayClass,
+    initDate: current,
+    showWeeks: true
+  };
+
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date(tomorrow);
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [
+    {
+      date: tomorrow,
+      status: 'full'
+    },
+    {
+      date: afterTomorrow,
+      status: 'partially'
+    }
+  ];
+
+  function getDayClass(data) {
+    var date = data.date,
+      mode = data.mode;
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0,0,0,0);
+      for (var i = 0; i < $scope.events.length; i++) {
+        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+        if (dayToCheck === currentDay) {
+          return $scope.events[i].status;
+        }
+      }
+    }
+    return '';
+  }
+  
+  $scope.mytime = new Date();
+
+  $scope.hstep = 1;
+  $scope.mstep = 1;
+
+  $scope.ismeridian = true;
+  $scope.toggleMode = function() {
+    $scope.ismeridian = ! $scope.ismeridian;
+  };
+  
+  
+  $scope.location_event_div=$scope.price_and_link_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
+  $scope.custom_age=function(){
+     $scope.age_div=$scope.age_text_div=true; 
+     $scope.dynamic_age_div=$scope.return_age_text_div=false;
+     $scope.data1.ages='';
+  }
+
+  $scope.custom_default_age=function(){
+     $scope.age_div=$scope.age_text_div=false; 
+     $scope.dynamic_age_div=$scope.return_age_text_div=true;
+     $scope.data1.dynamic_age='';
+  }
+
+  $scope.ages = [
+  { "name": "All Ages",'id':0},
+  {"name": "18 and  over",'id':18},
+  {"name": "19 and over",'id':19},
+  {"name": "21 and over",'id':21},
+  ]
+  
+  $scope.events = [
+ 
+    {"name": "Multiple Event",'id':1}
+  ]
+  
+  $scope.venues = [
+    { "name": "Add New Venue",'id':3},
+    {"name": "Use Past Location",'id':4}
+  ]
+  
+  $scope.steps=[
+     { "title":"DETAILS","icon":'fa fa-calendar','id':5},
+     { "title":"PRICING","icon":'fa fa-tags','id':6},
+     { "title":"OPTIONS","icon":'fa fa-cog','id':8},
+   
+   
+  ];
+     
+  $scope.selected=$scope.events[0];
+  $scope.selected1=$scope.venues[0];
+  $scope.selected2=$scope.steps[0];
+   
+
+  /** 
+  Method: click_menu
+  Description:Function for changing the tab 
+  Created : 2016-04-25
+  Created By:  Deepak khokkar  
+  */
+  $scope.click_menu=function(menu) {
+
+    if (menu.id==5) {
+      $scope.eventdetail_div=false;
+      $scope.price_and_link_div=$scope.setting_div=true;
+    }
+
+    if (menu.id==6) {
+      $scope.eventdetail_div=$scope.setting_div=true;
+      $scope.price_and_link_div=false;
+    }
+
+    // if (menu.id==7) {
+    //   $scope.eventdetail_div=$scope.price_and_link_div=$scope.setting_div=true;
+    //   $scope.look_and_feel_div=false;
+    // }
+
+    if (menu.id==8) {
+      $scope.eventdetail_div=$scope.price_and_link_div=true;
+      $scope.setting_div=false;
+    }
+    $scope.selected2 = menu;  
+  }
+
+  /** 
+  Method: select_venue
+  Description:Function for vanue select 
+  Created : 2016-04-25
+  Created By:  Deepak khokkar  
+  */
+     
+  $scope.select_venue=function(venue){
+    if(venue.id==3) {
+      $scope.venue_event_div=false;
+      $scope.location_event_div=true;
+    } else {
+      $scope.venue_event_div=true;
+      $scope.location_event_div=false;
+    }
+    $scope.selected1 = venue; 
+  }
+
+  /** 
+  Method: select
+  Description:Function for select event type : single / multiple   
+  Created : 2016-04-25
+  Created By:  Deepak khokkar  
+  */
+
+
+  $scope.select= function(item) {
+    
+     $scope.data.eventtype='multiple';
+     $scope.multiple_event_div=false;
+     $scope.single_event_div=true;      
+    
+    $scope.selected = item; 
+  };
+
+  $scope.isActive = function(item) {
+    return $scope.selected === item;
+  };
+  $scope.isActive1 = function(venue) {
+    return $scope.selected1 === venue;
+  };
+ 
+  $scope.isActive2 = function(step2) {
+    return $scope.selected2 === step2;
+  };
+ 
+  //For Step 2
+  $scope.items = ['item1'];
+
+  $scope.animationsEnabled = true;
+
+  $scope.open = function (size) {
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+  
+  // $scope.open_price_level = function (size) {
+  //   var modalInstance = $uibModal.open({
+  //     animation: $scope.animationsEnabled,
+  //     templateUrl: 'myModalContentPrice.html',
+  //     controller: 'ModalInstancePriceCtrl',
+  //     size: size,
+  //     resolve: {
+  //       items: function () {
+  //         return $scope.items;
+  //       }
+  //     }
+  //   });
+  // };
+  
+  $scope.add_bundle = function (size) {
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContentBundle.html',
+      controller: 'ModalInstanceBundleCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+  
+  $scope.add_product = function (size) {
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContentProduct.html',
+      controller: 'ModalInstanceProductCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+  
+  
+  var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+  var weekday = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+
+  /** 
+  Method: single_eventstart
+  Description:Function for select event type : single / multiple   
+  Created : 2016-04-25
+  Created By:  Deepak khokkar  
+  */
+  $scope.single_eventstart=function() {
+    if($rootScope.selectevent_date==undefined) {
+      $scope.select_delect_event=false;
+      var d=new Date($scope.start_date);
+      var curr_date = d.getDate();
+      var curr_month = d.getMonth();
+      var day=d.getDay();
+      var curr_year = d.getFullYear();
+      var cur_mon=d.getMonth()+1;
+      $rootScope.single_start_date=curr_year+"-"+cur_mon+"-"+curr_date;
+      $rootScope.selectevent_date=weekday[day]+" "+m_names[curr_month]+" "+curr_date + "," + curr_year;  
+    } else {
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'myModalContent.html',
+        controller: 'ModalInstanceCtrl',
+        size: '',
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+      });
+    }
+  }
+   
+
+
+   
+   $scope.remove_event=function()
+   {
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      size: '',
+      resolve: {
+        items: function () {
+          
+          return $scope.items;
+        }
+      }
+    });
+   }
+   
+   $scope.changedstarttime=function(){
+    $scope.select_delect_event=false;
+    $rootScope.startevent_time=$filter('date')($scope.starttime, 'shortTime');
+    
+   } 
+   
+   $scope.changedendtime=function(){
+  
+    if ($scope.starttime!='') {
+    
+      if( $scope.data.eventtype == "single") {
+            var stt = new Date("January 01, 2016 " + $scope.starttime);
+            stt = stt.getTime();
+            var endt = new Date("January 01, 2016 " + $scope.endtime);
+            endt = endt.getTime();
+
+            if(stt >= endt) {
+            $scope.error_message=false;
+            $scope.endtime='';
+            $scope.error='End time must be greater than start time. '; 
+            $scope.endtime='';
+            $timeout(function() {
+                $scope.error='';
+                $scope.error_message=true;
+              },3000);
+
+                   }
+      }
+      $scope.select_delect_event=false;
+      $rootScope.endevent_time=$filter('date')($scope.endtime, 'shortTime');  
+    }else{
+        $scope.error_message=false;
+        $scope.error='Kindly select start time.';
+        $scope.endtime='';
+        $timeout(function() {
+                          
+            $scope.error='';
+            $scope.error_message=true;
+          },3000);
+    }
+    
+   }
+
+  $scope.checkStartEndTime=function(index){
+ 
+    if( $scope.multiple_endtime ) {
+            var stt = new Date("January 01, 2016 " + $scope.data.starttimeloop1[index]);
+            stt = stt.getTime();
+            var endt = new Date("January 01, 2016 " + $scope.data.endtimeloop1[index]);
+            endt = endt.getTime();
+
+            if(stt >= endt) {
+            $scope.error_time_message=false;
+            $scope.data.endtimeloop1[index]='';
+            $scope.error_time_display_message='End time must be greater than start time. '; 
+            $timeout(function() {
+                $scope.error_time_display_message='';
+                $scope.error_time_message=true;
+              },3000);
+
+                   }
+                 }
+   }
+    
+
+   $scope.data = {};
+   $scope.multiplestart=function(){
+
+    $scope.data.starttimeloop1=[];
+    
+    var i=0;
+    while(i<$scope.between_date.length)
+    {
+        $scope.data.starttimeloop1.push(JSON.parse(JSON.stringify($scope.multiple_starttime)));
+    
+      i++;  
+    }
+    
+   }
+   
+   
+   
+   $scope.multipleend=function(){
+    if ($scope.data.period  && $scope.multiple_endtime) {
+    console.log('working 1'); 
+            var stt = new Date("January 01, 2016 " + $scope.multiple_starttime);
+            stt = stt.getTime();
+            var endt = new Date("January 01, 2016 " + $scope.multiple_endtime);
+            endt = endt.getTime();
+            if(stt >= endt) {
+            $scope.error_time_message=false;
+            $scope.multiple_endtime='';
+            $scope.error_time_display_message='End time must be greater than start time. '; 
+            $timeout(function() {
+                $scope.error_time_display_message='';
+                $scope.error_time_message=true;
+              },3000);
+
+                   }
+    }
+
+  $scope.data.endtimeloop1=[];
+    var j=0;
+   
+    while(j<$scope.between_date.length)
+    {
+    $scope.data.endtimeloop1.push(JSON.parse(JSON.stringify($scope.multiple_endtime)));
+      j++;  
+    }
+   
+   }
+
+});
+
+

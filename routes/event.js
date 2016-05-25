@@ -22,12 +22,17 @@ module.exports = function(app, express) {
       
       /* Save reoccuring event data */
       router.post('/saverecurringEvent', Event.saverecurringEvent);
-
+      /*save price level*///
       router.post('/savepricelevel', Event.savepricelevel);
+      /*get price level*///
       router.post('/getPricelevel', Event.getPricelevel);
+      /*Remove Price level*///
       router.post('/removepricelevel', Event.removepricelevel);
+      /*change price level status*///
       router.post('/changePricelevelStatus', Event.changePricelevelStatus);
+      /*get single price level*///
       router.post('/getSinglePricelevel', Event.getSinglePricelevel);
+      /*update price change*///
       router.post('/postPriceChange', Event.postPriceChange);
       
       /* To get data of the all events */
@@ -36,17 +41,24 @@ module.exports = function(app, express) {
       /* To get the event data */
       router.post('/getEvent',supportCrossOriginScript, Event.getEvent);
 
-          /*get event category*///
+          /*get event detail*///
         router.post('/getEventsdetail',supportCrossOriginScript, Event.getEventsdetail);
         /*save second step data*///
         router.post('/savesecondstepdata',supportCrossOriginScript, Event.savesecondstepdata);
         /*get event look and feel*///
         router.post('/getlookAndFeeltemplate',supportCrossOriginScript, Event.getlookAndFeeltemplate);
+        /*get preview Image*///
         router.post('/getpreviewImage',supportCrossOriginScript, Event.getpreviewImage);
+        /*get Template*///
         router.post('/getTemplate',supportCrossOriginScript, Event.getTemplate);
 
-       
+
+      /*save advance settings of events*/
+      router.post('/saveAdvanceSettings',supportCrossOriginScript, Event.saveAdvanceSettings);
       
+      /*get advance settings of events*/
+      router.post('/getAdvanceSetting',supportCrossOriginScript, Event.getAdvanceSetting);
+
         
         
          
