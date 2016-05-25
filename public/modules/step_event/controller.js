@@ -64,6 +64,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     var $serviceTest = $injector.get("venues");
     //To show or hide divs
     $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
+    $scope.success_message=true;
     $rootScope.success_message1=false;
     //For recurring days
     $scope.days=[
@@ -324,10 +325,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
               if (response.code == 200) {
                  $scope.success=global_message.event_step1;
                  $localStorage.eventId=response.result;
-                 $scope.error_message=false;
+                 $scope.success_message=false;
                  $timeout(function() {
                    $scope.success='';
-                   $scope.error_message=true;
+                   $scope.success_message=true;
                  },3000);
               }
             });
@@ -338,10 +339,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             if (response.code == 200) {
               $scope.success=global_message.event_step1;
               $scope.data={};
-              $scope.error_message=false;
+              $scope.success_message=false;
               $timeout(function() {
                $scope.success='';
-               $scope.error_message=true;
+               $scope.success_message=true;
               },3000);
               window.location.reload();
             }
@@ -723,7 +724,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     $scope.ismeridian = ! $scope.ismeridian;
   };
   
-  $scope.success_message=false;
+  $scope.success_message=true;
   $scope.error_message=true;
 
   $scope.multiple_event_div=$scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
@@ -782,10 +783,16 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     ///TO move to price and level
     if (menu.id==6) {
 
-      if(objectForm.myForm.$valid==true){
+       console.log('menu.id' , menu.id); 
+       console.log('$localStorage.eventId' , $localStorage.eventId); 
+       
+
+      if(objectForm.myForm.$valid==true && $localStorage.eventId != undefined && $localStorage.eventId != ""){
         $scope.eventdetail_div=$scope.look_and_feel_div=$scope.setting_div=true;
         $scope.price_and_link_div=false;  
       } else {
+         $scope.eventdetail_div=false;
+      $scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=true;
         $scope.error_message = false;
         $scope.error=global_message.event_step1_msg;
         $timeout(function() {
@@ -1541,8 +1548,9 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     $scope.click_menu=function(menu) {
        var bundleForm = this;
        
-       $scope.selectedClass = 1; 
+       $scope.selectedClass = 1;
        if (menu.id==1) {
+       
         $scope.selectedClass = 1;
         $scope.step_1=true;
         $scope.step_2=$scope.step_3=false;
@@ -1553,6 +1561,10 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
               $scope.step_2=true;
               $scope.step_1=$scope.step_3=false;     
           } else {
+             $scope.selectedClass = 1;
+        $scope.step_1=true;
+        $scope.step_2=$scope.step_3=false;
+
             $scope.error_message = false;
             $scope.error=global_message.error_in_step1;
             $timeout(function() {

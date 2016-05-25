@@ -33,18 +33,20 @@
                                         <th width="15%">NAME</th>
                                         <th width="10%" class="numbers">MODEL</th>
                                         <th width="10%" class="numbers">UPC</th>
+                                        <th width="10%" class="numbers">Sales/Inventory</th>
                                         <th width="14%" class="numbers">STATUS</th>
                                         <th width="23%">&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr pagination-id="paginate2" dir-paginate="data in productdata | itemsPerPage: 2 | filter:filter">
+                                    <tr pagination-id="paginate2" dir-paginate="data in productdata|itemsPerPage: 25|filter:filter">
                                         <td><a href="#/product_overview/{{data.id}}"><strong>{{data.product_name}}</strong></a></td>
                                         <td class="numbers">{{data.product_model}}</td>
                                         <td class="numbers">{{data.product_upc}}</td>
+                                        <td>0 / {{data.inventory}}</td>
                                         <td class="numbers">
-                                            <p ng-if="data.status == 1">Active</p>
-                                            <p ng-if="data.status == 0">Inactive</p>
+                                            <p ng-if="data.status == 1">On Sales</p>
+                                            <p ng-if="data.status == 0">Sales Pause</p>
                                         </td>
                                         <td class="action">
                                             <a href="#/edit_product/{{data.id}}"><i class="fa fa-edit"></i></a>

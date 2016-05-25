@@ -68,15 +68,17 @@
                                             <div class="col-sm-4" ng-class="{ 'has-error' : userForm.amount.$invalid && !userForm.amount.$pristine }" ng-show="amount_div">
                                                 <div class="form-group">
                                                     <label for="EventName">Amount{{data.amount_type.symbol}}<span class="req">*</span></label>
-                                                    <input type="number" min=0 class="form-control" name="amount" placeholder="Amount in dollars" ng-model="data.amount" ng-required = "data.coupon_type =='Automatic' || data.coupon_type =='Discount'" />
-                                                    <p ng-show="userForm.amount.$invalid && !userForm.amount.$pristine" class="error-fld ng-binding">Enter amount.</p>
+                                                    <input  type="number" min="0" class="form-control" name="amount" placeholder="Amount in dollars" ng-model="data.amount" ng-required = "data.coupon_type =='Automatic' || data.coupon_type =='Discount'" validNumber />
+                                                    <p ng-show="userForm.amount.$invalid && !userForm.amount.$pristine" class="error-fld ng-binding">Enter valid amount.</p>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-sm-4" ng-class="{ 'has-error' : userForm.amount_target.$invalid && !userForm.amount_target.$pristine }" ng-show="amount_target_div">
                                                 <div class="form-group">
                                                     <label for="EventName">Amount Target($)<span class="req">*</span></label>
-                                                    <input type="number" min=0 class="form-control" name="amount_target" placeholder="Amount in dollars" ng-model="data.amount_target" ng-required = "data.coupon_type =='Automatic'"/>
-                                                    <p ng-show="userForm.amount_target.$invalid && !userForm.amount_target.$pristine" class="error-fld ng-binding">Enter target amount.</p>
+                                                    <input  type="number" min="0" class="form-control" name="amount_target" placeholder="Amount in dollars" ng-model="data.amount_target" ng-required = "data.coupon_type =='Automatic'"/>
+                                                    <p ng-show="userForm.amount_target.$invalid && !userForm.amount_target.$pristine" class="error-fld ng-binding">Enter valid target amount.</p>
+                                                   
                                                 </div>
                                             </div>
                                         </div>

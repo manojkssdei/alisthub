@@ -434,10 +434,10 @@
           	  <section class="col-sm-4">
                   <div class="form-group">
                     <label class="form-label">Event Inventory<span class="req">*</span></label>
-                    <input type="number" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" required>
-                     <span style="color:red" ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">
-  <span ng-show="myForm1.eventinventory.$error.required">Event Inventory is required</span>
-  </span>
+                    <input type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" required>
+                    <p ng-show="myForm1.eventinventory.$invalid && !myForm1.eventinventory.$pristine" class="error-fld ng-binding">Enter Numbers Only.</p>
+                    <p ng-show="myForm1.eventinventory.$error.required" class="error-fld ng-binding">Event Inventory is required</p>
+
                   </div>
 <!--
 <p>
@@ -1250,14 +1250,20 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                                             <div class="col-sm-4" >
                                               <div class="form-group">
                                                 <label for="EventName"> Limit<span class="req-limit">*</span></label>
-                                                <input type="number" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit"/>
+                                                <input  type="number" min="0" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit"/>
+
+                                                <p ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="error-fld ng-binding">Enter bundle limit in numbers only.</p>
+
                                               </div>
-                                              <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="help-block">Enter bundle limit.</p>
+                                               
                                             </div>
                                             <div class="col-sm-4">
                                               <div class="form-group">
                                                 <label for="EventName"> Minimum Purchase</label>
-                                                <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="data.bundle_minimum_purchase"/>
+                                                <input  type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="data.bundle_minimum_purchase" name="bundle_minimum_purchase"/>
+
+                                                <p ng-show="userForm.bundle_minimum_purchase.$invalid && !userForm.bundle_minimum_purchase.$pristine" class="error-fld ng-binding">Enter numbers only.</p>
+                                                
                                               </div>
                                             </div>
                                             <div class="col-sm-4">
