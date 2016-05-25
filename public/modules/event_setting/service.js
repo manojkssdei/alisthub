@@ -295,6 +295,25 @@ return url;
 }])
 
 /* services for bundles module */
+// Created : 2016-05-24
+// Created Buy : Manoj Singh
+/****************************************** SERVICE FOR SHOWCLICX  ***********************************************/
+.factory('showclix_venue', ['$q', '$timeout','communicationService', function Customers($q, $timeout,communicationService) {
+    var url = {};
+    
+    url.getVenues = function(jsondata,callback){
+        communicationService.showclixResultViaPost(showclix_webservices.signUp,"undefined",showclix_headerConstants,jsondata, function(res,req){
+			callback(res);
+		});
+    };
+
+   url.addVenue = function(jsondata,callback){
+        communicationService.showclixResultViaPost(showclix_webservices.addVenue,"undefined",showclix_headerConstants,jsondata, function(res,req){
+			callback(res);
+		});
+  };
+   
+}])
 
 
 ;

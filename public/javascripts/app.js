@@ -234,7 +234,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/venue_service.js').then(function(){
                     //var $serviceTest = $injector.get("CustomerFirstLoad");
                            // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     }).then(function(){
@@ -260,7 +260,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,    
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/venue_service.js').then(function(){
                     }).then(function(){
                     return $ocLazyLoad.load(['modules/event_setting/controller.js']);
                     })
@@ -282,7 +282,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication, 
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/venue_service.js').then(function(){
                     }).then(function(){
                     return $ocLazyLoad.load(['modules/event_setting/controller.js']);
                     })
@@ -304,7 +304,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/venue_service.js').then(function(){
                     }).then(function(){
                     return $ocLazyLoad.load(['modules/event_setting/controller.js']);
                     })
@@ -326,7 +326,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/venue_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/controller.js']);
                 })
@@ -348,7 +348,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/question_service.js').then(function(){
                     }).then(function(){
                     return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
                     })
@@ -370,7 +370,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication, 
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/question_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
                 })
@@ -392,7 +392,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication, 
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/question_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
                 })
@@ -414,7 +414,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/question_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/question_controller.js']);
                 })
@@ -436,7 +436,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/product_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
                 })
@@ -458,7 +458,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/product_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
                 })
@@ -480,7 +480,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/product_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
                 })
@@ -503,7 +503,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/discount_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
                 })
@@ -525,7 +525,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/discount_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
                 })
@@ -548,7 +548,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/discount_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
                 })
@@ -569,7 +569,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/discount_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
                 })
@@ -590,7 +590,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/discount_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/discount_controller.js','javascripts/bootstrap-timepicker.js']);
                 })
@@ -615,7 +615,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/bundle_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/bundle_controller.js']);
                 })
@@ -636,7 +636,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/bundle_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/bundle_controller.js']);
                 })
@@ -660,7 +660,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/product_service.js').then(function(){
                 }).then(function(){
                     return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
                 })
@@ -682,7 +682,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_setting/service.js').then(function(){
+                return $ocLazyLoad.load('modules/event_setting/services/product_service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_setting/product_controller.js']);
                 })
