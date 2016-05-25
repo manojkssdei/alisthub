@@ -13,10 +13,12 @@
     <!-- //Step Form --> 
     
     <!-- Form COntainer -->
-    <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
-     <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
+     <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
      
-    <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
+
+
+     <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
+    
     <div class="form-section  wt-frame">
      
 
@@ -342,7 +344,7 @@
 ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
           <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
         </div>
-       
+        <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
 
       </div>
   </form>
