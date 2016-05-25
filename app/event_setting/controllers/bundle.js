@@ -128,7 +128,13 @@ Created : 2016-05-18
 Created By: Deepak khokkar
 */
 exports.changeBundleStatus = function(req,res) { 
-  connection.query("UPDATE bundles SET status='"+req.body.status+"' where id="+req.body.id, function(err, results) {
+  if(req.body.status=='true') {
+    var status = 'false';
+  } else {
+    var status = 'true';
+  }
+  console.log(status);
+  connection.query("UPDATE bundles SET status='"+status+"' where id="+req.body.id, function(err, results) {
      if (err) {
       res.json({error:err,code:101});
      }
