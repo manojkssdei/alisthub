@@ -425,7 +425,6 @@ Created By: Deepak khokkar
 */
 exports.getEventProducts = function(req,res){
   console.log(req.body);
-  
   if(req.body.userId!=undefined && req.body.eventId!=undefined){
     //LEFT JOIN events AS E on E.id=QA.event_id where
     connection.query('SELECT * from event_products where seller_id='+req.body.userId+ ' and event_id='+ req.body.eventId +' ORDER BY created DESC', function(err, results) {
