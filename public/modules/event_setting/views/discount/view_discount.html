@@ -47,7 +47,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr pagination-id="paginate2" dir-paginate="data in discountdata | itemsPerPage: 2 | filter:filter">
+                                    <tr pagination-id="paginate2" dir-paginate="data in discountdata | itemsPerPage: 25 | filter:filter">
                                         <td><input type="checkbox" name="checkall" ng-model="data.selected"  ng-click="optionToggled(data.id);" ></td>
                                         <td><strong>{{data.coupon_name}}</strong></td>
                                         <td class="numbers">{{data.coupon_type}}</td>

@@ -60,6 +60,9 @@ Module : Product
 
                     var newImage = document.createElement('img');
                     newImage.src = srcData;
+                    newImage.style.height = '100px';
+                    newImage.style.width = '200px';
+
                     if (id == 1) {
                         $scope.userNewPic_1 = srcData;
                     }
@@ -185,9 +188,12 @@ Module : Product
 
                         if (step == 2) {
                             //$scope.data.id = response.result.insertId;
-                            $scope.step_3 = true;
-                            $scope.step_1 = $scope.step_2 = false;
-                            $scope.click_menu($scope.steps[2]);
+                            //$scope.step_3 = true;
+                            //$scope.step_1 = $scope.step_2 = false;
+                            //$scope.click_menu($scope.steps[2]);
+                            $scope.step_2 = true;
+                            $scope.step_1 = $scope.step_3 = false;
+                            //$scope.click_menu($scope.steps[2]);
                         }
 
                         if (step == 3) {
@@ -246,6 +252,7 @@ Module : Product
                 $scope.addProduct(step);
             }
             if ($scope.callfunction == 1) {
+                $scope.page_title = "EDIT";
                 $scope.editProduct(step);
             }
         }
@@ -344,7 +351,7 @@ Module : Product
                     $serviceTest.addProduct($scope.data, function(response) {
                         if (response.code == 200) {
                             $scope.idata = {};
-
+                            console.log('step ' , step );
                             if (step == 1) {
                                 $scope.step_2 = true;
                                 $scope.step_1 = $scope.step_3 = false;
@@ -352,9 +359,13 @@ Module : Product
                             }
 
                             if (step == 2) {
-                                $scope.step_3 = true;
-                                $scope.step_1 = $scope.step_2 = false;
-                                $scope.click_menu($scope.steps[2]);
+                                //$scope.step_3 = true;
+                                //$scope.step_1 = $scope.step_2 = false;
+                                //$scope.click_menu($scope.steps[2]);
+
+                                $scope.step_2 = true;
+                                $scope.step_1 = $scope.step_3 = false;
+                                
                             }
 
                             if (step == 3) {
@@ -462,6 +473,8 @@ Module : Product
                 $scope.loader = false;
                 if (response.code == 200) {
                     $scope.productdata = response.result;
+                    console.log('$scope.productdata');
+                    console.log($scope.productdata);
                 } else {
                     $scope.error_message = response.error;
                 }
@@ -516,8 +529,10 @@ Module : Product
         $serviceTest.getProductSetting($scope.sdata, function(response) {
             if (response.code == 200) {
                 $scope.activation_message = 'saved';
+                if(response.result[0]) {
                 $scope.products = response.result[0];
                 $scope.products.setting_id = $scope.products.id;
+                }
             } else {
                 $scope.activation_message = global_message.ErrorInActivation;
             }

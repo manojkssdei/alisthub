@@ -49,6 +49,7 @@ var webservices = {
     "saverecurringEvent"  :  "/event/saverecurringEvent",
         /////get event category////
      "getEventsdetail":"/event/getEventsdetail",
+     "getEvents":"/event/getEvents",
     
 
     /* Constants for the discount module */
@@ -96,9 +97,11 @@ var webservices = {
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",
     "getFinancialDetails" : "/account/getFinancialDetails",
+    
+    /* constants for fetching the common data*/
+    "getCountries" : "/common/getCountries",
+    "getUSAStates" : "/common/getUSAStates",
 
-
- 
     //Financial Settings   
 
     "addCustomFinancialDetails" : "/account/addCustomFinancialDetails",
@@ -109,12 +112,29 @@ var webservices = {
 
     
 
+
+    //package events
+     "savePackage"  :  "/package/savePackage",
+  
+   
+    "saverecurringPackage"  :  "/package/saverecurringPackage",
+    //add schedul///////////
+        "add_schedule"  :  "/add_schedule/add_schedule",
+    "saverecurringschedule"  :  "/add_schedule/saverecurringschedule",
+
+     
+
     //save second step data
     "secondStepdata":"/event/savesecondstepdata",
 
+    // advance settings of events
+    "saveAdvanceSettings" : "/event/saveAdvanceSettings",
+    "getAdvanceSetting" : "/event/getAdvanceSetting",
+    
     //Step 3 look and feel
     "getlookAndFeeltemplate":"event/getlookAndFeeltemplate",
     "getpreviewImage":"event/getpreviewImage",
+    "getTemplate":"event/getTemplate",
 
 }
 
@@ -203,6 +223,10 @@ var global_message = {
     "error_in_step1":"Please update the step 1",
     "bundle_update":"Bundle information has been updated successfully.",
     "bundle_add":"Bundle information has been added.",
+
+    /**/
+    "advanceSettingSaved" : "Advance settings saved successfully",
+    "advanceSettingSavingError" : "Error while saving advance settings",
 
 }
 

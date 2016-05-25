@@ -14,6 +14,8 @@
     
     <!-- Form COntainer -->
     <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
+     <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
+     
     <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
     <div class="form-section  wt-frame">
      
@@ -21,10 +23,12 @@
 <div ng-hide="eventdetail_div">
  
      <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
-          <div class="form-group">
+          <div class="form-group" ng-class="{ 'has-error' : myForm.eventname.$dirty && myForm.eventname.$invalid }"  >
             <label for="eventname">Event Name<span class="req">*</span></label>
             <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="Title of your Event" required>
-             <span style="color:red" ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">  <span  ng-show="myForm.eventname.$error.required">Event name is required</span></span>
+
+            <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">Event Name is required</p>
+
           </div>
            <div class="form-group field-group">
             <label>Date and Time<span class="req">*</span></label>
@@ -338,7 +342,7 @@
 ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
           <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
         </div>
-        <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
+       
 
       </div>
   </form>

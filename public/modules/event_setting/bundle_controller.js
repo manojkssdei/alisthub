@@ -30,27 +30,35 @@ angular.module('alisthub')
         ];
 
 
-
+        $scope.step_1 = true;
+        $scope.step_2 = $scope.step_3 = false;
+        $scope.selected2 = $scope.steps[0];
 
         $scope.click_menu = function(menu) {
-
+            console.log('click_menu' , menu.id);
             if (menu.id == 1) {
                 $scope.step_1 = true;
                 $scope.step_2 = $scope.step_3 = false;
+                $scope.selected2 = $scope.steps[0];
             }
             if (menu.id == 2) {
                 $scope.step_2 = true;
                 $scope.step_1 = $scope.step_3 = false;
+                 $scope.selected2 = $scope.steps[1];
             }
             if (menu.id == 3) {
-                console.log($scope.data);
                 $scope.step_3 = true;
                 $scope.step_2 = $scope.step_1 = false;
+                $scope.selected2 = $scope.steps[2];
             }
 
             $scope.selected2 = menu;
         }
-        $scope.click_menu({ id: 1 });
+
+        $scope.isActive2 = function(step2) {
+            return $scope.selected2 === step2;
+        };
+        $scope.isActive2(0);
 
         $serviceTest.getBundles({ 'userId': $localStorage.userId }, function(response) {
             $scope.res = response.result;
