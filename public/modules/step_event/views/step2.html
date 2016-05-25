@@ -1,15 +1,18 @@
 <div ng-hide="price_and_link_div">
            <!-- Event Detail Form -->
+
+            <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
+            
    	<form  name="myForm1" novalidate ng-submit="price_and_link_data(data1)">
 
    <section class="row">
           	  <section class="col-sm-4">
-                  <div class="form-group">
+                  <div class="form-group" ng-class="{ 'has-error' : myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid }"  >
                     <label class="form-label">Event Inventory<span class="req">*</span></label>
-                    <input type="number" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" required  min="0">
-                     <span style="color:red" ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">
-  <span ng-show="myForm1.eventinventory.$error.required">Event Inventory is required</span>
-  </span>
+                    <input  type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" required >
+
+                    <p class="help-inline error-fld ng-binding"  ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">Enter valid event inventory.</p>
+
                   </div>
 <!--
 <p>
@@ -369,6 +372,6 @@
            <button type="submit" class="pink-btn btn">Save</button>
           <button type="button" ng-click="click_menu(steps[2])" class="pink-btn btn">Next</button>
         </div>
-           <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
+          
 </form>
        </div>

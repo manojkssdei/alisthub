@@ -475,7 +475,7 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 
 /*---------20160422---------------*/
 .welcometxt .btn{line-height:36px; padding:0 15px; font-weight:700;}
-.welcometxt .btn-group.open .dropdown-toggle{background:none; border:none;}
+.welcometxt .btn-group .dropdown-toggle, .welcometxt .btn-group.open .dropdown-toggle{background:none; border:none;}
 .welcometxt .dropdown-menu{border:none; margin:0;}
 .welcometxt .dropdown-menu > li > a{border-bottom: 1px solid #dadada;
     color: #606060;

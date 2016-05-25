@@ -7,7 +7,7 @@
             <div class="form-group row">
                 <section class="col-sm-6">
                     <section class="search-event">
-                        <input type="text" name="eventname" class="form-control search-field" placeholder="Enter your keyword">
+                        <input type="text" name="eventname" ng-model="searchfield" class="form-control search-field" placeholder="Enter your keyword">
                         <i class="fa fa-search"></i>
                     </section>
                 </section>
@@ -39,81 +39,34 @@
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
-                                    <tr>
-                                        <th width="15%">Name</th>
-                                        <th width="10%" class="numbers">Sold</th>
-                                        <th width="14%" class="numbers">Remaining</th>
-                                        <th width="13%" class="numbers">Price</th>
-                                        <th width="14%" class="numbers">Box office <span class="l-b">Price</span></th>
-                                        <th width="12%" class="numbers">Limit</th>
-                                        <th width="23%">&nbsp;</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Balcony</strong></td>
-                                        <td class="numbers">12</td>
-                                        <td class="numbers">900</td>
-                                        <td class="numbers">$10.00</td>
-                                        <td class="numbers">$15.00</td>
-                                        <td class="numbers">850</td>
-                                        <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Dress Circle</strong></td>
-                                        <td class="numbers">12</td>
-                                        <td class="numbers">900</td>
-                                        <td class="numbers">$10.00</td>
-                                        <td class="numbers">$15.00</td>
-                                        <td class="numbers">850</td>
-                                        <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Loge</strong></td>
-                                        <td class="numbers">12</td>
-                                        <td class="numbers">900</td>
-                                        <td class="numbers">$10.00</td>
-                                        <td class="numbers">$15.00</td>
-                                        <td class="numbers">850</td>
-                                        <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Orchestra</strong></td>
-                                        <td class="numbers">12</td>
-                                        <td class="numbers">900</td>
-                                        <td class="numbers">$10.00</td>
-                                        <td class="numbers">$15.00</td>
-                                        <td class="numbers">850</td>
-                                        <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Balcony</strong></td>
-                                        <td class="numbers">12</td>
-                                        <td class="numbers">900</td>
-                                        <td class="numbers">$10.00</td>
-                                        <td class="numbers">$15.00</td>
-                                        <td class="numbers">850</td>
-                                        <td class="action"><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-tags"></i></a><a href="#"><i class="fa fa-check-circle"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <tr>
+                                    <th width="10%">ID</th>
+                                    <th width="24%">Event</th>
+                                    <th width="20%">Start Date</th>
+                                   <!-- <th width="12%" class="numbers">Sold</th>
+                                    <th width="12%" class="numbers">Inventory</th>-->
+                                    <th width="22%">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+				
+                                <tr pagination-id="paginate1" dir-paginate="upcoming in upcoming_event_data | itemsPerPage: 25|filter:searchfield">
+                                    <td><a href="#"><strong>{{upcoming.id}}</strong></a></td>
+                                    <td>
+                                        <p><a href="#"><strong>{{upcoming.title}}</strong></a></p>
+                                        
+                                    </td>
+                                    <td>{{upcoming.start_date | date:"dd MMMM yyyy"}}</td>
+                                  <!--  <td class="numbers">{{upcoming.sold}}</td>
+                                    <td class="numbers">{{upcoming.inventory}}</td>-->
+                                    <td class="action"><a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a></td>
+                                </tr>
+                            </tbody>
                         </div>
                     </section>
                     <section class="grid-bottm clearfix">
                         <section class="paging">
-                            <label class="lt-label">Page</label>
-                            <ul class="page-list">
-                                <li class="first-page page-btn"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                <li class="prev-page page-btn"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">6</a></li>
-                                <li class="next-page page-btn"><a href="#"><i class="fa fa-angle-right"></i></i></a></li>
-                                <li class="last-page page-btn"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                            </ul>
+                           <dir-pagination-controls pagination-id="paginate1" ></dir-pagination-controls>
                         </section>
                         <section class="gr-right pull-right">
                             <ul class="legends">
@@ -127,11 +80,11 @@
                 </section>
             </div>
             <!-- Ticket Types Closed --> 
-            <div class="editor-btn">
+            <!--<div class="editor-btn">
                 <button class="gray-btn btn">Back</button>
                 <button class="pink-btn btn">Save</button>
                 <button class="pink-btn btn">Next</button>
-            </div>
+            </div>-->
         </form>
     </div>
     <!-- //Form COntainer --> 

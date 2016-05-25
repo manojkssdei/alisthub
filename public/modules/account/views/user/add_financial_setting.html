@@ -27,7 +27,7 @@
                         <div class="form-group">
                             <label> Contact Number</label>
                             <input type="text" class="form-control" name="phone" placeholder="Contact Number"  ng-pattern="/^\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})$/"  ng-model="user.phone"/>
-                            <span ng-show="addUserForm.phone.$error.pattern">Not a valid number!</span>
+                             <p ng-show="addUserForm.phone.$error.pattern" class="error-fld ng-binding">Not a valid number!</p>
                         </div>
                     </div>
                     <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.email.$invalid && !addUserForm.email.$pristine }">

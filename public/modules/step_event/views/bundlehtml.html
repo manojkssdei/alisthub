@@ -49,15 +49,19 @@
                                         <div class="col-sm-4" >
                                           <div class="form-group">
                                             <label for="EventName"> Limit<span class="req-limit">*</span></label>
-                                            <input type="number" class="form-control" placeholder="Limit" ng-model="bundle.bundle_limit" name="bundle_limit"/>
-                                            <p class="help-inline error-fld ng-binding" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter limit</p>
+                                            <input  type="number" min="0" class="form-control" placeholder="Limit" ng-model="bundle.bundle_limit" name="bundle_limit"/>
+                                            <p class="help-inline error-fld ng-binding" ng-show="submitted && bundleForm.bundle_limit.$error.required">Please enter valid limit</p>
+                                            
                                           </div>
                                           
                                         </div>
                                         <div class="col-sm-4">
                                           <div class="form-group">
                                             <label for="EventName"> Minimum Purchase</label>
-                                            <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="bundle.bundle_minimum_purchase"/>
+                                            <input  type="number" min="0"  class="form-control" placeholder="Minimum Purchase" ng-model="bundle.bundle_minimum_purchase" name="bundle_minimum_purchase"/>
+
+                                            <p class="help-inline error-fld ng-binding"  ng-show="bundleForm.bundle_minimum_purchase.$invalid && !bundleForm.bundle_minimum_purchase.$pristine">Please enter valid minimum purchase limit</p>
+                                           
                                           </div>
                                         </div>
                                         <div class="col-sm-4">

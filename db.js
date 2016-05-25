@@ -1,9 +1,9 @@
 var mysql      = require('mysql');
 connection = mysql.createConnection({
   host     : '192.155.246.146',
-  user     : 'eventhub',
-  password : 'eventhub',
-  database : 'db_eventhub',
+  user     : 'alistixs',
+  password : 'alistixs',
+  database : 'db_alistixs',
   insecureAuth: true
 });
 connection.connect(function(err) {

@@ -19,5 +19,13 @@ angular.module('alisthub').service('Lookservice', ['communicationService', funct
        
       
   };
+//get look and feel select template description
+    this.getTemplate = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getTemplate,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+       
+      
+  };
   
 }]);
