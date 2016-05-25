@@ -12,34 +12,45 @@ Created : 2016-04-25
 Created By: Manoj kumar  
 */
 exports.addBundle = function(req,res){
-    //console.log(req.body);
+    console.log(req.body);
     //For Step 1
-    var inventory=0,hide_in_box_office,status,hide_online;
+    var inventory=0;
     var event_id = req.body.event_id;
 
     if (req.body.step == 1) {
-      if (req.body.assign_inventory==true) {
+      if (req.body.assign_inventory == true) {
         inventory=req.body.bundle_inventory;
       }
-      hide_in_box_office=req.body.hide_in_box_office;
-      if ((req.body.hide_in_box_office==false)||(req.body.hide_in_box_office==undefined)) {
-        hide_in_box_office=0;
-      }
-      if ((req.body.status==true)||(req.body.status==undefined)) {
-        status=1;
-      } else {
-        status=0;
-      }
-      if ((req.body.hide_online==true)||(req.body.hide_online==undefined)) {
-        hide_online=1;
-      } else {
-        hide_online=0;
+
+      var multiple_ticket_holder = 'false';
+      if(req.body.multiple_ticket_holder == true) {
+        multiple_ticket_holder = 'true';
       }
       
+      var assign_inventory = 'false';
+      if (req.body.assign_inventory == true) {
+        assign_inventory = 'true';
+      } 
+
+      var hide_in_box_office = 'false';
+      if ((req.body.hide_in_box_office == true)) {
+        hide_in_box_office='true';
+      }
+
+      var status = 'false';
+      if ((req.body.status==true)) {
+        status='true';
+      } 
+
+      var hide_online = 'false';
+      if ((req.body.hide_online==true)) {
+        hide_online = 'true';
+      } 
+      
       if(req.body.id!=undefined && req.body.id!=''){
-          var query = "UPDATE bundles SET bundle_name='"+req.body.bundle_name+"',bundle_description='"+req.body.bundle_description+"' where id="+req.body.id;
+          var query = "UPDATE bundles SET bundle_name='"+req.body.bundle_name+"',bundle_description='"+req.body.bundle_description+"',bundle_limit='"+req.body.bundle_limit+"',bundle_minimum_purchase='"+req.body.bundle_minimum_purchase+"',bundle_inventory='"+inventory+"',multiple_ticket_holder='"+multiple_ticket_holder+"',hide_online='"+hide_online+"',assign_inventory='"+assign_inventory+"',hide_in_box_office='"+hide_in_box_office+"',status='"+status+"' where id="+req.body.id;
       } else {
-          var query = "INSERT INTO `bundles` (`id`,`event_id`, `seller_id`, `bundle_name`, `bundle_description`, `bundle_limit`, `bundle_minimum_purchase`, `bundle_inventory`, `multiple_ticket_holder`, `hide_online`,  `assign_inventory`, `hide_in_box_office`, `created`,`status`) VALUES (NULL, '"+req.body.event_id+"' , '"+req.body.seller_id+"', '"+req.body.bundle_name+"', '"+req.body.bundle_description+"', '"+req.body.bundle_limit+"', '"+req.body.bundle_minimum_purchase+"', '"+inventory+"', "+req.body.multiple_ticket_holder+", "+hide_online+" , "+req.body.assign_inventory+" , "+hide_in_box_office+", NOW(),"+status+" )";
+          var query = "INSERT INTO `bundles` (`id`,`event_id`, `seller_id`, `bundle_name`, `bundle_description`, `bundle_limit`, `bundle_minimum_purchase`, `bundle_inventory`, `multiple_ticket_holder`, `hide_online`,  `assign_inventory`, `hide_in_box_office`, `created`,`status`) VALUES (NULL, '"+req.body.event_id+"' , '"+req.body.seller_id+"', '"+req.body.bundle_name+"', '"+req.body.bundle_description+"', '"+req.body.bundle_limit+"', '"+req.body.bundle_minimum_purchase+"', '"+inventory+"', "+multiple_ticket_holder+", "+hide_online+" , "+assign_inventory+" , "+hide_in_box_office+", NOW(),"+status+" )";
       }
 
       //console.log(query);

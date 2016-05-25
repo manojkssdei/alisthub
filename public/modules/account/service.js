@@ -43,7 +43,5 @@ angular.module('alisthub').factory('account', ['$q', '$timeout','communicationSe
     });
   };
 
-  
-
 return url;
 }])

@@ -128,8 +128,25 @@ url.postSecondStepdata=function(jsondata,callback){
     communicationService.resultViaPost(webservices.secondStepdata,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
       callback(res.data);
     });
-}
-  
+};
+
+// save advance settings of events
+
+url.saveAdvanceSettings = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.saveAdvanceSettings,appConstants.authorizationKey,headerConstants.json,jsondata,function(res,req){
+      callback(res.data);
+    });
+};
+
+url.getAdvanceSetting = function(jsondata,callback){
+  console.log('getAdvanceSetting service');
+       communicationService.resultViaPost(webservices.getAdvanceSetting,appConstants.authorizationKey,headerConstants.json,jsondata,function(res,req){
+      callback(res.data);
+    });
+};
+
+
+ 
 return url;
 
 }]);

@@ -26,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+//For financial setting of user
+var common = require('./routes/common')(app, express);
 //For my account managment
 var profile = require('./routes/profile')(app, express);
 //For event setting

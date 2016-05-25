@@ -36,13 +36,20 @@ module.exports = function(app, express) {
       /* To get the event data */
       router.post('/getEvent',supportCrossOriginScript, Event.getEvent);
 
-          /*get event category*///
-        router.post('/getEventsdetail',supportCrossOriginScript, Event.getEventsdetail);
-        /*save second step data*///
-        router.post('/savesecondstepdata',supportCrossOriginScript, Event.savesecondstepdata);
+      /*get event category*///
+      router.post('/getEventsdetail',supportCrossOriginScript, Event.getEventsdetail);
+      /*save second step data*///
+      router.post('/savesecondstepdata',supportCrossOriginScript, Event.savesecondstepdata);
+      /*get event look and feel*///
+      router.post('/getlookAndFeeltemplate',supportCrossOriginScript, Event.getlookAndFeeltemplate);
+      router.post('/getpreviewImage',supportCrossOriginScript, Event.getpreviewImage);
 
-       
+      /*save advance settings of events*/
+      router.post('/saveAdvanceSettings',supportCrossOriginScript, Event.saveAdvanceSettings);
       
+      /*get advance settings of events*/
+      router.post('/getAdvanceSetting',supportCrossOriginScript, Event.getAdvanceSetting);
+
         
         
          

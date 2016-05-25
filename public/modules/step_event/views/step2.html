@@ -179,8 +179,7 @@
                                 <td class="numbers">${{bundle.bundle_limit}}</td>
                                 <td class="numbers">${{bundle.bundle_inventory}}</td>
                                 <td class="action">
-                                  <!--<a ng-click="add_bundle('lg',bundle.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>-->
-                                  <a href="javascript:void(0);" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                                  <a ng-click="add_bundle('lg',bundle.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
                                   <a href="javascript:void(0)"><i class="fa fa-tags"></i></a>
                                   <a ng-click="changeBundleStatus(bundle.id,bundle.status)" ng-confirm-click="Would you like to change bundle status ?"><i class="fa fa-check-circle" ng-if="bundle.status == 1"></i><i class="fa fa-times" ng-if="bundle.status == 0"></i></a>
                                   <a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
