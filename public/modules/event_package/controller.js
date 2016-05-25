@@ -165,231 +165,27 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
           }
         } 
     }
-    
-    /** 
-    Method: savedata
-    Description:Function for save the data of recurring event 
-    Created : 2016-04-25
-    Created By:  Deepak khokkar  
-    */
-
-    $scope.savedata=function(data) {
-        if (data.eventtype=='single') {
-          if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
-            data.eventdate=$scope.single_start_date;
-            
-            data.startevent_time=$scope.startevent_time;
-            data.endevent_time=$scope.endevent_time;
-            
-            data.userId=$localStorage.userId;
-            $serviceTest.saveEvent(data,function(response){
-              if (response.code == 200) {
-                 $scope.success="Event Successfully Saved.";
-                 $localStorage.eventId=response.result;
-                 $scope.error_message=false;
-                 $timeout(function() {
-                   $scope.success='';
-                   $scope.error_message=true;
-                 },3000);
-              }
-            });
-          }  
-        } else {
-          data.userId=$localStorage.userId;
-          $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-            if (response.code == 200) {
-              $scope.success="Event Successfully Saved.";
-              $scope.data={};
-              $scope.error_message=false;
-              $timeout(function() {
-               $scope.success='';
-               $scope.error_message=true;
-              },3000);
-              window.location.reload();
-            }
-          }); 
-        }
-    }
-    
-   
-     $rootScope.starttime='';
-     $rootScope.endtime='';
-     $scope.data = {};
-     $scope.locations = [];
-     $scope.locations[0]=[];
-    //   var map = new google.maps.Map(document.getElementById('map'), {
-    //   zoom: 12,
-    //    center: new google.maps.LatLng(32.7990, -86.8073),
-    //   mapTypeId: google.maps.MapTypeId.ROADMAP 
-    // });
-     $scope.$on('g-places-autocomplete:select', function (event, place) {
-        
-        if (place.geometry) {
-        $scope.data.latitude  = place.geometry.location.lat();
-        $scope.data.longitude = place.geometry.location.lng();
-    }
-     
-    $scope.data.address = place.formatted_address;
-    
-    $scope.data.zipcode = '';
-    $scope.data.country = '';
-    $scope.data.state = '';
-    $scope.data.city = '';
-    
-    // FINDING ZIP
-    if (place.address_components[place.address_components.length-1].types[0] == 'postal_code') {
-      $scope.data.zipcode = Number(place.address_components[place.address_components.length-1].long_name);
-    };
-     // FINDING COUNTRY 
-    if (place.address_components[place.address_components.length-1].types[0] == 'country' || 
-        place.address_components[place.address_components.length-2].types[0] == 'country') {
-      if(place.address_components[place.address_components.length-1].types[0] == 'country'){
-        $scope.data.country = place.address_components[place.address_components.length-1].long_name;  
-      }else{
-        $scope.data.country = place.address_components[place.address_components.length-2].long_name;  
-      }      
-    };
-    // FINDING STATE
-    if (place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_1' || 
-        place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_1' ||
-        place.address_components[place.address_components.length-3].types[0] == 'administrative_area_level_1') {
-      
-      if(place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_1'){
-        $scope.data.state = place.address_components[place.address_components.length-1].long_name;
-      }else if(place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_1'){
-        $scope.data.state = place.address_components[place.address_components.length-2].long_name;  
-      }else{
-        $scope.data.state = place.address_components[place.address_components.length-3].long_name;  
-      }
-    };
-    // FINDING CITY
-    if (place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_2' || 
-        place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_2' ||
-        place.address_components[place.address_components.length-3].types[0] == 'administrative_area_level_2' ||
-        place.address_components[place.address_components.length-4].types[0] == 'administrative_area_level_2' ||
-
-        place.address_components[place.address_components.length-1].types[0] == 'sublocality_level_1' ||
-        place.address_components[place.address_components.length-2].types[0] == 'sublocality_level_1' ||
-        place.address_components[place.address_components.length-3].types[0] == 'sublocality_level_1' ||
-        place.address_components[place.address_components.length-4].types[0] == 'sublocality_level_1' ) {
-    
-      if(place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_2' || 
-        place.address_components[place.address_components.length-1].types[0] == 'sublocality_level_1'){
-        $scope.data.city = place.address_components[place.address_components.length-1].long_name;
-      }else if( place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_2' || 
-                place.address_components[place.address_components.length-2].types[0] == 'sublocality_level_1'){
-        $scope.data.city = place.address_components[place.address_components.length-2].long_name;  
-      }else if( place.address_components[place.address_components.length-3].types[0] == 'administrative_area_level_2' || 
-                place.address_components[place.address_components.length-3].types[0] == 'sublocality_level_1'){
-        $scope.data.city = place.address_components[place.address_components.length-3].long_name;  
-      }else{
-        $scope.data.city = place.address_components[place.address_components.length-4].long_name;  
-      }    
-    };
-    
-     // FINDING STATE
-    if (place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_1' || 
-        place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_1' ||
-        place.address_components[place.address_components.length-3].types[0] == 'administrative_area_level_1') {
-      
-      if(place.address_components[place.address_components.length-1].types[0] == 'administrative_area_level_1'){
-        $scope.data.state = place.address_components[place.address_components.length-1].long_name;
-      }else if(place.address_components[place.address_components.length-2].types[0] == 'administrative_area_level_1'){
-        $scope.data.state = place.address_components[place.address_components.length-2].long_name;  
-      }else{
-        $scope.data.state = place.address_components[place.address_components.length-3].long_name;  
-      }
-    };
-    $scope.locations[0].push($scope.data.state,
-        $scope.data.latitude,
-        $scope.data.longitude,
-        1,
-        $scope.data.city,
-        "",
-        $scope.data.address,
-        "coming soon");
-    var bounds = new google.maps.LatLngBounds();
-     var infowindow = new google.maps.InfoWindow();
-
-    var marker, i;
-    
-    for (i = 0; i < $scope.locations.length; i++) {
-       
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng($scope.data.latitude, $scope.data.longitude),
-        map: map
-      });
-     bounds.extend(marker.position);
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          
-          infowindow.setContent($scope.data.address, '');
-          infowindow.open(map, marker);
-        } 
-      })(marker, i));
-    }
-    //now fit the map to the newly inclusive bounds
-    map.fitBounds(bounds);
-
-    //(optional) restore the zoom level after the map is done scaling
-    var listener = google.maps.event.addListener(map, "idle", function () {
-        map.setZoom(14);
-        google.maps.event.removeListener(listener);
-    });
-      });
-     $scope.venue_info=function(venuedata){
-    
-        $scope.data.venuename=venuedata.venue_name;
-        $scope.data.place=venuedata.address;
-        $scope.data.venueid=venuedata.id;
-        $scope.data.city=venuedata.city;
-        $scope.data.country=venuedata.country;
-        $scope.data.latitude=venuedata.latitude;
-        $scope.data.longitude=venuedata.longitude;
-        $scope.data.longitude=venuedata.longitude;
-        $scope.data.state=venuedata.state;
-        $scope.data.zipcode=venuedata.zipcode;
-        var bounds = new google.maps.LatLngBounds();
-        var infowindow = new google.maps.InfoWindow();
-
-       var marker, i;
-         marker = new google.maps.Marker({
-        position: new google.maps.LatLng($scope.data.latitude, $scope.data.longitude),
-        map: map
-      });
-     bounds.extend(marker.position);
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          
-          infowindow.setContent($scope.data.place, '');
-          infowindow.open(map, marker);
-        } 
-      })(marker, i));
-      map.fitBounds(bounds);
-    }
-     
-    if ($localStorage.userId!=undefined) {
-       
-        $serviceTest.getVenues({'userId':$localStorage.userId},function(response){
-            if (response!=null) {
-            if (response.code==200)
-             {
-              $scope.total_venue=response.result;
-             }
-            }else{
-             $scope.total_venue=[];   
-            }
-            
-        });
-    }
 
 
 
-
+//////////////////////////////////////////////////////
+   $scope.upcoming_event_data=$scope.past_event_data=$scope.event_package_data = [
+            {id:4110591, event:'The Lion King',desc:'Minskoff theatre (New York, NY)',date:'Sat Mar 12 2016 at 12:00pm',sold:'10',inventory:'900'},
+            {id:4110592, event:'The Lion King2',desc:'Minskoff1 theatre1 (New York, NY)',date:'Sat Mar 12 2016 at 12:00pm',sold:'20',inventory:'500'},
+            {id:4110593, event:'The Lion King3',desc:'Minskoff1 theatre1 (New York, NY)',date:'Sat Mar 12 2016 at 12:00pm',sold:'30',inventory:'600'}
+        ];
+    if(window.innerWidth>767){ 
+    $scope.navCollapsed = false;    
+    }else{
+    $scope.navCollapsed = true;
+    $scope.toggleMenu = function() {
+    $scope.navCollapsed = $scope.navCollapsed === false ? true: false;
+    };    
+ }
  
    
 
-   
+   ///////////////////////////////////////////////////////////
   var now = new Date();
   if (now.getMonth() == 11) {
       var current = new Date(now.getFullYear() + 1, 0, 1);
@@ -512,7 +308,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
   };
   
   
-  $scope.location_event_div=$scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
+  $scope.location_event_div=$scope.price_and_link_div=$scope.setting_div=$scope.dynamic_age_div=$scope.return_age_text_div=true;
   $scope.custom_age=function(){
      $scope.age_div=$scope.age_text_div=true; 
      $scope.dynamic_age_div=$scope.return_age_text_div=false;
@@ -565,21 +361,21 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
 
     if (menu.id==5) {
       $scope.eventdetail_div=false;
-      $scope.price_and_link_div=$scope.look_and_feel_div=$scope.setting_div=true;
+      $scope.price_and_link_div=$scope.setting_div=true;
     }
 
     if (menu.id==6) {
-      $scope.eventdetail_div=$scope.look_and_feel_div=$scope.setting_div=true;
+      $scope.eventdetail_div=$scope.setting_div=true;
       $scope.price_and_link_div=false;
     }
 
-    if (menu.id==7) {
-      $scope.eventdetail_div=$scope.price_and_link_div=$scope.setting_div=true;
-      $scope.look_and_feel_div=false;
-    }
+    // if (menu.id==7) {
+    //   $scope.eventdetail_div=$scope.price_and_link_div=$scope.setting_div=true;
+    //   $scope.look_and_feel_div=false;
+    // }
 
     if (menu.id==8) {
-      $scope.eventdetail_div=$scope.look_and_feel_div=$scope.price_and_link_div=true;
+      $scope.eventdetail_div=$scope.price_and_link_div=true;
       $scope.setting_div=false;
     }
     $scope.selected2 = menu;  
@@ -650,19 +446,19 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
     });
   };
   
-  $scope.open_price_level = function (size) {
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'myModalContentPrice.html',
-      controller: 'ModalInstancePriceCtrl',
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    });
-  };
+  // $scope.open_price_level = function (size) {
+  //   var modalInstance = $uibModal.open({
+  //     animation: $scope.animationsEnabled,
+  //     templateUrl: 'myModalContentPrice.html',
+  //     controller: 'ModalInstancePriceCtrl',
+  //     size: size,
+  //     resolve: {
+  //       items: function () {
+  //         return $scope.items;
+  //       }
+  //     }
+  //   });
+  // };
   
   $scope.add_bundle = function (size) {
     var modalInstance = $uibModal.open({
@@ -728,34 +524,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
     }
   }
    
-  /* $scope.single_eventend=function()
-   {
-    if($rootScope.selectevent_date==undefined)
-    {
-        var d=new Date($scope.end_date);
-        var curr_date = d.getDate();
-        var curr_month = d.getMonth();
-        var day=d.getDay();
-        var curr_year = d.getFullYear();
-        var cur_mon=d.getMonth()+1;
-         $rootScope.single_start_date=curr_year+"-"+cur_mon+"-"+curr_date;
-        $rootScope.selectevent_date=weekday[day]+" "+m_names[curr_month]+" "+curr_date + "," + curr_year; 
-    }else{
-     var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'myModalContent.html',
-      controller: 'ModalInstanceCtrl',
-      size: '',
-      resolve: {
-        items: function () {
-          
-          return $scope.items;
-        }
-      }
-    });
-    }
-    
-   }*/
+
+
    
    $scope.remove_event=function()
    {
@@ -886,139 +656,5 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
    }
 
 });
-angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uibModalInstance, items,$rootScope) {
-     $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
 
 
-  $scope.remove=function(){
-  
-    delete $rootScope.selectevent_date;
-    delete $rootScope.startevent_time;
-    delete $rootScope.endevent_time;
-   
-    $uibModalInstance.close($scope.selected.item);
-  }
-
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
-});
-
-angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {
-    var $serviceTest = $injector.get("venues");
-     $scope.items = items;
-     $scope.min_price=true;
-     $scope.change_price_type=function(){
-    
-     if($scope.data1.price_type=='name_your_price')
-     {
-        $scope.min_price=false;
-        $scope.online_price=true;
-     }else{
-        $scope.online_price=false;
-        $scope.min_price=true;
-     }
-    }
-    
-    $scope.onlinePricefunc=function()
-    {
-    
-       $scope.data1.box_office_price=$scope.data1.online_price;
-    }
-    
-     $scope.suggestedPricefunc=function()
-    {
-     
-       $scope.data1.box_office_price=$scope.data1.suggested_price;
-    }
-    
-    $scope.selected = {
-      item: $scope.items[0]
-    };
-
-
-
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
-  
-   //For step 2 Price level
- $scope.savepriceleveldata=function(data1)
- {
-  data1.userId=$localStorage.userId; 
-  data1.eventId=$localStorage.eventId; 
-         
-          $serviceTest.savepriceleveldata(data1,function(response){
-          
-              if (response!=null) {
-            if (response.code==200)
-             {
-              $scope.data1=[];
-              $serviceTest.getPricelevel({'eventId':data1.eventId},function(response){
-                console.log(response);
-              });
-              $uibModalInstance.dismiss('cancel'); 
-             }
-            }
-        }); 
- }
-});
-
-  
-  angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope, $uibModalInstance, items,$rootScope) {
-    $scope.items = items;
-    $scope.selected = {
-      item: $scope.items[0]
-    };
-
-    $scope.steps=[
-     { "title":"Details","icon":'fa fa-calendar','id':1},
-     { "title":"Quantities","icon":'fa fa-cog','id':2},
-     { "title":"Price","icon":'fa fa-tags','id':3}
-    ];
-
-    $scope.click_menu=function(menu) {
-       if (menu.id==1) {
-        $scope.step_1=true;
-        $scope.step_2=$scope.step_3=false;
-       }
-       if (menu.id==2) {
-        $scope.step_2=true;
-        $scope.step_1=$scope.step_3=false;
-       }
-       if (menu.id==3) {
-        console.log($scope.data);
-        $scope.step_3=true;
-        $scope.step_2=$scope.step_1=false;
-       }
-       $scope.selected2 = menu;  
-    }
-    $scope.click_menu({id:1});
-
-    /* bundle tab stop */
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-
-
-
-
-  });
-  // $scope.advance_set=function()
-  // {
-
-  // }
-
-
-  angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope) {
-    $scope.items = items;
-    $scope.selected = {
-      item: $scope.items[0]
-    };
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-  });

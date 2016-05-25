@@ -3,7 +3,7 @@ module.exports = function(app, express) {
 
        
 
-	Package    = require('./../app/event_package/controller/package.js');
+	Package   = require('./../app/event_package/controller/package.js');
       function supportCrossOriginScript(req, res, next) {
     	    res.header('Access-Control-Allow-Origin', '*');
     	    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -12,15 +12,10 @@ module.exports = function(app, express) {
     	    next();
     	}
          /* For saving the event data */
-       router.post('/saveEvent', Package.saveEvent);
+       router.post('/savePackage', Package.savePackage);
        /* Save reoccuring event data */
-       router.post('/saverecurringEvent', Package.saverecurringEvent);
+       router.post('/saverecurringPackage', Package.saverecurringPackage);
 
-       router.post('/savepricelevel', Package.savepricelevel);
-       router.post('/getPricelevel', Package.getPricelevel);
-        /* To get data of the all events */
-        router.post('/getEvents',supportCrossOriginScript,Package.getEvents);
-       /* To get the event data */
-       router.post('/getEvent',supportCrossOriginScript, Package.getEvent);
+     
   
   

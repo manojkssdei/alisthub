@@ -1,5 +1,4 @@
-<link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
-<script src="javascripts/timepicker.js" type="text/javascript"></script>
+
 <div class="container">
      <h1>Create an Package</h1>
     <!-- Step Form -->
@@ -13,17 +12,17 @@
     <!-- //Step Form --> 
     
     <!-- Form COntainer -->
-    <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
-    <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
+  
     <div class="form-section  wt-frame">
      
 <!-- package section -->
 <div ng-hide="eventdetail_div" class="eventseries">
  
      <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
+        <section class="gray-frame sub-fields"> 
           <div class="form-group">
-            <label for="eventname">Package Name<span class="req">*</span></label>
-            <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="" required>
+            <label for="packagename">Package Name<span class="req">*</span></label>
+          <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="" required>
              <span style="color:red" ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">  <span  ng-show="myForm.eventname.$error.required">Package name is required</span></span>
           </div>
           <div class="editr">
@@ -32,23 +31,48 @@
            
          </div>
          </div>
-         </form>
-        
-         
+         </section>
+      </form>      
 <!-- events section -->
            <div class="form-group field-group">
-            <label>Events is Include in package<span class="req">*</span></label>
+            <label><h4><b>Events to Include in Packages</b></h4></label>
                  <section class="gray-frame sub-fields"> 
                   <div class="row">
                     <div class="col-sm-4">
-                   <div class="form-group">
+        
                      <label>Events<span class="req">*</span></label>
-                       <button type="button" ng-click=add_remove() class="gray-btn btn">Add/remove event</button>
-                  </div>
+                       <button type="button" ng-click=add_remove() class="gray-btn btn">Add/Remove Events</button>
+                  
                     
                   </div>
                   </div>
           </section>
+
+
+              <section class="gray-frame sub-fields">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="22%">ID</th>
+                                    <th width="36%">Event</th>
+                                    <th width="32%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr pagination-id="paginate1" dir-paginate="upcoming in upcoming_event_data | itemsPerPage: 3">
+                                    <td><a href="#"><strong>{{upcoming.id}}</strong></a></td>
+                                    <td>
+                                        <p><a href="#"><strong>{{upcoming.event}}</strong></a></p>
+                                        <p>{{upcoming.desc}}</p>
+                                    </td>
+                                    <td>({{upcoming.date}})</td>
+                                
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
                 </div>
             
             
@@ -71,13 +95,39 @@
                     <div class="col-sm-8">
                       <section class="row text-drop">
                           <section class="col-sm-4 form-group"><select class="form-control">
-                                  <option value=" ">HR</option>
+                                  <option value=" ">1</option>
+                                  <option value=" ">2</option>
+                                  <option value=" ">3</option>
+                                  <option value=" ">4</option>
+                                  <option value=" ">5</option>
+                                  <option value=" ">6</option>
+                                  <option value=" ">7</option>
+                                  <option value=" ">8</option>
+                                  <option value=" ">9</option>
+                                  <option value=" ">10</option>
+                                  <option value=" ">11</option>
+                                   <option value=" ">12</option>
                                 </select></section>
                             <section class="col-sm-4 form-group"><select class="form-control">
-                                  <option value=" ">MIN</option>
-                                </select></section>
+                                          <option value=" ">00</option>     
+                                          <option value=" ">01</option>    
+                                          <option value=" ">02</option>  
+                                          <option value=" ">03</option> 
+                                          <option value=" ">04</option>    
+                                          <option value=" ">05</option>  
+                                          <option value=" ">06</option>  
+                                          <option value=" ">07</option> 
+                                          <option value=" ">08</option> 
+                                          <option value=" ">09</option>       
+                                          <option value=" ">10</option>  
+                                          <option value=" ">11</option> 
+                                          <option value=" ">12</option>   
+
+                                </select>
+                              </section>
                             <section class="col-sm-4 form-group"><select class="form-control">
                                   <option value=" ">PM</option>
+                                      <option value=" ">AM</option>
                                 </select></section>
                         </section>
                   </div>
@@ -103,14 +153,43 @@
                     <div class="col-sm-8">
                       <section class="row text-drop">
                           <section class="col-sm-4 form-group"><select class="form-control">
-                                  <option value=" ">HR</option>
+                                     <option value=" ">1</option>
+                                  <option value=" ">2</option>
+                                  <option value=" ">3</option>
+                                  <option value=" ">4</option>
+                                  <option value=" ">5</option>
+                                  <option value=" ">6</option>
+                                  <option value=" ">7</option>
+                                  <option value=" ">8</option>
+                                  <option value=" ">9</option>
+                                  <option value=" ">10</option>
+                                  <option value=" ">11</option>
+                                   <option value=" ">12</option>
                                 </select></section>
-                            <section class="col-sm-4 form-group"><select class="form-control">
-                                  <option value=" ">MIN</option>
-                                </select></section>
-                            <section class="col-sm-4 form-group"><select class="form-control">
-                                  <option value=" ">PM</option>
-                                </select></section>
+                            <section class="col-sm-4 form-group">
+                            <select class="form-control">
+                                          <option value=" ">00</option>     
+                                          <option value=" ">01</option>    
+                                          <option value=" ">02</option>  
+                                          <option value=" ">03</option> 
+                                          <option value=" ">04</option>    
+                                          <option value=" ">05</option>  
+                                          <option value=" ">06</option>  
+                                          <option value=" ">07</option> 
+                                          <option value=" ">08</option> 
+                                          <option value=" ">09</option>       
+                                          <option value=" ">10</option>  
+                                          <option value=" ">11</option> 
+                                          <option value=" ">12</option>   
+  
+                                </select>
+                                </section>
+                            <section class="col-sm-4 form-group">
+                              <select class="form-control">
+                               <option value=" ">PM</option>
+                               <option value=" ">AM</option>
+                              </select>
+                            </section>
                         </section>
                   </div>
                 </section>
@@ -129,7 +208,7 @@
                       <label class="form-label">Type of Event</label>
                     </div>
                     <div class="col-sm-4">
-                     <label for="EventName"> Categories<span class="req">*</span></label>
+                     <label for="EventName"> Category<span class="req">*</span></label>
                     </div>
 
                     <div class="col-sm-4">
@@ -162,18 +241,16 @@
                                 </select>
                                
                           <div class="col-sm-12">
-                          <section>
-                                <span ng-hide="age_text_div">
-                                <a ng-click="custom_age()" style="cursor: pointer;" class="u-text with-ftext">
-                                <strong>Define a custom age limit</strong>
-                                </a></span>
-                                <span ng-hide="return_age_text_div"><a ng-click="custom_default_age()" style="cursor: pointer;" class="u-text with-ftext"><strong>Return to Default age limits</strong></a></span>
-                            </section>
+                            <div class="radio-sec custom-check">
+                            <p class="radio-inline">
+                               <input type="checkbox" id="test5"/><label for="test5">Define a custom age limit</label>
+                                </p>
+                         </div>
                             </div>
                             
                         </div>
                          <div class="col-sm-12">
-                      <label class="form-label">Series Website</label>
+                      <label class="form-label">Package Website</label>
                    <input type="text" name="website" ng-model="website" class="form-control" required>
                    </div>
                   
@@ -181,16 +258,17 @@
                      <div class="col-sm-12">
                    <br>
                    <br>
-                        <label class="form-label">Images</label>
+                        <label class="form-label">Image</label>
+                        </div>
                          <div class="col-sm-12">
-                           <div class="col-sm-6">
+                           <div class="col-sm-8">
                              <input type="file" name="choose file"  width="10%" height="10%"/required>
                            </div>
-                          <div class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                          <div class="radio-sec custom-check col-sm-4">
             
                             <p class="radio-inline">
-                            <input type="checkbox" id="test2">
-                            <label for="test2">Display image an event Listing</label>
+                            <input type="checkbox" id="test4">
+                            <label for="test4" >Display image an event Listing</label>
                            </p>
                           </div>
                         </div>
@@ -221,19 +299,20 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
 
 
  <!--price and link part -->
+
+
  <div ng-hide="price_and_link_div">
            <!-- Event Detail Form -->
-           
-            
-
+ <h3>Price Levels</h3>
+  <section class="gray-frame sub-fields">
                     <section class="radio-sec with-ftext">
                           <section class="radio-inline">
                               <input type="radio" id="radio1" name="type_of_event" ng-model="data1.type_of_event" checked>
-                              <label for="radio1"><span></span>Ticketed</label>
+                              <label for="radio1"><span></span>Arrange by price</label>
                           </section>
                             <section class="radio-inline">
                           <input type="radio" id="radio2"  name="type_of_event" ng-model="data1.type_of_event">
-                          <label for="radio2"><span></span>Registration</label>
+                          <label for="radio2"><span></span>Manually Arrange</label>
                           </section>
                    </section>
                   
@@ -337,10 +416,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
       </section>
                   
                   <section class="grid-bottm clearfix">
-                    <section class="col-sm-3 f-12">
-                              <label>&nbsp;</label>
-                                <span><a style="cursor: pointer;" class="u-text with-ftext"><strong>Please set your fulfillment setting</strong></a></span>
-                            </section>
+                   
                     <section class="gr-right pull-right">
                       <ul class="legends">
                           <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
@@ -373,9 +449,11 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           <button type="button" ng-click="click_menu(steps[2])" class="pink-btn btn">Next</button>
         </div>
 </form>
+</section>
        </div>
 
 
+<!--SETTING SECTION-->
            <div ng-hide="setting_div">
           
       <form class="event-form">
@@ -383,7 +461,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           <section class="form-group field-group">
             <label>Delivery Methods</label>
             <section class="gray-frame sub-fields">
-              <label>Print at Home</label>
+              <label>Price at Home</label>
                 <section class="row">
                   <section class="col-sm-8">
                         <section class="radio-sec">
@@ -404,6 +482,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                <section class="row">
                   <section class="col-sm-8">
                       <section class="form-group">
+                      <br>
                             <label>Extra Info</label>
                           <textarea name="textarea" class="form-control" cols=" " rows="5"></textarea>
                       </section>
@@ -446,10 +525,10 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </section>
             <section class="gray-frame sub-fields">             
                <section class="row">
-                  <section class="col-sm-6">
+                  <section class="col-sm-8">
                       <section class="form-group">
                             <label>Fee Name</label>
-                            <input type="text" placeholder="Fee Name" class="form-control" value=" " name=" ">
+                            <input type="text" class="form-control" value=" " name=" ">
                         </section>
                     </section>
                </section>
@@ -466,8 +545,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     
                     <section class="col-sm-4">
                       <section class="form-group">
-                            <label>Amount %</label>
-                            <input type="text" placeholder="Fee Name" class="form-control" value=" " name=" " placeholder="0.00">
+                            <label>Amount (%)</label>
+                            <input type="text"  class="form-control"  placeholder="0.00">
                         </section>
                     </section>
                     
@@ -484,7 +563,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           </section><!--/Custom Fee-->
           
           <section class="form-group field-group">
-            <section class="row">
+          <!--   <section class="row">
                 <label class="col-md-2 col-sm-4">Question </label>
                 <section class="col-md-4 col-sm-4">
                     <div class="onoffswitch mt-3">
@@ -492,8 +571,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                         <label class="onoffswitch-label" for="myonoffswitch3"></label>
                     </div>
                 </section>
-            </section>
-            <section class="gray-frame sub-fields">             
+            </section> -->
+         <!--    <section class="gray-frame sub-fields">             
                <section class="row">
                   <section class="col-sm-6">
                       <section class="form-group">
@@ -517,7 +596,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                
               
 
-            </section>
+            </section> -->
           </section><!--/Question-->
           
           <section class="form-group field-group">            
@@ -525,71 +604,102 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                
                <section class="gray-frame sub-fields">              
                    <section class="row">
-                        <section class="col-sm-6">
+                        <section class="col-sm-12">
                             <section class="row">
-                                <section class="col-sm-6">
+                                <section class="col-sm-4">
                                      <section class="form-group">
                                         <label>Online Service Fee</label>
-                                        <input type="text" placeholder="Online Service Fee" class="form-control" value="" name="StartTime">
-                                       <p class="info-text">%Covered</p>
+                                        <input type="text" placeholder="0" class="form-control" value="" name="StartTime">
+                                     
                                     </section>
                                 </section>
                                 
-                                <section class="col-sm-6">
+                                <section class="col-sm-4">
                                      <section class="form-group">
                                         <label>Box Office Service Fee</label>
-                                        <input type="text" placeholder="Box Office Service Fee" class="form-control" value="" name="StartTime">
-                                        <p class="info-text">%Covered</p>
+                                        <input type="text" placeholder="0" class="form-control" value="" name="StartTime">
+                                       
                                     </section>
                                 </section>
+                            
+                    
+                        <section class="col-sm-4">
+                          <section class="form-group">
+                                <label>Ticket Transaction Limit</label>
+                                <input type="text" name="" value="" class="form-control" placeholder="10">
                             </section>
                         </section>
-                        <section class="col-sm-6">
-                          <section class="form-group">
-                                <label>Ticket Note</label>
-                                <input type="text" name="StartTime" value="" class="form-control" placeholder="Ticket Note">
-                            </section>
                         </section>
                    </section>
+                   </section>
                    
-                 <section class="row">
-                        <section class="col-sm-6">
-                            <section class="row">
-                                <section class="col-sm-6">
-                                     <section class="form-group">
-                                        <label>Ticket Transaction Limit</label>
-                                       <input type="text" placeholder="Ticket Transaction Limit" class="form-control" value="" name="StartTime">
-                                    </section>
-                                </section>
-                                
-                                <section class="col-sm-6">
-                                     <section class="form-group">
-                                        <label>Checkout Time Limit</label>
-                                        <input type="text" placeholder="Box Office Service Fee" class="form-control" value="" name="StartTime">
-                                    </section>
-                                </section>
-                            </section>
+                 
+                <section class="row">
+                        <section class="col-sm-8">
+                              <section class="form-group">
+                                 <label>Ticket Note</label>
+                                 <input type="text" class="form-control" value=" " name=" ">
+                              </section>
+                          </section>
+                        <section class="col-sm-4">
+                               <section class="form-group">
+                               <label>Checkout Time Limit</label>
+                               <select class="form-control">
+                              <option value=" ">5 minute</option>
+                            </select>
                         </section>
-                        <section class="col-sm-6">
+                    </section>
+                </section>
+                  <section class="row">
+                      <section class="col-sm-4">
                           <section class="form-group">
-                                <label>Ticket Layout</label>
-                                <input type="text" name="StartTime" value="" class="form-control" placeholder="Ticket Layout">
-                            </section>
-                        </section>
-                 </section>
-                   
-                   <section class="form-group">
                         <label>Collect Name on Each Ticket</label>
                         <div class="onoffswitch mt-3">
                           <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5">
                           <label class="onoffswitch-label" for="myonoffswitch5"></label>
-                     </div>
+                        </div>
+                       </section>
+
+                     </section>
+                  <section class="col-sm-4">
+                      <section class="form-group">
+                        <label>Pricing</label>
+                        <div class="onoffswitch mt-3">
+                          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch6">
+                          <label class="onoffswitch-label" for="myonoffswitch6"></label>
+                           </div>
+                      </section>
                  </section>
+              </section>
+
+
+
+                  <section class="row">
+                 
+                     <section class="col-sm-8">
+                          <section class="form-group">
+                          <br>
+                        <label>show seating chart</label>
+                       <label>There is no seating chart assigned to this event's vanue</label>
+                       </section>
+
+                     </section>
+                  <section class="col-sm-4">
+                      <section class="form-group">
+                       <label>URL short name<span class="req">*</span></label>
+                      <input type="text"  class="form-control" />
+                      </section>
+                 </section>
+
+              </section>
+
+
             </section>
-          </section><!--/Additional Settings-->
+          </section>
+          <!--/Advance  Settings-->
           
        
-       <!--/Public Contact Info-->
+     
           
           <section class="form-group field-group">
               <label>Advanced Settings</label>
@@ -598,18 +708,26 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                <section class="content f-sb">
                   <p>Make modifications to various customer-facing features, including your event listing, checkout process and Print@home tickets, using these advanced customizations. Do not make any adjustments if you're uncertain as to what will be modified </p>
                   <br>
+                  <br><br>
                   <p>Any changes you mode to the Default Advanced Settings will automatically be set on this event You can turn any setting off or on, and even override the default, during this step </p>
                   <br>
-                    <p><a ui-sref="advance_setting"><button class="pink-btn btn btn-small m-fw"  >Edit Event Advanced Setting</button></a></p>
-               </section>
-            </section>
-          </section><!--/Advanced Settings-->
+                
+                       
+        <div class="editor-btn">
+          <a ui-sref="advance_setting"><button class="pink-btn btn">Edit Event Advanced Setting</button></a>
+        <button class="gray-btn btn">No custom setting enable</button>
+        </div>
+      
+      </section>
+  </section>
+  </section><!--/Advanced Settings-->
         
       </form>
       <div class="editr">        
         <div class="editor-btn">
+           <button class="gray-btn btn">Privious</button>
           <button class="gray-btn btn">Save</button>
-          <button class="pink-btn btn">Next</button>
+          <button class="pink-btn btn">Submit</button>
         </div>
       </div>
     
