@@ -3,7 +3,7 @@ module.exports = function(app, express) {
 
        
 
-	Series    = require('./../app/event/controllers/series.js');
+	Series    = require('./../app/series/controller/series.js');
       function supportCrossOriginScript(req, res, next) {
     	    res.header('Access-Control-Allow-Origin', '*');
     	    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -22,3 +22,5 @@ module.exports = function(app, express) {
         router.post('/getEvents',supportCrossOriginScript,Series.getEvents);
        /* To get the event data */
        router.post('/getEvent',supportCrossOriginScript, Series.getEvent);
+       /*add schedule*/
+          router.post('/add_schedule', Series.add_schedule);

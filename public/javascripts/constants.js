@@ -110,6 +110,18 @@ var webservices = {
 
     
 
+
+    //package events
+     "savePackage"  :  "/package/savePackage",
+  
+   
+    "saverecurringPackage"  :  "/package/saverecurringPackage",
+    //add schedul///////////
+        "add_schedule"  :  "/add_schedule/add_schedule",
+    "saverecurringschedule"  :  "/add_schedule/saverecurringschedule",
+
+     
+
     //save second step data
     "secondStepdata":"/event/savesecondstepdata",
 
