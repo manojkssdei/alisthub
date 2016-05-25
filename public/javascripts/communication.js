@@ -53,7 +53,7 @@ angular.module('communicationModule')
 	 *@callback - the callback function
 	 */
 	service.resultViaPost = function(serviceUrl, authenticationKey, headerString, postData, callback) {
-		if(authenticationKey != undefined) {
+		if(authenticationKey != undefined && authenticationKey != "undefined") {
 			$http.defaults.headers.common['Authorization'] = 'Basic ' + authenticationKey;
 		}
 
@@ -95,6 +95,32 @@ angular.module('communicationModule')
         }).success(function(data, status, headers, config) {
 	        callback(data);
         });
+	}
+	
+	
+	/*
+	 *The function will post the postData to the provided ShowclixURL
+	 *@ShowclixURL - the Url of the web service to be called
+	 *@authenticationKey - the browser authentication key. This field is optional
+	 *@ShowclixheaderString - the content-type header e.g. if entered 'json', will add the 'content-type' header as 'application/json'
+	 * refer javascripts/constants.js file for more details
+	 *@ShowclixURLpostData - the json data to be posted to the web service
+	 *@ShowclixURLcallback - the callback function
+	 *Created: 2016-05-23
+	 */
+	service.showclixResultViaPost = function(serviceUrl, authenticationKey, headerString, postData, callback) {
+		
+		/////////////////////////////////////////////////////////////////////////
+		$http({
+                 url: serviceUrl,
+                 method: 'POST',
+                 data: postData,
+                 headers: headerString
+                }).success(function(data, status, headers, config) {
+                        //console.log(data);
+			callback(data);
+                });
+		////////////////////////////////////////////////////////////////////////
 	}
 
 	return service;

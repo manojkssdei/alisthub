@@ -116,6 +116,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       $rootScope.bundleList = response.result;
     });
 
+    /*$scope.product = {};
+    $scope.product.eventId = $localStorage.eventId; 
+    $scope.product.userId = $localStorage.userId;
+    $serviceTest.getEventProducts($scope.product,function(response){
+      $rootScope.eventProductList = response.result;
+    });*/
+
 
 
     /** 
@@ -1190,7 +1197,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       $scope.data = {};
       if ($localStorage.userId!=undefined) {
         $scope.data.id   = id;
-        $scope.data.status   = status==1?0:1;
+        $scope.data.status   = status;
         $scope.loader_bundle = true;
         $serviceTest.changeBundleStatus($scope.data,function(response){
           if (response.code == 200) {
@@ -1776,7 +1783,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   /*
   Code for product popup
   */
-  angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {
+  angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
     $scope.items = items;
     $scope.data = {};
     var $serviceTest = $injector.get("venues");
@@ -1787,15 +1794,15 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       $uibModalInstance.dismiss('cancel');
     };
 
-//To get Product
+    //To get Products
     $scope.getProduct = function() { 
       if ($localStorage.userId!=undefined) {
         $scope.data.userId      = $localStorage.userId;
         $serviceTest.getProducts($scope.data,function(response){
-          
+          //console.log(response);
           $scope.loader = false;
           if (response.code == 200) {
-            //console.log($scope.data.first_name);
+            $scope.productList = response.result;
           } else {
             $scope.error_message = response.error;
           }
@@ -1803,7 +1810,67 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       }
     }; 
 
+    // Get product list 
     $scope.getProduct();
+
+    function getObjects(obj, key, val) {
+        var objects = [];
+        for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+          if (typeof obj[i] == 'object') {
+            objects = objects.concat(getObjects(obj[i], key, val));
+          } else if (i == key && obj[key] == val) {
+            objects.push(obj);
+          }
+        }
+        return objects;
+    }
+
+    $scope.product_retail_price = 0;
+    $scope.showPrice = function(){
+      var productJson = getObjects($scope.productList, 'id',  $scope.product.product_id);
+      $scope.product_retail_price = productJson[0].retail_price;
+    };
+
+    $scope.addEventProduct = function(product) {
+      if ($localStorage.userId!=undefined) {
+        $scope.product.seller_id   = $localStorage.userId;
+        $scope.product.event_id = $localStorage.eventId;
+
+        console.log($scope.product);
+        $serviceTest.addEventProduct($scope.product,function(response){
+          //console.log(response);
+          if (response.code == 200) { 
+            if(product.id==undefined){
+              console.log("response: " + response.result);
+              $localStorage.eventProductId = response.result.insertId;  
+              $scope.product.id = $localStorage.eventProductId;
+              $scope.success = global_message.bundle_add;
+            } else {
+              $localStorage.bundleId = bundle.id;
+              $scope.success = global_message.bundle_update;
+
+              $scope.product = {};
+              $scope.product.eventId = $localStorage.eventId; 
+              $scope.product.userId = $localStorage.userId;
+              $serviceTest.getEventProducts($scope.product,function(response){
+                $rootScope.eventProductList = response.result;
+              });
+            }
+            
+            $scope.success_message = true;
+            
+            $timeout(function() {
+              $scope.error = '';
+              $scope.success_message = false;
+              $scope.success = '';
+            },3000);
+          } else {
+            $scope.activation_message = global_message.ErrorInActivation;
+          }
+        });
+      }
+    };
 
   });
   
