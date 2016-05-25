@@ -48,6 +48,7 @@ var webservices = {
     "saverecurringEvent"  :  "/event/saverecurringEvent",
         /////get event category////
      "getEventsdetail":"/event/getEventsdetail",
+     "getEvents":"/event/getEvents",
     
 
     /* Constants for the discount module */

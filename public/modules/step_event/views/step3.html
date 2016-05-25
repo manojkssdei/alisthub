@@ -21,7 +21,14 @@
     <!-- //Form COntainer --> 
   <div class="module template-view" ng-hide="module_div">
 
-      <div ng-bind-html="desc"></div>
+      <div gridster="gridsterOpts">
+                <ul id="myMenuList">
+                    <li gridster-item="item" ng-repeat="item in standardItems" ng-bind-html="item.content | sanitize" ng-click="showdiv()">              
+                        
+                    </li>
+               </ul>
+                
+          </div>
 
       </div>
 </div>

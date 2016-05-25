@@ -7,7 +7,7 @@ Description: It defined routes to call different files.It will provide you direc
 angular.module("communicationModule", []);
 // Declare app level module which depends on filters, and services
 
-var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','angularUtils.directives.dirPagination'])
+var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','angularUtils.directives.dirPagination','gridster'])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ocLazyLoadProvider) {
      $urlRouterProvider.otherwise('/login');
@@ -113,13 +113,15 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                   templateUrl: 'modules/events/views/dashboard.html'
                 }
             },
-            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
-                authentication:routerApp.logauthentication,
-                resources: ['$ocLazyLoad', function($ocLazyLoad) {
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/events/controller.js');
+                return $ocLazyLoad.load('modules/events/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/events/controller.js']);
+                })
               }]
-              
             }
         })
         
@@ -148,13 +150,16 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 "lazyLoadView": {
                   controller: 'eventhomeController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/events/views/view_event.html'
-                }
+                },
             },
-            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
-              authentication:routerApp.logauthentication,  
-              resources: ['$ocLazyLoad', function($ocLazyLoad) {
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/events/controller.js');
+                return $ocLazyLoad.load('modules/events/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/events/controller.js']);
+                })
               }]
             }
         })

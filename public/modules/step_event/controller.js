@@ -7,7 +7,7 @@ Module : Event step
 
 
 angular.module("google.places",[]);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad) { 
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state) { 
    //If user is not logged in and then log him out.
   if (!$localStorage.isuserloggedIn) {
       $state.go('login');
@@ -745,7 +745,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 //Default Event
  $scope.events = [
     { "name": "Single Event",'id':1},
-    {"name": "Multiple Event",'id':2}
+    {"name": "Series Event",'id':2}
   ]
  //To show default venues 
   $scope.venues = [
