@@ -361,8 +361,34 @@ Created By: Deepak khokhar
 exports.getpreviewImage=function(req,res)
 {
     var templateId=req.body.templateId;
-    console.log(templateId);
+    
     $sql="select preview_image from look_and_feel_template where id="+templateId;
+     connection.query($sql, function(err, results) 
+     {
+      if (err) {
+        res.json({error:err,code:101});
+       }
+       else
+     {
+      res.json({result:results,code:200});
+    }
+   
+   
+});
+ }
+ 
+ /** 
+Method: look and feel select template description
+Description:Function to get look and feel Preview Template 
+Created : 2016-05-24
+Created By: Deepak khokhar  
+*/
+exports.getTemplate=function(req,res)
+{
+    var templateId=req.body.templateId;
+    
+    $sql="select description from look_and_feel_template where id="+templateId;
+    console.log($sql);
      connection.query($sql, function(err, results) 
      {
       if (err) {

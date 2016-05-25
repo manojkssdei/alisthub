@@ -114,6 +114,7 @@ var webservices = {
     //Step 3 look and feel
     "getlookAndFeeltemplate":"event/getlookAndFeeltemplate",
     "getpreviewImage":"event/getpreviewImage",
+    "getTemplate":"event/getTemplate",
 
 }
 

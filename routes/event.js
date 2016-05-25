@@ -43,6 +43,7 @@ module.exports = function(app, express) {
         /*get event look and feel*///
         router.post('/getlookAndFeeltemplate',supportCrossOriginScript, Event.getlookAndFeeltemplate);
         router.post('/getpreviewImage',supportCrossOriginScript, Event.getpreviewImage);
+        router.post('/getTemplate',supportCrossOriginScript, Event.getTemplate);
 
        
       
