@@ -364,25 +364,27 @@
     <div class="modal-header">
         <h3 class="modal-title">Add a Product</h3>
     </div>
+    <form  name="productForm" ng-submit="productForm.$valid && addEventProduct(product)" novalidate>
+    <input type="hidden" ng-model="product.id" name="id" />
     <div class="modal-body">
         
         <fieldset class="form-group">
            <div class="col-sm-4">Available Products</div>
-           <div class="col-sm-8"><select ng-model="data1.price_type" name="price_type" class="form-control"
-           ng-change="change_price_type()">
-                <option value="">---</option>
-                <option value="test1">Test 1</option>
-                <option value="test2">Test 2</option>
-           </select></div>
+           <div class="col-sm-8">
+           <select ng-model="product.product_id" name="product_id" class="form-control" ng-change="showPrice()" required>
+              <option ng-repeat="productVal in productList" value="{{productVal.id}}">{{productVal.product_name}}</option>
+           </select>
+           <p class="help-inline error-fld ng-binding" ng-show="submittedProduct && productForm.product_id.$error.required">Please select product</p>
+           </div>
         </fieldset>
         <fieldset class="form-group">
            <div class="col-sm-4">Retail Price</div>
-           <div class="col-sm-8"><span class="form-control">17.00</span></div> 
+           <div class="col-sm-8"><span class="form-control">{{product_retail_price}}</span></div> 
         </fieldset>
         
         <fieldset class="form-group" ng-hide="min_price">
            <div class="col-sm-4">Price(USD $)</div>
-           <div class="col-sm-8"><input type="text" ng-model="data1.minimum_price" name="minimum_price" class="form-control"></div>
+           <div class="col-sm-8"><input type="text" ng-model="product.price" name="minimum_price" class="form-control"></div>
         </fieldset>
         
         <fieldset class="form-group">
@@ -390,11 +392,11 @@
            <div class="col-sm-8">
               <section class="radio-sec custom-check">
                 <section class="radio-inline">
-                  <input type="checkbox" id="checkbox03" name="listing" ng-model="data1.listing">
+                  <input type="checkbox" id="checkbox03" name="listing" ng-model="product.placement_listing">
                   <label for="checkbox03">Listing Page</label>
                 </section>
                 <section class="radio-inline">
-                  <input type="checkbox" id="checkbox04"  name="confirmation" ng-model="data1.confirmation">
+                  <input type="checkbox" id="checkbox04"  name="confirmation" ng-model="product.placement_confirmation">
                   <label for="checkbox04"> Confirmation Page</label>
                 </section>
               </section>
@@ -408,16 +410,18 @@
             <section class="radio-sec">
               <section class="radio-inline">
                 <div class="onoffswitch">
-                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.hide_in_box_office" checked>
+                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="product.hide_in_box_office" checked>
                   <label class="onoffswitch-label" for="myonoffswitch5"></label>
                 </div>
               </section>
             </section>
            </div>
         </fieldset>
+        
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button">Submit</button>
+        <button class="btn btn-primary" type="submit" ng-click="submittedProduct=true">Submit</button>
         <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
+    </form>
 </script>

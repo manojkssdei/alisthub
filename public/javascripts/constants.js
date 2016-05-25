@@ -121,6 +121,12 @@ var webservices = {
     "getlookAndFeeltemplate":"event/getlookAndFeeltemplate",
     "getpreviewImage":"event/getpreviewImage",
 
+    //Add event product
+    "addEventProduct" :  "/event_setting/addEventProduct",
+    //Add event product
+    "getEventProducts" :  "/event_setting/getEventProducts",
+    
+
 }
 
 var global_message = {
