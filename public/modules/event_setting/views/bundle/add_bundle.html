@@ -45,14 +45,17 @@
                                 <div class="col-sm-4" >
                                     <div class="form-group">
                                         <label for="EventName"> Limit<span class="req-limit">*</span></label>
-                                        <input type="number" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit" min="0" />
+                                        <input  type="number" min="0" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit"  />
+                                         <p ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="error-fld ng-binding">Enter limit in numbers only.</p>
                                     </div>
-                                    <p style="color:red" ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="error-fld ng-binding">Enter bundle limit.</p>
+                                    
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="EventName"> Minimum Purchase</label>
-                                        <input type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="data.bundle_minimum_purchase"/>
+                                        <input  type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="data.bundle_minimum_purchase" name="bundle_minimum_purchase"/>
+                                         <p ng-show="userForm.bundle_minimum_purchase.$invalid && !userForm.bundle_minimum_purchase.$pristine" class="error-fld ng-binding">Enter minimum purchase in numbers only.</p>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-sm-4">

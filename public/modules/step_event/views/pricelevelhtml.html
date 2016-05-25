@@ -19,9 +19,13 @@
         <!-- {{data1}}-->
             <fieldset  class="form-group" style="padding-top:10px">
                <div class="col-sm-4">Price Level Name<span class="req">*</span></div>
-               <div class="col-sm-8"><input type="text" ng-model="data1.price_level" name="price_level" class="form-control" required><input type="hidden" ng-model="data1.id"></div>
+               <div class="col-sm-8"><input type="text" ng-model="data1.price_level" name="price_level" class="form-control" required><input type="hidden" ng-model="data1.id">
+
+               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.price_level.$error.required">Price Level Name is required</p>
+
+               </div>
                <span style="color:red" ng-show="pricelevelForm.price_level.$dirty && pricelevelForm.price_level.$invalid">
-                <span ng-show="pricelevelForm.price_level.$error.required">Price Level Name is required</span>
+                
                </span>
             </fieldset>
             <fieldset class="form-group">
@@ -35,24 +39,47 @@
             </fieldset>
             <fieldset class="form-group" ng-hide="online_price">
                <div class="col-sm-4">Online Price(USD $)</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.online_price" name="online_price" class="form-control" ng-blur="onlinePricefunc()"  min="0"></div> 
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.online_price" name="online_price" class="form-control" ng-blur="onlinePricefunc()" >
+               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.online_price.$invalid && !pricelevelForm.online_price.$pristine">Please enter valid online price</p>
+               </div>
+
+               
+
             </fieldset>
             
             <fieldset class="form-group" ng-hide="min_price">
                <div class="col-sm-4">Minimum Price(USD $)</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.minimum_price" name="minimum_price" class="form-control"  min="0"></div>
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.minimum_price" name="minimum_price" class="form-control">
+               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_price.$invalid && !pricelevelForm.minimum_price.$pristine">Please enter valid minimum price</p>
+               </div>
+
+               
+
             </fieldset>
             <fieldset class="form-group" ng-hide="min_price">
                <div class="col-sm-4">Suggested Price(USD $)</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.suggested_price" name="suggested_price" class="form-control" ng-blur="suggestedPricefunc()"  min="0"></div>
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.suggested_price" name="suggested_price" class="form-control" ng-blur="suggestedPricefunc()" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.suggested_price.$invalid && !pricelevelForm.suggested_price.$pristine">Please enter valid suggested price</p>
+               </div>
+
+               
+
+
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Box Office Price(USD $)</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.box_office_price" name="box_office_price" class="form-control"  min="0"></div>
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.box_office_price" name="box_office_price" class="form-control"><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.box_office_price.$invalid && !pricelevelForm.box_office_price.$pristine">Please enter valid box office price</p>
+               </div>
+
+               
+
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Quantity Available</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.quantity_available" name="quantity_available" class="form-control"  min="0"></div>
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.quantity_available" name="quantity_available" class="form-control" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.quantity_available.$invalid && !pricelevelForm.quantity_available.$pristine">Please enter valid available quantity</p>
+               </div>
+
+               
+
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Hide Online</div>
@@ -87,11 +114,22 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Minimum Per Order</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control"  min="0"></div>
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_per_order.$invalid && !pricelevelForm.minimum_per_order.$pristine">Please enter valid number</p>
+               </div>
+               
+               
+
+
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Maximum Per Order</div>
-               <div class="col-sm-8"><input type="number" ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control"  min="0"></div>
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control" >
+               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.maximum_per_order.$invalid && !pricelevelForm.maximum_per_order.$pristine">Please enter valid number</p>
+               </div>
+
+               
+
+
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Description</div>
@@ -141,7 +179,11 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
             <fieldset class="form-group">
                <div class="col-sm-3">New Price (USD $)</div>
                <div class="col-sm-9">
-                    <input type="number" name="new_price" ng-model="data2.new_price" class="form-control" value="" required min="0">
+                    <input  type="number" min="0" name="new_price" ng-model="data2.new_price" class="form-control" value="" required>
+
+                    <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.new_price.$invalid && !pricelevelForm.new_price.$pristine">Please enter valid price</p>
+
+
                     <span style="color:red" ng-show="pricechangeform.new_price.$dirty && pricechangeform.new_price.$invalid">
                 <span ng-show="pricechangeform.new_price.$error.required">New Price is required</span>
                </span>
