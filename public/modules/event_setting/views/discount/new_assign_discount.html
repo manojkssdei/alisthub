@@ -65,24 +65,40 @@
                                 <div class="tab-content">
                                     <div role="tabpanel">
                                         <div class="row">
-                                            <div class="col-sm-6" ng-class="{ 'has-error' : userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine }" >
-                                                <div class="form-group">
-                                                    <label for="EventName">Select Coupon<span class="req">*</span></label>
-                                                    <select class="form-control" name="coupon_code" ng-model="data.coupon_code" ng-required="true" >
-                                                        <option ng-repeat="list in discountlist" value="{{list.id}}">{{list.coupon_name}}({{list.coupon_code}})</option>
-                                                    </select>
-                                                </div>
-                                                <p ng-show="userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine" class="help-block">Select coupon code.</p>
-                                            </div>
-                                            <div class="col-sm-6" ng-class="{ 'has-error' : userForm.events.$invalid && !userForm.events.$pristine }" >
+                                             <div class="col-sm-6" ng-class="{ 'has-error' : userForm.events.$invalid && !userForm.events.$pristine }" >
                                                 <div class="form-group">
                                                     <label for="EventName">Select one or more events</label>
                                                     <input type="radio" class="assignEvents" value="all" name="events" ng-click="enableBox(1)" ng-model="data.events" /> Apply coupon(s) globally across all events
-                                                    <input type="radio" class="assignEvents" value="one" name="amount_target" ng-click="enableBox(2)"  ng-model="data.events" />Assign to individual event and pricing levels
+                                                    
+                                                </div>
+                                                <p ng-show="userForm.events.$invalid && !userForm.events.$pristine" class="error-fld ng-binding">Select event.</p>
+                                            </div>
+                                             <div class="col-sm-6" ng-class="{ 'has-error' : userForm.events.$invalid && !userForm.events.$pristine }" >
+                                               <div class="form-group">
+                                                    <label for="EventName">&nbsp;</label>
+                                                    <input type="radio" class="assignEvents" value="one" name="events" ng-click="enableBox(2)"  ng-model="data.events" />Assign to individual event and pricing levels
                                                 </div>
                                                 <p ng-show="userForm.events.$invalid && !userForm.events.$pristine" class="error-fld ng-binding">Select event.</p>
                                             </div>
                                         </div>
+                                        
+                                        <div class="row" ng-show="enable_event_box">
+                                             <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="EventName">&nbsp;</label>
+                                                    <a ng-click="showEventPopup()">Add Event</a>
+                                                </div>
+                                                
+                                            </div>
+                                             <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="EventName">&nbsp;</label>
+                                                    
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <!-- Tab panes -->
@@ -187,3 +203,63 @@
     </div>
     <!-- //Form COntainer --> 
 </div>
+<!-------------------------------------------- EVENT POPUP START ---------------------------------------->
+
+ <script type="text/ng-template" id="eventModalContent.html">
+        <div  class="modal-header">
+            <h3 class="modal-title" style="float:left;">Select Events for discount </h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+        </div>
+        <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="saveData(data1)" novalidate>
+        <div  class="modal-body">
+        <!-- {{data1}}-->
+            <fieldset  class="form-group" style="padding-top:10px">
+               <div class="col-sm-4" datepicker>
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-change="viewEvents()"/>
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+               </div>
+               <div class="col-sm-4">
+                    <select name="search_type" class="form-control btn-date" ng-model="search_type">
+                                <option value="1">Specific Date</option>
+                                <option value="2">All Dates Before</option>
+                                <option value="3">All Dates After</option>
+                    </select>
+               </div>
+               <div class="col-sm-4">
+                    <a ng-show="enableEventAssign" ng-click="eventmakeAssignment();"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Make Assignment</button></a>
+               </div>
+            </fieldset>
+            <fieldset  class="form-group" style="padding-top:10px">
+               <div class="col-sm-2"><input type="checkbox" name="checkall" ng-model="eventisAllSelected"ng-click="eventtoggleAll();"></div>
+               <div class="col-sm-4"><strong>Event Name</strong></div>
+               <div class="col-sm-3"><strong>Venue</strong></div>
+               <div class="col-sm-3"><strong>City</strong></div>
+            </fieldset>
+            
+            
+            <fieldset  class="form-group" style="padding-top:10px" ng-repeat="edata in eventdata | filter:filter">
+               <div class="col-sm-2"><input type="checkbox" name="checkall" ng-model="edata.selected"  ng-click="eventoptionToggled(edata.id);" ></div>
+               <div class="col-sm-4">{{edata.title}}</div>
+               <div class="col-sm-3">{{edata.event_address}}</div>
+               <div class="col-sm-3">{{edata.city}}</div>
+            </fieldset>
+           
+            <fieldset  class="form-group" style="padding-top:10px" ng-if="eventdata == ''">
+               <div class="col-sm-12" align="center">>No Record found!</div>
+            </fieldset>
+            <fieldset  class="form-group" style="padding-top:10px" ng-show="loader">
+               <div class="col-sm-12" align="center"><img src="/images/icons/loader.gif"></div>
+            </fieldset>
+            
+         
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary"  
+ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+        </form>
+    </script>
+
+<!-------------------------------------------- EVENT POPUP END ---------------------------------------->

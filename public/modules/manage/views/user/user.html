@@ -24,19 +24,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr  pagination-id="paginate2" dir-paginate="data in userData | itemsPerPage: 2 | filter:filter">
+                            <tr  pagination-id="paginate2" dir-paginate="data in userData | itemsPerPage: 25 | filter:filter">
                                 <td><strong>{{data.seller_id}}</strong></td>
                                 <td class="numbers">{{data.email}}</td>
                                 <td class="numbers">{{data.first_name}}</td>
                                 <td class="numbers">{{data.last_name}}</td>
                                 <td class="action"><a href="#/edit_user/{{data.id}}"><i class="fa fa-edit"></i></a><a href="#/user/delete_user"><i class="fa fa-trash"></i></a></td>
                             </tr>
+
+                            <tr ng-if="userData == ''"> <td colspan="5" align="center">No records found</td></tr>
                         </tbody>
                     </table>
                 </div>
             </section>
             <section class="grid-bottm clearfix">
-                <section class="paging">
+                <!--<section class="paging">
                     <label class="lt-label">Page</label>
                     <ul class="page-list">
                         <li class="first-page page-btn"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
@@ -47,7 +49,7 @@
                         <li class="next-page page-btn"><a href="#"><i class="fa fa-angle-right"></i></i></a></li>
                         <li class="last-page page-btn"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
                     </ul>
-                </section>
+                </section> -->
                 <section class="gr-right pull-right">
                     <ul class="legends">
                         <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>

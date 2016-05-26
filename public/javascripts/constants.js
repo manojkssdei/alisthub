@@ -12,6 +12,7 @@ var webservices = {
     "confirmationEmail" : baseUrl + "/webservices/confirmationEmail",
     "checkTokenExpiry" : baseUrl + "/webservices/check_token_expiry",
     "refreshTokenExpiry" : baseUrl + "/webservices/refresh_token_expiry",
+    "checkEmailUnique" : baseUrl + "/webservices/checkEmailUnique",
 
     /* Constants for managing venue */
     "getVenues": "/event_setting/venueListing",
@@ -246,5 +247,37 @@ var appConstants = {
 }
 
 var headerConstants = {
-	"json": "application/json"
+	"json": "application/json",
 }
+
+/*************************************** SHOW CLICKS SERVICES CENTER *********************************************/
+/*****************************************************************************************************************/ 
+/*Showclick Server posting services declaration 
+Created : 2016-05-23
+Created By: Manoj Singh */
+/******************************************************************************************************************/
+/******************************************************************************************************************/
+
+var showclixServer="https://admin.showclix.com";
+var showclixAPIServer="http://api.showclix.com";
+
+var showclix_headerConstants = {
+                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                  "Accept": "application/json",
+                 };
+                 
+var showclix_tokenConstants = {
+                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                  "Accept": "application/json",
+                  "X-API-Token": localStorage.getItem( "ngStorage-showclix_token" )
+                 };                 
+
+var showclix_webservices = {
+    /* Service To generate token on showclicks */
+    "generateToken" : showclixServer + "/api/registration",
+     /* Services for Sign up on showclicks Seller */
+    "signUp" : showclixAPIServer +"/Seller",
+     /* Services for Add Venue on showclicks */
+    "addVenue" : showclixAPIServer +"/Venue",
+    
+};

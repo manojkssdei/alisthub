@@ -1,4 +1,4 @@
-angular.module('alisthub').controller('accountinfoController', function($scope,$localStorage,$injector,$http,$state,$location,$timeout) {
+angular.module('alisthub').controller('accountinfoController', function($scope,$localStorage,$injector,$http,$state,$location,$timeout,$window) {
 
     if (!$localStorage.isuserloggedIn) {
       $state.go('login');
@@ -117,6 +117,43 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
     };
 
     /*Update email of user*/
+    $scope.checkUnique = function() {
+        var serviceUrl = webservices.checkUnique;
+        var jsonData = $scope.email;
+        $scope.email.id = $scope.userdetail.user_id;
+        if($scope.email.email)
+        {
+             /////////////////////////////////////////////////////////////////////
+                var url = serviceUrl+"?data="+JSON.stringify($scope.email)+"&callback=jsonp_callback";
+                    
+                $http.jsonp(url);
+                      
+                $window.jsonp_callback = function(data) {
+                         console.log(data);
+                         if (data.code == 300) {
+                             $scope.unique_type  = 1;
+                             $scope.unique = global_message.EmailAvailable;
+                             $timeout(function() {
+                                   $scope.unique = '';
+                                   $scope.unique_type  = '';
+                              },3000);
+                             }
+                             else{
+                             $scope.unique = global_message.EmailExist;
+                             $scope.unique_type  = 2;
+                             }
+                                                
+                         
+                } 
+          
+            ////////////////////////////////////////////////////////////////////
+          
+           }else{
+            console.log('in else 3');
+                 $scope.unique = global_message.EmailEmpty;
+                 $scope.unique_type  = 3;
+           }
+        };
     $scope.updateEmail = function(email) {
         if ($localStorage.userId!=undefined) {
             $http({
