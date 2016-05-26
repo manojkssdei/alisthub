@@ -159,6 +159,13 @@ url.getEventProducts = function(jsondata,callback){
   });
 };
 
+url.getEventProductDetail = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.getEventProductDetail,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+
 
 
 

@@ -73,9 +73,9 @@ Created : 2016-04-25
 Created By: Manoj kumar  
 */
 exports.updateBundle = function(req,res){
-    console.log(req.body);
+    console.log("UPDATE bundles SET product_json='"+parsedJson+"',total_qty='"+req.body.totalQty+"',total_online='"+req.body.totalOnline+"',total_boxoffice='"+req.body.totalBoxoffice+"' where id="+req.body.id);
     var parsedJson = JSON.stringify(req.body.product_json);
-    connection.query("UPDATE bundles SET product_json='"+parsedJson+"',total_qty='"+req.body.totalQty+"',total_online='"+req.body.totalOnline+"',total_boxoffice='"+req.body.totalBoxoffice+"' where id="+req.body.bundle_id, function(err, results) {
+    connection.query("UPDATE bundles SET product_json='"+parsedJson+"',total_qty='"+req.body.totalQty+"',total_online='"+req.body.totalOnline+"',total_boxoffice='"+req.body.totalBoxoffice+"' where id="+req.body.id, function(err, results) {
        if (err) {
         res.json({error:err,code:101});
        }

@@ -139,6 +139,7 @@ var webservices = {
     "addEventProduct" :  "/event_setting/addEventProduct",
     //Add event product
     "getEventProducts" :  "/event_setting/getEventProducts",
+    "getEventProductDetail" :  "/event_setting/getEventProductDetail",
     
 
 }
@@ -232,6 +233,11 @@ var global_message = {
     /**/
     "advanceSettingSaved" : "Advance settings saved successfully",
     "advanceSettingSavingError" : "Error while saving advance settings",
+
+    /* Product event popup/listing alerts*/
+    "event_product_update":"Product information has been updated successfully.",
+    "event_product_add":"Product information has been added.",
+
 
 }
 

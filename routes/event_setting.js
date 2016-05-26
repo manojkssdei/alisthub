@@ -183,5 +183,8 @@ module.exports = function(app, express) {
     /* Get event product */
     router.post('/getEventProducts', product_setting.getEventProducts);
 
+    /* Get event product detail */
+    router.post('/getEventProductDetail', product_setting.getEventProductDetail);
+    
     app.use('/event_setting', router);
 }
