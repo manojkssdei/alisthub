@@ -45,7 +45,7 @@ Created By: Deepak khokkar
 exports.addUser = function(req,res) {
   var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
   req.body.created = curtime;
-  var query = "INSERT INTO `seller_users` (`id`, `seller_id`, `first_name`, `last_name`, `phone`, `fax`, `email`, `password`, `created`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.contact+"', '"+req.body.fax+"', '"+req.body.email+"', '"+req.body.password+"', '"+req.body.created+"')";   
+  var query = "INSERT INTO `seller_users` (`id`, `seller_id`, `first_name`, `last_name`, `phone`, `fax`,`timezone`,`email`, `password`, `created`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.phone+"', '"+req.body.fax+"', '"+req.body.timezone+"','"+req.body.email+"', '"+req.body.password+"', '"+req.body.created+"')";   
 
   if (query != "") {
     connection.query(query, function(err7, results) {
@@ -57,4 +57,14 @@ exports.addUser = function(req,res) {
   } else {
     res.json({error:"error",code:101}); 
   }
+}
+
+//////////delete user////////////////
+exports.deleteUser = function(req,res) {
+  connection.query("Delete from seller_users where id="+req.body.id, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
 }

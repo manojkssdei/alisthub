@@ -20,7 +20,7 @@
                     <div class="col-sm-6" ng-class="{ 'has-error' : addUserForm.phone.$invalid && !addUserForm.user_contact.$pristine }">
                         <div class="form-group">
                             <label> Contact Number</label>
-                            <input type="number" class="form-control" name="phone" placeholder="phone number"  ng-pattern="/^[0-9]{1,15}$/"  ng-model="user.phone"/>
+                            <input type="text" class="form-control" name="phone" placeholder="phone number"  ng-model="user.phone"/>
                             <p ng-show="addUserForm.phone.$invalid && !addUserForm.phone.$pristine" class="error-fld ng-binding">Enter Numbers Only.</p>
                         </div>
                     </div>
