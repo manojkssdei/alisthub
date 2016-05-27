@@ -171,7 +171,7 @@
                                 <th width="14%" class="numbers">Box Office Price</th>
                                 <th width="13%" class="numbers">Per-Sale Limit</th>
                                 <th width="14%" class="numbers">Max Inventory Set</th>
-                                <th width="23%">Manage</th>
+                                <th width="23%">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -201,17 +201,13 @@
                   <section class="grid-bottm clearfix">
                     <section class="gr-right pull-right">
                     	<ul class="legends">
-                        	<li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                            <li><i class="fa fa-tags"></i><span>change price</span></li>
-                            <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                            <li><i class="fa fa-trash"></i><span>delete</span></li>
-                        </ul>
+                    	  <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+                        <li><i class="fa fa-check-circle"></i><span>active</span></li>
+                        <li><i class="fa fa-trash"></i><span>delete</span></li>
+                      </ul>
                     </section>
                   </section>
-                
-                  
-
-      			</section>
+            </section>
           </section>
           <!-- Bundles Closed --> 
           <!--Product Start -->
@@ -219,54 +215,57 @@
              	<section class="prof-hd">
                    <i class="fa fa-shopping-cart hdicon pos-l16"></i>
                     <h2>Product <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
-            </section>
-                <section class="gray-frame sub-fields">
-                  <section class="grid-btn-top row">                  	  
-                      <section class="col-sm-5 right-btns text-right">
-                         <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_product('lg')">Add Product</button>
-                          
-                      </section>
-                    </section>
-                  <section class="grid-widget">
-      	  <div class="table-responsive">
-          	  
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th width="15%">Name</th>
-                <th width="10%" class="numbers">Sold</th>
-                <th width="14%" class="numbers">Remaining</th>
-                <th width="13%" class="numbers">Price</th>
-                <th width="14%" class="numbers">Box office <span class="l-b">Price</span></th>
-                <th width="12%" class="numbers">Limit</th>
-                <th width="23%">&nbsp;</th>
-            </tr>
-        </thead>
-        <tbody>
-          
-          
-            
-
-        </tbody>
-
-    </table>
-
-
-          </div>
-      </section>
-                  
-                  <section class="grid-bottm clearfix">
-                    <section class="gr-right pull-right">
-                    	<ul class="legends">
-                        	<li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                            <li><i class="fa fa-tags"></i><span>change price</span></li>
-                            <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                            <li><i class="fa fa-trash"></i><span>delete</span></li>
-                        </ul>
-                    </section>
+              </section>
+              <section class="gray-frame sub-fields">
+                <section class="grid-btn-top row">                  	  
+                  <section class="col-sm-5 right-btns text-right">
+                    <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_product('lg')">Add Product</button>
+                  </section>
                 </section>
-               </section>
+                <section class="grid-widget">
+                  <span ng-show="success_message_product" class="ng-hide"><p class="success-fld ng-binding">{{success_product}}</p></span>
+                	  <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th width="25%">Name</th>
+                                <th width="25%" class="numbers">Price</th>
+                                <th width="30%" class="numbers">Positioning</th>
+                                <th width="20%">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="eventProduct in eventProductList track by $index">
+                            <td><strong>{{eventProduct.product_name}}</strong></td>
+                            <td class="numbers">${{eventProduct.price}}</td>
+                            <td class="numbers">
+                              <span class="l-b" ng-if="eventProduct.placement_listing == 1 && eventProduct.placement_confirmation == 0">Listing Page</span>
+                              <span class="l-b" ng-if="eventProduct.placement_listing == 0 && eventProduct.placement_confirmation == 1">Confirmation Page</span>
+                              <span class="l-b" ng-if="eventProduct.placement_listing == 1 && eventProduct.placement_confirmation == 1">Listing Page, Confirmation Page</span>
+                            </td>
+                            <td class="action">
+                              <a ng-click="add_product('lg',eventProduct.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                              <a ng-click="delete_event_product('',$index,eventProduct.id)" style="cursor: pointer;"><i class="fa fa-trash"></i>
+                              </a>
+                            </td>
+                          </tr>
+                          <tr ng-show="loader_bundle">
+                            <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </section>
+                
+                <section class="grid-bottm clearfix">
+                  <section class="gr-right pull-right">
+                  	<ul class="legends">
+                    	<li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+                      <li><i class="fa fa-trash"></i><span>delete</span></li>
+                    </ul>
+                  </section>
+                </section>
+          </section>
           </div>
           <!-- Product Closed -->
           <!--Links Start -->
