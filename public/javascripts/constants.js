@@ -142,6 +142,10 @@ var webservices = {
     //Add event product
     "getEventProducts" :  "/event_setting/getEventProducts",
     "getEventProductDetail" :  "/event_setting/getEventProductDetail",
+    "removeEventProduct" :  "/event_setting/removeEventProduct",
+    "getEventPriceLevel" :  "/event_setting/getEventPriceLevel",
+
+    
     
 
 }
@@ -239,6 +243,7 @@ var global_message = {
     /* Product event popup/listing alerts*/
     "event_product_update":"Product information has been updated successfully.",
     "event_product_add":"Product information has been added.",
+    "event_product_delete":"Product has been deleted successfully.",
 
 
 }

@@ -93,7 +93,7 @@ module.exports = function(app, express) {
      *   Get Seller Products 
      *
     */
-    router.post('/getProducts', product_setting.getProducts);
+    router.post('/getProducts', bundle_setting.getProducts);
     
     /* Add Seller Question  */
     
@@ -185,6 +185,11 @@ module.exports = function(app, express) {
 
     /* Get event product detail */
     router.post('/getEventProductDetail', product_setting.getEventProductDetail);
+
+    /* Get event product detail */
+    router.post('/removeEventProduct', product_setting.removeEventProduct);
+    
+    router.post('/getEventPriceLevel', bundle_setting.getEventPriceLevel);
     
     app.use('/event_setting', router);
 }

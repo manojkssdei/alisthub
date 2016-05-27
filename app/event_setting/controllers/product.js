@@ -16,6 +16,7 @@ Created : 2016-04-25
 Created By: Manoj kumar  
 */
 exports.getProducts = function(req,res){
+  console.log(req.body);
   connection.query('SELECT * from products where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err, results) {
      if (err) {
       res.json({error:err,code:101});
@@ -432,7 +433,6 @@ exports.getEventProducts = function(req,res) {
   } else {
     res.json({result:{},code:200});
   }
-  
 }
 
 /** 
@@ -453,6 +453,27 @@ exports.getEventProductDetail = function(req,res) {
   } else {
     res.json({result:{},code:200});
   }
-  
 }
+
+
+/** 
+Method: removeEventProduct
+Description:Function to remove the event product entry 
+Created : 2016-05-18
+Created By: Deepak khokkar
+*/
+exports.removeEventProduct=function(req,res){
+    var eventProductDeleteId=req.body.eventProductDeleteId;
+    var sql="Delete FROM event_products where id="+eventProductDeleteId;
+    
+    connection.query(sql,function(err,result){
+       
+        if (err) {
+           res.send({err:"error",code:101}); 
+        }
+           res.send({"message":"success",code:200});  
+        
+    });
+}
+
 
