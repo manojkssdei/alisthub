@@ -177,5 +177,14 @@ module.exports = function(app, express) {
     /* Get bundle details  */
     router.post('/getBundleDetail', bundle_setting.getBundleDetail);
 
+    /* Add event product */
+    router.post('/addEventProduct', product_setting.addEventProduct);
+
+    /* Get event product */
+    router.post('/getEventProducts', product_setting.getEventProducts);
+
+    /* Get event product detail */
+    router.post('/getEventProductDetail', product_setting.getEventProductDetail);
+    
     app.use('/event_setting', router);
 }

@@ -1,0 +1,146 @@
+<style>
+table {
+    border:2px solid black;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+.form-section.wt-frame
+{
+  margin:0;
+}
+</style>
+<div class="container">
+     <h1> Widgets</h1>
+     <div class="form-section wt-frame">
+           <section class="gray-frame sub-fields">
+                        <div class="form-group">
+                        <div class="col-sm-12">
+                          <div class="col-sm-9">
+                          <br>
+                               <label><h4>Checkout Widget</h4></label>
+                            </div>
+                                <div class="col-sm-3">
+                                 <a href='/#/widgets/add'>
+                                 <button type="button"  class="gray-btn btn">Create Checkout Widget</button></a>
+                               </div>
+                              
+                            </div>
+                            </div>
+
+                </section>
+
+<section class="gray-frame sub-fields">
+                 <section class="grid-widget">
+                    <div class="table-responsive">
+                        <table class="customized-table table-striped clearfix">
+                           <thead>
+                                <tr>
+                                    <th>NAME</th>
+                                    <th>EMBED</th>
+                               <th>MANAGE</th>
+                                </tr>
+                           </thead>
+                            <tbody>
+                               <tr pagination-id="paginate1" dir-paginate="upcoming in upcoming_event_data | itemsPerPage: 2">
+                               
+                                     <td> <strong>Test</strong>
+                                    </td>
+                                    <td><p>
+                                        <a href="#"><button type="button" ng-click="template()" class="btn btn-default active">Show Embed Code</button></a>
+                                        </p>
+                                        </td>
+				                        <td class="action pull-left"><a href="#"><i class="fa fa-edit"></i>
+				                        </a>
+				                        <a href="#"><i class="fa fa-eye"></i>
+				                        </a></td>
+                                </tr>
+                                <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                           </tbody>
+                        </table>
+                    </div>
+                  <dir-pagination-controls pagination-id="paginate1" ></dir-pagination-controls>
+                    <section class="grid-bottm gr-right pull-right">
+                    <br><br>
+                          <ul class="legends">
+                                <li><i class="fa fa-edit"></i><span>Edit</span></li>
+                                <li><i class="fa fa-eye"></i><span>Preview</span></li>
+                            </ul>
+                      <!--   </section> -->
+                    </section>
+                </section>
+              </section>
+ 
+     </div>
+     <!-- event table-->
+     <div class="form-section wt-frame">
+           <section class="gray-frame sub-fields">
+                        <div class="form-group">
+                        <div class="col-sm-12">
+                          <div class="col-sm-9">
+                          <br>
+                               <label><h4>Event Widget</h4></label>
+                            </div>
+                                <div class="col-sm-3">
+                                 <a href='/#/widgets/add_event'>
+                                 <button type="button"  class="gray-btn btn">Create Event Widget</button></a>
+                               </div>
+                              
+                            </div>
+                            </div>
+
+                </section>
+
+<section class="gray-frame sub-fields">
+                 <section class="grid-widget">
+                    <div class="table-responsive">
+                        <table class="customized-table table-striped clearfix">
+                           <thead>
+                                <tr>
+                                    <th>NAME</th>
+                                    <th>EMBED</th>
+                               <th>MANAGE</th>
+                                </tr>
+                           </thead>
+                            <tbody>
+                               <tr pagination-id="paginate1" dir-paginate="upcoming in upcoming_event_data | itemsPerPage: 2">
+                               
+                                     <td> <strong>Test</strong>
+                                    </td>
+                                    <td><p>
+                                        <a href="#"><button type="button" ng-click="template()" class="btn btn-default active">Show Embed Code</button></a>
+                                        </p>
+                                        </td>
+                                <td class="action pull-left"><a href="#"><i class="fa fa-edit"></i>
+                                </a>
+                                <a href="#"><i class="fa fa-eye"></i>
+                                </a></td>
+                                </tr>
+                                <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                           </tbody>
+                        </table>
+                    </div>
+                  <dir-pagination-controls pagination-id="paginate1" ></dir-pagination-controls>
+                    <section class="grid-bottm gr-right pull-right">
+                    <br><br>
+                          <ul class="legends">
+                                <li><i class="fa fa-edit"></i><span>Edit</span></li>
+                                <li><i class="fa fa-eye"></i><span>Preview</span></li>
+                            </ul>
+                      <!--   </section> -->
+                    </section>
+                </section>
+              </section>
+     </div>
+     </div>
