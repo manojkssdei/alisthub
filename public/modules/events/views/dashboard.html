@@ -75,32 +75,34 @@
             </section>
             <section class="gray-frame">
                 <section class="top-buttons">
-                    <button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Create Event</button><button type="button" class="btn pink-btn btn-small">View All Upcoming Events</button><button type="button" class="btn pink-btn btn-small">View All Upcoming Series</button>
+                    <a ui-sref="create_an_event"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Create Event</button></a><button type="button" class="btn pink-btn btn-small">View All Upcoming Events</button><button type="button" class="btn pink-btn btn-small">View All Upcoming Series</button>
                 </section>
                 <section class="grid-widget">
+		    
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th width="10%">ID</th>
                                     <th width="24%">Event</th>
-                                    <th width="20%">Date &amp; Time</th>
-                                    <th width="12%" class="numbers">Sold</th>
-                                    <th width="12%" class="numbers">Inventory</th>
+                                    <th width="20%">Start Date</th>
+                                   <!-- <th width="12%" class="numbers">Sold</th>
+                                    <th width="12%" class="numbers">Inventory</th>-->
                                     <th width="22%">&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr pagination-id="paginate1" dir-paginate="upcoming in upcoming_event_data | itemsPerPage: 2">
+				
+                                <tr pagination-id="paginate1" dir-paginate="upcoming in upcoming_event_data | itemsPerPage: 25|filter:searchfield">
                                     <td><a href="#"><strong>{{upcoming.id}}</strong></a></td>
                                     <td>
-                                        <p><a href="#"><strong>{{upcoming.event}}</strong></a></p>
-                                        <p>{{upcoming.desc}}</p>
+                                        <p><a href="#"><strong>{{upcoming.title}}</strong></a></p>
+                                        
                                     </td>
-                                    <td>{{upcoming.date}}</td>
-                                    <td class="numbers">{{upcoming.sold}}</td>
-                                    <td class="numbers">{{upcoming.inventory}}</td>
-                                    <td class="action"><a href="#"><i class="fa fa-pie-chart"></i></a><a href="#"><i class="fa fa-calendar-o"></i></a><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-eye"></i></a></td>
+                                    <td>{{upcoming.start_date | date:"dd MMMM yyyy"}}</td>
+                                  <!--  <td class="numbers">{{upcoming.sold}}</td>
+                                    <td class="numbers">{{upcoming.inventory}}</td>-->
+                                    <td class="action"><a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -133,27 +135,28 @@
                 <section class="grid-widget">
                     <div class="table-responsive">
                         <table class="table table-striped">
-                            <thead>
+                             <thead>
                                 <tr>
                                     <th width="10%">ID</th>
                                     <th width="24%">Event</th>
-                                    <th width="20%">Date &amp; Time</th>
-                                    <th width="12%" class="numbers">Sold</th>
-                                    <th width="12%" class="numbers">Enventory</th>
+                                    <th width="20%">Start Date</th>
+                                   <!-- <th width="12%" class="numbers">Sold</th>
+                                    <th width="12%" class="numbers">Inventory</th>-->
                                     <th width="22%">&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr  pagination-id="paginate2" dir-paginate="past in past_event_data | itemsPerPage: 2">
-                                    <td><a href="#"><strong>{{past.id}}</strong></a></td>
+				
+                                <tr pagination-id="paginate1" dir-paginate="upcoming in upcoming_event_data | itemsPerPage: 25|filter:searchfield">
+                                    <td><a href="#"><strong>{{upcoming.id}}</strong></a></td>
                                     <td>
-                                        <p><a href="#"><strong>{{past.event}}</strong></a></p>
-                                        <p>{{past.desc}}</p>
+                                        <p><a href="#"><strong>{{upcoming.title}}</strong></a></p>
+                                        
                                     </td>
-                                    <td>{{past.date}}</td>
-                                    <td class="numbers">{{past.sold}}</td>
-                                    <td class="numbers">{{past.inventory}}</td>
-                                    <td class="action"><a href="#"><i class="fa fa-pie-chart"></i></a><a href="#"><i class="fa fa-calendar-o"></i></a><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-eye"></i></a></td>
+                                    <td>{{upcoming.start_date | date:"dd MMMM yyyy"}}</td>
+                                  <!--  <td class="numbers">{{upcoming.sold}}</td>
+                                    <td class="numbers">{{upcoming.inventory}}</td>-->
+                                    <td class="action"><a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -188,27 +191,28 @@
                 <section class="grid-widget">
                     <div class="table-responsive">
                         <table class="table table-striped">
-                            <thead>
+                             <thead>
                                 <tr>
                                     <th width="10%">ID</th>
                                     <th width="24%">Event</th>
-                                    <th width="20%">Date &amp; Time</th>
-                                    <th width="12%" class="numbers">Sold</th>
-                                    <th width="12%" class="numbers">Enventory</th>
+                                    <th width="20%">Start Date</th>
+                                   <!-- <th width="12%" class="numbers">Sold</th>
+                                    <th width="12%" class="numbers">Inventory</th>-->
                                     <th width="22%">&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr  pagination-id="paginate3" dir-paginate="event_package in event_package_data | itemsPerPage: 2">
-                                    <td><a href="#"><strong>{{event_package.id}}</strong></a></td>
+				
+                                <tr pagination-id="paginate1" dir-paginate="upcoming in upcoming_event_data | itemsPerPage: 25|filter:searchfield">
+                                    <td><a href="#"><strong>{{upcoming.id}}</strong></a></td>
                                     <td>
-                                        <p><a href="#"><strong>{{event_package.event}}</strong></a></p>
-                                        <p>{{event_package.desc}}</p>
+                                        <p><a href="#"><strong>{{upcoming.title}}</strong></a></p>
+                                        
                                     </td>
-                                    <td>{{event_package.date}}</td>
-                                    <td class="numbers">{{event_package.sold}}</td>
-                                    <td class="numbers">{{event_package.inventory}}</td>
-                                    <td class="action"><a href="#"><i class="fa fa-pie-chart"></i></a><a href="#"><i class="fa fa-calendar-o"></i></a><a href="#"><i class="fa fa-edit"></i></a><a href="#"><i class="fa fa-eye"></i></a></td>
+                                    <td>{{upcoming.start_date | date:"dd MMMM yyyy"}}</td>
+                                  <!--  <td class="numbers">{{upcoming.sold}}</td>
+                                    <td class="numbers">{{upcoming.inventory}}</td>-->
+                                    <td class="action"><a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>

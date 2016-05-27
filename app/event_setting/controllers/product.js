@@ -368,3 +368,91 @@ query = connection.query('select * from products', function(err, rows, fields) {
                 res.csv(rows);
         });
 }
+
+
+
+/** 
+Method: addEventProduct
+Description:Function for adding the product for events 
+Created : 2016-05-25
+Created By: Deepak khokkar
+*/
+exports.addEventProduct = function(req,res){
+    var inventory=0;
+    var event_id = req.body.event_id;
+
+    var hide_in_box_office = 0;
+    if ((req.body.hide_in_box_office == true)) {
+      hide_in_box_office = 1;
+    }
+
+    var placement_listing = 0;
+    if ((req.body.placement_listing == true)) {
+      placement_listing = 1;
+    }
+
+    var placement_confirmation = 0;
+    if ((req.body.placement_confirmation == true)) {
+      placement_confirmation = 1;
+    }
+
+      
+    if(req.body.id!=undefined && req.body.id!=''){
+        var query = "UPDATE event_products SET product_id='"+req.body.product_id+"',price='"+req.body.price+"',hide_in_box_office='"+hide_in_box_office+"',placement_listing='"+placement_listing+"',placement_confirmation='"+placement_confirmation+"' where id="+req.body.id;
+    } else {
+        var query = "INSERT INTO `event_products` (`id`,`event_id`, `seller_id`, `product_id`, `price`, `hide_in_box_office`, `placement_listing`, `placement_confirmation`,`created`,`status`) VALUES (NULL, '"+req.body.event_id+"' , '"+req.body.seller_id+"', '"+req.body.product_id+"', '"+req.body.price+"', '"+hide_in_box_office+"', '"+placement_listing+"', '"+placement_confirmation+"', NOW(),1 )";
+    }
+
+    if (query != "") {
+      connection.query(query, function(err7, results) {
+        if (err7) {
+          res.json({error:err7,code:101});
+        }
+        res.json({result:results,code:200 });
+      });
+    }
+}
+
+/** 
+Method: getEventProducts
+Description:Function to fetch related products of event
+Created : 2016-05-25
+Created By: Deepak khokkar  
+*/
+exports.getEventProducts = function(req,res) {
+
+  if(req.body.userId!=undefined && req.body.eventId!=undefined){
+    //LEFT JOIN events AS E on E.id=QA.event_id where
+    connection.query('SELECT EP.*, p.product_name from event_products as EP LEFT JOIN products AS p on p.id = EP.product_id where EP.seller_id='+req.body.userId+ ' and EP.event_id='+ req.body.eventId +' ORDER BY EP.created DESC', function(err, results) {
+       if (err) {
+        res.json({error:err,code:101});
+       }
+       res.json({result:results,code:200});
+    });  
+  } else {
+    res.json({result:{},code:200});
+  }
+  
+}
+
+/** 
+Method: getEventProductDetail
+Description:Function to fetch event product detail 
+Created : 2016-05-25
+Created By: Deepak khokkar  
+*/
+exports.getEventProductDetail = function(req,res) {
+  if(req.body.id!=undefined){
+    //LEFT JOIN events AS E on E.id=QA.event_id where
+    connection.query('SELECT EP.*, p.product_name, p.retail_price from event_products as EP LEFT JOIN products AS p on p.id = EP.product_id where EP.id='+req.body.id+ ' ORDER BY EP.created DESC', function(err, results) {
+       if (err) {
+        res.json({error:err,code:101});
+       }
+       res.json({result:results,code:200});
+    });  
+  } else {
+    res.json({result:{},code:200});
+  }
+  
+}
+

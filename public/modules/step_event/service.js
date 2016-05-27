@@ -146,6 +146,29 @@ url.getAdvanceSetting = function(jsondata,callback){
 };
 
 
+//add Product
+url.addEventProduct = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.addEventProduct,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+//get Event Product
+url.getEventProducts = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.getEventProducts,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+url.getEventProductDetail = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.getEventProductDetail,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+
+
+
+
  
 return url;
 

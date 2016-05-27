@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Add a Product</h1>
+    <h1>{{page_title}} a Product</h1>
     <!-- Step Form -->
     <div class="stage-container stage-container-product clearfix">
         <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)">
@@ -9,6 +9,11 @@
     </div>
     <!-- //Step Form --> 
     <!-- Form COntainer -->
+    <div>
+                            <span >
+                                <p class="success-fld" ng-show="successmessage">{{ successmessage }}</p>
+                            </span>
+                        </div>
     <div class="form-section  wt-frame">
         <!-- Step 1 start ------------------->
         <form class="event-form" name="userForm" novalidate>
@@ -17,6 +22,7 @@
                 <div>
                     <!-- //Event Detail Form -->
                     <!--Links Start -->
+                     
                     <div class="module">
                         <section class="prof-hd">
                             <i class="fa fa-link hdicon pos-l16"></i>
@@ -64,7 +70,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="EventName"> Shipplable</label>
+                                        <label for="EventName"> Shippable</label>
                                         <div class="onoffswitch">
                                             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.shippable" checked>
                                             <label class="onoffswitch-label" for="myonoffswitch5"></label>
@@ -92,13 +98,13 @@
                         <section class="gray-frame">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label for="EventName"> Image1 {{data.image_1}}</label>     
+                                    <label for="EventName"> Image1 </label>     
                                     <section class="top-buttons">
                                         <span class="file-input btn pink-btn btn-small btn-file">
                                             Choose File
-                                            <input  id="inputFileToLoad_1" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,1)" file-model="file.myFiles"> 
+                                            <input  id="inputFileToLoad_1" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,1)" file-model="file.myFiles" accept="image/x-png, image/gif, image/jpeg" > 
                                             <div id="imgTest_1" ng-model="picDatatest1" width="100" height="100"></div>
-                                            <img ng-src="/images/products/{{data.image_1}}" ng-show="data.image_1 && data.image_1 != 'undefined'">     
+                                            <img height="100" width="100" ng-src="/images/products/{{data.image_1}}" ng-show="data.image_1 && data.image_1 != 'undefined'">     
                                         </span>
                                     </section>
                                 </div>
@@ -107,9 +113,9 @@
                                     <section class="top-buttons">
                                         <span class="file-input btn pink-btn btn-small btn-file">
                                             Choose File
-                                            <input  id="inputFileToLoad_2" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,2)" file-model="file.myFiles">
+                                            <input  id="inputFileToLoad_2" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,2)" file-model="file.myFiles"  accept="image/x-png, image/gif, image/jpeg" >
                                             <div id="imgTest_2" ng-model="picDatatest2"></div>
-                                            <img ng-src="/images/products/{{data.image_2}}" ng-show="data.image_2 && data.image_2 != 'undefined'">
+                                            <img height="100" width="100" ng-src="/images/products/{{data.image_2}}" ng-show="data.image_2 && data.image_2 != 'undefined'">
                                         </span>
                                     </section>
                                 </div>
@@ -118,9 +124,9 @@
                                     <section class="top-buttons">
                                         <span class="file-input btn pink-btn btn-small btn-file">
                                             Choose File
-                                            <input  id="inputFileToLoad_3" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,3)" file-model="file.myFiles">
+                                            <input  id="inputFileToLoad_3" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,3)" file-model="file.myFiles"  accept="image/x-png, image/gif, image/jpeg" >
                                             <div id="imgTest_3" ng-model="picDatatest3"></div>
-                                            <img ng-src="/images/products/{{data.image_3}}" ng-show="data.image_3 && data.image_3 != 'undefined'">
+                                            <img height="100" width="100" ng-src="/images/products/{{data.image_3}}" ng-show="data.image_3 && data.image_3 != 'undefined'">
                                         </span>
                                     </section>
                                 </div>
@@ -131,9 +137,9 @@
                                     <section class="top-buttons">
                                         <span class="file-input btn pink-btn btn-small btn-file">
                                             Choose File
-                                            <input  id="inputFileToLoad_4" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,4)" file-model="file.myFiles">
+                                            <input  id="inputFileToLoad_4" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,4)" file-model="file.myFiles"  accept="image/jpeg" >
                                             <div id="imgTest_4" ng-model="picDatatest4"></div>
-                                            <img ng-src="/images/products/{{data.image_4}}" ng-show="data.image_4 && data.image_4 != 'undefined'">
+                                            <img height="100" width="100" ng-src="/images/products/{{data.image_4}}" ng-show="data.image_4 && data.image_4 != 'undefined'">
                                         </span>
                                     </section>
                                 </div>
@@ -142,9 +148,9 @@
                                     <section class="top-buttons">
                                         <span class="file-input btn pink-btn btn-small btn-file">
                                             Choose File
-                                            <input  id="inputFileToLoad_5" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,5)" file-model="file.myFiles">
+                                            <input  id="inputFileToLoad_5" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,5)" file-model="file.myFiles"  accept="image/jpeg" >
                                             <div id="imgTest_5" ng-model="picDatatest5"></div>
-                                            <img ng-src="/images/products/{{data.image_5}}" ng-show="data.image_5 && data.image_5 != 'undefined'">
+                                            <img height="100" width="100" ng-src="/images/products/{{data.image_5}}" ng-show="data.image_5 && data.image_5 != 'undefined'">
                                         </span>
                                     </section>
                                 </div>
@@ -180,20 +186,25 @@
                             <div class="col-sm-4" ng-class="{ 'has-error' : userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine }">
                                 <div class="form-group">
                                     <label for="EventName"> Retail Price<span class="req">*</span></label>
-                                    <input type="number" min="0" class="form-control" name="retail_price" placeholder="Product Price" ng-model="data.retail_price" ng-blur="calculateBuyerPrice()" required/>
-                                    <p ng-show="userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine" class="error-fld ng-binding">Enter Retail Price.</p>
+                                    <input  type="number" min="0" class="form-control" name="retail_price" placeholder="Product Price" ng-model="data.retail_price" ng-blur="calculateBuyerPrice()" required/>
+                                    <p ng-show="userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine" class="error-fld ng-binding">Enter valid retail price.</p>
+                                   
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="EventName"> Shipping Cost</label>
-                                    <input type="number" min="0" class="form-control" placeholder="Shipping Cost" ng-model="data.ship_cost" ng-blur="calculateBuyerPrice()"/>
+                                    <input  type="number" min="0" class="form-control" placeholder="Shipping Cost" ng-model="data.ship_cost" ng-blur="calculateBuyerPrice()" name="ship_cost"/>
+                                    <p ng-show="userForm2.ship_cost.$invalid && !userForm2.ship_cost.$pristine" class="error-fld ng-binding">Enter valid shipping cost.</p>
+                                   
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="EventName"> Service Fee Covered</label>
-                                    <input type="number" min="0" class="form-control" placeholder="Service Fee Covered" ng-model="data.service_fee"/>
+                                    <input  type="number" min="0" class="form-control" placeholder="Service Fee Covered" ng-model="data.service_fee" name ="service_fee"/>
+                                    <p ng-show="userForm2.service_fee.$invalid && !userForm2.service_fee.$pristine" class="error-fld ng-binding">Enter valid service fee.</p>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -210,13 +221,15 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="EventName"> Buyer pays</label>
-                                    <input type="text" class="form-control" placeholder="Buyer pays" ng-model="data.buyer_pays"/>
+                                    <input type="number" min="0" class="form-control" placeholder="Buyer pays" ng-model="data.buyer_pays" name="buyer_pays"/>
+                                     <p ng-show="userForm2.buyer_pays.$invalid && !userForm2.buyer_pays.$pristine" class="error-fld ng-binding">Enter valid amount that buyer will pay.</p>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="EventName"> Seller pays</label>
-                                    <input type="text" class="form-control" placeholder="Seller pays" ng-model="data.seller_pays"/>
+                                    <input type="number" min="0" class="form-control" placeholder="Seller pays" ng-model="data.seller_pays" name="seller_pays"/>
+                                     <p ng-show="userForm2.seller_pays.$invalid && !userForm2.seller_pays.$pristine" class="error-fld ng-binding">Enter valid amount that seller will pay.</p>
                                 </div>
                             </div>
                         </div>
@@ -260,8 +273,11 @@
                                 </div>
                                 <div class="form-group" ng-show="!data_configuration" ng-class="{ 'has-error' : userForm3.inventory.$invalid && !userForm3.inventory.$pristine }">
                                     <label for="EventName"> Inventory <span class="req">*</span></label>
-                                    <input type="number" min="0" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration" required />
+                                    <input  type="number" min="0" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration" required name="inventory"/>
                                     <p ng-show="userForm3.inventory.$invalid && !userForm3.inventory.$pristine" class="error-fld ng-binding">Enter Inventory.</p>
+
+
+                                   
                                 </div>
                             </div>
                         </div>
@@ -270,8 +286,9 @@
                             <div class="col-sm-6" ng-class="{ 'has-error' : userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine }">
                                 <div class="form-group">
                                     <label for="EventName"> Pre Sale Limit <span class="req">*</span></label>
-                                    <input type="number" min="0" name="pre_sale_limit" class="form-control"  ng-model="data.pre_sale_limit" ng-required="!data_configuration">
+                                    <input  type="number" min="0" name="pre_sale_limit" class="form-control"  ng-model="data.pre_sale_limit" ng-required="!data_configuration">
                                     <p ng-show="userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine" class="error-fld ng-binding">Enter Pre Sale Limit.</p>
+                                    
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -318,8 +335,12 @@
                                             </td>
                                             <td><textarea class="form-control" placeholder="Details" ng-model="cdata[key.id].description"/></textarea></td>
                                             <td><input type="checkbox" ng-model="cdata[key.id].print_voucher"></td>
-                                            <td><input type="text" class="form-control" placeholder="limit" ng-model="cdata[key.id].pre_sale_limit"/></td>
-                                            <td><input type="text" class="form-control" placeholder="Inventory" ng-model="cdata[key.id].inventory"/></td>
+                                            <td><input type="number" min="0" class="form-control" placeholder="limit" ng-model="cdata[key.id].pre_sale_limit" name="pre_sale_limit" />
+<p ng-show="userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine" class="error-fld ng-binding">Enter valid limit.</p>
+                                            </td>
+                                            <td><input type="text" class="form-control" placeholder="Inventory" ng-model="cdata[key.id].inventory" name="inventory"/>
+                                            <p ng-show="userForm3.inventory.$invalid && !userForm3.inventory.$pristine" class="error-fld ng-binding">Enter valid inventory.</p>
+                                            </td>
                                             <td><a  ng-click="removeMoreRowKey($index,key.id)"><i class="fa fa-trash"></i></a></td>
                                         </tr>
                                         <tr ng-repeat="add in addmore">
@@ -364,11 +385,7 @@
                             <button class="pink-btn btn" ng-click="saveProduct(3)" ng-disabled="userForm3.$invalid">Save</button>
                             <button class="pink-btn btn" ng-click="saveProduct(4)" ng-disabled="userForm3.$invalid">Submit</button>
                         </div>
-                        <div>
-                            <span ng-hide="success_message">
-                                <p class="success-fld" ng-show="successmessage">{{ successmessage }}</p>
-                            </span>
-                        </div>
+                       
                     </section>
                 </div>
                 <!--Links Closed -->     

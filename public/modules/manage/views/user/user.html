@@ -24,6 +24,7 @@
                     <table  ng-table="tableParams" class="table table-striped">
                      
                         <tbody>
+
                           <tr ng-repeat="data1 in $data | filter:filter">
                           
                                 <td title="'Name'" filter="{ name: 'text'}" sortable="'seller_id'"><strong>{{data1.seller_id}}</strong></td>
@@ -36,10 +37,23 @@
                             <tr ng-show="loader">
                                         <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
                                     </tr>
+<!--
+=======
+                            <tr  pagination-id="paginate2" dir-paginate="data in userData | itemsPerPage: 25 | filter:filter">
+                                <td><strong>{{data.seller_id}}</strong></td>
+                                <td class="numbers">{{data.email}}</td>
+                                <td class="numbers">{{data.first_name}}</td>
+                                <td class="numbers">{{data.last_name}}</td>
+                                <td class="action"><a href="#/edit_user/{{data.id}}"><i class="fa fa-edit"></i></a><a href="#/user/delete_user"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+
+                            <tr ng-if="userData == ''"> <td colspan="5" align="center">No records found</td></tr>
+>>>>>>> deepak/master -->
                         </tbody>
                     </table>
                 </div>
             </section>
+<<<<<<< HEAD
      </section>
                 <section class="grid-bottm clearfix">
 <!--                    
@@ -52,6 +66,27 @@
                         </section>
                     </section>
                 
+=======
+            <section class="grid-bottm clearfix">
+                <!--<section class="paging">
+                    <label class="lt-label">Page</label>
+                    <ul class="page-list">
+                        <li class="first-page page-btn"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                        <li class="prev-page page-btn"><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li class="next-page page-btn"><a href="#"><i class="fa fa-angle-right"></i></i></a></li>
+                        <li class="last-page page-btn"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                    </ul>
+                </section> -->
+                <section class="gr-right pull-right">
+                    <ul class="legends">
+                        <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+                        <li><i class="fa fa-trash"></i><span>delete</span></li>
+                    </ul>
+                </section>
+>>>>>>> deepak/master
             </section>
         </section>
     </div>
