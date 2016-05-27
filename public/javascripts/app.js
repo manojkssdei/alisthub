@@ -7,7 +7,7 @@ Description: It defined routes to call different files.It will provide you direc
 angular.module("communicationModule", []);
 // Declare app level module which depends on filters, and services
 
-var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','angularUtils.directives.dirPagination','gridster'])
+var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','ngTable','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','angularUtils.directives.dirPagination','gridster'])
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ocLazyLoadProvider) {
      $urlRouterProvider.otherwise('/login');
@@ -1120,7 +1120,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state,$timeout,$window)
 {
 
-    $timeout(callAtTimeout, 20*20*3000);
+    /*$timeout(callAtTimeout, 20*20*3000);
     function callAtTimeout()
     {
         $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
@@ -1135,7 +1135,7 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
                     $rootScope.address=$localStorage.address="";
                     localStorage.clear();
                     $state.go('login');
-    }
+    }*/
     // checktoken expiry time
     // check web services
     var serviceUrl = webservices.checkTokenExpiry; 

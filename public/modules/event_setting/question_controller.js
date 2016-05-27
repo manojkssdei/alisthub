@@ -5,7 +5,7 @@ Created : 2016-05-09
 Created By: Manoj
 Module : Question 
 */
-    .controller('questionController', function($scope,$rootScope,$timeout, $localStorage, $injector, $http, $state, $location) {
+    .controller('questionController', function($scope,$rootScope,$timeout, $localStorage, $injector, $http, $state, $location,ngTableParams) {
 
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
@@ -96,6 +96,7 @@ Module : Question
                     $scope.loader = false;
                     if (response.code == 200) {
                         $scope.questiondata = response.result;
+                                    
                     } else {
                         $scope.error_message = response.error;
                     }
@@ -212,7 +213,7 @@ Created : 2016-05-09
 Created By: Manoj
 Module : Question 
 */
-.controller('manageQuestionController', function($scope,$rootScope,$timeout, $localStorage, $injector, $rootScope, $http, $state, $location) {
+.controller('manageQuestionController', function($scope,$rootScope,$timeout, $localStorage, $injector, $rootScope, $http, $state, $location, ngTableParams) {
 
     if (!$localStorage.isuserloggedIn) {
         $state.go('login');
@@ -252,6 +253,17 @@ Module : Question
                 $scope.loader = false;
                 if (response.code == 200) {
                     $scope.questiondata = response.result;
+                    
+                     $scope.tableParams = new ngTableParams(
+			{
+				page: 1,            // show first page
+				count: 5,           // count per page
+				sorting: {name:'asc'}
+			},
+			{
+				data:$scope.questiondata
+			});
+                    
                     $scope.questiondata.forEach(function(value) {
                         $scope.ques_id.push(value.id);
                     });
@@ -315,7 +327,13 @@ Module : Question
     }
 
     /*Select all the questions checkbox*/
+    $scope.$watch('check.isAllSelected', function(value) {
+       console.log("7777777777777777777");
+       console.log(value);
+    });
     $scope.toggleAll = function() {
+       console.log("ppppppppppppppppppp");
+       console.log($scope.check);
         if ($scope.isAllSelected) {
             var toggleStatus = true;
             $scope.enableAssign = true;
@@ -330,7 +348,7 @@ Module : Question
 
     /*Push/pop the checked questions to/from array*/
     $scope.optionToggled = function(idn) {
-
+           
             if ($scope.checkbox.indexOf(idn) !== -1) {
                 $scope.checkbox.pop(idn);
             } else {
