@@ -5,7 +5,7 @@ connection = mysql.createConnection({
   password : 'alistixs',
   database : 'db_alistixs',
   insecureAuth: true
-});
+}); 
 connection.connect(function(err) {
   if (err) {
     console.error('error connecting: ' + err.stack);
