@@ -22,18 +22,10 @@
             <section class="grid-widget">
                 <div class="table-responsive">
                     <table  ng-table="tableParams" class="table table-striped">
-                      <!--   <thead>
-                            <tr>
-                                <th width="7%">ID</th>
-                                <th width="25%" class="numbers">EMAIL</th>
-                                <th width="20%" class="numbers">FIRST NAME</th>
-                                <th width="20%" class="numbers">LAST NAME</th>
-                                <th width="120%" class="numbers">MANAGE</th>
-                            </tr>
-                        </thead> -->
+                     
                         <tbody>
                           <tr ng-repeat="data1 in $data | filter:filter">
-                           <!--  <tr  pagination-id="paginate2" dir-paginate="data in userData | itemsPerPage: 2 | filter:filter"> -->
+                          
                                 <td title="'Name'" filter="{ name: 'text'}" sortable="'seller_id'"><strong>{{data1.seller_id}}</strong></td>
                                 <td title="'Email'" filter="{ name: 'text'}" sortable="'email'">{{data1.email}}</td>
                                 <td title="'FIRSTNAME'" filter="{ name: 'text'}" sortable="'first_name'">{{data1.first_name}}</td>
@@ -48,24 +40,9 @@
                     </table>
                 </div>
             </section>
-            <!-- <section class="grid-bottm clearfix">
-                <section class="paging">
-                    <label class="lt-label">Page</label>
-                    <ul class="page-list">
-                        <li class="first-page page-btn"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                        <li class="prev-page page-btn"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li class="next-page page-btn"><a href="#"><i class="fa fa-angle-right"></i></i></a></li>
-                        <li class="last-page page-btn"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                    </ul>
-                </section> -->
+     </section>
                 <section class="grid-bottm clearfix">
-<!--                         <section class="paging">
-                            <label class="lt-label"></label>
-                            <dir-pagination-controls pagination-id="paginate2" ></dir-pagination-controls>
-                        </section>
+<!--                    
  -->                        <section class="gr-right pull-right">
                             <ul class="legends">
                                 <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
@@ -74,12 +51,7 @@
                             </ul>
                         </section>
                     </section>
-                <!-- <section class="gr-right pull-right">
-                    <ul class="legends">
-                        <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                        <li><i class="fa fa-trash"></i><span>delete</span></li>
-                    </ul>
-                </section> -->
+                
             </section>
         </section>
     </div>

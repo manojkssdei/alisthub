@@ -36,12 +36,7 @@ exports.userOverview = function(req,res) {
   });
 }
 
-/** 
-Method: addUser
-Description: Function for adding the seller user  
-Created : 2016-04-23
-Created By: Deepak khokkar  
-*/
+////add user ////
 exports.addUser = function(req,res) {
   var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
   req.body.created = curtime;
@@ -60,6 +55,7 @@ exports.addUser = function(req,res) {
 }
 
 //////////delete user////////////////
+
 exports.deleteUser = function(req,res) {
   connection.query("Delete from seller_users where id="+req.body.id, function(err, results) {
      if (err) {
