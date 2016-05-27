@@ -15,6 +15,7 @@ module.exports = function(app, express) {
 	router.post('/getUser', user.getUser);
 	/* For getting the user overview page data */  
 	router.post('/userOverview', user.userOverview); 
+	router.post('/deleteUser',user.deleteUser);
 
 	/* default route */
 	app.use('/user', router);

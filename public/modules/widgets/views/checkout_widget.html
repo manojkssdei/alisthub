@@ -1,0 +1,171 @@
+ <div class="container">
+     <h1>Add Checkout Widget</h1>
+         <div class="form-section  wt-frame">
+
+ <p>Create an event widget for your website using one of your existing event templates.
+<br><br>
+Once you have customized the appearance of your widget, click Save Changes. This page will refresh to display a code that you can then copy and paste into your website to embed the widget.
+<br><br><br>
+Please note: Since we do not control your web properties (and we want to respect your security!), our team is not personally able to add the widget to your website. Please consult your webmaster if you experience any problems with the widget.</p><br><br>
+
+     <form  name="myForm" class="event-form">
+<div class="gray-frame sub-fields">
+	<div class="row">
+	  <div class=col-sm-12>
+	   <div class=col-sm-9>
+	   <label for="widgetname">Widget Description</label>
+<input type="text" name="widgetname" ng-model="data.widgetname" class="form-control" placeholder="" required>
+</div>
+      <div class=col-sm-3>
+             <label for="template">Tamplate</label>
+              <button type="button" ng-click=temlate() class="gray-btn btn">Choose a Template</button>
+
+     </div>
+ </div>
+</div>
+   <div class="gray-frame sub-fields">
+
+        <div class="row">
+          <label for="currently">Currently selected</label>
+        </div>
+        <div class="row">
+           <label for="default">ALISTIXS DEFAULT TEMPLATE</label>
+        </div>
+ 
+ <div class="row">
+     <div class="module template-view">
+         <div class="main-image col-sm-12">
+              <img src="images/img/f-img.jpg" alt="" style="border:2px solid black;"/>
+         </div>
+     </div>
+</div>
+</div>
+   <div class="gray-frame sub-fields">
+      <section class="row">
+                        <section class="col-sm-12">
+                            <section class="row">
+                                <section class="col-sm-4">
+                                     <section class="form-group">
+                                        <label>Widget width</label>
+                                        <input type="text" placeholder="100%" class="form-control" value="">
+                            </section>
+                                </section>
+                                <section class="col-sm-4">
+                                     <section class="form-group">
+                                        <label>Min Height</label>
+                                        <input type="text" class="form-control" value="" name="StartTime">
+                                       </section>
+                                    </section>
+                                  <section class="col-sm-4">
+                          <section class="form-group">
+                                <label>Max Height</label>
+                                <input type="text" name="" value="" class="form-control">
+                            </section>
+                        </section>
+                        </section>
+                   </section>
+                   </section>
+
+ <br><br>
+      <section class="row">
+          <section class="col-sm-12">
+              <section class="row">
+                  <section class="col-sm-4">
+                     <section class="form-group">
+                        <label>Show Template Header</label>
+                          <div class="onoffswitch mt-3">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" checked>
+                           <label class="onoffswitch-label" for="myonoffswitch2"></label>
+                          </div>
+                     </section>
+                  </section>
+                            <section class="col-sm-4">
+                            <section class="form-group">
+                              <label>Show Vanue Name</label>
+                             <div class="onoffswitch mt-3">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" checked>
+                           <label class="onoffswitch-label" for="myonoffswitch3"></label>
+                          </div>
+                         </section>
+                        </section>
+                           <section class="col-sm-4">
+                             <section class="form-group">
+                                <label>Override Event Temlates</label>
+                                <div class="onoffswitch mt-3">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" checked>
+                           <label class="onoffswitch-label" for="myonoffswitch4"></label>
+                          </div>
+                            </section>
+                        </section>
+                      </section>
+                    </section>
+                   </section>
+
+
+                    <br><br>
+      <section class="row">
+          <section class="col-sm-12">
+              <section class="row">
+                  <section class="col-sm-4">
+                     <section class="form-group">
+                        <label>Begin on Calendar View</label>
+                          <div class="onoffswitch mt-3">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" checked>
+                           <label class="onoffswitch-label" for="myonoffswitch5"></label>
+                          </div>
+                     </section>
+                  </section>
+                                
+                        <section class="col-sm-4">
+                            <section class="form-group">
+                              <label>Show Event List</label>
+                             <div class="onoffswitch mt-3">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch6" checked>
+                           <label class="onoffswitch-label" for="myonoffswitch6"></label>
+                          </div>
+                                       
+                           </section>
+                        </section>
+                           <section class="col-sm-4">
+                             <section class="form-group">
+                                <label>Use Category Colors</label>
+                                <div class="onoffswitch mt-3">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch7" checked>
+                           <label class="onoffswitch-label" for="myonoffswitch7"></label>
+                          </div>
+                            </section>
+                        </section>
+                      </section>
+                    </section>
+</section>
+<div class="form-group">
+  <div class="row">
+    <div class=col-sm-12>
+      <label for="tag">Tracking Tag</label>
+      <input type="text" name="tage" ng-model="data.tag" class="form-control" placeholder="" required>
+   </div>
+</div>
+ </div> 
+ <div class="form-group">
+  <div class="row">
+    <div class=col-sm-12>
+    <br>
+     <i> <label>Saving changes will affact all the websites that currently embed this widget</label></i>
+      </div>
+      </div>
+      </div>
+</div>
+</div>
+ </form>
+ <div class="editr">        
+        <div class="editor-btn">
+         <button class="gray-btn btn">Save</button>
+      
+        </div>
+      </div>
+</div>
+
+
+</div>
+
+
