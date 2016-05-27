@@ -428,7 +428,7 @@ Module : Event Setting
     $scope.data = {};
 
     /* Setting page layout of Event Settings */
-    $scope.getGlobalSetting = function() {
+    //$scope.getGlobalSetting = function() {
         if ($localStorage.userId != undefined) {
             $scope.data.userId = $localStorage.userId;
             $scope.loader = true;
@@ -472,9 +472,9 @@ Module : Event Setting
                 }
             });
         }
-    }
+    //}
 /*Calling the default page layout of event setting */
-    $scope.getGlobalSetting();
+    //$scope.getGlobalSetting();
 
     $scope.venuetab = false;
     $scope.producttab = false;

@@ -212,12 +212,17 @@
         <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="saveData(data1)" novalidate>
         <div  class="modal-body">
         <!-- {{data1}}-->
-            <fieldset  class="form-group" style="padding-top:10px">
-               <div class="col-sm-4" datepicker>
+            <fieldset  class="table table-striped" style="padding-top:10px">
+               <div class="col-sm-3" datepicker>
                     <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-change="viewEvents()"/>
+               </div>
+               <div class="col-sm-2">    
                             <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                             </span>
+               </div>
+                <div class="col-sm-1">
+                    &nbsp;
                </div>
                <div class="col-sm-4">
                     <select name="search_type" class="form-control btn-date" ng-model="search_type">
@@ -226,11 +231,11 @@
                                 <option value="3">All Dates After</option>
                     </select>
                </div>
-               <div class="col-sm-4">
+               <div class="col-sm-2">
                     <a ng-show="enableEventAssign" ng-click="eventmakeAssignment();"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Make Assignment</button></a>
                </div>
             </fieldset>
-            <fieldset  class="form-group" style="padding-top:10px">
+            <fieldset  class="form-group table table-striped" style="padding-top:10px">
                <div class="col-sm-2"><input type="checkbox" name="checkall" ng-model="eventisAllSelected"ng-click="eventtoggleAll();"></div>
                <div class="col-sm-4"><strong>Event Name</strong></div>
                <div class="col-sm-3"><strong>Venue</strong></div>

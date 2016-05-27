@@ -1045,7 +1045,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
     ////////////////////////////////////////////////
      
         
-    var serviceUrl = webservices.checkTokenExpiry; 
+    /*var serviceUrl = webservices.checkTokenExpiry; 
     var url = serviceUrl+"?token="+$localStorage.auth_token+"&callback=jsonp_callback";
 
     $http.jsonp(url);
@@ -1070,7 +1070,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     
                     
                 }
-    }
+    }*/
     ///////////////////////////////////////////////
         
     }else{
@@ -1120,7 +1120,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state,$timeout,$window)
 {
 
-    $timeout(callAtTimeout, 20*20*3000);
+   /* $timeout(callAtTimeout, 20*20*3000);
     function callAtTimeout()
     {
         $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
@@ -1135,10 +1135,10 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
                     $rootScope.address=$localStorage.address="";
                     localStorage.clear();
                     $state.go('login');
-    }
+    }*/
     // checktoken expiry time
     // check web services
-    var serviceUrl = webservices.checkTokenExpiry; 
+   /* var serviceUrl = webservices.checkTokenExpiry; 
     var url = serviceUrl+"?token="+$localStorage.auth_token+"&callback=jsonp_callback";
 
     $http.jsonp(url);
@@ -1171,7 +1171,7 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
                 }
      
      
-    }
+    }*/
     
     
        
