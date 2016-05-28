@@ -70,10 +70,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(5502, function(req, res){
-  console.log('Server listening at port 5502');  
- 
-})
+
 
 
 module.exports = app;
