@@ -446,7 +446,7 @@ Created : 2016-05-09
 Created By: Manoj
 Module : Product 
 */
-.controller('manageProductController', function($scope, $localStorage, $injector, $http, $state, $location) {
+.controller('manageProductController', function($scope, $localStorage, $injector, $http, $state, $location,ngTableParams) {
 
     if (!$localStorage.isuserloggedIn) {
         $state.go('login');
@@ -475,6 +475,16 @@ Module : Product
                     $scope.productdata = response.result;
                     console.log('$scope.productdata');
                     console.log($scope.productdata);
+                    $scope.tableParams = new ngTableParams(
+                            {
+                                    page: 1,            // show first page
+                                    count: 5,           // count per page
+                                    sorting: {name:'asc'},
+                                    
+                            },
+                            {
+                                    data:$scope.productdata
+                            });
                 } else {
                     $scope.error_message = response.error;
                 }

@@ -633,3 +633,9 @@ table:focus {
 
 .mw-100{min-width:100px;}
 
+/* ng-table header 28-05-2016*/
+.action-text-align{text-align: center;}
+.header-text-align{text-align: left;}
+/* ng-table header 28-05-2016*/
+.ng-table-counts .btn { color:#333 !important }
+.assign-discount .btn { min-width:50px;!important }

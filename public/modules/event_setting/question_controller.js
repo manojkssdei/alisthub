@@ -5,7 +5,7 @@ Created : 2016-05-09
 Created By: Manoj
 Module : Question 
 */
-    .controller('questionController', function($scope,$rootScope,$timeout, $localStorage, $injector, $http, $state, $location) {
+    .controller('questionController', function($scope,$rootScope,$timeout, $localStorage, $injector, $http, $state, $location,ngTableParams) {
 
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
@@ -96,6 +96,7 @@ Module : Question
                     $scope.loader = false;
                     if (response.code == 200) {
                         $scope.questiondata = response.result;
+                                    
                     } else {
                         $scope.error_message = response.error;
                     }
@@ -156,6 +157,20 @@ Module : Question
                             }
 
                             $scope.quesassignment = response.quesassignment;
+                            
+                            $scope.tableParams = new ngTableParams(
+                            {
+                                    page: 1,            // show first page
+                                    count: 5,           // count per page
+                                    sorting: {name:'asc'},
+                                    
+                            },
+                            {
+                                    data:$scope.quesassignment
+                            });
+                            
+                            
+                            
                         } else {
                             $scope.error_message = response.error;
                         }
@@ -212,8 +227,8 @@ Created : 2016-05-09
 Created By: Manoj
 Module : Question 
 */
-.controller('manageQuestionController', function($scope,$rootScope,$timeout, $localStorage, $injector, $rootScope, $http, $state, $location) {
-
+.controller('manageQuestionController', function($scope,$rootScope,$timeout, $localStorage, $injector, $http, $state, $location, ngTableParams) {
+    console.log($localStorage.isuserloggedIn);
     if (!$localStorage.isuserloggedIn) {
         $state.go('login');
     }
@@ -252,6 +267,18 @@ Module : Question
                 $scope.loader = false;
                 if (response.code == 200) {
                     $scope.questiondata = response.result;
+                    
+                     $scope.tableParams = new ngTableParams(
+			{
+				page: 1,            // show first page
+				count: 5,           // count per page
+				sorting: {name:'asc'},
+                                
+			},
+			{
+				data:$scope.questiondata
+			});
+                    
                     $scope.questiondata.forEach(function(value) {
                         $scope.ques_id.push(value.id);
                     });
@@ -315,22 +342,28 @@ Module : Question
     }
 
     /*Select all the questions checkbox*/
-    $scope.toggleAll = function() {
-        if ($scope.isAllSelected) {
-            var toggleStatus = true;
-            $scope.enableAssign = true;
-            $scope.listQues = 1;
-        } else {
-            var toggleStatus = false;
-            $scope.enableAssign = false;
-        }
-        angular.forEach($scope.questiondata, function(itm) { itm.selected = toggleStatus; });
+    $scope.all_check_point = 1;
+    $scope.toggleAll = function(id) {
+       
+       if (id == 1) {
+        $scope.all_check_point = 2;
+        var toggleStatus = true;
+        $scope.enableAssign = true;
+        $scope.listQues = 1;
+       }
+        if (id == 2) {
+        $scope.all_check_point = 1;
+        var toggleStatus = false;
+        $scope.enableAssign = false;
+       }
+      
+       angular.forEach($scope.questiondata, function(itm) { itm.selected = toggleStatus; });
     }
     $scope.pdata = {};
 
     /*Push/pop the checked questions to/from array*/
     $scope.optionToggled = function(idn) {
-
+           
             if ($scope.checkbox.indexOf(idn) !== -1) {
                 $scope.checkbox.pop(idn);
             } else {
@@ -371,7 +404,19 @@ Module : Question
             $serviceTest.viewEvents($scope.data, function(response) {
                 $scope.loader = false;
                 if (response.code == 200) {
+                    
                     $scope.eventdata = response.result;
+                    $scope.tableParams = new ngTableParams(
+			{
+				page: 1,            // show first page
+				count: 5,           // count per page
+				sorting: {name:'asc'},
+                                
+			},
+			{
+				data:$scope.eventdata
+			});
+                    
                     $scope.eventdata.forEach(function(value) {
                         $scope.event_id.push(value.id);
                     });
@@ -389,15 +434,19 @@ Module : Question
 
     $scope.enableEventAssign = false;
     $scope.listEvent = 0;
+    $scope.all_check_event = 1;
    /*Select all the events checkbox*/
-    $scope.eventtoggleAll = function() {
-        if ($scope.eventisAllSelected) {
-            var toggleStatus = true;
-            $scope.enableEventAssign = true;
-            $scope.listEvent = 1;
-        } else {
-            var toggleStatus = false;
-            $scope.enableEventAssign = false;
+    $scope.eventtoggleAll = function(id) {
+        if (id == 1) {
+        $scope.all_check_event = 2;
+        var toggleStatus = true;
+        $scope.enableEventAssign = true;
+        $scope.listEvent = 1;
+        }
+        if (id == 2) {
+        $scope.all_check_event = 1;
+        var toggleStatus = false;
+        $scope.enableEventAssign = false;
         }
         angular.forEach($scope.eventdata, function(itm) { itm.selected = toggleStatus; });
     }
