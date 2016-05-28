@@ -5,7 +5,7 @@ Created By: Deepak Khokkar
 Module : User 
 */
 angular.module('alisthub')
-    .controller('userController', function($scope, $localStorage, $injector, $http, $state, $location) {
+    .controller('userController', function($scope, $localStorage, $injector, $http, $state, $location,ngTableParams) {
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
         }
@@ -19,7 +19,7 @@ angular.module('alisthub')
                 $scope.navCollapsed = $scope.navCollapsed === false ? true : false;
             };
         }
-        $scope.user = {};
+        $scope.data = {};
 
         $scope.steps = [
             { "title": "Details", "icon": 'fa fa-calendar', 'id': 1 },
@@ -30,13 +30,24 @@ angular.module('alisthub')
         /*get user details*/
         $scope.getUser = function() {
             if ($localStorage.userId != undefined) {
-                $scope.user.seller_id = $localStorage.userId;
+                $scope.data.seller_id = $localStorage.userId;
                 $scope.loader = true;
-                $serviceTest.getUser($scope.user, function(response) {
+                $serviceTest.getUser($scope.data, function(response) {
                     $scope.loader = false;
                     if (response.code == 200) {
                         $scope.userData = response.result;
-                    } else {
+                       
+                       $scope.tableParams = new ngTableParams(
+                                {
+                                    page: 1,            // show first page
+                                    count: 3,           // count per page
+                                    sorting: {name:'asc'}
+                                },
+                                {
+                                    data:$scope.userData
+                                });
+                    
+            } else {
                         $scope.error_message = response.error;
                     }
 
@@ -85,4 +96,22 @@ angular.module('alisthub')
                     });
                 }
             }
-    });
+   
+
+
+//delete user/////////
+
+        $scope.deleteUser = function(id) {
+        $scope.data = {};
+        if ($localStorage.userId != undefined) {
+            $scope.data.id = id;
+            $serviceTest.deleteUser($scope.data, function(response) {
+                if (response.code == 200) {
+                        $scope.getUser();
+                } else {
+                    $scope.activation_message = global_message.ErrorInActivation;
+                }
+            });
+        }
+    };
+ });

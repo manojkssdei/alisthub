@@ -79,6 +79,7 @@ var webservices = {
     "addUser": "/user/addUser",
     "getUser": "/user/getUser",
     "userOverview": "/user/userOverview",
+    "deleteUser":"/user/deleteUser",
     
     /* Constants for the My account page */
     "updateUser" : "/profile/updateUser",
@@ -136,6 +137,17 @@ var webservices = {
     "getlookAndFeeltemplate":"event/getlookAndFeeltemplate",
     "getpreviewImage":"event/getpreviewImage",
     "getTemplate":"event/getTemplate",
+
+    //Add event product
+    "addEventProduct" :  "/event_setting/addEventProduct",
+    //Add event product
+    "getEventProducts" :  "/event_setting/getEventProducts",
+    "getEventProductDetail" :  "/event_setting/getEventProductDetail",
+    "removeEventProduct" :  "/event_setting/removeEventProduct",
+    "getEventPriceLevel" :  "/event_setting/getEventPriceLevel",
+
+    
+    
 
 }
 
@@ -230,6 +242,12 @@ var global_message = {
     "advanceSettingSavingError" : "Error while saving advance settings",
     "successChangeEmail" : "Email has been changed successfully.",
     "errorChangeEmail" : "There is some problem in saving data . Please try after some time .",
+
+
+    /* Product event popup/listing alerts*/
+    "event_product_update":"Product information has been updated successfully.",
+    "event_product_add":"Product information has been added.",
+    "event_product_delete":"Product has been deleted successfully.",
 
 
 }

@@ -22,6 +22,12 @@ angular.module('alisthub')
     });
       
   };
+    url.deleteUser = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.deleteUser,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
   
 return url;
 }])

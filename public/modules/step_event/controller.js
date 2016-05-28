@@ -117,6 +117,15 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     });
 
 
+    /* To fetch the product data related to specific event */
+    $scope.product = {};
+    $scope.product.eventId = $localStorage.eventId; 
+    $scope.product.userId = $localStorage.userId;
+    $serviceTest.getEventProducts($scope.product,function(response){
+      $rootScope.eventProductList = response.result;
+    });
+
+
 
     /** 
     Method: change_month
@@ -781,7 +790,6 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     
     ///TO move to price and level
     if (menu.id==6) {
-
       if(objectForm.myForm.$valid==true){
         $scope.eventdetail_div=$scope.look_and_feel_div=$scope.setting_div=true;
         $scope.price_and_link_div=false;  
@@ -793,10 +801,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             $scope.error_message=true;
             $scope.error='';
         },3000);
-      }
+      } 
     }
-     //look and feel div
-     if (menu.id==7) {
+
+    //look and feel div
+    if (menu.id==7) {
       //if(objectForm.myForm.$valid==true){
         $scope.eventdetail_div=$scope.price_and_link_div=$scope.setting_div=true;
         $scope.look_and_feel_div=false;
@@ -972,7 +981,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   };
   
   //Add Product pop up
-  $scope.add_product = function (size) {
+  $scope.add_product = function (size,eventProductId) {
+    $rootScope.eventProductId = eventProductId;
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContentProduct.html',
@@ -1190,7 +1200,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       $scope.data = {};
       if ($localStorage.userId!=undefined) {
         $scope.data.id   = id;
-        $scope.data.status   = status==1?0:1;
+        $scope.data.status   = status;
         $scope.loader_bundle = true;
         $serviceTest.changeBundleStatus($scope.data,function(response){
           if (response.code == 200) {
@@ -1234,6 +1244,25 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       }
     });
   };
+
+  //delete event poduct
+  $scope.delete_event_product = function (size,index,eventproduct_id) {
+    
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'deleteEventProduct.html',
+      controller: 'deleteEventProductCtrl',
+      size: size,
+      resolve: {
+      items: function () {
+          $rootScope.eventProductIdDelete = index;
+          $rootScope.eventProductDeleteId = eventproduct_id;
+        return $scope.items;
+      }
+      }
+    });
+  };
+
 
 });
 
@@ -1538,52 +1567,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
 
     console.log($localStorage.bundleId);
 
-    $scope.click_menu=function(menu) {
-       var bundleForm = this;
-       
-       $scope.selectedClass = 1; 
-       if (menu.id==1) {
-        $scope.selectedClass = 1;
-        $scope.step_1=true;
-        $scope.step_2=$scope.step_3=false;
-       }
-       if (menu.id==2) {
-          if(bundleForm.bundleForm.$valid==true){
-              $scope.selectedClass = 2;
-              $scope.step_2=true;
-              $scope.step_1=$scope.step_3=false;     
-          } else {
-            $scope.error_message = false;
-            $scope.error=global_message.error_in_step1;
-            $timeout(function() {
-                $scope.error='';
-                $scope.error_message=true;
-                $scope.error='';
-            },5000);
-          }
-       }
-       
-       if (menu.id==3) {
-         if(bundleForm.bundleForm.$valid==true){
-            $scope.getTotal();
-            $scope.selectedClass = 3;
-            $scope.step_3=true;
-            $scope.step_2=$scope.step_1=false;    
-          } else {
-            $scope.error_message = false;
-            $scope.error=global_message.error_in_step1;
-            $timeout(function() {
-                $scope.error='';
-                $scope.error_message=true;
-                $scope.error='';
-            },5000);
-          }
-
-       
-       }
-       //$scope.selected2 = menu;  
-    }
-    $scope.click_menu({id:1});
+    
 
     $scope.isActive2 = function(step2) {
       return $scope.selected2 === step2;
@@ -1624,6 +1608,10 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
               $scope.bundle.multiple_ticket_holder = toBoolean(response.result[0].multiple_ticket_holder);
               $scope.bundle.hide_in_box_office = toBoolean(response.result[0].hide_in_box_office);
               $scope.bundle.status = toBoolean(response.result[0].status);
+              $scope.bundle.bundle_inventory = response.result[0].bundle_inventory;
+              $scope.bundle.totalQty = response.result[0].total_qty;
+              $scope.bundle.totalOnlineShow = response.result[0].total_online;
+              $scope.bundle.totalBoxofficeShow = response.result[0].total_boxoffice;
           } else {
             $scope.error_message = response.error;
           }
@@ -1663,7 +1651,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
                 $rootScope.bundleList = response.result;
               });
             }
-            
+
             $scope.success_message = true;
             
             $timeout(function() {
@@ -1700,6 +1688,8 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
         }
 
         $scope.totalQty = totalQty;
+        $scope.totalOnlineShow = totalOnline;
+        $scope.totalBoxofficeShow = totalBoxoffice;
         $scope.totalOnline = totalOnline;
         $scope.totalBoxoffice = totalBoxoffice;
     }
@@ -1716,18 +1706,19 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     };
   //Update quantity
     $scope.updateQty = function(status) {
-      console.log($scope.price_level);
+      //console.log($scope.price_level);
       $scope.bundle.bundle_id = $localStorage.bundleId;
-      $scope.bundle.product_json = $scope.productList;
-
+      
       $scope.bundle.totalQty = $scope.totalQty;
       $scope.bundle.totalOnline = $scope.totalOnline;
       $scope.bundle.totalBoxoffice = $scope.totalBoxoffice;
+      $scope.bundle.price_level = $scope.price_level;
+      $scope.bundle.productList = $scope.productList;
 
+      //console.log($scope.bundle);
       $serviceTest.updateBundle($scope.bundle,function(response){
         //console.log(response);
         if (response.code == 200) {
-
           $scope.eventBundle.eventId = $localStorage.eventId; 
           $scope.eventBundle.userId = $localStorage.userId;
 
@@ -1753,6 +1744,124 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
 //To get Products
     $scope.getProduct = function() { 
       if ($localStorage.userId!=undefined) {
+        $scope.data.userId = $localStorage.userId;
+
+        if($rootScope.editBundleId == undefined){
+          $scope.data.bundleId = $localStorage.bundleId;  
+        } else {
+          $scope.data.bundleId = $rootScope.editBundleId;
+        }
+        
+        $serviceTest.getProducts($scope.data,function(response){
+          $scope.loader = false;
+          if (response.code == 200) {
+            $scope.productList = response.result;
+          } else {
+            $scope.error_message = response.error;
+          }
+        });
+      }
+    }; 
+
+    $scope.eventPrice = {};
+    $scope.getEventPriceLevel = function() { 
+      if ($localStorage.userId!=undefined) {
+        $scope.eventPrice.userId = $localStorage.userId;
+        $scope.eventPrice.eventId = $localStorage.eventId;
+        
+        if($rootScope.editBundleId == undefined){
+          $scope.eventPrice.bundleId = $localStorage.bundleId;  
+        } else {
+          $scope.eventPrice.bundleId = $rootScope.editBundleId;
+        }
+
+        $serviceTest.getEventPriceLevel($scope.eventPrice,function(response) {
+          $scope.loader = false;
+          if (response.code == 200) {
+            console.log('ashish' + response.result);
+            $scope.price_level = response.result;
+          } else {
+            $scope.error_message = response.error;
+          }
+        });
+      }
+    }; 
+    
+
+    $scope.click_menu=function(menu) {
+       var bundleForm = this;
+       
+       $scope.selectedClass = 1; 
+       if (menu.id==1) {
+        $scope.selectedClass = 1;
+        $scope.step_1=true;
+        $scope.step_2=$scope.step_3=false;
+       }
+       if (menu.id==2) {
+          if(bundleForm.bundleForm.$valid==true){
+              $scope.selectedClass = 2;
+              $scope.step_2=true;
+              $scope.step_1=$scope.step_3=false;     
+              // Get product list 
+              $scope.getProduct();
+              $scope.getEventPriceLevel();
+          } else {
+            $scope.error_message = false;
+            $scope.error=global_message.error_in_step1;
+            $timeout(function() {
+                $scope.error='';
+                $scope.error_message=true;
+                $scope.error='';
+            },5000);
+          }
+       }
+       
+       if (menu.id==3) {
+         if(bundleForm.bundleForm.$valid==true){
+            $scope.getTotal();
+            $scope.selectedClass = 3;
+            $scope.step_3=true;
+            $scope.step_2=$scope.step_1=false;    
+          } else {
+            $scope.error_message = false;
+            $scope.error=global_message.error_in_step1;
+            $timeout(function() {
+                $scope.error='';
+                $scope.error_message=true;
+                $scope.error='';
+            },5000);
+          }
+
+       
+       }
+       //$scope.selected2 = menu;  
+    }
+    $scope.click_menu({id:1});
+
+    
+
+  });
+
+  
+  /*
+  Code for product popup
+  */
+  angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
+    $scope.items = items;
+    $scope.data = {};
+    $scope.eventProduct = {};
+
+    var $serviceTest = $injector.get("venues");
+    $scope.selected = {
+      item: $scope.items[0]
+    };
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+    
+    //To get Products
+    $scope.getProduct = function() { 
+      if ($localStorage.userId!=undefined) {
         $scope.data.userId      = $localStorage.userId;
         $serviceTest.getProducts($scope.data,function(response){
           //console.log(response);
@@ -1768,45 +1877,139 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
 
     // Get product list 
     $scope.getProduct();
-    
 
-  });
+    function getObjects(obj, key, val) {
+        var objects = [];
+        for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+          if (typeof obj[i] == 'object') {
+            objects = objects.concat(getObjects(obj[i], key, val));
+          } else if (i == key && obj[key] == val) {
+            objects.push(obj);
+          }
+        }
+        return objects;
+    }
 
-  
-  /*
-  Code for product popup
-  */
-  angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector) {
-    $scope.items = items;
-    $scope.data = {};
-    var $serviceTest = $injector.get("venues");
-    $scope.selected = {
-      item: $scope.items[0]
+    $scope.product_retail_price = 0;
+    $scope.showPrice = function() {
+      var productJson = getObjects($scope.productList, 'id',  $scope.product.product_id);
+      $scope.product_retail_price = productJson[0].retail_price;
     };
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
+
+    function toBoolean(value) {
+        var strValue = String(value).toLowerCase();
+        strValue = ((!isNaN(strValue) && strValue !== '0') &&
+            strValue !== '' &&
+            strValue !== 'null' &&
+            strValue !== 'undefined') ? '1' : strValue;
+        return strValue === 'true' || strValue === '1' ? true : false
     };
 
-//To get Product
-    $scope.getProduct = function() { 
-      if ($localStorage.userId!=undefined) {
-        $scope.data.userId      = $localStorage.userId;
-        $serviceTest.getProducts($scope.data,function(response){
+    $scope.getEventProductDetail = function() {
+      $scope.eventProduct.id = $rootScope.eventProductId;
+      $serviceTest.getEventProductDetail($scope.eventProduct,function(response){
+        $scope.loader = false;
+        if (response.code == 200) {
+          $scope.product = response.result[0];
+          $scope.product.placement_listing = toBoolean(response.result[0].placement_listing);
+          $scope.product.placement_confirmation = toBoolean(response.result[0].placement_confirmation);
+          $scope.product.hide_in_box_office = toBoolean(response.result[0].hide_in_box_office);
+          $scope.product_retail_price = response.result[0].retail_price;
+          $scope.product.product_id = response.result[0].product_id;
           
-          $scope.loader = false;
-          if (response.code == 200) {
-            //console.log($scope.data.first_name);
+          $scope.products = {};
+          $scope.products.eventId = $localStorage.eventId; 
+          $scope.products.userId = $localStorage.userId;
+          $serviceTest.getEventProducts($scope.products,function(response){
+            $rootScope.eventProductList = response.result;
+          });
+        } else {
+          $scope.error_message = response.error;
+        }
+      });
+    }
+
+    if($rootScope.eventProductId!=undefined){
+      $scope.getEventProductDetail();
+    }
+
+    $scope.addEventProduct = function(product) {
+      if ($localStorage.userId!=undefined) {
+        $scope.product.seller_id   = $localStorage.userId;
+        $scope.product.event_id = $localStorage.eventId;
+
+        $serviceTest.addEventProduct($scope.product,function(response){
+          //console.log(response);
+          if (response.code == 200) { 
+            if(product.id==undefined) {
+              $localStorage.eventProductId = response.result.insertId;  
+              $scope.product.id = $localStorage.eventProductId;
+              $rootScope.success_message_product = true;
+              $rootScope.success_product = global_message.event_product_add;
+            } else {
+              $localStorage.eventProductId = product.id;
+              $rootScope.success_message_product = true;
+              $rootScope.success_product = global_message.event_product_update;
+
+              $scope.product = {};
+              $scope.product.eventId = $localStorage.eventId; 
+              $scope.product.userId = $localStorage.userId;
+              $serviceTest.getEventProducts($scope.product,function(response){
+                $rootScope.eventProductList = response.result;
+              });
+            }
+            
+            $scope.cancel();
+            
+            $timeout(function() {
+              $scope.error = '';
+              $rootScope.success_message_product = false;
+              $rootScope.success_product = '';
+            },5000);
+
           } else {
-            $scope.error_message = response.error;
+            $scope.activation_message = global_message.ErrorInActivation;
           }
         });
       }
-    }; 
-
-    $scope.getProduct();
+    };
 
   });
   
+
+  angular.module('alisthub').controller('deleteEventProductCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
+    
+    $scope.items = items;
+    $scope.selected = {
+      item: $scope.items[0]
+    };
+    
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+   //Remove Bundle data
+    $scope.removeEventProduct=function() {
+      var $serviceTest = $injector.get("venues");
+      $serviceTest.removeEventProduct({'eventProductDeleteId':$rootScope.eventProductDeleteId},function(response){
+          if (response.code==200) {
+
+              $rootScope.success_message_product = true;
+              $rootScope.success_product=global_message.event_product_delete;
+              $timeout(function() {
+                  $rootScope.error='';
+                  $rootScope.success_message_product = false;
+                  $rootScope.success_product = "";
+
+              },3000);
+              $rootScope.eventProductList.splice($rootScope.eventProductIdDelete,1);
+          }
+          $uibModalInstance.close($scope.selected.item);
+      });
+    }
+
+});
+
    /*
   Code for product popup
   */

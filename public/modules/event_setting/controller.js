@@ -439,6 +439,7 @@ Module : Event Setting
     $scope.data = {};
 
     /* Setting page layout of Event Settings */
+
     $scope.data.userId = $localStorage.userId;
     $scope.loader = true;
     $http({
@@ -449,6 +450,8 @@ Module : Event Setting
                 "Accept": "application/json",
             }
             }).success(function(data, status, headers, config) {
+
+   
                 $scope.loader = false;
                 var response  = data;
                 if (response.code == 200) {
@@ -487,9 +490,14 @@ Module : Event Setting
                 } else {
                     $scope.redirectdiscount = "#/add_discount";
                 }
-    });
-    
-   
+
+            });
+        
+    //}
+/*Calling the default page layout of event setting */
+    //$scope.getGlobalSetting();
+
+
     $scope.venuetab = false;
     $scope.producttab = false;
     $scope.discounttab = false;

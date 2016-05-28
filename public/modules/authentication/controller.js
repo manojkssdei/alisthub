@@ -196,6 +196,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                 $scope.user.hosturl  = servicebaseUrl;
                 var jsonData=$scope.user;
                 
+
                 $http({
                     url: serviceUrl,
                     method: 'POST',
@@ -223,9 +224,9 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                         else {
                           $rootScope.SignupSuccessMessage = global_message.SignupSuccess;
                           $scope.message = global_message.SignupSuccess;
-                          //$timeout(function() {
-                          //   $scope.message = global_message.SignupSuccess;
-                          // },3000);
+                          $timeout(function() {
+                             $scope.message = global_message.SignupSuccess;
+                           },3000);
                            
                          $location.path("/login");
                         }

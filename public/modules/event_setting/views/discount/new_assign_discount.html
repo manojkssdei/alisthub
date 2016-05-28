@@ -213,25 +213,23 @@
         <div  class="modal-body">
         <!-- {{data1}}-->
             <fieldset  class="table table-striped" style="padding-top:10px">
+
                 <div class="col-sm-5 form-group datepicker">
                                     <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-change="viewEvents()"/>
                                     <span class="input-group-btn assign-discount">
                                     <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                </div>
-               
-               
-               
-                
-               <div class="col-sm-3">
+                         
+               <div class="col-sm-4">
                     <select name="search_type" class="form-control btn-date" ng-model="search_type">
                                 <option value="1">Specific Date</option>
                                 <option value="2">All Dates Before</option>
                                 <option value="3">All Dates After</option>
                     </select>
                </div>
+
                <div class="col-sm-1">&nbsp;</div>
                <div class="col-sm-3">
-                   
                     <button ng-show="enableEventAssign" ng-click="eventmakeAssignment();" class="btn btn-primary"  type="submit">Make Selection</button>
                </div>
             </fieldset>
@@ -259,6 +257,7 @@
                             </table>
           </div>
         
+
         </div>
         <div class="modal-footer">
              <button ng-show="enableEventAssign" ng-click="eventmakeAssignment();" class="btn btn-primary"  type="submit">Make Selection</button>

@@ -209,6 +209,7 @@ footer i{color:#fff;margin:15px 10px 0px 0px;}
 .table > thead > tr > th, .table > thead > tr > td{font-size:12px;}
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th{border:none; font-size:12px; line-height:none; padding:8px 15px;}
 .table > thead > tr > th{ background-color:#0275d0; color:#fff; font-weight:bold; text-transform:uppercase; vertical-align:middle;}
+.customized-table > thead { background-color:#A9A9A9;}
 
 .table-striped > tbody > tr:nth-of-type(2n+1){background-color:#ffffff;}
 /*===========Table===========*/
@@ -225,7 +226,10 @@ input[type="radio"] + label span, input[type="radio"]:checked + label span { -we
 input[type="radio"].assignEvents { display: block; }
 
 /*===========Radio===========*/
-
+.image-main
+{
+  width:100%;
+}
 .custom-check input[type="checkbox"]:not(:checked),
 .custom-check input[type="checkbox"]:checked {
   position: absolute;

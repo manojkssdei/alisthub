@@ -23,14 +23,14 @@
 
       <div gridster="gridsterOpts">
                 <ul id="myMenuList">
-                    <li gridster-item="item" ng-repeat="item in standardItems" ng-bind-html="item.content | sanitize" ng-click="showdiv()">              
-                        
-                    </li>
+                    <li gridster-item="item" ng-repeat="item in standardItems" >
+		      <div ng-bind-html="item.content | sanitize"></div>
+		     </li>
                </ul>
                 
           </div>
-
-      </div>
+	
+    
 </div>
 <script type="text/ng-template" id="previewtemplate.html">
      <div class="modal-header">
