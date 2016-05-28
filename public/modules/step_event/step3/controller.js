@@ -69,23 +69,6 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
         });
        
     }
-    
-    $scope.gridsterOpts = {
-		margins: [20, 20],
-		outerMargin: true,
-		pushing: true,
-		floating: true,
-		draggable: {
-			enabled: true
-		},
-		resizable: {
-			enabled: true,
-			handles: ['n', 'e', 's', 'w', 'se', 'sw']
-		}
-	};
-
- 
-    
 });
 angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,Lookservice) {
     var templateId=$rootScope.templateId;
