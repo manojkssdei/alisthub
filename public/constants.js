@@ -76,6 +76,7 @@ var webservices = {
     "addUser": "/user/addUser",
     "getUser": "/user/getUser",
     "userOverview": "/user/userOverview",
+    "checkuniqueUser" : baseUrl + "/webservices/checkuniqueUser",
     
     /* Constants for the My account page */
     "updateUser" : "/profile/updateUser",
