@@ -268,7 +268,7 @@ exports.delAssignment = function(req,res){
 
 /** 
 Method: Assignment Discount
-Description:Function to Assignment Discount  
+Description:Function to Assignmentz Discount  
 Created : 2016-05-17
 Created By: Manoj kumar  Singh
 */

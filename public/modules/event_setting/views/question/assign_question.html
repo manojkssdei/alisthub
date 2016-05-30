@@ -43,23 +43,16 @@
                     </section>
                     <section class="grid-widget">
                         <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th width="5%"><input type="checkbox" name="checkall" ng-model="eventisAllSelected"ng-click="eventtoggleAll();"></th>
-                                        <th width="40%">Event Name</th>
-                                        <th width="40%" >Venue</th>
-                                        <th width="15%" >City</th>
-                                    </tr>
-                                </thead>
+                            <table ng-table="tableParams" class="table table-striped table-ng-style">
+                               
                                 <tbody>
-                                    <tr ng-repeat="edata in eventdata | filter:filter">
-                                        <td><input type="checkbox" name="checkall" ng-model="edata.selected"  ng-click="eventoptionToggled(edata.id);" ></td>
-                                        <td><strong>{{edata.title}}</strong></td>
-                                        <td >{{edata.event_address}}</td>
-                                        <td >{{edata.city}}</td>
+                                    <tr ng-repeat="edata in $data | filter:filter">
+                                        <td width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox2.html'"><input type="checkbox" name="checkall" ng-model="edata.selected"  ng-click="eventoptionToggled(edata.id);" ></td>
+                                        <td width="40%" header-class="'header-text-align'" title="'Event Name'" filter="{ title: 'text'}" sortable="'title'"><strong>{{edata.title}}</strong></td>
+                                        <td width="40%" header-class="'header-text-align'" title="'Venue'" filter="{ event_address: 'text'}" sortable="'event_address'">{{edata.event_address}}</td>
+                                        <td width="40%" header-class="'header-text-align'" title="'City'" filter="{ city: 'text'}" sortable="'city'">{{edata.city}}</td>
                                     </tr>
-                                    <tr ng-if="eventdata == ''">
+                                    <tr ng-if="$data == ''">
                                         <td colspan="7" align="center">No Record found!</td>
                                     </tr>
                                     <tr ng-show="loader">
@@ -73,6 +66,9 @@
             </div>
             <!-- Ticket Types Closed --> 
         </form>
+	<script type="text/ng-template" id="ng-table/headers/checkbox2.html">
+       <input type="checkbox" name="checkall" ng-model="eventisAllSelected"ng-click="eventtoggleAll(all_check_event);">
+        </script>
         <script type="text/ng-template" id="myModalContent.html">
             <div class="modal-header">
                 <h3 class="modal-title">Remove Previous Event</h3>
