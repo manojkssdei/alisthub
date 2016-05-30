@@ -204,25 +204,6 @@ exports.removeBundle=function(req,res){
 
 
 /** 
-Method: getAllProducts
-Description:Function to fetch related to seller 
-Created : 2016-04-25
-Created By: Manoj kumar  
-*/
-exports.getAllProducts = function(req,res){
-  //console.log('ashish'+req.body.bundleId);
-  //'SELECT * from products as p LEFT JOIN bundle_qty as bq on bq.product_id=p.id and bq.bundle_id=56 where p.seller_id=127 ORDER BY created DESC'
-
-  connection.query('SELECT * from products where seller_id = '+req.body.userId+ ' ORDER BY created DESC', function(err, results) {
-     if (err) {
-      res.json({error:err,code:101});
-     }
-     res.json({result:results,code:200});
-  });
-}
-
-
-/** 
 Method: getProducts
 Description:Function to fetch related to seller 
 Created : 2016-04-25

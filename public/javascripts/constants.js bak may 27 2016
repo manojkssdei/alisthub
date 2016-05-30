@@ -144,9 +144,6 @@ var webservices = {
     "getEventProductDetail" :  "/event_setting/getEventProductDetail",
     "removeEventProduct" :  "/event_setting/removeEventProduct",
     "getEventPriceLevel" :  "/event_setting/getEventPriceLevel",
-    "getAllProducts" :  "/event_setting/getAllProducts",
-
-    
 
     
     
