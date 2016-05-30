@@ -13,6 +13,7 @@ var webservices = {
     "checkTokenExpiry" : baseUrl + "/webservices/check_token_expiry",
     "refreshTokenExpiry" : baseUrl + "/webservices/refresh_token_expiry",
     "checkEmailUnique" : baseUrl + "/webservices/checkEmailUnique",
+    "updateEmailAccount" : baseUrl + "/webservices/updateEmailAccount",
 
     /* Constants for managing venue */
     "getVenues": "/event_setting/venueListing",
@@ -109,7 +110,7 @@ var webservices = {
     "viewCustomFinancialSetting" : "/account/viewCustomFinancialSetting",
     "getCustomFinancialSetting" : "/account/getCustomFinancialSetting",
     "checkAlreadyAddedMerchant" : "/account/checkAlreadyAddedMerchant",
-
+    
 
     
 
@@ -177,7 +178,7 @@ var global_message = {
      /* Constants for Login */
     "LoginNotMatchingError" : "The email and password you entered don't match.",
     "EmailEmpty" : "Enter a valid email ",
-    "LoginAuthNotMatchingError" : "Your account has not been activated till now . Please go to email to complete activation process.",
+    "LoginAuthNotMatchingError" : "Your account has not been activated till now . Please go to your registered email to complete activation process.",
     "AccountBlocked" : "Account Blocked",
     "InfoNotUpdated" : "Some error",
     "InvalidPassword" : "The password that you've entered is incorrect.",
@@ -239,6 +240,9 @@ var global_message = {
     /**/
     "advanceSettingSaved" : "Advance settings saved successfully",
     "advanceSettingSavingError" : "Error while saving advance settings",
+    "successChangeEmail" : "Email has been changed successfully.",
+    "errorChangeEmail" : "There is some problem in saving data . Please try after some time .",
+
 
     /* Product event popup/listing alerts*/
     "event_product_update":"Product information has been updated successfully.",

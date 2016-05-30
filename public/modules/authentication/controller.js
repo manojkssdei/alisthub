@@ -4,7 +4,7 @@ Created : 2016-05-17
 Created By: Deepak Khokkar
 Module : SignUp ,Login, Forget Password Module ,Email Confirmation 
 */
-angular.module('alisthub').controller('loginController', function($http,$location,$timeout,$scope, $injector, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage) {
+angular.module('alisthub').controller('loginController', function($http,$location,$timeout,$scope, $injector, $ocLazyLoad,$rootScope,$state,$localStorage) {
         
         if ($localStorage.isuserloggedIn) {
                 $rootScope.class_status = 0;
@@ -17,6 +17,9 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
         $rootScope.signup_success_message = true;
         if($rootScope.SignupSuccessMessage) {
             $rootScope.signup_success_message = false;
+             $timeout(function() {
+                        $scope.signup_success_message=true;
+             },6000);
         }
         
         ///////////// SHOWCLIX SERVICE INJECTOR ////////////////////////
@@ -98,18 +101,15 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
     */
     $scope.submitForm = function() {
         // check to make sure the form is completely valid
-        if ($scope.userForm.$valid) {
+        if ($scope.userForm.$valid)
+        {
             var serviceUrl = webservices.getUserlogin;
             var jsonData = $scope.user;
             
             //////////////  SHOWCLIX SERVICE ////////////////////
         $scope.showclix_data = {};
         $scope.showclix_data = {"email":"manojks@smartdatainc.net","password":"manojks@2015"};
-        $showclixService.generateToken($scope.showclix_data, function(response)
-        {
-               
-                if (response != null && response != "" && response.token) {
-                
+                       
                 $http({
                 url: serviceUrl,
                 method: 'POST',
@@ -121,7 +121,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                 }).success(function(data, status, headers, config) {
 
                 if ((data.message == 'error') || (data.user == undefined)) {
-                    if (data.errorMsg == 'AccountBlocked') {
+                    if (data.errorMsg == 'AccountNotActivated') {
                         $scope.error = global_message.LoginAuthNotMatchingError;
                         $scope.error_message = false;
                         $timeout(function() {
@@ -138,6 +138,11 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                     }
 
                 } else {
+                        
+                   $showclixService.generateToken($scope.showclix_data, function(response)
+                   {
+                    if (response != null && response != "" && response.token) {
+                        
                     $rootScope.class_status = 0;
                     $localStorage.isuserloggedIn = $rootScope.isuserloggedIn = $rootScope.footer_login_div = true;
                     $localStorage.menu = $localStorage.after_login_footer_div = $rootScope.menu = $rootScope.after_login_footer_div = false;
@@ -156,25 +161,24 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                     $rootScope.showclix_seller_id = $localStorage.showclix_seller_id = response.seller_id;
                     /// Showclix storage end
                     $state.go('dashboard');
-                }
-            });
-             
-                }else{ //checkshowclix
+                    }
+                    else
+                    { //checkshowclix
                      $scope.error = global_message.LoginNotMatchingError;
                      $scope.error_message = false;
                         $timeout(function() {
                             $scope.error = '';
                             $scope.error_message = true;
                         }, 3000);   
+                     }
+                   });
+                    
                 }
-            
-        }); // showclix end
-            
-            
+            });
         }
 
        };
-}).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad, $injector,$rootScope,$state, $timeout,$localStorage,$window){
+}).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad, $injector,$rootScope,$state,$localStorage,$window){
 
     var $showclixService = $injector.get("showclix");
     // function to submit the form after all validation has occurred            
@@ -192,21 +196,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                 $scope.user.hosturl  = servicebaseUrl;
                 var jsonData=$scope.user;
                 
-                ///////////// TESTING SHOWCLIX ////////////////////////
-                
-                
-                /*$scope.showclix_data = {};
-                $scope.showclix_data = {"first_name":"Manoj","last_name":"Singh","city":"Newyork","state":"Newyork","phone":"6767676767","email":"manojks@smartdatainc.net","password":"manojks@2015"};
-                //first_name last_name city state  phone email
-                $showclixService.signUp($scope.showclix_data, function(response) {
-                        console.log("*******************************************");
-                        console.log(response);
-                        console.log("*******************************************");
-                });*/
-                ////////////// TESTING SHOWCLIX ///////////////////////
-                
-                
-                
+
                 $http({
                     url: serviceUrl,
                     method: 'POST',
@@ -284,7 +274,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
            }
         };
     
-    }).controller('forgotcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state, $timeout,$localStorage,$window){
+    }).controller('forgotcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state,$localStorage,$window){
         $scope.menu=true;
         $rootScope.class_status=1;
         $scope.user = {}; 

@@ -5,6 +5,9 @@
     <span ng-show="success_message" class="ng-hide">
         <p class="success-fld ng-binding">{{success}}</p>
     </span>
+    <span ng-show="error_message" class="ng-hide">
+        <p class="error-fld ng-binding">{{error}}</p>
+    </span>
     <div class="wt-frame form-section">
         <form name="accountinfo" class="event-form" ng-submit="accountinfo.$valid && updateUser(userdetail)" novalidate>
             <section class="module">
