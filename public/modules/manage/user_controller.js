@@ -5,7 +5,9 @@ Created By: Deepak Khokkar
 Module : User 
 */
 angular.module('alisthub')
-    .controller('userController', function($scope, $localStorage, $injector, $http, $state, $location,ngTableParams) {
+    .controller('userController', function($scope, $localStorage,$http, $state, $location,ngTableParams, $timeout,$window,$rootScope,$injector) {
+        $scope.user = {};
+        event_count=[];
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
         }
@@ -26,7 +28,7 @@ angular.module('alisthub')
             { "title": "Pricing", "icon": 'fa fa-tags', 'id': 2 },
             { "title": "Options", "icon": 'fa fa-cog', 'id': 3 }
         ];
-        
+        $scope.page_title = 'ADD';
         /*get user details*/
         $scope.getUser = function() {
             if ($localStorage.userId != undefined) {
@@ -56,12 +58,13 @@ angular.module('alisthub')
             }
         };
 
+       if ($state.params.id) {}else{
         $scope.getUser();
+    }
 
         /*edit user details*/
         if ($state.params.id) {
-            // $scope.callfunction = 1;
-
+       
             $scope.page_title = 'EDIT';
             $scope.getuserDetail = function() {
 
@@ -73,6 +76,7 @@ angular.module('alisthub')
                         if (response.code == 200) {
                             $scope.user = {};
                             $scope.user = response.result[0];
+                            $scope.user.email1=1;
                         } else {
                             $scope.error_message = response.error;
                         }
@@ -88,6 +92,7 @@ angular.module('alisthub')
                     $scope.user.seller_id = $localStorage.userId;
                     $serviceTest.addUsers($scope.user, function(response) {
                         if (response.code == 200) {
+                          
                             $location.path("/view_user");
                         } else {
                             $scope.activation_message = global_message.ErrorInActivation;
@@ -95,8 +100,57 @@ angular.module('alisthub')
 
                     });
                 }
+            };
+ 
+/*change status active or inactive*/
+
+     $scope.changeStatus = function(id, status) {
+        $scope.data = {};
+        if ($localStorage.userId != undefined) {
+            $scope.data.id = id;
+            $scope.data.status = status == 1 ? 0 : 1;
+            $serviceTest.changeUserStatus($scope.data, function(response) {
+                if (response.code == 200) {
+                    $scope.getUser();
+                } else {
+                    $scope.activation_message = global_message.ErrorInActivation;
+                }
+            });
+        }
+    };
+
+   ////////unique email///////////
+
+        
+    $scope.unique = false;
+    $scope.message = "";
+    
+    $scope.unique_type = 0;
+    
+
+
+
+   ///////////////////////////////
+         $scope.checkuniqueUser = function() 
+         {
+          $serviceTest.checkuniqueUser({'email':$scope.user.email},function(response){
+            console.log(response);
+            if(response.result[0].cnt<1)
+            {
+                $scope.success_message = true;
+                $scope.error_message = false;
+                $scope.user.email1=1;
+                $scope.unique = "Available";
             }
-   
+            else{
+                $scope.error_message = true;
+                $scope.success_message = false;
+                $scope.user.email1='';
+                $scope.unique = "This email ID already exists";
+            }
+          });
+
+        };
 
 
 //delete user/////////
@@ -108,6 +162,7 @@ angular.module('alisthub')
             $serviceTest.deleteUser($scope.data, function(response) {
                 if (response.code == 200) {
                         $scope.getUser();
+                       
                 } else {
                     $scope.activation_message = global_message.ErrorInActivation;
                 }

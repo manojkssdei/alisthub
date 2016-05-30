@@ -832,6 +832,9 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               }]
             }
         })
+
+
+
 /* Setting for view account screen */
        .state('view_account', {
             url: '/view_account',
