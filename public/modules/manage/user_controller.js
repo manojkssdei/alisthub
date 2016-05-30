@@ -57,14 +57,14 @@ angular.module('alisthub')
 
             }
         };
+
        if ($state.params.id) {}else{
         $scope.getUser();
     }
 
         /*edit user details*/
         if ($state.params.id) {
-            // $scope.callfunction = 1;
-
+       
             $scope.page_title = 'EDIT';
             $scope.getuserDetail = function() {
 
@@ -101,9 +101,7 @@ angular.module('alisthub')
                     });
                 }
             };
-   
-
-
+ 
 /*change status active or inactive*/
 
      $scope.changeStatus = function(id, status) {
@@ -123,8 +121,7 @@ angular.module('alisthub')
 
    ////////unique email///////////
 
-    // var $showclixService = $injector.get("showclix");
-    // function to submit the form after all validation has occurred            
+        
     $scope.unique = false;
     $scope.message = "";
     
