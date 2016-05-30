@@ -73,18 +73,6 @@ exports.changeUserStatus = function(req,res) {
   });
 }
 
-/////////edit user/////////////
-// exports.editUser = function(req,res) {
-//   connection.query("UPDATE seller_users SET seller_id="+req.body.seller_id+"' first_name='"+req.body.first_name+"'last_name='"+req.body.last_name+"' where id="+req.body.id
-//                    ,function(err, results) {
-//      if (err) {
-
-//     return  res.json({error:err,code:101});
-//      }
-//    return  res.json({result:results,code:200});
-//   });
-// }
-
 
 //////////delete user////////////////
 
@@ -100,7 +88,7 @@ exports.deleteUser = function(req,res) {
 ////////////////checkunique//////////////
 exports.checksellerUser =function(req,res)
 {
-console.log("body**********",req.body);
+
   connection.query("SELECT count(*) as cnt from seller_users where email='"+req.body.email+"'", function(err, results) {
      if (err) {
      
