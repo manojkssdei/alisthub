@@ -47,6 +47,20 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
           });
     }
     
+    $scope.edit_footer=function(size){
+         var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'editfooter.html',
+            controller: 'EditFooterCtrl',
+            size: size,
+            resolve: {
+              items: function () {
+                return $scope.items;
+              }
+            }
+          });
+    }
+    
     $scope.select_btn=function(index)
     {
          Lookservice.getTemplate({'templateId':index},function(response){
@@ -81,6 +95,14 @@ angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $u
       $uibModalInstance.dismiss('cancel');
     };
 });
+
+angular.module('alisthub').controller('EditFooterCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,Lookservice) {
+    
+     $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+}); 
+
 angular.module('alisthub').filter("sanitize", ['$sce', function($sce) {
   return function(htmlCode){	
     return $sce.trustAsHtml(htmlCode);

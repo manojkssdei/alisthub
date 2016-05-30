@@ -34,7 +34,7 @@
 	  
 	  <li data-row="3" data-col="2" data-sizex="1" data-sizey="1"><div> <img src="images/img/f-img.jpg" alt="banner imageee" height="125px" width="100%"></div></li>
 	  
-	  <li data-row="4" data-col="1" data-sizex="2" data-sizey="1" id="footer"><div id="footerid" contenteditable="true"><span class="edit" style="display:none;">Edit</span><p id="footerdata">Footer content will be shown here.</p></div></li>
+	  <li data-row="4" data-col="1" data-sizex="2" data-sizey="1" id="footer"><div id="footerid" contenteditable="true"><span class="edit" style="display:none;"><a ng-click="edit_footer('')">Edit</a></span><p id="footerdata">Footer content will be shown here.</p></div></li>
     </ul>
   </div> 
 </div>
@@ -84,6 +84,18 @@
         </div>
         <div class="modal-body">
             <img src='{{preview_image}}'/>
+        </div>
+        <div class="modal-footer">
+            
+            <button class="btn btn-warning" type="button" ng-click="cancel()">close</button>
+        </div>
+  </script>
+<script type="text/ng-template" id="editfooter.html">
+     <div class="modal-header">
+            <h3 class="modal-title">Edit Section</h3>
+        </div>
+        <div class="modal-body">
+            Content section comes here.
         </div>
         <div class="modal-footer">
             
