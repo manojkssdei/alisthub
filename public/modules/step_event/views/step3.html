@@ -2,10 +2,10 @@
 <div ng-hide="look_and_feel_div" ng-controller="step3Controller">
   <div class="tab-widget">
         <ul role="tablist" id="event-date" class="nav nav-tabs responsive-tabs">
-          <li class="active"><a href="#template">Template</a></li>
-          <li><a href="#design">Design</a></li>
-          <li><a href="#Recipients">Recipients</a></li>
-          <li><a href="#multiple-event">Preview</a></li>
+         
+	  <li ng-repeat="look_and_feel in look_and_feel_step" ng-click="select(look_and_feel)" ng-class="{active: isActive(look_and_feel)}" ><a class="pointer" href="javascript:void(0)" >{{look_and_feel.name}}</a>
+                  
+               </li>
         </ul>
       </div> 	
       <div ng-hide="campaign_div">
@@ -40,37 +40,39 @@
           	   <section class="col-sm-3 design-left">
                		<section class="tabs-widget">
                         <ul class="tabs">
-                            <li><a href="#" class="active">Color</a></li>
-                            <li><a href="#">Image</a></li>
+                            
+			    <li ng-repeat="choose in look_and_feel_choose_type" ng-click="select1(choose)" ng-class="{active: isActive1(choose)}" ><a class="pointer" href="javascript:void(0)" >{{choose.name}}</a>
+                  
+               </li>
                         </ul>
                         
                         <section class="tbs-container">
-                        	<section class="tab-con">
+                        	<section class="tab-con" ng-hide="color_div">
                             	<ul class="choose-color">
                                 	<li>
                                     	<span class="color-txt">Outer Background</span>
-                                        <a href="#" class="color-bx" style="background-color:#f3f3f3;"></a>
+                                       <color-picker ng-model="backgroundColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
                                     </li>
                                     <li>
                                     	<span class="color-txt">Inner Background</span>
-                                        <a href="#" class="color-bx"></a>
+                                        <color-picker ng-model="InnerbackgroundColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
                                     </li>
                                     <li>
                                     	<span class="color-txt">Text</span>
-                                        <a href="#" class="color-bx" style="background-color:#333;"></a>
+                                        <color-picker ng-model="TextColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
                                     </li>
                                     <li>
                                     	<span class="color-txt">Outer Border</span>
-                                        <a href="#" class="color-bx"></a>
+                                       <color-picker ng-model="OuterborderColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
                                     </li>
                                     <li>
                                     	<span class="color-txt">Inner Border</span>
-                                        <a href="#" class="color-bx"></a>
+                                        <color-picker ng-model="InnerborderColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
                                     </li>
                                 </ul>
                             </section>
                             
-                            <section class="tab-con">
+                            <section class="tab-con" ng-hide="image_div">
                             	<button type="submit" class="btn pink-btn m-b20">Upload Images</button>
                             	<ul class="images-widget">
                                 	<li><a href="#"><img src="images/img/s-img-o.jpg" alt=""/></a></li>
@@ -102,6 +104,13 @@
                     </section>
                </section><!--Left-->
           </section>
+      </section>
+
+      <section ng-hide="recipient_div">
+	Coming soon.
+      </section>
+      <section ng-hide="preview_div">
+	Coming soon.
       </section>
 </div>
 <script type="text/javascript">
@@ -161,7 +170,7 @@
             <h3 class="modal-title">Edit Section</h3>
         </div>
         <div class="modal-body">
-            Content section comes here.
+             <div ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value=''>
         </div>
         <div class="modal-footer">
             

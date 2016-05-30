@@ -680,3 +680,4 @@ table:focus {
 /* ng-table header 28-05-2016*/
 .ng-table-counts .btn { color:#333 !important }
 .assign-discount .btn { min-width:50px;!important }
+.color-picker-wrapper{float: right;}
