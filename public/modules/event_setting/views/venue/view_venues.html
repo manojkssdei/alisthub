@@ -26,33 +26,27 @@
                     </section>
                     <section class="grid-widget">
                         <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th width="15%">Name</th>
-                                        <th width="10%" class="numbers">Type</th>
-                                        <th width="14%" class="numbers">City</th>
-                                        <th width="13%" class="numbers">State</th>
-                                        <th width="14%" class="numbers">Country</th>
-                                        <th width="12%" class="numbers">Zipcode</th>
-                                        <th width="23%">&nbsp;</th>
-                                    </tr>
-                                </thead>
+                            <table ng-table="tableParams" class="table table-striped table-ng-style">
+                               
                                 <tbody>
-                                    <tr pagination-id="paginate2" dir-paginate="data in venuedata | itemsPerPage: 25 | filter:filter">
-                                        <td><strong>{{data.venue_name}}</strong></td>
-                                        <td class="numbers">{{data.venue_type}}</td>
-                                        <td class="numbers">{{data.city}}</td>
-                                        <td class="numbers">{{data.state}}</td>
-                                        <td class="numbers">{{data.country}}</td>
-                                        <td class="numbers">{{data.zipcode}}</td>
-                                        <td class="action">
+
+                                    <tr ng-repeat="data in $data | filter:filter">
+                                        <td width="20%" header-class="'header-text-align'" title="'Name'" filter="{ venue_name: 'text'}" sortable="'venue_name'"><strong>{{data.venue_name}}</strong></td>
+                                        <td width="16%" header-class="'header-text-align'" title="'Type'" filter="{ venue_type: 'text'}" sortable="'venue_type'">{{data.venue_type}}</td>
+                                        <td width="20%" header-class="'header-text-align'" title="'City'" filter="{ city: 'text'}" sortable="'city'" >{{data.city}}</td>
+                                        <td width="7%" header-class="'header-text-align'" title="'State'" filter="{ state: 'text'}" sortable="'state'" >{{data.state}}</td>
+                                        <td width="7%" header-class="'header-text-align'" title="'City'" filter="{ country: 'text'}" sortable="'country'" >{{data.country}}</td>
+                                        <td width="8%" header-class="'header-text-align'" title="'Zipcode'" filter="{ zipcode: 'text'}" sortable="'zipcode'">{{data.zipcode}}</td>
+                                        <td width="22%" header-class="'header-text-align'" title="'Action'" class="action">
                                             <a href="#/edit_venue/{{data.id}}"><i class="fa fa-edit"></i></a>
                                             <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Venue status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
                                             <a href="#/venue_overview/{{data.id}}"><i class="fa fa-eye"></i></a>
                                             <a ng-click="duplicateVenue(data.id)"><i class="fa fa-clone"></i></a>
                                             <a ng-click="delVenue(data.id)" ng-confirm-clicks="Would you like to delete this Venue?"><i class="fa fa-trash"></i></a>
                                         </td>
+                                    </tr>
+				    <tr ng-if="$data == ''">
+                                        <td colspan="7" align="center">No Record found!</td>
                                     </tr>
                                     <tr ng-show="loader">
                                         <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
@@ -64,8 +58,7 @@
                     <section class="grid-bottm clearfix">
                         <section class="paging">
                             <label class="lt-label"></label>
-                            
-                            <dir-pagination-controls pagination-id="paginate2" ></dir-pagination-controls>
+                                                        
                         </section>
                         <section class="gr-right pull-right">
                             <ul class="legends">
