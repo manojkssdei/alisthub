@@ -636,6 +636,7 @@ table:focus {
 .f-sb{font-weight:600;}
 
 .mw-100{min-width:100px;}
+.fa.fa-caret-down {  display: none;}
 
 /* ng-table header 28-05-2016*/
 .action-text-align{text-align: center;}
