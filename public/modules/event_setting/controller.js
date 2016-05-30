@@ -326,7 +326,7 @@ Created : 2016-04-17
 Created By: Manoj
 Module : Venue
 */
-.controller('manageVenueController', function($scope, $localStorage, $injector, $http, $state, $location) {
+.controller('manageVenueController', function($scope, $localStorage, $injector, $http, $state, $location,ngTableParams) {
 
     if (!$localStorage.isuserloggedIn) {
         $state.go('login');
@@ -353,6 +353,17 @@ Module : Venue
                 $scope.loader = false;
                 if (response.code == 200) {
                     $scope.venuedata = response.result;
+                    $scope.tableParams = new ngTableParams(
+                            {
+                                    page: 1,            // show first page
+                                    count: 5,           // count per page
+                                    sorting: {name:'asc'},
+                                    
+                            },
+                            {
+                                    data:$scope.venuedata
+                            });
+                    
                 } else {
                     $scope.error_message = response.error;
                 }
@@ -428,12 +439,21 @@ Module : Event Setting
     $scope.data = {};
 
     /* Setting page layout of Event Settings */
-    $scope.getGlobalSetting = function() {
-        if ($localStorage.userId != undefined) {
-            $scope.data.userId = $localStorage.userId;
-            $scope.loader = true;
-            $serviceTest.getSettingCount($scope.data, function(response) {
+
+    $scope.data.userId = $localStorage.userId;
+    $scope.loader = true;
+    $http({
+            url: webservices.getSettingCount,
+            method: 'POST',
+            data: $scope.data,
+            headers: {
+                "Accept": "application/json",
+            }
+            }).success(function(data, status, headers, config) {
+
+   
                 $scope.loader = false;
+                var response  = data;
                 if (response.code == 200) {
                     $scope.venuecount = response.venueresult.count;
                     $scope.quescount = response.quesresult.count;
@@ -470,11 +490,13 @@ Module : Event Setting
                 } else {
                     $scope.redirectdiscount = "#/add_discount";
                 }
+
             });
-        }
-    }
+        
+    //}
 /*Calling the default page layout of event setting */
-    $scope.getGlobalSetting();
+    //$scope.getGlobalSetting();
+
 
     $scope.venuetab = false;
     $scope.producttab = false;

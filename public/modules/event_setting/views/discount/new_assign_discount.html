@@ -212,13 +212,24 @@
         <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="saveData(data1)" novalidate>
         <div  class="modal-body">
         <!-- {{data1}}-->
-            <fieldset  class="form-group" style="padding-top:10px">
-               <div class="col-sm-4" datepicker>
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-change="viewEvents()"/>
+            <fieldset  class="table table-striped" style="padding-top:10px">
+
+                <div class="col-sm-5 form-group datepicker">
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-change="viewEvents()"/>
+                                    <span class="input-group-btn assign-discount">
+                                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+               </div>
+                         
+
+               <div class="col-sm-2">    
                             <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                             </span>
                </div>
+                <div class="col-sm-1">
+                    &nbsp;
+               </div>
+
                <div class="col-sm-4">
                     <select name="search_type" class="form-control btn-date" ng-model="search_type">
                                 <option value="1">Specific Date</option>
@@ -226,40 +237,47 @@
                                 <option value="3">All Dates After</option>
                     </select>
                </div>
-               <div class="col-sm-4">
-                    <a ng-show="enableEventAssign" ng-click="eventmakeAssignment();"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Make Assignment</button></a>
+
+
+               <div class="col-sm-1">&nbsp;</div>
+               <div class="col-sm-3">
+                    <button ng-show="enableEventAssign" ng-click="eventmakeAssignment();" class="btn btn-primary"  type="submit">Make Selection</button>
                </div>
             </fieldset>
-            <fieldset  class="form-group" style="padding-top:10px">
-               <div class="col-sm-2"><input type="checkbox" name="checkall" ng-model="eventisAllSelected"ng-click="eventtoggleAll();"></div>
-               <div class="col-sm-4"><strong>Event Name</strong></div>
-               <div class="col-sm-3"><strong>Venue</strong></div>
-               <div class="col-sm-3"><strong>City</strong></div>
-            </fieldset>
+                        
+            <div class="table-responsive">
+                        <table ng-table="tableParams" class="table table-striped table-ng-style">
+                        <tbody>
+                                    <tr ng-repeat="edata in $data | filter:filter">
+                                                                             
+                                        <td  width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox4.html'"><input type="checkbox" name="checkall" ng-model="edata.selected"  ng-click="eventoptionToggled(edata.id);" >
+					</td>
+                                        <td width="15%" header-class="'header-text-align'" title="'Event Name'" filter="{ title: 'text'}" sortable="'title'"><strong>{{edata.title}}</strong>
+					</td>
+                                        <td width="12%" header-class="'header-text-align'" title="'Venue'" filter="{ event_address: 'text'}" sortable="'event_address'">{{edata.event_address}}
+					</td>
+                                        <td width="12%" header-class="'header-text-align'" title="'City'" filter="{ city: 'text'}" sortable="'city'" class="numbers">{{edata.city}}</td>
+                                    </tr>
+				    <tr ng-if="$data == ''">
+                                        <td colspan="4" align="center">No Record found!</td>
+                                    </tr>
+                                    <tr ng-show="loader">
+                                        <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+          </div>
+          </fieldset>
             
-            
-            <fieldset  class="form-group" style="padding-top:10px" ng-repeat="edata in eventdata | filter:filter">
-               <div class="col-sm-2"><input type="checkbox" name="checkall" ng-model="edata.selected"  ng-click="eventoptionToggled(edata.id);" ></div>
-               <div class="col-sm-4">{{edata.title}}</div>
-               <div class="col-sm-3">{{edata.event_address}}</div>
-               <div class="col-sm-3">{{edata.city}}</div>
-            </fieldset>
-           
-            <fieldset  class="form-group" style="padding-top:10px" ng-if="eventdata == ''">
-               <div class="col-sm-12" align="center">>No Record found!</div>
-            </fieldset>
-            <fieldset  class="form-group" style="padding-top:10px" ng-show="loader">
-               <div class="col-sm-12" align="center"><img src="/images/icons/loader.gif"></div>
-            </fieldset>
-            
-         
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary"  
-ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
+             <button ng-show="enableEventAssign" ng-click="eventmakeAssignment();" class="btn btn-primary"  type="submit">Make Selection</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
         </form>
+         <script type="text/ng-template" id="ng-table/headers/checkbox4.html">
+          <input type="checkbox" name="checkall" ng-model="eventisAllSelected"ng-click="eventtoggleAll(all_check_point);">
+        </script>
     </script>
 
 <!-------------------------------------------- EVENT POPUP END ---------------------------------------->

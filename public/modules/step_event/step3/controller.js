@@ -47,6 +47,20 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
           });
     }
     
+    $scope.edit_footer=function(size){
+         var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'editfooter.html',
+            controller: 'EditFooterCtrl',
+            size: size,
+            resolve: {
+              items: function () {
+                return $scope.items;
+              }
+            }
+          });
+    }
+    
     $scope.select_btn=function(index)
     {
          Lookservice.getTemplate({'templateId':index},function(response){
@@ -69,68 +83,6 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
         });
        
     }
-    
-    $scope.gridsterOpts = {
-		margins: [20, 20],
-		outerMargin: true,
-		pushing: true,
-		floating: true,
-		draggable: {
-			enabled: true
-		},
-		resizable: {
-			enabled: true,
-			handles: ['n', 'e', 's', 'w', 'se', 'sw']
-		}
-	};
-        
-    // these map directly to gridsterItem options
-	$scope.standardItems = [{
-		sizeX: 6,
-		sizeY: 2,
-		row: 0,
-		col: 0,
-		content:'<div contenteditable="true"> <img src="images/img/f-img.jpg" alt="banner image" height="220px" width="100%"></div>'
-	}
-        , {
-		sizeX: 3,
-		sizeY: 2,
-		row: 2,
-		col: 0,
-		content:'<div contenteditable="true" style="text-align:justify;">  <h3>Heading</h3><br/><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum dolor sit amet</p></div>'
-	}, {
-		sizeX: 3,
-		sizeY: 2,
-		row: 2,
-		col: 3,
-		content:' <div contenteditable="true">  <h3>Heading</h3><br/><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum dolor sit amet</p></div>'
-	}, {
-		sizeX: 6,
-		sizeY: 2,
-		row: 4,
-		col: 0,
-		content:'<div contenteditable="true" style="float:left;width:60%;text-align:justify; padding-right:20px;"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p></div><div style="float:left;width:40%;"> <img src="images/img/s-img.jpg" alt="banner imageee" height="220px" width="100%"></div>'
-	}, {
-		sizeX: 4,
-		sizeY: 1,
-		row: 6,
-		col: 0,
-		content:' <div contenteditable="true"> <img src="images/img/f-img.jpg" alt="banner imageee" height="125px" width="100%"></div>'
-	}, {
-		sizeX: 2,
-		sizeY: 1,
-		row: 6,
-		col: 4,
-		content:' <div contenteditable="true" style="text-align:justify;"><h3>Heading</h3><br/><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p></div>'
-	}, {
-		sizeX: 6,
-		sizeY: 1,
-		row: 7,
-		col: 0,
-		content:'<div id="footerid" contenteditable="true"><p id="footerdata">Footer content will be shown here.</p></div>'
-	}
-	];
-    
 });
 angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,Lookservice) {
     var templateId=$rootScope.templateId;
@@ -143,6 +95,14 @@ angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $u
       $uibModalInstance.dismiss('cancel');
     };
 });
+
+angular.module('alisthub').controller('EditFooterCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,Lookservice) {
+    
+     $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+}); 
+
 angular.module('alisthub').filter("sanitize", ['$sce', function($sce) {
   return function(htmlCode){	
     return $sce.trustAsHtml(htmlCode);

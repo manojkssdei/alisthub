@@ -7,13 +7,13 @@ Description: It defined routes to call different files.It will provide you direc
 angular.module("communicationModule", []);
 // Declare app level module which depends on filters, and services
 
+var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','ngTable'])
 
-var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','angularUtils.directives.dirPagination','gridster','ngTable'])
 
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ocLazyLoadProvider) {
      $urlRouterProvider.otherwise('/login');
-    
+      
  
     // You can also load via resolve
     $stateProvider.
@@ -1122,7 +1122,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
   }).run(['$rootScope', '$location','$state', '$localStorage', '$http', '$timeout','$window','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$timeout,$window,$stateParams) {
 
-    $timeout(callAtTimeout, 20*20*3000);
+    /*$timeout(callAtTimeout, 20*20*3000);
     
     function callAtTimeout()
     {
@@ -1139,7 +1139,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     
                     localStorage.clear();
                     $state.go('login');
-    } 
+    } */
     
     //To add class
  
@@ -1162,7 +1162,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
     ////////////////////////////////////////////////
      
         
-    var serviceUrl = webservices.checkTokenExpiry; 
+    /*var serviceUrl = webservices.checkTokenExpiry; 
     var url = serviceUrl+"?token="+$localStorage.auth_token+"&callback=jsonp_callback";
 
     $http.jsonp(url);
@@ -1187,7 +1187,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     
                     
                 }
-    }
+    }*/
     ///////////////////////////////////////////////
         
     }else{
@@ -1237,7 +1237,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state,$timeout,$window)
 {
 
-    $timeout(callAtTimeout, 20*20*3000);
+    /*$timeout(callAtTimeout, 20*20*3000);
+
     function callAtTimeout()
     {
         $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
@@ -1252,10 +1253,12 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
                     $rootScope.address=$localStorage.address="";
                     localStorage.clear();
                     $state.go('login');
-    }
+    }*/
     // checktoken expiry time
     // check web services
-    var serviceUrl = webservices.checkTokenExpiry; 
+
+   /* var serviceUrl = webservices.checkTokenExpiry; 
+
     var url = serviceUrl+"?token="+$localStorage.auth_token+"&callback=jsonp_callback";
 
     $http.jsonp(url);
@@ -1288,9 +1291,11 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
                 }
      
      
+    }*/
+    
+    if(!$localStorage.isuserloggedIn){
+        $location.path("/login");
     }
-    
-    
        
 };
 
