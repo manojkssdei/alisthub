@@ -220,6 +220,16 @@
                                     <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                </div>
                          
+
+               <div class="col-sm-2">    
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+               </div>
+                <div class="col-sm-1">
+                    &nbsp;
+               </div>
+
                <div class="col-sm-4">
                     <select name="search_type" class="form-control btn-date" ng-model="search_type">
                                 <option value="1">Specific Date</option>
@@ -227,6 +237,7 @@
                                 <option value="3">All Dates After</option>
                     </select>
                </div>
+
 
                <div class="col-sm-1">&nbsp;</div>
                <div class="col-sm-3">
@@ -256,8 +267,8 @@
                                 </tbody>
                             </table>
           </div>
-        
-
+          </fieldset>
+            
         </div>
         <div class="modal-footer">
              <button ng-show="enableEventAssign" ng-click="eventmakeAssignment();" class="btn btn-primary"  type="submit">Make Selection</button>

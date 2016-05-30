@@ -29,7 +29,7 @@
                         <div class="table-responsive">
                            <p class="success-fld" ng-show="success_message">{{success}}</p>
                             <table ng-table="tableParams" class="table table-striped table-ng-style">
-                                
+                              
                                 <tbody>
                                     <tr  ng-repeat="pdata in $data | filter:filter">
                                         <td width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox.html'"><input type="checkbox" name="checkall" ng-model="pdata.selected"  ng-click="optionToggled(pdata.id);" ></td>

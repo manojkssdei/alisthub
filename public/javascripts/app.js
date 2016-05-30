@@ -10,6 +10,7 @@ angular.module("communicationModule", []);
 var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','angularUtils.directives.dirPagination','ngTable'])
 
 
+
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ocLazyLoadProvider) {
      $urlRouterProvider.otherwise('/login');
       
@@ -1214,9 +1215,7 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
 {
 
     /*$timeout(callAtTimeout, 20*20*3000);
-=======
-   /* $timeout(callAtTimeout, 20*20*3000);
->>>>>>> pb/master
+
     function callAtTimeout()
     {
         $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
@@ -1235,10 +1234,8 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
     // checktoken expiry time
     // check web services
 
-    /*var serviceUrl = webservices.checkTokenExpiry; 
-=======
    /* var serviceUrl = webservices.checkTokenExpiry; 
->>>>>>> pb/master
+
     var url = serviceUrl+"?token="+$localStorage.auth_token+"&callback=jsonp_callback";
 
     $http.jsonp(url);

@@ -228,7 +228,7 @@ Created By: Manoj
 Module : Question 
 */
 .controller('manageQuestionController', function($scope,$rootScope,$timeout, $localStorage, $injector, $http, $state, $location, ngTableParams) {
-    console.log($localStorage.isuserloggedIn);
+
     if (!$localStorage.isuserloggedIn) {
         $state.go('login');
     }
@@ -272,8 +272,7 @@ Module : Question
 			{
 				page: 1,            // show first page
 				count: 5,           // count per page
-				sorting: {name:'asc'},
-                                
+				sorting: {name:'asc'}
 			},
 			{
 				data:$scope.questiondata
@@ -342,6 +341,7 @@ Module : Question
     }
 
     /*Select all the questions checkbox*/
+
     $scope.all_check_point = 1;
     $scope.toggleAll = function(id) {
        
@@ -359,6 +359,7 @@ Module : Question
       
        angular.forEach($scope.questiondata, function(itm) { itm.selected = toggleStatus; });
     }
+    
     $scope.pdata = {};
 
     /*Push/pop the checked questions to/from array*/
