@@ -79,7 +79,10 @@ var webservices = {
     "addUser": "/user/addUser",
     "getUser": "/user/getUser",
     "userOverview": "/user/userOverview",
+    //"editUser":"/user/editUser",
     "deleteUser":"/user/deleteUser",
+    "checksellerUser" :  "/user/checksellerUser",
+    "changeUserStatus":"user/changeUserStatus",
     
     /* Constants for the My account page */
     "updateUser" : "/profile/updateUser",
