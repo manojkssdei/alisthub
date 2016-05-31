@@ -52,6 +52,13 @@ angular.module('alisthub')
 			callback(res.data);
 		});
   };
+
+  url.exportQuestionCSV = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.exportQuestionCSV,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+  
 return url;
 }])
 

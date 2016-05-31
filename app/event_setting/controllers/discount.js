@@ -339,3 +339,161 @@ exports.getSelectedDiscount = function(req,res)
           res.json({error:"error",code:101});
      }
 }
+
+
+
+/** 
+Method: getEventPriceLevels
+Description:Function to get the event details and its corresponding price levels  
+Created : 2016-05-27
+Created By: Harpreet Kaur
+*/
+exports.getEventPriceLevels = function(req,res) {
+ 
+var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+console.log('req' , req.body );
+
+     var condition = "";
+     var condition2 = "";
+
+     if (req.body.user_id != "" && req.body.user_id  != null && req.body.user_id  != "undefined") {
+          condition = " user_id ="+req.body.user_id;
+          condition2 = " user_id ="+req.body.user_id;
+     }
+     if (req.body.eventcheckboxGlobalIds != "" && req.body.eventcheckboxGlobalIds  != "[]" && req.body.eventcheckboxGlobalIds  != "undefined") {
+          var strold = String(req.body.eventcheckboxGlobalIds);
+          var strnew = strold.substr(0, strold.length);
+          condition += " AND id IN ("+strnew+")";
+          condition2 += " AND event_id IN ("+strnew+")";
+     }
+     
+     if (condition != "") {
+      var query = 'select id,user_id,title,event_address,city from events where '+condition ;
+          console.log('query -------' ,query);
+          connection.query(query, function(err, results) {
+             if (err) {
+              res.json({error:err,code:101});
+             }
+             else{
+
+             var query1 = 'select id,event_id,user_id,price_level_name from price_levels where '+condition2 ;
+             console.log('query1 -------' , query1);
+             connection.query(query1, function(err2, results2) {
+              if(err2) {
+                res.json({error:err2,code:101});
+              }
+              else{
+                res.json({events:results, price_levels: results2 ,code:200});
+              }
+             });
+            }
+
+          });
+     }
+     else {
+          res.json({error:"error",code:101});
+     }
+
+}
+
+
+/** 
+Method: saveFinalAssignmet
+Description:Function to assign coupons to the event details and its corresponding price levels  
+Created : 2016-05-30
+Created By: Harpreet Kaur
+*/
+exports.saveFinalAssignmet = function(req,res) {
+var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+console.log('req' , req.body );
+
+
+
+for(var key in req.body.discount_id) {
+
+  if (req.body.discount_id[key] != null && req.body.discount_id[key] != "" && req.body.discount_id[key] != "undefined") {
+
+
+
+    var discount_id = req.body.discount_id[key];
+console.log('discount_id' , discount_id) ;
+console.log('events' , req.body.events) ;
+
+      if(req.body.events == "all_events") {
+        var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `event_type`,`event_id`, `price_level_type`,`price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, "+req.body.seller_id+", "+discount_id+", '"+req.body.events+"',  NULL ,  NULL ,  NULL ,  "+req.body.usage_limit+", '"+req.body.timezone+"', '"+req.body.taggable+"', '"+req.body.start_date+"', '"+req.body.start_time+"', '"+req.body.end_date+"', '"+req.body.end_time+"', '"+curtime+"')";
+
+         console.log('query_value' , query_value);
+
+          connection.query(query_value, function(err, results) {
+             if (err) {
+              res.json({error:err,code:101});
+             }
+              });
+
+      }
+
+
+      if(req.body.events == "choose_events") {
+    for(var event_id_key in req.body.event_id) {
+    var event_idd = event_id_key;
+console.log('event_idd' , event_idd) ;
+var price_level_type = req.body.event_id[event_id_key].price_levels;
+    console.log('price_levels' ,  price_level_type );
+
+    if(price_level_type == "individual_price_levels") {
+
+var choosen_price_level = req.body.event_id[event_id_key].choosen_price_level;
+      for(var choosen_price_level_key in choosen_price_level ) {
+
+var choosen_price_level_id = choosen_price_level_key;
+
+console.log('choosen_price_level_id ', choosen_price_level_key);
+
+           var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `event_type`,`event_id`, `price_level_type`, `price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, "+req.body.seller_id+", "+discount_id+", '"+req.body.events+"',  "+event_idd+" ,  '"+price_level_type+"' , "+choosen_price_level_key+",  "+req.body.usage_limit+", '"+req.body.timezone+"', '"+req.body.taggable+"', '"+req.body.start_date+"', '"+req.body.start_time+"', '"+req.body.end_date+"', '"+req.body.end_time+"', '"+curtime+"')";
+           console.log('query_value' , query_value);
+
+           connection.query(query_value, function(err, results) {
+             if (err) {
+              res.json({error:err,code:101});
+             }
+          });
+
+         }
+
+         }
+    }
+  }
+     
+
+
+      }
+
+  }
+
+
+
+      error = 0;
+
+      res.json({success : 'success' , code : 200});
+
+/*
+      if (error != 1) {
+     // var query = 'select id,user_id,title,event_address,city from events where '+condition ;
+      connection.query(query, function(err, results) {
+             if (err) {
+              res.json({error:err,code:101});
+             }
+             else{
+                res.json({events:results, price_levels: results2 ,code:200});
+             }
+          });
+     }
+     else {
+      // there is some error
+          res.json({error:"error",code:101});
+     }
+
+     */
+
+
+}

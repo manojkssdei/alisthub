@@ -217,6 +217,11 @@ Module : Question
     if (!$localStorage.isuserloggedIn) {
         $state.go('login');
     }
+
+    if ($localStorage.userId != undefined) {
+            $scope.seller_id = $localStorage.userId;
+        }
+        
     var $serviceTest = $injector.get("questions");
 
     if (window.innerWidth > 767) {
@@ -446,6 +451,34 @@ Module : Question
         }
     };
 
+/** 
+Angular Export Question Controller
+Created : 2016-05-26
+Created By: Harpreet Kaur
+Module : Export Question 
+*/
+        if ($scope.listQues == 1) {
+            $scope.common_ids = $scope.disc_id;
+        } else {
+            $scope.common_ids = $scope.checkbox;
+        }
+
+        /*Export the Question to CSV*/
+        $scope.exportQuestionCSV = function() {
+                $serviceTest.exportQuestionCSV($scope.adata, function(response) {
+                    if (response.code == 200) {
+                        //$scope.eventdata = response.result;
+                        $rootScope.question = $localStorage.question = "";
+                        //$location.path("/view_discounts/list");
+                    } else {
+                        //console.log('error' );
+                        //  $scope.eventdata = "";
+                    }
+
+                });
+            }
+        /* Code end to Export Question module*/
+
 /*Search events according to date*/
     var now = new Date();
     if (now.getMonth() == 11) {
@@ -536,4 +569,5 @@ Module : Question
         }
         return '';
     }
+
 })
