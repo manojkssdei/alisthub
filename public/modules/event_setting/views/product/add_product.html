@@ -11,7 +11,8 @@
     <!-- Form COntainer -->
     
     <div class="form-section  wt-frame">
-    <div>
+
+ <div>
         <span >
             <p class="success-fld" ng-show="successmessage">{{ successmessage }}</p>
         </span>
@@ -23,7 +24,7 @@
                 <div>
                     <!-- //Event Detail Form -->
                     <!--Links Start -->
-                     
+
                     <div class="module">
                         <section class="prof-hd">
                             <i class="fa fa-link hdicon pos-l16"></i>
@@ -257,7 +258,7 @@
                     </section>
                     <section class="gray-frame">
                         <div class="row">
-                            <div class="col-sm-6" ng-class="{ 'has-error' : userForm3.configuration.$invalid && !userForm3.configuration.$pristine }">
+                            <div class="col-sm-3" ng-class="{ 'has-error' : userForm3.configuration.$invalid && !userForm3.configuration.$pristine }">
                                 <div class="form-group">
                                     <label for="EventName"> Configuration (Single/Multiple)</label>
                                     <div class="onoffswitch">
@@ -267,33 +268,15 @@
                                     <p ng-show="userForm3.configuration.$invalid && !userForm3.configuration.$pristine" class="error-fld ng-binding">Enter Configuration.</p>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group" ng-show="data_configuration">
+                            <div class="col-sm-9" ng-show="data_configuration">
+                                <div class="form-group">
                                     <label for="EventName"> Display Name</label>
                                     <input type="text" class="form-control" placeholder="Display Name" ng-model="data.display_name"/>
                                 </div>
-                                <div class="form-group" ng-show="!data_configuration" ng-class="{ 'has-error' : userForm3.inventory.$invalid && !userForm3.inventory.$pristine }">
-                                    <label for="EventName"> Inventory <span class="req">*</span></label>
-                                    <input  type="number" min="0" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration" required name="inventory"/>
-                                    <p ng-show="userForm3.inventory.$invalid && !userForm3.inventory.$pristine" class="error-fld ng-binding">Enter Inventory.</p>
-
-
-                                   
-                                </div>
+                                
                             </div>
-                        </div>
-                        <!-- Step 4  -->
-                        <div class="row" ng-show="!data_configuration">
-                            <div class="col-sm-6" ng-class="{ 'has-error' : userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine }">
-                                <div class="form-group">
-                                    <label for="EventName"> Pre Sale Limit <span class="req">*</span></label>
-                                    <input  type="number" min="0" name="pre_sale_limit" class="form-control"  ng-model="data.pre_sale_limit" ng-required="!data_configuration">
-                                    <p ng-show="userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine" class="error-fld ng-binding">Enter Pre Sale Limit.</p>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group" ng-show="!data_configuration">
+			    <div class="col-sm-3" ng-show="!data_configuration">
+                                <div class="form-group" >
                                     <label for="EventName"> Print Voucher </label>
                                     <div class="onoffswitch">
                                         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch10" ng-model="data.print_voucher">
@@ -304,7 +287,29 @@
                                     <label for="EventName"> &nbsp;</label>
                                 </div>
                             </div>
+			    
+			    <div class="col-sm-3" ng-show="!data_configuration">
+			    <div class="form-group"  ng-class="{ 'has-error' : userForm3.inventory.$invalid && !userForm3.inventory.$pristine }">
+                                    <label for="EventName"> Inventory <span class="req">*</span></label>
+                                    <input  type="number" min="0" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration" required name="inventory"/>
+                                    <p ng-show="userForm3.inventory.$invalid && !userForm3.inventory.$pristine" class="error-fld ng-binding">Enter Inventory.</p>
+
+                                </div>
+			    </div>
+			    
+			    
+			     <div class="col-sm-3" ng-show="!data_configuration" ng-class="{ 'has-error' : userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine }">
+                                <div class="form-group">
+                                    <label for="EventName"> Pre Sale Limit <span class="req">*</span></label>
+                                    <input  type="number" min="0" name="pre_sale_limit" class="form-control"  ng-model="data.pre_sale_limit" ng-required="!data_configuration">
+                                    <p ng-show="userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine" class="error-fld ng-binding">Enter Pre Sale Limit.</p>
+                                    
+                                </div>
+                            </div>
+                        
                         </div>
+                        <!-- Step 4  -->
+                       
                         <!--- Step 4 -->
                         <section class="grid-widget" ng-show="data_configuration">
                             <div class="table-responsive">

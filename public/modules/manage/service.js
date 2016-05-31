@@ -16,13 +16,37 @@ angular.module('alisthub')
       
   };
 
+  url.changeUserStatus = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.changeUserStatus,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+  
   url.userOverview = function(jsondata,callback){
        communicationService.resultViaPost(webservices.userOverview,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
       callback(res.data);
     });
       
   };
+   url.editUser = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.editUser,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+    url.deleteUser = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.deleteUser,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
   
+     url.checkuniqueUser = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.checksellerUser,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
 return url;
 }])
 ;

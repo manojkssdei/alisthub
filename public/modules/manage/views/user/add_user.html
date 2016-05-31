@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Add a User</h1>
+    <h1>{{page_title}} a User</h1>
     <div class="form-section  wt-frame">
         <form class="event-form" name="addUserForm" novalidate>
             <section class="gray-frame">
@@ -20,7 +20,9 @@
                     <div class="col-sm-6" ng-class="{ 'has-error' : addUserForm.phone.$invalid && !addUserForm.user_contact.$pristine }">
                         <div class="form-group">
                             <label> Contact Number</label>
-                            <input type="number" min="0" class="form-control" name="phone" placeholder="phone number"  ng-pattern="/^[0-9]{1,15}$/"  ng-model="user.phone"/>
+
+                            <input type="text"  class="form-control" name="phone" placeholder="phone number"    ng-model="user.phone"/>
+ 
                             <p ng-show="addUserForm.phone.$invalid && !addUserForm.phone.$pristine" class="error-fld ng-binding">Enter Numbers Only.</p>
                             <p ng-show="addUserForm.phone.$error.pattern" class="error-fld ng-binding">Enter a valid contact number</p>
                         </div>
@@ -30,29 +32,38 @@
                             <label> Fax</label>
                             <input type="text" class="form-control" name="fax" placeholder="fax" ng-model="user.fax"/>
                             <p ng-show="addUserForm.fax.$invalid && !addUserForm.fax.$pristine" class="error-fld ng-binding">Enter Email Address.</p>
+
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <div class="row">
                     <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.email.$invalid && !addUserForm.email.$pristine }">
                         <label>Email Address <span class="req">*</span></label>
-                        <input type="email" name="email" ng-model="user.email" class="form-control" placeholder="email address" required> 
-                        <p ng-show="addUserForm.email.$invalid && !addUserForm.email.$pristine" class="error-fld ng-binding">Enter Email Address.</p>
+                        <input type="email" name="email" ng-model="user.email" class="form-control" ng-blur="checkuniqueUser();" placeholder="email address" required> 
+                         <span ng-show="success_message">
+                            <p class="success-fld">{{unique}}</p>
+                        </span>
+                        <span ng-show="error_message">
+                            <p class="error-fld">{{unique}}</p>
+                        </span>
+                         <span ng-hide="error_message">
+                            <p class="error-fld ng-binding" ng-show="(unique && unique_type == 3 ) || (addUserForm.email.$error.required  && addUserForm.email.$invalid && !addUserForm.email.$pristine)">Enter a valid email</p>
+                        </span>
                     </div>
                     <div class="col-sm-6 section-col" ng-class="{ 'has-error' : addUserForm.password.$invalid && !addUserForm.password.$pristine }">
                         <label>Password</label>
                         <input type="password" name="password" ng-model="user.password" class="form-control" placeholder="password" > 
                         <p ng-show="addUserForm.password.$invalid && !addUserForm.password.$pristine" class="error-fld ng-binding">Enter Password.</p>
+                         
+                        <input type="hidden"  ng-model="user.email1" class="form-control" required> 
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="form-group ">
                             <label>Timezone</label>
-                            <div class="container"></div>
-                            <!--                 <select class="form-control" name='selectAction' id='selectAction' ng-model="user.timezone" >
-                                -->       
-                            <select class="scinput"  name="timezone" title="" ng-model="user.timezone">
+                            <div class="container"></div>      
+                            <select class="scinput form-control"  name="timezone" title="" ng-model="user.timezone" >
                                 <option  value="America/New_York">Eastern Time</option>
                                 <option value="America/Chicago">Central Time</option>
                                 <option value="America/Denver">Mountain Time</option>
@@ -62,14 +73,14 @@
                                 <option value="Pacific/Honolulu">Hawaiian Time</option>
                                 <option value="Pacific/Samoa">Samoa Standard Time</option>
                             </select>
-                            <!-- </select> -->
                         </div>
                     </div>
                 </div>
             </section>
         </form>
         <div class="editor-btn">
-            <button class="pink-btn btn" ng-click="submitCreateUserForm()" ng-disabled="addUserForm.$invalid">Create User</button>          
+            <button class="pink-btn btn" ng-click="submitCreateUserForm()" ng-disabled="addUserForm.$invalid">SUBMIT</button>
+            <button class="pink-btn btn" ui-sref="view_user">CANCEL</button>         
         </div>
     </div>
 </div>

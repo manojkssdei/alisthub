@@ -7,12 +7,14 @@ Description: It defined routes to call different files.It will provide you direc
 angular.module("communicationModule", []);
 // Declare app level module which depends on filters, and services
 
-var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','angularUtils.directives.dirPagination','gridster'])
+var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','ngTable','color.picker'])
+
+
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ocLazyLoadProvider) {
      $urlRouterProvider.otherwise('/login');
-    
-
+      
+ 
     // You can also load via resolve
     $stateProvider.
       
@@ -810,7 +812,30 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
 
-        /* Setting for view account screen */
+        /*setting for delete user from screen*/
+      .state('delete_user', {
+            url: '/delete_user/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'userController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/manage/views/user/add_user.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/manage/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/manage/user_controller.js']);
+                })
+              }]
+            }
+        })
+
+
+
+/* Setting for view account screen */
        .state('view_account', {
             url: '/view_account',
             views: {
@@ -1001,11 +1026,83 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
 
+/////////////////// Widgets setting///////////////////////
+       .state('widgets', {
+            url: '/widgets',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'controller',
+                  templateUrl: 'modules/widgets/views/list_widget.html'
+                }
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/widgets/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/widgets/controller.js']);
+                })
+              }]
+            }
+          
+        })
+
+       ///////////////////////////add checkout widget///////////////
+
+
+
+        .state('widgets/add', {
+            url: '/widgets/add',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'controller',
+                  templateUrl: 'modules/widgets/views/checkout_widget.html'
+                }
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/widgets/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/widgets/controller.js']);
+                })
+              }]
+            }
+          
+        })
+
+
+////////////////////add event widget ////////////////////
+        .state('widgets/add_event', {
+            url: '/widgets/add_event',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'controller',
+                  templateUrl: 'modules/widgets/views/event_widget.html'
+                }
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/widgets/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/widgets/controller.js']);
+                })
+              }]
+            }
+          
+        })
 
 
   }).run(['$rootScope', '$location','$state', '$localStorage', '$http', '$timeout','$window','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$timeout,$window,$stateParams) {
 
-    $timeout(callAtTimeout, 20*20*3000);
+    /*$timeout(callAtTimeout, 20*20*3000);
     
     function callAtTimeout()
     {
@@ -1022,7 +1119,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     
                     localStorage.clear();
                     $state.go('login');
-    } 
+    } */
     
     //To add class
  
@@ -1045,7 +1142,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
     ////////////////////////////////////////////////
      
         
-    var serviceUrl = webservices.checkTokenExpiry; 
+    /*var serviceUrl = webservices.checkTokenExpiry; 
     var url = serviceUrl+"?token="+$localStorage.auth_token+"&callback=jsonp_callback";
 
     $http.jsonp(url);
@@ -1070,7 +1167,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     
                     
                 }
-    }
+    }*/
     ///////////////////////////////////////////////
         
     }else{
@@ -1120,7 +1217,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state,$timeout,$window)
 {
 
-    $timeout(callAtTimeout, 20*20*3000);
+    /*$timeout(callAtTimeout, 20*20*3000);
+
     function callAtTimeout()
     {
         $localStorage.isuserloggedIn=$rootScope.isuserloggedIn=$rootScope.footer_login_div=false;
@@ -1135,10 +1233,12 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
                     $rootScope.address=$localStorage.address="";
                     localStorage.clear();
                     $state.go('login');
-    }
+    }*/
     // checktoken expiry time
     // check web services
-    var serviceUrl = webservices.checkTokenExpiry; 
+
+   /* var serviceUrl = webservices.checkTokenExpiry; 
+
     var url = serviceUrl+"?token="+$localStorage.auth_token+"&callback=jsonp_callback";
 
     $http.jsonp(url);
@@ -1171,9 +1271,11 @@ routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,
                 }
      
      
+    }*/
+    
+    if(!$localStorage.isuserloggedIn){
+        $location.path("/login");
     }
-    
-    
        
 };
 

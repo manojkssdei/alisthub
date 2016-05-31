@@ -118,9 +118,9 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
 
     /*Update email of user*/
     $scope.checkUnique = function() {
-        var serviceUrl = webservices.checkUnique;
+        var serviceUrl = webservices.checkEmailUnique;
         var jsonData = $scope.email;
-        $scope.email.id = $scope.userdetail.user_id;
+        $scope.email.id = $localStorage.userId;
         if($scope.email.email)
         {
              /////////////////////////////////////////////////////////////////////
@@ -131,16 +131,16 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                 $window.jsonp_callback = function(data) {
                          console.log(data);
                          if (data.code == 300) {
-                             $scope.unique_type  = 1;
-                             $scope.unique = global_message.EmailAvailable;
+                            $scope.success_message = true;
+                            $scope.success=global_message.successChangeEmail;
                              $timeout(function() {
                                    $scope.unique = '';
                                    $scope.unique_type  = '';
                               },3000);
                              }
                              else{
-                             $scope.unique = global_message.EmailExist;
-                             $scope.unique_type  = 2;
+                             $scope.error_message = true;
+                             $scope.error=global_message.errorChangeEmail;
                              }
                                                 
                          
@@ -156,7 +156,31 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
         };
     $scope.updateEmail = function(email) {
         if ($localStorage.userId!=undefined) {
-            $http({
+            $scope.email.id = $localStorage.userId; 
+            var url = webservices.updateEmailAccount+"?data="+JSON.stringify($scope.email)+"&callback=jsonp_callback";
+                    
+                $http.jsonp(url);
+                      
+                $window.jsonp_callback = function(data) {
+                         console.log(data);
+                         if (data.code == 300) {
+                             $scope.m = global_message.EmailAvailable;
+                             $timeout(function() {
+                                   $scope.unique = '';
+                                   $scope.unique_type  = '';
+                              },3000);
+                             }
+                             else{
+                             $scope.unique = global_message.EmailExist;
+                             $scope.unique_type  = 2;
+                             }
+                                                
+                         
+                }
+            
+            
+            
+            /*$http({
             url: webservices.updateEmail,
             method: 'POST',
             data: $scope.email,
@@ -165,7 +189,7 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                   "Accept": "application/json",
                 }
             }).success(function(data, status, headers, config) {
-            });
+            });*/
         }
     };
 

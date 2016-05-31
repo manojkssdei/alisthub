@@ -2,27 +2,21 @@
 <div class="container">
      <h1>Create an Package</h1>
     <!-- Step Form -->
-    
     <div class="stage-container clearfix">
       <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)">
       <div class="stage-icon"><i class="{{step.icon}}"></i> </div>
       <div class="stage-title">{{step.title}}</div> </div>
-    </div>
-    
+    </div> 
     <!-- //Step Form --> 
-    
     <!-- Form COntainer -->
-  
     <div class="form-section  wt-frame">
-     
-<!-- package section -->
 <div ng-hide="eventdetail_div" class="eventseries">
  
      <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
         <section class="gray-frame sub-fields"> 
           <div class="form-group">
             <label for="packagename">Package Name<span class="req">*</span></label>
-          <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="" required>
+          <input type="text" name="packagename" ng-model="data.eventname" class="form-control" placeholder="" required>
              <span style="color:red" ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">  <span  ng-show="myForm.eventname.$error.required">Package name is required</span></span>
           </div>
           <div class="editr">
@@ -47,9 +41,7 @@
                   </div>
                   </div>
           </section>
-
-
-              <section class="gray-frame sub-fields">
+           <section class="gray-frame sub-fields">
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -125,20 +117,21 @@
 
                                 </select>
                               </section>
-                            <section class="col-sm-4 form-group"><select class="form-control">
+                            <section class="col-sm-4 form-group">
+                              <select class="form-control">
                                   <option value=" ">PM</option>
-                                      <option value=" ">AM</option>
-                                </select></section>
-                        </section>
-                  </div>
-                </section>
+                                  <option value=" ">AM</option>
+                              </select>
+                          </section>
+                       </section>
+                    </div>
+              </section>
                 <section class="radio-sec custom-check m-b20">
                     <p class="radio-inline">
                         <input type="checkbox" id="test2">
                         <label for="test2">Immediately</label>
                   </p>
-               </section>
-                       
+               </section>  
                 <section class="row">
                    <div class="col-sm-4">
                         <div class="form-group">
@@ -181,7 +174,6 @@
                                           <option value=" ">10</option>  
                                           <option value=" ">11</option> 
                                           <option value=" ">12</option>   
-  
                                 </select>
                                 </section>
                             <section class="col-sm-4 form-group">
@@ -194,7 +186,7 @@
                   </div>
                 </section>
             </section>
-          </section>
+ </section>
 
 <!-- setting section-->
 
@@ -219,88 +211,65 @@
                         <div class="col-sm-4">
 
                           <section class="radio-inline">
-                              <input type="radio"  name="type_of_event" ng-model="data1.type_of_event" checked>
-                              <label for="radio1"><span></span>Ticketed</label>
+                              <input type="radio"  name="type_of_event" ng-model="data1.type_of_event" id="radio10" checked>
+                              <label for="radio10"><span></span>Ticketed</label>
                           </section>
                           <section class="radio-inline">
-                          <input type="radio"   name="type_of_event" ng-model="data1.type_of_event">
-                          <label for="radio2"><span></span>Registration</label>
+                          <input type="radio"   name="type_of_event" ng-model="data1.type_of_event" id="radio9">
+                          <label for="radio9"><span></span>Registration</label>
                           </section>
                         </div>
                         <div class="col-sm-4">
-                   
-
                             <select class="form-control">
                               <option value="Ticket">Art/exhibit</option>
                             </select>
-                        
                         </div>
                         <div class="col-sm-4">
                                 <select class="form-control" name="ages" ng-model="data1.ages">
                                   <option ng-repeat="age in ages" value="{{age.id}}">{{age.name}}</option>
-                                </select>
-                               
+                                </select> 
                           <div class="col-sm-12">
                             <div class="radio-sec custom-check">
                             <p class="radio-inline">
                                <input type="checkbox" id="test5"/><label for="test5">Define a custom age limit</label>
                                 </p>
-                         </div>
                             </div>
-                            
+                        </div>
                         </div>
                          <div class="col-sm-12">
                       <label class="form-label">Package Website</label>
                    <input type="text" name="website" ng-model="website" class="form-control" required>
                    </div>
-                  
-
-                     <div class="col-sm-12">
-                   <br>
-                   <br>
-                        <label class="form-label">Image</label>
+                        <div class="col-sm-12">
+                           <br>
+                            <br>
+                             <label class="form-label">Image</label>
                         </div>
                          <div class="col-sm-12">
                            <div class="col-sm-8">
                              <input type="file" name="choose file"  width="10%" height="10%"/required>
                            </div>
                           <div class="radio-sec custom-check col-sm-4">
-            
-                            <p class="radio-inline">
-                            <input type="checkbox" id="test4">
-                            <label for="test4" >Display image an event Listing</label>
-                           </p>
-                          </div>
-                        </div>
-                     </section>
-                     
-
-              
-              
-
+                     <p class="radio-inline">
+                   <input type="checkbox" id="test4">
+                   <label for="test4" >Display image an event Listing</label>
+                   </p>
+                 </div>
               </div>
-              </section>
-              </div>
-              </div>
-         <!--<span style="color:red;" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event description is required</span></span>-->
-         
-
-         
-        <div class="editor-btn">
-          <button type="submit" 
-ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
-          <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
+            </section>
         </div>
-        <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
-
-    </div>
-  
-
-
-
+    </section>
+  </div>
+</div>
+      <div class="editor-btn">
+          <button type="submit" ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
+          <button type="button" ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
+      </div>
+  <div ng-hide="error_message">
+    <p class="success-fld ng-binding">{{success}}</p>
+  </div>
+  </div>
  <!--price and link part -->
-
-
  <div ng-hide="price_and_link_div">
            <!-- Event Detail Form -->
  <h3>Price Levels</h3>
@@ -317,11 +286,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                    </section>
                   
     <form>
-
-  
-            
-   
-          <!-- Ticket Types Closed -->
+    <!-- Ticket Types Closed -->
           <!-- Bundles Start -->
           <div class="module">
               <section class="prof-hd">
@@ -357,8 +322,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
    </table>
  </div>
       </section>
-                  
-            <section class="grid-bottm clearfix">
+        <section class="grid-bottm clearfix">
                     <section class="gr-right pull-right">
                       <ul class="legends">
                           <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
@@ -368,11 +332,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                         </ul>
                     </section>
                 </section>
-                
-                  
-
-            </section>
-          </div>
+   </section>
+</div>
           <!-- Bundles Closed --> 
           <!--Product Start -->
           <div class="module">
@@ -389,9 +350,7 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     </section>
                   <section class="grid-widget">
           <div class="table-responsive">
-               
-
-    <table class="table table-striped">
+     <table class="table table-striped">
         <thead>
             <tr>
                 <th width="15%">Name</th>
@@ -404,61 +363,36 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             </tr>
         </thead>
         <tbody>
-     
-
-
-        </tbody>
-
+     </tbody>
     </table>
-
-
-          </div>
+</div>
+</section>
+  <section class="grid-bottm clearfix">
+      <section class="gr-right pull-right">
+          <ul class="legends">
+              <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+              <li><i class="fa fa-tags"></i><span>change price</span></li>
+              <li><i class="fa fa-check-circle"></i><span>active</span></li>
+              <li><i class="fa fa-trash"></i><span>delete</span></li>
+          </ul>
       </section>
-                  
-                  <section class="grid-bottm clearfix">
-                   
-                    <section class="gr-right pull-right">
-                      <ul class="legends">
-                          <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                            <li><i class="fa fa-tags"></i><span>change price</span></li>
-                            <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                            <li><i class="fa fa-trash"></i><span>delete</span></li>
-                        </ul>
-                    </section>
-                </section>
-                
-                  <!--<div class="row">
-                      <div class="col-sm-12">
-                          <div class="form-group row">                           
-                            
-                            <section class="col-sm-5 f-12">
-                                <a href="#" class="u-text"><strong>Please set your Fulfillment Settings</strong></a>
-                            </section>
-                          </div>
-                        </div>
-                </div>-->
-
-            </section>
-          </div>
-          <!-- Product Closed -->
-        
-          
+  </section>
+</section>
+</div>
+          <!-- button for save,next -->
            <div class="editor-btn">
           <button type="button" ng-click="click_menu(steps[0])" class="gray-btn btn">Previous</button>
            <button type="submit" class="pink-btn btn">Save</button>
           <button type="button" ng-click="click_menu(steps[2])" class="pink-btn btn">Next</button>
         </div>
-</form>
-</section>
-       </div>
-
-
+     </form>
+   </section>
+</div>
 <!--SETTING SECTION-->
            <div ng-hide="setting_div">
-          
+
       <form class="event-form">
-        
-          <section class="form-group field-group">
+      <section class="form-group field-group">
             <label>Delivery Methods</label>
             <section class="gray-frame sub-fields">
               <label>Price at Home</label>
@@ -466,38 +400,33 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                   <section class="col-sm-8">
                         <section class="radio-sec">
                           <section class="radio-inline">
-                              <input type="radio" name="radio1" id="radio1">
-                              <label for="radio1"><span></span>Always Available</label>
+                              <input type="radio" name="radio1" id="radio5">
+                              <label for="radio5"><span></span>Always Available</label>
                             </section>
                             <section class="radio-inline">
-                              <input type="radio" name="radio1" id="radio2">
-                              <label for="radio2"><span></span>Never Available</label>
+                              <input type="radio" name="radio1" id="radio6">
+                              <label for="radio6"><span></span>Never Available</label>
                           </section>
                              <section class="radio-inline">
-                              <input type="radio" name="radio1" id="radio3">
-                              <label for="radio3"><span></span>Set Dates</label>
+                              <input type="radio" name="radio1" id="radio7">
+                              <label for="radio7"><span></span>Set Dates</label>
                              </section>
                        </section>
                  
                <section class="row">
                   <section class="col-sm-8">
                       <section class="form-group">
-                      <br>
+                         <br>
                             <label>Extra Info</label>
                           <textarea name="textarea" class="form-control" cols=" " rows="5"></textarea>
                       </section>
-                    </section>
-                   
+                    </section>  
                </section>
-                    </section>
-                 
-
-                </section>
-            </section>
-          </section><!--/Delivery Methods-->
-        
-        <!--/Sales Times-->
-          
+              </section>
+          </section>
+      </section>
+   </section>
+       <!-- DONATION CUSTOM FREE-->
           <section class="form-group field-group">
             <section class="row">
               <label class="col-md-2 col-sm-4">Donations </label>
@@ -511,8 +440,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
             <section class="gray-frame sub-fields" style="display:none;">             
                sss
             </section>
-          </section><!--/Donations-->
-          
+          </section>
+          <!--/Donations--> 
         <section class="form-group field-group">
             <section class="row">
               <label class="col-md-2 col-sm-4">Custom Fee </label>
@@ -560,44 +489,8 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
                     </section>
                </section>
             </section>
-          </section><!--/Custom Fee-->
-          
-          <section class="form-group field-group">
-          <!--   <section class="row">
-                <label class="col-md-2 col-sm-4">Question </label>
-                <section class="col-md-4 col-sm-4">
-                    <div class="onoffswitch mt-3">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" checked>
-                        <label class="onoffswitch-label" for="myonoffswitch3"></label>
-                    </div>
-                </section>
-            </section> -->
-         <!--    <section class="gray-frame sub-fields">             
-               <section class="row">
-                  <section class="col-sm-6">
-                      <section class="form-group">
-                            <label>Type</label>
-                            <select class="form-control">
-                              <option value=" ">Fixed Amount</option>
-                            </select>
-                        </section>
-                    </section>
-               </section>
-               
-               <section class="row">
-                  <section class="col-sm-8">
-                      <section class="form-group">
-                            <label>Question</label>
-                          <textarea name="textarea" class="form-control" cols=" " rows="5"></textarea>
-                      </section>
-                    </section>
-                   
-               </section>
-               
-              
-
-            </section> -->
-          </section><!--/Question-->
+          </section>
+          <!--/ADDITIONAL SETTING-->
           
           <section class="form-group field-group">            
             <label>Additional Settings </label>
@@ -734,7 +627,6 @@ ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
        </div>
        </div>
 </div>
-      
-  </div>
-    </div>
+</div>
+</div>
      

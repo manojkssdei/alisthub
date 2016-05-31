@@ -5,7 +5,7 @@ Created By: Harpreet Kaur
 Module : Discount 
 */
 angular.module('alisthub')
-.controller('discountController', function($scope,$timeout, $localStorage, $injector, $http, $state, $location, $rootScope, $timeout, $sce) {
+.controller('discountController', function($scope, $localStorage, $injector, $http, $state, $location, $rootScope, $timeout, $sce) {
 
     /*Default setting of discount*/
     $scope.data = {};
@@ -281,7 +281,7 @@ Created : 2016-05-16
 Created By: Harpreet Kaur
 Module : Discount 
 */
-.controller('manageDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $location , $timeout) {
+.controller('manageDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $location , $timeout,ngTableParams) {
 
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
@@ -325,6 +325,18 @@ Module : Discount
                     $scope.loader = false;
                     if (response.code == 200) {
                         $scope.discountdata = response.result;
+                        
+                        $scope.tableParams = new ngTableParams(
+                        {
+                                    page: 1,            // show first page
+                                    count: 5,           // count per page
+                                    sorting: {name:'asc'},
+                                    
+                            },
+                            {
+                                    data:$scope.discountdata
+                        });
+                        
                         $scope.discountdata.forEach(function(value) {
                             $scope.disc_id.push(value.id);
                         });
@@ -388,15 +400,22 @@ Module : Discount
         }
 
         /*check all discount coupons */
-        $scope.toggleAll = function() {
-            if ($scope.isAllSelected) {
+        $scope.all_check_point = 1;
+        $scope.toggleAll = function(id) {
+            
+             if (id == 1) {
+                $scope.all_check_point = 2;
                 var toggleStatus = true;
                 $scope.enableAssign = true;
                 $scope.listQues = 1;
-            } else {
+             }
+             if (id == 2) {
+                $scope.all_check_point = 1;
                 var toggleStatus = false;
                 $scope.enableAssign = false;
-            }
+             }
+             
+           
             angular.forEach($scope.discountdata, function(itm) { itm.selected = toggleStatus; });
         }
         $scope.pdata = {};
@@ -734,13 +753,6 @@ Module : Export Discount
                 } else {
                     $serviceTest.getSelectedDiscount($scope.cdata, function(response) {
                         if (response.code == 200) {
-                            //$localStorage.discount = '';
-                            //$scope.discountlist = [];
-
-                            //$scope.discountlist    =  response.result;
-                            //$scope.alldiscountlist =  response.allcode;
-                            //$scope.componentdata  = response.result;
-
                             response.result.forEach(function(entry) {
                                 $scope.discountlist[entry.id] = {};
                                 $scope.discountlist[entry.id].coupon_name = entry.coupon_name;
@@ -991,14 +1003,18 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
     };
 });
  
-angular.module('alisthub').controller('EventModalInstanceCtrl', function($localStorage, $scope, $uibModalInstance, items, $rootScope, $injector) {
+angular.module('alisthub').controller('EventModalInstanceCtrl', function($localStorage, $scope, $uibModalInstance, items, $rootScope, $injector,ngTableParams) {
     var $serviceTest = $injector.get("discounts");
-    $scope.eventtoggleAll = function() {
-            if ($scope.eventisAllSelected) {
+    $scope.all_check_point = 1;
+    $scope.eventtoggleAll = function(id) {
+            if (id == 1) {
+                $scope.all_check_point = 2;
                 var toggleStatus = true;
                 $scope.enableEventAssign = true;
                 $scope.listEvent = 1;
-            } else {
+            }
+            if (id == 2) {
+                $scope.all_check_point = 1;
                 var toggleStatus = false;
                 $scope.enableEventAssign = false;
             }
@@ -1116,6 +1132,21 @@ angular.module('alisthub').controller('EventModalInstanceCtrl', function($localS
                             $rootScope.allEvents.push(obj);
                             $scope.event_id.push(valId);
                         }
+                        $scope.tableParams = new ngTableParams(
+            			{
+            				page: 1,            // show first page
+            				count: 5,           // count per page
+            				sorting: {name:'asc'},
+                                            
+            			},
+            			{
+            				data:$scope.eventdata
+            			});
+                        
+                        /* $scope.eventdata.forEach(function(value) {
+                            $scope.event_id.push(value.id);
+                        }); */
+
                     } else {
                         $scope.eventdata = "";
                     }

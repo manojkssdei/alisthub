@@ -209,6 +209,7 @@ footer i{color:#fff;margin:15px 10px 0px 0px;}
 .table > thead > tr > th, .table > thead > tr > td{font-size:12px;}
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th{border:none; font-size:12px; line-height:none; padding:8px 15px;}
 .table > thead > tr > th{ background-color:#0275d0; color:#fff; font-weight:bold; text-transform:uppercase; vertical-align:middle;}
+.customized-table > thead { background-color:#A9A9A9;}
 
 .table-striped > tbody > tr:nth-of-type(2n+1){background-color:#ffffff;}
 /*===========Table===========*/
@@ -225,7 +226,10 @@ input[type="radio"] + label span, input[type="radio"]:checked + label span { -we
 input[type="radio"].assignEvents { display: block; }
 
 /*===========Radio===========*/
-
+.image-main
+{
+  width:100%;
+}
 .custom-check input[type="checkbox"]:not(:checked),
 .custom-check input[type="checkbox"]:checked {
   position: absolute;
@@ -356,7 +360,7 @@ input[type="radio"].assignEvents { display: block; }
 .panel-pink a {color: #c129b9 ;}
 
 .graph-frame{height:410px; background:#f3f3f3;}
-.gray-frame{background-color: #f3f3f3; padding: 30px;}
+.gray-frame{background-color: #f3f3f3; }
 
 .top-buttons{margin:0 -5px;}
 .top-buttons .btn{margin:0 5px 10px;}
@@ -410,6 +414,7 @@ input[type="radio"].assignEvents { display: block; }
 .text-drop { padding-top: 28px; }
 .section2 .btn { padding: 8px 30px; }
 .gray-frame { background-color: #f3f3f3; padding: 30px; }
+.gray-frame1 { background-color: #f3f3f3;  }
 
 .drop_text1 span { text-decoration: underline; color: #0275d0; }
 .with-ftext{padding-top:15px; display:inline-block;}
@@ -560,7 +565,7 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 /*======= Date Picker ========*/
 
 /*----------20160428-----------*/
-.template-view{width:750px; margin:0 auto;}
+
 .editor-row{padding-top:20px; padding-bottom:20px; font-size:14px; line-height:18px;}
 .editor-bottom{padding:15px 0; border-top:1px #ccc solid; text-align:center;}
 
@@ -610,6 +615,41 @@ table:focus {
 .temp-image img{max-width:100%;}
 .head{font-size:18px; margin-bottom:15px; border-bottom:1px #ccc solid; padding-bottom:15px;}
 .temp-view:hover .temp-image{border-color:#0275d0;}
+/*------------20160527 Look-n-feel--------*/
+.tab-widget ul.nav-tabs{text-align:center; margin-bottom:22px; border:none;}
+.tab-widget ul.nav-tabs > li{display: inline-block; float: none; font-size: 16px; min-width:150px;}
+.tab-widget ul.nav-tabs > li a {background-color: #0275d0; border:none;  color: #fff; opacity:0.6; border-radius:0;}
+.tab-widget ul.nav-tabs > li.active a, .tab-widget ul.nav-tabs > li:hover a {background-color: #0275d0; opacity:1; border:none; color:#fff;}
+.tab-widget ul.nav-tabs > li:first-child a {border-radius: 20px 0 0 20px;}
+.tab-widget ul.nav-tabs > li:last-child a {border-radius: 0 20px 20px 0;}
+.template-view{width:80%;}
+
+.design-top{margin-bottom:20px;}
+.design-top.gray-frame{padding-bottom:10px;}
+.domain-name{padding-right:70px; position:relative;}
+.dname{position:absolute; right:0; top:12px;}
+
+.tabs-widget{border:1px #ccc solid; margin-top:-1px;}
+.tabs{display:table; width:100%;}
+.tabs > li{display:table-cell; text-align:center; font-weight:700;}
+.tabs > li a{display:block; padding:10px; color:#0275d0; background:#f3f3f3; border-right:1px #ccc solid; border-bottom:1px #ccc solid;}
+.tabs > li:last-child a{border-right:none;}
+.tabs > li a:focus, .tabs > li a:active,
+.tabs > li a:hover, .tabs > li a.active{text-decoration:none; background:#fff; color:#333;}
+.tabs > li a.active{border-bottom-color:transparent;}
+
+.design-left{padding-right:0;}
+.design-right{padding-left:0;}
+
+.tbs-container{padding:15px;}
+.choose-color > li{margin:8px 0; position:relative; display:inline-block; width:100%;}
+.color-bx{border: 1px solid #88919a; border-radius: 2px; cursor: pointer; display: inline; float: right; height: 24px; width: 24px;}
+.color-txt{color: #606d78; font-size: 14px; font-weight: normal; position: absolute; top: 25%;}
+
+.choose-color > li:after{content:" "; display:block; font-size:0; line-height:0; overflow:hidden; visibility:hidden; clear:both;}
+
+.images-widget > li{margin-top:15px;}
+.images-widget > li:first-child{margin-top:0;}
 
 /*--------Always at Bottom---------*/
 .m-t35 {margin-top: 35px;}
@@ -632,6 +672,7 @@ table:focus {
 .f-sb{font-weight:600;}
 
 .mw-100{min-width:100px;}
+<<<<<<< HEAD
 .assignedEventWithPriceLevel{
   border: #000 solid 1px ;
   background-color: #ffffff;
@@ -639,3 +680,14 @@ table:focus {
   padding: 40px 68px;
 
 }
+=======
+.fa.fa-caret-down {  display: none;}
+
+/* ng-table header 28-05-2016*/
+.action-text-align{text-align: center;}
+.header-text-align{text-align: left;}
+/* ng-table header 28-05-2016*/
+.ng-table-counts .btn { color:#333 !important }
+.assign-discount .btn { min-width:50px;!important }
+.color-picker-wrapper{float: right;}
+>>>>>>> deepak/master

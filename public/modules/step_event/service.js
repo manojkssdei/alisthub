@@ -159,6 +159,25 @@ url.getEventProducts = function(jsondata,callback){
   });
 };
 
+url.getEventProductDetail = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.getEventProductDetail,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+  //remove event product 
+  url.removeEventProduct = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.removeEventProduct,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+  //get price level
+  url.getEventPriceLevel = function(jsondata,callback) {
+    communicationService.resultViaPost(webservices.getEventPriceLevel,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
 
 
 

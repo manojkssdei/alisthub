@@ -288,14 +288,15 @@
                                     <tr ng-repeat="edata in $data | filter:filter">
                                                                              
                                         <td  width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox4.html'"><input type="checkbox" name="checkall" ng-model="edata.selected"  ng-click="eventoptionToggled(edata.id);" >
-                    </td>
+
+					</td>
                                         <td width="15%" header-class="'header-text-align'" title="'Event Name'" filter="{ title: 'text'}" sortable="'title'"><strong>{{edata.title}}</strong>
-                    </td>
+					</td>
                                         <td width="12%" header-class="'header-text-align'" title="'Venue'" filter="{ event_address: 'text'}" sortable="'event_address'">{{edata.event_address}}
-                    </td>
+					</td>
                                         <td width="12%" header-class="'header-text-align'" title="'City'" filter="{ city: 'text'}" sortable="'city'" class="numbers">{{edata.city}}</td>
                                     </tr>
-                    <tr ng-if="$data == ''">
+				    <tr ng-if="$data == ''">
                                         <td colspan="4" align="center">No Record found!</td>
                                     </tr>
                                     <tr ng-show="loader">

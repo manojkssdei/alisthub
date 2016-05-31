@@ -49,11 +49,11 @@
                                 <tbody>
                                     <tr ng-repeat="data in $data | filter:filter">
                                         <td  width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox3.html'"><input type="checkbox" name="checkall" ng-model="data.selected"  ng-click="optionToggled(data.id);" >
-                    </td>
+					</td>
                                         <td width="15%" header-class="'header-text-align'" title="'Name'" filter="{ coupon_name: 'text'}" sortable="'coupon_name'"><strong>{{data.coupon_name}}</strong>
-                    </td>
+					</td>
                                         <td width="12%" header-class="'header-text-align'" title="'Type'" filter="{ coupon_type: 'text'}" sortable="'coupon_type'">{{data.coupon_type}}
-                    </td>
+					</td>
                                         <td width="12%" header-class="'header-text-align'" title="'Code'" filter="{ coupon_code: 'text'}" sortable="'coupon_code'" class="numbers">
                                             <p ng-if="data.coupon_code">{{data.coupon_code}}</p>
                                             <p ng-if="data.coupon_code == '' || data.coupon_code == null || data.coupon_code == undefined"></p>
@@ -63,16 +63,17 @@
                                             <p ng-if="data.amount == '' || data.amount == null || data.amount == undefined || data.amount == 0"></p>
                                         </td>
                                         <td width="16%" header-class="'header-text-align'" title="'Amount Type'" filter="{ amount_type: 'text'}" sortable="'amount_type'" class="numbers">{{data.amount_type}}
-                    </td>
+					</td>
                                         <td width="14%" header-class="'header-text-align'" title="'Assigned To'"  class="">{{data.assigned_to}}
-                    </td>
+					</td>
                                         <td width="23%" title="'Action'"  class="action">
                                             <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
                                             <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
                                             <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?" ng-if="event_count[data.id] == '' || event_count[data.id] == null"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
-                    <tr ng-if="$data == ''">
+
+				    <tr ng-if="$data == ''">
                                         <td colspan="5" align="center">No Record found!</td>
                                     </tr>
                                     <tr ng-show="loader">
@@ -99,7 +100,8 @@
             </div>
             <!-- Ticket Types Closed --> 
         </form>
-     <script type="text/ng-template" id="ng-table/headers/checkbox3.html">
+
+	 <script type="text/ng-template" id="ng-table/headers/checkbox3.html">
           <input type="checkbox" name="checkall" class="listing-check" ng-model="check.isAllSelected"ng-click="toggleAll(all_check_point);">
         </script>
         <script type="text/ng-template" id="myModalContent.html">

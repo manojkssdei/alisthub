@@ -14,7 +14,17 @@ module.exports = function(app, express) {
 	/* For getting the seller user data */  
 	router.post('/getUser', user.getUser);
 	/* For getting the user overview page data */  
-	router.post('/userOverview', user.userOverview); 
+	router.post('/userOverview', user.userOverview);
+	/*for getting edit section of existing user*/
+	 // router.post('/editUser', user.editUser);
+	/* for getting delete user*/ 
+	router.post('/deleteUser',user.deleteUser);
+	/* For getting the user overview page data */  
+	router.post('/checksellerUser',user.checksellerUser);
+
+    /* Service : Change user Status
+    * */
+    router.post('/changeUserStatus', user.changeUserStatus);
 
 	/* default route */
 	app.use('/user', router);

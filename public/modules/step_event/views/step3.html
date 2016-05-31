@@ -1,8 +1,14 @@
 
 <div ng-hide="look_and_feel_div" ng-controller="step3Controller">
- <!-- Form COntainer -->
-    
-    <div ng-hide="campaign_div">
+  <div class="tab-widget">
+        <ul role="tablist" id="event-date" class="nav nav-tabs responsive-tabs">
+         
+	  <li ng-repeat="look_and_feel in look_and_feel_step" ng-click="select(look_and_feel)" ng-class="{active: isActive(look_and_feel)}" ><a class="pointer" href="javascript:void(0)" >{{look_and_feel.name}}</a>
+                  
+               </li>
+        </ul>
+      </div> 	
+      <div ng-hide="campaign_div">
       <h2 class="head">Choose campaign template from below</h2>
        <section class="module row">
        		<section class="col-sm-3 temp-view" ng-repeat="template in templates track by $index">
@@ -17,27 +23,154 @@
             
        </section>
     </div>
-    
-    <!-- //Form COntainer --> 
-  <div class="module template-view" ng-hide="module_div">
-
-      <div gridster="gridsterOpts">
-                <ul id="myMenuList">
-                    <li gridster-item="item" ng-repeat="item in standardItems" ng-bind-html="item.content | sanitize" ng-click="showdiv()">              
+      <section class="tb-con"  ng-hide="module_div">
+      	  <section class="design-top gray-frame">
+          	 <section class="row">
+                 <section class="col-sm-7">
+                     <section class="form-group">
+                        <div class="domain-name"><input type="text" placeholder="Title of your Event" class="form-control" name="eventname"><span class="dname">.alist.com</span></div>
+                      </section>
+                  </section>
+                  <section class="col-sm-5">
+                  	  <p class="text-right top-buttons"><button class="btn pink-btn">Public</button><button class="btn pink-btn">Private</button></p>
+                  </section>
+             </section>
+           </section>
+      	  <section class="row">
+          	   <section class="col-sm-3 design-left">
+               		<section class="tabs-widget">
+                        <ul class="tabs">
+                            
+			    <li ng-repeat="choose in look_and_feel_choose_type" ng-click="select1(choose)" ng-class="{active: isActive1(choose)}" ><a class="pointer" href="javascript:void(0)" >{{choose.name}}</a>
+                  
+               </li>
+                        </ul>
                         
-                    </li>
-               </ul>
-                
-          </div>
+                        <section class="tbs-container">
+                        	<section class="tab-con" ng-hide="color_div">
+                            	<ul class="choose-color">
+                                	<li>
+                                    	<span class="color-txt">Outer Background</span>
+                                       <color-picker ng-model="backgroundColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                                    </li>
+                                    <li>
+                                    	<span class="color-txt">Inner Background</span>
+                                        <color-picker ng-model="InnerbackgroundColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                                    </li>
+                                    <li>
+                                    	<span class="color-txt">Text</span>
+                                        <color-picker ng-model="TextColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                                    </li>
+                                    <li>
+                                    	<span class="color-txt">Outer Border</span>
+                                       <color-picker ng-model="OuterborderColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                                    </li>
+                                    <li>
+                                    	<span class="color-txt">Inner Border</span>
+                                        <color-picker ng-model="InnerborderColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                                    </li>
+                                </ul>
+                            </section>
+                            
+                            <section class="tab-con" ng-hide="image_div">
+                            	<button type="submit" class="btn pink-btn m-b20">Upload Images</button>
+                            	<ul class="images-widget">
+                                	<li><a href="#"><img src="images/img/s-img-o.jpg" alt=""/></a></li>
+                                    <li><a href="#"><img src="images/img/s-img-o.jpg" alt=""/></a></li>
+                                </ul>
+                            </section>
+                        </section>
+                    </section>
+               </section><!--Left-->
+               <section class="col-sm-9 design-right">
+		<section class="gray-frame1">               		
+		<div class="module  gridster">
+		  <ul>
+  
 
-      </div>
+		  <li data-row="1" data-col="1" data-sizex="2" data-sizey="1"><div  contenteditable="true"> <img src="images/img/f-img-o.jpg" alt="banner image" height="200px" width="100%"></div></li>
+		    
+		  <li data-row="2" data-col="1" data-sizex="1" data-sizey="1"><div  style="text-align:justify;">  <h3>Heading</h3>Edit<br/><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum dolor sit amet</p></div></li>
+		    
+		  <li data-row="3" data-col="1" data-sizex="1" data-sizey="1"><div contenteditable="true">  <h3>Heading</h3>Edit<br/><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum dolor sit amet</p></div></li>
+		    
+		  <li data-row="2" data-col="2" data-sizex="1" data-sizey="1"><div contenteditable="true" style="float:left;width:60%;text-align:justify; padding-right:20px;">Edit<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p></div><div style="float:left;width:40%;"> <img src="images/img/s-img-o.jpg" alt="banner imageee"  height="125px" width="100%"></div></li>
+		    
+		    <li data-row="3" data-col="2" data-sizex="1" data-sizey="1"><div> <img src="images/img/s-img-o.jpg" alt="banner imageee"  height="125px" width="100%"></div></li>
+		    
+		    <li data-row="4" data-col="1" data-sizex="2" data-sizey="1" id="footer"><div id="footerid" contenteditable="true"><span class="edit" style="display:none;"><a ng-click="edit_footer('')">Edit</a></span><p id="footerdata">Footer content will be shown here.</p></div></li>
+		    </ul>
+                      </div>
+                    </section>
+               </section><!--Left-->
+          </section>
+      </section>
+
+      <section ng-hide="recipient_div">
+	Coming soon.
+      </section>
+      <section ng-hide="preview_div">
+	Coming soon.
+      </section>
 </div>
+<script type="text/javascript">
+ function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+      var gridster;
+
+      $(function(){
+
+        gridster = $(".gridster ul").gridster({
+          //widget_base_dimensions: [100, 100],
+          widget_margins: [5, 5],
+		  helper: 'clone',
+		  resize: {
+            enabled: true,
+			handles: ['n', 'e', 's', 'w', 'se', 'sw']
+          },
+		  pushing: true,
+		floating: true,
+		draggable: {
+			enabled: true
+		}
+        }).data('gridster');
+
+
+        // resize widgets on hover
+        gridster.$el
+          .on('mouseenter', '> li', function() {
+		   if($(this).attr('id')=='footer')
+		   {
+		    $('#footer .edit').show();
+		   }
+          }).on('mouseleave', '> li', function() {
+		  if($(this).attr('id')=='footer')
+		   {
+		 
+		    $('#footer .edit').hide();
+		   }
+          })
+      });
+    </script>
 <script type="text/ng-template" id="previewtemplate.html">
      <div class="modal-header">
             <h3 class="modal-title">Preview Template</h3>
         </div>
         <div class="modal-body">
             <img src='{{preview_image}}'/>
+        </div>
+        <div class="modal-footer">
+            
+            <button class="btn btn-warning" type="button" ng-click="cancel()">close</button>
+        </div>
+  </script>
+<script type="text/ng-template" id="editfooter.html">
+     <div class="modal-header">
+            <h3 class="modal-title">Edit Section</h3>
+        </div>
+        <div class="modal-body">
+             <div ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value=''>
         </div>
         <div class="modal-footer">
             
