@@ -196,7 +196,21 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                 $scope.user.hosturl  = servicebaseUrl;
                 var jsonData=$scope.user;
                 
-
+                ///////////// TESTING SHOWCLIX ////////////////////////
+                
+               /* 
+                $scope.showclix_data = {};
+                $scope.showclix_data = {"first_name":"Manoj","last_name":"Singh","city":"Newyork","state":"Newyork","phone":"6767676767","email":"manojks@smartdatainc.net","password":"manojks@2015"};
+                //first_name last_name city state  phone email
+                $showclixService.signUp($scope.showclix_data, function(response) {
+                        console.log("*******************************************");
+                        console.log(response);
+                        console.log("*******************************************");
+                });
+                ////////////// TESTING SHOWCLIX ///////////////////////
+                */
+                
+                
                 $http({
                     url: serviceUrl,
                     method: 'POST',
