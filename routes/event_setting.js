@@ -93,7 +93,7 @@ module.exports = function(app, express) {
      *   Get Seller Products 
      *
     */
-    router.post('/getProducts', bundle_setting.getProducts);
+    router.post('/getProducts', product_setting.getProducts);
 
     router.post('/getAllProducts', bundle_setting.getAllProducts);
     
