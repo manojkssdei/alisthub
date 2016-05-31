@@ -72,6 +72,7 @@
                                             <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?" ng-if="event_count[data.id] == '' || event_count[data.id] == null"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
+
 				    <tr ng-if="$data == ''">
                                         <td colspan="5" align="center">No Record found!</td>
                                     </tr>
@@ -99,6 +100,7 @@
             </div>
             <!-- Ticket Types Closed --> 
         </form>
+
 	 <script type="text/ng-template" id="ng-table/headers/checkbox3.html">
           <input type="checkbox" name="checkall" class="listing-check" ng-model="check.isAllSelected"ng-click="toggleAll(all_check_point);">
         </script>
