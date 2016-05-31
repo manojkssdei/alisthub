@@ -73,10 +73,9 @@
                             </section>
                             
                             <section class="tab-con" ng-hide="image_div">
-                            	<button type="submit" class="btn pink-btn m-b20">Upload Images</button>
-                            	<ul class="images-widget">
-                                	<li><a href="#"><img src="images/img/s-img-o.jpg" alt=""/></a></li>
-                                    <li><a href="#"><img src="images/img/s-img-o.jpg" alt=""/></a></li>
+                            	<input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg">
+                            	<ul class="images-widget" id="imgTest">
+                                	
                                 </ul>
                             </section>
                         </section>
@@ -101,7 +100,8 @@
 		    <li data-row="4" data-col="1" data-sizex="2" data-sizey="1" id="footer"><div id="footerid" contenteditable="true"><span class="edit" style="display:none;"><a ng-click="edit_footer('')">Edit</a></span><p id="footerdata">Footer content will be shown here.</p></div></li>
 		    </ul>
                       </div>
-                    </section>
+                  <!-- <button onclick="test()">test</button>-->
+		    </section>
                </section><!--Left-->
           </section>
       </section>
@@ -114,11 +114,14 @@
       </section>
 </div>
 <script type="text/javascript">
+  
  function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
       var gridster;
-
+    function test(){
+     gridster.add_widget('<li class="new"><img src="http://www.sparity.com/images/facebookIcon.jpg" alt="facebook"  ></li>', 1, 1);
+  }
       $(function(){
 
         gridster = $(".gridster ul").gridster({
@@ -132,7 +135,12 @@
 		  pushing: true,
 		floating: true,
 		draggable: {
-			enabled: true
+			start: function(event, ui){
+                         console.log(event);
+			 console.log(ui);
+			},
+		       stop: function(event, ui){
+		       }
 		}
         }).data('gridster');
 

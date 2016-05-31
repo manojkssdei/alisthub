@@ -140,6 +140,7 @@ var webservices = {
     "getlookAndFeeltemplate":"event/getlookAndFeeltemplate",
     "getpreviewImage":"event/getpreviewImage",
     "getTemplate":"event/getTemplate",
+    "addlookAndFeelImage":"event/addlookAndFeelImage",
 
     //Add event product
     "addEventProduct" :  "/event_setting/addEventProduct",

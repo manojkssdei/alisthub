@@ -153,6 +153,44 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
              console.log(newValue, oldValue);
         });
     
+     /* Encode Image to base64 URL */
+        $scope.encodeImageFileAsURL = function() {
+            var filesSelected = document.getElementById("inputFileToLoad").files;
+            if (filesSelected.length > 0) {
+                var fileToLoad = filesSelected[0];
+
+                var fileReader = new FileReader();
+
+                fileReader.onload = function(fileLoadedEvent) {
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                    var newImage = document.createElement('img');
+                    $scope.image =newImage.src = srcData;
+                    var eventId=$localStorage.eventId;
+                      Lookservice.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
+                        
+                            if (response!=null) {
+                
+                            if (response.code == 200)
+                            {
+                             
+                             if (response.result.insertId!='') {
+                                var myEl = angular.element( document.querySelector( '#imgTest' ) );
+                                myEl.prepend('<li>'+newImage.outerHTML+'</li>');
+                             }
+                            }
+                
+                            }
+                            
+                        });
+                    
+
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
+
+    
     
 });
 angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,Lookservice) {
