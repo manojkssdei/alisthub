@@ -27,7 +27,7 @@ a{color:#0275d0; white-space:nowrap;}
 a:active, a:hover, a:focus { outline: 0; }
 b, strong { font-weight: bold;}
 img { border: 0;}
-
+ 
 /* Main CSS
    ========================================================================== */
 .checkbox-inline, .radio-inline{padding-left:0;}
@@ -672,6 +672,16 @@ table:focus {
 .f-sb{font-weight:600;}
 
 .mw-100{min-width:100px;}
+
+.assignedEventWithPriceLevel{
+  border: #000 solid 1px ;
+  background-color: #ffffff;
+  margin-top: 30px;
+  padding: 40px 68px;
+
+
+}
+
 .fa.fa-caret-down {  display: none;}
 
 /* ng-table header 28-05-2016*/
@@ -681,3 +691,4 @@ table:focus {
 .ng-table-counts .btn { color:#333 !important }
 .assign-discount .btn { min-width:50px;!important }
 .color-picker-wrapper{float: right;}
+

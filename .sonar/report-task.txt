@@ -1,5 +1,5 @@
-projectKey=org.sonarqube:javascript-simple-sq-scanner
+projectKey=org.sonarqube:alisthub_revised
 serverUrl=http://192.155.246.146:9000
-dashboardUrl=http://192.155.246.146:9000/dashboard/index/org.sonarqube:javascript-simple-sq-scanner
-ceTaskId=AVTyqQholrKPaPwhETHC
-ceTaskUrl=http://192.155.246.146:9000/api/ce/task?id=AVTyqQholrKPaPwhETHC
+dashboardUrl=http://192.155.246.146:9000/dashboard/index/org.sonarqube:alisthub_revised
+ceTaskId=AVTyrUpplrKPaPwhETnY
+ceTaskUrl=http://192.155.246.146:9000/api/ce/task?id=AVTyrUpplrKPaPwhETnY

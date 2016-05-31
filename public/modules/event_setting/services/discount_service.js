@@ -86,6 +86,22 @@ angular.module('alisthub')
       callback(res.data);
     });
   };
+
+  url.getEventPriceLevels = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getEventPriceLevels,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  url.saveFinalAssignmet = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.saveFinalAssignmet,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  
+  
+
 return url;
 }])
 

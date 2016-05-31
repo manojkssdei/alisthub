@@ -439,6 +439,7 @@ Module : Discount
             //#/assign_discount/assign
             //$rootScope.address=$localStorage.address=data.user.User.address;
         $scope.goPath = function() {
+            console.log(' $scope.listQues = ' , $scope.listQues , ' scope.disc_id = ' ,$scope.disc_id , '$scope.checkbox =' , $scope.checkbox );
             if ($scope.listQues == 1) {
                 $rootScope.discount = $localStorage.discount = $scope.disc_id;
             } else {
@@ -672,6 +673,9 @@ Module : Export Discount
         if ($localStorage.discount == "" || $localStorage.discount == "undefined") {
             $location.path("/view_discounts/list");
         }
+
+        $scope.data = {};
+        $scope.eventInfo = {};
         $scope.discountlist = {};
         $scope.alldiscountlist = {};
         var $serviceTest = $injector.get("discounts");
@@ -693,6 +697,13 @@ Module : Export Discount
         */
         $scope.enable_coupan_box = false;
         $scope.enable_event_box = false;
+        $rootScope.assignedEventWithPriceLevel = false;
+        $rootScope.priceLevelDiv = false;
+
+        $rootScope.assignedEvents = [];
+        $rootScope.assignedPriceLevels = [];
+        
+
         $scope.enableBox = function(id) {
             if (id == 1) {
                 $scope.enable_coupan_box = true;
@@ -701,10 +712,31 @@ Module : Export Discount
             if (id == 2) {
                 $scope.enable_coupan_box = true;
                 $scope.enable_event_box = true;
-
+               
             }
         }
 
+        $scope.saveFinalAssignmet = function() {
+            console.log('$scope.data ' , $scope.data );
+             if ($localStorage.userId != undefined) {
+                $scope.data.seller_id = $scope.eventInfo.seller_id = $localStorage.userId;
+                $scope.data.discount_id = $localStorage.discount;
+                if ($scope.data.discount_id == "") {
+                    $location.path("/view_discounts/list");
+                }
+                else{
+                    $serviceTest.saveFinalAssignmet($scope.data, function(response) {
+                        if (response.code == 200) {
+                          
+                        } else {
+                            // display error here
+                        }
+                    });
+
+                }
+
+            }
+        }
 
         /** Description : To get selected discount codes details.
         Created : 2016-05-18
@@ -733,8 +765,14 @@ Module : Export Discount
                                 $scope.alldiscountlist[entry2.id].coupon_code = entry2.coupon_code;
 
                             })
-
-
+                            /*
+console.log(' --------------  in getSelectedDiscount function -------------- ' );
+console.log(' --------------response.result-------------- ' );
+console.log( response.result );
+console.log(' --------------response.allcode-------------- ');
+console.log( response.allcode);
+console.log(' -------------- -------------- -------------- -------------- ');
+*/
                         } else {
                             //  $scope.eventdata = "";
                         }
@@ -743,6 +781,8 @@ Module : Export Discount
                 }
             }
         }
+
+
         if ($state.params.assign) {
             $scope.getSelectedDiscount();
         }
@@ -753,6 +793,11 @@ Module : Export Discount
             $scope.discountlist[id] = "";
             console.log(key +"::"+ id );
             delete $scope.discountlist[id];
+
+            $scope.discountIds = $localStorage.discount;
+            $scope.discountIds.pop(parseInt(id));
+            $localStorage.discount = $scope.discountIds;
+
             console.log($scope.discountlist);
             if ($scope.discountlist.length == 0) {
                 $scope.enableDiscountDiv = true;
@@ -767,10 +812,23 @@ Module : Export Discount
         }
 
         $scope.pushDiscount = function() {
+            console.log('while adding more more discount , in pushDiscount');
+            console.log('$scope.alldiscountlist' , $scope.alldiscountlist);
+            console.log('$scope.add_code' , $scope.add_code);
+
                 var current_data = $scope.alldiscountlist[$scope.add_code];
                 $scope.discountlist[$scope.add_code] = {};
                 $scope.discountlist[$scope.add_code].coupon_name = current_data.coupon_name;
                 $scope.discountlist[$scope.add_code].coupon_code = current_data.coupon_code;
+                console.log('$scope.add_code' ,  $scope.discountlist);
+                console.log('$localStorage.discount' ,  $localStorage.discount);
+
+                $scope.discountIds = $localStorage.discount;
+                console.log('$scope.discountIds before push' , $scope.discountIds);
+                $scope.discountIds.push(parseInt($scope.add_code));
+                console.log('$scope.discountIds after push' , $scope.discountIds);
+                $localStorage.discount = $scope.discountIds;
+                console.log('$localStorage.discount' ,  $localStorage.discount);
             }
             //// Make Assign ment service start
         $scope.makeAssignment = function() {
@@ -964,8 +1022,9 @@ angular.module('alisthub').controller('EventModalInstanceCtrl', function($localS
         }
 
         $scope.eventcheckbox = [];
-        $scope.eventoptionToggled = function(idn) {
+        $rootScope.eventcheckboxGlobalIds = [];
 
+        $scope.eventoptionToggled = function(idn) {
             if ($scope.eventcheckbox.indexOf(idn) !== -1) {
                 $scope.eventcheckbox.pop(idn);
             } else {
@@ -973,6 +1032,7 @@ angular.module('alisthub').controller('EventModalInstanceCtrl', function($localS
             }
             if ($scope.eventcheckbox.length > 0) {
                 $scope.enableEventAssign = true;
+                $rootScope.eventcheckboxGlobalIds = $scope.eventcheckbox;
             } else {
                 $scope.enableEventAssign = false;
             }
@@ -980,11 +1040,72 @@ angular.module('alisthub').controller('EventModalInstanceCtrl', function($localS
             $scope.eventisAllSelected = $scope.eventdata.every(function(itm) {
                 return itm.selected; })
         }
+
+
+        $scope.eventmakeAssignment = function() {
+                
+                console.log('eventmakeAssignment called');
+            if( $rootScope.eventcheckboxGlobalIds != []){
+                 $uibModalInstance.dismiss('cancel');
+                 console.log( $rootScope.eventcheckboxGlobalIds);
+            }
+
+           //$scope.assignedEventWithPriceLevel = false;
+            $scope.eventInfo = {};
+            if ($localStorage.userId != undefined) {
+                $scope.eventInfo.user_id = $localStorage.userId;
+                $scope.eventInfo.eventcheckboxGlobalIds = $rootScope.eventcheckboxGlobalIds;
+                //console.log('$localStorage.discount' , $localStorage.discount);
+               // $scope.eventInfo.discount = $localStorage.discount;
+                $serviceTest.getEventPriceLevels($scope.eventInfo, function(response) {
+                    if (response.code == 200) {
+                        $rootScope.assignedEventWithPriceLevel=true;
+                        $rootScope.assignedEvents = response.events;
+                        $rootScope.assignedPriceLevels = response.price_levels;
+
+                        
+                        console.log('$rootScope.assignedEvents');
+                        console.log($rootScope.assignedEvents);
+                        console.log('$rootScope.assignedPriceLevels');
+                        console.log($rootScope.assignedPriceLevels);
+                       // $rootScope.discount = $localStorage.discount = "";
+                        //$location.path("/view_discounts/list");
+
+                    } else {
+                        //  $scope.eventdata = "";
+
+                    }
+
+                });
+            } 
+            /*$scope.adata = {};
+            if ($localStorage.userId != undefined) {
+                $scope.adata.seller_id = $localStorage.userId;
+
+                $scope.adata.discount = $localStorage.discount;
+
+                $serviceTest.makeDiscountAssignment($scope.adata, function(response) {
+                    if (response.code == 200) {
+                        $rootScope.discount = $localStorage.discount = "";
+                        $location.path("/view_discounts/list");
+
+                    } else {
+                        //  $scope.eventdata = "";
+
+                    }
+
+                });
+            } else {
+                $scope.eventdata = "";
+            }
+            */
+        };
     
     
     
     /** View list of all Events for assigning discount coupons ***/
         $scope.event_id = [];
+       
         $scope.loader = false;
         $scope.viewEvents = function() {
             $scope.data = {};
@@ -1000,21 +1121,31 @@ angular.module('alisthub').controller('EventModalInstanceCtrl', function($localS
                 $serviceTest.viewEvents($scope.data, function(response) {
                     $scope.loader = false;
                     if (response.code == 200) {
+                        $rootScope.allEvents = [];
                         $scope.eventdata = response.result;
-                        $scope.tableParams = new ngTableParams(
-			{
-				page: 1,            // show first page
-				count: 5,           // count per page
-				sorting: {name:'asc'},
-                                
-			},
-			{
-				data:$scope.eventdata
-			});
                         
-                        $scope.eventdata.forEach(function(value) {
+                        for(var index in $scope.eventdata) {
+                        var valId = $scope.eventdata[index].id;
+                        var val = $scope.eventdata[index];
+                            var obj = {};
+                            obj[valId] = val;
+                            $rootScope.allEvents.push(obj);
+                            $scope.event_id.push(valId);
+                        }
+                        $scope.tableParams = new ngTableParams(
+            			{
+            				page: 1,            // show first page
+            				count: 5,           // count per page
+            				sorting: {name:'asc'},
+                                            
+            			},
+            			{
+            				data:$scope.eventdata
+            			});
+                        
+                        /* $scope.eventdata.forEach(function(value) {
                             $scope.event_id.push(value.id);
-                        });
+                        }); */
 
                     } else {
                         $scope.eventdata = "";
