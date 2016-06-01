@@ -672,15 +672,12 @@ table:focus {
 .f-sb{font-weight:600;}
 
 .mw-100{min-width:100px;}
-<<<<<<< HEAD
 .assignedEventWithPriceLevel{
   border: #000 solid 1px ;
   background-color: #ffffff;
   margin-top: 30px;
   padding: 40px 68px;
-
 }
-=======
 .fa.fa-caret-down {  display: none;}
 
 /* ng-table header 28-05-2016*/
@@ -690,4 +687,3 @@ table:focus {
 .ng-table-counts .btn { color:#333 !important }
 .assign-discount .btn { min-width:50px;!important }
 .color-picker-wrapper{float: right;}
->>>>>>> deepak/master
