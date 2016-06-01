@@ -189,6 +189,115 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
                 fileReader.readAsDataURL(fileToLoad);
             }
         }
+        
+        $scope.banner_image='images/img/f-img-o.jpg';
+        $scope.section2_image='images/img/s-img-o.jpg';
+        $scope.section3_image='images/img/f-img-o.jpg';
+         $scope.encodeImageFileAsURL1 = function() {
+            var filesSelected = document.getElementById("my_file").files;
+            if (filesSelected.length > 0) {
+                var fileToLoad = filesSelected[0];
+
+                var fileReader = new FileReader();
+
+                fileReader.onload = function(fileLoadedEvent) {
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                    var newImage = document.createElement('img');
+                    $scope.image =newImage.src = srcData;
+                    var eventId=$localStorage.eventId;
+                      Lookservice.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
+                        
+                            if (response!=null) {
+                
+                            if (response.code == 200)
+                            {
+                             
+                             if (response.result.insertId!='') {
+                                $scope.banner_image=$scope.image;
+                             }
+                            }
+                
+                            }
+                            
+                        });
+                    
+
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
+        
+        
+        $scope.encodeImageFileAsURL2 = function() {
+            var filesSelected = document.getElementById("my_file2").files;
+            if (filesSelected.length > 0) {
+                var fileToLoad = filesSelected[0];
+
+                var fileReader = new FileReader();
+
+                fileReader.onload = function(fileLoadedEvent) {
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                    var newImage = document.createElement('img');
+                    $scope.image =newImage.src = srcData;
+                    var eventId=$localStorage.eventId;
+                      Lookservice.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
+                        
+                            if (response!=null) {
+                
+                            if (response.code == 200)
+                            {
+                             
+                             if (response.result.insertId!='') {
+                                $scope.section2_image=$scope.image;
+                             }
+                            }
+                
+                            }
+                            
+                        });
+                    
+
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
+        
+        $scope.encodeImageFileAsURL3 = function() {
+            var filesSelected = document.getElementById("my_file3").files;
+            if (filesSelected.length > 0) {
+                var fileToLoad = filesSelected[0];
+
+                var fileReader = new FileReader();
+
+                fileReader.onload = function(fileLoadedEvent) {
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                    var newImage = document.createElement('img');
+                    $scope.image =newImage.src = srcData;
+                    var eventId=$localStorage.eventId;
+                      Lookservice.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
+                        
+                            if (response!=null) {
+                
+                            if (response.code == 200)
+                            {
+                             
+                             if (response.result.insertId!='') {
+                                $scope.section3_image=$scope.image;
+                             }
+                            }
+                
+                            }
+                            
+                        });
+                    
+
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
 
     
     
