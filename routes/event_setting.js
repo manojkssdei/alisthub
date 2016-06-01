@@ -74,14 +74,6 @@ module.exports = function(app, express) {
     /* Delete Seller Question  */
     
     router.post('/deleteQuestion', question_setting.deleteQuestion);
-
-    /* Export CSV Question  */
-    /////////////////////// Export CSV  ////////////////////////////////
-    router.get('/exportQuestionCSV', question_setting.exportQuestionCSV);
-    
-    /* Get selected Question  */
-    /////////////////////// Export CSV  ////////////////////////////////
-    router.post('/getSelectedQuestion', question_setting.getSelectedQuestion);
     
     /* Assign Event question Seller   */
     
@@ -93,14 +85,21 @@ module.exports = function(app, express) {
     
     /* View Question Asssignment Event Seller   */
     
-    router.post('/delAssignment', question_setting.delAssignment);   
+    router.post('/delAssignment', question_setting.delAssignment);
+    
+    /* exportQuestionCSV Question Asssignment Event Seller   */
+    
+    router.get('/exportQuestionCSV', question_setting.exportQuestionCSV);
+    
 
 
     /*** Module : Manage Product
      *   Get Seller Products 
      *
     */
-    router.post('/getProducts', product_setting.getProducts);
+    router.post('/getProducts', bundle_setting.getProducts);
+    
+    router.post('/getSettingProducts', product_setting.getSettingProducts);
 
     router.post('/getAllProducts', bundle_setting.getAllProducts);
     
@@ -168,15 +167,6 @@ module.exports = function(app, express) {
     /* Get selected discount  */
     /////////////////////// Export CSV  ////////////////////////////////
     router.post('/getSelectedDiscount', discount_setting.getSelectedDiscount); 
-
-   /* View Event Price levels   */
-    
-    router.post('/getEventPriceLevels', discount_setting.getEventPriceLevels);
-
-    /* Assign discount coupons to events and price levels   */
-    
-    router.post('/saveFinalAssignmet', discount_setting.saveFinalAssignmet);
-
 
     /*** Module : Manage Bundle
      *   Get Seller Bundle 

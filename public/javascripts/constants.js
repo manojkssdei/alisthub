@@ -34,7 +34,7 @@ var webservices = {
     
     /* Constants for the product */
     "getSettingCount" :  "/event_setting/getSettingCount",
-    "getProducts": "/event_setting/getProducts",
+    "getProducts": "/event_setting/getSettingProducts",
     "addProduct" :  "/event_setting/addProduct",
     "productOverview" :  "/event_setting/productOverview",
     "changeProductStatus" :  "/event_setting/changeProductStatus",

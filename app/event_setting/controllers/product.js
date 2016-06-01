@@ -15,7 +15,7 @@ Description:Function to fetch related to seller
 Created : 2016-04-25
 Created By: Manoj kumar  
 */
-exports.getProducts = function(req,res){
+exports.getSettingProducts = function(req,res){
   console.log(req.body);
   connection.query('SELECT * from products where seller_id='+req.body.userId+' ORDER BY created DESC', function(err, results) {
      if (err) {
