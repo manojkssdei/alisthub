@@ -336,6 +336,9 @@ Description:Function to get advance settings details of events
 Created : 2016-05-20
 Created By: Harpreet Kaur 
 */
+var fs         = require('fs');
+var moment     = require('moment-timezone');
+var path_event = process.cwd()+'/public/images/events';
 
 exports.getAdvanceSetting = function(req,res){
   connection.query('SELECT * from event_advance_settings where seller_id='+req.body.seller_id+ ' && event_id = '+req.body.event_id, function(err, results) {
@@ -536,7 +539,7 @@ exports.getTemplate=function(req,res)
     var templateId=req.body.templateId;
     
     $sql="select description from look_and_feel_template where id="+templateId;
-    console.log($sql);
+    
      connection.query($sql, function(err, results) 
      {
       if (err) {
@@ -551,3 +554,38 @@ exports.getTemplate=function(req,res)
 });
 } 
 
+ /** 
+Method: look and feel save image 
+Description:Function to get look and feel save image 
+Created : 2016-05-24
+Created By: Deepak khokhar  
+*/
+exports.addlookAndFeelImage=function(req,res)
+{
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    var eventId=req.body.eventId;
+    if (req.body.imagedata && req.body.imagedata != "" && req.body.imagedata != undefined) {
+        //var photoname = req.body.seller_id+'_image_'+Date.now() + '.jpg';
+        var photoname = eventId+'_image_'+Date.now() + '.jpg';
+        var imagename = path_event+'/'+photoname;
+        var base64Data = req.body.imagedata.replace(/^data:image\/jpeg;base64,/, "");
+        
+        fs.writeFile(imagename, base64Data, 'base64', function(err) {
+        if (err) {
+         console.log("Image Failure Upload");
+        }
+        });
+        if (photoname!=undefined) {
+           var $sql3="INSERT INTO `event_images` (`id`, `event_id`, `image_name`, `created`) VALUES (NULL, '"+eventId+"', 'http://192.155.246.146:5502/images/events/"+photoname+"','"+curtime+"')";
+  connection.query($sql3,function(err,result){
+    if (err) {
+       res.json({error:err,code:101}); 
+    }
+    res.json({result:result,code:200});
+    });
+        }else{
+            res.json({error:err,code:101}); 
+        }
+     }
+ 
+}

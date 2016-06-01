@@ -28,4 +28,13 @@ angular.module('alisthub').service('Lookservice', ['communicationService', funct
       
   };
   
+//add look and feel event image
+    this.addlookAndFeelImage = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.addlookAndFeelImage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+       
+      
+  };
+  
 }]);

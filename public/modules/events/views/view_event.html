@@ -35,40 +35,35 @@
                             <button class="pink-btn btn btn-small m-fw">Date Range</button>
                         </section>
                     </section>
+<!--{{upcoming_event_data}}-->
                     <section class="grid-widget">
                         <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th width="10%">ID</th>
-                                    <th width="24%">Event</th>
-                                    <th width="20%">Start Date</th>
-                                   <!-- <th width="12%" class="numbers">Sold</th>
-                                    <th width="12%" class="numbers">Inventory</th>-->
-                                    <th width="22%">&nbsp;</th>
-                                </tr>
-                            </thead>
+                            <table ng-table="tableParams"  class="table table-striped">
+                               
                             <tbody>
-				
-                                <tr pagination-id="paginate1" dir-paginate="upcoming in upcoming_event_data | itemsPerPage: 25|filter:searchfield">
-                                    <td><a href="#"><strong>{{upcoming.id}}</strong></a></td>
-                                    <td>
-                                        <p><a href="#"><strong>{{upcoming.title}}</strong></a></p>
+                                    <tr  ng-repeat="pdata in $data | filter:filter">
+                                        <td title="'Id'"><a href="#"><strong>{{pdata.id}}</strong></a></td>
+                                    <td title="'Name'">
+                                        <p><a href="#"><strong>{{pdata.title}}</strong></a></p>
                                         
                                     </td>
-                                    <td>{{upcoming.start_date | date:"dd MMMM yyyy"}}</td>
+                                    <td title="'Start date'">{{pdata.start_date | date:"dd MMMM yyyy"}}</td>
                                   <!--  <td class="numbers">{{upcoming.sold}}</td>
                                     <td class="numbers">{{upcoming.inventory}}</td>-->
-                                    <td class="action"><a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a></td>
+                                    <td title="'Action'" class="action"><a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-edit"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a></td>
                                 </tr>
-                            </tbody>
+                                    <tr ng-show="loader">
+                                        <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+				    <tr ng-if="$data == ''">
+                                        <td colspan="4" align="center">No Record found!</td>
+                                    </tr>
+                                </tbody>
 </table>
                         </div>
                     </section>
                     <section class="grid-bottm clearfix">
-                        <section class="paging pull-left">
-                           <dir-pagination-controls pagination-id="paginate1" ></dir-pagination-controls>
-                        </section>
+                        
                         <section class="gr-right pull-right">
                             <ul class="legends">
                                 <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>

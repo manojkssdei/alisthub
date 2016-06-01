@@ -176,3 +176,10 @@ ul {
     background: red!important;
 }
 
+
+/*-------------------*/
+.gridster .gs-w{padding:10px; background:#fff;}
+.gridster li{font-weight:normal; text-align:left;}
+.gridster .h1, .gridster .h2, .gridster .h3, .gridster .h4, .gridster .h5, .gridster .h6, 
+.gridster h1, .gridster h2, .gridster h3, .gridster h4, .gridster h5, .gridster h6{margin-bottom:10px;}
+

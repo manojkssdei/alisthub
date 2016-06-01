@@ -87,10 +87,6 @@ module.exports = function(app, express) {
     
     router.post('/delAssignment', question_setting.delAssignment);
     
-    /* exportQuestionCSV Question Asssignment Event Seller   */
-    
-    router.get('/exportQuestionCSV', question_setting.exportQuestionCSV);
-    
 
 
     /*** Module : Manage Product
@@ -98,10 +94,6 @@ module.exports = function(app, express) {
      *
     */
     router.post('/getProducts', bundle_setting.getProducts);
-    
-    router.post('/getSettingProducts', product_setting.getSettingProducts);
-
-    router.post('/getAllProducts', bundle_setting.getAllProducts);
     
     /* Add Seller Question  */
     

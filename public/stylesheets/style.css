@@ -27,7 +27,7 @@ a{color:#0275d0; white-space:nowrap;}
 a:active, a:hover, a:focus { outline: 0; }
 b, strong { font-weight: bold;}
 img { border: 0;}
-
+ 
 /* Main CSS
    ========================================================================== */
 .checkbox-inline, .radio-inline{padding-left:0;}
@@ -635,8 +635,8 @@ table:focus {
 .tabs > li a{display:block; padding:10px; color:#0275d0; background:#f3f3f3; border-right:1px #ccc solid; border-bottom:1px #ccc solid;}
 .tabs > li:last-child a{border-right:none;}
 .tabs > li a:focus, .tabs > li a:active,
-.tabs > li a:hover, .tabs > li a.active{text-decoration:none; background:#fff; color:#333;}
-.tabs > li a.active{border-bottom-color:transparent;}
+.tabs > li a:hover, .tabs > li.active a{text-decoration:none; background:#fff; color:#333;}
+.tabs > li.active a{border-bottom-color:transparent;}
 
 .design-left{padding-right:0;}
 .design-right{padding-left:0;}
@@ -650,6 +650,12 @@ table:focus {
 
 .images-widget > li{margin-top:15px;}
 .images-widget > li:first-child{margin-top:0;}
+
+.edit{position:absolute; right:5px; top:5px; font-size:18px; height:30px; width:30px; display:inline-table; border-radius:50%; background:#fff;}
+.edit i{display:table-cell; vertical-align:middle;}
+
+.color-picker-wrapper.color-picker-swatch-only .input-group .input-group-addon{border-radius:2px; width:24px!important; border-color:#88919a;}
+.color-picker-wrapper.color-picker-swatch-only .input-group .form-control{height:24px;}
 
 /*--------Always at Bottom---------*/
 .m-t35 {margin-top: 35px;}
@@ -672,12 +678,13 @@ table:focus {
 .f-sb{font-weight:600;}
 
 .mw-100{min-width:100px;}
+
 .assignedEventWithPriceLevel{
   border: #000 solid 1px ;
   background-color: #ffffff;
   margin-top: 30px;
   padding: 40px 68px;
-}
+
 .fa.fa-caret-down {  display: none;}
 
 /* ng-table header 28-05-2016*/

@@ -2,8 +2,79 @@
 <html>
 <head>
   <title>Demo &raquo; Expandable widgets &raquo; gridster.js</title>
-  <link rel="stylesheet" type="text/css" href="http://gridster.net/dist/jquery.gridster.css">
-  <link rel="stylesheet" type="text/css" href="http://gridster.net/demos/assets/demo.css">
+
+  <link type="text/css" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css"/>
+  <style type="text/css">
+   input {
+    width: 100px;
+}
+.gridster {
+    position:relative;
+    background-color: gray;
+}
+li {
+    background-color: white;
+    width: 150px;
+    height: 150px;
+    border: solid 2px black;
+}
+.gridster > * {
+    margin: 0 auto;
+    -webkit-transition: height .4s;
+    -moz-transition: height .4s;
+    -o-transition: height .4s;
+    -ms-transition: height .4s;
+    transition: height .4s;
+}
+.gridster .gs_w {
+    z-index: 2;
+    position: absolute;
+}
+.ready .gs_w:not(.preview-holder) {
+    -webkit-transition: opacity .3s, left .3s, top .3s;
+    -moz-transition: opacity .3s, left .3s, top .3s;
+    -o-transition: opacity .3s, left .3s, top .3s;
+    transition: opacity .3s, left .3s, top .3s;
+}
+.ready .gs_w:not(.preview-holder) {
+    -webkit-transition: opacity .3s, left .3s, top .3s, width .3s, height .3s;
+    -moz-transition: opacity .3s, left .3s, top .3s, width .3s, height .3s;
+    -o-transition: opacity .3s, left .3s, top .3s, width .3s, height .3s;
+    transition: opacity .3s, left .3s, top .3s, width .3s, height .3s;
+}
+.gridster .preview-holder {
+    z-index: 1;
+    position: absolute;
+    background-color: #fff;
+    border-color: #fff;
+    opacity: 0.3;
+}
+.gridster .player-revert {
+    z-index: 10!important;
+    -webkit-transition: left .3s, top .3s!important;
+    -moz-transition: left .3s, top .3s!important;
+    -o-transition: left .3s, top .3s!important;
+    transition: left .3s, top .3s!important;
+}
+.gridster .dragging {
+    z-index: 10!important;
+    -webkit-transition: all 0s !important;
+    -moz-transition: all 0s !important;
+    -o-transition: all 0s !important;
+    transition: all 0s !important;
+}
+/* Uncomment this if you set helper : "clone" in draggable options */
+
+/*.gridster .player {
+  opacity:0;
+}*/
+ #draggable {
+    width:50px;
+    height:50px;
+    background-color:#dcdcdc;
+    margin-bottom: 20px;
+}
+  </style>
 </head>
 
 <body>
@@ -12,9 +83,9 @@
 
   <p>Expand widgets when hover on them using <code>resize_widget</code> method.</p>
 
-
+<div id="draggable">IMAGE</div>
   <div class="gridster">
-    <ul>
+    <ul id="reszable">
       <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">0</li>
       <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">1</li>
       <li data-row="1" data-col="3" data-sizex="1" data-sizey="1">2</li>
@@ -31,6 +102,8 @@
   </div>
 
     <script type="text/javascript" src="http://localhost:5502/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+    
     <script src="http://gridster.net/dist/jquery.gridster.js" type="text/javascript" charset="utf-8"></script>
 
     
@@ -46,7 +119,14 @@
           
         }).data('gridster');
 
-
+$( "#draggable" ).draggable();
+    $( ".gridster " ).droppable({
+      drop: function( event, ui ) {
+        $( "#draggable" ).removeAttr("style");
+        gridster.add_widget('<li class="new"><img src="http://www.sparity.com/images/facebookIcon.jpg" alt="facebook"  ></li>', 1, 1);
+        
+      }
+    });
         // resize widgets on hover
         gridster.$el
           .on('mouseenter', '> li', function() {

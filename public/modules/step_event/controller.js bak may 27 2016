@@ -1860,10 +1860,10 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     };
     
     //To get Products
-    $scope.getAllProduct = function() { 
+    $scope.getProduct = function() { 
       if ($localStorage.userId!=undefined) {
         $scope.data.userId      = $localStorage.userId;
-        $serviceTest.getAllProducts($scope.data,function(response){
+        $serviceTest.getProducts($scope.data,function(response){
           //console.log(response);
           $scope.loader = false;
           if (response.code == 200) {
@@ -1876,7 +1876,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     }; 
 
     // Get product list 
-    $scope.getAllProduct();
+    $scope.getProduct();
 
     function getObjects(obj, key, val) {
         var objects = [];
@@ -1947,14 +1947,6 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
               $scope.product.id = $localStorage.eventProductId;
               $rootScope.success_message_product = true;
               $rootScope.success_product = global_message.event_product_add;
-              
-              $scope.product = {};
-              $scope.product.eventId = $localStorage.eventId; 
-              $scope.product.userId = $localStorage.userId;
-              $serviceTest.getEventProducts($scope.product,function(response){
-                $rootScope.eventProductList = response.result;
-              });
-
             } else {
               $localStorage.eventProductId = product.id;
               $rootScope.success_message_product = true;
