@@ -655,6 +655,7 @@ table:focus {
 .edit i{display:table-cell; vertical-align:middle;}
 
 .color-picker-wrapper.color-picker-swatch-only .input-group .input-group-addon{border-radius:2px; width:24px!important; border-color:#88919a;}
+color-picker{float: right !important;}
 .color-picker-wrapper.color-picker-swatch-only .input-group .form-control{height:24px;}
 
 /*--------Always at Bottom---------*/

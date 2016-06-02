@@ -14,7 +14,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   }
   $scope.loader = false;
   $scope.step1html = '';
-
+$scope.priceLevel=[];
         $ocLazyLoad.inject('alisthub').then(function() {
             $scope.step1html = global_message.step1html;
         }, function(e) {
@@ -283,10 +283,36 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
         }); 
     }
     
+
+ /* ************************CREATED BY DEEPAK K*************** */
     // To get Price level.
+    $scope.availQuantity=0;
+    $scope.totalRemainings=0;
+    /*==============================================================*/
     $serviceTest.getPricelevel({'eventId':$eventId},function(response){
       $rootScope.price_level=response.results;
+      $scope.priceLevel=response.results;
+
+     /* ************************CREATED BY DEEPAK K*************** */
+        var pricelevelData=$scope.priceLevel;
+
+       for(var i=0;i<pricelevelData.length;i++)
+       {
+        $scope.availQuantity=$scope.availQuantity+pricelevelData[i].quantity_available;
+       }
+      $scope.eventInventoryCalc=function()
+      {
+       $scope.inventoryTextVal=$scope.data1.eventinventory;
+       $scope.totalRemainings=  eval($scope.inventoryTextVal-$scope.availQuantity);
+       $rootScope.eventinventory= $scope.inventoryTextVal;
+      }
+     /*==============================================================*/
     });
+
+    // // To get Price level.
+    // $serviceTest.getPricelevel({'eventId':$eventId},function(response){
+    //   $rootScope.price_level=response.results;
+    // });
     //change status of price level
     $scope.changeStatus = function(id,status) {
         
@@ -1536,6 +1562,12 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
             }
         }); 
  }
+
+ /* CREATED BY DEEPAK K  */
+
+  $scope.eventInventory=$rootScope.eventinventory;
+  /*************************************************/
+ 
 });
 
   /*

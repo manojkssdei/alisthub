@@ -4,6 +4,7 @@
 
 .gridster {
     position:relative;
+     width: 610px;
 }
 
 .gridster > * {
