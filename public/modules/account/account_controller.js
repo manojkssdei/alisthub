@@ -381,8 +381,6 @@ if ($scope.user.merchant_type == "GoCoin")
             var mandatoryFields = {
                 'merchant_type': global_message.selectMerchantType,
                 'currency_code': global_message.selectCurrencyCode,
-                'account_id': global_message.emptyAccountiD,
-                'account_password': global_message.emptyPassword,
             };
 
             var errorMsg = $scope.checkMandatoryFields(mandatoryFields);

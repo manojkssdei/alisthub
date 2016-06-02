@@ -6,7 +6,7 @@ Module : Event
 */
 module.exports = function(app, express) {
 	var router = express.Router();
-
+        var bodyParser = require('body-parser');
        
 
 	Event    = require('./../app/event/controllers/event.js');
@@ -51,7 +51,8 @@ module.exports = function(app, express) {
         router.post('/getpreviewImage',supportCrossOriginScript, Event.getpreviewImage);
         /*get Template*///
         router.post('/getTemplate',supportCrossOriginScript, Event.getTemplate);
-        router.post('/addlookAndFeelImage',supportCrossOriginScript, Event.addlookAndFeelImage);
+        
+	router.post('/addlookAndFeelImage',supportCrossOriginScript, bodyParser({limit: '10mb'}), Event.addlookAndFeelImage);
 
 
       /*save advance settings of events*/
