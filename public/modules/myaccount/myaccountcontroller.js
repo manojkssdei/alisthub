@@ -238,8 +238,33 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
     /*Get details of user*/
     $scope.getData = function() {
         if ($localStorage.userId!=undefined) {
+           var serviceUrl = webservices.getData;
             $scope.data.userId      = $localStorage.userId;
-            $serviceTest.getData($scope.data,function(response){
+             $http({
+                        url: serviceUrl,
+                        method: 'POST',
+                        data: $scope.data,
+                        headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        "Accept": "application/json",
+                        }
+                        }).success(function(data, status, headers, config) {
+                            if(data!=undefined) 
+                            {
+                                   $scope.social.facebook_link = data.facebook_link;
+				   $scope.social.twitter_link = data.twitter_link;
+				   $scope.social.google_plus = data.google_plus;
+
+				   $scope.userdetail.first_name = data.first_name;
+				   $scope.userdetail.last_name = data.last_name;
+				   $scope.userdetail.timezone = data.timezone;
+				   $scope.userdetail.phone_no = data.phone_no;
+				   $scope.userdetail.fax = data.fax;
+				   
+				   $scope.email.email = data.email;
+                            }
+                        })
+          /*  $serviceTest.getData($scope.data,function(response){
                 $scope.loader = false;
                 if (response.code == 200) {
                    $scope.password = response.result[0];
@@ -257,7 +282,7 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                 } else {
                    $scope.error_message = response.error;
                 }
-            });
+            });*/
         }
     };
 
