@@ -487,7 +487,7 @@ if ($scope.user.merchant_type == "GoCoin")
         }
     })
 
-.controller('manageAccountController', function($scope, $localStorage, $injector, $http, $state, $location, $sce, $rootScope, $timeout) {
+.controller('manageAccountController', function($scope, $localStorage, $injector, $http, $state, $location, $sce, $rootScope, $timeout,ngTableParams) {
     if (!$localStorage.isuserloggedIn) {
         $state.go('login');
     }
@@ -523,7 +523,18 @@ if ($scope.user.merchant_type == "GoCoin")
                 $scope.loader = false;
                 if (response.code == 200) {
                     $scope.merchantFinancialData = response.result;
-                    console.log('$scope.merchantFinancialData' , $scope.merchantFinancialData);
+
+                     $scope.tableParams = new ngTableParams(
+                        {
+                                    page: 1,            // show first page
+                                    count: 5,           // count per page
+                                    sorting: {name:'asc'},
+                                    
+                            },
+                            {
+                                    data:$scope.merchantFinancialData
+                        });
+
                 } else {
                     $scope.error_message = response.error;
                 }

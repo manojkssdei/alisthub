@@ -26,71 +26,110 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
     $scope.openTab = function(id)
     {
         if (id == 1) {
+
+console.log('$scope.basictab' , $scope.basictab);
+             if( $scope.basictab == true) {
+            $scope.basictab     = false;
+            $scope.basictabclass     = "fa-caret-down";
+             }
+             else {
             $scope.basictab     = true;
+            $scope.basictabclass     = "fa-caret-up";
+             }
+
             $scope.producttab = false;
             $scope.discounttab = false;
             $scope.questiontab = false;
             $scope.socialtab  = false;
-            
-            // class
-            $scope.basictabclass     = "fa-caret-up";
+
             $scope.producttabclass   = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-down";
             $scope.socialtabclass    = "fa-caret-down";
         }
         if (id == 2) {
-            $scope.basictab     = false;
-            $scope.producttab   = true;
+
+            if( $scope.producttab == true) {
+            $scope.producttab     = false;
+            $scope.producttabclass     = "fa-caret-down";
+             }
+             else {
+            $scope.producttab     = true;
+            $scope.producttabclass     = "fa-caret-up";
+             }
+
+            $scope.basictab   = false;
             $scope.discounttab = false;
             $scope.questiontab = false;
             $scope.socialtab  = false;
             // class
             $scope.basictabclass     = "fa-caret-down";
-            $scope.producttabclass   = "fa-caret-up";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-down";
             $scope.socialtabclass    = "fa-caret-down";
         }
         if (id == 3) {
+
+            if( $scope.discounttab == true) {
+            $scope.discounttab     = false;
+            $scope.discounttabclass     = "fa-caret-down";
+             }
+             else {
+            $scope.discounttab     = true;
+            $scope.discounttabclass     = "fa-caret-up";
+             }
+
             $scope.basictab   = false;
             $scope.producttab = false;
-            $scope.discounttab  = true;
             $scope.questiontab = false;
             $scope.socialtab  = false;
             // class
             $scope.basictabclass     = "fa-caret-down";
             $scope.producttabclass   = "fa-caret-down";
-            $scope.discounttabclass  = "fa-caret-up";
             $scope.questiontabclass  = "fa-caret-down";
             $scope.socialtabclass    = "fa-caret-down";
         }
         if (id == 4) {
+
+            if( $scope.questiontab == true) {
+            $scope.questiontab     = false;
+            $scope.questiontabclass     = "fa-caret-down";
+             }
+             else {
+            $scope.questiontab     = true;
+            $scope.questiontabclass     = "fa-caret-up";
+             }
             $scope.basictab   = false;
             $scope.producttab = false;
             $scope.discounttab = false;
-            $scope.questiontab  = true;
             $scope.socialtab  = false;
             // class
             $scope.basictabclass     = "fa-caret-down";
             $scope.producttabclass   = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-down";
-            $scope.questiontabclass  = "fa-caret-up";
             $scope.socialtabclass    = "fa-caret-down";
         }
         if (id == 5) {
+
+            if( $scope.socialtab == true) {
+            $scope.socialtab     = false;
+            $scope.socialtabclass     = "fa-caret-down";
+             }
+             else {
+            $scope.socialtab     = true;
+            $scope.socialtabclass     = "fa-caret-up";
+             }
+
             $scope.basictab   = false;
             $scope.producttab = false;
             $scope.discounttab = false;
             $scope.questiontab  = false;
-            $scope.socialtab  = true;
             
             // class
             $scope.basictabclass     = "fa-caret-down";
             $scope.producttabclass   = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-down";
-            $scope.socialtabclass    = "fa-caret-up";
         }
         
     }
@@ -197,7 +236,32 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
     $scope.updatePassword = function(data) {
         if ($localStorage.userId!=undefined) {
             $scope.data.user_id   = $localStorage.userId;
-            $serviceTest.updatePassword($scope.data,function(response){
+	    
+	    /////////////////////////////////////////////////////////////////
+	    var url = webservices.updatePassword+"?data="+JSON.stringify($scope.data)+"&callback=jsonp_callback2";
+                    
+            $http.jsonp(url);
+                      
+            $window.jsonp_callback2 = function(data) {
+                    if (response.code == 200) {
+                    $location.path("/view_account");
+                    $scope.success_message = true;
+                    $scope.success=global_message.passwordChanged;
+                    $timeout(function() {
+                        $scope.error='';
+                        $scope.success_message=false;
+                        $scope.success='';
+                    },3000);
+                } else {
+                   $scope.activation_message = global_message.ErrorInActivation;
+                }
+                                                
+                         
+                } 
+	
+	    ///////////////////////////////////////////////////////////////
+	    	    
+           /* $serviceTest.updatePassword($scope.data,function(response){
                 if (response.code == 200) {
                     $location.path("/view_account");
                     $scope.success_message = true;
@@ -210,7 +274,7 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                 } else {
                    $scope.activation_message = global_message.ErrorInActivation;
                 }
-            });
+            });*/
         }
     };
 
