@@ -830,6 +830,13 @@ console.log('inside if');
                     console.log('call saveFinalAssignmet');
                     $serviceTest.saveFinalAssignmet($scope.data, function(response) {
                         if (response.code == 200) {
+                $scope.success_message = true;
+                $scope.success = global_message.discountAssigned;
+                $timeout(function() {
+                    $scope.success_message = false;
+                    $scope.success = '';
+                }, 3000);
+
                           
                         } else {
                             // display error here
