@@ -26,11 +26,20 @@ angular.module('alisthub')
         $scope.enableState = true;
         $scope.error_message = false;
         $scope.success_message = false;
-        $scope.payFlow_div = false;
         $scope.page_title = 'ADD';
         $scope.button_title = 'Add';
         $scope.countriesOptions = [];
         $scope.usaStatesOptions = [];
+        $scope.readonlyFlag = false;
+
+
+        $scope.memo_div = true;
+        $scope.keyfile_name_div = true;
+        $scope.store_number_div = true;
+        $scope.account_password_div = true;
+        $scope.account_id_div = true;
+        $scope.vendor_div = true;
+        $scope.key_div = true;
 
         if ($localStorage.userId != undefined ) {
             $scope.user.seller_id = $localStorage.userId;
@@ -70,7 +79,233 @@ angular.module('alisthub')
 
         /*showPageLayout*/
         $scope.showPageLayout = function() {
-            if ($scope.user.merchant_type == "PayFlow") { $scope.payFlow_div = true; } else { $scope.payFlow_div = false; }
+
+        $scope.vendor_div = false;
+        $scope.capture_mode_div= false;
+        $scope.keyfile_name_div = false;
+        $scope.key_div = false;
+        $scope.zero_auth_div = false;
+        $scope.account_id_div = false;
+        $scope.account_password_div = false;
+        $scope.memo_div = false;
+        $scope.store_number_div = false;
+
+           
+if ($scope.user.merchant_type == "CyberSource") 
+                { 
+                  $scope.memo_div = true;
+                  $scope.keyfile_name_div = true;
+                  $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.key_div = true;
+
+                }
+if ($scope.user.merchant_type == "CardConnect") 
+                { 
+                 $scope.memo_div = true;
+                $scope.store_number_div = true;
+                 $scope.account_password_div = true;
+                 $scope.account_id_div = true;
+                 $scope.zero_auth_div = true;
+                }
+if ($scope.user.merchant_type == "BeanStream") 
+                { 
+                 $scope.memo_div = true;
+                  $scope.keyfile_name_div = true;
+                  $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.key_div = true;
+                }
+if ($scope.user.merchant_type == "First Data") 
+                { 
+                   $scope.keyfile_name_div = true;
+                   $scope.key_div = true;
+                   $scope.store_number_div = true;
+                   $scope.account_password_div = false;
+                   $scope.account_id_div = false;
+                   $scope.memo_div = true;
+                }
+if ($scope.user.merchant_type == "Authorize.NET") 
+                { 
+                  $scope.key_div = true;
+                  $scope.account_password_div = true;
+                 $scope.memo_div = true;
+                 $scope.store_number_div = true;
+                }
+if ($scope.user.merchant_type == "Authorize.NET Card Present") 
+                { 
+                  $scope.keyfile_name_div = true;
+                  $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.key_div = true;
+                 $scope.memo_div = true;
+                }
+if ($scope.user.merchant_type == "PayFlow") 
+                { 
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.capture_mode_div= true;
+                  $scope.key_div = true;
+                 $scope.memo_div = true;
+                 $scope.store_number_div = true;
+                }
+if ($scope.user.merchant_type == "PayPal Express") 
+                { 
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.key_div = true;
+                 $scope.memo_div = true;
+                 $scope.store_number_div = true;
+                }
+if ($scope.user.merchant_type == "Do Not Use") 
+                { 
+                  $scope.keyfile_name_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.key_div = true;
+                 $scope.memo_div = true;
+                 $scope.store_number_div = true;
+                }
+if ($scope.user.merchant_type == "DirectPay") 
+                { 
+                  $scope.keyfile_name_div = true;
+                  $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.key_div = true;
+                 $scope.memo_div = true;
+                }
+
+if ($scope.user.merchant_type == "ICICI Bank") 
+                { 
+                  $scope.memo_div = true;  
+                  $scope.keyfile_name_div = true;
+                  $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.key_div = true;
+                }
+
+if ($scope.user.merchant_type == "Stripe") 
+                { 
+                 $scope.zero_auth_div = true;
+                 $scope.account_id_div = true;
+                }
+
+if ($scope.user.merchant_type == "GoEmerchant") 
+                { 
+                 $scope.store_number_div = true;
+                 $scope.account_id_div = true;
+                 $scope.key_div = true;
+                 $scope.zero_auth_div = true;
+                }
+
+if ($scope.user.merchant_type == "Alignet") 
+                { 
+                   $scope.memo_div = true;
+                    $scope.keyfile_name_div = true;
+                    $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.key_div = true;
+                }
+
+if ($scope.user.merchant_type == "Cielo") 
+                { 
+                  $scope.memo_div = true;
+                  $scope.keyfile_name_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                }
+
+if ($scope.user.merchant_type == "PagoEfectivo") 
+                { 
+                  $scope.memo_div = true;
+                  $scope.keyfile_name_div = true;
+                    $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.key_div = true;
+                }
+
+if ($scope.user.merchant_type == "CC Avenue") 
+                { 
+                  $scope.memo_div = true;
+                    $scope.keyfile_name_div = true;
+                    $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.key_div = true;
+                }
+
+if ($scope.user.merchant_type == "PayGate") 
+                { 
+                  $scope.memo_div = true;
+                    $scope.keyfile_name_div = true;
+                    $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.key_div = true;
+                }
+
+if ($scope.user.merchant_type == "AirPay") 
+                { 
+                    $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.key_div = true;
+                }
+
+if ($scope.user.merchant_type == "FirstDataGlobalGatewayE4") 
+                { 
+                    $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.account_id_div = true;
+                  $scope.vendor_div = true;
+                  $scope.zero_auth_div = true;
+                }
+
+if ($scope.user.merchant_type == "T1 Authorize.Net Emulator") 
+                { 
+                    $scope.memo_div = true;
+                   $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.key_div = true;
+                }
+if ($scope.user.merchant_type == "Transact Authorize.NET Emulator") 
+                { 
+                 $scope.memo_div = true;
+                   $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.key_div = true;
+                }
+if ($scope.user.merchant_type == "NMI Authorize.NET Emulator") 
+                { 
+                  $scope.memo_div = true;
+                   $scope.store_number_div = true;
+                  $scope.account_password_div = true;
+                  $scope.key_div = true;
+                }
+if ($scope.user.merchant_type == "GoCoin") 
+                { 
+                  $scope.account_id_div = true;
+                  $scope.key_div = true;
+                }
             $scope.checkAlreadyAddedMerchant();
         }
 
@@ -208,6 +443,7 @@ angular.module('alisthub')
             $scope.page_title = 'EDIT';
             $scope.button_title = 'Edit';
             $scope.success_message = false;
+            $scope.readonlyFlag = true;
 
             if ($rootScope.success) {
                 $scope.success = $rootScope.success_message;
@@ -289,6 +525,7 @@ angular.module('alisthub')
                 $scope.loader = false;
                 if (response.code == 200) {
                     $scope.merchantFinancialData = response.result;
+                    console.log('$scope.merchantFinancialData' , $scope.merchantFinancialData);
                 } else {
                     $scope.error_message = response.error;
                 }
