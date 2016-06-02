@@ -78,6 +78,9 @@
                                 	
                                 </ul>
                             </section>
+			    <section class="tab-con" ng-hide="block_div">
+                            	Block Content
+                            </section>
                         </section>
                     </section>
                </section><!--Left-->
@@ -87,27 +90,40 @@
 		  <ul> 
   
 
-		  <li data-row="1" data-col="1" data-sizex="2" data-sizey="1"><div class="main-image"><img src="images/img/f-img-o.jpg" alt="banner image" height="200px" width="100%"></div></li>
+		  <li data-row="1" data-col="1" data-sizex="2" data-sizey="1"><header>|||</header><div class="main-image"><img src="{{banner_image}}" id="banner_image" alt="banner image" height="150px" width="100%"  onclick="change_image()"><input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" /></div></li>
 		    
-		  <li data-row="2" data-col="1" data-sizex="1" data-sizey="1"><a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i>
-</a><h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum dolor sit amet</p></li>
+		  <li data-row="2" data-col="1" data-sizex="1" data-sizey="1" id="section2">
+		    <header>|||</header>
+		    <a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value=''>
+		  </li>
 		    
-		  <li data-row="3" data-col="1" data-sizex="1" data-sizey="1"><a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i>
-</a><h3>Heading</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum dolor sit amet</p></li>
+		  <li data-row="3" data-col="1" data-sizex="1" data-sizey="1" id="section3">
+		    <header>|||</header>
+		    <a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value=''>
+		  </li>
 		    
-		  <li data-row="2" data-col="2" data-sizex="1" data-sizey="1"><a class="edit" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i>
-</a>
-<div class="row">
-    <div class="col-sm-8"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p></div>
-    <div class="col-sm-4"> <img src="images/img/s-img-o.jpg" alt="banner imageee"  height="200px" width="100%"></div>
-</div>
-</li>
+		  <li data-row="2" data-col="2" data-sizex="1" data-sizey="1"><header>|||</header>
+		     <div class="row">
+		      <div class="col-sm-8">
+			<div contenteditable="true" ckeditor="option_ckeditor1" name="content3"  required ng-model="content3" ready="onReady()" value=''>
+		      </div></div>
+		      <div class="col-sm-4"> <img src="{{section2_image}}" id="section2_image" alt="banner imageee"  height="150px" width="100%" onclick="change_image2()">
+		      <input type="file" id="my_file2"  onchange="angular.element(this).scope().encodeImageFileAsURL2(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
+		      </div>
+		  
+		  </li>
 		    
-		    <li data-row="3" data-col="2" data-sizex="1" data-sizey="1"><div> <img src="images/img/s-img-o.jpg" alt="banner imageee"  height="200px" width="100%"></div></li>
+		    <li data-row="3" data-col="2" data-sizex="1" data-sizey="1">
+		      <header>|||</header>
+		      <div> <img src="{{section3_image}}" id="section3_image" alt="banner imageee"  height="150px" width="100%" onclick="change_image3()">
+		    <input type="file" id="my_file3"  onchange="angular.element(this).scope().encodeImageFileAsURL3(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
+		    </div>
+		    </li>
 		    
-		    <li data-row="4" data-col="1" data-sizex="2" data-sizey="1" id="footer"><div id="footerid" contenteditable="true"><span class="edit" style="display:none;"><a ng-click="edit_footer('')"><i class="fa fa-pencil-square" aria-hidden="true"></i>
-</a></span><p id="footerdata">Footer content will be shown here.</p></div></li>
+		    <li data-row="4" data-col="1" data-sizex="2" data-sizey="1" id="footer"><header>|||</header><div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value=''>
+		      </div></li>
 		    </ul>
                       </div>
                   <!-- <button onclick="test()">test</button>-->
@@ -124,7 +140,18 @@
       </section>
 </div>
 <script type="text/javascript">
-  
+function change_image()
+{
+  $('#my_file').click();
+}
+function change_image2()
+{
+  $('#my_file2').click();
+}
+function change_image3()
+{
+  $('#my_file3').click();
+}
  function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
@@ -135,8 +162,8 @@
       $(function(){
 
         gridster = $(".gridster ul").gridster({
-          //widget_base_dimensions: [100, 100],
-          widget_margins: [5, 5],
+          widget_base_dimensions: [300, 225],
+          widget_margins: [10, 10],
 		  helper: 'clone',
 		  resize: {
             enabled: true,
@@ -145,22 +172,25 @@
 		  pushing: true,
 		floating: true,
 		draggable: {
-			start: function(event, ui){
-                         console.log(event);
-			 console.log(ui);
-			},
-		       stop: function(event, ui){
-		       }
+			handle: 'header'
 		}
         }).data('gridster');
 
 
         // resize widgets on hover
-        gridster.$el
+        /*gridster.$el
           .on('mouseenter', '> li', function() {
 		   if($(this).attr('id')=='footer')
 		   {
 		    $('#footer .edit').show();
+		   }
+		    if($(this).attr('id')=='section2')
+		   {
+		    $('#section2 .edit').show();
+		   }
+		   if($(this).attr('id')=='section3')
+		   {
+		    $('#section3 .edit').show();
 		   }
           }).on('mouseleave', '> li', function() {
 		  if($(this).attr('id')=='footer')
@@ -168,7 +198,15 @@
 		 
 		    $('#footer .edit').hide();
 		   }
-          })
+		   if($(this).attr('id')=='section2')
+		   {
+		    $('#section2 .edit').hide();
+		   }
+		   if($(this).attr('id')=='section3')
+		   {
+		    $('#section3 .edit').hide();
+		   }
+          })*/
       });
     </script>
 <script type="text/ng-template" id="previewtemplate.html">

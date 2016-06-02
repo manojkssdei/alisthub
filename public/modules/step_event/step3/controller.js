@@ -8,7 +8,7 @@ Module : Step 3 Event step
 angular.module('alisthub').controller('step3Controller', function($scope,$localStorage, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,Lookservice) {
     
     $scope.campaign_div=false;
-    $scope.module_div=$scope.recipient_div=$scope.preview_div=$scope.image_div=true;
+    $scope.module_div=$scope.recipient_div=$scope.preview_div=$scope.image_div=$scope.block_div=true;
    if ($localStorage.userId!=undefined) {
       //To get venues of a user 
         Lookservice.getlookAndFeel({},function(response){
@@ -38,7 +38,8 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
     
     $scope.look_and_feel_choose_type = [
     { "name": "Color",'id':5},
-    {"name": "Images",'id':6}
+    {"name": "Images",'id':6},
+    {"name": "Blocks",'id':7}
    
   ]
     
@@ -48,10 +49,13 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
     if (item1.id==5) {
       
       $scope.color_div=false;
-      $scope.image_div=true;  
+      $scope.image_div=$scope.block_div=true;  
     } else if (item1.id==6) {
-      $scope.color_div=true;
+      $scope.color_div=$scope.block_div=true;
       $scope.image_div=false;       
+    }else if (item1.id==7) {
+      $scope.color_div=$scope.image_div=true;
+      $scope.block_div=false;       
     }
     $scope.selected1 = item1; 
   };
@@ -99,19 +103,20 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
           });
     }
     
-    $scope.edit_footer=function(size){
-         var modalInstance = $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: 'editfooter.html',
-            controller: 'EditFooterCtrl',
-            size: size,
-            resolve: {
-              items: function () {
-                return $scope.items;
-              }
-            }
-          });
-    }
+  $scope.option_ckeditor1 = {
+    language: 'en',
+    allowedContent: true,
+    entities: false
+  };
+   
+  $scope.content1="<h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur </p>";
+  $scope.content2='<h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>';
+  $scope.content3='<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>';
+  $scope.content4='<p>Footer content will be shown here.</p>';
+  // Called when the editor is completely ready.
+  $scope.onReady = function () {
+   
+  };
     
     $scope.select_btn=function(index)
     {
@@ -189,6 +194,115 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
                 fileReader.readAsDataURL(fileToLoad);
             }
         }
+        
+        $scope.banner_image='images/img/f-img-o.jpg';
+        $scope.section2_image='images/img/s-img-o.jpg';
+        $scope.section3_image='images/img/f-img-o.jpg';
+         $scope.encodeImageFileAsURL1 = function() {
+            var filesSelected = document.getElementById("my_file").files;
+            if (filesSelected.length > 0) {
+                var fileToLoad = filesSelected[0];
+
+                var fileReader = new FileReader();
+
+                fileReader.onload = function(fileLoadedEvent) {
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                    var newImage = document.createElement('img');
+                    $scope.image =newImage.src = srcData;
+                    var eventId=$localStorage.eventId;
+                      Lookservice.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
+                        
+                            if (response!=null) {
+                
+                            if (response.code == 200)
+                            {
+                             
+                             if (response.result.insertId!='') {
+                                $scope.banner_image=$scope.image;
+                             }
+                            }
+                
+                            }
+                            
+                        });
+                    
+
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
+        
+        
+        $scope.encodeImageFileAsURL2 = function() {
+            var filesSelected = document.getElementById("my_file2").files;
+            if (filesSelected.length > 0) {
+                var fileToLoad = filesSelected[0];
+
+                var fileReader = new FileReader();
+
+                fileReader.onload = function(fileLoadedEvent) {
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                    var newImage = document.createElement('img');
+                    $scope.image =newImage.src = srcData;
+                    var eventId=$localStorage.eventId;
+                      Lookservice.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
+                        
+                            if (response!=null) {
+                
+                            if (response.code == 200)
+                            {
+                             
+                             if (response.result.insertId!='') {
+                                $scope.section2_image=$scope.image;
+                             }
+                            }
+                
+                            }
+                            
+                        });
+                    
+
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
+        
+        $scope.encodeImageFileAsURL3 = function() {
+            var filesSelected = document.getElementById("my_file3").files;
+            if (filesSelected.length > 0) {
+                var fileToLoad = filesSelected[0];
+
+                var fileReader = new FileReader();
+
+                fileReader.onload = function(fileLoadedEvent) {
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                    var newImage = document.createElement('img');
+                    $scope.image =newImage.src = srcData;
+                    var eventId=$localStorage.eventId;
+                      Lookservice.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
+                        
+                            if (response!=null) {
+                
+                            if (response.code == 200)
+                            {
+                             
+                             if (response.result.insertId!='') {
+                                $scope.section3_image=$scope.image;
+                             }
+                            }
+                
+                            }
+                            
+                        });
+                    
+
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
 
     
     
@@ -205,21 +319,7 @@ angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $u
     };
 });
 
-angular.module('alisthub').controller('EditFooterCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,Lookservice) {
-    $scope.option_ckeditor1 = {
-    language: 'en',
-    allowedContent: true,
-    entities: false
-  };
-  $scope.content1="here i am in here..";
-  // Called when the editor is completely ready.
-  $scope.onReady = function () {
-   console.log("ready");
-  };
-     $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-}); 
+
 
 angular.module('alisthub').filter("sanitize", ['$sce', function($sce) {
   return function(htmlCode){	

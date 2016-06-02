@@ -68,22 +68,28 @@
                <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.box_office_price" name="box_office_price" class="form-control"><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.box_office_price.$invalid && !pricelevelForm.box_office_price.$pristine">Please enter valid box office price</p>
                </div>
 
-               
+
+
+
 
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Quantity Available</div>
-               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.quantity_available" name="quantity_available" class="form-control" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.quantity_available.$invalid && !pricelevelForm.quantity_available.$pristine">Please enter valid available quantity</p>
+               <div class="col-sm-8"><input  type="number" min="0" max={{eventInventory}} ng-model="data1.quantity_available" name="quantity_available" class="form-control" >
+               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.quantity_available.$invalid && !pricelevelForm.quantity_available.$pristine">Please enter valid available quantity or less than given inventory</p>
                </div>
+            </fieldset>
 
                
 
+
             </fieldset>
+
             <fieldset class="form-group">
                <div class="col-sm-4">Hide Online</div>
                <div class="col-sm-8">
             <section class="radio-sec">
-                      		<section class="radio-inline">
+                          <section class="radio-inline">
                               <input id="radio01" type="radio"  name="hide_online" ng-model="data1.hide_online"  value="1">
                               <label for="radio01"><span></span>Yes</label>
                           </section>
@@ -99,7 +105,7 @@
                <div class="col-sm-8">
                    
             <section class="radio-sec">
-                      		<section class="radio-inline">
+                          <section class="radio-inline">
                               <input type="radio" id="radio03" name="hide_in_box_office" ng-model="data1.hide_in_box_office" value="1" >
                               <label for="radio03"><span></span>Yes</label>
                           </section>
@@ -112,7 +118,7 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Minimum Per Order</div>
-               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_per_order.$invalid && !pricelevelForm.minimum_per_order.$pristine">Please enter valid number</p>
+               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_per_order.$invalid && !pricelevelForm.minimum_per_order.$pristine">Please enter valid number or less than available quanity</p>
                </div>
                
                
@@ -121,8 +127,8 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Maximum Per Order</div>
-               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control" >
-               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.maximum_per_order.$invalid && !pricelevelForm.maximum_per_order.$pristine">Please enter valid number</p>
+               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control" >
+               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.maximum_per_order.$invalid && !pricelevelForm.maximum_per_order.$pristine">Please enter valid number or less than available quanity</p>
                </div>
 
                
@@ -142,7 +148,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
         </div>
         </form>
     </script>
-	<script type="text/ng-template" id="pricechange.html">
+  <script type="text/ng-template" id="pricechange.html">
       <form class="pricechangeform" name="pricechangeform" ng-submit="pricechangefunc(data2)" novalidate>
         <div class="modal-header">
            <h3 class="modal-title" style="float:left;">Schedule Price Change</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>

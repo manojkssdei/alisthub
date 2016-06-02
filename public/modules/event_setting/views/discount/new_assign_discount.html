@@ -1,5 +1,20 @@
 <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
 <script src="javascripts/timepicker.js" type="text/javascript"></script>
+<style type="text/css">
+    .custom_error {
+    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
+    color: #fff;
+    margin: -20px 0 15px;
+    padding: 10px;
+}
+
+ .end_time_error {
+    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
+    color: #fff;
+    margin: 0px 0 15px;
+    padding: 10px;
+}
+</style>
 <div class="container">
     <h1>Assign Discount</h1>
     <!-- Form COntainer -->
@@ -68,14 +83,14 @@
                                             <div class="col-sm-6" ng-class="{ 'has-error' : userForm.events.$invalid && !userForm.events.$pristine }" >
                                                 <div class="form-group">
                                                     <label for="EventName">Select one or more events</label>
-                                                    <input type="radio" class="assignEvents" value="all_events" name="events" ng-click="enableBox(1)" ng-model="data.events" /> Apply coupon(s) globally across all events
+                                                    <input type="radio" class="assignEvents" value="all_events" name="events" ng-click="enableBox(1)" ng-model="data.events" required="true" /> Apply coupon(s) globally across all events
                                                 </div>
                                                 <p ng-show="userForm.events.$invalid && !userForm.events.$pristine" class="error-fld ng-binding">Select event.</p>
                                             </div>
                                             <div class="col-sm-6" ng-class="{ 'has-error' : userForm.events.$invalid && !userForm.events.$pristine }" >
                                                 <div class="form-group">
                                                     <label for="EventName">&nbsp;</label>
-                                                    <input type="radio" class="assignEvents" value="choose_events" name="events" ng-click="enableBox(2)"  ng-model="data.events" />Assign to individual event and pricing levels
+                                                    <input type="radio" class="assignEvents" value="choose_events" name="events" ng-click="enableBox(2)"  ng-model="data.events" required="true"  />Assign to individual event and pricing levels
                                                 </div>
                                                 <p ng-show="userForm.events.$invalid && !userForm.events.$pristine" class="error-fld ng-binding">Select event.</p>
                                             </div>
@@ -107,14 +122,14 @@
                                                     <div class="form-group">
                                                     <!-- ng-click="displayPriceLevels( event.id , 'all_price_levels')"  -->
                                                         <label for="EventName">&nbsp;</label>
-            <input type="radio"  ng-model="data.event_id[event.id].price_levels" class="assignEvents ng-pristine ng-valid ng-touched" value="all_price_levels" checked="checked" >Apply to all price levels
+            <input type="radio"  ng-model="data.event_id[event.id].price_levels" class="assignEvents ng-pristine ng-valid ng-touched" value="all_price_levels" ng-click="checkPriceLevelChoosed()" >Apply to all price levels
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                     <!--ng-click="displayPriceLevels( event.id , 'individual_price_levels')" -->
                                                         <label for="EventName">&nbsp;</label>
-            <input type="radio" ng-model="data.event_id[event.id].price_levels" class="assignEvents ng-pristine ng-valid ng-touched" value="individual_price_levels" >Choose individual price levels
+            <input type="radio" ng-model="data.event_id[event.id].price_levels" class="assignEvents ng-pristine ng-valid ng-touched" value="individual_price_levels" ng-click="checkPriceLevelChoosed()" >Choose individual price levels
                                                     </div>
                                                 </div>
                                                 <div ng-show="data.event_id[event.id].price_levels == 'individual_price_levels' "   > <!--priceLevelDiv-->
@@ -159,7 +174,7 @@
                         <div class="col-sm-4" >
                             <div class="form-group">
                                 <label for="EventName">Use Limit<span class="req-limit">*</span></label>
-                                <input  type="number" min="0" class="form-control" placeholder="Limit" ng-model="data.usage_limit" name="usage_limit" />
+                                <input  type="number" min="0" class="form-control" placeholder="Limit" ng-model="data.usage_limit" name="usage_limit" required="true"/>
                                 <p ng-show="userForm.usage_limit.$invalid && !userForm.usage_limit.$pristine" class="error-fld ng-binding">Enter valid usage limit.</p>
                             </div>
                         </div>
@@ -190,13 +205,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.start_date.$invalid && !userForm.start_date.$pristine }" >
                             <div class="form-group">
                                 <label for="EndTime">Start Date<span class="req">*</span></label>
                                 <div class="form-group datepicker">
-                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.start_date" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.start_date" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  required="true"  ng-change="changedendtime()"  />
                                     <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+
+                                     <p ng-show="userForm.start_date.$invalid && !userForm.start_date.$pristine" class="error-fld ng-binding">Select start date.</p>
+
                                 </div>
                             </div>
                         </div>
@@ -204,29 +222,34 @@
                             <div class="form-group">
                                 <label for="StartTime">Start Time</label>
                                 <div class="input-group bootstrap-timepicker timepicker">
-                                    <input  ng-model="data.start_time"  class="form-control input-small timepick" ng-change="changedstarttime()" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                    <input  ng-model="data.start_time"  class="form-control input-small timepick" type="text"  ng-change="changedendtime()" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.end_date.$invalid && !userForm.end_date.$pristine }" >
                             <div class="form-group">
                                 <label for="EndTime">End Date<span class="req">*</span></label>
                                 <div class="form-group datepicker">
-                                    <input type="text" class="form-control" uib-datepicker-popup ng-model="data.end_date" is-open="popup2.opened" datepicker-options="dateOptions"  close-text="Close"  ng-change="recurring_period('end')"/>
+                                    <input type="text" class="form-control" uib-datepicker-popup ng-model="data.end_date" is-open="popup2.opened" datepicker-options="dateOptions"  close-text="Close" ng-change="changedendtime()" required="true" />
                                     <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                                     </span>
                                 </div>
+                                <p ng-show="userForm.end_date.$invalid && !userForm.end_date.$pristine" class="error-fld ng-binding">Select end date</p>
+
+                                      <p ng-show="endDateErrorStatus == 1" class="custom_error">{{endDateError}}</p>
                             </div>
                         </div>
                         <div class="col-sm-6 event" >
                             <div class="form-group">
                                 <label for="EndTime">End Time</label>
                                 <div class="input-group bootstrap-timepicker timepicker">
-                                    <input ng-model="data.end_time" class="form-control input-small timepick" ng-change="changedendtime()" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                    <input ng-model="data.end_time" class="form-control input-small timepick" type="text"  ng-change="changedendtime()" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+
                                 </div>
+                                 <p ng-show="endTimeErrorStatus == 1" class="end_time_error">{{endTimeError}}</p>
                             </div>
                         </div>
                     </div>
@@ -234,7 +257,9 @@
             </div>
             <div class="editor-btn">
             <!-- ng-disabled="userForm.$invalid" -->
-                <button class="pink-btn btn"  ng-click="saveFinalAssignmet()">Save Assignment</button>
+                <button class="pink-btn btn" ng-disabled="userForm.$invalid ||  eventsChoosed == 0 || priceLevelChoosed == 0 || endDateErrorStatus == 1 || endTimeErrorStatus == 1"  ng-click="saveFinalAssignmet()">Save Assignment</button>
+
+                
             </div>
         </form>
     </div>
@@ -275,11 +300,6 @@
                     </select>
                </div>
 
-
-               <div class="col-sm-1">&nbsp;</div>
-               <div class="col-sm-3">
-                    <button ng-show="enableEventAssign" ng-click="eventmakeAssignment();" class="btn btn-primary"  type="submit">Make Selection</button>
-               </div>
             </fieldset>
                         
             <div class="table-responsive">

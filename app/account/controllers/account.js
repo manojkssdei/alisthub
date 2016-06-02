@@ -29,11 +29,16 @@ Created : 2016-05-19
 Created By: Harpreet Kaur
 */
 exports.addCustomFinancialDetails = function(req, res) {
+    
+console.log('req.body before ' , req.body);
+
     for (var index in req.body) {
         if (req.body[index] == undefined) {
             req.body[index] = '';
         }
     }
+
+console.log('req.body after ' , req.body);
 
     if (req.body.organization == undefined) {
         req.body.organization = '';
@@ -75,6 +80,10 @@ exports.addCustomFinancialDetails = function(req, res) {
         req.body.american_express = '';
     }
 
+    if (req.body.zero_auth == undefined) {
+        req.body.zero_auth = '';
+    }
+
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
     req.body.created = curtime;
     req.body.modified = curtime;
@@ -82,12 +91,13 @@ exports.addCustomFinancialDetails = function(req, res) {
     if (req.body.merchant_type && req.body.currency_code && req.body.account_id && req.body.account_password ) {
         if (req.body.id && req.body.id != "" && req.body.id != undefined) {
            
-        var query = "UPDATE `custom_financial_settings` SET `merchant_type` = '" + req.body.merchant_type + "', `organization` = '" + req.body.organization + "', `description` = '" + req.body.description + "', `memo` = '" + req.body.memo + "', `currency_code` = '" + req.body.currency_code + "', `store_number` = '" + req.body.store_number + "', `account_id` = '" + req.body.account_id + "', `account_password` = '" + req.body.account_password + "', `vendor` = '" + req.body.vendor + "', `capture_mode` = '" + req.body.capture_mode + "', `visa` = '" + req.body.visa + "', `master_card` = '" + req.body.master_card + "', `discover` = '" + req.body.discover + "', `american_express` = '" + req.body.american_express + "', `modified` = '" + req.body.modified + "' WHERE seller_id= '" + req.body.seller_id + "' && id=" + req.body.id;
+        var query = "UPDATE `custom_financial_settings` SET `merchant_type` = '" + req.body.merchant_type + "', `organization` = '" + req.body.organization + "', `description` = '" + req.body.description + "', `memo` = '" + req.body.memo + "', `currency_code` = '" + req.body.currency_code + "',  `keyfile_name` = '" + req.body.keyfile_name + "', `store_number` = '" + req.body.store_number + "', `account_id` = '" + req.body.account_id + "', `account_password` = '" + req.body.account_password + "', `vendor` = '" + req.body.vendor + "', `key` = '" + req.body.key + "', `zero_auth` = '" + req.body.zero_auth + "', `capture_mode` = '" + req.body.capture_mode + "', `visa` = '" + req.body.visa + "', `master_card` = '" + req.body.master_card + "', `discover` = '" + req.body.discover + "', `american_express` = '" + req.body.american_express + "', `modified` = '" + req.body.modified + "' WHERE seller_id= '" + req.body.seller_id + "' && id=" + req.body.id;
         } else {
-            var query = "INSERT INTO `custom_financial_settings` (`id`, `seller_id`, `merchant_type`, `organization`, `description`, `memo`, `currency_code`, `store_number`, `account_id`, `account_password`, `vendor`, `capture_mode`, `visa`, `master_card`, `discover`, `american_express`, `created`, `modified`) VALUES (NULL, '" + req.body.seller_id + "', '" + req.body.merchant_type + "', '" + req.body.organization + "', '" + req.body.description + "', '" + req.body.memo + "', '" + req.body.currency_code + "', '" + req.body.store_number + "', '" + req.body.account_id + "', '" + req.body.account_password + "', '" + req.body.vendor + "', '" + req.body.capture_mode + "', '" + req.body.visa + "', '" + req.body.master_card + "', '" + req.body.discover + "', '" + req.body.american_express + "', '" + req.body.created + "', '" + req.body.modified + "')";
+            var query = "INSERT INTO `custom_financial_settings` (`id`, `seller_id`, `merchant_type`, `organization`, `description`, `memo`, `currency_code`, `keyfile_name`, `store_number`, `account_id`, `account_password`, `vendor`, `key` ,`zero_auth` ,`capture_mode`, `visa`, `master_card`, `discover`, `american_express`, `created`, `modified`) VALUES (NULL, '" + req.body.seller_id + "', '" + req.body.merchant_type + "', '" + req.body.organization + "', '" + req.body.description + "', '" + req.body.memo + "', '" + req.body.currency_code + "', '" + req.body.keyfile_name + "', '" + req.body.store_number + "', '" + req.body.account_id + "', '" + req.body.account_password + "', '" + req.body.vendor + "',  '" + req.body.key + "', '" + req.body.zero_auth + "', '" + req.body.capture_mode + "', '" + req.body.visa + "', '" + req.body.master_card + "', '" + req.body.discover + "', '" + req.body.american_express + "', '" + req.body.created + "', '" + req.body.modified + "')";
              }
 
         if (query != "") {
+            console.log('query', query)
             connection.query(query, function(err7, results) {
                 if (err7) {
                     res.json({ error: err7,code: 101});

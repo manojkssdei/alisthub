@@ -167,6 +167,24 @@ module.exports = function(app, express) {
     /* Get selected discount  */
     /////////////////////// Export CSV  ////////////////////////////////
     router.post('/getSelectedDiscount', discount_setting.getSelectedDiscount); 
+   
+   /* View Event Price levels   */
+    
+    router.post('/getEventPriceLevels', discount_setting.getEventPriceLevels);
+
+    /* Assign discount coupons to events and price levels   */
+    
+    router.post('/saveFinalAssignmet', discount_setting.saveFinalAssignmet);
+
+
+   /* View Event Price levels   */
+    
+    router.post('/getEventPriceLevels', discount_setting.getEventPriceLevels);
+
+    /* Assign discount coupons to events and price levels   */
+    
+    router.post('/saveFinalAssignmet', discount_setting.saveFinalAssignmet);
+
 
     /*** Module : Manage Bundle
      *   Get Seller Bundle 

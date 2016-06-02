@@ -13,62 +13,63 @@
                 <div class="row">
                     <div class="col-sm-6 section-col" ng-class="{ 'has-error' : customMerchantForm.merchant_type.$invalid && !customMerchantForm.merchant_type.$pristine }">
                         <label>Merchant Type <span class="req">*</span></label>
-                        <select class="form-control"  name="merchant_type" title="" ng-model="user.merchant_type" ng-change="showPageLayout();" ng-disabled="readonlyFlag" required  >
-                            <option>CyberSource</option>
-                            <option>CardConnect</option>
-                            <option>BeanStream</option>
-                            <option>First Data</option>
-                            <option>Authorize.NET</option>
-                            <option>Authorize.NET Card Present</option>
-                            <option>PayFlow</option>
-                            <option>PayPal Express</option>
-                            <option>Do Not Use</option>
-                            <option>DirectPay</option>
-                            <option>ICICI Bank</option>
-                            <option>Stripe</option>
-                            <option>GoEmerchant</option>
-                            <option>Alignet</option>
-                            <option>Cielo</option>
-                            <option>PagoEfectivo</option>
-                            <option>CC Avenue</option>
-                            <option>PayGate</option>
-                            <option>AirPay</option>
-                            <option>FirstDataGlobalGatewayE4</option>
-                            <option>T1 Authorize.Net Emulator</option>
-                            <option>Transact Authorize.NET Emulator</option>
-                            <option>NMI Authorize.NET Emulator</option>
-                            <option>GoCoin</option>
-                            <!--<option value="7">CyberSource</option>
-                                <option value="13">CardConnect</option>
-                                <option value="5">BeanStream</option>
-                                <option value="1">First Data</option>
-                                <option value="2">Authorize.NET</option>
-                                <option value="21">Authorize.NET Card Present</option>
-                                <option value="3">PayFlow</option>
-                                <option value="4">PayPal Express</option>
-                                <option value="8">Do Not Use</option>
-                                <option value="9">DirectPay</option>
-                                <option value="11">ICICI Bank</option>
-                                <option value="14">Stripe</option>
-                                <option value="15">GoEmerchant</option>
-                                <option value="16">Alignet</option>
-                                <option value="17">Cielo</option>
-                                <option value="18">PagoEfectivo</option>
-                                <option value="20">CC Avenue</option>
-                                <option value="22">PayGate</option>
-                                <option value="27">AirPay</option>
-                                <option value="23">FirstDataGlobalGatewayE4</option>
-                                <option value="24">T1 Authorize.Net Emulator</option>
-                                <option value="26">Transact Authorize.NET Emulator</option>
-                                <option value="10">NMI Authorize.NET Emulator</option>
-                                <option value="25">GoCoin</option>
-                                
-                                -->
+                        <select class="form-control"  name="merchant_type" title="" ng-model="user.merchant_type" ng-change="showPageLayout();" required >
+
+
+<option>CyberSource</option>
+<option>CardConnect</option>
+<option>BeanStream</option>
+<option>First Data</option>
+<option>Authorize.NET</option>
+<option>Authorize.NET Card Present</option>
+<option>PayFlow</option>
+<option>PayPal Express</option>
+<option>Do Not Use</option>
+<option>DirectPay</option>
+<option>ICICI Bank</option>
+<option>Stripe</option>
+<option>GoEmerchant</option>
+<option>Alignet</option>
+<option>Cielo</option>
+<option>PagoEfectivo</option>
+<option>CC Avenue</option>
+<option>PayGate</option>
+<option>AirPay</option>
+<option>FirstDataGlobalGatewayE4</option>
+<option>T1 Authorize.Net Emulator</option>
+<option>Transact Authorize.NET Emulator</option>
+<option>NMI Authorize.NET Emulator</option>
+<option>GoCoin</option>
+<!--<option value="7">CyberSource</option>
+<option value="13">CardConnect</option>
+<option value="5">BeanStream</option>
+<option value="1">First Data</option>
+<option value="2">Authorize.NET</option>
+<option value="21">Authorize.NET Card Present</option>
+<option value="3">PayFlow</option>
+<option value="4">PayPal Express</option>
+<option value="8">Do Not Use</option>
+<option value="9">DirectPay</option>
+<option value="11">ICICI Bank</option>
+<option value="14">Stripe</option>
+<option value="15">GoEmerchant</option>
+<option value="16">Alignet</option>
+<option value="17">Cielo</option>
+<option value="18">PagoEfectivo</option>
+<option value="20">CC Avenue</option>
+<option value="22">PayGate</option>
+<option value="27">AirPay</option>
+<option value="23">FirstDataGlobalGatewayE4</option>
+<option value="24">T1 Authorize.Net Emulator</option>
+<option value="26">Transact Authorize.NET Emulator</option>
+<option value="10">NMI Authorize.NET Emulator</option>
+<option value="25">GoCoin</option>
+
+-->
+
                         </select>
                         <p class="error-fld ng-binding"  ng-show="customMerchantForm.merchant_type.$invalid && !customMerchantForm.merchant_type.$pristine">Select Merchant Type</p>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.organization.$invalid && !customMerchantForm.organization.$pristine }">
                         <div class="form-group">
                             <label> Organization</label>
@@ -85,8 +86,6 @@
                             <p class="error-fld ng-binding"  ng-show="customMerchantForm.description.$invalid && !customMerchantForm.description.$pristine">Enter Description</p>
                         </div>
                     </div>
-                </div>
-                <div class="row" ng-show="memo_div">
                     <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.memo.$invalid && !customMerchantForm.memo.$pristine }">
                         <div class="form-group">
                             <label> Memo</label>
@@ -126,17 +125,6 @@
                         </select>
                         <p ng-show="customMerchantForm.currency_code.$invalid && !customMerchantForm.currency_code.$pristine" class="error-fld ng-binding">Select Currency Code.</p>
                     </div>
-                </div>
-                <div class="row" ng-show="keyfile_name_div">
-                    <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.keyfile_name.$invalid && !customMerchantForm.keyfile_name.$pristine }">
-                        <div class="form-group">
-                            <label> Keyfile Name</label>
-                            <input type="text" class="form-control" name="keyfile_name" placeholder="Keyfile Name"  ng-model="user.keyfile_name"/>
-                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.keyfile_name.$invalid && !customMerchantForm.keyfile_name.$pristine">Enter Keyfile Name </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" ng-show="store_number_div">
                     <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.store_number.$invalid && !customMerchantForm.store_number.$pristine }">
                         <div class="form-group">
                             <label> Store Number</label>
@@ -145,7 +133,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" ng-show="account_password_div">
+                <div class="row">
+                    <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.account_id.$invalid && !customMerchantForm.account_id.$pristine }">
+                        <div class="form-group">
+                            <label> Account Id <span class="req">*</span></label>
+                            <input type="text" class="form-control" name="account_id" placeholder="Partner in PayFlow or Signature in PayPal"  ng-model="user.account_id" required/>
+                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.account_id.$invalid && !customMerchantForm.account_id.$pristine">Enter Account Id</p>
+                        </div>
+                    </div>
                     <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.account_password.$invalid && !customMerchantForm.account_password.$pristine }">
                         <div class="form-group">
                             <label> Password<span class="req">*</span></label>
@@ -154,16 +149,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" ng-show="account_id_div">
-                    <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.account_id.$invalid && !customMerchantForm.account_id.$pristine }">
-                        <div class="form-group">
-                            <label> Account Id <span class="req">*</span></label>
-                            <input type="text" class="form-control" name="account_id" placeholder="Partner in PayFlow or Signature in PayPal"  ng-model="user.account_id" required/>
-                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.account_id.$invalid && !customMerchantForm.account_id.$pristine">Enter Account Id</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" ng-show="vendor_div">
+                <div class="row" ng-show="payFlow_div">
                     <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.vendor.$invalid && !customMerchantForm.vendor.$pristine }">
                         <div class="form-group">
                             <label> Vendor</label>
@@ -171,34 +157,11 @@
                             <p class="error-fld ng-binding"  ng-show="customMerchantForm.vendor.$invalid && !customMerchantForm.vendor.$pristine">Enter Vendor</p>
                         </div>
                     </div>
-                </div>
-                <div class="row" ng-show="key_div">
-                    <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.key.$invalid && !customMerchantForm.key.$pristine }">
-                        <div class="form-group">
-                            <label> Key</label>
-                            <textarea class="form-control" name="key" placeholder="Key"  ng-model="user.key"></textarea>
-                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.key.$invalid && !customMerchantForm.key.$pristine">Enter Key</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" ng-show="zero_auth_div">
-                    <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.zero_auth.$invalid && !customMerchantForm.zero_auth.$pristine }">
-                        <div class="form-group">
-                            <label> Zero Auth</label>
-                            <div class="onoffswitch">
-                                <input type="checkbox" checked="checked" ng-true-value="1" ng-false-value="0" ng-model="user.zero_auth" id="zero_auth_id" class="onoffswitch-checkbox ng-untouched ng-valid ng-dirty ng-valid-parse" name="zero_auth" >
-                                <label for="myonoffswitch4" class="onoffswitch-label"></label>
-                            </div>
-                            <p class="error-fld ng-binding"  ng-show="customMerchantForm.zero_auth.$invalid && !customMerchantForm.zero_auth.$pristine">Select Zero Auth</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" ng-show="capture_mode_div">
                     <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.capture_mode.$invalid && !customMerchantForm.capture_mode.$pristine }">
                         <div class="form-group">
                             <label> Capture Mode</label>
                             <div class="onoffswitch">
-                                <input type="checkbox" checked="checked" ng-true-value="1" ng-false-value="0" ng-model="user.capture_mode" id="capture_mode_id" class="onoffswitch-checkbox ng-untouched ng-valid ng-dirty ng-valid-parse" name="capture_mode" >
+                                <input type="checkbox" checked="checked" ng-true-value="1" ng-false-value="0" ng-model="user.capture_mode" id="myonoffswitch4" class="onoffswitch-checkbox ng-untouched ng-valid ng-dirty ng-valid-parse" name="capture_mode" >
                                 <label for="myonoffswitch4" class="onoffswitch-label"></label>
                             </div>
                             <p class="error-fld ng-binding"  ng-show="customMerchantForm.capture_mode.$invalid && !customMerchantForm.capture_mode.$pristine">Select Capture Mode</p>
@@ -208,7 +171,7 @@
                 <div class="row">
                     <div class="col-sm-6" ng-class="{ 'has-error' : customMerchantForm.merchant_card_types.$invalid && !customMerchantForm.merchant_card_types.$pristine }">
                         <div class="form-group">
-                            <label> Accepted Cards</label>
+                            <label> Card Types</label>
                         </div>
                     </div>
                 </div>

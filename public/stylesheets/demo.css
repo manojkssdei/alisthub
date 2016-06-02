@@ -4,6 +4,7 @@
 
 .gridster {
     position:relative;
+     width: 610px;
 }
 
 .gridster > * {
@@ -183,3 +184,12 @@ ul {
 .gridster .h1, .gridster .h2, .gridster .h3, .gridster .h4, .gridster .h5, .gridster .h6, 
 .gridster h1, .gridster h2, .gridster h3, .gridster h4, .gridster h5, .gridster h6{margin-bottom:10px;}
 
+.gridster li header {
+        background: #999;
+        display: block;
+        font-size: 20px;
+        line-height: normal;
+        padding: 4px 0 6px ;
+        margin-bottom: 20px;
+        cursor: move;
+      }

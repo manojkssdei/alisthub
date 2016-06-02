@@ -655,6 +655,7 @@ table:focus {
 .edit i{display:table-cell; vertical-align:middle;}
 
 .color-picker-wrapper.color-picker-swatch-only .input-group .input-group-addon{border-radius:2px; width:24px!important; border-color:#88919a;}
+color-picker{float: right !important;}
 .color-picker-wrapper.color-picker-swatch-only .input-group .form-control{height:24px;}
 
 /*--------Always at Bottom---------*/
@@ -685,9 +686,6 @@ table:focus {
   margin-top: 30px;
   padding: 40px 68px;
 
-
-}
-
 .fa.fa-caret-down {  display: none;}
 
 /* ng-table header 28-05-2016*/
@@ -697,4 +695,17 @@ table:focus {
 .ng-table-counts .btn { color:#333 !important }
 .assign-discount .btn { min-width:50px;!important }
 .color-picker-wrapper{float: right;}
+/* custom error messages for assign discount*/
+.custom_error {
+    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
+    color: #fff;
+    margin: -20px 0 15px;
+    padding: 10px;
+}
 
+ .end_time_error {
+    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
+    color: #fff;
+    margin: 0px 0 15px;
+    padding: 10px;
+}
