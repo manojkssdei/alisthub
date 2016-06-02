@@ -694,3 +694,17 @@ table:focus {
 .ng-table-counts .btn { color:#333 !important }
 .assign-discount .btn { min-width:50px;!important }
 .color-picker-wrapper{float: right;}
+/* custom error messages for assign discount*/
+.custom_error {
+    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
+    color: #fff;
+    margin: -20px 0 15px;
+    padding: 10px;
+}
+
+ .end_time_error {
+    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
+    color: #fff;
+    margin: 0px 0 15px;
+    padding: 10px;
+}
