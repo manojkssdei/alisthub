@@ -103,19 +103,20 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
           });
     }
     
-    $scope.edit_footer=function(size){
-         var modalInstance = $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: 'editfooter.html',
-            controller: 'EditFooterCtrl',
-            size: size,
-            resolve: {
-              items: function () {
-                return $scope.items;
-              }
-            }
-          });
-    }
+  $scope.option_ckeditor1 = {
+    language: 'en',
+    allowedContent: true,
+    entities: false
+  };
+   
+  $scope.content1="<h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur </p>";
+  $scope.content2='<h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>';
+  $scope.content3='<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>';
+  $scope.content4='<p>Footer content will be shown here.</p>';
+  // Called when the editor is completely ready.
+  $scope.onReady = function () {
+   
+  };
     
     $scope.select_btn=function(index)
     {
@@ -318,21 +319,7 @@ angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $u
     };
 });
 
-angular.module('alisthub').controller('EditFooterCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,Lookservice) {
-    $scope.option_ckeditor1 = {
-    language: 'en',
-    allowedContent: true,
-    entities: false
-  };
-  $scope.content1="here i am in here..";
-  // Called when the editor is completely ready.
-  $scope.onReady = function () {
-   console.log("ready");
-  };
-     $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-}); 
+
 
 angular.module('alisthub').filter("sanitize", ['$sce', function($sce) {
   return function(htmlCode){	
