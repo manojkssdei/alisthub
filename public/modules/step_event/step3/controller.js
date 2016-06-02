@@ -143,19 +143,26 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
     }
     
     $scope.$watch('backgroundColor', function(newValue, oldValue) {
-             console.log(newValue, oldValue);
+             $scope.background_outer=newValue;
         });
     $scope.$watch('InnerbackgroundColor', function(newValue, oldValue) {
-             console.log(newValue, oldValue);
-        });
+            
+             $scope.background_inner=newValue;
+        }); 
     $scope.$watch('TextColor', function(newValue, oldValue) {
-             console.log(newValue, oldValue);
+             
+             if (oldValue==undefined) {
+              $scope.text_color='#000'; 
+             }else{
+             $scope.text_color=newValue;
+             }
         });
     $scope.$watch('OuterborderColor', function(newValue, oldValue) {
-             console.log(newValue, oldValue);
+            
+             $scope.border_outer=newValue;
         });
     $scope.$watch('InnerborderColor', function(newValue, oldValue) {
-             console.log(newValue, oldValue);
+            $scope.border_color="solid 1px "+newValue;
         });
     
      /* Encode Image to base64 URL */

@@ -85,10 +85,10 @@
                     </section>
                </section><!--Left-->
                <section class="col-sm-9 design-right">
-		<section class="gray-frame1">               		
+		<section class="gray-frame1" style="background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">               		
 		<div class="module  gridster">
-		  <ul> 
-  
+		  <ul ng-style="{background: background_inner,border:border_color}"> 
+                    
 
 		  <li data-row="1" data-col="1" data-sizex="2" data-sizey="1"><header>|||</header><div class="main-image"><img src="{{banner_image}}" id="banner_image" alt="banner image" height="150px" width="100%"  onclick="change_image()"><input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" /></div></li>
 		    
