@@ -179,17 +179,6 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                 }
             
             
-            
-            /*$http({
-            url: webservices.updateEmail,
-            method: 'POST',
-            data: $scope.email,
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                  "Accept": "application/json",
-                }
-            }).success(function(data, status, headers, config) {
-            });*/
         }
     };
 

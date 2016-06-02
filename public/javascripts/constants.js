@@ -275,11 +275,15 @@ var showclix_headerConstants = {
                   "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                   "Accept": "application/json",
                  };
-                 
+var token9 = localStorage.getItem( "ngStorage-showclix_token" );
+
 var showclix_tokenConstants = {
-                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                  "Accept": "application/json",
-                  "X-API-Token": localStorage.getItem( "ngStorage-showclix_token" )
+                  //"Content-Type": "application/json; charset=UTF-8",
+                  //"Accept": "application/json",
+                  "Content-Type": "application/json",
+                  //"Access-Control-Allow-Origin":"*",
+                  "X-API-Token": "c09f282dfd94767749fd2c2d7cca4f36b0c590fe56ace77dd18bb254130e5fd1"
+                  
                  };                 
 
 var showclix_webservices = {

@@ -7,6 +7,7 @@ Module : manage venues
 var fs         = require('fs');
 var moment     = require('moment-timezone');
 var path_venue = process.cwd()+'/public/images/venues/';
+var request    = require('request');
 
 /** 
 Method: getSettingCount
@@ -110,7 +111,48 @@ exports.addVenue = function(req,res) {
                   if (err7) {
                     res.json({error:err7,code:101});
                   }
-                  res.json({result:results,code:200});
+                  
+                  ////////////////////// SHOWCLIX API /////////////////////////////
+                  request.post({
+                  headers: {'X-API-Token':'c09f282dfd94767749fd2c2d7cca4f36b0c590fe56ace77dd18bb254130e5fd1'},
+                  url:     'http://api.showclix.com/Venue',
+                  form:    { "venue_name": "AveElante mall",
+              "seating_chart_name": "",
+              "capacity": "120",
+              "description": "test description",
+              "booking_info": null,
+              "image": null,
+              "seating_chart": null,
+              "seating_chart_type": "2",
+              "url": "",
+              "contact_name": "Test Elante",
+              "contact_title": null,
+              "address": "test Elante address",
+              "city": "Neyyork",
+              "state": "AA",
+              "zip": "10005",
+              "country": "US",
+              "phone": "8786767",
+              "fax": "6767676",
+              "email": "manojks@smartdatainc.net",
+              "timezone": "-5",
+              "status": "2",
+              "lat": "40.2466910",
+              "lng": "-85.2932100",
+              "timezone_name": "America/New_York"
+            } }, function(error, response, body){
+                   if (response.headers.location) {
+                    //res.json({"body":body,"response":response.headers.location});
+                    res.json({result:results,showclix:response.headers.location,code:200});
+                   }
+                   else{
+                    res.json({error:"error",code:101}); 
+                   }
+                   
+               });
+               ////////////////////// SHOWCLIX API/////////////////////////////
+                  
+                  
               });
           } else {
               res.json({error:"error",code:101}); 
