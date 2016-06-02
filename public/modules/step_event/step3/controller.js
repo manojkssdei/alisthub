@@ -8,7 +8,7 @@ Module : Step 3 Event step
 angular.module('alisthub').controller('step3Controller', function($scope,$localStorage, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,Lookservice) {
     
     $scope.campaign_div=false;
-    $scope.module_div=$scope.recipient_div=$scope.preview_div=$scope.image_div=true;
+    $scope.module_div=$scope.recipient_div=$scope.preview_div=$scope.image_div=$scope.block_div=true;
    if ($localStorage.userId!=undefined) {
       //To get venues of a user 
         Lookservice.getlookAndFeel({},function(response){
@@ -38,7 +38,8 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
     
     $scope.look_and_feel_choose_type = [
     { "name": "Color",'id':5},
-    {"name": "Images",'id':6}
+    {"name": "Images",'id':6},
+    {"name": "Blocks",'id':7}
    
   ]
     
@@ -48,10 +49,13 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
     if (item1.id==5) {
       
       $scope.color_div=false;
-      $scope.image_div=true;  
+      $scope.image_div=$scope.block_div=true;  
     } else if (item1.id==6) {
-      $scope.color_div=true;
+      $scope.color_div=$scope.block_div=true;
       $scope.image_div=false;       
+    }else if (item1.id==7) {
+      $scope.color_div=$scope.image_div=true;
+      $scope.block_div=false;       
     }
     $scope.selected1 = item1; 
   };
