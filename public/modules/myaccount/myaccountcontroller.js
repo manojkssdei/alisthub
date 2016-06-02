@@ -26,71 +26,110 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
     $scope.openTab = function(id)
     {
         if (id == 1) {
+
+console.log('$scope.basictab' , $scope.basictab);
+             if( $scope.basictab == true) {
+            $scope.basictab     = false;
+            $scope.basictabclass     = "fa-caret-down";
+             }
+             else {
             $scope.basictab     = true;
+            $scope.basictabclass     = "fa-caret-up";
+             }
+
             $scope.producttab = false;
             $scope.discounttab = false;
             $scope.questiontab = false;
             $scope.socialtab  = false;
-            
-            // class
-            $scope.basictabclass     = "fa-caret-up";
+
             $scope.producttabclass   = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-down";
             $scope.socialtabclass    = "fa-caret-down";
         }
         if (id == 2) {
-            $scope.basictab     = false;
-            $scope.producttab   = true;
+
+            if( $scope.producttab == true) {
+            $scope.producttab     = false;
+            $scope.producttabclass     = "fa-caret-down";
+             }
+             else {
+            $scope.producttab     = true;
+            $scope.producttabclass     = "fa-caret-up";
+             }
+
+            $scope.basictab   = false;
             $scope.discounttab = false;
             $scope.questiontab = false;
             $scope.socialtab  = false;
             // class
             $scope.basictabclass     = "fa-caret-down";
-            $scope.producttabclass   = "fa-caret-up";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-down";
             $scope.socialtabclass    = "fa-caret-down";
         }
         if (id == 3) {
+
+            if( $scope.discounttab == true) {
+            $scope.discounttab     = false;
+            $scope.discounttabclass     = "fa-caret-down";
+             }
+             else {
+            $scope.discounttab     = true;
+            $scope.discounttabclass     = "fa-caret-up";
+             }
+
             $scope.basictab   = false;
             $scope.producttab = false;
-            $scope.discounttab  = true;
             $scope.questiontab = false;
             $scope.socialtab  = false;
             // class
             $scope.basictabclass     = "fa-caret-down";
             $scope.producttabclass   = "fa-caret-down";
-            $scope.discounttabclass  = "fa-caret-up";
             $scope.questiontabclass  = "fa-caret-down";
             $scope.socialtabclass    = "fa-caret-down";
         }
         if (id == 4) {
+
+            if( $scope.questiontab == true) {
+            $scope.questiontab     = false;
+            $scope.questiontabclass     = "fa-caret-down";
+             }
+             else {
+            $scope.questiontab     = true;
+            $scope.questiontabclass     = "fa-caret-up";
+             }
             $scope.basictab   = false;
             $scope.producttab = false;
             $scope.discounttab = false;
-            $scope.questiontab  = true;
             $scope.socialtab  = false;
             // class
             $scope.basictabclass     = "fa-caret-down";
             $scope.producttabclass   = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-down";
-            $scope.questiontabclass  = "fa-caret-up";
             $scope.socialtabclass    = "fa-caret-down";
         }
         if (id == 5) {
+
+            if( $scope.socialtab == true) {
+            $scope.socialtab     = false;
+            $scope.socialtabclass     = "fa-caret-down";
+             }
+             else {
+            $scope.socialtab     = true;
+            $scope.socialtabclass     = "fa-caret-up";
+             }
+
             $scope.basictab   = false;
             $scope.producttab = false;
             $scope.discounttab = false;
             $scope.questiontab  = false;
-            $scope.socialtab  = true;
             
             // class
             $scope.basictabclass     = "fa-caret-down";
             $scope.producttabclass   = "fa-caret-down";
             $scope.discounttabclass  = "fa-caret-down";
             $scope.questiontabclass  = "fa-caret-down";
-            $scope.socialtabclass    = "fa-caret-up";
         }
         
     }
