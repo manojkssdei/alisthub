@@ -15,15 +15,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   }
   $scope.loader = false;
   $scope.step1html = '';
-<<<<<<< HEAD
 
-  $ocLazyLoad.inject('alisthub').then(function() {
-    $scope.step1html = global_message.step1html;
-  }, function(e) {
-    console.log(e);
-  });
-  // For bundle html
-=======
 $scope.priceLevel=[];
         $ocLazyLoad.inject('alisthub').then(function() {
             $scope.step1html = global_message.step1html;
@@ -31,7 +23,7 @@ $scope.priceLevel=[];
             console.log(e);
         });
     // For bundle html
->>>>>>> a32376da164f46e2022ff23d2a1182bfad29d015
+
   $scope.bundlehtml = '';
 
   $ocLazyLoad.inject('alisthub').then(function() {
@@ -490,53 +482,24 @@ $scope.rec_year_func = function() {
       }
 
     }
-<<<<<<< HEAD
+
   }
 
-  //update price level
-  $scope.getPrice = function(id) {
-    $rootScope.data1 = {};
-    $serviceTest.getSinglePricelevel({
-      'id': id
-    }, function(response) {
-      if (response.code === 200) {
-        $scope.open_price_level('lg');
-
-        $rootScope.data1 = response.results[0];
-
-      }
-
-
-
-    });
-  }
-
-  // To get Price level.
-  $serviceTest.getPricelevel({
-    'eventId': $eventId
-  }, function(response) {
-    $rootScope.price_level = response.results;
-  });
-  //change status of price level
-  $scope.changeStatus = function(id, status) {
-
-    $scope.data = {};
-    if ($localStorage.userId !== undefined) {
-      $scope.data.id = id;
-      $scope.data.status = status === 1 ? 0 : 1;
-      $scope.loader = true;
-      $serviceTest.changePricelevelStatus($scope.data, function(response) {
-
-        if (response.code === 200) {
-          $eventId = $localStorage.eventId;
-          $serviceTest.getPricelevel({
-            'eventId': $eventId
-          }, function(response) {
-
-            $rootScope.price_level = response.results;
-          });
-          $scope.loader = false;
-=======
+   //update price level
+    $scope.getPrice=function(id){
+        $rootScope.data1={};
+        $serviceTest.getSinglePricelevel({'id':id},function(response){
+            if (response.code==200) {
+                $scope.open_price_level('lg');
+                
+                $rootScope.data1=response.results[0];
+                
+            }
+           
+            
+           
+        }); 
+    }
     
 
  /* ************************CREATED BY DEEPAK K*************** */
@@ -622,63 +585,22 @@ $scope.rec_year_func = function() {
               }
             });
           }  
->>>>>>> a32376da164f46e2022ff23d2a1182bfad29d015
         } else {
-          $scope.activation_message = global_message.ErrorInActivation;
-          $scope.loader = false;
+          data.userId=$localStorage.userId;
+          $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
+            if (response.code == 200) {
+              $scope.success=global_message.event_step1;
+              $scope.data={};
+              $scope.error_message=false;
+              $timeout(function() {
+               $scope.success='';
+               $scope.error_message=true;
+              },3000);
+              window.location.reload();
+            }
+          }); 
         }
-
-      });
     }
-  };
-
-  /** 
-  Method: savedata
-  Description:Function for save the data of recurring event 
-  Created : 2016-04-25
-  Created By:  Deepak khokkar  
-  */
-
-  $scope.savedata = function(data) {
-    if (data.eventtype === 'single') {
-      if (($scope.selectevent_date !== undefined) && ($scope.startevent_time !== undefined) && ($scope.endevent_time !== undefined)) {
-        data.eventdate = $scope.single_start_date;
-
-        data.startevent_time = $scope.startevent_time;
-        data.endevent_time = $scope.endevent_time;
-
-        data.userId = $localStorage.userId;
-        $serviceTest.saveEvent(data, function(response) {
-          if (response.code === 200) {
-            $scope.success = global_message.event_step1;
-            $localStorage.eventId = response.result;
-            $scope.error_message = false;
-            $timeout(function() {
-              $scope.success = '';
-              $scope.error_message = true;
-            }, 3000);
-          }
-        });
-      }
-    } else {
-      data.userId = $localStorage.userId;
-      $serviceTest.saverecurringEvent({
-        'data': data,
-        'date': $scope.between_date
-      }, function(response) {
-        if (response.code === 200) {
-          $scope.success = global_message.event_step1;
-          $scope.data = {};
-          $scope.error_message = false;
-          $timeout(function() {
-            $scope.success = '';
-            $scope.error_message = true;
-          }, 3000);
-          window.location.reload();
-        }
-      });
-    }
-  }
 
 
   $rootScope.starttime = '';
@@ -1778,7 +1700,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
             } else {
               $rootScope.success1 = global_message.price_level_add;
             }
-<<<<<<< HEAD
+
             $timeout(function() {
               $rootScope.error = '';
               $rootScope.success_message1 = false;
@@ -1791,16 +1713,15 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       }
     });
   }
-=======
-        }); 
- }
+
+   
 
  /* CREATED BY DEEPAK K  */
 
   $scope.eventInventory=$rootScope.eventinventory;
   /*************************************************/
  
->>>>>>> a32376da164f46e2022ff23d2a1182bfad29d015
+
 });
 
 /*
