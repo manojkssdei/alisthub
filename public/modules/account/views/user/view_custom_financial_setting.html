@@ -40,7 +40,7 @@
                                     </tr>
                                 </thead> -->
                                 <tbody>
-                                    <tr ng-repeat="data in merchantFinancialData | filter:filter" >
+                                    <tr ng-repeat="data in $data | filter:filter" >
 
                     <td width="10%" header-class="'header-text-align'" title="'Id'" filter="{ id: 'text'}" sortable="'id'" ><strong>{{data.id}}</strong>
                     </td>
@@ -67,7 +67,7 @@
                                       
                                     </tr>
 
-                                     <tr ng-if="merchantFinancialData == ''">
+                                     <tr ng-if="$data == ''">
                                         <td colspan="5" align="center">No Record found!</td>
                                     </tr>
                                     <tr ng-show="loader">
