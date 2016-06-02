@@ -178,7 +178,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
         }
 
        };
-}).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad, $injector,$rootScope,$state,$localStorage,$window){
+}).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad, $injector,$rootScope,$state,$localStorage,reCAPTCHA,$window){
 
     var $showclixService = $injector.get("showclix");
     // function to submit the form after all validation has occurred            
@@ -188,6 +188,11 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
     $scope.unique_type = 0;
     //$scope.disabledBtn = false;
     $rootScope.class_status = 1;
+    
+     /*****************CREATED BY DEEPAK K*********************************/
+        reCAPTCHA.setPublicKey('6LfyK-0SAAAAAAl6V9jBGQgPxemtrpIZ-SPDPd-n');
+     /*===================================================================*/
+
 
         $scope.submitRegistrationform = function()
         {

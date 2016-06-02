@@ -78,6 +78,9 @@
                                 	
                                 </ul>
                             </section>
+			    <section class="tab-con" ng-hide="block_div">
+                            	Block Content
+                            </section>
                         </section>
                     </section>
                </section><!--Left-->
@@ -89,10 +92,10 @@
 
 		  <li data-row="1" data-col="1" data-sizex="2" data-sizey="1"><div class="main-image"><img src="{{banner_image}}" id="banner_image" alt="banner image" height="200px" width="100%"  onclick="change_image()"><input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" /></div></li>
 		    
-		  <li data-row="2" data-col="1" data-sizex="1" data-sizey="1"><a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i>
+		  <li data-row="2" data-col="1" data-sizex="1" data-sizey="1" id="section2"><a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i>
 </a><h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum dolor sit amet</p></li>
 		    
-		  <li data-row="3" data-col="1" data-sizex="1" data-sizey="1"><a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i>
+		  <li data-row="3" data-col="1" data-sizex="1" data-sizey="1" id="section3"><a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i>
 </a><h3>Heading</h3>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum dolor sit amet</p></li>
 		    
@@ -150,8 +153,8 @@ function change_image3()
       $(function(){
 
         gridster = $(".gridster ul").gridster({
-          //widget_base_dimensions: [100, 100],
-          widget_margins: [5, 5],
+          widget_base_dimensions: [300, 225],
+          widget_margins: [10, 10],
 		  helper: 'clone',
 		  resize: {
             enabled: true,
@@ -177,11 +180,27 @@ function change_image3()
 		   {
 		    $('#footer .edit').show();
 		   }
+		    if($(this).attr('id')=='section2')
+		   {
+		    $('#section2 .edit').show();
+		   }
+		   if($(this).attr('id')=='section3')
+		   {
+		    $('#section3 .edit').show();
+		   }
           }).on('mouseleave', '> li', function() {
 		  if($(this).attr('id')=='footer')
 		   {
 		 
 		    $('#footer .edit').hide();
+		   }
+		   if($(this).attr('id')=='section2')
+		   {
+		    $('#section2 .edit').hide();
+		   }
+		   if($(this).attr('id')=='section3')
+		   {
+		    $('#section3 .edit').hide();
 		   }
           })
       });
