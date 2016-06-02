@@ -704,6 +704,8 @@ Module : Export Discount
         $rootScope.assignedPriceLevels = [];
         $rootScope.eventsChoosed = 1;
         $rootScope.priceLevelChoosed = 1;
+        $scope.endDateErrorStatus = 0;
+        $scope.endTimeErrorStatus = 0;
 
         $scope.enableBox = function(id) {
             if (id == 1) {
@@ -741,25 +743,24 @@ $scope.checkPriceLevelChoosed = function() {
 
 
     $scope.changedendtime = function(){
-/*
-console.log('$scope.data.start_date' , $scope.data.start_date) ;
-console.log('$scope.data.end_date' , $scope.data.end_date) ;
 
-        if (($scope.data.start_date !='' || $scope.data.start_date != undefined ) &&  ($scope.data.end_date !='' || $scope.data.end_date != undefined)) {
-            console.log('hi');
+        if ($scope.data.start_date !='' && $scope.data.start_date != undefined && $scope.data.end_date !='' && $scope.data.end_date != undefined) {
             if($scope.data.end_date < $scope.data.start_date){
-                console.log('end date must be greater or equal o startdate');
+                 console.log('endDateError');
+                $scope.endDateErrorStatus = 1; 
+                $scope.endDateError = global_message.endDateError;
+            }
+            if($scope.data.end_date >= $scope.data.start_date){
+                $scope.endDateErrorStatus = 0; 
             }
 
-            var start_date = $scope.data.start_date;
-            var end_date = $scope.data.end_date;
-            var start_only_date = start_date.getDate();
-            var end_only_date = end_date.getDate();
+            var sd = $scope.data.start_date;
+            var ed = $scope.data.end_date;
+          
 
-            if(start_only_date === end_only_date){
-                console.log('same day');
-                console.log('st time - ' , $scope.data.start_time , ' et time - ' , $scope.data.end_time);
-                    if ($scope.data.start_time !='' &&  $scope.data.end_time != "") {
+if(sd.getDate() == ed.getDate() && (sd.getMonth()+1) == (ed.getMonth()+1) && sd.getFullYear() == ed.getFullYear()) {
+                
+                if ($scope.data.start_time !='' && $scope.data.start_time != undefined &&  $scope.data.end_time != "" && $scope.data.end_time != undefined) {
                     var stt = new Date("January 01, 2016 " + $scope.data.start_time);
                     stt = stt.getTime();
 
@@ -767,22 +768,16 @@ console.log('$scope.data.end_date' , $scope.data.end_date) ;
                     endt = endt.getTime();
 
                     if(stt >= endt) {
+                    $scope.endTimeErrorStatus = 1;    
+                    $scope.endTimeError = global_message.date_comparison;
+                    }
 
-                        console.log('end time must be greater start time');
-
-                    $scope.error_message=false;
-                    $scope.endtime='';
-                    $scope.error=global_message.date_comparison; 
-                    $scope.endtime='';
-                    $timeout(function() {
-                        $scope.error='';
-                        $scope.error_message=true;
-                      },3000);
+                    if(stt < endt) {
+                    $scope.endTimeErrorStatus = 0;    
                     }
                 } 
              }
         }
-        */  
     }
 
         $scope.saveFinalAssignmet = function() {

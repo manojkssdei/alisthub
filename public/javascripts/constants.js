@@ -226,6 +226,7 @@ var global_message = {
     /*discount*/
     "discountUpdated" : 'Discount updated successfully',
     "discountAdded" : 'Discount added successfully',
+    "endDateError" : 'End date must be same or greater than start date',
     /*Create Event */
     "step1html":'modules/step_event/views/step1html.html',
     "bundlehtml":'modules/step_event/views/bundlehtml.html',
