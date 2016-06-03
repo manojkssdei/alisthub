@@ -1,4 +1,5 @@
 
+/***********CREATE BY DK******************/
 'use strict';
 angular.module('alisthub')
 .factory('customers', ['$q', '$timeout','communicationService', function Customers($q, $timeout,communicationService) {
@@ -41,3 +42,4 @@ angular.module('alisthub')
   return url;
 }])
 ;
+/***  DK  **/
