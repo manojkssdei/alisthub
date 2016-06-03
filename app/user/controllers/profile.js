@@ -8,6 +8,20 @@ var fs         = require('fs');
 var moment     = require('moment-timezone');
 var path_venue = process.cwd()+'/public/images/venues/';
 
+
+// showclix login
+exports.showclix_login = function(req,res){
+  var request = require('request');
+ request.post({
+        headers: {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                   "Accept": "application/json",},
+        url:     'https://admin.showclix.com/api/registration',
+        form:    {"email":"manojks@smartdatainc.net","password":"manojks@2015"} }, function(error, response, body){
+       res.json({"body":body,"response":response});
+    });
+ 
+}
+
 /** 
 Method: getData
 Description:Function for fetching the data for My account page 
@@ -15,12 +29,22 @@ Created : 2016-05-09
 Created By: Ashish dev swami  
 */
 exports.getData = function(req,res){
-  connection.query('SELECT * from users where id='+req.body.userId, function(err, results) {
+ 
+   if (req.body.userId != "" && req.body.userId != "undefined") {
+    connection.query('SELECT * from users where id='+req.body.userId, function(err, results) {
      if (err) {
       res.json({error:err,code:101});
      }
+     else{
      res.json({result:results,code:200});
+     }
   });
+  }
+  else{
+    res.json({error:"error",code:101});
+  }
+  
+ 
 }
 
 /** 
