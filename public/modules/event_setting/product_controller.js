@@ -351,7 +351,6 @@ Module : Product
                     $serviceTest.addProduct($scope.data, function(response) {
                         if (response.code == 200) {
                             $scope.idata = {};
-                            console.log('step ' , step );
                             if (step == 1) {
                                 $scope.step_2 = true;
                                 $scope.step_1 = $scope.step_3 = false;
@@ -416,7 +415,7 @@ Module : Product
                 $scope.data.status = status == 1 ? 0 : 1;
                 $serviceTest.changeProductStatus($scope.data, function(response) {
                     if (response.code == 200) {
-                        $scope.getProduct();
+                        $scope.getProductDetail();
                     } else {
                         $scope.activation_message = global_message.ErrorInActivation;
                     }
@@ -473,8 +472,6 @@ Module : Product
                 $scope.loader = false;
                 if (response.code == 200) {
                     $scope.productdata = response.result;
-                    console.log('$scope.productdata');
-                    console.log($scope.productdata);
                     $scope.tableParams = new ngTableParams(
                             {
                                     page: 1,            // show first page
