@@ -4,7 +4,7 @@
 .welcometxt .btn-group.dropdown{ float: left;}
 .ng-table-counts .btn{ color:#333; }
 .col-sm-4.event label > input{display:inline-block}
-.monthly-padding {/*padding-top: 20px;*/ padding-bottom: 20px;}
+.monthly-padding {/*padding-top: 20px;*/ padding-bottom: 20px; padding-left:30px; margin-bottom:10px;}
 
 .radiolabel{
 	position:relative;
@@ -66,3 +66,5 @@
     z-index: 0;
 	transform: scale(0.5);
 }
+
+select.sml-sel{height:30px; font-size:14px; padding:0 12px}

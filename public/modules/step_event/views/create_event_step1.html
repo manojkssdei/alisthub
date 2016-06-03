@@ -154,15 +154,13 @@
                         <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
                       </select>
                     </div>
-                  </div>                  
-                </div>
-                <div class="row">
-                	<!-- MONTHLY START -->
-                  <div class="col-sm-5 event" ng-hide="monthly_div">
+                  </div>
+                  <!-- MONTHLY START -->
+                  <div class="col-sm-4 event" ng-hide="monthly_div">
                     <label class="radiolabel"><input type="radio" name="everythisday" value="everythisday" ng-model="monthly.type"><span>Select Particular Day</span></label>
                       <div class="monthly-padding" ng-show="monthly.type == 'everythisday'">
                         On day
-                        <select ng-model="data.monthly_option" ng-change="change_month()" class="form-control w-auto">
+                        <select ng-model="data.monthly_option" ng-change="change_month()">
                           <option ng-repeat="date in dates" value="{{date.id}}">{{date.id}}</option>
                         </select> 
                         of every month
@@ -170,10 +168,10 @@
                     <label class="radiolabel"><input type="radio" name="everythisweek" value="everythisweek" ng-model="monthly.type"><span>Select Particular Week's Day</span></lebel>
                       <div class="monthly-padding" ng-show="monthly.type == 'everythisweek'">
                         On the 
-                        <select ng-model="data.monthly_week_value" ng-change="rec_monthly_func()" class="form-control w-auto">
+                        <select ng-model="data.monthly_week_value" ng-change="rec_monthly_func()">
                           <option ng-repeat="week_value in month_week_selection" value="{{week_value.id}}">{{week_value.name}}</option>
                         </select>
-                        <select ng-model="data.monthly_day_value" ng-change="rec_monthly_func()" class="form-control w-auto">
+                        <select ng-model="data.monthly_day_value" ng-change="rec_monthly_func()">
                           <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
                         </select> 
                         of every month
@@ -182,7 +180,7 @@
                      
                   </div>
                   <!-- MONTHLY END -->
-                </div><!--Monthly-->
+                </div>
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
@@ -358,9 +356,9 @@
           ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
         </div>
-        <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
+       
       </div>
-    </form>
+    </form> 
     <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
     <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
   </div>

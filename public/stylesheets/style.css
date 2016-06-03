@@ -663,6 +663,8 @@ color-picker{float: right !important;}
 .f-b{font-weight:700;}
 .f-sb{font-weight:600;}
 
+.w-auto{width:auto; display:inline-block;}
+
 .mw-100{min-width:100px;}
 
 .assignedEventWithPriceLevel{
