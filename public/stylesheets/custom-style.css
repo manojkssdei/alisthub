@@ -68,3 +68,7 @@
 }
 
 select.sml-sel{height:30px; font-size:14px; padding:0 12px}
+.drag{position:absolute; right:-24px; top:10px;}
+.drag .fa{background:#f3f3f3; border-bottom:1px #ccc solid; padding:10px;}
+
+.inline-radio{display:inline-block; margin-right:20px;}
