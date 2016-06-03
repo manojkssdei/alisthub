@@ -142,7 +142,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 "lazyLoadView": {
                   controller: 'eventhomeController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/events/views/create_an_event.html'
-                }
+                } 
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
               authentication:routerApp.logauthentication,
