@@ -6,7 +6,7 @@ var webservices = {
 
     "getUserregister" : baseUrl + "/webservices/register",
     "checkUnique" : baseUrl + "/webservices/checkUnique",
-    "getUserlogin" : baseUrl + "/webservices/login",
+    "getUserlogin" : baseUrl + "/webservices/login_test",
     "forgetPassword" : baseUrl + "/webservices/forgetPassword",
     "resetPassword" : baseUrl + "/webservices/resetPassword",
     "confirmationEmail" : baseUrl + "/webservices/confirmationEmail",
@@ -96,11 +96,12 @@ var webservices = {
      "userOverview": "/customers/userOverview",
      /*   D K  */
     /* Constants for the My account page */
-    "updateUser" : "/profile/updateUser",
-    "updateSocial" : "/profile/updateSocial",
+    "updateUser" : baseUrl + "/webservices/updateUser",
+    "updateSocial" : baseUrl + "/webservices/updateSocial",
     "updatePassword" : baseUrl + "/webservices/updatePassword",
     "updateEmail" : baseUrl + "/webservices/updateEmail",
     "getData" : baseUrl + "/webservices/getData",
+    "getSocialData" :  "/profile/getData",
 
     /* Constants for the create event step 2 price level */
     "savepricelevel" : "/event/savepricelevel",
@@ -262,6 +263,7 @@ var global_message = {
     "advanceSettingSavingError" : "Error while saving advance settings",
     "successChangeEmail" : "Email has been changed successfully.",
     "errorChangeEmail" : "There is some problem in saving data . Please try after some time .",
+    "errorExistChangeEmail" : "This email already used in system , Please enter another email.",
 
 
     /* Product event popup/listing alerts*/
@@ -269,7 +271,8 @@ var global_message = {
     "event_product_add":"Product information has been added.",
     "event_product_delete":"Product has been deleted successfully.",
 
-
+   /* My account section **/
+   "fetchError" : "There is some problem on Sever side , Please try after some time ."
 }
 
 var appConstants = {
@@ -295,16 +298,20 @@ var showclix_headerConstants = {
                   "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                   "Accept": "application/json",
                  };
-                 
+var token9 = localStorage.getItem( "ngStorage-showclix_token" );
+
 var showclix_tokenConstants = {
-                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                  "Accept": "application/json",
-                  "X-API-Token": localStorage.getItem( "ngStorage-showclix_token" )
+                  //"Content-Type": "application/json; charset=UTF-8",
+                  //"Accept": "application/json",
+                  "Content-Type": "application/json",
+                  //"Access-Control-Allow-Origin":"*",
+                  "X-API-Token": "c09f282dfd94767749fd2c2d7cca4f36b0c590fe56ace77dd18bb254130e5fd1"
+                  
                  };                 
 
 var showclix_webservices = {
     /* Service To generate token on showclicks */
-    "generateToken" : showclixServer + "/api/registration",
+    "generateToken" : "/profile/showclix_login",
      /* Services for Sign up on showclicks Seller */
     "signUp" : showclixAPIServer +"/Seller",
      /* Services for Add Venue on showclicks */

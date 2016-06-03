@@ -4,7 +4,7 @@ Created : 2016-05-17
 Created By: Deepak Khokkar
 Module : SignUp ,Login, Forget Password Module ,Email Confirmation 
 */
-angular.module('alisthub').controller('loginController', function($http,$location,$timeout,$scope, $injector, $ocLazyLoad,$rootScope,$state,$localStorage) {
+angular.module('alisthub').controller('loginController', function($http,$location,$timeout,$scope, $ocLazyLoad,$rootScope,$state,$localStorage,$window) {
         
         if ($localStorage.isuserloggedIn) {
                 $rootScope.class_status = 0;
@@ -22,9 +22,6 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
              },6000);
         }
         
-        ///////////// SHOWCLIX SERVICE INJECTOR ////////////////////////
-        var $showclixService = $injector.get("showclix");
-        ////////////// SHOWCLIX SERVICE INJECTOR ///////////////////////
        
         
         $scope.user = {};
@@ -109,18 +106,15 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
             //////////////  SHOWCLIX SERVICE ////////////////////
         $scope.showclix_data = {};
         $scope.showclix_data = {"email":"manojks@smartdatainc.net","password":"manojks@2015"};
-                       
-                $http({
-                url: serviceUrl,
-                method: 'POST',
-                data: jsonData,
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                    "Accept": "application/json",
-                }
-                }).success(function(data, status, headers, config) {
-
-                if ((data.message == 'error') || (data.user == undefined)) {
+                /////////////////////////////////////////////////////////////////////////////
+                var url = webservices.getUserlogin+"?data="+JSON.stringify(jsonData)+"&callback=jsonp_callback9";
+                    
+                $http.jsonp(url);
+                          
+                $window.jsonp_callback9 = function(data) {
+                     
+                    console.log(data);         
+                    if ((data.message == 'error') || (data.user == undefined)) {
                     if (data.errorMsg == 'AccountNotActivated') {
                         $scope.error = global_message.LoginAuthNotMatchingError;
                         $scope.error_message = false;
@@ -138,11 +132,20 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                     }
 
                 } else {
-                        
-                   $showclixService.generateToken($scope.showclix_data, function(response)
-                   {
+                   
+                   $http({
+                        url: showclix_webservices.generateToken,
+                        method: 'POST',
+                        data: $scope.showclix_data,
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                            "Accept": "application/json",
+                        }
+                    }).success(function(datas, status, headers, config) {
+                    var response = JSON.parse(datas.body);
+                    
                     if (response != null && response != "" && response.token) {
-                        
+                     
                     $rootScope.class_status = 0;
                     $localStorage.isuserloggedIn = $rootScope.isuserloggedIn = $rootScope.footer_login_div = true;
                     $localStorage.menu = $localStorage.after_login_footer_div = $rootScope.menu = $rootScope.after_login_footer_div = false;
@@ -164,6 +167,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                     }
                     else
                     { //checkshowclix
+                        console.log("888888888888888");   
                      $scope.error = global_message.LoginNotMatchingError;
                      $scope.error_message = false;
                         $timeout(function() {
@@ -174,13 +178,17 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                    });
                     
                 }
-            });
+                                                    
+                             
+                }
+                
+                /////////////////////////////////////////////////////////////////////////////       
+                
         }
 
        };
-}).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad, $injector,$rootScope,$state,$localStorage,reCAPTCHA,$window){
+}).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad, $rootScope,$state,$localStorage,reCAPTCHA,$window){
 
-    var $showclixService = $injector.get("showclix");
     // function to submit the form after all validation has occurred            
     $scope.unique = false;
     $scope.message = "";
@@ -200,21 +208,6 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                 var serviceUrl = webservices.getUserregister;
                 $scope.user.hosturl  = servicebaseUrl;
                 var jsonData=$scope.user;
-                
-                ///////////// TESTING SHOWCLIX ////////////////////////
-                
-               /* 
-                $scope.showclix_data = {};
-                $scope.showclix_data = {"first_name":"Manoj","last_name":"Singh","city":"Newyork","state":"Newyork","phone":"6767676767","email":"manojks@smartdatainc.net","password":"manojks@2015"};
-                //first_name last_name city state  phone email
-                $showclixService.signUp($scope.showclix_data, function(response) {
-                        console.log("*******************************************");
-                        console.log(response);
-                        console.log("*******************************************");
-                });
-                ////////////// TESTING SHOWCLIX ///////////////////////
-                */
-                
                 
                 $http({
                     url: serviceUrl,

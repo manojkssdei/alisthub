@@ -115,9 +115,10 @@ angular.module('communicationModule')
                  url: serviceUrl,
                  method: 'POST',
                  data: postData,
+		 //crossDomain:true,
                  headers: headerString
                 }).success(function(data, status, headers, config) {
-                        //console.log(data);
+                        console.log(data);
 			callback(data);
                 });
 		////////////////////////////////////////////////////////////////////////

@@ -7,6 +7,9 @@ Module : manage venues
 var fs         = require('fs');
 var moment     = require('moment-timezone');
 var path_venue = process.cwd()+'/public/images/venues/';
+var request    = require('request');
+//var showClix   = require('./../../../constant.js');
+var showClix   = require('./../../showclix/service.js');
 
 /** 
 Method: getSettingCount
@@ -38,6 +41,7 @@ Created By: Manoj kumar
 */
 
 exports.getVenue = function(req,res){
+     
   connection.query('SELECT * from venues where seller_id='+req.body.userId+ '  ORDER BY created DESC', function(err, results) {
     if (err) {
       res.json({error:err,code:101});
@@ -54,67 +58,98 @@ Created : 2016-04-19
 Created By: Manoj kumar  
 */
 exports.addVenue = function(req,res) {
-
-     var photoname =  chartname = "";
-
-     if(req.body.timezone == undefined) { req.body.timezone = ''; }
-     if(req.body.capacity == undefined) { req.body.capacity = ''; }
-     if(req.body.contact_name == undefined) { req.body.contact_name = ''; }
-     if(req.body.phone == undefined) { req.body.phone = ''; }
-     if(req.body.fax == undefined) { req.body.fax = ''; }
-     if(req.body.email == undefined) { req.body.email = ''; }
-     if(req.body.url == undefined) { req.body.url = ''; }
-     
-     if (req.body.imagedata && req.body.imagedata != "" && req.body.imagedata != undefined) {
-        var photoname = req.body.seller_id+'_image_'+Date.now() + '.jpg';
-        var imagename = path_venue+'/'+photoname;
-        var base64Data = req.body.imagedata.replace(/^data:image\/jpeg;base64,/, "");
-        
-        fs.writeFile(imagename, base64Data, 'base64', function(err) {
-        if (err) {
-         console.log("Image Failure Upload");
-        }
-         console.log("Chart Upload");
-        });
-        req.body.image = photoname;
-     }
-     
-     if (req.body.venue_chart && req.body.venue_chart != "" && req.body.venue_chart != undefined)
+     //console.log(req.body);
+     if (req.body.venue_name != "" && req.body.venue_name != "undefined" && req.body.address != "" && req.body.address != "undefined" && req.body.city != "" && req.body.city != "undefined")
      {
-          var chartname   = req.body.seller_id+'_chart_'+Date.now() + '.jpg';
-          var chartimage  = path_venue+'/'+chartname;
-          var base64Data5 = req.body.venue_chart.replace(/^data:image\/jpeg;base64,/, "");
+          var photoname =  chartname = "";
+          if(req.body.timezone == undefined) { req.body.timezone = ''; }
+          if(req.body.capacity == undefined) { req.body.capacity = ''; }
+          if(req.body.contact_name == undefined) { req.body.contact_name = ''; }
+          if(req.body.phone == undefined) { req.body.phone = ''; }
+          if(req.body.fax == undefined) { req.body.fax = ''; }
+          if(req.body.email == undefined) { req.body.email = ''; }
+          if(req.body.url == undefined) { req.body.url = ''; }
           
-          fs.writeFile(chartimage, base64Data5, 'base64', function(err5) {
-           if (err5) {
-           console.log("Chart Failure Upload");
+          if (req.body.imagedata && req.body.imagedata != "" && req.body.imagedata != undefined) {
+             var photoname = req.body.seller_id+'_image_'+Date.now() + '.jpg';
+             var imagename = path_venue+'/'+photoname;
+             var base64Data = req.body.imagedata.replace(/^data:image\/jpeg;base64,/, "");
+             
+             fs.writeFile(imagename, base64Data, 'base64', function(err) {
+             if (err) {
+              console.log("Image Failure Upload");
+             }
+              console.log("Chart Upload");
+             });
+             req.body.image = photoname;
           }
-           console.log("Image Upload");
-          });
-          req.body.seating_chart = chartname;
-     }
+          
+          if (req.body.venue_chart && req.body.venue_chart != "" && req.body.venue_chart != undefined)
+          {
+               var chartname   = req.body.seller_id+'_chart_'+Date.now() + '.jpg';
+               var chartimage  = path_venue+'/'+chartname;
+               var base64Data5 = req.body.venue_chart.replace(/^data:image\/jpeg;base64,/, "");
+               
+               fs.writeFile(chartimage, base64Data5, 'base64', function(err5) {
+                if (err5) {
+                console.log("Chart Failure Upload");
+               }
+                console.log("Image Upload");
+               });
+               req.body.seating_chart = chartname;
+          }
+          
+               if (req.body.id && req.body.id !="" && req.body.id != undefined) {
+                 var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
+                 req.body.modified = curtime;      
+                 var query = "UPDATE `venues` SET seller_id="+req.body.seller_id+", venue_type='"+req.body.venue_type+"', venue_name='"+req.body.venue_name+"', address='"+req.body.address+"', city='"+req.body.city+"', zipcode='"+req.body.zipcode+"', state='"+req.body.state+"', country='"+req.body.country+"', status='"+req.body.status+"', latitude='"+req.body.latitude+"', longitude='"+req.body.longitude+"', modified='"+req.body.modified+"', fax='"+req.body.fax+"', timezone='"+req.body.timezone+"', capacity='"+req.body.capacity+"', contact_name='"+req.body.contact_name+"', phone='"+req.body.phone+"', email='"+req.body.email+"', url='"+req.body.url+"', image='"+req.body.image+"', seating_chart='"+req.body.seating_chart+"' where id="+req.body.id;
+               }
+               else
+               {
+                 var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
+                 req.body.created = curtime;      
+                 var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`, `fax`, `timezone`, `capacity`, `contact_name`, `phone`, `email`, `url`, `image`, `seating_chart`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.venue_type+"', '"+req.body.venue_name+"', '"+req.body.address+"', '"+req.body.city+"', '"+req.body.zipcode+"', '"+req.body.state+"', '"+req.body.country+"', '1', '"+req.body.latitude+"', '"+req.body.longitude+"', '"+req.body.created+"', '"+req.body.fax+"', '"+req.body.timezone+"', '"+req.body.capacity+"', '"+req.body.contact_name+"', '"+req.body.phone+"', '"+req.body.email+"', '"+req.body.url+"', '"+req.body.image+"', '"+req.body.seating_chart+"')";
+               }
      
-          if (req.body.id && req.body.id !="" && req.body.id != undefined) {
-            var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
-            req.body.modified = curtime;      
-            var query = "UPDATE `venues` SET seller_id="+req.body.seller_id+", venue_type='"+req.body.venue_type+"', venue_name='"+req.body.venue_name+"', address='"+req.body.address+"', city='"+req.body.city+"', zipcode='"+req.body.zipcode+"', state='"+req.body.state+"', country='"+req.body.country+"', status='"+req.body.status+"', latitude='"+req.body.latitude+"', longitude='"+req.body.longitude+"', modified='"+req.body.modified+"', fax='"+req.body.fax+"', timezone='"+req.body.timezone+"', capacity='"+req.body.capacity+"', contact_name='"+req.body.contact_name+"', phone='"+req.body.phone+"', email='"+req.body.email+"', url='"+req.body.url+"', image='"+req.body.image+"', seating_chart='"+req.body.seating_chart+"' where id="+req.body.id;
-          } else {
-            var curtime = moment().format('YYYY-MM-DD HH:mm:ss');     
-            req.body.created = curtime;      
-            var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`, `fax`, `timezone`, `capacity`, `contact_name`, `phone`, `email`, `url`, `image`, `seating_chart`) VALUES (NULL, '"+req.body.seller_id+"', '"+req.body.venue_type+"', '"+req.body.venue_name+"', '"+req.body.address+"', '"+req.body.city+"', '"+req.body.zipcode+"', '"+req.body.state+"', '"+req.body.country+"', '1', '"+req.body.latitude+"', '"+req.body.longitude+"', '"+req.body.created+"', '"+req.body.fax+"', '"+req.body.timezone+"', '"+req.body.capacity+"', '"+req.body.contact_name+"', '"+req.body.phone+"', '"+req.body.email+"', '"+req.body.url+"', '"+req.body.image+"', '"+req.body.seating_chart+"')";
-          }
-
-          if (query != "") {
-              console.log(query);
-              connection.query(query, function(err7, results) {
-                  if (err7) {
-                    res.json({error:err7,code:101});
-                  }
-                  res.json({result:results,code:200});
-              });
-          } else {
-              res.json({error:"error",code:101}); 
-          }
+               if (query != "")
+               {
+                   console.log(query);
+                   connection.query(query, function(err7, results) {
+                       if (err7) {
+                         res.json({error:err7,code:101});
+                       }
+                      ////////////////////// SHOWCLIX API /////////////////////////////
+                      var showClix2 = new showClix();
+                         showClix2.add_venue(req,res,function(data){
+                           console.log("=========================");
+                           console.log(data);
+                           console.log("=========================");
+                           if (data.status == 1) {
+                              
+                              res.json({result:results,showclix:data.location,code:200});
+                           }
+                           else
+                           {
+                              var delquery = "Delete from venues where id="+results.insertId;
+                              connection.query(delquery, function(err7, rollback) {
+                              
+                              })
+                              res.json({error:"error",code:104});
+                                           
+                         }
+                      })
+                    ////////////////////// SHOWCLIX API/////////////////////////////
+                       
+                       
+                   });
+               } else {
+                   res.json({error:"error",code:101}); 
+               }
+          
+     } // validation
+     else{
+          res.json({error:"error",code:101}); 
+     }
 }
 
 /** 

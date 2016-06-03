@@ -12,6 +12,7 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
         }
         var $serviceTest = $injector.get("venues");
 
+              
         if (window.innerWidth > 767) {
             $scope.navCollapsed = false;
         } else {
@@ -193,11 +194,17 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
                 $scope.data.imagedata = $scope.image;
                 $scope.data.venue_chart = $scope.venue_chart;
                 $serviceTest.addVenue($scope.data, function(response) {
+                   
                     if (response.code == 200) {
+                        console.log(response);
+                                             
+                       
                         $location.path("/view_venues/list");
+                       
                     } else {
                         $scope.activation_message = global_message.ErrorInActivation;
                     }
+                    
                 });
             }
         };
@@ -508,7 +515,69 @@ Module : Event Setting
     $scope.discounttabclass = "fa-caret-down";
     $scope.questiontabclass = "fa-caret-down";
     $scope.bundletabclass = "fa-caret-down";
-
+    $scope.id1 = 1;
+    $scope.openTab1 = function(id) {
+        if (id == 1) {
+            $scope.id1 = 2;
+            $scope.venuetab = true;
+            $scope.producttab = false;
+            $scope.discounttab = false;
+            $scope.questiontab = false;
+            $scope.bundletab = false;
+            // class
+            $scope.venuetabclass = "fa-caret-up";
+            $scope.producttabclass = "fa-caret-down";
+            $scope.discounttabclass = "fa-caret-down";
+            $scope.questiontabclass = "fa-caret-down";
+            $scope.bundletabclass = "fa-caret-down";
+        }
+        if (id == 2) {
+            $scope.id1 = 1;
+            $scope.venuetab = false;
+            $scope.producttab = false;
+            $scope.discounttab = false;
+            $scope.questiontab = false;
+            $scope.bundletab = false;
+            // class
+            $scope.venuetabclass = "fa-caret-down";
+            $scope.producttabclass = "fa-caret-down";
+            $scope.discounttabclass = "fa-caret-down";
+            $scope.questiontabclass = "fa-caret-down";
+            $scope.bundletabclass = "fa-caret-down";
+        }
+    }
+    $scope.id2 = 1;
+    $scope.openTab2 = function(id) {
+        if (id == 1) {
+            $scope.id2 = 2;
+            $scope.venuetab = false;
+            $scope.producttab = true;
+            $scope.discounttab = false;
+            $scope.questiontab = false;
+            $scope.bundletab = false;
+            // class
+            $scope.venuetabclass = "fa-caret-down";
+            $scope.producttabclass = "fa-caret-up";
+            $scope.discounttabclass = "fa-caret-down";
+            $scope.questiontabclass = "fa-caret-down";
+            $scope.bundletabclass = "fa-caret-down";
+        }
+        if (id == 2) {
+            $scope.id2 = 1;
+            $scope.venuetab = false;
+            $scope.producttab = false;
+            $scope.discounttab = false;
+            $scope.questiontab = false;
+            $scope.bundletab = false;
+            // class
+            $scope.venuetabclass = "fa-caret-down";
+            $scope.producttabclass = "fa-caret-down";
+            $scope.discounttabclass = "fa-caret-down";
+            $scope.questiontabclass = "fa-caret-down";
+            $scope.bundletabclass = "fa-caret-down";
+        }
+    }
+    
 /*Open the different tabs of event setting page as per request */
 $scope.id1=1;
 $scope.id2=1;

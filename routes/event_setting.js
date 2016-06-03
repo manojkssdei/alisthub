@@ -210,5 +210,65 @@ module.exports = function(app, express) {
     
     router.post('/getEventPriceLevel', bundle_setting.getEventPriceLevel);
     
+    router.get('/testrequest', function(req, res, next) {
+    
+    var request = require('request');
+      
+    /*request('http://api.showclix.com/Venue', function (error, response, body) {
+          if (!error && response.statusCode == 200) {
+            console.log(body) // Show the HTML for the Google homepage.
+            res.json({"body":body,"response":response});
+          }
+          else{
+            res.json({"body":"error","response":"error"});
+          }
+    })*/
+      
+    ///////////////////////////////////////////////////////////////////////////////
+    /*request.post({
+        headers: {'X-API-Token':'c09f282dfd94767749fd2c2d7cca4f36b0c590fe56ace77dd18bb254130e5fd1'},
+        url:     'http://api.showclix.com/Venue',
+        form:    { "venue_name": "AveElante mall",
+  "seating_chart_name": "",
+  "capacity": "120",
+  "description": "test description",
+  "booking_info": null,
+  "image": null,
+  "seating_chart": null,
+  "seating_chart_type": "2",
+  "url": "",
+  "contact_name": "Test Elante",
+  "contact_title": null,
+  "address": "test Elante address",
+  "city": "Neyyork",
+  "state": "AA",
+  "zip": "10005",
+  "country": "US",
+  "phone": "8786767",
+  "fax": "6767676",
+  "email": "manojks@smartdatainc.net",
+  "timezone": "-5",
+  "status": "2",
+  "lat": "40.2466910",
+  "lng": "-85.2932100",
+  "timezone_name": "America/New_York"
+} }, function(error, response, body){
+       res.json({"body":body,"response":response.headers.location});
+    });*/
+    request.post({
+        headers: {'X-API-Token':'c09f282dfd94767749fd2c2d7cca4f36b0c590fe56ace77dd18bb254130e5fd1'},
+        url:     'http://api.showclix.com/VenueSellers',
+        form:    { "venue_id":"34684",
+                   "seller_id": "27113"
+  } }, function(error, response, body){
+       res.json({"body":body,"response":response});
+    });
+    
+    
+    
+      //////////////////////////////////////////////////////////////////////////////
+    });
+
+    
     app.use('/event_setting', router);
 }
