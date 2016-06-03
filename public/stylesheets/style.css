@@ -367,26 +367,11 @@ input[type="radio"].assignEvents { display: block; }
 .btn-small{padding:5px 15px; font-weight:bold; font-size:12px; text-transform:uppercase;}
 
 .module{margin-bottom:10px;}
-.btn-file {
-        position: relative;
-        overflow: hidden;
-    }
-.btn-file input[type=file] {
-        position: absolute;
-        top: 0;
-        right: 0;
-        min-width: 100%;
-        min-height: 100%;
-        font-size: 100px;
-        text-align: right;
-        filter: alpha(opacity=0);
-        opacity: 0;
-        outline: none;
-        background: white;
-        cursor: inherit;
-        display: block;
-    }
-	.right-btns{float:right;}
+.btn-file {  position: relative; overflow: hidden;}
+.btn-file input[type=file] { position: absolute; top: 0;  right: 0; min-width: 100%; min-height: 100%;
+        font-size: 100px;  text-align: right; filter: alpha(opacity=0); opacity: 0;  outline: none;
+        background: white;  cursor: inherit; display: block; }
+ .right-btns{float:right;}
 
 /*-----------6/4/2016---------------*/
 .top-section { background: #b5b5b5; color: #fff; }
@@ -702,7 +687,7 @@ color-picker{float: right !important;}
     margin: -20px 0 15px;
     padding: 10px;
 }
-
+.uib-datepicker .btn .text-info  {  background-color: #ffffff !important; box-shadow: none !important; color: #333 !important;}
  .end_time_error {
     background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
     color: #fff;
