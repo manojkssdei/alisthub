@@ -1,8 +1,9 @@
 
+<!--  CREATE BY DK -->
 <div class="container">
-    <h1>Add a Customer</h1>
+    <h1>{{page_title}} a Customer</h1>
     <div class="form-section  wt-frame">
-     <form class="event-form" name="adduserForm" novalidate>
+     <form class="event-form" name="adduserForm" ng-submit="addCustomer()" novalidate>
             <section class="gray-frame">
                 <div class="row">
                     <div class="col-sm-6 section-col" ng-class="{ 'has-error' : adduserForm.first_name.$invalid && !adduserForm.first_name.$pristine }">
@@ -17,7 +18,7 @@
                         <p ng-show="adduserForm.last_name.$invalid && !adduserForm.last_name.$pristine" class="error-fld ng-binding">Enter Last Name.</p>
                     </div>
                 </div>
-                  <div class="row">
+                <div class="row">
                     <div class="col-sm-6 section-col" ng-class="{ 'has-error' : adduserForm.email.$invalid && !adduserForm.email.$pristine }">
                         <label>Email <span class="req">*</span></label>
                         <input type="email" name="email" ng-model="user.email" class="form-control" ng-blur="checkuniqueuser();" placeholder="email address" required> 
@@ -57,7 +58,7 @@
                             <p ng-show="adduserForm.phone.$invalid && !adduserForm.phone.$pristine" class="error-fld ng-binding">Enter Email phone.</p>
 
                         </div>
-                    </div> 
+                     </div> 
                     </div>
                     <div class="row">
                     <div class="col-sm-6 section-col" >
@@ -71,10 +72,9 @@
                         <label>Zipcode</label>
                         <input type="text" name="zipcode" ng-model="user.zipcode" class="form-control" placeholder="Enter Zipcode" >
                     </div>
+                    </div>
                 </div>
-                </div>
-            
-                 <div class="row">
+                <div class="row">
                  <div class="col-sm-6 section-col" ng-class="{ 'has-error' : adduserForm.country.$invalid && !adduserForm.country.$pristine }">
                         <label>Country <span class="req">*</span></label>
                         <select class="form-control"  name="country" title="" ng-model="user.country" ng-change="showState();" required>
@@ -91,13 +91,17 @@
 
                        
                     </div>
+
                 </div>
-                </div>
-         </section>
-        </form>
-        <div class="editor-btn">
-            <button class="pink-btn btn" ng-click="addCustomer()" ng-disabled="adduserForm.$invalid">SUBMIT</button>
-            <button class="pink-btn btn" ui-sref="view_customer">CANCEL</button>         
+
+                </section>
+                 <div class="editor-btn">
+            <button type="submit" class="pink-btn btn"  ng-disabled="adduserForm.$invalid">SUBMIT</button>
+            <button type="button" class="pink-btn btn" ui-sref="view_customer">CANCEL</button>         
         </div>
-    </div>
+            </form>
+            </div>
 </div>
+
+
+<!--   DK -->
