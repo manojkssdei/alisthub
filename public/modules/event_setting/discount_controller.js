@@ -281,7 +281,7 @@ Created : 2016-05-16
 Created By: Harpreet Kaur
 Module : Discount 
 */
-.controller('manageDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $location , $timeout,ngTableParams) {
+.controller('manageDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $location , $timeout , ngTableParams) {
 
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
@@ -439,7 +439,7 @@ Module : Discount
             //#/assign_discount/assign
             //$rootScope.address=$localStorage.address=data.user.User.address;
         $scope.goPath = function() {
-            console.log(' $scope.listQues = ' , $scope.listQues , ' scope.disc_id = ' ,$scope.disc_id , '$scope.checkbox =' , $scope.checkbox );
+            //console.log(' $scope.listQues = ' , $scope.listQues , ' scope.disc_id = ' ,$scope.disc_id , '$scope.checkbox =' , $scope.checkbox );
             if ($scope.listQues == 1) {
                 $rootScope.discount = $localStorage.discount = $scope.disc_id;
             } else {
@@ -661,7 +661,7 @@ Module : Export Discount
             return '';
         }
     })
-    .controller('assignDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $uibModal, $location) {
+    .controller('assignDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $uibModal, $location ,$timeout) {
 
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
@@ -713,7 +713,7 @@ Module : Export Discount
                 $scope.enable_event_box = false;
                 $scope.eventsChoosed = $rootScope.eventsChoosed = 1;
                 $scope.priceLevelChoosed = $rootScope.priceLevelChoosed = 1;
-                console.log(' eventsChoosed ', $scope.eventsChoosed );
+                //console.log(' eventsChoosed ', $scope.eventsChoosed );
                 $rootScope.assignedEventWithPriceLevel = false;
             }
             if (id == 2) {
@@ -721,7 +721,7 @@ Module : Export Discount
                 $scope.enable_event_box = true;
                 $scope.eventsChoosed = $rootScope.eventsChoosed = 0;
                 $scope.priceLevelChoosed = $rootScope.priceLevelChoosed = 0;
-                console.log(' eventsChoosed ', $scope.eventsChoosed );
+                //console.log(' eventsChoosed ', $scope.eventsChoosed );
             }
         }
 
@@ -738,7 +738,7 @@ $scope.checkPriceLevelChoosed = function() {
         $scope.priceLevelChoosed = 0;
         }
   }
-  console.log('$scope.priceLevelChoosed' , $scope.priceLevelChoosed);
+  //console.log('$scope.priceLevelChoosed' , $scope.priceLevelChoosed);
 }
 
 
@@ -746,7 +746,7 @@ $scope.checkPriceLevelChoosed = function() {
 
         if ($scope.data.start_date !='' && $scope.data.start_date != undefined && $scope.data.end_date !='' && $scope.data.end_date != undefined) {
             if($scope.data.end_date < $scope.data.start_date){
-                 console.log('endDateError');
+                 //console.log('endDateError');
                 $scope.endDateErrorStatus = 1; 
                 $scope.endDateError = global_message.endDateError;
             }
@@ -781,34 +781,34 @@ if(sd.getDate() == ed.getDate() && (sd.getMonth()+1) == (ed.getMonth()+1) && sd.
     }
 
         $scope.saveFinalAssignmet = function() {
-            console.log('$scope.data ' , $scope.data );
+            //console.log('$scope.data ' , $scope.data );
              if ($localStorage.userId != undefined) {
                 $scope.data.seller_id = $scope.eventInfo.seller_id = $localStorage.userId;
                 $scope.data.discount_id = $localStorage.discount;
 
-console.log('$rootScope.assignedPriceLevels' , $rootScope.assignedPriceLevels);
+//console.log('$rootScope.assignedPriceLevels' , $rootScope.assignedPriceLevels);
 
 if($scope.data.events == "choose_events") {
-console.log('inside if');
+//console.log('inside if');
     for(var event_id_key in $scope.data.event_id) {
-        console.log('event_id_key' , event_id_key);
-        console.log('$scope.data.event_id[event_id_key].price_levels' , $scope.data.event_id[event_id_key].price_levels);
+        //console.log('event_id_key' , event_id_key);
+        //console.log('$scope.data.event_id[event_id_key].price_levels' , $scope.data.event_id[event_id_key].price_levels);
 
           if($scope.data.event_id[event_id_key].price_levels == "all_price_levels") {
             var choosen_price_level = {};
-            console.log('choose all price levels for event ' , event_id_key );
+            //console.log('choose all price levels for event ' , event_id_key );
 
             for( key in $rootScope.assignedPriceLevels) {
-                console.log(' rootscope price level key' , key);
+                //console.log(' rootscope price level key' , key);
                // push all price level of event to choosen_price_level key
                //var choosen_price_level = $scope.data.event_id[event_id_key].choosen_price_level;
-              console.log(' $rootScope.assignedPriceLevels[key].event_id' , $rootScope.assignedPriceLevels[key].event_id);
-              console.log(' $rootScope.assignedPriceLevels[key].id' , $rootScope.assignedPriceLevels[key].id);
+              //console.log(' $rootScope.assignedPriceLevels[key].event_id' , $rootScope.assignedPriceLevels[key].event_id);
+              //console.log(' $rootScope.assignedPriceLevels[key].id' , $rootScope.assignedPriceLevels[key].id);
               if($rootScope.assignedPriceLevels[key].event_id == event_id_key )
                 {
                     var price_level_id = $rootScope.assignedPriceLevels[key].id;
                     choosen_price_level[price_level_id] = true;
-                    console.log('choosen_price_level' , choosen_price_level);
+                    //console.log('choosen_price_level' , choosen_price_level);
                     //$scope.data.event_id[event_id_key].choosen_price_level.push(choosen_price_level);
                 $scope.data.event_id[event_id_key].choosen_price_level = choosen_price_level;
                 }
@@ -826,8 +826,8 @@ console.log('inside if');
                     $location.path("/view_discounts/list");
                 }
                 else{
-                    console.log('final scope data' , $scope.data );
-                    console.log('call saveFinalAssignmet');
+                    //console.log('final scope data' , $scope.data );
+                    //console.log('call saveFinalAssignmet');
                     $serviceTest.saveFinalAssignmet($scope.data, function(response) {
                         if (response.code == 200) {
                 $scope.success_message = true;
@@ -902,14 +902,14 @@ console.log(' -------------- -------------- -------------- -------------- ');
 
         $scope.removeMoreRow = function(key, id) {
             $scope.discountlist[id] = "";
-            console.log(key +"::"+ id );
+            //console.log(key +"::"+ id );
             delete $scope.discountlist[id];
 
             $scope.discountIds = $localStorage.discount;
             $scope.discountIds.pop(parseInt(id));
             $localStorage.discount = $scope.discountIds;
 
-            console.log($scope.discountlist);
+            //console.log($scope.discountlist);
             if ($scope.discountlist.length == 0) {
                 $scope.enableDiscountDiv = true;
             }
@@ -923,32 +923,36 @@ console.log(' -------------- -------------- -------------- -------------- ');
         }
 
         $scope.pushDiscount = function() {
-            console.log('while adding more more discount , in pushDiscount');
-            console.log('$scope.alldiscountlist' , $scope.alldiscountlist);
-            console.log('$scope.add_code' , $scope.add_code);
+            //console.log('while adding more more discount , in pushDiscount');
+            //console.log('$scope.alldiscountlist' , $scope.alldiscountlist);
+            //console.log('$scope.add_code' , $scope.add_code);
 
                 var current_data = $scope.alldiscountlist[$scope.add_code];
                 $scope.discountlist[$scope.add_code] = {};
                 $scope.discountlist[$scope.add_code].coupon_name = current_data.coupon_name;
                 $scope.discountlist[$scope.add_code].coupon_code = current_data.coupon_code;
-                console.log('$scope.add_code' ,  $scope.discountlist);
-                console.log('$localStorage.discount' ,  $localStorage.discount);
+                //console.log('$scope.add_code' ,  $scope.discountlist);
+                //console.log('$localStorage.discount' ,  $localStorage.discount);
 
                 $scope.discountIds = $localStorage.discount;
-                console.log('$scope.discountIds before push' , $scope.discountIds);
+                //console.log('$scope.discountIds before push' , $scope.discountIds);
                 
-                if ( $scope.add_code in $scope.discountIds ) {
-                    alert("exist"); 
+                var alreadyExist = 0;
+                for(var key in $scope.discountIds) {
+                    var dis_code = $scope.discountIds[key];
+                    if(dis_code == $scope.add_code)
+                    {
+                        alreadyExist = 1;
+                    }
                 }
-                else
-                {
+                if ( alreadyExist != 1 ) {
                    $scope.discountIds.push(parseInt($scope.add_code));
-                   console.log('$scope.discountIds after push' , $scope.discountIds); 
+                   //console.log('$scope.discountIds after push' , $scope.discountIds); 
                 }
 
-               
+                //console.log('$scope.discountIds ' ,  $scope.discountIds);
                 $localStorage.discount = $scope.discountIds;
-                console.log('$localStorage.discount' ,  $localStorage.discount);
+                //console.log('$localStorage.discount' ,  $localStorage.discount);
             }
             //// Make Assign ment service start
         $scope.makeAssignment = function() {
@@ -1165,10 +1169,10 @@ angular.module('alisthub').controller('EventModalInstanceCtrl', function($localS
 
         $scope.eventmakeAssignment = function() {
                 
-                console.log('eventmakeAssignment called');
+                //console.log('eventmakeAssignment called');
             if( $rootScope.eventcheckboxGlobalIds != []){
                  $uibModalInstance.dismiss('cancel');
-                 console.log( $rootScope.eventcheckboxGlobalIds);
+                 //console.log( $rootScope.eventcheckboxGlobalIds);
             }
 
            //$scope.assignedEventWithPriceLevel = false;
@@ -1194,14 +1198,14 @@ angular.module('alisthub').controller('EventModalInstanceCtrl', function($localS
 
 
                         
-                        console.log('$rootScope.assignedEvents');
-                        console.log($rootScope.assignedEvents);
-                        console.log('$rootScope.assignedPriceLevels');
-                        console.log($rootScope.assignedPriceLevels);
+                        //console.log('$rootScope.assignedEvents');
+                        //console.log($rootScope.assignedEvents);
+                        //console.log('$rootScope.assignedPriceLevels');
+                        //console.log($rootScope.assignedPriceLevels);
 
                         $rootScope.eventsChoosed = 1;
 
-                        console.log('$rootScope.eventsChoosed' , $rootScope.eventsChoosed);
+                        //console.log('$rootScope.eventsChoosed' , $rootScope.eventsChoosed);
                        // $rootScope.discount = $localStorage.discount = "";
                         //$location.path("/view_discounts/list");
 
@@ -1266,7 +1270,7 @@ angular.module('alisthub').controller('EventModalInstanceCtrl', function($localS
                             $rootScope.allEvents.push(obj);
                             $scope.event_id.push(valId);
                         }
-                        console.log('$scope.event_id ------- ' , $scope.event_id);
+                        //console.log('$scope.event_id ------- ' , $scope.event_id);
                         $scope.tableParams = new ngTableParams(
             			{
             				page: 1,            // show first page
