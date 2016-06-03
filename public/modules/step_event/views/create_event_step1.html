@@ -157,7 +157,7 @@
                   </div>
                   <!-- MONTHLY START -->
                   <div class="col-sm-4 event" ng-hide="monthly_div">
-                    <label><input type="radio" name="everythisday" value="everythisday" ng-model="monthly.type">Select Particular Day</label>
+                    <label class="radiolabel"><input type="radio" name="everythisday" value="everythisday" ng-model="monthly.type"><span>Select Particular Day</span></label>
                       <div class="monthly-padding" ng-show="monthly.type == 'everythisday'">
                         On day
                         <select ng-model="data.monthly_option" ng-change="change_month()">
@@ -165,8 +165,7 @@
                         </select> 
                         of every month
                       </div>
-                    <br>
-                    <label><input type="radio" name="everythisweek" value="everythisweek" ng-model="monthly.type">Select Particular Week's Day</lebel>
+                    <label class="radiolabel"><input type="radio" name="everythisweek" value="everythisweek" ng-model="monthly.type"><span>Select Particular Week's Day</span></lebel>
                       <div class="monthly-padding" ng-show="monthly.type == 'everythisweek'">
                         On the 
                         <select ng-model="data.monthly_week_value" ng-change="rec_monthly_func()">
@@ -178,6 +177,7 @@
                         of every month
                         <br><span style="color: red">{{monthly_error}}</span>
                       </div>
+                     
                   </div>
                   <!-- MONTHLY END -->
                 </div>
@@ -290,19 +290,19 @@
                       </div>
                       <div class="col-sm-6">
                         <div class="form-group">
-                          <label for="City">State<span class="req">*</span></label>
-                          <input type="text" class="form-control" ng-model="data.state" name="state" required>
-                          <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
-                          
+                          <label for="Zipcode">Zipcode<span class="req">*</span></label>
+                          <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" required>
+                          <span style="color:red" ng-show="myForm.zipcode.$dirty && myForm.zipcode.$invalid">  <span  ng-show="myForm.zipcode.$error.required">Zipcode is required</span></span>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-sm-6">
                         <div class="form-group">
-                          <label for="Zipcode">Zipcode<span class="req">*</span></label>
-                          <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" required>
-                          <span style="color:red" ng-show="myForm.zipcode.$dirty && myForm.zipcode.$invalid">  <span  ng-show="myForm.zipcode.$error.required">Zipcode is required</span></span>
+                          <label for="City">State<span class="req">*</span></label>
+                          <input type="text" class="form-control" ng-model="data.state" name="state" required>
+                          <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
+                          
                         </div>
                       </div>
                       <div class="col-sm-6">
@@ -356,9 +356,9 @@
           ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
           <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
         </div>
-        <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
+       
       </div>
-    </form>
+    </form> 
     <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
     <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
   </div>
