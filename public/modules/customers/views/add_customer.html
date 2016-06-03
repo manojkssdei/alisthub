@@ -20,7 +20,7 @@
                   <div class="row">
                     <div class="col-sm-6 section-col" ng-class="{ 'has-error' : adduserForm.email.$invalid && !adduserForm.email.$pristine }">
                         <label>Email <span class="req">*</span></label>
-                        <input type="email" name="email" ng-model="user.email" class="form-control" ng-blur="checkuniqueuser();" placeholder="email address" required> 
+                        <input type="email" name="email" ng-model="user.email" class="form-control" ng-blur="checkuniqueuser();" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"  placeholder="email address" required> 
                          <span ng-show="success_message">
                             <p class="success-fld">{{unique}}</p>
                         </span>
@@ -28,7 +28,7 @@
                             <p class="error-fld">{{unique}}</p>
                         </span>
                          <span ng-hide="error_message">
-                            <p class="error-fld ng-binding" ng-show="(unique && unique_type == 3 ) || (adduserForm.email.$error.required  && adduserForm.email.$invalid && !adduserForm.email.$pristine)">Enter a valid email</p>
+                            <p class="error-fld ng-binding" ng-show="(unique && unique_type == 3 ) || (adduserForm.email.$error.required  && adduserForm.email.$invalid && !adduserForm.email.$pristine) || adduserForm.email.$error.pattern">Enter a valid email</p>
                         </span>
                     </div>
                     <div class="col-sm-6 section-col" ng-class="{ 'has-error' : adduserForm.address.$invalid && !adduserForm.address.$pristine }">

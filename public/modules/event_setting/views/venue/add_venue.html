@@ -154,8 +154,8 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="Zipcode">Email<span class="req"></span></label>
-                                                    <input type="email" class="form-control" name="email" ng-model="data.email">
-                                                    <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="error-fld ng-binding">Enter a valid email.</p>  
+                                                    <input type="email" class="form-control" name="email" ng-model="data.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+                                                    <p ng-show="(userForm.email.$invalid && !userForm.email.$pristine) || userForm.email.$error.pattern" class="error-fld ng-binding">Enter a valid email.</p>  
                                                 </div>
                                             </div>
                                         </div>

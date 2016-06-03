@@ -109,9 +109,9 @@
                         <div class="col-sm-4">
                             <div class="form-group" ng-class="{true: 'error'}[submitted2]">
                                 <label for="fname">Email Address<span class="req">*</span></label>
-                                <input type="email" class="form-control" ng-model="email.email" name="email" placeholder="Email" ng-blur="checkUnique()" required>
+                                <input type="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" class="form-control" ng-model="email.email" name="email" placeholder="Email" ng-blur="checkUnique()" required>
                                 <span class="help-inline" ng-show="submitted2 && accountmail.email.$error.required">Please enter email</span>
-                                <span class="help-inline" ng-show="submitted2 && accountmail.email.$error.email">Please enter valid email</span>
+                                <span class="help-inline" ng-show="(submitted2 && accountmail.email.$error.email) || accountmail.email.$error.pattern">Please enter valid email</span>
                                  <span class="success-fld" ng-show="unique_type == 1">{{unique}}</span>
                                  <span class="help-inline" ng-show="unique_type == 2">{{unique}}</span>
                                  
@@ -120,9 +120,9 @@
                         <div class="col-sm-4">
                             <div class="form-group" ng-class="{true: 'error'}[submitted2]">
                                 <label for="Zipcode">Second Email</label>
-                                <input type="email" class="form-control" ng-model="email.altemail" name="altemail" placeholder="Alternate Email">
+                                <input type="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" class="form-control" ng-model="email.altemail" name="altemail" placeholder="Alternate Email">
                                      <span class="help-inline" ng-show="submitted2 && accountmail.altemail.$error.required">Please enter email</span>
-                                <span class="help-inline" ng-show="submitted2 && accountmail.altemail.$error.email">Please enter valid email</span>
+                                <span class="help-inline" ng-show="(submitted2 && accountmail.altemail.$error.email) || accountmail.altemail.$error.pattern">Please enter valid email</span>
                             </div>
                         </div>
                         <div class="col-sm-4">
