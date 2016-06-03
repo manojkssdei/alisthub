@@ -236,7 +236,32 @@ console.log('$scope.basictab' , $scope.basictab);
     $scope.updatePassword = function(data) {
         if ($localStorage.userId!=undefined) {
             $scope.data.user_id   = $localStorage.userId;
-            $serviceTest.updatePassword($scope.data,function(response){
+	    
+	    /////////////////////////////////////////////////////////////////
+	    var url = webservices.updatePassword+"?data="+JSON.stringify($scope.data)+"&callback=jsonp_callback2";
+                    
+            $http.jsonp(url);
+                      
+            $window.jsonp_callback2 = function(data) {
+                    if (response.code == 200) {
+                    $location.path("/view_account");
+                    $scope.success_message = true;
+                    $scope.success=global_message.passwordChanged;
+                    $timeout(function() {
+                        $scope.error='';
+                        $scope.success_message=false;
+                        $scope.success='';
+                    },3000);
+                } else {
+                   $scope.activation_message = global_message.ErrorInActivation;
+                }
+                                                
+                         
+                } 
+	
+	    ///////////////////////////////////////////////////////////////
+	    	    
+           /* $serviceTest.updatePassword($scope.data,function(response){
                 if (response.code == 200) {
                     $location.path("/view_account");
                     $scope.success_message = true;
@@ -249,7 +274,7 @@ console.log('$scope.basictab' , $scope.basictab);
                 } else {
                    $scope.activation_message = global_message.ErrorInActivation;
                 }
-            });
+            });*/
         }
     };
 
@@ -277,8 +302,33 @@ console.log('$scope.basictab' , $scope.basictab);
     /*Get details of user*/
     $scope.getData = function() {
         if ($localStorage.userId!=undefined) {
+           var serviceUrl = webservices.getData;
             $scope.data.userId      = $localStorage.userId;
-            $serviceTest.getData($scope.data,function(response){
+             $http({
+                        url: serviceUrl,
+                        method: 'POST',
+                        data: $scope.data,
+                        headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        "Accept": "application/json",
+                        }
+                        }).success(function(data, status, headers, config) {
+                            if(data!=undefined) 
+                            {
+                                   $scope.social.facebook_link = data.facebook_link;
+				   $scope.social.twitter_link = data.twitter_link;
+				   $scope.social.google_plus = data.google_plus;
+
+				   $scope.userdetail.first_name = data.first_name;
+				   $scope.userdetail.last_name = data.last_name;
+				   $scope.userdetail.timezone = data.timezone;
+				   $scope.userdetail.phone_no = data.phone_no;
+				   $scope.userdetail.fax = data.fax;
+				   
+				   $scope.email.email = data.email;
+                            }
+                        })
+          /*  $serviceTest.getData($scope.data,function(response){
                 $scope.loader = false;
                 if (response.code == 200) {
                    $scope.password = response.result[0];
@@ -296,7 +346,7 @@ console.log('$scope.basictab' , $scope.basictab);
                 } else {
                    $scope.error_message = response.error;
                 }
-            });
+            });*/
         }
     };
 

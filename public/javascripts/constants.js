@@ -93,7 +93,7 @@ var webservices = {
     "updateSocial" : "/profile/updateSocial",
     "updatePassword" : baseUrl + "/webservices/updatePassword",
     "updateEmail" : baseUrl + "/webservices/updateEmail",
-    "getData" : "/profile/getData",
+    "getData" : baseUrl + "/webservices/getData",
 
     /* Constants for the create event step 2 price level */
     "savepricelevel" : "/event/savepricelevel",

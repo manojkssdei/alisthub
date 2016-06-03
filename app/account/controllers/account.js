@@ -310,3 +310,4 @@ var query = 'SELECT * from custom_financial_settings where id='+ req.body.id+' &
         res.json({ result: results, code: 200 });
     });
 }
+
