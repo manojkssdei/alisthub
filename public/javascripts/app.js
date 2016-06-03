@@ -832,8 +832,91 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               }]
             }
         })
+//To view the customers
+          .state('view_customer', {
+            url: '/view_customer',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'customerController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/customers/views/customer.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+               authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(['modules/customers/service.js','modules/common/service.js']).then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/customers/controller.js']);
+                })
+              }]
+            }
+        })
 
+          /* Setting for edit customer screen */
+        .state('edit_customer', {
+            url: '/edit_customer/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'customerController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/customers/views/add_customer.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/customers/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/common/service.js']);
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/customers/controller.js']);
+                })
+              }]
+            }
+        })
 
+  /*setting for delete customer from screen*/
+      .state('delete_customer', {
+            url: '/delete_customer/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'customerController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/customers/views/add_customer.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(['modules/customers/service.js','modules/common/service.js']).then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/customers/controller.js']);
+                })
+              }]
+            }
+        })
+
+/*adding the customers module*/
+   .state('add_customer', {
+            url: '/add_customer',
+            views: {
+                "lazyLoadView": {
+                  controller: 'customerController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/customers/views/add_customer.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(['modules/customers/service.js','modules/common/service.js']).then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/customers/controller.js']);
+                })
+              }]
+            }
+        })
 
 /* Setting for view account screen */
        .state('view_account', {

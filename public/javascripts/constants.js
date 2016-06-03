@@ -87,7 +87,14 @@ var webservices = {
     "deleteUser":"/user/deleteUser",
     "checksellerUser" :  "/user/checksellerUser",
     "changeUserStatus":"user/changeUserStatus",
-    
+    /*  CREATE BY DK   */
+    /*Constants for the Customers Management*/
+    "addCustomer": "/customers/addCustomer",
+    "getCustomer":"/customers/getCustomer",
+    "deleteCustomer":"/customers/deleteCustomer",
+    "changeCustomerStatus":"/customers/changeCustomerStatus",
+     "userOverview": "/customers/userOverview",
+     /*   D K  */
     /* Constants for the My account page */
     "updateUser" : "/profile/updateUser",
     "updateSocial" : "/profile/updateSocial",
