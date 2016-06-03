@@ -1,0 +1,62 @@
+<div class="container">
+    <h1>ALL Customers</h1>
+    <div class="module">
+        <section class="gray-frame sub-fields">
+         <div class="form-group row">
+                <section class="col-sm-6">
+                    <section class="search-event">
+                        <input type="text" name="filter" class="form-control search-field" placeholder="Enter your keyword" ng-model="filter">
+                        <i class="fa fa-search"></i>
+                    </section>
+                </section>
+            </div>
+            <section class="grid-btn-top row">
+                <section class="col-sm-7">
+                    <section class="top-buttons">
+                        <a href="#/add_customer"  ><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add Customer</button></a>
+                    </section>
+                </section>
+                <section class="col-sm-5 right-btns text-right">
+                </section>
+            </section>
+            <section class="grid-widget">
+                <div class="table-responsive">
+                    <table  ng-table="tableParams" class="table table-striped">
+                     
+                        <tbody>
+
+                          <tr ng-repeat="data1 in $data | filter:filter">
+           
+                                <!-- <td title="'Email'" filter="{ name: 'text'}" sortable="'email'">{{data1.email}}</td> -->
+                                <td title="'ID'" filter="{ name: 'text'}" sortable="'id'">{{data1.id}}</td>
+                                <td title="'FIRSTNAME'" filter="{ name: 'text'}" sortable="'first_name'">{{data1.first_name}}</td>
+                                <td title="'LASTNAME'" filter="{ name: 'text'}" sortable="'last_name'">{{data1.last_name}}</td>
+                                   <td title="'Email'" filter="{ name: 'text'}" sortable="'email'">{{data1.email}}</td>
+                                <td  title="'MANAGE'" class="action"><a title="Edit User" href="#/edit_customer/{{data1.id}}"><i class="fa fa-edit"></i></a>
+                                 <a title="Customer Status"  ng-click="changeCustomerStatus(data1.id,data1.customer_status)" ng-confirm-click="Would you like to change Venue status ?" style="cursor: pointer;"><i class="fa fa-check-circle" ng-if="data1.customer_status == 1"></i>
+                                 <i class="fa fa-times" ng-if="data1.customer_status == 0"></i></a>
+                                <a  title="Delete Customer"  ng-click="deleteCustomer(data1.id)" ng-confirm-clicks="Would you like to delete this User?"  style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                            <tr ng-show="loader">
+                                        <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+     </section>
+                <section class="grid-bottm clearfix">
+<!--                    
+ -->                        <section class="gr-right pull-right">
+                            <ul class="legends">
+                                <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+                                <li><i class="fa fa-check-circle"></i><span>active</span></li>
+                                <li><i class="fa fa-trash"></i><span>delete</span></li>
+                            </ul>
+                        </section>
+                    </section>
+      </section>
+        </section>
+    </div>
+</div>

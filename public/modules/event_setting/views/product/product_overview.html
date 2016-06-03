@@ -2,37 +2,40 @@
     <h1>PRODUCT OVERVIEW</h1>
     <!-- Form COntainer -->
     <div class="form-section  wt-frame">
-        <section class="gray-frame">
-            <div class="row">
-                <div class="col-sm-5"> </div>
-                <div class="col-sm-2">
-                    <a href="#/edit_product/{{data.id}}">
+
+    <section class="top-buttons bb-1 text-right">
+                <a href="#/edit_product/{{data.id}}">
                     <button class="btn pink-btn btn-small" type="button">
                     <i class="glyphicon glyphicon-pencil">
-                    </i>Edit
+                    </i> Edit
                     </button>
                     </a>
-                </div>
-                <div class="col-sm-2">
-                    <!-- <a href="#/delete_product"> -->
-                    <button class="btn pink-btn btn-small" ng-confirm-clicks="Would you like to change Product status ?"  type="button" ng-click="delProduct(data.id)">
+
+                <button class="btn pink-btn btn-small" ng-confirm-clicks="Would you like to change Product status ?"  type="button" ng-click="delProduct(data.id)">
                     <i class="glyphicon glyphicon-remove">
-                    </i>Delete
+                    </i> Delete
                     </button>
-                </div>
-                <div class="col-sm-2">
-                    <button class="btn pink-btn btn-small"  type="button" ng-if="data.status == 0" ng-click="changeStatus(data.id,data.status)">
+
+                  <button class="btn pink-btn btn-small"  type="button" ng-if="data.status == 0" ng-click="changeStatus(data.id,data.status)">
                     <i class="glyphicon glyphicon-pause">
-                    </i>Resume Sale
+                    </i> Resume Sale
                     </button>
                     <button class="btn pink-btn btn-small"  type="button" ng-if="data.status == 1" ng-click="changeStatus(data.id,data.status)">
                     <i class="glyphicon glyphicon-pause">
-                    </i>Pause Sale
+                    </i> Pause Sale
+                    </button>  
+
+                      <a href="#/view_products/list">
+                    <button class="btn pink-btn btn-small" type="button">
+                    <i class="glyphicon glyphicon-arrow-left">
+                    </i> Back to products
                     </button>
-                </div>
-            </div>
-        </section>
-        <section class="gray-frame">
+                    </a> 
+
+            </section>
+
+        <section class="form-group field-group row">
+  <section class="gray-frame">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
@@ -41,12 +44,10 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <section class="gray-frame">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <h4>This product is not attached to any events.</h4>
+                        <h5>This product is not attached to any events.</h5>
                     </div>
                 </div>
             </div>
@@ -55,7 +56,9 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <p class="marklist">-go to step 2 (pricing) of event  to attach this product.</p>
+                                <p class="marklist"> 
+                                <i class="glyphicon glyphicon-arrow-right"></i>
+                                 Go to step 2 (pricing) of event  to attach this product.</p>
                             </div>
                         </div>
                     </div>
@@ -64,34 +67,41 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <p class="marklist">-The product price paid by the buyer is $ {{data.buyer_pays}}</p>
+                        <p class="marklist">
+                        <i class="glyphicon glyphicon-arrow-right"></i>
+                         The product price paid by the buyer is <strong>${{data.buyer_pays}}</strong></p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <p class="marklist">-The total order will also include a flat $ {{data.ship_cost}} shiping fee.</p>
+                        <p class="marklist">
+                        <i class="glyphicon glyphicon-arrow-right"></i>
+                         The total order will also include a flat <strong>${{data.ship_cost}}</strong> shipping fee.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <p class="marklist">-Fulfillment fees are contracted between the seller and the fulfiller. ALIST Solutions LLC does not add this fee it is included in the $ {{data.retail_price}} Retail Price.</p>
+                        <p class="marklist">
+                        <i class="glyphicon glyphicon-arrow-right"></i>
+                         Fulfillment fees are contracted between the seller and the fulfiller. ALIST Solutions LLC does not add this fee it is included in the <strong>${{data.retail_price}}</strong> Retail Price.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <p class="marklist">-After each Sale , ALIST Solution LLC records the fulfillment fee owed to the fulfiller.</p>
+                        <p class="marklist">
+                        <i class="glyphicon glyphicon-arrow-right"></i>
+                         After each Sale , ALIST Solution LLC records the fulfillment fee owed to the fulfiller.</p>
                     </div>
                 </div>
             </div>
-        </section>
-        <section class="gray-frame">
-            <div class="table-responsive">
+        
+            <div class="table-responsive product_overview_sales">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -114,12 +124,18 @@
                             <td class="numbers">0</td>
                             <td class="numbers">0</td>
                         </tr>
+
+                         <tr ng-if="componentdata == ''">
+                                        <td colspan="4" align="center">No Record found!</td>
+                                    </tr>
+
                         <tr ng-show="loader">
                             <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+        </section>
         </section>
     </div>
 </div>

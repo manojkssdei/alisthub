@@ -342,8 +342,14 @@ if ($scope.user.merchant_type == "GoCoin")
                 $scope.user.seller_id = $localStorage.userId;
                 $serviceTest.addFinancialDetails($scope.user, function(response) {
                     if (response.code == 200) {
-                        $scope.success_message = true;
-                        $scope.success = global_message.savedFinancialInformation;
+                $scope.success = global_message.savedFinancialInformation;
+                $scope.success_message = true;
+                 $timeout(function() {
+                    $scope.success_message = false;
+                    $scope.success = '';
+                }, 3000);
+
+
                     } else {
                         $scope.error_message = true;
                         $scope.error = response.error;

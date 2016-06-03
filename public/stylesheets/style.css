@@ -367,26 +367,11 @@ input[type="radio"].assignEvents { display: block; }
 .btn-small{padding:5px 15px; font-weight:bold; font-size:12px; text-transform:uppercase;}
 
 .module{margin-bottom:10px;}
-.btn-file {
-        position: relative;
-        overflow: hidden;
-    }
-.btn-file input[type=file] {
-        position: absolute;
-        top: 0;
-        right: 0;
-        min-width: 100%;
-        min-height: 100%;
-        font-size: 100px;
-        text-align: right;
-        filter: alpha(opacity=0);
-        opacity: 0;
-        outline: none;
-        background: white;
-        cursor: inherit;
-        display: block;
-    }
-	.right-btns{float:right;}
+.btn-file {  position: relative; overflow: hidden;}
+.btn-file input[type=file] { position: absolute; top: 0;  right: 0; min-width: 100%; min-height: 100%;
+        font-size: 100px;  text-align: right; filter: alpha(opacity=0); opacity: 0;  outline: none;
+        background: white;  cursor: inherit; display: block; }
+ .right-btns{float:right;}
 
 /*-----------6/4/2016---------------*/
 .top-section { background: #b5b5b5; color: #fff; }
@@ -658,6 +643,42 @@ table:focus {
 color-picker{float: right !important;}
 .color-picker-wrapper.color-picker-swatch-only .input-group .form-control{height:24px;}
 
+
+.blocks-widget{margin:0 -5px;}
+.blocks-widget li{padding:0 5px 10px; float:left; width:50%; text-align:center;}
+.blocks-widget li a{display:table; border:1px #ccc solid; width:100%; height:80px;}
+.blocks-widget li a:hover, .blocks-widget li a:active, .blocks-widget li a:focus{text-decoration:none;}
+.blocks-widget li .fa{font-size:40px; display:table-cell; vertical-align:middle;}
+.blocks-widget li span{padding:5px 0; display:block;}
+
+.event-header{box-shadow: 0 1px 15px rgba(0, 0, 0, 0.4); -moz-box-shadow: 0 1px 15px rgba(0, 0, 0, 0.4); -webkit-box-shadow: 0 1px 15px rgba(0, 0, 0, 0.4); background:#333333; margin-bottom:30px;}
+.event-logo{float:left; margin:10px;}
+.background-frame{background:#f3f3f3; background:url(../images/bg/bg.jpg) no-repeat center top; background-size:cover; position:relative; top:0; right:0;}
+
+.social-media{background:rgba(243,243,243,0.8); padding:0 10px; text-align:center; position:absolute; z-index:9999; margin-top:-55px;  right:10px; border-radius:4px;}
+.social-media a{margin:5px 3px; display:inline-block; color:#fff;opacity:0.8;}
+.social-media a:hover{opacity:1; text-decoration:none;}
+.network-icon{height:32px; width:32px; border-radius:50%; display:table; text-align:center; }
+.network-icon .fa{display:table-cell; vertical-align:middle;}
+.facebook-net .network-icon{background:#4867aa;}
+.google-net .network-icon{background:#d34836;}
+.twitter-net .network-icon{background:#4099ff;}
+.linkedin-net .network-icon{background:#007bb6;}
+.instagram-net .network-icon{background:#517fa4;}
+.youtube-net .network-icon{background:#e2302f;}
+
+.f-links a{color:#fff; margin:0 10px 10px; display:inline-block;}
+.copy{font-size:11px;}
+
+.event-module{margin-bottom:20px;}
+.www{position:absolute; left:10px; top:10px; font-size:16px;}
+.eventname{padding-left:52px;}
+.event-labels, .event-details{background:#f3f3f3; padding:5px;}
+.event-label{display:inline-block; margin:0 3px; text-transform:uppercase; font-weight:700; font-size:12px;}
+.event-price{text-align:center; color:#333; font-weight:700;}
+.event-details{padding:15px;}
+.buyticket{width:100%; font-weight:700; font-size:16px; margin-bottom:15px;}
+
 /*--------Always at Bottom---------*/
 .m-t35 {margin-top: 35px;}
 .m-t40 {margin-top: 40px;}
@@ -677,6 +698,8 @@ color-picker{float: right !important;}
 .f-n{font-weight:400;}
 .f-b{font-weight:700;}
 .f-sb{font-weight:600;}
+
+.w-auto{width:auto; display:inline-block;}
 
 .mw-100{min-width:100px;}
 
@@ -702,10 +725,24 @@ color-picker{float: right !important;}
     margin: -20px 0 15px;
     padding: 10px;
 }
-
+.uib-datepicker .btn .text-info  {  background-color: #ffffff !important; box-shadow: none !important; color: #333 !important;}
  .end_time_error {
     background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
     color: #fff;
     margin: 0px 0 15px;
     padding: 10px;
 }
+
+/* listing tables headers - 3 june */
+.header.header-text-align.sortable{
+  text-align: left !important;
+}
+
+.glyphicon.glyphicon-arrow-right{
+  padding-right: 5px;
+}
+
+.product_overview_sales{
+  margin-top: 20px;
+}
+

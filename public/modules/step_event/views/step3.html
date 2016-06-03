@@ -73,13 +73,20 @@
                             </section>
                             
                             <section class="tab-con" ng-hide="image_div">
-                            	<input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg">
+                            	<span class="file-input btn pink-btn btn-small btn-file">Upload Images<input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg"></span>
                             	<ul class="images-widget" id="imgTest">
                                 	
                                 </ul>
                             </section>
 			    <section class="tab-con" ng-hide="block_div">
-                            	Block Content
+                            	
+                            	<ul class="blocks-widget clearfix">
+                                	<li><a href="#"><i aria-hidden="true" class="fa fa-file-video-o"></i></a><span>Video</span></li>
+                                    <li><a href="#"><i aria-hidden="true" class="fa fa-file-image-o"></i></a><span>Brochure</span></li>
+                                    <li><a href="#"><i aria-hidden="true" class="fa fa-share-alt-square"></i></a><span>Social</span></li>
+                                    <li><a href="#"><i aria-hidden="true" class="fa fa-facebook-square"></i></a><span>Facebook</span></li>
+                                </ul>
+                           
                             </section>
                         </section>
                     </section>
@@ -90,21 +97,25 @@
 		  <ul ng-style="{background: background_inner,border:border_color}"> 
                     
 
-		  <li data-row="1" data-col="1" data-sizex="2" data-sizey="1"><header>|||</header><div class="main-image"><img src="{{banner_image}}" id="banner_image" alt="banner image" height="150px" width="100%"  onclick="change_image()"><input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" /></div></li>
+		  <li data-row="1" data-col="1" data-sizex="2" data-sizey="1" id="section1">
+		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		    <div class="main-image"><img src="{{banner_image}}" id="banner_image" alt="banner image" height="150px" width="100%"  onclick="change_image()"><input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" /></div>
+		  </li>
 		    
 		  <li data-row="2" data-col="1" data-sizex="1" data-sizey="1" id="section2">
-		    <header>|||</header>
+		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		    <a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
-		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value=''>
+		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value=''></div>
 		  </li>
 		    
 		  <li data-row="3" data-col="1" data-sizex="1" data-sizey="1" id="section3">
-		    <header>|||</header>
+		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		    <a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
-		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value=''>
+		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value=''></div>
 		  </li>
 		    
-		  <li data-row="2" data-col="2" data-sizex="1" data-sizey="1"><header>|||</header>
+		  <li data-row="2" data-col="2" data-sizex="1" data-sizey="1" id="section4">
+		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		     <div class="row">
 		      <div class="col-sm-8">
 			<div contenteditable="true" ckeditor="option_ckeditor1" name="content3"  required ng-model="content3" ready="onReady()" value=''>
@@ -112,17 +123,19 @@
 		      <div class="col-sm-4"> <img src="{{section2_image}}" id="section2_image" alt="banner imageee"  height="150px" width="100%" onclick="change_image2()">
 		      <input type="file" id="my_file2"  onchange="angular.element(this).scope().encodeImageFileAsURL2(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
 		      </div>
-		  
+		  </div>
 		  </li>
 		    
-		    <li data-row="3" data-col="2" data-sizex="1" data-sizey="1">
-		      <header>|||</header>
+		    <li data-row="3" data-col="2" data-sizex="1" data-sizey="1" id="section5">
+		      <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		      <div> <img src="{{section3_image}}" id="section3_image" alt="banner imageee"  height="150px" width="100%" onclick="change_image3()">
 		    <input type="file" id="my_file3"  onchange="angular.element(this).scope().encodeImageFileAsURL3(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
 		    </div>
 		    </li>
 		    
-		    <li data-row="4" data-col="1" data-sizex="2" data-sizey="1" id="footer"><header>|||</header><div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value=''>
+		    <li data-row="4" data-col="1" data-sizex="2" data-sizey="1"   id="section6">
+		      <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		      <div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value=''>
 		      </div></li>
 		    </ul>
                       </div>
@@ -172,41 +185,65 @@ function change_image3()
 		  pushing: true,
 		floating: true,
 		draggable: {
-			handle: 'header'
+			handle: '.header'
 		}
         }).data('gridster');
 
 
         // resize widgets on hover
-        /*gridster.$el
+        gridster.$el
           .on('mouseenter', '> li', function() {
-		   if($(this).attr('id')=='footer')
+		   if($(this).attr('id')=='section1')
 		   {
-		    $('#footer .edit').show();
+		    $('#section1 .drag').show();
 		   }
 		    if($(this).attr('id')=='section2')
 		   {
-		    $('#section2 .edit').show();
+		    $('#section2 .drag').show();
 		   }
 		   if($(this).attr('id')=='section3')
 		   {
-		    $('#section3 .edit').show();
+		    $('#section3 .drag').show();
+		   }
+		   if($(this).attr('id')=='section4')
+		   {
+		    $('#section4 .drag').show();
+		   }
+		   if($(this).attr('id')=='section5')
+		   {
+		    $('#section5 .drag').show();
+		   }
+		   if($(this).attr('id')=='section6')
+		   {
+		    $('#section6 .drag').show();
 		   }
           }).on('mouseleave', '> li', function() {
-		  if($(this).attr('id')=='footer')
+		  if($(this).attr('id')=='section1')
 		   {
 		 
-		    $('#footer .edit').hide();
+		    $('#section1 .drag').hide();
 		   }
 		   if($(this).attr('id')=='section2')
 		   {
-		    $('#section2 .edit').hide();
+		    $('#section2 .drag').hide();
 		   }
 		   if($(this).attr('id')=='section3')
 		   {
-		    $('#section3 .edit').hide();
+		    $('#section3 .drag').hide();
 		   }
-          })*/
+		    if($(this).attr('id')=='section4')
+		   {
+		    $('#section4 .drag').hide();
+		   }
+		   if($(this).attr('id')=='section5')
+		   {
+		    $('#section5 .drag').hide();
+		   }
+		   if($(this).attr('id')=='section6')
+		   {
+		    $('#section6 .drag').hide();
+		   }
+          })
       });
     </script>
 <script type="text/ng-template" id="previewtemplate.html">

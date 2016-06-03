@@ -43,7 +43,7 @@
             <div class="tab-content">
               <div role="tabpanel" class="active"  id="single-event" ng-hide="single_event_div">
                 <div class="row">
-                  <div class="col-lg-7 col-sm-7">
+                  <div class="col-lg-5 col-sm-7">
                     <div class="form-group">
                       <!-- <label>From</label>-->
                       
@@ -154,33 +154,35 @@
                         <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
                       </select>
                     </div>
-                  </div>
+                  </div> 
                   <!-- MONTHLY START -->
-                  <div class="col-sm-4 event" ng-hide="monthly_div">
-                    <label><input type="radio" name="everythisday" value="everythisday" ng-model="monthly.type">Select Particular Day</label>
+                  <div class="col-sm-8 event m-t40" ng-hide="monthly_div">
+                  	<div class="inline-radio">
+                    <label class="radiolabel"><input type="radio" name="everythisday" value="everythisday" ng-model="monthly.type"><span>Select Particular Day</span></label></div> <div class="inline-radio"><label class="radiolabel"><input type="radio" name="everythisweek" value="everythisweek" ng-model="monthly.type"><span>Select Particular Week's Day</span></label></div>
                       <div class="monthly-padding" ng-show="monthly.type == 'everythisday'">
                         On day
-                        <select ng-model="data.monthly_option" ng-change="change_month()">
+                        <select ng-model="data.monthly_option" ng-change="change_month()" class="form-control sml-sel w-auto">
                           <option ng-repeat="date in dates" value="{{date.id}}">{{date.id}}</option>
                         </select> 
                         of every month
                       </div>
-                    <br>
-                    <label><input type="radio" name="everythisweek" value="everythisweek" ng-model="monthly.type">Select Particular Week's Day</lebel>
+                   
                       <div class="monthly-padding" ng-show="monthly.type == 'everythisweek'">
                         On the 
-                        <select ng-model="data.monthly_week_value" ng-change="rec_monthly_func()">
+                        <select ng-model="data.monthly_week_value" ng-change="rec_monthly_func()" class="form-control sml-sel w-auto">
                           <option ng-repeat="week_value in month_week_selection" value="{{week_value.id}}">{{week_value.name}}</option>
                         </select>
-                        <select ng-model="data.monthly_day_value" ng-change="rec_monthly_func()">
+                        <select ng-model="data.monthly_day_value" ng-change="rec_monthly_func()" class="form-control sml-sel w-auto">
                           <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
                         </select> 
                         of every month
                         <br><span style="color: red">{{monthly_error}}</span>
                       </div>
+                     
                   </div>
-                  <!-- MONTHLY END -->
+                  <!-- MONTHLY END -->                 
                 </div>
+                
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
@@ -359,7 +361,7 @@
         <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
       </div>
     </form>
-    <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
+    
     <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
   </div>
   

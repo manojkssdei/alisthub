@@ -87,7 +87,14 @@ var webservices = {
     "deleteUser":"/user/deleteUser",
     "checksellerUser" :  "/user/checksellerUser",
     "changeUserStatus":"user/changeUserStatus",
-    
+    /*  CREATE BY DK   */
+    /*Constants for the Customers Management*/
+    "addCustomer": "/customers/addCustomer",
+    "getCustomer":"/customers/getCustomer",
+    "deleteCustomer":"/customers/deleteCustomer",
+    "changeCustomerStatus":"/customers/changeCustomerStatus",
+     "userOverview": "/customers/userOverview",
+     /*   D K  */
     /* Constants for the My account page */
     "updateUser" : baseUrl + "/webservices/updateUser",
     "updateSocial" : baseUrl + "/webservices/updateSocial",
@@ -228,6 +235,7 @@ var global_message = {
     "discountUpdated" : 'Discount updated successfully',
     "discountAdded" : 'Discount added successfully',
     "endDateError" : 'End date must be same or greater than start date',
+    "discountAssigned" : 'Discount coupon has been assigned to events successfully',
     /*Create Event */
     "step1html":'modules/step_event/views/step1html.html',
     "bundlehtml":'modules/step_event/views/bundlehtml.html',
