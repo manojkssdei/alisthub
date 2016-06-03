@@ -145,9 +145,13 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
-              resources: ['$ocLazyLoad', function($ocLazyLoad) {
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/events/controller.js');
+                return $ocLazyLoad.load('modules/events/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/events/controller.js']);
+                })
               }]
             }
             

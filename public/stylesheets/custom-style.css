@@ -3,6 +3,66 @@
 .help-inline{margin-top: 3px; color: red;}
 .welcometxt .btn-group.dropdown{ float: left;}
 .ng-table-counts .btn{ color:#333; }
-.col-sm-4.event label > input{   display:inline-block;}
-select{padding:5px; font-waight; 400;}
-.monthly-padding {padding-top: 20px; padding-bottom: 20px;}
+.col-sm-4.event label > input{display:inline-block}
+.monthly-padding {/*padding-top: 20px;*/ padding-bottom: 20px;}
+
+.radiolabel{
+	position:relative;
+}
+
+.radiolabel span{
+	font-size: 14px;
+	color:#333;
+}
+
+.radiolabel input[type="radio"]{
+	    position: absolute;
+    left: -9999px;
+    opacity: 0;
+}
+
+.radiolabel input[type="radio"]:not(:checked)+span, .radiolabel input[type="radio"]:checked+span {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+     
+    transition: .28s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.radiolabel input[type="radio"]+span:before, .radiolabel input[type="radio"]+span:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 4px;
+    width: 16px;
+    height: 16px;
+    z-index: 0;
+    transition: .28s ease;
+	    border-radius: 50%;
+}
+
+.radiolabel input[type="radio"]:not(:checked)+span:before, .radiolabel input[type="radio"]:not(:checked)+span:after {
+    border: 2px solid #969696;
+}
+
+.radiolabel input[type="radio"]:checked+span:before {
+    border: 2px solid transparent;
+}
+
+.radiolabel input[type="radio"]:checked+span:before {
+    border: 2px solid #c129b9;
+}
+
+.radiolabel input[type="radio"]:checked+span:after{
+    background-color: #c129b9;
+    z-index: 0;
+	transform: scale(0.5);
+}
