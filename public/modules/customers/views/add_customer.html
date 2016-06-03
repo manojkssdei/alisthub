@@ -1,6 +1,103 @@
+
 <div class="container">
     <h1>Add a Customer</h1>
     <div class="form-section  wt-frame">
-  
+     <form class="event-form" name="adduserForm" novalidate>
+            <section class="gray-frame">
+                <div class="row">
+                    <div class="col-sm-6 section-col" ng-class="{ 'has-error' : adduserForm.first_name.$invalid && !adduserForm.first_name.$pristine }">
+                        <label>First Name <span class="req">*</span></label>
+                        <!-- <font color="blue">*</font> -->
+                        <input type="text" name="first_name" ng-model="user.first_name" class="form-control" placeholder="first name" ng-pattern="/^[a-z ,.'-]+$/i" required> 
+                        <p ng-show="adduserForm.first_name.$invalid && !adduserForm.first_name.$pristine" class="error-fld ng-binding">Enter Firstname.</p>
+                    </div>
+                    <div class="col-sm-6 section-col" ng-class="{ 'has-error' : adduserForm.last_name.$invalid && !adduserForm.last_name.$pristine }">
+                        <label>Last Name <span class="req">*</span></label>
+                        <input type="text" name="last_name" ng-model="user.last_name" ng-pattern="/^[a-z ,.'-]+$/i" class="form-control" placeholder="last name" required> 
+                        <p ng-show="adduserForm.last_name.$invalid && !adduserForm.last_name.$pristine" class="error-fld ng-binding">Enter Last Name.</p>
+                    </div>
+                </div>
+                  <div class="row">
+                    <div class="col-sm-6 section-col" ng-class="{ 'has-error' : adduserForm.email.$invalid && !adduserForm.email.$pristine }">
+                        <label>Email <span class="req">*</span></label>
+                        <input type="email" name="email" ng-model="user.email" class="form-control" ng-blur="checkuniqueuser();" placeholder="email address" required> 
+                         <span ng-show="success_message">
+                            <p class="success-fld">{{unique}}</p>
+                        </span>
+                        <span ng-show="error_message">
+                            <p class="error-fld">{{unique}}</p>
+                        </span>
+                         <span ng-hide="error_message">
+                            <p class="error-fld ng-binding" ng-show="(unique && unique_type == 3 ) || (adduserForm.email.$error.required  && adduserForm.email.$invalid && !adduserForm.email.$pristine)">Enter a valid email</p>
+                        </span>
+                    </div>
+                    <div class="col-sm-6 section-col" ng-class="{ 'has-error' : adduserForm.address.$invalid && !adduserForm.address.$pristine }">
+                        <label>Address</label>
+                        <input type="address" name="address" ng-model="user.address" class="form-control" placeholder="address"> 
+                        <p ng-show="adduserForm.address.$invalid && !adduserForm.address.$pristine" class="error-fld ng-binding">Enter Address.</p>
+                          <p ng-show="adduserForm.address.$error.pattern" class="error-fld ng-binding">Enter a valid address</p>
+                    <!--     <input type="hidden"  ng-model="user.email1" class="form-control" required> --> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6" ng-class="{ 'has-error' : adduserForm.address_2.$invalid && !adduserForm.address_2.$pristine }">
+                        <div class="form-group">
+                            <label>Address</label>
+
+                            <input type="text"  class="form-control" name="address_2" placeholder="Enter address_2"    ng-model="user.address_2"/>
+ 
+                            <p ng-show="adduserForm.address_2.$invalid && !adduserForm.address_2.$pristine" class="error-fld ng-binding">Enter Address.</p>
+                            <p ng-show="adduserForm.address_2.$error.pattern" class="error-fld ng-binding">Enter a valid address</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" ng-class="{ 'has-error' : adduserForm.phone.$invalid && !adduserForm.phone.$pristine }">
+                        <div class="form-group">
+                            <label>phone</label>
+                            <input type="text" class="form-control" name="phone" placeholder="phone" ng-model="user.phone"/>
+                            <p ng-show="adduserForm.phone.$invalid && !adduserForm.phone.$pristine" class="error-fld ng-binding">Enter Email phone.</p>
+
+                        </div>
+                    </div> 
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-6 section-col" >
+                     <div class="form-group">
+                        <label>City </label>
+                        <input type="text" name="city" ng-model="user.city" class="form-control" placeholder="Name of City"> 
+                    </div>
+                    </div>
+                    <div class="col-sm-6 section-col">
+                     <div class="form-group">
+                        <label>Zipcode</label>
+                        <input type="text" name="zipcode" ng-model="user.zipcode" class="form-control" placeholder="Enter Zipcode" >
+                    </div>
+                </div>
+                </div>
+            
+                 <div class="row">
+                 <div class="col-sm-6 section-col" ng-class="{ 'has-error' : adduserForm.country.$invalid && !adduserForm.country.$pristine }">
+                        <label>Country <span class="req">*</span></label>
+                        <select class="form-control"  name="country" title="" ng-model="user.country" ng-change="showState();" required>
+                         <option ng-repeat="countryName in countriesOptions">{{countryName}}</option>
+                        </select>
+                        <p ng-show="adduserForm.country.$invalid && !adduserForm.country.$pristine" class="error-fld ng-binding">Enter Country.</p>
+                </div>
+
+                    <div class="col-sm-6 section-col"  ng-show="enableState">
+                        <label>State </label>
+                        <select class="form-control" ng-model="user.state" >
+                         <option ng-repeat="usaStateName in usaStatesOptions">{{usaStateName}}</option>
+                        </select>
+
+                       
+                    </div>
+                </div>
+                </div>
+         </section>
+        </form>
+        <div class="editor-btn">
+            <button class="pink-btn btn" ng-click="addCustomer()" ng-disabled="adduserForm.$invalid">SUBMIT</button>
+            <button class="pink-btn btn" ui-sref="view_customer">CANCEL</button>         
+        </div>
     </div>
 </div>

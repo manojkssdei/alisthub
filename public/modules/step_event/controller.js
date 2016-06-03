@@ -927,7 +927,7 @@ $scope.rec_year_func = function() {
   $scope.options = {
     customClass: getDayClass,
     minDate: new Date(),
-    showWeeks: true
+    showWeeks: false
   };
 
   $scope.options1 = {
@@ -976,7 +976,7 @@ $scope.rec_year_func = function() {
   $scope.success_message = false;
   $scope.error_message = true;
 
-  $scope.multiple_event_div = $scope.location_event_div = $scope.price_and_link_div = $scope.look_and_feel_div = $scope.setting_div = $scope.dynamic_age_div = $scope.return_age_text_div = true;
+  $scope.multiple_event_div = $scope.venue_event_div = $scope.price_and_link_div = $scope.look_and_feel_div = $scope.setting_div = $scope.dynamic_age_div = $scope.return_age_text_div = true;
 
   //To show custom age div
 
@@ -1002,10 +1002,10 @@ $scope.rec_year_func = function() {
     }]
     //To show default venues 
   $scope.venues = [{
-    "name": "Add New Venue",
+    "name": "Use Past Location",
     'id': 3
   }, {
-    "name": "Use Past Location",
+    "name": "Add New Venue",
     'id': 4
   }]
 
@@ -1085,11 +1085,11 @@ $scope.rec_year_func = function() {
 
   $scope.select_venue = function(venue) {
     if (venue.id === 3) {
-      $scope.venue_event_div = false;
-      $scope.location_event_div = true;
-    } else {
       $scope.venue_event_div = true;
       $scope.location_event_div = false;
+    } else {
+      $scope.venue_event_div = false;
+      $scope.location_event_div = true;
     }
     $scope.selected1 = venue;
   }

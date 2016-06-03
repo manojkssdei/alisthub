@@ -1,13 +1,13 @@
 $(document).ready(function () {
     $('.timepick').timepicker({
-       minuteStep: 1
+       minuteStep: 15
        });
 });
    
 $( document ).on( 'click', '.timepick1', function() {
 
  $('.timepick').timepicker({
-      minuteStep: 1
+      minuteStep: 15
       });
    $('.bootstrap-timepicker-widget').show();
 });
