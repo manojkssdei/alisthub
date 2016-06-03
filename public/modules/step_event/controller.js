@@ -1034,10 +1034,10 @@ $scope.rec_year_func = function() {
 
     ///TO move to price and level
     if (menu.id === 6) {
-      if (objectForm.myForm.$valid === true) {
+      //if (objectForm.myForm.$valid === true) {
         $scope.eventdetail_div = $scope.look_and_feel_div = $scope.setting_div = true;
         $scope.price_and_link_div = false;
-      } else {
+    /*  } else {
         $scope.error_message = false;
         $scope.error = global_message.event_step1_msg;
         $timeout(function() {
@@ -1045,7 +1045,7 @@ $scope.rec_year_func = function() {
           $scope.error_message = true;
           $scope.error = '';
         }, 3000);
-      }
+      }*/
     }
 
     //look and feel div
