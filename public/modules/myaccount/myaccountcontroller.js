@@ -1,4 +1,4 @@
-angular.module('alisthub').controller('accountinfoController', function($scope,$localStorage,$injector,$http,$state,$location,$timeout,$window) {
+angular.module('alisthub').controller('accountinfoController', function($scope,$localStorage,$injector,$http,$state,$location,$timeout,$window,$rootScope) {
 
     if (!$localStorage.isuserloggedIn) {
       $state.go('login');
@@ -17,6 +17,7 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
     $scope.socialtabclass    = "fa-caret-down";
 
     $scope.success_message=false;
+    $scope.faluire_message=false;
     $scope.success="";
     $scope.data = {};
     $scope.social = {};
@@ -99,20 +100,33 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
     $scope.updateUser = function(userdetail) {
         if ($localStorage.userId!=undefined) {
             $scope.userdetail.user_id   = $localStorage.userId;
-            $serviceTest.updateUser($scope.userdetail,function(response){
-                if (response.code == 200) {
-                    $location.path("/view_account");
-                    $scope.success_message = true;
-                    $scope.success=global_message.userInfoUpated;
-                    $timeout(function() {
-                        $scope.error='';
-                        $scope.success_message=false;
-                        $scope.success='';
-                    },3000);
-                } else {
-                   $scope.activation_message = global_message.ErrorInActivation;
-                }
-            });
+            var url = webservices.updateUser+"?data="+JSON.stringify($scope.userdetail)+"&callback=jsonp_callback9";
+                    
+            $http.jsonp(url);
+                      
+            $window.jsonp_callback9 = function(data) {
+                         
+                          if (data.code == 200) {
+                              $location.path("/view_account");
+                              $scope.success_message = true;
+                              $scope.success  = global_message.userInfoUpated;
+                              $rootScope.name = $localStorage.name = $scope.userdetail.first_name + " " +$scope.userdetail.last_name;
+                              $timeout(function() {
+                                  $scope.error='';
+                                  $scope.success_message=false;
+                                  $scope.success='';
+                              },3000);
+                          }
+                          else
+                          {
+                          $scope.error_message = true;
+                          $scope.error=global_message.errorChangeEmail;
+                          }
+                                                
+                         
+            }
+            
+            
         }
     };
 
@@ -131,16 +145,16 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                 $window.jsonp_callback = function(data) {
                          console.log(data);
                          if (data.code == 300) {
-                            $scope.success_message = true;
-                            $scope.success=global_message.successChangeEmail;
-                             $timeout(function() {
-                                   $scope.unique = '';
-                                   $scope.unique_type  = '';
-                              },3000);
+                            //$scope.success_message = true;
+                            //$scope.success=global_message.successChangeEmail;
+                             //$timeout(function() {
+                             //      $scope.unique = '';
+                             //      $scope.unique_type  = '';
+                             // },3000);
                              }
                              else{
                              $scope.error_message = true;
-                             $scope.error=global_message.errorChangeEmail;
+                             $scope.error=global_message.errorExistChangeEmail;
                              }
                                                 
                          
@@ -162,7 +176,7 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                 $http.jsonp(url);
                       
                 $window.jsonp_callback = function(data) {
-                         console.log(data);
+                         
                          if (data.code == 300) {
                              $scope.m = global_message.EmailAvailable;
                              $timeout(function() {
@@ -177,17 +191,25 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                                                 
                          
                 }
-            
-            
+   
         }
     };
 
-    /*Update password of user*/
+     /*Update password of user*/
     $scope.updatePassword = function(data) {
         if ($localStorage.userId!=undefined) {
-            $scope.data.user_id   = $localStorage.userId;
-            $serviceTest.updatePassword($scope.data,function(response){
-                if (response.code == 200) {
+            $scope.passsetting = {};
+            $scope.passsetting.user_id   = $localStorage.userId;
+            $scope.passsetting.oldpass   = $scope.data.oldpass;
+            $scope.passsetting.newpass   = $scope.data.newpass;
+        
+        /////////////////////////////////////////////////////////////////
+        var url = webservices.updatePassword+"?data="+JSON.stringify($scope.passsetting)+"&callback=jsonp_callback2";
+                    
+            $http.jsonp(url);
+                      
+            $window.jsonp_callback2 = function(data) {
+                    if (data.code == 200) {
                     $location.path("/view_account");
                     $scope.success_message = true;
                     $scope.success=global_message.passwordChanged;
@@ -196,61 +218,114 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                         $scope.success_message=false;
                         $scope.success='';
                     },3000);
+                }
+                else if(data.code==102) {
+                    $scope.faluire_message=true;
+                    $scope.used_old_password = global_message.used_old_password;
+                    $timeout(function() {
+                    $scope.error='';
+                    $scope.faluire_message=false;
+                    $scope.success='';
+                    },3000);
                 } else {
                    $scope.activation_message = global_message.ErrorInActivation;
                 }
-            });
-        }
+                                                
+                         
+                }
+        /////////////////////////////////////////////////////////////////    
+                
+         }
     };
+
+    
 
     /*Update social details of user*/
     $scope.updateSocial = function(social) {
         if ($localStorage.userId!=undefined && $scope.social!=undefined) {
             $scope.social.user_id   = $localStorage.userId;
-            $serviceTest.updateSocial($scope.social,function(response){
-                if (response.code == 200) {
-                    $location.path("/view_account");
-                    $scope.success_message = true;
-                    $scope.success=global_message.infoSaved;
-                    $timeout(function() {
-                        $scope.error='';
-                        $scope.success_message=false;
-                        $scope.success='';
-                    },3000);
-                } else {
-                   $scope.activation_message = global_message.ErrorInActivation;
-                }
-            });
+            var url = webservices.updateSocial+"?data="+JSON.stringify($scope.social)+"&callback=jsonp_callback8";
+                    
+            $http.jsonp(url);
+                      
+            $window.jsonp_callback8 = function(data) {
+                         
+                          if (data.code == 200) {
+                              $location.path("/view_account");
+                              $scope.success_message = true;
+                              $scope.success=global_message.infoSaved;
+                              $timeout(function() {
+                                  $scope.error='';
+                                  $scope.success_message=false;
+                                  $scope.success='';
+                              },3000);
+                          }
+                          else
+                          {
+                          $scope.error_message = true;
+                          $scope.error=global_message.errorChangeEmail;
+                          }
+                                                
+                         
+            }
+            
+            
         }
     };
    
     /*Get details of user*/
-    $scope.getData = function() {
-        if ($localStorage.userId!=undefined) {
-            $scope.data.userId      = $localStorage.userId;
-            $serviceTest.getData($scope.data,function(response){
-                $scope.loader = false;
-                if (response.code == 200) {
-                   $scope.password = response.result[0];
-                   $scope.social.facebook_link = response.result[0].facebook_link;
-                   $scope.social.twitter_link = response.result[0].twitter_link;
-                   $scope.social.google_plus = response.result[0].google_plus;
+    /////////////////////////////////////////////////////////////////
+      if ($localStorage.userId!=undefined) {
+        $scope.data.userId      = $localStorage.userId;
+      var url = webservices.getData+"?data="+JSON.stringify({userId:$localStorage.userId})+"&callback=jsonp_callback7";
+                    
+            $http.jsonp(url);
+                      
+            $window.jsonp_callback7 = function(data) {
+                    if (data.code == 200) {
+                      console.log(data);
+                      $scope.data       = data.data;
+                      $scope.email      = data.data;
+                      $scope.userdetail = data.data;
+                       console.log($scope.data);
+                    }
+                    else {
+                      $scope.activation_message = global_message.ErrorInActivation;
+                    }
+          }
+    /////////////////////////////////////////////////////////////////
+    
+            $http({
+                         url: webservices.getSocialData,
+                         method: 'POST',
+                         data: "userId="+$localStorage.userId,
+                         headers: {
+                          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                          "Accept": "application/json",
+                         }
+                        }).success(function(data, status, headers, config) {
+                        
+                         $scope.loader = false;
+                          if (data && data.code == 200) {
+                             $scope.password = data.result[0];
+                             $scope.social.facebook_link = data.result[0].facebook_link;
+                             $scope.social.twitter_link = data.result[0].twitter_link;
+                             $scope.social.google_plus = data.result[0].google_plus;
+          
+                             $scope.userdetail.first_name = data.result[0].first_name;
+                             $scope.userdetail.last_name = data.result[0].last_name;
+                             $scope.userdetail.timezone = data.result[0].timezone;
+                             $scope.userdetail.phone_no = data.result[0].phone_no;
+                             $scope.userdetail.fax = data.result[0].fax;
+                             
+                             $scope.email.email = data.result[0].email;
+                          } else {
+                             $scope.error_message = data.fetchError;
+                          }
+                  });
 
-                   $scope.userdetail.first_name = response.result[0].first_name;
-                   $scope.userdetail.last_name = response.result[0].last_name;
-                   $scope.userdetail.timezone = response.result[0].timezone;
-                   $scope.userdetail.phone_no = response.result[0].phone_no;
-                   $scope.userdetail.fax = response.result[0].fax;
-                   
-                   $scope.email.email = response.result[0].email;
-                } else {
-                   $scope.error_message = response.error;
-                }
-            });
         }
-    };
 
-    $scope.getData();
 
 });
 

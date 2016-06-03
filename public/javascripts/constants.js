@@ -6,7 +6,7 @@ var webservices = {
 
     "getUserregister" : baseUrl + "/webservices/register",
     "checkUnique" : baseUrl + "/webservices/checkUnique",
-    "getUserlogin" : baseUrl + "/webservices/login",
+    "getUserlogin" : baseUrl + "/webservices/login_test",
     "forgetPassword" : baseUrl + "/webservices/forgetPassword",
     "resetPassword" : baseUrl + "/webservices/resetPassword",
     "confirmationEmail" : baseUrl + "/webservices/confirmationEmail",
@@ -29,10 +29,12 @@ var webservices = {
     "questionOverview" :  "/event_setting/questionOverview",
     "changeQuestionStatus" :  "/event_setting/changeQuestionStatus",
     "deleteQuestion" :  "/event_setting/deleteQuestion",
+    "exportQuestionCSV"  :  "/event_setting/exportQuestionCSV",
+    "getSelectedQuestion" :  "/event_setting/getSelectedQuestion",
     
     /* Constants for the product */
     "getSettingCount" :  "/event_setting/getSettingCount",
-    "getProducts": "/event_setting/getProducts",
+    "getProducts": "/event_setting/getSettingProducts",
     "addProduct" :  "/event_setting/addProduct",
     "productOverview" :  "/event_setting/productOverview",
     "changeProductStatus" :  "/event_setting/changeProductStatus",
@@ -64,6 +66,8 @@ var webservices = {
     "makeDiscountAssignment"  :  "/event_setting/makeDiscountAssignment",
     "exportDiscountCSV"  :  "/event_setting/exportDiscountCSV",
     "getSelectedDiscount" :  "/event_setting/getSelectedDiscount",
+    "getEventPriceLevels" : "/event_setting/getEventPriceLevels",
+    "saveFinalAssignmet" : "/event_setting/saveFinalAssignmet",
 
     /* Constants for the bundle module */
     "getBundles": "/event_setting/getBundles",
@@ -79,14 +83,18 @@ var webservices = {
     "addUser": "/user/addUser",
     "getUser": "/user/getUser",
     "userOverview": "/user/userOverview",
+    //"editUser":"/user/editUser",
     "deleteUser":"/user/deleteUser",
+    "checksellerUser" :  "/user/checksellerUser",
+    "changeUserStatus":"user/changeUserStatus",
     
     /* Constants for the My account page */
-    "updateUser" : "/profile/updateUser",
-    "updateSocial" : "/profile/updateSocial",
+    "updateUser" : baseUrl + "/webservices/updateUser",
+    "updateSocial" : baseUrl + "/webservices/updateSocial",
     "updatePassword" : baseUrl + "/webservices/updatePassword",
     "updateEmail" : baseUrl + "/webservices/updateEmail",
-    "getData" : "/profile/getData",
+    "getData" : baseUrl + "/webservices/getData",
+    "getSocialData" :  "/profile/getData",
 
     /* Constants for the create event step 2 price level */
     "savepricelevel" : "/event/savepricelevel",
@@ -137,6 +145,7 @@ var webservices = {
     "getlookAndFeeltemplate":"event/getlookAndFeeltemplate",
     "getpreviewImage":"event/getpreviewImage",
     "getTemplate":"event/getTemplate",
+    "addlookAndFeelImage":"event/addlookAndFeelImage",
 
     //Add event product
     "addEventProduct" :  "/event_setting/addEventProduct",
@@ -145,6 +154,9 @@ var webservices = {
     "getEventProductDetail" :  "/event_setting/getEventProductDetail",
     "removeEventProduct" :  "/event_setting/removeEventProduct",
     "getEventPriceLevel" :  "/event_setting/getEventPriceLevel",
+    "getAllProducts" :  "/event_setting/getAllProducts",
+
+    
 
     
     
@@ -215,6 +227,7 @@ var global_message = {
     /*discount*/
     "discountUpdated" : 'Discount updated successfully',
     "discountAdded" : 'Discount added successfully',
+    "endDateError" : 'End date must be same or greater than start date',
     /*Create Event */
     "step1html":'modules/step_event/views/step1html.html',
     "bundlehtml":'modules/step_event/views/bundlehtml.html',
@@ -242,6 +255,7 @@ var global_message = {
     "advanceSettingSavingError" : "Error while saving advance settings",
     "successChangeEmail" : "Email has been changed successfully.",
     "errorChangeEmail" : "There is some problem in saving data . Please try after some time .",
+    "errorExistChangeEmail" : "This email already used in system , Please enter another email.",
 
 
     /* Product event popup/listing alerts*/
@@ -249,7 +263,8 @@ var global_message = {
     "event_product_add":"Product information has been added.",
     "event_product_delete":"Product has been deleted successfully.",
 
-
+   /* My account section **/
+   "fetchError" : "There is some problem on Sever side , Please try after some time ."
 }
 
 var appConstants = {
@@ -288,7 +303,7 @@ var showclix_tokenConstants = {
 
 var showclix_webservices = {
     /* Service To generate token on showclicks */
-    "generateToken" : showclixServer + "/api/registration",
+    "generateToken" : "/profile/showclix_login",
      /* Services for Sign up on showclicks Seller */
     "signUp" : showclixAPIServer +"/Seller",
      /* Services for Add Venue on showclicks */

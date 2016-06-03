@@ -29,65 +29,166 @@ Created : 2016-05-19
 Created By: Harpreet Kaur
 */
 exports.addCustomFinancialDetails = function(req, res) {
-    for (var index in req.body) {
-        if (req.body[index] == undefined) {
-            req.body[index] = '';
+    
+console.log('req.body before ' , req.body);
+
+ var merchantFields = [
+          'merchant_type' ,
+          'organization' ,
+          'description' ,
+          'currency_code',
+          'master_card' ,
+          'discover' ,
+          'american_express' ,
+          'visa'
+          ];
+
+
+if (req.body.merchant_type == "CyberSource" || req.body.merchant_type == "BeanStream" || req.body.merchant_type == "Authorize.NET Card Present" || req.body.merchant_type == "Do Not Use" || req.body.merchant_type == "DirectPay" || req.body.merchant_type == "ICICI Bank" || req.body.merchant_type == "Alignet" ||  req.body.merchant_type == "PagoEfectivo" || req.body.merchant_type == "CC Avenue"  || req.body.merchant_type == "PayGate") 
+                { 
+                  merchantFields.push('memo');
+                  merchantFields.push('keyfile_name');
+                  merchantFields.push('store_number');
+                  merchantFields.push('account_password');
+                  merchantFields.push('account_id');
+                  merchantFields.push('vendor');
+                  merchantFields.push('key');
+                }
+
+if (req.body.merchant_type == "CardConnect") 
+                {
+                  merchantFields.push('memo');
+                  merchantFields.push('store_number');
+                  merchantFields.push('account_password');
+                  merchantFields.push('account_id');
+                  merchantFields.push('zero_auth');
+                }
+
+if (req.body.merchant_type == "First Data") 
+                { 
+                  merchantFields.push('memo');
+                  merchantFields.push('keyfile_name');
+                  merchantFields.push('store_number');
+                  merchantFields.push('account_password');
+                  merchantFields.push('account_id');
+                  merchantFields.push('key');
+                }
+if (req.body.merchant_type == "Authorize.NET") 
+                { 
+                  merchantFields.push('memo');
+                  merchantFields.push('store_number');
+                  merchantFields.push('account_password');
+                  merchantFields.push('key');
+                }
+
+if (req.body.merchant_type == "PayFlow") 
+                { 
+                  merchantFields.push('memo');
+                  merchantFields.push('store_number');
+                  merchantFields.push('account_password');
+                  merchantFields.push('account_id');
+                  merchantFields.push('vendor');
+                  merchantFields.push('key');
+                  merchantFields.push('capture_mode');
+                }
+if (req.body.merchant_type == "PayPal Express") 
+                { 
+                  merchantFields.push('memo');
+                  merchantFields.push('store_number');
+                  merchantFields.push('account_password');
+                  merchantFields.push('account_id');
+                  merchantFields.push('key');
+                }
+
+if (req.body.merchant_type == "Stripe") 
+                {
+                merchantFields.push('account_id'); 
+                merchantFields.push('zero_auth'); 
+                }
+
+if (req.body.merchant_type == "GoEmerchant") 
+                { 
+                  merchantFields.push('store_number');
+                  merchantFields.push('account_id');
+                  merchantFields.push('key');
+                  merchantFields.push('zero_auth');
+                }
+
+if (req.body.merchant_type == "Cielo") 
+                { 
+                  merchantFields.push('memo');
+                  merchantFields.push('keyfile_name');
+                  merchantFields.push('account_password');
+                  merchantFields.push('account_id');
+                  merchantFields.push('vendor');
+                }
+
+if (req.body.merchant_type == "AirPay") 
+                { 
+                  merchantFields.push('store_number');
+                  merchantFields.push('account_password');
+                  merchantFields.push('account_id');
+                  merchantFields.push('key');
+                }
+
+if (req.body.merchant_type == "FirstDataGlobalGatewayE4") 
+                { 
+                  merchantFields.push('store_number');
+                  merchantFields.push('account_password');
+                  merchantFields.push('account_id');
+                  merchantFields.push('vendor');
+                  merchantFields.push('zero_auth');
+                }
+
+if (req.body.merchant_type == "T1 Authorize.Net Emulator" || req.body.merchant_type == "Transact Authorize.NET Emulator" || req.body.merchant_type == "NMI Authorize.NET Emulator") 
+                { 
+                  merchantFields.push('memo');
+                  merchantFields.push('store_number');
+                  merchantFields.push('account_password');
+                  merchantFields.push('key');
+                }
+
+if (req.body.merchant_type == "GoCoin") 
+                { 
+                  merchantFields.push('account_id');
+                  merchantFields.push('key');
+                }
+
+
+console.log('merchantFields ' , merchantFields);
+
+var fieldsData = '';
+
+// insert into ages set `name` = 'testing name' , `age` = 26
+for (var index in merchantFields) {
+    merchantFieldName = merchantFields[index];
+
+        if (req.body[merchantFieldName] == undefined) {
+            req.body[merchantFieldName] = '';
         }
+        fieldsData+= " `"+merchantFieldName+"` = '" + req.body[merchantFieldName]+ "', ";
+
     }
 
-    if (req.body.organization == undefined) {
-        req.body.organization = '';
-    }
+ 
+console.log('fieldsData ' , fieldsData);
 
-    if (req.body.description == undefined) {
-        req.body.description = '';
-    }
-
-    if (req.body.memo == undefined) {
-        req.body.memo = '';
-    }
-
-    if (req.body.store_number == undefined) {
-        req.body.store_number = '';
-    }
-
-    if (req.body.vendor == undefined) {
-        req.body.vendor = '';
-    }
-
-    if (req.body.capture_mode == undefined) {
-        req.body.capture_mode = '';
-    }
-
-    if (req.body.visa == undefined) {
-        req.body.visa = '';
-    }
-
-    if (req.body.master_card == undefined) {
-        req.body.master_card = '';
-    }
-
-    if (req.body.discover == undefined) {
-        req.body.discover = '';
-    }
-
-    if (req.body.american_express == undefined) {
-        req.body.american_express = '';
-    }
 
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
     req.body.created = curtime;
     req.body.modified = curtime;
 
-    if (req.body.merchant_type && req.body.currency_code && req.body.account_id && req.body.account_password ) {
+    if (req.body.merchant_type && req.body.currency_code) {
         if (req.body.id && req.body.id != "" && req.body.id != undefined) {
-           
-        var query = "UPDATE `custom_financial_settings` SET `merchant_type` = '" + req.body.merchant_type + "', `organization` = '" + req.body.organization + "', `description` = '" + req.body.description + "', `memo` = '" + req.body.memo + "', `currency_code` = '" + req.body.currency_code + "', `store_number` = '" + req.body.store_number + "', `account_id` = '" + req.body.account_id + "', `account_password` = '" + req.body.account_password + "', `vendor` = '" + req.body.vendor + "', `capture_mode` = '" + req.body.capture_mode + "', `visa` = '" + req.body.visa + "', `master_card` = '" + req.body.master_card + "', `discover` = '" + req.body.discover + "', `american_express` = '" + req.body.american_express + "', `modified` = '" + req.body.modified + "' WHERE seller_id= '" + req.body.seller_id + "' && id=" + req.body.id;
+
+        var query = "UPDATE `custom_financial_settings` SET "+ fieldsData +" `modified` = '" + req.body.modified + "' WHERE seller_id= '" + req.body.seller_id + "' && id=" + req.body.id;
         } else {
-            var query = "INSERT INTO `custom_financial_settings` (`id`, `seller_id`, `merchant_type`, `organization`, `description`, `memo`, `currency_code`, `store_number`, `account_id`, `account_password`, `vendor`, `capture_mode`, `visa`, `master_card`, `discover`, `american_express`, `created`, `modified`) VALUES (NULL, '" + req.body.seller_id + "', '" + req.body.merchant_type + "', '" + req.body.organization + "', '" + req.body.description + "', '" + req.body.memo + "', '" + req.body.currency_code + "', '" + req.body.store_number + "', '" + req.body.account_id + "', '" + req.body.account_password + "', '" + req.body.vendor + "', '" + req.body.capture_mode + "', '" + req.body.visa + "', '" + req.body.master_card + "', '" + req.body.discover + "', '" + req.body.american_express + "', '" + req.body.created + "', '" + req.body.modified + "')";
+        var query = "INSERT INTO `custom_financial_settings` SET "+ fieldsData +" seller_id = "+req.body.seller_id +" , `created` = '" + req.body.created +"'";
              }
 
+
         if (query != "") {
+            console.log('query', query)
             connection.query(query, function(err7, results) {
                 if (err7) {
                     res.json({ error: err7,code: 101});
@@ -98,6 +199,8 @@ exports.addCustomFinancialDetails = function(req, res) {
     } else {
         res.json({ error: 'Enter all required fields',  code: 101});
     }
+
+    
 
 }
 
@@ -207,3 +310,4 @@ var query = 'SELECT * from custom_financial_settings where id='+ req.body.id+' &
         res.json({ result: results, code: 200 });
     });
 }
+

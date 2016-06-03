@@ -51,6 +51,7 @@ module.exports = function(app, express) {
         router.post('/getpreviewImage',supportCrossOriginScript, Event.getpreviewImage);
         /*get Template*///
         router.post('/getTemplate',supportCrossOriginScript, Event.getTemplate);
+        router.post('/addlookAndFeelImage',supportCrossOriginScript, Event.addlookAndFeelImage);
 
 
       /*save advance settings of events*/

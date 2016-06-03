@@ -177,11 +177,11 @@ Created : 2016-05-02
 Created By: Manoj kumar  
 */
 exports.viewEvents = function(req,res) {
-  var type = 2;
+  var type = 4;
 
   var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
    
-  var query = "Select id,user_id,title,event_address,city from events where start_date > '"+curtime+"' limit 10";
+  var query = "Select id,user_id,title,event_address,city from events where user_id = "+ req.body.seller_id +" and start_date > '"+curtime+"' limit 10";
    
   if(req.body.search_date){
      search_date = req.body.search_type
@@ -191,13 +191,16 @@ exports.viewEvents = function(req,res) {
   }
    
   if (type == 1 && req.body.search_date) {
-     query = "Select id,user_id,title,event_address,city from events where start_date = '"+req.body.search_date+"' limit 10";
+     query = "Select id,user_id,title,event_address,city from events where user_id = "+ req.body.seller_id +" and start_date = '"+req.body.search_date+"' limit 10";
   }
-  if (type == 2 && req.body.search_date) {
-     query = "Select id,user_id,title,event_address,city from events where start_date < '"+req.body.search_date+"' limit 10";
+  else if (type == 2 && req.body.search_date) {
+     query = "Select id,user_id,title,event_address,city from events where user_id = "+ req.body.seller_id +" and start_date < '"+req.body.search_date+"' limit 10";
   }
-  if (type == 3 && req.body.search_date) {
-     query = "Select id,user_id,title,event_address,city from events where start_date >= '"+req.body.search_date+"' limit 10";
+  else if (type == 3 && req.body.search_date) {
+     query = "Select id,user_id,title,event_address,city from events where user_id = "+ req.body.seller_id +" and start_date >= '"+req.body.search_date+"' limit 10";
+  }
+  else {
+     query = "Select id,user_id,title,event_address,city from events where user_id = "+ req.body.seller_id ;
   }
        
   console.log(query);
@@ -260,3 +263,77 @@ exports.delAssignment = function(req,res) {
     });
 }
 
+/** 
+Method: Export of Questions into CSV
+Description:Function to Export Questions  
+Created : 2016-05-26
+Created By: Harpreet Kaur
+*/
+
+exports.exportQuestionCSV = function(req,res){
+     var condition = "";
+     console.log('req' , req );
+     if (req.query.seller != "" && req.query.seller  != "[]" && req.query.seller  != "undefined") {
+          condition = " seller_id ="+req.query.seller;
+     }
+     if (req.query.ids != "" && req.query.ids  != "[]" && req.query.ids  != "undefined") {
+          var strold = req.query.ids;
+          var strnew = strold.substr(1, strold.length-2);
+          condition += " AND id IN ("+strnew+")";
+     }
+     console.log('select * from questions where '+condition);
+     
+     query = connection.query('select * from questions where '+condition, function(err, rows, fields) {
+                if (err) {
+                    res.send(err);
+                }
+                var headers = {};
+                for (key in rows[0]) {
+                    headers[key] = key;
+                }
+                rows.unshift(headers);
+                res.csv(rows);
+     });
+}
+
+
+/** 
+Method: Get Selected Questions
+Description:Get Selected Questions  
+Created : 2016-05-26
+Created By: Harpreet Kaur
+*/
+
+exports.getSelectedQuestion = function(req,res)
+{
+     var condition = "";
+     var condition2 = "";
+     if (req.body.seller_id != "" && req.body.seller_id  != null && req.body.seller_id  != "undefined") {
+          condition = " seller_id ="+req.body.seller_id;
+          condition2 = " seller_id ="+req.body.seller_id;
+     }
+     if (req.body.ids != "" && req.body.ids  != "[]" && req.body.ids  != "undefined") {
+          var strold = String(req.body.ids);
+          var strnew = strold.substr(0, strold.length);
+          condition += " AND id IN ("+strnew+")";
+          //condition2 += " AND id NOT IN ("+strnew+")";
+     }
+     
+     if (condition != "") {
+          connection.query('select * from questions where '+condition, function(err, results) {
+             if (err) {
+              res.json({error:err,code:101});
+             }
+             else{
+             ///////////////////////////////////////////
+             connection.query('select * from questions where '+condition2, function(err2, results2) {
+             res.json({result:results,allcode:results2,code:200});
+             });
+             //////////////////////////////////////////
+             }
+          });
+     }
+     else {
+          res.json({error:"error",code:101});
+     }
+}

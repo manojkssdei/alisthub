@@ -12,65 +12,7 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
         }
         var $serviceTest = $injector.get("venues");
 
-        /////////////////////////////////////////////////////////////
-         $scope.createCORSRequest = function(method, url){
-            var xhr = new XMLHttpRequest();
-            if ("withCredentials" in xhr){
-                // XHR has 'withCredentials' property only if it supports CORS
-                xhr.open(method, url, true);
-            } else if (typeof XDomainRequest != "undefined"){ // if IE use XDR
-                xhr = new XDomainRequest();
-                xhr.open(method, url);
-            } else {
-                xhr = null;
-            }
-            return xhr;
-        }
-         
-        var request = $scope.createCORSRequest( "get", "http://api.showclix.com/Venue" );
-        if ( request ){
-            // Define a callback function
-           console.log(request);
-            // Send request
-           // request.send();
-        
-         
-         $scope.sdata = { "venue_name": "Sukna lake",
-  "seating_chart_name": "",
-  "capacity": "120",
-  "description": "test description",
-  "booking_info": null,
-  "image": null,
-  "seating_chart": null,
-  "seating_chart_type": "2",
-  "url": "",
-  "contact_name": "Test lake",
-  "contact_title": null,
-  "address": "test sukna address",
-  "city": "Neyyork",
-  "state": "AA",
-  "zip": "10005",
-  "country": "US",
-  "phone": "8786767",
-  "fax": "6767676",
-  "email": "manojks@smartdatainc.net",
-  "timezone": "-5",
-  "status": "2",
-  "lat": "40.2466910",
-  "lng": "-85.2932100",
-  "timezone_name": "America/New_York"
-};
-                    $serviceTest.addShowclixVenue($scope.sdata, function(getresponse) {
-                     console.log(getresponse);  
-                       
-                    });
-        
-        }  
-        
-        
-        ///////////////////////////////////////////////////////////
-        
-        
+              
         if (window.innerWidth > 767) {
             $scope.navCollapsed = false;
         } else {

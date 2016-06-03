@@ -19,6 +19,10 @@ module.exports = function(app, express) {
     /* My account data fetch */
     router.post('/getData', profileCon.getData);
     
+    //showclix login
+    router.post('/showclix_login', profileCon.showclix_login);
+    
+    
     /* Default */   
     app.use('/profile', router);
 }

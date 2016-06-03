@@ -27,7 +27,9 @@ var webservices = {
     "questionOverview" :  "/event_setting/questionOverview",
     "changeQuestionStatus" :  "/event_setting/changeQuestionStatus",
     "deleteQuestion" :  "/event_setting/deleteQuestion",
-    
+    "exportQuestionCSV"  :  "/event_setting/exportQuestionCSV",
+    "getSelectedQuestion" :  "/event_setting/getSelectedQuestion",
+
     /* Constants for the product */
     "getSettingCount" :  "/event_setting/getSettingCount",
     "getProducts": "/event_setting/getProducts",
@@ -61,6 +63,7 @@ var webservices = {
     "makeDiscountAssignment"  :  "/event_setting/makeDiscountAssignment",
     "exportDiscountCSV"  :  "/event_setting/exportDiscountCSV",
     "getSelectedDiscount" :  "/event_setting/getSelectedDiscount",
+    "getEventPriceLevels" : "/event_setting/getEventPriceLevels",
 
     /* Constants for the bundle module */
     "getBundles": "/event_setting/getBundles",
@@ -76,6 +79,7 @@ var webservices = {
     "addUser": "/user/addUser",
     "getUser": "/user/getUser",
     "userOverview": "/user/userOverview",
+    "checkuniqueUser" : baseUrl + "/webservices/checkuniqueUser",
     
     /* Constants for the My account page */
     "updateUser" : "/profile/updateUser",

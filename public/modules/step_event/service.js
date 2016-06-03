@@ -179,6 +179,13 @@ url.getEventProductDetail = function(jsondata,callback){
     });
   };
 
+  //get Products
+  url.getAllProducts = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getAllProducts,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
 
 
  

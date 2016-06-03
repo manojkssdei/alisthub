@@ -87,6 +87,10 @@ module.exports = function(app, express) {
     
     router.post('/delAssignment', question_setting.delAssignment);
     
+    /* exportQuestionCSV Question Asssignment Event Seller   */
+    
+    router.get('/exportQuestionCSV', question_setting.exportQuestionCSV);
+    
 
 
     /*** Module : Manage Product
@@ -94,6 +98,10 @@ module.exports = function(app, express) {
      *
     */
     router.post('/getProducts', bundle_setting.getProducts);
+    
+    router.post('/getSettingProducts', product_setting.getSettingProducts);
+
+    router.post('/getAllProducts', bundle_setting.getAllProducts);
     
     /* Add Seller Question  */
     
@@ -159,6 +167,24 @@ module.exports = function(app, express) {
     /* Get selected discount  */
     /////////////////////// Export CSV  ////////////////////////////////
     router.post('/getSelectedDiscount', discount_setting.getSelectedDiscount); 
+   
+   /* View Event Price levels   */
+    
+    router.post('/getEventPriceLevels', discount_setting.getEventPriceLevels);
+
+    /* Assign discount coupons to events and price levels   */
+    
+    router.post('/saveFinalAssignmet', discount_setting.saveFinalAssignmet);
+
+
+   /* View Event Price levels   */
+    
+    router.post('/getEventPriceLevels', discount_setting.getEventPriceLevels);
+
+    /* Assign discount coupons to events and price levels   */
+    
+    router.post('/saveFinalAssignmet', discount_setting.saveFinalAssignmet);
+
 
     /*** Module : Manage Bundle
      *   Get Seller Bundle 

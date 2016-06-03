@@ -5,6 +5,9 @@
     <span ng-show="success_message" class="ng-hide">
         <p class="success-fld ng-binding">{{success}}</p>
     </span>
+    <span ng-show="faluire_message" class="ng-hide">
+        <p class="error-fld ng-binding">{{used_old_password}}</p>
+    </span>
     <span ng-show="error_message" class="ng-hide">
         <p class="error-fld ng-binding">{{error}}</p>
     </span>
@@ -35,8 +38,39 @@
                             <div class="form-group">
                                 <label for="timezone">TimeZone</label>
                                 <select class="form-control" ng-model="userdetail.timezone" placeholder="Timezone">
-                                    <option value="" selected="selected">TimeZone</option>
-                                    <option>TimeZone1</option>
+                                    <option>Select Timezone</option>
+                                                        <option>International Date Line West</option>
+                                                        <option>Midway Island, Samoa</option>
+                                                        <option>Hawaii</option>
+                                                        <option>Alaska</option>
+                                                        <option>Pacific Time (US and Canada)</option>
+                                                        <option>Tijuana, Baja California</option>
+                                                        <option>Arizona</option>
+                                                        <option>Chihuahua, La Paz, Mazatlan</option>
+                                                        <option>Mountain Time (US and Canada)</option>
+                                                        <option>Central America</option>
+                                                        <option>Central Time (US and Canada)</option>
+                                                        <option>Guadalajara, Mexico City, Monterrey</option>
+                                                        <option>Saskatchewan</option>
+                                                        <option>Bogota, Lima, Quito, Rio Branco</option>
+                                                        <option>Eastern Time (US and Canada)</option>
+                                                        <option>Indiana (East)</option>
+                                                        <option>Atlantic Time (Canada)</option>
+                                                        <option>Caracas, La Paz</option>
+                                                        <option>Manaus</option>
+                                                        <option>Santiago</option>
+                                                        <option>Newfoundland</option>
+                                                        <option>Brasilia</option>
+                                                        <option>Buenos Aires, Georgetown</option>
+                                                        <option>Greenland</option>
+                                                        <option>Montevideo</option>
+                                                        <option>Mid-Atlantic</option>
+                                                        <option>Cape Verde Is.</option>
+                                                        <option>Azores</option>
+                                                        <option>Casablanca, Monrovia, Reykjavik</option>
+                                                        <option>Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London</option>
+                                                        <option>Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
+                                                        <option>Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
                                 </select>
                             </div>
                         </div>
@@ -101,7 +135,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            <button class="pink-btn btn" ng-click="submitted2=true">Update Email</button>
+                            <button class="pink-btn btn" ng-click="submitted2=true || error_message">Update Email</button>
                         </div>
                     </div>
                 </section>
@@ -132,9 +166,11 @@
                         <div class="col-sm-4" ng-class="{ 'has-error' : accountpassword.confirmpass.$invalid && !accountpassword.confirmpass.$pristine }">
                             <div class="form-group">
                                 <label for="Zipcode">Confirm Password<span class="req">*</span></label>
-                                <input type="password" class="form-control" ng-model="data.confirmpass" name="confirmpass" placeholder="Confirm Password"  required>
+                                <input type="password" class="form-control" ng-pattern={{data.newpass}} ng-model="data.confirmpass" name="confirmpass" placeholder="Confirm Password"  required>
                             </div>
-                            <p ng-show="accountpassword.confirmpass.$invalid && !accountpassword.confirmpass.$pristine" class="error-fld ng-binding">Enter Confirm Password.</p>
+                            <!-- <p ng-show="accountpassword.confirmpass.$invalid && !accountpassword.confirmpass.$pristine" class="error-fld ng-binding">Enter Confirm Password.</p> -->
+                            <p ng-show="accountpassword.confirmpass.$error.pattern" class="error-fld ng-binding">Password Not Matched!.</p>
+
                         </div>
                     </div>
                     <div class="row">
@@ -156,7 +192,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="Zipcode">Advanced Settings</label>
-                            <button class="btn pink-btn btn-small" type="button">Edit Advanced Settings</button>
+                            <button class="btn pink-btn btn-small" ui-sref="advance_setting" type="button">Edit Advanced Settings</button>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -185,21 +221,21 @@
                         <div class="col-sm-4">
                             <div class="form-group" ng-class="{true: 'error'}[submitted1]">
                                 <label for="facebooklink">Facebook Account</label>
-                                <input type="url" class="form-control" ng-model="social.facebook_link" name="facebook_link" placeholder="Facebook">
+                                <input type="url" class="form-control" ng-model="social.facebook_link" name="facebook_link" placeholder="Facebook" required>
                                 <span class="help-inline" ng-show="submitted1 && sociallink.facebook_link.$error.url">Please enter valid url</span>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="twitter">Twitter Account</label>
-                                <input type="url" class="form-control" ng-model="social.twitter_link" name="twitter_link" placeholder="Twitter">
+                                <input type="url" class="form-control" ng-model="social.twitter_link" name="twitter_link" placeholder="Twitter" required>
                                 <span class="help-inline" ng-show="submitted1 && sociallink.twitter_link.$error.url">Please enter valid url</span>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="gplus">G<sup>+</sup></label>
-                                <input type="url" class="form-control" ng-model="social.google_plus" name="google_plus" placeholder="Google plus">
+                                <input type="url" class="form-control" ng-model="social.google_plus" name="google_plus" placeholder="Google plus" required>
                                 <span class="help-inline" ng-show="submitted1 && sociallink.google_plus.$error.url">Please enter valid url</span>
                             </div>
                         </div>

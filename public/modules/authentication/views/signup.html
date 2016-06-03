@@ -49,6 +49,20 @@
                 </div>
                 <div class="form-group row">
                 </div>
+                
+                    <!-- ************************CREATED BY DEEPAK K****************************-->
+                    <div class="form-group row">
+                    <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.email.$error.required}">
+                    </div>
+                    <div class="col-sm-6 section-col">
+                    <div class="form-group">
+                    <div  re-captcha ng-model="user.captcha" name="captcha"></div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- ******************************************************************* -->
+                
             </section>
             <p><button  type="submit" class="btn-l m-fw"  ng-disabled="userSignupForm.$invalid || unique_type == 2 || unique_type == 3" id="signupBtn">Sign up</button></p>
             <section class="otherlinks">
