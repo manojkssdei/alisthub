@@ -281,7 +281,7 @@ Created : 2016-05-16
 Created By: Harpreet Kaur
 Module : Discount 
 */
-.controller('manageDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $location , $timeout,ngTableParams) {
+.controller('manageDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $location , $timeout , ngTableParams) {
 
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
@@ -661,7 +661,7 @@ Module : Export Discount
             return '';
         }
     })
-    .controller('assignDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $uibModal, $location) {
+    .controller('assignDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $uibModal, $location ,$timeout) {
 
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
@@ -938,7 +938,7 @@ console.log(' -------------- -------------- -------------- -------------- ');
                 console.log('$scope.discountIds before push' , $scope.discountIds);
                 
                 if ( $scope.add_code in $scope.discountIds ) {
-                    alert("exist"); 
+                    console.log("exist"); 
                 }
                 else
                 {

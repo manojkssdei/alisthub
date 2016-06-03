@@ -39,15 +39,15 @@
                                 <tbody>
 
                                     <tr ng-repeat="data in $data | filter:filter">
-                                        <td width="24%" header-class="'header-text-align'" title="'Name'" filter="{ product_name: 'text'}" sortable="'product_name'"><a href="#/product_overview/{{data.id}}"><strong>{{data.product_name}}</strong></a></td>
-                                        <td width="12%" header-class="'header-text-align'" title="'MODEL'" filter="{ product_model: 'text'}" sortable="'product_model'" class="">{{data.product_model}}</td>
-                                        <td width="12%" header-class="'header-text-align'" title="'UPC'" filter="{ product_upc: 'text'}" sortable="'product_upc'" class="">{{data.product_upc}}</td>
-                                        <td width="14%" header-class="'header-text-align'" title="'Sales/Inventory'" filter="{ inventory: 'text'}" sortable="'inventory'" class="numbers">0 / {{data.inventory}}</td>
+                                        <td width="20%" header-class="'header-text-align'" title="'Name'" filter="{ product_name: 'text'}" sortable="'product_name'"><a href="#/product_overview/{{data.id}}"><strong>{{data.product_name}}</strong></a></td>
+                                        <td width="15%" header-class="'header-text-align'" title="'MODEL'" filter="{ product_model: 'text'}" sortable="'product_model'" class="">{{data.product_model}}</td>
+                                        <td width="15%" header-class="'header-text-align'" title="'UPC'" filter="{ product_upc: 'text'}" sortable="'product_upc'" class="">{{data.product_upc}}</td>
+                                        <td width="15%" header-class="'header-text-align'" title="'Sales/Inventory'" filter="{ inventory: 'text'}" sortable="'inventory'" class="numbers">0 / {{data.inventory}}</td>
                                         <td width="15%" header-class="'header-text-align'" title="'STATUS'" filter="{ status: 'text'}" sortable="'status'">
                                             <p ng-if="data.status == 1">On Sales</p>
                                             <p ng-if="data.status == 0">Sales Pause</p>
                                         </td>
-                                        <td  width="23%" header-class="''" title="'Action'" class="action">
+                                        <td  width="20%" header-class="''" title="'Action'" class="action">
                                             <a href="#/edit_product/{{data.id}}"><i class="fa fa-edit"></i></a>
                                             <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Product status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
                                             <a ng-click="delProduct(data.id)" ng-confirm-clicks="Would you like to delete this Product?"><i class="fa fa-trash"></i></a>

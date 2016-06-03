@@ -60,7 +60,7 @@
 					</td>
                                         <td width="12%" header-class="'header-text-align'" title="'Type'" filter="{ coupon_type: 'text'}" sortable="'coupon_type'">{{data.coupon_type}}
 					</td>
-                                        <td width="12%" header-class="'header-text-align'" title="'Code'" filter="{ coupon_code: 'text'}" sortable="'coupon_code'" class="numbers">
+                                        <td width="12%" header-class="'header-text-align'" title="'Code'" filter="{ coupon_code: 'text'}" sortable="'coupon_code'" >
                                             <p ng-if="data.coupon_code">{{data.coupon_code}}</p>
                                             <p ng-if="data.coupon_code == '' || data.coupon_code == null || data.coupon_code == undefined"></p>
                                         </td>
@@ -68,10 +68,10 @@
                                             <p ng-if="data.amount">{{data.amount}}</p>
                                             <p ng-if="data.amount == '' || data.amount == null || data.amount == undefined || data.amount == 0"></p>
                                         </td>
-                                        <td width="16%" header-class="'header-text-align'" title="'Amount Type'" filter="{ amount_type: 'text'}" sortable="'amount_type'" class="numbers">{{data.amount_type}}
+                                        <td width="16%" header-class="'header-text-align'" title="'Amount Type'" filter="{ amount_type: 'text'}" sortable="'amount_type'" >{{data.amount_type}}
 					</td>
-                                        <td width="14%" header-class="'header-text-align'" title="'Assigned To'"  class="">{{data.assigned_to}}
-					</td>
+                                        <td width="14%" header-class="'header-text-align'" title="'Assigned To'"  class="">	</td>
+
                                         <td width="23%" title="'Action'"  class="action">
                                             <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
                                             <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>

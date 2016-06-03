@@ -19,6 +19,25 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 ::-moz-selection { background: #0275d0; color:#ffffff;}
 ::selection { background: #0275d0; color:#ffffff;}
  
+/* listing tables headers - 3 june */
+.header.header-text-align{
+  text-align: left !important;
+}
+
+/* custom error messages for assign discount*/
+.custom_error {
+    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
+    color: #fff;
+    margin: -20px 0 15px;
+    padding: 10px;
+}
+.uib-datepicker .btn .text-info  {  background-color: #ffffff !important; box-shadow: none !important; color: #333 !important;}
+ .end_time_error {
+    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
+    color: #fff;
+    margin: 0px 0 15px;
+    padding: 10px;
+}
 
 /* Common CSS
    ========================================================================== */
@@ -682,25 +701,8 @@ color-picker{float: right !important;}
 .ng-table-counts .btn { color:#333 !important }
 .assign-discount .btn { min-width:50px;!important }
 .color-picker-wrapper{float: right;}
-/* custom error messages for assign discount*/
-.custom_error {
-    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
-    color: #fff;
-    margin: -20px 0 15px;
-    padding: 10px;
-}
-.uib-datepicker .btn .text-info  {  background-color: #ffffff !important; box-shadow: none !important; color: #333 !important;}
- .end_time_error {
-    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
-    color: #fff;
-    margin: 0px 0 15px;
-    padding: 10px;
-}
 
-/* listing tables headers - 3 june */
-.header.header-text-align.sortable{
-  text-align: left !important;
-}
+
 
 .glyphicon.glyphicon-arrow-right{
   padding-right: 5px;
