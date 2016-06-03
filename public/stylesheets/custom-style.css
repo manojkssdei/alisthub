@@ -3,5 +3,6 @@
 .help-inline{margin-top: 3px; color: red;}
 .welcometxt .btn-group.dropdown{ float: left;}
 .ng-table-counts .btn{ color:#333; }
-.col-sm-4.event label > input{   display: inline-block;}
+.col-sm-4.event label > input{   display:inline-block;}
+select{padding:5px; font-waight; 400;}
 .monthly-padding {padding-top: 20px; padding-bottom: 20px;}
