@@ -10,73 +10,69 @@
             <!--/Top Buttons-->
             <section class="form-group field-group row">
                 <section class="col-sm-6">
+
+                <div class="module">
+                        <section class="prof-hd">
+                            <i class="fa fa-link hdicon pos-l16"></i>
+                            <h2>Venue Details <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                        </section>
+                        <section class="gray-frame">
+                            
+                          <section class="gray-frame sub-fields">
+                            <section class="content">
+                               <div class="row"> 
+                    <div class="col-sm-5 pull-left"><strong>Venue Type:</strong> </div> <div class="col-sm-7 pull-left">{{data.venue_type}}</div>
+                   </div>
+                   <div class="row">&nbsp;</div>
+                   <div class="row">
+                               <div class="col-sm-5 pull-left"><strong>Venue Name:</strong> </div><div class="col-sm-7 pull-left">{{data.venue_name}}</div>
+                   </div>
+                    <div class="row">&nbsp;</div>
+                   <div class="row">
+                                <div class="col-sm-5 pull-left"><strong>Capacity: </strong></div><div class="col-sm-7 pull-left">{{data.capacity}}</div>
+                   </div>
+                            </section>
+                        </section>
+
+                        </section>
+                    </div>
                     <!--/Package-->
-                    <section class="form-group field-group">
-                        <h4>Venue Details</h4>
-                        <section class="gray-frame sub-fields">
+
+
+                     <div class="module">
+                        <section class="prof-hd">
+                            <i class="fa fa-link hdicon pos-l16"></i>
+                            <h2>Contact Details <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                        </section>
+                        <section class="gray-frame">
+                            
+                          <section class="gray-frame sub-fields">
                             <section class="content">
+                                <div class="row"> 
+                    <div class="col-sm-5 pull-left"><strong>Contact Name: </strong></div><div class="col-sm-7 pull-left"> {{data.contact_name}}</div>
+                </div>
+                 <div class="row">&nbsp;</div>
+                                <div class="row"> 
+                    <div class="col-sm-5 pull-left"><strong>Phone:</strong></div><div class="col-sm-7 pull-left"> {{data.phone}}</div>
+                </div>
+                 <div class="row">&nbsp;</div>
                                <div class="row"> 
-			        <div class="col-sm-4 pull-left"><strong>Venue Type :</strong> </div> <div class="col-sm-8 pull-left">{{data.venue_type}}</div>
-			       </div>
-			       <div class="row">&nbsp;</div>
-			       <div class="row">
-                               <div class="col-sm-4 pull-left"><strong>Venue Name :</strong> </div><div class="col-sm-8 pull-left">{{data.venue_name}}</div>
-			       </div>
-			        <div class="row">&nbsp;</div>
-			       <div class="row">
-                                <div class="col-sm-4 pull-left"><strong>Capacity : </strong></div><div class="col-sm-8 pull-left">{{data.capacity}}</div>
-			       </div>
+                    <div class="col-sm-5 pull-left"><strong>Fax: </strong></div><div class="col-sm-7 pull-left">{{data.fax}}</div>
+                   </div>
+                 <div class="row">&nbsp;</div>
+                                <div class="row"> 
+                    <div class="col-sm-5 pull-left"><strong>Email:</strong> </div><div class="col-sm-7 pull-left">{{data.email}}</div>
+                </div>
+                 <div class="row">&nbsp;</div>
+                                <div class="row"> 
+                    <div class="col-sm-5 pull-left"><strong>URL:</strong> </div><div class="col-sm-7 pull-left">{{data.url}}</div>
+                </div>
                             </section>
                         </section>
-                        <h4>Address</h4>
-                        <section class="gray-frame sub-fields">
-                            <section class="content">
-                                <div class="row"> 
-			        <div class="col-sm-4 pull-left"><strong>Address :</strong></div><div class="col-sm-8 pull-left"> {{data.address}}</div>
-				</div>
-				 <div class="row">&nbsp;</div>
-                                <div class="row"> 
-			        <div class="col-sm-4 pull-left"><strong>City : </strong></div><div class="col-sm-8 pull-left"> {{data.city}}</div>
-				</div>
-				 <div class="row">&nbsp;</div>
-                                <div class="row"> 
-			        <div class="col-sm-4 pull-left"><strong>State :</strong> </div><div class="col-sm-8 pull-left"> {{data.state}}</div>
-				</div>
-				 <div class="row">&nbsp;</div>
-                                <div class="row"> 
-			        <div class="col-sm-4 pull-left"><strong>Country :</strong> </div><div class="col-sm-8 pull-left"> {{data.country}}</div>
-				</div>
-				 <div class="row">&nbsp;</div>
-                                <div class="row"> 
-			        <div class="col-sm-4 pull-left"><strong>Zipcode :</strong></div><div class="col-sm-8 pull-left">  {{data.zipcode}}</div>
-				</div>
-                            </section>
+
                         </section>
-                        <h4>Contact</h4>
-                        <section class="gray-frame sub-fields">
-                            <section class="content">
-                                <div class="row"> 
-			        <div class="col-sm-4 pull-left"><strong>Contact Name : </strong></div><div class="col-sm-8 pull-left"> {{data.contact_name}}</div>
-				</div>
-				 <div class="row">&nbsp;</div>
-                                <div class="row"> 
-			        <div class="col-sm-4 pull-left"><strong>Phone :</strong></div><div class="col-sm-8 pull-left"> {{data.phone}}</div>
-				</div>
-				 <div class="row">&nbsp;</div>
-                               <div class="row"> 
-			        <div class="col-sm-4 pull-left"><strong>Fax : </strong></div><div class="col-sm-8 pull-left">{{data.fax}}</div>
-			       </div>
-				 <div class="row">&nbsp;</div>
-                                <div class="row"> 
-			        <div class="col-sm-4 pull-left"><strong>Email :</strong> </div><div class="col-sm-8 pull-left">{{data.email}}</div>
-				</div>
-				 <div class="row">&nbsp;</div>
-                                <div class="row"> 
-			        <div class="col-sm-4 pull-left"><strong>URL :</strong> </div><div class="col-sm-8 pull-left">{{data.url}}</div>
-				</div>
-                            </section>
-                        </section>
-                    </section>
+                    </div>
+
                     <!--/Package Details-->
                 </section>
                 <!--/Left-->
@@ -89,6 +85,12 @@
                             <section class="v-map-overview">
                                 <div id="map" style="height:400px;"></div>
                             </section>
+
+                            <ul class="address-list">
+                                <li><p><strong>{{data.venue_name}}</strong></p>
+                                <p>{{data.address}}</p>
+                                <p> {{data.city}}  {{data.state}}  {{data.country}}, {{data.zipcode}}</p></li>
+                            </ul>
                         </section>
                     </section>
                 </section>

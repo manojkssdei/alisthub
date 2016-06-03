@@ -709,3 +709,16 @@ color-picker{float: right !important;}
     margin: 0px 0 15px;
     padding: 10px;
 }
+
+/* listing tables headers - 3 june */
+.header.header-text-align.sortable{
+  text-align: left !important;
+}
+
+.glyphicon.glyphicon-arrow-right{
+  padding-right: 5px;
+}
+
+.product_overview_sales{
+  margin-top: 20px;
+}
