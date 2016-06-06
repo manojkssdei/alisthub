@@ -16,6 +16,9 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.loader = false;
   $scope.step1html = '';
 
+
+$localStorage.eventId = null;
+
 $scope.priceLevel=[];
         $ocLazyLoad.inject('alisthub').then(function() {
             $scope.step1html = global_message.step1html;
@@ -493,39 +496,58 @@ $scope.rec_year_func = function() {
                 $scope.open_price_level('lg');
                 
                 $rootScope.data1=response.results[0];
-                
+                if (!$rootScope.data1.description) {
+                  $rootScope.data1.description = '';
+                }
+                $rootScope.maximum_quantitiy_available_value = parseInt($rootScope.data1.quantity_available) + parseInt($rootScope.inventory_remaining);
+                // console.log("line 503 max quantity value - ", $rootScope.maximum_quantitiy_available_value)
             }
-           
-            
-           
         }); 
     }
     
 
- /* ************************CREATED BY DEEPAK K*************** */
     // To get Price level.
     $scope.availQuantity=0;
     $scope.totalRemainings=0;
-    /*==============================================================*/
-    $serviceTest.getPricelevel({'eventId':$eventId},function(response){
-      $rootScope.price_level=response.results;
-      $scope.priceLevel=response.results;
+    $scope.totalRemainingsError = false;
+    $rootScope.eventInventoryCalc=function()
+    {
+      // console.log("ineventpricecalc")
+      $scope.availQuantity=0;
+      $scope.totalRemainings=0;
 
-     /* ************************CREATED BY DEEPAK K*************** */
+      $serviceTest.getPricelevel({'eventId':$localStorage.eventId},function(response){
+        $rootScope.price_level=response.results;
+
+        $scope.priceLevel=response.results;
         var pricelevelData=$scope.priceLevel;
+        var pricelevelDataLength = pricelevelData.length;
+        // console.log("pricelevelDataLength" , pricelevelDataLength , pricelevelData)
+        for( var i=0 ; i < pricelevelDataLength ; i++ )
+        {
+          $scope.availQuantity=$scope.availQuantity+pricelevelData[i].quantity_available;
+          // console.log($scope.availQuantity)
+        }
 
-       for(var i=0;i<pricelevelData.length;i++)
-       {
-        $scope.availQuantity=$scope.availQuantity+pricelevelData[i].quantity_available;
-       }
-      $scope.eventInventoryCalc=function()
-      {
-       $scope.inventoryTextVal=$scope.data1.eventinventory;
-       $scope.totalRemainings=  eval($scope.inventoryTextVal-$scope.availQuantity);
-       $rootScope.eventinventory= $scope.inventoryTextVal;
-      }
-     /*==============================================================*/
-    });
+        if ($scope.data1.eventinventory) {
+            // console.log("in if")
+            $scope.inventoryTextVal=$scope.data1.eventinventory;
+            // console.log($scope.inventoryTextVal , parseInt($scope.inventoryTextVal) , $scope.availQuantity , parseInt($scope.availQuantity))
+            $scope.totalRemainings=  parseInt($scope.inventoryTextVal) - parseInt($scope.availQuantity);
+
+            if ($scope.totalRemainings < 0) {
+                $scope.totalRemainingsError = true;
+                $scope.totalRemainings = "Error";
+            }
+
+            $rootScope.eventinventory= $scope.inventoryTextVal;
+
+            $rootScope.inventory_remaining = $scope.totalRemainings;
+        }
+      });
+    }
+
+    $rootScope.eventInventoryCalc();
 
     // // To get Price level.
     // $serviceTest.getPricelevel({'eventId':$eventId},function(response){
@@ -584,6 +606,7 @@ $scope.rec_year_func = function() {
                  },3000);
               }
             });
+
           }  
         } else {
           data.userId=$localStorage.userId;
@@ -1024,7 +1047,8 @@ $scope.rec_year_func = function() {
   Created By:  Deepak khokkar  
   */
 
-  $scope.click_menu = function(menu, valid) {
+  $scope.click_menu = function(menu, data, valid) {
+
     var objectForm = this;
     //To go to step1 event Details
     if (menu.id === 5) {
@@ -1034,9 +1058,54 @@ $scope.rec_year_func = function() {
 
     ///TO move to price and level
     if (menu.id === 6) {
+
       if (objectForm.myForm.$valid === true) {
-        $scope.eventdetail_div = $scope.look_and_feel_div = $scope.setting_div = true;
-        $scope.price_and_link_div = false;
+          if ($localStorage.eventId == null) {
+              if (data.eventtype=='single') {
+                if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+                  data.eventdate=$scope.single_start_date;
+                  
+                  data.startevent_time=$scope.startevent_time;
+                  data.endevent_time=$scope.endevent_time;
+                  
+                  data.userId=$localStorage.userId;
+                  $serviceTest.saveEvent(data,function(response){
+                    if (response.code == 200) {
+                       $scope.success=global_message.event_step1;
+                       $localStorage.eventId=response.result;
+                       $scope.error_message=false;
+
+                       $scope.eventdetail_div = $scope.look_and_feel_div = $scope.setting_div = true;
+                       $scope.price_and_link_div = false;
+
+                       $timeout(function() {
+                         $scope.success='';
+                         $scope.error_message=true;
+                       },3000);
+                    }
+                  });
+
+                }  
+              } else {
+                data.userId=$localStorage.userId;
+                $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
+                  if (response.code == 200) {
+                    $scope.success=global_message.event_step1;
+                    $scope.data={};
+                    $scope.error_message=false;
+                    $timeout(function() {
+                     $scope.success='';
+                     $scope.error_message=true;
+                    },3000);
+                    window.location.reload();
+                  }
+                }); 
+              }
+          }
+          else {
+            $scope.eventdetail_div = $scope.look_and_feel_div = $scope.setting_div = true;
+            $scope.price_and_link_div = false;
+          }
       } else {
         $scope.error_message = false;
         $scope.error = global_message.event_step1_msg;
@@ -1586,7 +1655,7 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
   $scope.selected = {
     item: $scope.items[0]
   };
-  data1.eventinventory
+  // data1.eventinventory
     // Remove data of popup
   $scope.remove = function() {
 
@@ -1627,7 +1696,8 @@ angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $
           $rootScope.success_message1 = false;
           $rootScope.success1 = '';
         }, 3000);
-        $rootScope.price_level.splice($rootScope.delete_price_level_id, 1);
+        // $rootScope.price_level.splice($rootScope.delete_price_level_id, 1);
+        $rootScope.eventInventoryCalc();
       }
       $uibModalInstance.close($scope.selected.item);
 
@@ -1641,11 +1711,16 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   var $serviceTest = $injector.get("venues");
 
 
+
+
   if ($rootScope.data1.id === undefined) {
     $scope.data1 = {
       hide_online: 0,
       hide_in_box_office: 0
     };
+
+    $rootScope.maximum_quantitiy_available_value = false;
+
   } else {
     $scope.data1.price_level = $rootScope.data1.price_level_name;
     $scope.data1.price_type = $rootScope.data1.price_level_type;
@@ -1653,7 +1728,19 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     $scope.data1.maximum_per_order = $rootScope.data1.max_per_order;
 
     $scope.data1 = $rootScope.data1;
+
+    if ($rootScope.data1.description == "undefined") {
+      $scope.data1.description = '';
+    }    
   }
+
+  $scope.QuanAvailClear = function() {
+    $scope.data1.minimum_per_order = null;
+    $scope.data1.maximum_per_order = null;
+  }
+
+
+
 
   $scope.items = items;
   $scope.min_price = true;
@@ -1709,16 +1796,23 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
               $rootScope.success1 = global_message.price_level_add;
             }
 
+
+
             $timeout(function() {
               $rootScope.error = '';
               $rootScope.success_message1 = false;
               $rootScope.success1 = '';
             }, 3000);
             $rootScope.price_level = response.results;
+
+            $rootScope.data1={};
           });
+          $rootScope.eventInventoryCalc();
           $uibModalInstance.dismiss('cancel');
         }
       }
+
+      $rootScope.data1={};
     });
   }
 
@@ -1726,7 +1820,12 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
 
  /* CREATED BY DEEPAK K  */
 
-  $scope.eventInventory=$rootScope.eventinventory;
+  
+  $scope.eventInventory = $rootScope.inventory_remaining;
+  if ($rootScope.maximum_quantitiy_available_value)
+    $scope.eventInventory=$rootScope.maximum_quantitiy_available_value;
+
+  // console.log($scope.eventInventory)
   /*************************************************/
  
 
