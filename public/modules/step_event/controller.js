@@ -2087,7 +2087,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
   };
 
 
-  $scope.click_menu = function(menu) {
+  $scope.click_menu = function(menu , bundle) {
     var bundleForm = this;
 
     $scope.selectedClass = 1;
@@ -2098,12 +2098,78 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     }
     if (menu.id === 2) {
       if (bundleForm.bundleForm.$valid === true) {
-        $scope.selectedClass = 2;
-        $scope.step_2 = true;
-        $scope.step_1 = $scope.step_3 = false;
-        // Get product list 
-        $scope.getProduct();
-        $scope.getEventPriceLevel();
+
+        if (!$localStorage.bundleId) {
+
+            if ($localStorage.userId !== undefined) {
+              $scope.bundle.seller_id = $localStorage.userId;
+              $scope.bundle.step = 1;
+              $scope.bundle.event_id = $localStorage.eventId;
+
+              $serviceTest.addBundle($scope.bundle, function(response) {
+                if (response.code === 200) {
+                  if (bundle.id === undefined) {
+                    $localStorage.bundleId = response.result.insertId;
+                    $scope.bundle.id = $localStorage.bundleId;
+                    $scope.success = global_message.bundle_add;
+                    $scope.selectedClass = 2;
+                    $scope.step_2 = true;
+                    $scope.step_1 = $scope.step_3 = false;
+
+                    // Get product list 
+                    $scope.getProduct();
+                    $scope.getEventPriceLevel();
+                  } else {
+                    $localStorage.bundleId = bundle.id;
+                    $scope.success = global_message.bundle_update;
+
+                    $scope.eventBundle.eventId = $localStorage.eventId;
+                    $scope.eventBundle.userId = $localStorage.userId;
+
+                    $serviceTest.getBundles($scope.eventBundle, function(res2) {
+                      $rootScope.bundleList = res2.result;
+                      $scope.selectedClass = 2;
+                      $scope.step_2 = true;
+                      $scope.step_1 = $scope.step_3 = false;
+
+                      // Get product list 
+                      $scope.getProduct();
+                      $scope.getEventPriceLevel();
+                    });
+                  }
+
+                  $scope.success_message = true;
+
+                  $timeout(function() {
+                    $scope.error = '';
+                    $scope.success_message = false;
+                    $scope.success = '';
+                  }, 3000);
+                } else {
+                  $scope.activation_message = global_message.ErrorInActivation;
+                  $scope.selectedClass = 2;
+                  $scope.step_2 = true;
+                  $scope.step_1 = $scope.step_3 = false;
+
+                  // Get product list 
+                  $scope.getProduct();
+                  $scope.getEventPriceLevel();
+                }
+              });
+            }
+        }
+        else {
+          $scope.selectedClass = 2;
+          $scope.step_2 = true;
+          $scope.step_1 = $scope.step_3 = false;
+
+          // Get product list 
+          $scope.getProduct();
+          $scope.getEventPriceLevel();
+        }
+
+
+
       } else {
         $scope.error_message = false;
         $scope.error = global_message.error_in_step1;
