@@ -9,7 +9,7 @@
               <section class="col-sm-4">
                   <div class="form-group" ng-class="{ 'has-error' : myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid }"  >
                     <label class="form-label">Event Inventory<span class="req">*</span></label>
-                    <input  type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" ng-change="eventInventoryCalc()" required >
+                    <input  type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" ng-blur="eventInventoryCalc()" required >
 
                     <p class="help-inline error-fld ng-binding"  ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">Enter valid event inventory.</p>
 
@@ -66,8 +66,11 @@
                       <section class="grid-btn-top row">
                       <section class="col-sm-7">
                       </section>
-                      <section class="col-sm-3 right-btns text-right" style="display: none;">
+                      <section class="col-sm-3 right-btns text-right">
                       <label>Remaining Inventory : {{totalRemainings}}</label>
+                      </section>
+                      <section class="col-sm-3 right-btns text-right" ng-if="totalRemainingsError">
+                      <label style="color: #ff0000 !important;">Invalid Event Inventory</label>
                       </section>
                       </section>
 <!-- ************************************************************************************************* -->
