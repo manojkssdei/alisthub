@@ -68,6 +68,8 @@ var webservices = {
     "getSelectedDiscount" :  "/event_setting/getSelectedDiscount",
     "getEventPriceLevels" : "/event_setting/getEventPriceLevels",
     "saveFinalAssignmet" : "/event_setting/saveFinalAssignmet",
+    "discountAssignmentOverview" : "/event_setting/discountAssignmentOverview",
+    "delDiscountAssignment" : "/event_setting/delDiscountAssignment",
 
     /* Constants for the bundle module */
     "getBundles": "/event_setting/getBundles",
