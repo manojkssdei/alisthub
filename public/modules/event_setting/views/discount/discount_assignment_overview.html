@@ -1,0 +1,139 @@
+<div class="container">
+   <h1>Discount Assignment</h1>
+   <!-- Form COntainer -->
+   <div class="form-section  wt-frame">
+      <!-- Event Detail Form -->
+      <div>
+         <!-- Location Group -->
+         <div class="form-group field-group" >
+            <!-- Date Event Group -->
+            <div class="row">
+               <div>
+                  <p class="error-fld" ng-show="error_message" >{{error}}</p>
+               </div>
+               <div>
+                  <p class="success-fld" ng-show="success_message">{{success}}</p>
+               </div>
+            </div>
+
+             <section class="panel-heading">
+                  <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
+                  <h2>Discount Coupon: {{discount.coupon_name}} , {{discount.coupon_code}}</h2>
+                  <hr/>
+               </section>
+
+            <section class="module" ng-if="globalAssignments != 'undefined'">
+               <section class="grid-btn-top row">
+                  <section class="col-sm-6">
+                  </section>
+                  <section class="col-sm-6 right-btns text-right">
+                     <a ng-if="globalAssignments.id != ''" ng-click="delDiscountAssignment(globalAssignments.id)"  ng-confirm-clicks="Would you like to delete this Discount Assignment?"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Delete Assignment</button></a>
+                     
+                      
+                     <a ng-if="globalAssignments.id != ''" href="#/edit_assign_discount/{{globalAssignments.id}}"><button type="button" class="btn pink-btn btn-small"  ng-if="globalAssignments.id != ''" >Edit</button></a>
+                     <button type="button" class="btn pink-btn btn-small"  ng-if="globalAssignments.id != ''" >Uses for this offer</button>
+                  </section>
+               </section>
+               <section class="prof-hd no-icon">
+                  <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
+                  <h2>Global Assignments</h2>
+               </section>
+               <section class="gray-frame">
+                  <section class="content" >
+                     <div class="row">
+                        <div class="col-sm-6"><strong>Assignment:</strong> All events of seller</div>
+                        <div class="col-sm-6 pull-left"><strong>Ticket Limit:</strong> {{globalAssignments.usage_limit}} </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                           <hr/>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-6 pull-left"><strong>Start:</strong> {{globalAssignments.start_date | date:"dd MMMM yyyy"}}<span ng-if="globalAssignments.start_time != 'undefined' && globalAssignments.start_time != '' ">{{globalAssignments.start_time}}</span></div>
+                        <div class="col-sm-4 pull-left"><strong>End:</strong> {{globalAssignments.end_date | date:"dd MMMM yyyy"}} <span ng-if="globalAssignments.end_time != 'undefined' && globalAssignments.end_time != '' ">{{globalAssignments.end_time}}</span></div>
+                     </div>
+
+                     
+                  </section>
+               </section>
+            </section>
+         </div>
+      </div>
+      <!-- Event Detail Form -->
+      <div>
+         <!-- Location Group -->
+         <div class="form-group field-group">
+            <!-- Date Event Group -->
+            <section class="module">
+               <section class="grid-btn-top row">
+                  <section class="col-sm-6">
+                  </section>
+                  <section class="col-sm-6 right-btns text-right">
+
+                     <a ng-if="discountAssignments != ''" ng-click="delDiscountAssignment(discountAssignIds)"  ng-confirm-clicks="Would you like to delete this Discount Assignment?"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Delete Assignment</button></a>
+                     <button type="button" class="btn pink-btn btn-small">Edit</button>
+                     <button type="button" class="btn pink-btn btn-small">Uses for this offer</button>
+                  </section>
+               </section>
+               <section class="prof-hd no-icon">
+                  <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
+                  <h2>Price Level Assignments <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+               </section>
+               <section class="gray-frame">
+                
+<div class="row">
+                        <div class="col-sm-12">
+                           <hr/>
+                        </div>
+                     </div>
+
+                  <section  class="grid-widget">
+                     <div class="table-responsive">
+                        <table ng-table="tableParams" class="table table-striped table-ng-style">
+                           <tbody>
+                              <tr ng-repeat="data in discountAssignments | filter:filter">
+                                
+                                 <td width="25%" header-class="'header-text-align'" title="'Event Name'" filter="{ coupon_name: 'text'}" sortable="'title'" ><strong>{{data.title}}</strong>
+                                 </td>
+                                 <td width="25%" header-class="'header-text-align'" title="'Price Level'" filter="{ coupon_type: 'text'}" sortable="'price_level_name'" ><span ng-if="data.price_level_name != NULL" >{{data.price_level_name}}</span>
+                                 <span ng-if="data.price_level_name == NULL" >All Price Levels</span>
+
+                                 </td>
+
+                                 <td width="15%" header-class="'header-text-align'" title="'Start Date'" filter="{ start_date: 'text'}" sortable="'start_date'" >{{data.start_date | date:"dd MMMM yyyy"}}
+                                 </td>
+
+                                 <td width="15%" header-class="'header-text-align'" title="'End Date'" filter="{ end_date: 'text'}" sortable="'end_date'" >{{data.end_date | date:"dd MMMM yyyy"}}
+                                 </td>
+
+                                 <td width="10%" header-class="'header-text-align'" title="'Start Time'" filter="{ start_time: 'text'}" sortable="'start_time'" ><span ng-if="data.start_time != 'undefined' && data.start_time != '' ">{{data.start_time}}</span>
+                                 </td>
+
+                                 <td width="10%" header-class="'header-text-align'" title="'End Time'" filter="{ end_time: 'text'}" sortable="'end_time'" ><span ng-if="data.end_time != 'undefined' && data.end_time != '' ">{{data.end_time}}</span>
+                                 </td>
+
+                                
+                                 <td width="10%" title="'Action'"  class="action unassign">
+                                    
+                                    <a ng-click="delDiscountAssignment(data.id)" ng-confirm-clicks="Would you like to delete this Discount?"  ><i class="fa fa-trash"></i> Unassign</a>
+                                 </td>
+
+                              </tr>
+                              <tr ng-if="$data == ''">
+                                 <td colspan="3" align="center">No Record found!</td>
+                              </tr>
+                              <tr ng-show="loader">
+                                 <td colspan="3" align="center"><img src="/images/icons/loader.gif"></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </section>
+               </section>
+            </section>
+         </div>
+      </div>
+   </div>
+   <!-- //Form COntainer --> 
+</div>
