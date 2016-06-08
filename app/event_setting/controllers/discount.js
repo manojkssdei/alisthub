@@ -523,3 +523,29 @@ exports.delDiscountAssignment = function(req, res) {
         res.json({ result: results, code: 200 });
     });
 }
+
+/** 
+Method: getAssignDiscountDetails
+Description:Function for discount Assignment Details
+Created : 2016-06-08
+Created By: Harpreet Kaur
+*/
+
+exports.getAssignDiscountDetails = function(req, res) {
+
+    /*
+    var query = "SELECT da.* , d .id, d.coupon_name,d.coupon_code FROM discount_assignments da INNER JOIN discounts d ON da.discount_id = d.id where da.seller_id = " + req.body.seller_id + "  and da.id = " + req.body.id + "   and da.event_type = 1 and da.event_id IS NULL AND da.price_level_type = 1 and da.price_level IS NULL";
+    */
+
+    var query = "SELECT da.* , d .id, d.coupon_name,d.coupon_code FROM discount_assignments da INNER JOIN discounts d ON da.discount_id = d.id where da.seller_id = " + req.body.seller_id + "  and da.id = " + req.body.id ;
+
+    console.log('query' , query);
+    connection.query(query, function(error, results) {
+        if (err) {
+            res.json({ error: error, code: 101 });
+        }
+            res.json({ result: results, code: 101 });
+
+  });
+
+}

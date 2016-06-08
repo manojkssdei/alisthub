@@ -837,10 +837,14 @@ if($scope.data.events == "choose_events") {
                         if (response.code == 200) {
                 $scope.success_message = true;
                 $scope.success = global_message.discountAssigned;
+                $location.path("/view_discounts/list");
+                /*
                 $timeout(function() {
                     $scope.success_message = false;
                     $scope.success = '';
+
                 }, 3000);
+                */
 
                           
                         } else {
@@ -904,7 +908,25 @@ console.log(' -------------- -------------- -------------- -------------- ');
         }
 
         if ($state.params.edit_dis_assignId) {
-            console.log('call edit_dis_assignId');
+            console.log('call edit_dis_assignId' , $state.params.edit_dis_assignId);
+            // $scope.getAssignDiscountDetails($state.params.edit_dis_assignId);
+            // Coupon DiscountPreserve already has an assignment from 2016-05-04 12:00:00 to 2016-05-14 12:00:0
+        }
+
+        $scope.getAssignDiscountDetails = function(id) {
+            console.log('i am called...');
+            $scope.cdata = {};
+            if ($localStorage.userId != undefined) {
+                $scope.cdata.seller_id = $localStorage.userId;
+                $scope.cdata.id = id;
+                console.log('$scope.cdata ' , $scope.cdata);
+
+                $serviceTest.getAssignDiscountDetails($scope.cdata, function(response) {
+                    if (response.code == 200) {
+                      console.log('response.code' , response.code);    
+                    } 
+                });
+            }
         }
 
         $scope.enableDiscountDiv = false;

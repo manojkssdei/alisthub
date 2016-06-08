@@ -111,6 +111,12 @@ angular.module('alisthub')
     });
   };
 
+  url.getAssignDiscountDetails = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getAssignDiscountDetails,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
 
 
 
