@@ -70,6 +70,7 @@ var webservices = {
     "saveFinalAssignmet" : "/event_setting/saveFinalAssignmet",
     "discountAssignmentOverview" : "/event_setting/discountAssignmentOverview",
     "delDiscountAssignment" : "/event_setting/delDiscountAssignment",
+    "getAssignDiscountDetails" : "/event_setting/getAssignDiscountDetails",
 
     /* Constants for the bundle module */
     "getBundles": "/event_setting/getBundles",
