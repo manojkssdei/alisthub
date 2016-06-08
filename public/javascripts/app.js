@@ -1328,7 +1328,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 /********************CREATED BY DEEPAK K*******************************************/
 
     .config(function (reCAPTCHAProvider) {
-            reCAPTCHAProvider.setPublicKey('6LfyK-0SAAAAAAl6V9jBGQgPxemtrpIZ-SPDPd-n');
+            reCAPTCHAProvider.setPublicKey('6LevjBMTAAAAAP6gdHNyBQ6NDbB8vyPwhFFQlv7x');
             reCAPTCHAProvider.setOptions({
                 theme: 'white',
                 tabindex : 3
