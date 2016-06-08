@@ -47,6 +47,20 @@
                         <p ng-show="userSignupForm.password.$error.maxlength" class="error-fld ng-binding">Password is too long.</p>
                     </div>
                 </div>
+                <!-- new password --->
+                <div class="form-group row">
+                    <div class="col-sm-6 section-col" ng-class="{ 'has-error' : userSignupForm.email.$error.required}">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" ng-pattern={{data.newpass}} ng-model="data.confirmpass" name="confirmpass" placeholder="Confirm Password"  required>
+                       
+                    </div>
+                    <div class="col-sm-6 section-col">
+                        <label>&nbsp;</label>
+                        &nbsp;
+                    </div>
+                </div>
+                
+                <!-- new password -->
                 <div class="form-group row">
                 </div>
                 
