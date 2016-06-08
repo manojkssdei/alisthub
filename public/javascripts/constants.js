@@ -187,7 +187,7 @@ var global_message = {
     "ForgetEmailError" : "Your search didn't match any accounts. Enter your registered email address again.",
     "passwordChanged" : "Password has been changed successfully.",
     "serverErrorPasswordReset" : "There some problem in server side to set new password , try after some time .",
-    "retypeSamePassword" :"Please retype same password." ,
+    "retypeSamePassword" :"Password and confirm password do not match." ,
     
     /* Constants for Email Confirmation - signup process */
     "ActivatedMessage" : "Your account has been activated, please sign in.",

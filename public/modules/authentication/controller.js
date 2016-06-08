@@ -198,7 +198,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
     $rootScope.class_status = 1;
     
      /*****************CREATED BY DEEPAK K*********************************/
-        reCAPTCHA.setPublicKey('6LfyK-0SAAAAAAl6V9jBGQgPxemtrpIZ-SPDPd-n');
+        reCAPTCHA.setPublicKey('6LevjBMTAAAAAP6gdHNyBQ6NDbB8vyPwhFFQlv7x');
      /*===================================================================*/
 
 
