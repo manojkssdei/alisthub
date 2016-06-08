@@ -70,7 +70,11 @@
                                         </td>
                                         <td width="16%" header-class="'header-text-align'" title="'Amount Type'" filter="{ amount_type: 'text'}" sortable="'amount_type'" >{{data.amount_type}}
 					</td>
-                                        <td width="14%" header-class="'header-text-align'" title="'Assigned To'"  class="">	</td>
+                                        <td width="14%" header-class="'header-text-align'" title="'Assigned To'"  class="">
+                                            <a href="#/discount_assignment_overview/{{data.id}}"><strong><p ng-if="event_count[data.id] > 0">{{event_count[data.id]}} Assignments</p></strong></a>
+
+                                            <p ng-if="event_count[data.id] == '' || event_count[data.id] == null">0 Assignments</p>
+                                            	</td>
 
                                         <td width="23%" title="'Action'"  class="action">
                                             <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>

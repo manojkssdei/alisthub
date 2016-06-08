@@ -657,6 +657,49 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               }]
             }
         })
+
+          /* Setting for edit global assign discount screen */
+        .state('edit_assign_discount', {
+            url: '/edit_assign_discount/:edit_dis_assignId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'assignDiscountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/discount/new_assign_discount.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/services/discount_service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js','javascripts/bootstrap-timepicker.js']);
+                })
+              }]
+            }
+        })
+
+
+        /* Discount Assignment Overview */
+        .state('discount_assignment_overview', {
+            url: '/discount_assignment_overview/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'assignDiscountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/discount/discount_assignment_overview.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/services/discount_service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js','javascripts/bootstrap-timepicker.js']);
+                })
+              }]
+            }
+        })
             
 
         //DISCOUNT END

@@ -141,7 +141,7 @@
                             <div>
                                 <div class="editor-btn">
                                     <button type="submit" class="pink-btn btn" ng-click="submitted=true">Save</button>
-                                    <button type="submit" class="pink-btn btn" ng-click="submitted=true && click_menu({id:2});">Next</button>
+                                    <button type="button" class="pink-btn btn" ng-click="submitted=true && click_menu({id:2} , bundle);">Next</button>
                               </div>   
                             </div>
                     </form>
@@ -195,9 +195,9 @@
                   </div>
                 </section>
                 <div class="editor-btn">
-                  <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
-                  <button class="pink-btn btn" ng-click="submitted2=true">Save</button>
-                  <button class="pink-btn btn" ng-click="submitted2=true && click_menu({id:3});">Next</button>
+                  <button type="button" class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
+                  <button type="submit" class="pink-btn btn" ng-click="submitted2=true">Save</button>
+                  <button type="button" class="pink-btn btn" ng-click="submitted2=true && click_menu({id:3});">Next</button>
                 </div>
               </form>
             </div>
@@ -336,9 +336,9 @@
 
 
                   <div class="editor-btn">
-                    <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
-                    <button class="pink-btn btn" ng-click="updateQty()">Save</button>
-                    <button class="pink-btn btn" ng-click="updateQty('submit')">Submit</button>
+                    <button type="button" class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
+                    <button type="button" class="pink-btn btn" ng-click="updateQty()">Save</button>
+                    <button type="button" class="pink-btn btn" ng-click="updateQty('submit')">Submit</button>
                   </div> 
               </div>
            </div>

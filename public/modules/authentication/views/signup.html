@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-sm-6 section-col"  ng-class="{ 'has-error' : userSignupForm.password.$error.required || userSignupForm.password.$invalid && !userSignupForm.password.$pristine }">
                         <label>Password</label>
-                        <input type="password" placeholder="Password" class="form-control" name="password" ng-model="user.password"  ng-minlength="3" ng-maxlength="12" required>
+                        <input type="password" placeholder="Password" class="form-control" name="password" ng-model="user.password"  ng-minlength="5" ng-maxlength="12" required>
                         <p ng-show="userSignupForm.password.$error.required   && userSignupForm.password.$invalid && !userSignupForm.password.$pristine" class="error-fld ng-binding">Enter Password</p>
                         <p ng-show="userSignupForm.password.$error.minlength" class="error-fld ng-binding">Password is too short.</p>
                         <p ng-show="userSignupForm.password.$error.maxlength" class="error-fld ng-binding">Password is too long.</p>

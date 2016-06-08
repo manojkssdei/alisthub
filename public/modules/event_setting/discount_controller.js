@@ -340,6 +340,11 @@ Module : Discount
                         $scope.discountdata.forEach(function(value) {
                             $scope.disc_id.push(value.id);
                         });
+
+                          response.counts.forEach(function(value) {
+                        $scope.event_count[value.discount_id] = value.count;
+                    });
+
                     } else {
                         $scope.error_message = response.error;
                     }
@@ -898,6 +903,10 @@ console.log(' -------------- -------------- -------------- -------------- ');
             $scope.getSelectedDiscount();
         }
 
+        if ($state.params.edit_dis_assignId) {
+            console.log('call edit_dis_assignId');
+        }
+
         $scope.enableDiscountDiv = false;
 
         $scope.removeMoreRow = function(key, id) {
@@ -1104,6 +1113,65 @@ console.log(' -------------- -------------- -------------- -------------- ');
 
             return '';
         }
+
+
+        if ($state.params.id) {
+            $scope.adata = {};
+            if ($localStorage.userId != undefined) {
+                $scope.adata.seller_id = $localStorage.userId;
+                $scope.adata.id = $state.params.id;
+
+                $serviceTest.discountAssignmentOverview($scope.adata, function(response) {
+                    if (response.code == 200) {
+                        $scope.discount = response.discount[0];
+                        $scope.discountAssignments = response.discountAssignments;
+                            $scope.discountAssignIds = [];
+                            $scope.discountAssignments.forEach(function(value) {
+                                $scope.discountAssignIds.push(value.id);
+                            }); 
+                        if(response.globalDiscountAssignments[0]) {
+                             $scope.globalAssignments = response.globalDiscountAssignments[0];
+                        }
+                        else{
+                            $scope.globalAssignments = "undefined";
+                        }
+                    } 
+
+                });
+            } else {
+                $scope.eventdata = "";
+            }
+        }
+
+         /*Delete discount coupon */
+        $scope.delDiscountAssignment = function(id) {
+            $scope.data = {};
+            if ($localStorage.userId != undefined) {
+                    if(typeof(id) == "object") {
+                        $scope.data.id = id;
+                    }
+                    if(typeof(id) == "number") {
+                       $scope.data.id = [];
+                       $scope.data.id.push(id); 
+                    }
+                    
+
+                $scope.data.seller_id = $localStorage.userId;
+                if ($state.params.id) {
+                      $scope.data.discount_id = $state.params.id;
+                }
+                $serviceTest.delDiscountAssignment($scope.data, function(response) {
+                    if (response.code == 200) {
+                         //$scope.activation_message = global_message.ErrorInActivation;
+                         $location.path("/view_discounts/list");
+                    } 
+                });
+                
+            }
+        };
+
+
+
     })
 
 angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uibModalInstance, items, $rootScope) {
