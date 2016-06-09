@@ -75,8 +75,8 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Quantity Available</div>
-               <div class="col-sm-8"><input  type="number" min="0" max={{eventInventory}} ng-model="data1.quantity_available" name="quantity_available" class="form-control" >
-               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.quantity_available.$invalid && !pricelevelForm.quantity_available.$pristine">Please enter valid available quantity or less than given inventory</p>
+               <div class="col-sm-8"><input  type="number" min="0" max={{eventInventory}} ng-model="data1.quantity_available" name="quantity_available" ng-change="QuanAvailClear()" class="form-control" >
+               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.quantity_available.$invalid && !pricelevelForm.quantity_available.$pristine">Please enter valid available quantity or less than inventory remaining</p>
                </div>
             </fieldset>
 

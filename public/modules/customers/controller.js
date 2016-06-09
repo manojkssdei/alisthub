@@ -1,3 +1,4 @@
+
 angular.module('alisthub')
     .controller('customerController', function($scope, $localStorage,$http, $state, $location,ngTableParams, $timeout,$window,$rootScope,$injector)
  {
@@ -41,7 +42,7 @@ angular.module('alisthub')
             { "title": "Options", "icon": 'fa fa-cog', 'id': 3 }
         ];
         $scope.page_title = 'ADD';
-        if($state.current.url == "/add_customer") {
+        if($state.current.url != "/view_customer") {
         /*Get list of countries */
         $serviceTestCommon.getCountries($scope.user, function(response) {
                 if (response.code == 200) {
@@ -139,7 +140,7 @@ angular.module('alisthub')
                     $scope.user.seller_id = $localStorage.userId;
                     $serviceTest.addCustomer($scope.user, function(response) {
                         if (response.code == 200) {
-                          console.log(response);
+                     
                              $location.path("/view_customer");
                         } else {
                             $scope.activation_message = global_message.ErrorInActivation;

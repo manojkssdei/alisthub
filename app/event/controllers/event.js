@@ -13,6 +13,8 @@ Created : 2016-04-19
 Created By: Deepak khokkar  
 */
 var moment       = require('moment-timezone');
+var showClix   = require('./../../showclix/service.js');
+
 exports.saveEvent = function(req,res) {
   
     var data=req.body;
@@ -34,6 +36,20 @@ exports.saveEvent = function(req,res) {
                if (err7) {
                 res.json({error:err7,code:101});
                }
+               ///////////////////////////////////////////////////////
+               var showClix2 = new showClix();
+                         showClix2.add_event(req,res,function(data){
+                           
+                           if (data.status == 1) {
+                              
+                              //res.json({result:results,showclix:data.location,code:200});
+                           }
+                           else
+                           {                     
+                                           
+                           }
+                      })
+               //////////////////////////////////////////////////////////
                res.json({result:eventId,code:200});
           });
      }

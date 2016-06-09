@@ -17,8 +17,8 @@
                     <section class="form-group">
                         <section class="row icon-div">
                             <section class="col-sm-12" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                                <p><i class="fa fa-user input-icons"></i><input type="email" placeholder="email-address"  ng-model="user.email" class="form-control" name="email" required></p>
-                                <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="error-fld ng-binding">Enter a valid email.</p>
+                                <p><i class="fa fa-user input-icons"></i><input type="email" placeholder="email-address"  ng-model="user.email" class="form-control" name="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required></p>
+                                <p ng-show="(userForm.email.$invalid && !userForm.email.$pristine ) || userForm.email.$error.pattern" class="error-fld ng-binding">Enter a valid email.</p>
                             </section>
                         </section>
                     </section>
