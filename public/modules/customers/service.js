@@ -33,12 +33,26 @@ angular.module('alisthub')
       
   };
 
-   url.userOverview = function(jsondata,callback){
-       communicationService.resultViaPost(webservices.userOverview,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+   url.customerOverview = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.customerOverview,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
       callback(res.data);
     });
       
   };
+
+ url.removepricelevel = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.removepricelevel,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+
+  url.exportQuestionCSV = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.exportQuestionCSV,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+  
   return url;
 }])
 ;

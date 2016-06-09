@@ -5,7 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var db = require('./db.js');
+   var csv = require("fast-csv");
 
+  var fs = require('fs');
 
 var app = express();
 
@@ -16,12 +18,36 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.json({limit: 1024*1024*20})); 
-app.use(bodyParser.urlencoded({limit: 1024*1024*20, extended: true}));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 
 
+
+
+   
+    // app.post('/upload', function(req, res) {
+    // var storage = multer.diskStorage({
+    //     destination: function (req, file, cb) {
+    //         cb(null, './public/images/customer/csv/');
+    //     },
+    //     filename: function (req, file, cb) {
+    //         //var datetimestamp = Date.now();
+    //        // +"."+file.originalname.split('.')[file.originalname.split('.').length -1])
+    //         cb(null,file.originalname);
+    //     }
+    // });
+    // var upload = multer({ 
+    //                 storage: storage
+    //             }).single('file');
+    //     upload(req,res,function(err){
+    //         if(err){
+    //              res.json({error_code:1,err_desc:err});
+    //              return;
+    //         }
+    //          res.json({error_code:0,err_desc:null});
+    //     });
+    // });
 
 
 
