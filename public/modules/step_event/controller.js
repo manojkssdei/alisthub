@@ -916,6 +916,12 @@ $scope.rec_year_func = function() {
   $scope.open4 = function() {
     $scope.popup4.opened = true;
   };
+  $scope.open5 = function() {
+    $scope.popup5.opened = true;
+  };
+  $scope.open6 = function() {
+    $scope.popup6.opened = true;
+  };
   ////
 
   $scope.popup1 = {
@@ -932,6 +938,13 @@ $scope.rec_year_func = function() {
     opened: false
   };
   ////
+  $scope.popup5 = {
+    opened: false
+  };
+
+  $scope.popup6 = {
+    opened: false
+  };
 
 
   $scope.option_ckeditor = {
@@ -1136,10 +1149,10 @@ $scope.rec_year_func = function() {
     }
     //Event Setting div
     if (menu.id === 8) {
-      if (objectForm.myForm.$valid === true) {
+      // if (objectForm.myForm.$valid === true) {
         $scope.eventdetail_div = $scope.look_and_feel_div = $scope.price_and_link_div = true;
         $scope.setting_div = false;
-      } else {
+    /*  } else {
         $scope.error_message = false;
         $scope.error = global_message.event_step1_msg;
         $timeout(function() {
@@ -1147,7 +1160,7 @@ $scope.rec_year_func = function() {
           $scope.error_message = true;
           $scope.error = '';
         }, 3000);
-      }
+      }*/
 
     }
     $scope.selected2 = menu;
