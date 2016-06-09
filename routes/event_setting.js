@@ -184,6 +184,10 @@ module.exports = function(app, express) {
     
     router.post('/delDiscountAssignment', discount_setting.delDiscountAssignment);
 
+    /*get detail of assign discounts to events */
+    
+    router.post('/getAssignDiscountDetails', discount_setting.getAssignDiscountDetails);
+
 
 
 
