@@ -50,10 +50,7 @@
                       <uib-datepicker ng-model="start_date" class="well well-sm" datepicker-options="options" ng-change="single_eventstart(this)"></uib-datepicker>
                       
                     </div>
-                    <!-- <div class="form-group">
-                      <label>To</label>
-                      <uib-datepicker ng-model="end_date" class="well well-sm" datepicker-options="options1" ng-change="single_eventend()"></uib-datepicker>
-                    </div>-->
+                  
                   </div>
                 </div>
                 <div class="row">
@@ -343,14 +340,13 @@
           </div>
         </div>
       </div>
-      <div ng-include="step1html"></div>
+
       
       
       <div class="editr">
         <label>Event Description<span class="req">*</span></label>
         <div ckeditor="option_ckeditor" name="content"  required ng-model="data.content" ready="onReady()" value=''></div>
-        
-        <!--<span style="color:red;" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event description is required</span></span>-->
+ 
         
         
         <div class="editor-btn">
@@ -365,23 +361,13 @@
     <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
   </div>
   
-  <div ng-include="step2html"></div>
   
-  <div ng-include="step3html"></div>
-  <!-- Add step-4 ------->
-  
-  <!-- setting form -->
-  
-  <!-- Form COntainer -->
-  <div ng-include="step4html"></div>
 </div>
-<!-- //Form COntainer -->
-<!-- End step-4 ------>
+
 </div>
-<!-- //Form COntainer -->
+
 </div>
-<div ng-include="pricelevelhtml"></div>
-<div ng-include="bundlehtml"></div>
+
 <script type="text/ng-template" id="myModalContent.html">
 <div class="modal-header">
 <h3 class="modal-title">Remove Previous Event</h3>
