@@ -747,4 +747,8 @@ color-picker{float: right !important;}
 .product_overview_sales{
   margin-top: 20px;
 }
+/* assign discount action*/
 
+.action.unassign{
+  font-size:12px;
+}

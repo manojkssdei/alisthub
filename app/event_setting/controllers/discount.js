@@ -18,7 +18,8 @@ exports.getDiscounts = function(req, res) {
             res.json({ error: err, code: 101 });
         }
 
-        var event_count = "SELECT count(*) AS count, discount_id FROM question_assignments WHERE seller_id =" + req.body.userId + " GROUP BY discount_id";
+        var event_count = "SELECT count(*) AS count, discount_id FROM discount_assignments WHERE seller_id =" + req.body.userId + " GROUP BY discount_id";
+        console.log('event_count' , event_count); 
         connection.query(event_count, function(err2, cresults) {
             res.json({ result: results, counts: cresults, code: 200 });
         });
@@ -458,5 +459,93 @@ exports.saveFinalAssignmet = function(req, res) {
     error = 0;
 
     res.json({ success: 'success', code: 200 });
+
+}
+
+
+
+/** 
+Method: discountAssignmentOverview
+Description:Function for discount Assignment Overview
+Created : 2016-06-06
+Created By: Harpreet Kaur
+*/
+exports.discountAssignmentOverview = function(req, res) {
+    var query_discount = 'SELECT coupon_name, coupon_code from discounts where id=' + req.body.id;
+    
+    console.log('query_discount' , query_discount );
+    connection.query(query_discount, function(err, discount) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        var query_discount_assignments_individual = 'SELECT da . * , e.title, pl.price_level_name FROM discount_assignments da INNER JOIN events e ON e.id = da.event_id LEFT JOIN price_levels pl ON da.price_level = pl.id WHERE da.seller_id =' + req.body.seller_id + ' AND da.discount_id =' + req.body.id;
+
+        console.log('query_discount_assignments_individual' , query_discount_assignments_individual );
+        connection.query(query_discount_assignments_individual, function(error_individual, discountAssignments) {
+            if (err) {
+                res.json({ error: error_individual, code: 101 });
+            }
+
+        var query_discount_assignments_global = 'SELECT * from discount_assignments where seller_id=' + req.body.seller_id + ' and discount_id = ' + req.body.id +' and event_type = 1 and event_id IS NULL AND price_level_type = 1 and price_level IS NULL'; 
+        console.log('query_discount_assignments_global' , query_discount_assignments_global );
+        connection.query(query_discount_assignments_global, function(error_global, globalDiscountAssignments) {
+            if (err) {
+                res.json({ error: error_global, code: 101 });
+            }
+
+console.log('discount',discount , 'discountAssignments', discountAssignments, 'globalDiscountAssignments' , globalDiscountAssignments);
+            res.json({ discount:discount , discountAssignments: discountAssignments, globalDiscountAssignments:globalDiscountAssignments, code: 200 });
+        });
+      });
+  });
+}
+
+/** 
+Method: delDiscountAssignment
+Description:Function to delete discount assignment using id
+Created : 2016-05-10
+Created By: Manoj kumar  Singh
+*/
+exports.delDiscountAssignment = function(req, res) {
+    
+    var ids = '';
+    for(index in req.body.id) {
+      ids+= req.body.id[index]+"," ;
+    }
+
+    ids = ids.slice(0, -1);
+    var delQuery = "Delete from discount_assignments where id in (" + ids + ") and seller_id =" + req.body.seller_id + " and discount_id = "+ req.body.discount_id;
+    console.log('delQuery' , delQuery);
+    connection.query(delQuery, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: results, code: 200 });
+    });
+}
+
+/** 
+Method: getAssignDiscountDetails
+Description:Function for discount Assignment Details
+Created : 2016-06-08
+Created By: Harpreet Kaur
+*/
+
+exports.getAssignDiscountDetails = function(req, res) {
+
+    /*
+    var query = "SELECT da.* , d .id, d.coupon_name,d.coupon_code FROM discount_assignments da INNER JOIN discounts d ON da.discount_id = d.id where da.seller_id = " + req.body.seller_id + "  and da.id = " + req.body.id + "   and da.event_type = 1 and da.event_id IS NULL AND da.price_level_type = 1 and da.price_level IS NULL";
+    */
+
+    var query = "SELECT da.* , d .id, d.coupon_name,d.coupon_code FROM discount_assignments da INNER JOIN discounts d ON da.discount_id = d.id where da.seller_id = " + req.body.seller_id + "  and da.id = " + req.body.id ;
+
+    console.log('query' , query);
+    connection.query(query, function(error, results) {
+        if (err) {
+            res.json({ error: error, code: 101 });
+        }
+            res.json({ result: results, code: 101 });
+
+  });
 
 }

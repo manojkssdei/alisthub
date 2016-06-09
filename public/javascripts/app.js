@@ -192,7 +192,7 @@ var routerApp = angular.module('alisthub',
         
         /* Setting for Create Event step1 screen */
         .state('create_event_step1', {
-            url: '/create_event_step1',
+            url: '/create_event_step1/:eventId',
             
             views: {
                 "lazyLoadView": {
@@ -215,7 +215,74 @@ var routerApp = angular.module('alisthub',
               }]
             }
         })
-		
+	 /* Setting for Create Event step2 screen */
+        .state('create_event_step2', {
+            url: '/create_event_step2/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'stepevent2Controller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/step_event/step2/views/create_event_step2.html',
+				},
+				
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/step_event/service.js').then(function(){
+                    return $ocLazyLoad.load(['modules/step_event/step2/controller.js']);
+                    })
+               
+              }]
+            }
+        })
+        
+         /* Setting for Create Event step2 screen */
+        .state('create_event_step3', {
+            url: '/create_event_step3/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'stepevent3Controller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/step_event/step3/views/create_event_step3.html',
+		},
+				
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/step_event/step3/service.js').then(function(){
+                    return $ocLazyLoad.load(['modules/step_event/step3/controller.js']);
+                    })
+               
+              }]
+            }
+        })
+        
+         /* Setting for Create Event step4 screen */
+        .state('create_event_step4', {
+            url: '/create_event_step4/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'stepevent4Controller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/step_event/step4/views/create_event_step4.html',
+				},
+				
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/step_event/step4/service.js').then(function(){
+                    return $ocLazyLoad.load(['modules/step_event/step4/controller.js']);
+                    })
+               
+              }]
+            }
+        })
 		
         
         /*********create series.****************/
@@ -657,6 +724,49 @@ var routerApp = angular.module('alisthub',
                 "lazyLoadView": {
                   controller: 'assignDiscountController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/event_setting/views/discount/new_assign_discount.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/services/discount_service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js','javascripts/bootstrap-timepicker.js']);
+                })
+              }]
+            }
+        })
+
+          /* Setting for edit global assign discount screen */
+        .state('edit_assign_discount', {
+            url: '/edit_assign_discount/:edit_dis_assignId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'assignDiscountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/discount/new_assign_discount.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/services/discount_service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js','javascripts/bootstrap-timepicker.js']);
+                })
+              }]
+            }
+        })
+
+
+        /* Discount Assignment Overview */
+        .state('discount_assignment_overview', {
+            url: '/discount_assignment_overview/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'assignDiscountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/discount/discount_assignment_overview.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -1297,7 +1407,7 @@ var routerApp = angular.module('alisthub',
 /********************CREATED BY DEEPAK K*******************************************/
 
     .config(function (reCAPTCHAProvider) {
-            reCAPTCHAProvider.setPublicKey('6LfyK-0SAAAAAAl6V9jBGQgPxemtrpIZ-SPDPd-n');
+            reCAPTCHAProvider.setPublicKey('6LevjBMTAAAAAP6gdHNyBQ6NDbB8vyPwhFFQlv7x');
             reCAPTCHAProvider.setOptions({
                 theme: 'white',
                 tabindex : 3

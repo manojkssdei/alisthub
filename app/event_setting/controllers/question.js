@@ -272,18 +272,19 @@ Created By: Harpreet Kaur
 
 exports.exportQuestionCSV = function(req,res){
      var condition = "";
-     console.log('req' , req );
+     
      if (req.query.seller != "" && req.query.seller  != "[]" && req.query.seller  != "undefined") {
-          condition = " seller_id ="+req.query.seller;
+          condition = " seller_id="+req.query.seller;
      }
-     if (req.query.ids != "" && req.query.ids  != "[]" && req.query.ids  != "undefined") {
+     if (req.query.list == 1 && req.query.ids != "" && req.query.ids  != "[]" && req.query.ids  != "undefined") {
           var strold = req.query.ids;
           var strnew = strold.substr(1, strold.length-2);
           condition += " AND id IN ("+strnew+")";
      }
+     
      console.log('select * from questions where '+condition);
      
-     query = connection.query('select * from questions where '+condition, function(err, rows, fields) {
+     query = connection.query('select seller_id,question_name,question_type,status,required,created from questions where '+condition, function(err, rows, fields) {
                 if (err) {
                     res.send(err);
                 }

@@ -99,6 +99,29 @@ angular.module('alisthub')
     });
   };
 
+   url.discountAssignmentOverview = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.discountAssignmentOverview,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  url.delDiscountAssignment = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.delDiscountAssignment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  url.getAssignDiscountDetails = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getAssignDiscountDetails,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+
+
+
+  
+
   
   
 

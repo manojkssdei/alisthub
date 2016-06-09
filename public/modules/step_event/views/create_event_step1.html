@@ -13,83 +13,86 @@
     <!-- Form COntainer -->
     <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
     <div class="form-section  wt-frame">
-        <div ng-hide="eventdetail_div">
-            <form name="myForm" class="event-form" ng-submit="savedata(data)" novalidate>
-                <div class="form-group" ng-class="{ 'has-error' : myForm.eventname.$dirty && myForm.eventname.$invalid }">
-                    <label for="eventname">Event Name<span class="req">*</span></label>
-                    <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="Title of your Event" required>
-                    <p class="help-inline error-fld ng-binding" ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">Event Name is required</p>
+
+      <div ng-hide="eventdetail_div">
+        
+        <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
+          <div class="form-group" ng-class="{ 'has-error' : myForm.eventname.$dirty && myForm.eventname.$invalid }"  >
+            <label for="eventname">Event Name<span class="req">*</span></label>
+            <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="Title of your Event" required>
+            <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">Event Name is required</p>
+          </div>
+          <div class="form-group field-group">
+            <label>Date and Time<span class="req">*</span></label>
+            <div class="event-date fieldSection">
+              <!-- Nav tabs -->
+              <div class="content-tab">
+                <ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
+                  <li ng-repeat="event in events" ng-click="select(event)" ng-class="{active: isActive(event)}" ><a class="pointer" href="javascript:void(0)" >{{event.name}}</a>
+                  <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype" >
+                </li>
+                
+              </ul>
+            </div>
+            
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tabpanel" class="active"  id="single-event" ng-hide="single_event_div">
+                <div class="row">
+                  <div class="col-lg-5 col-sm-7">
+                    <div class="form-group">
+                      <!-- <label>From</label>-->
+                      
+                      <uib-datepicker ng-model="start_date" class="well well-sm" datepicker-options="options" ng-change="single_eventstart(this)"></uib-datepicker>
+                      
+                    </div>
+                  
+                  </div>
                 </div>
-                <div class="form-group field-group">
-                    <label>Date and Time<span class="req">*</span></label>
-                    <div class="event-date fieldSection">
-                        <!-- Nav tabs -->
-                        <div class="content-tab">
-                            <ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
-                                <li ng-repeat="event in events" ng-click="select(event)" ng-class="{active: isActive(event)}"><a class="pointer" href="javascript:void(0)">{{event.name}}</a>
-                                    <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype">
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="active" id="single-event" ng-hide="single_event_div">
-                                <div class="row">
-                                    <div class="col-lg-5 col-sm-7">
-                                        <div class="form-group">
-                                            <!-- <label>From</label>-->
-                                            <uib-datepicker ng-model="start_date" class="well well-sm" datepicker-options="options" ng-change="single_eventstart(this)"></uib-datepicker>
-                                        </div>
-                                        <!-- <div class="form-group">
-                      <label>To</label>
-                      <uib-datepicker ng-model="end_date" class="well well-sm" datepicker-options="options1" ng-change="single_eventend()"></uib-datepicker>
-                    </div>-->
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="StartTime">Start Time</label>
-                                            <div class="input-group bootstrap-timepicker timepicker">
-                                                <input ng-model="starttime" ng-change="changedstarttime()" class="form-control input-small timepick" type="text" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="EndTime">End Time</label>
-                                            <div class="input-group bootstrap-timepicker timepicker">
-                                                <input ng-model="endtime" ng-change="changedendtime()" class="form-control input-small timepick" type="text" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" ng-hide="error_message">
-                                    <p class="error-fld">{{error}}</p>
-                                </div>
-                                <div class="row" ng-hide="select_delect_event">
-                                    <div class="col-xs-12">
-                                        <label>Select/Deselect Events</label>
-                                        <div class="clearfix list-event-date">
-                                            <div class="col-sm-3 pull-right text-right lss-top"> <a href="javascript:void(0)" ng-click="remove_event()"><i class="fa fa-close"></i></a> </div>
-                                            <div class="col-sm-3"> {{selectevent_date }} <span style="display:none;">{{single_start_date}}</span> </div>
-                                            <div class="col-sm-3"> Start Time :{{startevent_time}}</div>
-                                            <div class="col-sm-3"> End Time :{{endevent_time}} </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div role="tabpanel" id="multiple-event" ng-hide="multiple_event_div">
-                                <div ng-hide="error_message">
-                                    <p class="error-fld">{{error}}</p>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="EndTime">Start Date<span class="req">*</span></label>
-                                            <div class="form-group datepicker">
-                                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" />
-                                                <span class="input-group-btn">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="StartTime">Start Time</label>
+                      <div class="input-group bootstrap-timepicker timepicker">
+                        <input  ng-model="starttime" ng-change="changedstarttime()"  class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="EndTime">End Time</label>
+                      <div class="input-group bootstrap-timepicker timepicker">
+                        <input ng-model="endtime" ng-change="changedendtime()" class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="row" ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
+                <div class="row" ng-hide="select_delect_event">
+                  <div class="col-xs-12">
+                    <label>Select/Deselect Events</label>
+                    <div class="clearfix list-event-date">
+                      <div class="col-sm-3 pull-right text-right lss-top"> <a  href="javascript:void(0)" ng-click="remove_event()"><i class="fa fa-close"></i></a> </div>
+                      <div class="col-sm-3"> {{selectevent_date }} <span style="display:none;">{{single_start_date}}</span> </div>
+                      <div class="col-sm-3"> Start Time :{{startevent_time}}</div>
+                      <div class="col-sm-3"> End Time :{{endevent_time}} </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div role="tabpanel"  id="multiple-event"  ng-hide="multiple_event_div">
+                
+                <div ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="EndTime">Start Date<span class="req">*</span></label>
+                      <div class="form-group datepicker">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
+                        <span class="input-group-btn">
+
                         <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                                             </div>
                                         </div>
@@ -340,20 +343,34 @@
             </form>
             <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
         </div>
-        <div ng-include="step2html"></div>
-        <div ng-include="step3html"></div>
-        <!-- Add step-4 ------->
-        <!-- setting form -->
-        <!-- Form COntainer -->
-        <div ng-include="step4html"></div>
-    </div>
-    <!-- //Form COntainer -->
-    <!-- End step-4 ------>
+      </div>
+
+      
+      
+      <div class="editr">
+        <label>Event Description<span class="req">*</span></label>
+        <div ckeditor="option_ckeditor" name="content"  required ng-model="data.content" ready="onReady()" value=''></div>
+ 
+        
+        
+        <div class="editor-btn">
+          <button type="submit"
+          ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
+          <button type="button" ng-disabled="myForm.$invalid" ng-click="click_menu(steps[1] , data)" class="pink-btn btn">Next</button>
+        </div>
+        <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
+      </div>
+    </form>
+    
+    <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
+  </div>
+  
+  
 </div>
-<!-- //Form COntainer -->
 </div>
-<div ng-include="pricelevelhtml"></div>
-<div ng-include="bundlehtml"></div>
+
+</div>
+
 <script type="text/ng-template" id="myModalContent.html">
     <div class="modal-header">
         <h3 class="modal-title">Remove Previous Event</h3>
