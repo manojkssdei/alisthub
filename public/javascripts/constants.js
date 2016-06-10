@@ -98,7 +98,8 @@ var webservices = {
     "changeCustomerStatus":"/customers/changeCustomerStatus",
      "customerOverview": "/customers/customerOverview",
      "uploadfilecsv":"/customers/uploadfilecsv",
-     "exportQuestionCSV"  :  "/customers/exportQuestionCSV",
+     "exportCSV"  :  "/customers/exportCSV",
+     "getBlacklist" :"/customers/getBlacklist",
 
      "uploadBlacklist":"/customers/uploadBlacklist",
      /*   D K  */

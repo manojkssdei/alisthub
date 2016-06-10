@@ -42,6 +42,8 @@ function supportCrossOriginScript(req, res, next) {
 }
 
    router.post('/getCustomer',customers.getCustomer);
+
+    router.get('/getBlacklist', customers.getBlacklist);
 	
     router.post('/addCustomer', customers.addCustomer);
 
@@ -53,10 +55,12 @@ function supportCrossOriginScript(req, res, next) {
 
   router.post('/customerOverview', customers.customerOverview);
   
-   router.post('/uploadfilecsv',upload.single('file'), supportCrossOriginScript, customers.uploadfilecsv);
+   router.post('/uploadfilecsv', upload.single('file'), supportCrossOriginScript, customers.uploadfilecsv);
 
     router.post('/uploadBlacklist',upload.single('file'), supportCrossOriginScript, customers.uploadBlacklist);
-      router.get('/exportQuestionCSV', customers.exportQuestionCSV);
+    
+      router.get('/exportCSV', customers.exportCSV);
+      //getBlacklist
 
     app.use('/customers', router);
 }
