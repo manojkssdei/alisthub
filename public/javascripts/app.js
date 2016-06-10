@@ -7,8 +7,8 @@ Description: It defined routes to call different files.It will provide you direc
 angular.module("communicationModule", []);
 // Declare app level module which depends on filters, and services
 
-var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','ngTable','color.picker','reCAPTCHA'])
 
+var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','ngTable','color.picker','reCAPTCHA','720kb.tooltips'])
 
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ocLazyLoadProvider) {
@@ -180,7 +180,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /* Setting for Create Event step1 screen */
         .state('create_event_step1', {
-            url: '/create_event_step1',
+            url: '/create_event_step1/:eventId',
             
             views: {
                 "lazyLoadView": {
@@ -203,7 +203,74 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               }]
             }
         })
-		
+	 /* Setting for Create Event step2 screen */
+        .state('create_event_step2', {
+            url: '/create_event_step2/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'stepevent2Controller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/step_event/step2/views/create_event_step2.html',
+				},
+				
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/step_event/service.js').then(function(){
+                    return $ocLazyLoad.load(['modules/step_event/step2/controller.js']);
+                    })
+               
+              }]
+            }
+        })
+        
+         /* Setting for Create Event step2 screen */
+        .state('create_event_step3', {
+            url: '/create_event_step3/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'stepevent3Controller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/step_event/step3/views/create_event_step3.html',
+		},
+				
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/step_event/step3/service.js').then(function(){
+                    return $ocLazyLoad.load(['modules/step_event/step3/controller.js']);
+                    })
+               
+              }]
+            }
+        })
+        
+         /* Setting for Create Event step4 screen */
+        .state('create_event_step4', {
+            url: '/create_event_step4/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'stepevent4Controller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/step_event/step4/views/create_event_step4.html',
+				},
+				
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/step_event/step4/service.js').then(function(){
+                    return $ocLazyLoad.load(['modules/step_event/step4/controller.js','javascripts/bootstrap-timepicker.js']);
+                    })
+               
+              }]
+            }
+        })
 		
         
         /*********create series.****************/
@@ -665,7 +732,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             views: {
                 "lazyLoadView": {
                   controller: 'assignDiscountController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/event_setting/views/discount/new_assign_discount.html'
+                  templateUrl: 'modules/event_setting/views/discount/edit_assign_discount.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -1335,6 +1402,14 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
             });
         })
+    .config(['tooltipsConfProvider', function configConf(tooltipsConfProvider) {
+  tooltipsConfProvider.configure({
+    'smart':true,
+    'size':'large',
+    'speed': 'slow',
+    //etc...
+  });
+}])
 /*================================================================================*/
 
  .directive('ngConfirmClicks', [
@@ -1354,6 +1429,21 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         };
 }])
+ .directive('fileModel', ['$parse', function ($parse) {
+            return {
+               restrict: 'A',
+               link: function(scope, element, attrs) {
+                  var model = $parse(attrs.fileModel);
+                  var modelSetter = model.assign;
+                  
+                  element.bind('change', function(){
+                     scope.$apply(function(){
+                        modelSetter(scope, element[0].files[0]);
+                     });
+                  });
+               }
+            };
+         }]);
 
 routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state,$timeout,$window)
 {

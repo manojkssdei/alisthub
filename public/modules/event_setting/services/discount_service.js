@@ -111,6 +111,23 @@ angular.module('alisthub')
     });
   };
 
+  url.getAssignDiscountDetails = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getAssignDiscountDetails,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  url.updateFinalAssignment = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.updateFinalAssignment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+    url.delPriceLevelDiscAssignment = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.delPriceLevelDiscAssignment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
 
 
 

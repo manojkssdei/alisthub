@@ -41,6 +41,8 @@ module.exports = function(app, express) {
       /* To get the event data */
       router.post('/getEvent',supportCrossOriginScript, Event.getEvent);
 
+
+
           /*get event detail*///
         router.post('/getEventsdetail',supportCrossOriginScript, Event.getEventsdetail);
         /*save second step data*///
@@ -61,7 +63,8 @@ module.exports = function(app, express) {
       router.post('/getAdvanceSetting',supportCrossOriginScript, Event.getAdvanceSetting);
 
         
-        
+        // post event data step 4
+        router.post('/postCreateEventStepFour' , supportCrossOriginScript , Event.postCreateEventStepFour);
          
 	app.use('/event', router);
 }

@@ -14,19 +14,19 @@
                     <div class="col-sm-6 section-col" ng-class="{ 'has-error' : customMerchantForm.merchant_type.$invalid && !customMerchantForm.merchant_type.$pristine }">
                         <label>Merchant Type <span class="req">*</span></label>
                         <select class="form-control"  name="merchant_type" title="" ng-model="user.merchant_type" ng-change="showPageLayout();" ng-disabled="readonlyFlag" required  >
-                            <option>CyberSource</option>
+                            <!--<option>CyberSource</option>
                             <option>CardConnect</option>
-                            <option>BeanStream</option>
+                            <option>BeanStream</option>-->
                             <option>First Data</option>
                             <option>Authorize.NET</option>
                             <option>Authorize.NET Card Present</option>
                             <option>PayFlow</option>
                             <option>PayPal Express</option>
-                            <option>Do Not Use</option>
+                           <!-- <option>Do Not Use</option>
                             <option>DirectPay</option>
-                            <option>ICICI Bank</option>
+                            <option>ICICI Bank</option>-->
                             <option>Stripe</option>
-                            <option>GoEmerchant</option>
+                           <!-- <option>GoEmerchant</option>
                             <option>Alignet</option>
                             <option>Cielo</option>
                             <option>PagoEfectivo</option>
@@ -37,7 +37,7 @@
                             <option>T1 Authorize.Net Emulator</option>
                             <option>Transact Authorize.NET Emulator</option>
                             <option>NMI Authorize.NET Emulator</option>
-                            <option>GoCoin</option>
+                            <option>GoCoin</option> -->
                         </select>
                         <p class="error-fld ng-binding"  ng-show="customMerchantForm.merchant_type.$invalid && !customMerchantForm.merchant_type.$pristine">Select Merchant Type</p>
                     </div>

@@ -70,6 +70,9 @@ var webservices = {
     "saveFinalAssignmet" : "/event_setting/saveFinalAssignmet",
     "discountAssignmentOverview" : "/event_setting/discountAssignmentOverview",
     "delDiscountAssignment" : "/event_setting/delDiscountAssignment",
+    "getAssignDiscountDetails" : "/event_setting/getAssignDiscountDetails",
+    "updateFinalAssignment" : "/event_setting/updateFinalAssignment",
+    "delPriceLevelDiscAssignment" : "/event_setting/delPriceLevelDiscAssignment",
 
     /* Constants for the bundle module */
     "getBundles": "/event_setting/getBundles",
@@ -95,7 +98,12 @@ var webservices = {
     "getCustomer":"/customers/getCustomer",
     "deleteCustomer":"/customers/deleteCustomer",
     "changeCustomerStatus":"/customers/changeCustomerStatus",
-     "userOverview": "/customers/userOverview",
+     "customerOverview": "/customers/customerOverview",
+     "uploadfilecsv":"/customers/uploadfilecsv",
+     "exportCSV"  :  "/customers/exportCSV",
+     "getBlacklist" :"/customers/getBlacklist",
+
+     "uploadBlacklist":"/customers/uploadBlacklist",
      /*   D K  */
     /* Constants for the My account page */
     "updateUser" : baseUrl + "/webservices/updateUser",
@@ -247,6 +255,11 @@ var global_message = {
     "step4html":'modules/step_event/views/step4.html',
     "date_error":"Please select start date and end date.",
     "event_step1":"Event Successfully Saved.",
+    //import csv popup
+     "customerimport":'modules/customers/views/customerimport.html',
+     //import placklist pop up
+     "customer_blacklist":'modules/customers/views/customer_blacklist.html',
+
     "event_step2":"Price & links Successfully Saved.",
     "event_step1_msg":"Please update the event detail data.",
     "date_comparison":'End time must be greater than start time. ',
