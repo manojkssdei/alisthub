@@ -47,12 +47,19 @@ angular.module('alisthub')
   };
 
 
-  url.exportQuestionCSV = function(jsondata,callback){
-       communicationService.resultViaPost(webservices.exportQuestionCSV,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+  url.exportCSV = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.exportCSV,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
       callback(res.data);
     });
   };
   
+
+      url.getBlacklist = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getBlacklist,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
   return url;
 }])
 ;

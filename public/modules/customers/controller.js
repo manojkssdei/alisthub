@@ -24,7 +24,11 @@ angular.module('alisthub')
 
      
     $scope.user = {};
-      
+     $scope.cus_id = [];
+ $scope.user.seller_id = $localStorage.userId;
+
+   //$scope.seller= $scope.user.seller_id;
+
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
         }
@@ -107,7 +111,7 @@ angular.module('alisthub')
  $scope.getCustomer = function() {
             if ($localStorage.userId != undefined) {
                 $scope.data.seller_id = $localStorage.userId;
-                $scope.loader = true;
+                   $scope.loader = true;
                 $serviceTest.getCustomer($scope.data, function(response) {
                     $scope.loader = false;
                     if (response.code == 200) {
@@ -122,6 +126,12 @@ angular.module('alisthub')
                                 {
                                     data:$scope.userData
                                 });
+                       $scope.seller_id=$localStorage.userId;
+
+                       $scope.userData.forEach(function(value) {
+                        $scope.cus_id.push(value.id);
+                    });
+
                     
             } else {
                         $scope.error_message = response.error;
@@ -136,6 +146,47 @@ angular.module('alisthub')
        {
         $scope.getCustomer();
     }
+
+
+
+$scope.getBlacklist = function() {
+            if ($localStorage.userId != undefined) {
+                $scope.data.seller_id = $localStorage.userId;
+                $scope.loader = true;
+                $serviceTest.getBlacklist($scope.data, function(response) {
+                    $scope.loader = false;
+                    if (response.code == 200) {
+                        $scope.customerData = response.result;
+                       
+                       $scope.tableParams = new ngTableParams(
+                                {
+                                    page: 1,            // show first page
+                                    count: 3,           // count per page
+                                    sorting: {name:'dec'}
+                                },
+                                {
+                                    data:$scope.customerData
+                                });
+                       $scope.seller_id=$localStorage.userId;
+
+                       $scope.customerData.forEach(function(value) {
+                        $scope.cus_id.push(value.id);
+                    });
+
+                    
+            } else {
+                        $scope.error_message = response.error;
+                    }
+
+                });
+
+            }
+        };
+
+       if ($state.params.id) {}else
+       {
+        $scope.getBlacklist();
+       }
 
 
 
@@ -213,9 +264,9 @@ angular.module('alisthub')
         }
     };
 
-     $scope.exportQuestionCSV = function() {
+     $scope.exportCSV = function() {
       $scope.adata={};
-                $serviceTest.exportQuestionCSV($scope.adata, function(response) {
+                $serviceTest.exportCSV($scope.adata, function(response) {
                     if (response.code == 200) {
                         //$scope.eventdata = response.result;
                         $rootScope.question = $localStorage.question = "";
@@ -274,106 +325,112 @@ angular.module('alisthub').controller('customCtrl', function($scope, $uibModalIn
                $http) {
 
 
-          var $serviceTest = $injector.get("customers");
 
+
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+          var $serviceTest = $injector.get("customers");
+          //cancle button
            $scope.cancel = function() {
     $uibModalInstance.dismiss('cancel');
   };
-   $scope.uploadFile = function(myfile,callback)
-     {
-        //console.log("myfile",myfile);
-               var file = $scope.myFile;
-               
-                 var fileNameArr = [];
-               console.log('file is',file);
-               console.dir(file);
+  //upload import csv files
+   $scope.uploadFile = function(myfile, callback) {
+
+     var file = $scope.myFile;
+
+     var fileNameArr = [];
+
+     console.log('file is', file);
+
+     if (file == undefined || file == "") {
+         callback("FILE_NA", myfile);
+     } else {
+         fileNameArr = file.name.substr(file.name.lastIndexOf('.') + 1);
+     }
+     console.log(fileNameArr);
+     if (fileNameArr == "csv") {
+         var uploadUrl = "/customers/uploadfilecsv";
+         var fd = new FormData();
+         fd.append('file', file);
+         fd.append('user', $localStorage.userId);
 
 
-               if (file == undefined || file == "") {
-            callback("FILE_NA", myfile);
-        } else {
-            fileNameArr=file.name.substr(file.name.lastIndexOf('.')+1);
-        }
-         console.log(fileNameArr);
-        if (fileNameArr == "csv") {
-           
-               
-               var uploadUrl = "/customers/uploadfilecsv";
-               var fd = new FormData();
-               fd.append('file', file);
-            
-               $http.post(uploadUrl,fd, {
-                  transformRequest: angular.identity,
-                  headers: {'Content-Type': undefined},
-               })
-            
-               .success(function (res) {
+         $http.post(uploadUrl, fd, {
+             transformRequest: angular.identity,
+             headers: { 'Content-Type': undefined },
+         })
 
-                if (res.status === 200) {
+         .success(function(res) {
 
-                    callback(null, myfile);
-
-                } else {
-
-                    $scope.error_message = res.message
-                    // callback($scope.error_message);
-                }
-            }).error(function (err) {
-
-                $scope.error_message = "Error! There are some problem in file uploading. Check if csv file is valid.";
-                // callback($scope.error_message);
-            });
-
-        } else {
-
-            $scope.error_message = "Error! Uploading file should be correct format only!";
-            // callback($scope.error_message);
-        }
+             if (res.code == 200) {
+              location.reload();
+                 callback(null, myfile);
 
 
+             } else {
 
-}
+                 $scope.error_message = res.message
+
+             }
+         }).error(function(err) {
+
+             $scope.error_message = "Error! There are some problem in file uploading. Check if csv file is valid.";
+
+         });
+
+     } else {
+
+         $scope.error_message = "Error! Uploading file should be correct format only!";
+
+     }
+
+      $uibModalInstance.close($scope.selected.item);
+
+ }
+
 });
 
 angular.module('alisthub').controller('custom_blacklistCtrl', function($scope, $uibModalInstance, items, $rootScope, $localStorage, $injector, $timeout,
                $http) {
 
        var $serviceTest = $injector.get("customers");
-          // var $serviceTest = $injector.get("blacklist_customers");
+        
 
            $scope.cancel = function() {
     $uibModalInstance.dismiss('cancel');
   };
 
-  $scope.uploadBlacklist = function(myfile,callback)
-     {
-        //console.log("myfile",myfile);
-               var file = $scope.myFile;
-               
-                 var fileNameArr = [];
-               console.log('file is',file);
-               console.dir(file);
+//upload blacklist customercsv
 
-
-               if (file == undefined || file == "") {
+  $scope.uploadBlacklist = function(myfile, callback) {
+        var file = $scope.myFile;
+        var fileNameArr = [];
+       
+        if (file == undefined || file == "") {
             callback("FILE_NA", myfile);
         } else {
-            fileNameArr=file.name.substr(file.name.lastIndexOf('.')+1);
+            fileNameArr = file.name.substr(file.name.lastIndexOf('.') + 1);
         }
-         console.log(fileNameArr);
+        console.log(fileNameArr);
         if (fileNameArr == "csv") {
-           
-               
-               var uploadUrl = "/customers/uploadBlacklist";
-               var fd = new FormData();
-               fd.append('file', file);
-            
-               $http.post(uploadUrl,fd, {
-                  transformRequest: angular.identity,
-                  headers: {'Content-Type': undefined},
-               })
-            
-               .success(function (res) {
+
+
+            var uploadUrl = "/customers/uploadBlacklist";
+            var fd = new FormData();
+            fd.append('file', file);
+            fd.append('user', $localStorage.userId);
+                // $scope.loader=true;
+            $http.post(uploadUrl, fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined },
+                 // $scope.loader=true;
+            })
+
+            .success(function(res) {
 
                 if (res.status === 200) {
 
@@ -382,19 +439,20 @@ angular.module('alisthub').controller('custom_blacklistCtrl', function($scope, $
                 } else {
 
                     $scope.error_message = res.message
-                    // callback($scope.error_message);
+                    
                 }
-            }).error(function (err) {
+            }).error(function(err) {
 
                 $scope.error_message = "Error! There are some problem in file uploading. Check if csv file is valid.";
-                // callback($scope.error_message);
+            
             });
 
         } else {
 
             $scope.error_message = "Error! Uploading file should be correct format only!";
-            // callback($scope.error_message);
+          
         }
+
 
 
 

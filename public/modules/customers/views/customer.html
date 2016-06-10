@@ -1,9 +1,8 @@
-
 <div class="container">
     <h1>ALL Customers</h1>
     <div class="module">
         <section class="gray-frame sub-fields">
-         <div class="form-group row">
+            <div class="form-group row">
                 <section class="col-sm-6">
                     <section class="search-event">
                         <input type="text" name="filter" class="form-control search-field" placeholder="Enter your keyword" ng-model="filter">
@@ -14,177 +13,155 @@
             <section class="grid-btn-top row">
                 <section class="col-sm-7">
                     <section class="top-buttons">
-                      <!--   <a href="#/add_customer"  ><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Add Customer</button></a> -->
-                              <a  href="/customers/exportQuestionCSV?ids={{common_ids}}&seller={{seller_id}}"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button></a>
-                         <!-- <span class="file-input btn pink-btn btn-small btn-file"><i class="fa fa-plus-square"></i> Import CSV </span>
-                         <ng-csv-import content="csv.content" header="csv.header"  separator="csv.separator"
-                                                      result="csv.result"
-                                                  accept="csv.accept"></ng-csv-import> -->
-                               <!--  <button ng-click="readCSV()" class="btn pink-btn btn-small" type="button">
-                                <i class="fa fa-plus-square"></i> Import CSV 
-                                </button> --> 
-                               <button class="pink-btn btn btn-small m-fw" type="button" ng-click="open('')"><i class="fa fa-plus-square"></i> Import CSV </button>
-
-
-                                        <button class="pink-btn btn btn-small m-fw" type="button" ng-click="open1('')"><i class="fa fa-plus-square"></i> Customer Blacklist </button>
-                                   <!--   <input type = "file" file-model = "myFile"/>
-                                
-                                                </span>
-                                                  <button ng-click = "uploadFile(myfile)">upload me</button> -->
-
-                                                <!-- <table>
-                                <tr ng-repeat="x in data">
-                                <td ng-repeat="y in x">{{y}}</td>
-                             </tr></table> -->
-
+                        <a href="/customers/exportCSV?ids={{cus_id}}&seller={{seller_id}}">
+                            <button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button>
+                        </a>
+                        <button class="pink-btn btn btn-small m-fw" type="button" ng-click="open('')"><i class="fa fa-plus-square"></i> Import CSV </button>
+                        <button class="pink-btn btn btn-small m-fw" type="button" ng-click="open1('')"><i class="fa fa-plus-square"></i> Customer Blacklist </button>
                     </section>
                 </section>
                 <section class="col-sm-5 right-btns text-right">
                 </section>
             </section>
+            <h4>CUSTOMERS LIST</h4>
             <section class="grid-widget">
                 <div class="table-responsive">
-                    <table  ng-table="tableParams" class="table table-striped">
-                     
+                    <table ng-table="tableParams" class="table table-striped">
                         <tbody>
-
-                          <tr ng-repeat="data1 in $data | filter:filter">
-           
+                            <tr ng-repeat="data1 in $data | filter:filter">
                                 <!-- <td title="'Email'" filter="{ name: 'text'}" sortable="'email'">{{data1.email}}</td> -->
                                 <td title="'ID'" filter="{ name: 'text'}" sortable="'id'">{{data1.id}}</td>
                                 <td title="'FIRSTNAME'" filter="{ name: 'text'}" sortable="'first_name'">{{data1.first_name}}</td>
                                 <td title="'LASTNAME'" filter="{ name: 'text'}" sortable="'last_name'">{{data1.last_name}}</td>
-                                   <td title="'Email'" filter="{ name: 'text'}" sortable="'email'">{{data1.email}}</td>
-                             <!--    <td  title="'MANAGE'" class="action"><a title="Edit User" href="#/edit_customer/{{data1.id}}"><i class="fa fa-edit"></i></a>
-                                 <a title="Customer Status"  ng-click="changeCustomerStatus(data1.id,data1.customer_status)" ng-confirm-click="Would you like to change Venue status ?" style="cursor: pointer;"><i class="fa fa-check-circle" ng-if="data1.customer_status == 1"></i>
-                                 <i class="fa fa-times" ng-if="data1.customer_status == 0"></i></a>
-                                <a  title="Delete Customer"  ng-click="deleteCustomer(data1.id)" ng-confirm-clicks="Would you like to delete this User?"  style="cursor: pointer;"><i class="fa fa-trash"></i></a></td> -->
+                                <td title="'Email'" filter="{ name: 'text'}" sortable="'email'">{{data1.email}}</td>
                             </tr>
                             <tr ng-show="loader">
-                                        <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
-                                    </tr>
+                                <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
-
-     </section>
-                <section class="grid-bottm clearfix">
-<!--                    
- -->                        <section class="gr-right pull-right">
-                            <ul class="legends">
-                                <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                                <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                                <li><i class="fa fa-trash"></i><span>delete</span></li>
-                            </ul>
-                        </section>
-                    </section>
-      </section>
+         <!--    <h4>BLACKLIST CUSTOMERS</h4>
+            <section class="grid-widget">
+                <div class="table-responsive">
+                    <table ng-table="tableParams">
+                        <tbody>
+                            <tr ng-repeat="data2 in $data | filter:filter">
+                                <td title="'Email'" filter="{ name: 'text'}" sortable="'email'">{{data2.email}}</td>
+                            </tr>
+                            <tr ng-show="loader">
+                                <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section> -->
         </section>
     </div>
 </div>
-
 <style>
-.customer_header{
+.customer_header {
     width: 550px;
     padding: 10px;
-
     border: 5px solid #D3D3D3;
     margin-left: 0;
-       margin-left: 0;
-       background-color:#D3D3D3;
+    margin-left: 0;
+    background-color: #D3D3D3;
 }
-p{
-text-align:left !important;
-  color:#565656;
+
+p {
+    text-align: left !important;
+    color: #565656;
 }
-table tr,td{list-style-type:disc;color:#565656 !important;}
+
+table tr,
+td {
+    list-style-type: disc;
+    color: #565656 !important;
+}
 </style>
 <script type="text/ng-template" id="customerimport.html">
-
-     <div class="modal-header">
-            <h3 class="modal-title" style="float:left;">IMPORT CSV</h3>
-            <a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
-        </div>
-       
-           <div  class="modal-body">
+    <div class="modal-header">
+        <h3 class="modal-title" style="float:left;">IMPORT CSV</h3>
+        <a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+    </div>
+    <div class="modal-body">
         <form name="customer_import" class="customer_import">
-        <fieldset class="form-group" style="padding-top:10px">
-               <div class="col-sm-4"> <input type = "file" file-model = "myFile"/></div>
-               <div class="col-sm-8"><button  type="button" class="pink-btn btn" ng-click = "uploadFile(myfile)" style="float:right;"><b>Import</b></button>
-
-
-               </div>
-   
-        </fieldset>
-         
-            </form>
-            </div>
-         <div class="modal-footer">
-          <h4 class="modal-title" style="float:left;">NOTE</h4><br>
-          <br>
-          <!--  <section class="content f-sb"> -->
-              
-              <p> You can easily import customers into your account with a .CSV file. It is important that you name your column headers accordingly (see formatting below).</p><p> Imported customers will not be included in mass emails from the Outbox feature until an order is associated with their record. Import files cannot exceed 2MB.</p>
-             <!--  </section> -->
-              <br>
-              <br>
-               
-                <div>
-                <h4 class="modal-title" style="float:left;">CSV FORMAT</h4>
+            <fieldset class="form-group" style="padding-top:10px">
+                <div class="col-sm-4">
+                    <input type="file" file-model="myFile" />
                 </div>
-                <br><br>
-                  <form name="customer_import" class="customer_header">
-                <div>
-                 <h5 class="modal-title" style="float:left;">HEADERS:</h5><br>
-               <br>
-               <table class="form-group">
-               <tr class="row">
-               <td class="col-sm-4">first_name</td>
-               <td class="col-sm-4">last_name</td>
-               <td class="col-sm-4">address</td>
-               </tr>
-              <tr class="row">
-                 <td class="col-sm-4">address_2</td>
-                 <td class="col-sm-4">city</td>
-                 </tr>
-                 </table>
-             
-                 <br><br>
-                    <p >state  [Use the state code, e.g. 'NY' for 'New York', or 'NSW' for 'New South Wales']</p><br>
-                    <p >zip</p><br>
-                    <p>country  [Use the two letter country code, e.g. 'US' for 'United States, or 'AU' for Australia]</p><br>
-                   <p >phone</p><br>
-
-                 </div>
-
-                </form>
-
-              
- 
-        </fieldset>
-
+                <div class="col-sm-8">
+                    <button type="button" class="pink-btn btn" ng-click="uploadFile(myfile)" style="float:right;"><b>Import</b></button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <h4 class="modal-title" style="float:left;">NOTE</h4>
+        <br>
+        <br>
+        <!--  <section class="content f-sb"> -->
+        <p> You can easily import customers into your account with a .CSV file. It is important that you name your column headers accordingly (see formatting below).</p>
+        <p> Imported customers will not be included in mass emails from the Outbox feature until an order is associated with their record. Import files cannot exceed 2MB.</p>
+        <!--  </section> -->
+        <br>
+        <br>
+        <div>
+            <h4 class="modal-title" style="float:left;">CSV FORMAT</h4>
         </div>
-
-  </script>
-  <script type="text/ng-template" id="customer_blacklist.html">
-
-     <div class="modal-header">
-            <h3 class="modal-title" style="float:left;">IMPORT CSV</h3>
-            <a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
-        </div>
-
-           <div  class="modal-body">
-        <form name="customer_blacklist" class="customer_blacklist">
-        <fieldset class="form-group" style="padding-top:10px">
-               <div class="col-sm-4"> <input type = "file" file-model = "myFile"/></div>
-               <div class="col-sm-8"><button  type="button" class="pink-btn btn" ng-click = "uploadBlacklist(myfile)" style="float:right;"><b>Import</b></button>
-
-
-               </div>
-   
-        </fieldset>
-         
-            </form>
+        <br>
+        <br>
+        <form name="customer_import" class="customer_header">
+            <div>
+                <h5 class="modal-title" style="float:left;">HEADERS:</h5>
+                <br>
+                <br>
+                <table class="form-group">
+                    <tr class="row">
+                        <td class="col-sm-4">first_name</td>
+                        <td class="col-sm-4">last_name</td>
+                        <td class="col-sm-4">address</td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col-sm-4">address_2</td>
+                        <td class="col-sm-4">city</td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <p>state [Use the state code, e.g. 'NY' for 'New York', or 'NSW' for 'New South Wales']</p>
+                <br>
+                <p>zip</p>
+                <br>
+                <p>country [Use the two letter country code, e.g. 'US' for 'United States, or 'AU' for Australia]</p>
+                <br>
+                <p>phone</p>
+                <br>
             </div>
-        </script>
+        </form>
+        </fieldset>
+    </div>
+</script>
+<script type="text/ng-template" id="customer_blacklist.html">
+    <div class="modal-header">
+        <h3 class="modal-title" style="float:left;">IMPORT CSV</h3>
+        <a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+    </div>
+    <div class="modal-body">
+        <form name="customer_blacklist" class="customer_blacklist">
+            <fieldset class="form-group" style="padding-top:10px">
+                <div class="col-sm-4">
+                    <input type="file" file-model="myFile" />
+                </div>
+                <div class="col-sm-8">
+                    <button type="button" class="pink-btn btn" ng-click="uploadBlacklist(myfile)" style="float:right;"><b>Import</b></button>
+                </div>
+                <!--  <div ng-show="loader">
+                                <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                            </div> -->
+            </fieldset>
+        </form>
+    </div>
+</script>
