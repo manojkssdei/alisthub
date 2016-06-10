@@ -4,14 +4,69 @@ Created : 2016-05-26
 Created By: Deepak khokkar  
 Module : Step 3 Event step  
 */
+angular.module('alisthub').controller('stepevent3Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad) {
+     var $serviceTest = $injector.get("Lookservice");
+     $scope.error_message = true;
+    $scope.click_menu = function(menu, data, valid) {
 
-angular.module('alisthub').controller('step3Controller', function($scope,$localStorage, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,Lookservice) {
-    
+    if (menu.id === 5) {
+     $location.path("/create_event_step1/"+$localStorage.eventId);
+    }
+
+    ///TO move to price and level
+    if (menu.id === 6) {
+
+            
+            $location.path("/create_event_step2/"+$localStorage.eventId);
+     
+    }
+
+    //look and feel div
+    if (menu.id === 7) {
+        $location.path("/create_event_step3/"+$localStorage.eventId);
+     }
+    //Event Setting div
+    if (menu.id === 8) {
+      $location.path("/create_event_step4/"+$localStorage.eventId);
+    }
+    $scope.selected2 = menu;
+  }
+
+     //To get steps
+  $scope.steps = [
+
+    {
+      "title": "Events Details",
+      "icon": 'fa fa-calendar',
+      'id': 5,
+      "formname": 'myForm'
+    }, {
+      "title": "Price & Links",
+      "icon": 'fa fa-tags',
+      'id': 6,
+      "formname": 'myForm'
+    }, {
+      "title": "Look & Feel",
+      "icon": 'fa fa-eye',
+      'id': 7,
+      "formname": 'myForm1'
+    }, {
+      "title": "Setting",
+      "icon": 'fa fa-cog',
+      'id': 8,
+      "formname": 'event-form'
+    }
+
+  ];
+   $scope.selected2 = $scope.steps[2];
+   $scope.isActive2 = function(step2) {
+    return $scope.selected2 === step2;
+  };
     $scope.campaign_div=false;
     $scope.module_div=$scope.recipient_div=$scope.preview_div=$scope.image_div=$scope.block_div=true;
    if ($localStorage.userId!=undefined) {
       //To get venues of a user 
-        Lookservice.getlookAndFeel({},function(response){
+        $serviceTest.getlookAndFeel({},function(response){
             if (response!=null) {
 
             if (response.code == 200)
@@ -32,7 +87,6 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
     $scope.look_and_feel_step = [
     { "name": "Template",'id':1},
     {"name": "Design",'id':2},
-    {"name": "Recipients",'id':3},
     {"name": "Preview",'id':4}
   ]
     
@@ -120,7 +174,7 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
     
     $scope.select_btn=function(index)
     {
-         Lookservice.getTemplate({'templateId':index},function(response){
+         $serviceTest.getTemplate({'templateId':index},function(response){
             if (response!=null) {
 
             if (response.code == 200)
@@ -179,7 +233,7 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
                     var newImage = document.createElement('img');
                     $scope.image =newImage.src = srcData;
                     var eventId=$localStorage.eventId;
-                      Lookservice.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
+                      $serviceTest.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
                         
                             if (response!=null) {
                 
@@ -218,7 +272,7 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
                     var newImage = document.createElement('img');
                     $scope.image =newImage.src = srcData;
                     var eventId=$localStorage.eventId;
-                      Lookservice.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
+                      $serviceTest.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
                         
                             if (response!=null) {
                 
@@ -254,7 +308,7 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
                     var newImage = document.createElement('img');
                     $scope.image =newImage.src = srcData;
                     var eventId=$localStorage.eventId;
-                      Lookservice.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
+                      $serviceTest.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
                         
                             if (response!=null) {
                 
@@ -289,7 +343,7 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
                     var newImage = document.createElement('img');
                     $scope.image =newImage.src = srcData;
                     var eventId=$localStorage.eventId;
-                      Lookservice.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
+                      $serviceTest.addlookAndFeelImage({'imagedata':$scope.image,'eventId':eventId},function(response){
                         
                             if (response!=null) {
                 
@@ -314,9 +368,10 @@ angular.module('alisthub').controller('step3Controller', function($scope,$localS
     
     
 });
-angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,Lookservice) {
+angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
+    var $serviceTest = $injector.get("Lookservice");
     var templateId=$rootScope.templateId;
-    Lookservice.getpreviewImage({'templateId':templateId},function(response){
+    $serviceTest.getpreviewImage({'templateId':templateId},function(response){
        if (response.code==200) {
         $scope.preview_image=response.result[0].preview_image;
        }
