@@ -877,4 +877,3 @@ var query_value = " UPDATE `discount_assignments` SET `discount_id` =" + discoun
             }
         }
 }
->>>>>>> 99de48aea1f873ef5b19fed2499e44bdb9335512
