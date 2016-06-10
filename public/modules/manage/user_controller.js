@@ -7,7 +7,7 @@ Module : User
 angular.module('alisthub')
     .controller('userController', function($scope, $localStorage,$http, $state, $location,ngTableParams, $timeout,$window,$rootScope,$injector) {
         $scope.user = {};
-        event_count=[];
+        //event_count=[];
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
         }
@@ -67,6 +67,7 @@ angular.module('alisthub')
        
             $scope.page_title = 'EDIT';
             $scope.getuserDetail = function() {
+                $scope.user = {};
 
                 if ($localStorage.userId != undefined) {
                     $scope.user.id = $state.params.id;
@@ -74,7 +75,7 @@ angular.module('alisthub')
                     $serviceTest.userOverview($scope.user, function(response) {
                         $scope.loader = false;
                         if (response.code == 200) {
-                            $scope.user = {};
+                            // $scope.user = {};
                             $scope.user = response.result[0];
                             $scope.user.email1=1;
                         } else {

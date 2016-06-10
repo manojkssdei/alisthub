@@ -692,6 +692,12 @@ $scope.rec_year_func = function() {
   $scope.open4 = function() {
     $scope.popup4.opened = true;
   };
+  $scope.open5 = function() {
+    $scope.popup5.opened = true;
+  };
+  $scope.open6 = function() {
+    $scope.popup6.opened = true;
+  };
   ////
 
   $scope.popup1 = {
@@ -708,6 +714,13 @@ $scope.rec_year_func = function() {
     opened: false
   };
   ////
+  $scope.popup5 = {
+    opened: false
+  };
+
+  $scope.popup6 = {
+    opened: false
+  };
 
 
   $scope.option_ckeditor = {
@@ -894,9 +907,11 @@ $scope.rec_year_func = function() {
     }
     //Event Setting div
     if (menu.id === 8) {
+
       //if (objectForm.myForm.$valid === true) {
           $location.path("/create_event_step4/"+$localStorage.eventId);
      /* } else {
+>>>>>>> upstream/master
         $scope.error_message = false;
         $scope.error = global_message.event_step1_msg;
         $timeout(function() {
