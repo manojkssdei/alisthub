@@ -277,7 +277,7 @@ var routerApp = angular.module('alisthub',
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/step_event/step4/service.js').then(function(){
-                    return $ocLazyLoad.load(['modules/step_event/step4/controller.js']);
+                    return $ocLazyLoad.load(['modules/step_event/step4/controller.js','javascripts/bootstrap-timepicker.js']);
                     })
                
               }]
