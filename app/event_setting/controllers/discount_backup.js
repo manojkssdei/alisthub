@@ -382,6 +382,9 @@ Created By: Harpreet Kaur
 */
 exports.saveFinalAssignmet = function(req, res) {
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    var errors = [];
+    var old_start_date = moment(req.body.start_date).format('YYYY-MM-DD HH:mm:ss');
+    var old_end_date = moment(req.body.end_date).format('YYYY-MM-DD HH:mm:ss');
 
     for (var key in req.body.discount_id) {
 
@@ -406,6 +409,7 @@ exports.saveFinalAssignmet = function(req, res) {
 
             if (req.body.events == "choose_events") {
 
+console.log('inside choose_events');
                 for (var event_id_key in req.body.event_id) {
                     var event_idd = event_id_key;
                     var price_level_type = req.body.event_id[event_id_key].price_levels;
@@ -424,7 +428,27 @@ exports.saveFinalAssignmet = function(req, res) {
 
                             var choosen_price_level_id = choosen_price_level_key;
 
-                            var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `common_id`,`event_type`,`event_id`, `price_level_type`, `price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + ", " + req.body.common_id + ", '" + event_type_flag + "',  " + event_idd + " ,  '" + price_level_type_flag + "' , " + choosen_price_level_key + ",  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
+                            var check = "select `id`, `discount_id` , `start_date`, `start_time`, `end_date`, `end_time` , CASE  count( * ) WHEN 0 THEN 'NOTEXIST' ELSE 'EXIST' END as count from `discount_assignments` where start_date between '" + old_start_date + "' and '" + old_end_date+ "' and discount_id = " + discount_id+ " and seller_id = "+ req.body.seller_id + " and event_type = 0 and event_id = " + event_idd;
+
+                                console.log('check ' , check);
+
+
+                            connection.query(check, function(check_error, check_results) {
+                                if (check_error) {
+                                    res.json({ error: check_error, code: 101 });
+                                }
+
+
+                            if(check_results[0]['count'] == "EXIST") {
+
+                                errors.push('Coupon '+ discount_id +' already has an assignment from ' +check_results[0]["start_date"]+ ' to ' +check_results[0]["end_date"]);
+
+                                console.log('errors' , errors);
+
+                            }
+                             if(check_results[0]['count'] == "NOTEXIST") {
+                                
+ var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `common_id`,`event_type`,`event_id`, `price_level_type`, `price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + ", " + req.body.common_id + ", '" + event_type_flag + "',  " + event_idd + " ,  '" + price_level_type_flag + "' , " + choosen_price_level_key + ",  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
                             console.log('query_value', query_value);
 
                             connection.query(query_value, function(err, results) {
@@ -432,6 +456,17 @@ exports.saveFinalAssignmet = function(req, res) {
                                     res.json({ error: err, code: 101 });
                                 }
                             });
+
+                            }
+
+                           
+
+
+
+                            });
+
+
+                           
 
                         }
 
@@ -459,8 +494,8 @@ exports.saveFinalAssignmet = function(req, res) {
     }
 
     error = 0;
-
-    res.json({ success: 'success', code: 200 });
+    console.log('list of errors ' , errors);
+    res.json({ success: 'success', errors: errors, code: 200 });
 
 }
 
@@ -525,27 +560,6 @@ exports.delDiscountAssignment = function(req, res) {
         res.json({ result: results, code: 200 });
     });
 }
-
-/** 
-Method: delPriceLevelDiscAssignment
-Description:Function to delete discount assignment using common_id
-Created : 2016-05-10
-Created By: Manoj kumar  Singh
-*/
-
-exports.delPriceLevelDiscAssignment = function(req, res) {
-    
-    var delQuery = "Delete from discount_assignments where common_id = "+ req.body.common_id +" and seller_id =" + req.body.seller_id + " and discount_id = "+ req.body.discount_id;
-    
-    console.log('delQuery' , delQuery);
-    connection.query(delQuery, function(err, results) {
-        if (err) {
-            res.json({ error: err, code: 101 });
-        }
-        res.json({ result: results, code: 200 });
-    });
-}
-
 
 /** 
 Method: getAssignDiscountDetails
