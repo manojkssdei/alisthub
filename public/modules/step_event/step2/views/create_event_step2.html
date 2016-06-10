@@ -618,7 +618,10 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
 ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
-    </script>
+</script>
+
+
+
 <script type="text/ng-template" id="myModalContentBundle.html"> 
     <div class="modal-header">
         <h3 class="modal-title" style="float:left;">Add a Bundle</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
@@ -627,7 +630,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
        
     <!-- Step Form -->
     <div class="stage-container stage-container-3steps clearfix">
-      <div class="stage" ng-repeat="step in steps" data-ng-class="{current: $index + 1 === selectedClass}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+      <div class="stage" ng-repeat="step in steps" data-ng-class="{current: $index + 1 === selectedClass}" ng-click="click_menu(step,bundle)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
         <div class="stage-title">{{step.title}}</div> </div>
     </div>
     <!-- //Step Form --> 
@@ -986,7 +989,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
 
 <script type="text/ng-template" id="myModalContentProduct.html">
     <div class="modal-header">
-        <h3 class="modal-title">Add a Product</h3>
+        <h3 class="modal-title">Add a Product</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
     </div>
     <form  name="productForm" ng-submit="productForm.$valid && addEventProduct(product)" novalidate>
     <input type="hidden" ng-model="product.id" name="id" />
