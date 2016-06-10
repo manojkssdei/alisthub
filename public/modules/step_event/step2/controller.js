@@ -1066,7 +1066,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
           $scope.step_1 = $scope.step_3 = false;
 
           // Get product list 
-          $scope.getProduct();
+          $scope.getProducts();
           $scope.getEventPriceLevel();
         }
 
@@ -1162,7 +1162,7 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
 
   $scope.product_retail_price = 0;
   $scope.showPrice = function() {
-    var productJson = getObjects($scope.productList, 'id', $scope.product.product_id);
+    var productJson = getObjects($scope.productList, 'id', parseInt($scope.product.product_id));
     $scope.product_retail_price = productJson[0].retail_price;
   };
 
