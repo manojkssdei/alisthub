@@ -188,6 +188,13 @@ module.exports = function(app, express) {
     
     router.post('/getAssignDiscountDetails', discount_setting.getAssignDiscountDetails);
 
+    /* Assign discount coupons to events and price levels   */
+    
+    router.post('/updateFinalAssignment', discount_setting.updateFinalAssignment);
+    
+        /*delete assign discounts by common id */
+    
+    router.post('/delPriceLevelDiscAssignment', discount_setting.delPriceLevelDiscAssignment);
 
 
 

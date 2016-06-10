@@ -1,0 +1,334 @@
+<link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
+<script src="javascripts/timepicker.js" type="text/javascript"></script>
+<style type="text/css">
+    .custom_error {
+    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
+    color: #fff;
+    margin: -20px 0 15px;
+    padding: 10px;
+}
+
+ .end_time_error {
+    background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
+    color: #fff;
+    margin: 0px 0 15px;
+    padding: 10px;
+}
+</style>
+<div class="container">
+    <h1>Edit Assign Discount</h1>
+    <!-- Form COntainer -->
+    <div class="form-section  wt-frame">
+        <form class="venue-form" name="userForm" id="venue-form" ng-submit="assignDiscounts()" novalidate>
+            <!-- Event Detail Form -->
+            <div>
+                <!-- Location Group -->
+                <div class="form-group field-group">
+                    <!-- Date Event Group -->
+                    <div class="event-date fieldSection">
+                        <div class="row">
+                            <div>
+                                <p class="error-fld" ng-show="error_message" >{{error}}</p>
+                            </div>
+                            <!--<div><p class="error-fld" ng-show="error_message" ng-bind-html="trustedHtml"></p></div>-->
+                            <div>
+                                <p class="success-fld" ng-show="success_message">{{success}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8 col-md-8">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th width="40%">Discount Name</th>
+                                            <th width="40%">Discount Code</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{data.coupon_name}}</td>
+                                            <td>{{data.coupon_code}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- Tab panes -->
+                            </div>
+                            <div class="col-sm-4 col-md-4"></div>
+                        </div>
+                        
+                        
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                &nbsp;  
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="tab-content">
+                                    <div role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-sm-6" ng-class="{ 'has-error' : userForm.events.$invalid && !userForm.events.$pristine }" >
+                                                <div class="form-group">
+                                                    <label for="EventName">Select one or more events</label>
+                                                    <input type="radio" class="assignEvents" value="all_events" name="events" ng-click="enableBox(1)" ng-model="data.events" required="true" /> Apply coupon(s) globally across all events
+                                                </div>
+                                                <p ng-show="userForm.events.$invalid && !userForm.events.$pristine" class="error-fld ng-binding">Select event.</p>
+                                            </div>
+                                            <div class="col-sm-6" ng-class="{ 'has-error' : userForm.events.$invalid && !userForm.events.$pristine }" >
+                                                <div class="form-group">
+                                                    <label for="EventName">&nbsp;</label>
+                                                    <input type="radio" class="assignEvents" value="choose_events" name="events" ng-click="enableBox(2)"  ng-model="data.events" required="true"  />Assign to individual event and pricing levels
+                                                </div>
+                                                <p ng-show="userForm.events.$invalid && !userForm.events.$pristine" class="error-fld ng-binding">Select event.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-show="enable_event_box">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="EventName">&nbsp;</label>
+                                                    <a ng-click="showEventPopup()">Add Event</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="EventName">&nbsp;</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div ng-show="assignedEventWithPriceLevel" >-->
+                                        <div class="assignedEventWithPriceLevel" ng-show="assignedEventWithPriceLevel"  >
+                     <div class="row" ng-repeat="event in assignedEvents" ng-model="data.event_id[event.id]">
+                                                <div class="col-sm-12" >
+                                                    <div class="form-group">
+                                                        <label for="EventName">&nbsp;</label>
+                                                        <p> <b>{{event.title}}</b> @ {{event.event_address}} {{event.city}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                    <!-- ng-click="displayPriceLevels( event.id , 'all_price_levels')"  -->
+                                                        <label for="EventName">&nbsp;</label>
+            <input type="radio"  ng-model="data.event_id[event.id].price_levels" class="assignEvents ng-pristine ng-valid ng-touched" value="all_price_levels" ng-click="checkPriceLevelChoosed()" >Apply to all price levels
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                    <!--ng-click="displayPriceLevels( event.id , 'individual_price_levels')" -->
+                                                        <label for="EventName">&nbsp;</label>
+            <input type="radio" ng-model="data.event_id[event.id].price_levels" class="assignEvents ng-pristine ng-valid ng-touched" value="individual_price_levels" ng-click="checkPriceLevelChoosed()" >Choose individual price levels
+                                                    </div>
+                                                </div>
+                                                <div ng-show="data.event_id[event.id].price_levels == 'individual_price_levels' "   > <!--priceLevelDiv-->
+                                                    <div class="col-sm-6">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="EventName"><i>Apply only to these price levels</i></label>
+                                                            <div  ng-repeat="price_level in assignedPriceLevels" >
+                                                           
+
+                                                            <input type="checkbox" ng-show="event.id == price_level.event_id" ng-model="data.event_id[event.id].choosen_price_level[price_level.id]" value="{{price_level.id}}" > 
+                                                            <span  ng-show="event.id == price_level.event_id"> {{price_level.price_level_name}}<br/>
+                                                            </span>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tab panes -->
+                            </div>
+                            <div class="col-sm-12 col-md-6"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //Location Group -->
+                <!-- //Event Detail Form -->
+            </div>
+            <div class="module" ng-show="enable_coupan_box">
+                <section class="prof-hd" >
+                    <!-- add  class="prof-hd"if u need to display this as tab -->
+                    <i class="fa fa-link hdicon pos-l16"></i>
+                    <h2> Coupon Limiting <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                </section>
+                <section class="gray-frame">
+                    <div class="row">
+                        <div class="col-sm-4" >
+                            <div class="form-group">
+                                <label for="EventName">Use Limit<span class="req-limit">*</span></label>
+                                <input  type="number" min="0" class="form-control" placeholder="Limit" ng-model="data.usage_limit" name="usage_limit" required="true"/>
+                                <p ng-show="userForm.usage_limit.$invalid && !userForm.usage_limit.$pristine" class="error-fld ng-binding">Enter valid usage limit.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="EventName"> Timezone</label>
+                                <select class="form-control" placeholder="Select Timezone" ng-model="data.timezone">
+                                    <option>UTC-4: Atlantic Standard Time (AST)</option>
+                                    <option>UTC-5: Eastern Standard Time (EST)</option>
+                                    <option>UTC-6: Central Standard Time (CST)</option>
+                                    <option>UTC-7: Mountain Standard Time (MST)</option>
+                                    <option>UTC-8: Pacific Standard (PST)</option>
+                                    <option>UTC-9: Alaska Standard Time (AKST)</option>
+                                    <option>UTC-10: Hawaii-Aleutian Standard Time (HST)</option>
+                                    <option>UTC-11: Samoa Standard Time</option>
+                                    <option>UTC+10: Chamorro Standard Time</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="EventName"> Taggable?</label>
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="taggable" class="onoffswitch-checkbox" id="taggable" ng-model="data.taggable" ng-checked="1">
+                                    <label class="onoffswitch-label" for="taggable"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.start_date.$invalid && !userForm.start_date.$pristine }" >
+                            <div class="form-group">
+                                <label for="EndTime">Start Date<span class="req">*</span></label>
+                                <div class="form-group datepicker">
+                                    <input type="text" ng-model="data.start_date" class="form-control" uib-datepicker-popup="{{format}}"  is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" required="true"  ng-change="changedendtime()"   alt-input-formats="altInputFormats"  />
+
+                                    
+
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+
+                                     <p ng-show="userForm.start_date.$invalid && !userForm.start_date.$pristine" class="error-fld ng-binding">Select start date.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 event" >
+                            <div class="form-group">
+                                <label for="StartTime">Start Time</label>
+                                <div class="input-group bootstrap-timepicker timepicker">
+                                    <input  ng-model="data.start_time"  class="form-control input-small timepick" type="text"  ng-change="changedendtime()" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : userForm.end_date.$invalid && !userForm.end_date.$pristine }" >
+                            <div class="form-group">
+                                <label for="EndTime">End Date<span class="req">*</span></label>
+                                <div class="form-group datepicker">
+                                    <input type="text" ng-model="data.end_date" class="form-control"  uib-datepicker-popup="{{format}}" is-open="popup2.opened" datepicker-options="dateOptions"  close-text="Close" ng-change="changedendtime()" alt-input-formats="altInputFormats" required="true" />
+
+                                    
+
+
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </div>
+                                <p ng-show="userForm.end_date.$invalid && !userForm.end_date.$pristine" class="error-fld ng-binding">Select end date</p>
+
+                                      <p ng-show="endDateErrorStatus == 1" class="custom_error">{{endDateError}}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 event" >
+                            <div class="form-group">
+                                <label for="EndTime">End Time</label>
+                                <div class="input-group bootstrap-timepicker timepicker">
+                                    <input ng-model="data.end_time" class="form-control input-small timepick" type="text"  ng-change="changedendtime()" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+
+                                </div>
+                                 <p ng-show="endTimeErrorStatus == 1" class="end_time_error">{{endTimeError}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="editor-btn">
+            <!-- ng-disabled="userForm.$invalid" -->
+                <button class="pink-btn btn" ng-disabled="userForm.$invalid ||  eventsChoosed == 0 || priceLevelChoosed == 0 || endDateErrorStatus == 1 || endTimeErrorStatus == 1"  ng-click="updateFinalAssignment()">Save Assignment </button>
+
+            </div>
+        </form>
+    </div>
+    <!-- //Form COntainer --> 
+</div>
+<!-------------------------------------------- EVENT POPUP START ---------------------------------------->
+
+ <script type="text/ng-template" id="eventModalContent.html">
+        <div  class="modal-header">
+            <h3 class="modal-title" style="float:left;">Select Events for discount </h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+        </div>
+        <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="saveData(data1)" novalidate>
+        <div  class="modal-body">
+        <!-- {{data1}}-->
+            <fieldset  class="table table-striped" style="padding-top:10px">
+
+                <div class="col-sm-5 form-group datepicker">
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-change="viewEvents()"/>
+                                    <span class="input-group-btn assign-discount">
+                                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+               </div>
+                         
+
+               <div class="col-sm-2">    
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+               </div>
+                <div class="col-sm-1">
+                    &nbsp;
+               </div>
+
+               <div class="col-sm-4">
+                    <select name="search_type" class="form-control btn-date" ng-model="search_type">
+                                <option value="1">Specific Date</option>
+                                <option value="2">All Dates Before</option>
+                                <option value="3">All Dates After</option>
+                    </select>
+               </div>
+
+            </fieldset>
+                        
+            <div class="table-responsive">
+                        <table ng-table="tableParams" class="table table-striped table-ng-style">
+                        <tbody>
+                                    <tr ng-repeat="edata in $data | filter:filter">
+                                                                             
+                                        <td  width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox4.html'"><input type="checkbox" name="checkall" ng-model="edata.selected"  ng-click="eventoptionToggled(edata.id);" >
+
+					</td>
+                                        <td width="15%" header-class="'header-text-align'" title="'Event Name'" filter="{ title: 'text'}" sortable="'title'"><strong>{{edata.title}}</strong>
+					</td>
+                                        <td width="12%" header-class="'header-text-align'" title="'Venue'" filter="{ event_address: 'text'}" sortable="'event_address'">{{edata.event_address}}
+					</td>
+                                        <td width="12%" header-class="'header-text-align'" title="'City'" filter="{ city: 'text'}" sortable="'city'" class="numbers">{{edata.city}}</td>
+                                    </tr>
+				    <tr ng-if="$data == ''">
+                                        <td colspan="4" align="center">No Record found!</td>
+                                    </tr>
+                                    <tr ng-show="loader">
+                                        <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+          </div>
+          </fieldset>
+            
+        </div>
+        <div class="modal-footer">
+             <button ng-show="enableEventAssign" ng-click="eventmakeAssignment();" class="btn btn-primary"  type="submit">Make Selection</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+        </form>
+         <script type="text/ng-template" id="ng-table/headers/checkbox4.html">
+          <input type="checkbox" name="checkall" ng-model="eventisAllSelected"ng-click="eventtoggleAll(all_check_point);">
+        </script>
+    </script>
+
+<!-------------------------------------------- EVENT POPUP END ---------------------------------------->
