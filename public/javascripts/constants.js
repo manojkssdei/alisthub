@@ -53,6 +53,7 @@ var webservices = {
         /////get event category////
      "getEventsdetail":"/event/getEventsdetail",
      "getEvents":"/event/getEvents",
+     "getEvent":"/event/getEvent",
     
 
     /* Constants for the discount module */
