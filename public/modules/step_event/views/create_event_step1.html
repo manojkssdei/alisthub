@@ -1,23 +1,19 @@
 <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
 <script src="javascripts/timepicker.js" type="text/javascript"></script>
 <div class="container">
-  <h1>Create an Event</h1>
-  <!-- Step Form -->
-  
-  <div class="stage-container clearfix">
-    <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)">
-      <div class="stage-icon"><i class="{{step.icon}}"></i> </div>
-      <div class="stage-title">{{step.title}}</div> </div>
+    <h1>Create an Event</h1>
+    <!-- Step Form -->
+    <div class="stage-container clearfix">
+        <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)">
+            <div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+            <div class="stage-title">{{step.title}}</div>
+        </div>
     </div>
-    
     <!-- //Step Form -->
-    
     <!-- Form COntainer -->
-    
     <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
-    
     <div class="form-section  wt-frame">
-      
+
       <div ng-hide="eventdetail_div">
         
         <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
@@ -96,248 +92,256 @@
                       <div class="form-group datepicker">
                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
                         <span class="input-group-btn">
+
                         <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="form-group">
-                      <label for="EndTime">End Date<span class="req">*</span></label>
-                      <div class="form-group datepicker">
-                        <input type="text" class="form-control" uib-datepicker-popup ng-model="multiple_end_date" is-open="popup2.opened" datepicker-options="dateOptions"  close-text="Close"  ng-change="recurring_period('end')"/>
-                        <span class="input-group-btn">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="EndTime">End Date<span class="req">*</span></label>
+                                            <div class="form-group datepicker">
+                                                <input type="text" class="form-control" uib-datepicker-popup ng-model="multiple_end_date" is-open="popup2.opened" datepicker-options="dateOptions" close-text="Close" ng-change="recurring_period('end')" />
+                                                <span class="input-group-btn">
                           <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <label for="City">Recurring<span class="req">*</span></label>
-                    <div class="form-group">
-                      <select class="form-control" ng-model="data.period" ng-change="recurring_period('period')">
-                        <option ng-repeat="option in timeperiod" value="{{option.id}}">{{option.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-sm-4" ng-if="dailyrecurring_div">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="City">Recurring<span class="req">*</span></label>
+                                        <div class="form-group">
+                                            <select class="form-control" ng-model="data.period" ng-change="recurring_period('period')">
+                                                <option ng-repeat="option in timeperiod" value="{{option.id}}">{{option.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" ng-if="dailyrecurring_div">
+                                        <label>Repeat Every (Days)<span class="req">*</span></label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" ng-model="rec_days_value" ng-change="rec_days_func(rec_days_value)" required>
+                                        </div>
+                                    </div>
+                                    <!-- YEARLY WAALA DIV -->
+                                    <!--                   <div class="col-sm-4" ng-if="yearlyrecurring_div">
                     <label>Repeat Every (Days)<span class="req">*</span></label>
                     <div class="form-group">
                       <input type="text" class="form-control" ng-model="rec_days_value" ng-change="rec_days_func(rec_days_value)" required>
                     </div>
                   </div>
-                  <!-- YEARLY WAALA DIV -->
-<!--                   <div class="col-sm-4" ng-if="yearlyrecurring_div">
-                    <label>Repeat Every (Days)<span class="req">*</span></label>
-                    <div class="form-group">
-                      <input type="text" class="form-control" ng-model="rec_days_value" ng-change="rec_days_func(rec_days_value)" required>
+ -->
+                                    <!-- YEARLY END -->
+                                    <!-- CHECKBOXES WAALA DIV -->
+                                    <div class="col-sm-8 event" ng-hide="days_div">
+                                        <div class="form-group custom-check m-t40">
+                                            <p class="custom-check" ng-repeat="day in days">
+                                                <input type="checkbox" ng-model="day.selected" id={{day.id}} ng-change="select_checkbox(day.selected)" value={{day.id}}>
+                                                <label for="{{day.id}}">{{day.name}}</label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- DIV END -->
+                                    <div class="col-sm-4 event" ng-hide="weekly_div">
+                                        <div class="form-group custom-check m-t30">
+                                            <select ng-model="data.weekly_option" ng-change="weekly_option_change()" class="form-control">
+                                                <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- MONTHLY START -->
+                                    <div class="col-sm-8 event m-t40" ng-hide="monthly_div">
+                                        <div class="inline-radio">
+                                            <label class="radiolabel">
+                                                <input type="radio" name="everythisday" value="everythisday" ng-model="monthly.type"><span>Select Particular Day</span></label>
+                                        </div>
+                                        <div class="inline-radio">
+                                            <label class="radiolabel">
+                                                <input type="radio" name="everythisweek" value="everythisweek" ng-model="monthly.type"><span>Select Particular Week's Day</span></label>
+                                        </div>
+                                        <div class="monthly-padding" ng-show="monthly.type == 'everythisday'">
+                                            On day
+                                            <select ng-model="data.monthly_option" ng-change="change_month()" class="form-control sml-sel w-auto">
+                                                <option ng-repeat="date in dates" value="{{date.id}}">{{date.id}}</option>
+                                            </select>
+                                            of every month
+                                        </div>
+                                        <div class="monthly-padding" ng-show="monthly.type == 'everythisweek'">
+                                            On the
+                                            <select ng-model="data.monthly_week_value" ng-change="rec_monthly_func()" class="form-control sml-sel w-auto">
+                                                <option ng-repeat="week_value in month_week_selection" value="{{week_value.id}}">{{week_value.name}}</option>
+                                            </select>
+                                            <select ng-model="data.monthly_day_value" ng-change="rec_monthly_func()" class="form-control sml-sel w-auto">
+                                                <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
+                                            </select>
+                                            of every month
+                                            <br><span style="color: red">{{monthly_error}}</span>
+                                        </div>
+                                    </div>
+                                    <!-- MONTHLY END -->
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="StartTime">Start Time<span class="req">*</span></label>
+                                            <div class="input-group bootstrap-timepicker timepicker">
+                                                <input ng-model="multiple_starttime" class="form-control input-small timepick" type="text" ng-change="multiplestart()" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="EndTime">End Time</label>
+                                            <div class="input-group bootstrap-timepicker timepicker">
+                                                <input ng-model="multiple_endtime" class="form-control input-small timepick" type="text" ng-change="multipleend()" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label>Select/Deselect Events</label>
+                                        <div class="row" ng-hide="error_time_message">
+                                            <p class="error-fld">{{error_time_display_message}}</p>
+                                        </div>
+                                        <div class="clearfix list-event-date form-inline" ng-repeat="between in between_date track by $index">
+                                            <div class="col-sm-1 pull-right text-right lss-top"> <a ng-click="removediv($index)"><i class="fa fa-close"></i></a> </div>
+                                            <div class="sel-d col-sm-3">
+                                                <label> {{between| date:'EEEE MMMM dd,yyyy'}} </label>
+                                            </div>
+                                            <div class="sel-d col-sm-4">
+                                                <label for="exampleInputName2">Start Time:</label>
+                                                <div class="input-group bootstrap-timepicker timepicker">
+                                                    <input class="form-control input-small timepick" type="text" ng-model="data.starttimeloop1[$index]" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="sel-d col-sm-4">
+                                                <label for="exampleInputEmail2">End Time : </label>
+                                                <div class="input-group bootstrap-timepicker timepicker">
+                                                    <input class="form-control input-small timepick" type="text" ng-model="data.endtimeloop1[$index]" ng-change="checkStartEndTime($index)" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
- -->                  <!-- YEARLY END -->
-                  <!-- CHECKBOXES WAALA DIV -->
-                  <div class="col-sm-8 event" ng-hide="days_div">
-                    <div class="form-group custom-check m-t40">
-                      <p class="custom-check" ng-repeat="day in days">
-                        <input type="checkbox"  ng-model="day.selected" id={{day.id}} ng-change="select_checkbox(day.selected)"  value={{day.id}}>
-                        <label for="{{day.id}}">{{day.name}}</label>
-                      </p>
-                    </div>
-                  </div>
-                  <!-- DIV END -->
-                  <div class="col-sm-4 event" ng-hide="weekly_div">
-                    <div class="form-group custom-check m-t30">
-                      <select ng-model="data.weekly_option" ng-change="weekly_option_change()" class="form-control">
-                        <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
-                      </select>
-                    </div>
-                  </div> 
-                  <!-- MONTHLY START -->
-                  <div class="col-sm-8 event m-t40" ng-hide="monthly_div">
-                  	<div class="inline-radio">
-                    <label class="radiolabel"><input type="radio" name="everythisday" value="everythisday" ng-model="monthly.type"><span>Select Particular Day</span></label></div> <div class="inline-radio"><label class="radiolabel"><input type="radio" name="everythisweek" value="everythisweek" ng-model="monthly.type"><span>Select Particular Week's Day</span></label></div>
-                      <div class="monthly-padding" ng-show="monthly.type == 'everythisday'">
-                        On day
-                        <select ng-model="data.monthly_option" ng-change="change_month()" class="form-control sml-sel w-auto">
-                          <option ng-repeat="date in dates" value="{{date.id}}">{{date.id}}</option>
-                        </select> 
-                        of every month
-                      </div>
-                   
-                      <div class="monthly-padding" ng-show="monthly.type == 'everythisweek'">
-                        On the 
-                        <select ng-model="data.monthly_week_value" ng-change="rec_monthly_func()" class="form-control sml-sel w-auto">
-                          <option ng-repeat="week_value in month_week_selection" value="{{week_value.id}}">{{week_value.name}}</option>
-                        </select>
-                        <select ng-model="data.monthly_day_value" ng-change="rec_monthly_func()" class="form-control sml-sel w-auto">
-                          <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
-                        </select> 
-                        of every month
-                        <br><span style="color: red">{{monthly_error}}</span>
-                      </div>
-                     
-                  </div>
-                  <!-- MONTHLY END -->                 
                 </div>
-                
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="form-group">
-                      <label for="StartTime">Start Time<span class="req">*</span></label>
-                      <div class="input-group bootstrap-timepicker timepicker">
-                        <input  ng-model="multiple_starttime"  class="form-control input-small timepick" type="text" ng-change="multiplestart()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                      </div>
+                <div class="form-group field-group">
+                    <label for="Location">Location<span class="req">*</span></label>
+                    <!-- Date Event Group -->
+                    <div class="event-date fieldSection">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <ul class="nav nav-tabs responsive-tabs">
+                                    <li ng-repeat="venue in venues" ng-click="select_venue(venue)" ng-class="{active: isActive1(venue)}"><a class="pointer" href="javascript:void(0)">{{venue.name}}</a> </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" id="venue-event" ng-hide="venue_event_div">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="EventName">Venue Type<span class="req">*</span></label>
+                                                    <select class="form-control" ng-model="data.venuetype">
+                                                        <option>General Admission</option>
+                                                        <option>Seated</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="Venue">Venue<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" ng-model="data.venuename" name="venuename" value="" required>
+                                                    <span style="color:red" ng-show="myForm.venuename.$dirty && myForm.venuename.$invalid">  <span  ng-show="myForm.venuename.$error.required">Venue name is required</span></span>
+                                                    <input type="hidden" class="form-control" ng-model="data.venueid">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="Address">Address<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="place" ng-model="data.place" g-places-autocomplete required autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="City">City<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="city" ng-model="data.city" required>
+                                                    <span style="color:red" ng-show="myForm.city.$dirty && myForm.city.$invalid">  <span  ng-show="myForm.city.$error.required">City is required</span></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="Zipcode">Zipcode<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" required>
+                                                    <span style="color:red" ng-show="myForm.zipcode.$dirty && myForm.zipcode.$invalid">  <span  ng-show="myForm.zipcode.$error.required">Zipcode is required</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="City">State<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" ng-model="data.state" name="state" required>
+                                                    <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="Zipcode">Country<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" ng-model="data.country" name="country" required>
+                                                    <span style="color:red" ng-show="myForm.country.$dirty && myForm.country.$invalid">  <span  ng-show="myForm.country.$error.required">Country is required</span></span>
+                                                    <input type="hidden" class="form-control" ng-model="data.latitude">
+                                                    <input type="hidden" class="form-control" ng-model="data.longitude">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" id="location-event" ng-hide="location_event_div">
+                                    <div class="row">
+                                        <div class="col-sm-12 loc-list">
+                                            <ul>
+                                                <li ng-repeat="venue in total_venue track by $index">
+                                                    <i class="fa fa-map-marker"></i>
+                                                    <a ng-click="venue_info(venue)">{{venue.venue_name}}</a>
+                                                    <span>{{venue.address}}, {{venue.city}}&nbsp;,&nbsp;{{venue.state}}&nbsp;,&nbsp;{{venue.zipcode}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Tab panes -->
+                            <div class="col-sm-12 col-md-6">
+                                <!--<img src="images/map.jpg" class="img-responsive" alt="" />-->
+                                <div id="map" style="height: 400px;"></div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="form-group">
-                      <label for="EndTime">End Time</label>
-                      <div class="input-group bootstrap-timepicker timepicker">
-                        <input  ng-model="multiple_endtime"  class="form-control input-small timepick" type="text" ng-change="multipleend()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                      </div>
-                      
-                    </div>
-                  </div>
                 </div>
-                
-                <div class="row">
-                  <div class="col-xs-12">
-                    <label>Select/Deselect Events</label>
-                    <div class="row" ng-hide="error_time_message"  ><p class="error-fld" >{{error_time_display_message}}</p></div>
-                    <div class="clearfix list-event-date form-inline"  ng-repeat="between in between_date track by $index">
-                      <div class="col-sm-1 pull-right text-right lss-top"> <a ng-click="removediv($index)"><i class="fa fa-close"></i></a> </div>
-                      
-                      <div class="sel-d col-sm-3">
-                        <label> {{between| date:'EEEE MMMM dd,yyyy'}} </label>
-                      </div>
-                      <div class="sel-d col-sm-4">
-                        <label for="exampleInputName2">Start Time:</label>
-                        <div class="input-group bootstrap-timepicker timepicker">
-                          <input   class="form-control input-small timepick" type="text" ng-model="data.starttimeloop1[$index]" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                        </div>
-                        
-                        
-                      </div>
-                      <div class="sel-d col-sm-4">
-                        <label for="exampleInputEmail2">End Time : </label>
-                        <div class="input-group bootstrap-timepicker timepicker">
-                          <input   class="form-control input-small timepick" type="text" ng-model="data.endtimeloop1[$index]" ng-change="checkStartEndTime($index)"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                        </div>
-                        
-                      </div>
-                      
-                      
+                <div ng-include="step1html"></div>
+                <div class="editr">
+                    <label>Event Description<span class="req">*</span></label>
+                    <div ckeditor="option_ckeditor" name="content" required ng-model="data.content" ready="onReady()" value=''></div>
+                    <!--<span style="color:red;" ng-show="myForm.content.$dirty && myForm.content.$invalid">  <span  ng-show="myForm.content.$error.required">Event description is required</span></span>-->
+                    <div class="editor-btn">
+                        <button type="submit" ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
+                        <button type="button" ng-disabled="myForm.$invalid" ng-click="click_menu(steps[1] , data)" class="pink-btn btn">Next</button>
                     </div>
-                    
-                  </div>
+                    <div ng-hide="error_message">
+                        <p class="success-fld ng-binding">{{success}}</p>
+                    </div>
                 </div>
-                
-                
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group field-group">
-          <label for="Location">Location<span class="req">*</span></label>
-          <!-- Date Event Group -->
-          <div class="event-date fieldSection">
-            <div class="row">
-              <div class="col-sm-12 col-md-6">
-                <ul class="nav nav-tabs responsive-tabs">
-                  <li ng-repeat="venue in venues" ng-click="select_venue(venue)" ng-class="{active: isActive1(venue)}" ><a class="pointer" href="javascript:void(0)" >{{venue.name}}</a> </li>
-                </ul>
-                
-                <div class="tab-content">
-                  <div role="tabpanel"  id="venue-event" ng-hide="venue_event_div">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label for="EventName">Venue Type<span class="req">*</span></label>
-                          <select class="form-control" ng-model="data.venuetype">
-                            <option>General Admission</option>
-                            <option>Seated</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="form-group">
-                          <label for="Venue">Venue<span class="req">*</span></label>
-                          <input type="text" class="form-control" ng-model="data.venuename" name="venuename" value="" required>
-                          <span style="color:red" ng-show="myForm.venuename.$dirty && myForm.venuename.$invalid">  <span  ng-show="myForm.venuename.$error.required">Venue name is required</span></span>
-                          <input type="hidden" class="form-control" ng-model="data.venueid">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="form-group">
-                          <label for="Address">Address<span class="req">*</span></label>
-                          <input type="text" class="form-control" name="place" ng-model="data.place"  g-places-autocomplete required  autocomplete="off">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label for="City">City<span class="req">*</span></label>
-                          <input type="text" class="form-control" name="city" ng-model="data.city" required>
-                          <span style="color:red" ng-show="myForm.city.$dirty && myForm.city.$invalid">  <span  ng-show="myForm.city.$error.required">City is required</span></span>
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label for="Zipcode">Zipcode<span class="req">*</span></label>
-                          <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" required>
-                          <span style="color:red" ng-show="myForm.zipcode.$dirty && myForm.zipcode.$invalid">  <span  ng-show="myForm.zipcode.$error.required">Zipcode is required</span></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label for="City">State<span class="req">*</span></label>
-                          <input type="text" class="form-control" ng-model="data.state" name="state" required>
-                          <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
-                          
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label for="Zipcode">Country<span class="req">*</span></label>
-                          <input type="text" class="form-control" ng-model="data.country" name="country" required>
-                          <span style="color:red" ng-show="myForm.country.$dirty && myForm.country.$invalid">  <span  ng-show="myForm.country.$error.required">Country is required</span></span>
-                          <input type="hidden" class="form-control" ng-model="data.latitude">
-                          <input type="hidden" class="form-control" ng-model="data.longitude">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div role="tabpanel"  id="location-event" ng-hide="location_event_div">
-                  <div class="row">
-                    <div class="col-sm-12 loc-list">
-                      <ul>
-                        <li ng-repeat="venue in total_venue track by $index">
-                          <i class="fa fa-map-marker"></i>
-                          <a ng-click="venue_info(venue)">{{venue.venue_name}}</a>
-                          <span>{{venue.address}}, {{venue.city}}&nbsp;,&nbsp;{{venue.state}}&nbsp;,&nbsp;{{venue.zipcode}}</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Tab panes -->
-              
-              
-              <div class="col-sm-12 col-md-6"> <!--<img src="images/map.jpg" class="img-responsive" alt="" />-->
-              <div id="map" style="height: 400px;"></div>
-            </div>
-          </div>
+            </form>
+            <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
         </div>
       </div>
 
@@ -363,20 +367,19 @@
   
   
 </div>
-
 </div>
 
 </div>
 
 <script type="text/ng-template" id="myModalContent.html">
-<div class="modal-header">
-<h3 class="modal-title">Remove Previous Event</h3>
-</div>
-<div class="modal-body">
-Are you sure to remove this previous created Event?
-</div>
-<div class="modal-footer">
-<button class="btn btn-primary" type="button" ng-click="remove()">Remove</button>
-<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-</div>
+    <div class="modal-header">
+        <h3 class="modal-title">Remove Previous Event</h3>
+    </div>
+    <div class="modal-body">
+        Are you sure to remove this previous created Event?
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="remove()">Remove</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
 </script>

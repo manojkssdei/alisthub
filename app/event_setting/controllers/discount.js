@@ -291,6 +291,7 @@ Created By: Manoj kumar  Singh
 */
 
 exports.getSelectedDiscount = function(req, res) {
+
     var condition = "";
     var condition2 = "";
     if (req.body.seller_id != "" && req.body.seller_id != null && req.body.seller_id != "undefined") {
@@ -392,7 +393,7 @@ exports.saveFinalAssignmet = function(req, res) {
                 var event_type_flag = 1;
                 var price_level_type_flag = 1;
 
-                var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `event_type`,`event_id`, `price_level_type`,`price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + ", '" + event_type_flag + "',  NULL ,  " + price_level_type_flag + " ,  NULL ,  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
+                var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `common_id`, `event_type`,`event_id`, `price_level_type`,`price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + ", " + req.body.common_id + ", '"+ event_type_flag + "',  NULL ,  " + price_level_type_flag + " ,  NULL ,  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
 
                 connection.query(query_value, function(err, results) {
                     if (err) {
@@ -422,7 +423,7 @@ exports.saveFinalAssignmet = function(req, res) {
 
                             var choosen_price_level_id = choosen_price_level_key;
 
-                            var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `event_type`,`event_id`, `price_level_type`, `price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + ", '" + event_type_flag + "',  " + event_idd + " ,  '" + price_level_type_flag + "' , " + choosen_price_level_key + ",  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
+                            var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `common_id`,`event_type`,`event_id`, `price_level_type`, `price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + ", " + req.body.common_id + ", '" + event_type_flag + "',  " + event_idd + " ,  '" + price_level_type_flag + "' , " + choosen_price_level_key + ",  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
                             console.log('query_value', query_value);
 
                             connection.query(query_value, function(err, results) {
@@ -438,7 +439,7 @@ exports.saveFinalAssignmet = function(req, res) {
                         var price_level_type_flag = 1;
                         console.log('choosen_price_level doesnot exist for event ', event_id_key);
 
-                        var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `event_type`,`event_id`, `price_level_type`, `price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + ", '" + event_type_flag + "',  " + event_idd + " ,  '" + price_level_type_flag + "' , NULL ,  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
+                        var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `common_id`, `event_type`,`event_id`, `price_level_type`, `price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + ", " + req.body.common_id + ", '" + event_type_flag + "',  " + event_idd + " ,  '" + price_level_type_flag + "' , NULL ,  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
 
                         connection.query(query_value, function(err, results) {
                             if (err) {
@@ -525,6 +526,27 @@ exports.delDiscountAssignment = function(req, res) {
 }
 
 /** 
+Method: delPriceLevelDiscAssignment
+Description:Function to delete discount assignment using common_id
+Created : 2016-05-10
+Created By: Manoj kumar  Singh
+*/
+
+exports.delPriceLevelDiscAssignment = function(req, res) {
+    
+    var delQuery = "Delete from discount_assignments where common_id = "+ req.body.common_id +" and seller_id =" + req.body.seller_id + " and discount_id = "+ req.body.discount_id;
+    
+    console.log('delQuery' , delQuery);
+    connection.query(delQuery, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: results, code: 200 });
+    });
+}
+
+
+/** 
 Method: getAssignDiscountDetails
 Description:Function for discount Assignment Details
 Created : 2016-06-08
@@ -532,20 +554,326 @@ Created By: Harpreet Kaur
 */
 
 exports.getAssignDiscountDetails = function(req, res) {
-
-    /*
-    var query = "SELECT da.* , d .id, d.coupon_name,d.coupon_code FROM discount_assignments da INNER JOIN discounts d ON da.discount_id = d.id where da.seller_id = " + req.body.seller_id + "  and da.id = " + req.body.id + "   and da.event_type = 1 and da.event_id IS NULL AND da.price_level_type = 1 and da.price_level IS NULL";
-    */
-
-    var query = "SELECT da.* , d .id, d.coupon_name,d.coupon_code FROM discount_assignments da INNER JOIN discounts d ON da.discount_id = d.id where da.seller_id = " + req.body.seller_id + "  and da.id = " + req.body.id ;
+  
+    var query = "SELECT da.* , d .id as discount_id, d.coupon_name,d.coupon_code FROM discount_assignments da INNER JOIN discounts d ON da.discount_id = d.id where da.seller_id = " + req.body.seller_id + "  and da.id = " + req.body.id ;
 
     console.log('query' , query);
     connection.query(query, function(error, results) {
-        if (err) {
+        if (error) {
             res.json({ error: error, code: 101 });
         }
-            res.json({ result: results, code: 101 });
+            res.json({ result: results, code: 200 });
 
   });
 
+}
+
+
+exports.updateFinalAssignment = function(req, res) {
+    console.log('req.body' , req.body);
+
+
+
+ if (req.body.discount_id != null && req.body.discount_id != "" && req.body.discount_id != "undefined") {
+
+            var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+
+            var discount_id = req.body.discount_id;
+
+            if (req.body.events == "all_events") {
+
+                var event_type_flag = 1;
+                var price_level_type_flag = 1;
+
+                
+
+                var query_value = " UPDATE `discount_assignments` SET `discount_id` =" + discount_id + ", `common_id` =" + req.body.common_id + " , `event_type` = '" + event_type_flag + "'  ,`event_id` = NULL , `price_level_type` = " + price_level_type_flag + " ,`price_level` = NULL , `usage_limit` = " + req.body.usage_limit + ", `timezone` =  '" + req.body.timezone + "', `taggable` = '" + req.body.taggable + "' , `start_date` = '" + req.body.start_date + "', `start_time` =  '" + req.body.start_time + "' , `end_date` = '" + req.body.end_date + "' , `end_time` = '" + req.body.end_time + "' WHERE `id` = " + req.body.id + " and `seller_id` = " + req.body.seller_id + " and `discount_id` = " + req.body.discount_id ;
+                console.log('query_value' , query_value);
+
+                
+                connection.query(query_value, function(err, results) {
+                    if (err) {
+                        res.json({ error: err, code: 101 });
+                    }
+                     res.json({ result: results, code: 200 });
+
+                }); 
+            }
+
+
+            if (req.body.events == "choose_events") {
+
+          console.log('delete globally assigned coupon & event info & then insert the new record');
+
+  var old_start_date = moment(req.body.old_start_date).format('YYYY-MM-DD HH:mm:ss');
+  var old_end_date = moment(req.body.old_end_date).format('YYYY-MM-DD HH:mm:ss');
+
+          var delete_global_discount_query = "DELETE FROM `discount_assignments` WHERE discount_id = "+req.body.discount_id +" and seller_id = "+req.body.seller_id +" and start_date = '"+old_start_date +"' and end_date = '"+ old_end_date+"'";
+
+          console.log('delete_global_discount_query' , delete_global_discount_query);
+
+          connection.query(delete_global_discount_query, function(err, delete_result) {
+                if (err) {
+                    res.json({ error: err, code: 101 });
+                }
+
+
+                for (var event_id_key in req.body.event_id) {
+                    var event_idd = event_id_key;
+                    var price_level_type = req.body.event_id[event_id_key].price_levels;
+
+                    if ('choosen_price_level' in req.body.event_id[event_id_key]) {
+
+                        var choosen_price_level = req.body.event_id[event_id_key].choosen_price_level;
+                        for (var choosen_price_level_key in choosen_price_level) {
+
+                            var event_type_flag = 0;
+                            if (price_level_type == "individual_price_levels") {
+                                var price_level_type_flag = 0;
+                            } else {
+                                var price_level_type_flag = 1;
+                            }
+
+                            var choosen_price_level_id = choosen_price_level_key;
+
+var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `common_id`, `event_type`,`event_id`, `price_level_type`, `price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + "," + req.body.common_id + " , '" + event_type_flag + "',  " + event_idd + " ,  '" + price_level_type_flag + "' , " + choosen_price_level_key + ",  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
+
+
+                            console.log('query_value', query_value);
+
+                            connection.query(query_value, function(err, results) {
+                                if (err) {
+                                    res.json({ error: err, code: 101 });
+                                }
+                            });
+
+                        }
+
+                    } else {
+                        var event_type_flag = 1;
+                        var price_level_type_flag = 1;
+                        console.log('choosen_price_level doesnot exist for event ', event_id_key);
+
+                          var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `common_id`, `event_type`,`event_id`, `price_level_type`, `price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + "," + req.body.common_id + " , '" + event_type_flag + "',  " + event_idd + " ,  '" + price_level_type_flag + "' , NULL ,  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
+
+                        connection.query(query_value, function(err, results) {
+                            if (err) {
+                                res.json({ error: err, code: 101 });
+                            }
+                        });
+
+                    }
+
+                } 
+
+
+                     
+
+
+
+
+             
+            });
+
+                 res.json({ result: "results", code: 200 });
+
+                
+
+
+
+                
+
+            }
+        }
+}
+
+
+exports.updateFinalAssignmentOLd = function(req, res) {
+    console.log('req.body' , req.body);
+
+ if (req.body.discount_id != null && req.body.discount_id != "" && req.body.discount_id != "undefined") {
+
+            var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+
+            var discount_id = req.body.discount_id;
+
+            if (req.body.events == "all_events") {
+
+                var event_type_flag = 1;
+                var price_level_type_flag = 1;
+
+                var query_value = " UPDATE `discount_assignments` SET `discount_id` =" + discount_id + ", `event_type` = '" + event_type_flag + "'  ,`event_id` = NULL , `price_level_type` = " + price_level_type_flag + " ,`price_level` = NULL , `usage_limit` = " + req.body.usage_limit + ", `timezone` =  '" + req.body.timezone + "', `taggable` = '" + req.body.taggable + "' , `start_date` = '" + req.body.start_date + "', `start_time` =  '" + req.body.start_time + "' , `end_date` = '" + req.body.end_date + "' , `end_time` = '" + req.body.end_time + "' WHERE `id` = " + req.body.id + " and `seller_id` = " + req.body.seller_id + " and `discount_id` = " + req.body.discount_id ;
+
+                console.log('query_value' , query_value);
+
+                
+                connection.query(query_value, function(err, results) {
+                    if (err) {
+                        res.json({ error: err, code: 101 });
+                    }
+                     res.json({ result: results, code: 200 });
+
+                }); 
+            }
+
+
+            if (req.body.events == "choose_events") {
+
+                var delete_old = 0;
+                var select_query = "select event_type , event_id , price_level_type , price_level from discount_assignments where id = "+req.body.id;
+
+console.log('select_query' , select_query);
+                connection.query(select_query, function(err, select_results) {
+                if (err) {
+                    res.json({ error: err, code: 101 });
+                }
+               
+                var s_event_type = select_results[0]['event_type'];
+                var s_event_id = select_results[0]['event_id'];
+                var s_price_level_type = select_results[0]['price_level_type'];
+                var s_price_level = select_results[0]['price_level'];
+
+                console.log('s_event_type' , s_event_type);
+                console.log('s_event_id' , s_event_id);
+                console.log('s_price_level_type' , s_price_level_type);
+                console.log('s_price_level' , s_price_level);
+
+                if(s_event_type == 1 && s_price_level_type == 1 && s_event_id== null &&  s_price_level==null) {
+                    delete_old = 1;
+
+
+
+                    console.log('delete globally assigned coupon & event info & then insert the new record');
+
+                     var delete_global_discount_query = "DELETE FROM `discount_assignments` WHERE id = "+req.body.id;
+
+                connection.query(delete_global_discount_query, function(err, delete_result) {
+                                if (err) {
+                                    res.json({ error: err, code: 101 });
+                                }
+
+
+                for (var event_id_key in req.body.event_id) {
+                    var event_idd = event_id_key;
+                    var price_level_type = req.body.event_id[event_id_key].price_levels;
+
+                    if ('choosen_price_level' in req.body.event_id[event_id_key]) {
+
+                        var choosen_price_level = req.body.event_id[event_id_key].choosen_price_level;
+                        for (var choosen_price_level_key in choosen_price_level) {
+
+                            var event_type_flag = 0;
+                            if (price_level_type == "individual_price_levels") {
+                                var price_level_type_flag = 0;
+                            } else {
+                                var price_level_type_flag = 1;
+                            }
+
+                            var choosen_price_level_id = choosen_price_level_key;
+
+var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `event_type`,`event_id`, `price_level_type`, `price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + ", '" + event_type_flag + "',  " + event_idd + " ,  '" + price_level_type_flag + "' , " + choosen_price_level_key + ",  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
+
+
+                            console.log('query_value', query_value);
+
+                            connection.query(query_value, function(err, results) {
+                                if (err) {
+                                    res.json({ error: err, code: 101 });
+                                }
+                            });
+
+                        }
+
+                    } else {
+                        var event_type_flag = 1;
+                        var price_level_type_flag = 1;
+                        console.log('choosen_price_level doesnot exist for event ', event_id_key);
+
+                          var query_value = " INSERT INTO `discount_assignments` (`id`, `seller_id`, `discount_id`, `event_type`,`event_id`, `price_level_type`, `price_level`, `usage_limit`, `timezone`, `taggable`, `start_date`, `start_time`, `end_date`, `end_time`, `created`) VALUES (NULL, " + req.body.seller_id + ", " + discount_id + ", '" + event_type_flag + "',  " + event_idd + " ,  '" + price_level_type_flag + "' , NULL ,  " + req.body.usage_limit + ", '" + req.body.timezone + "', '" + req.body.taggable + "', '" + req.body.start_date + "', '" + req.body.start_time + "', '" + req.body.end_date + "', '" + req.body.end_time + "', '" + curtime + "')";
+
+                        connection.query(query_value, function(err, results) {
+                            if (err) {
+                                res.json({ error: err, code: 101 });
+                            }
+                        });
+
+                    }
+
+                } 
+
+
+                        });
+
+
+
+
+                }
+
+                else {
+
+                    for (var event_id_key in req.body.event_id) {
+                    var event_idd = event_id_key;
+                    var price_level_type = req.body.event_id[event_id_key].price_levels;
+
+                    if ('choosen_price_level' in req.body.event_id[event_id_key]) {
+
+                        var choosen_price_level = req.body.event_id[event_id_key].choosen_price_level;
+                        for (var choosen_price_level_key in choosen_price_level) {
+
+                            var event_type_flag = 0;
+                            if (price_level_type == "individual_price_levels") {
+                                var price_level_type_flag = 0;
+                            } else {
+                                var price_level_type_flag = 1;
+                            }
+
+                            var choosen_price_level_id = choosen_price_level_key;
+
+var query_value = " UPDATE `discount_assignments` SET `discount_id` =" + discount_id + ", `event_type` = '" + event_type_flag + "'  ,`event_id` = " + event_idd + " , `price_level_type` = " + price_level_type_flag + " ,`price_level` = " + choosen_price_level_key + " , `usage_limit` = " + req.body.usage_limit + ", `timezone` =  '" + req.body.timezone + "', `taggable` = '" + req.body.taggable + "' , `start_date` = '" + req.body.start_date + "', `start_time` =  '" + req.body.start_time + "' , `end_date` = '" + req.body.end_date + "' , `end_time` = '" + req.body.end_time + "' WHERE `id` = " + req.body.id + " and `seller_id` = " + req.body.seller_id + " and `discount_id` = " + req.body.discount_id ;
+
+                            console.log('query_value', query_value);
+
+                            connection.query(query_value, function(err, results) {
+                                if (err) {
+                                    res.json({ error: err, code: 101 });
+                                }
+                            });
+
+                        }
+
+                    } else {
+                        var event_type_flag = 1;
+                        var price_level_type_flag = 1;
+                        console.log('choosen_price_level doesnot exist for event ', event_id_key);
+
+                        var query_value = " UPDATE `discount_assignments` SET `discount_id` =" + discount_id + ", `event_type` = '" + event_type_flag + "'  ,`event_id` = " + event_idd + " , `price_level_type` = " + price_level_type_flag + " ,`price_level` = NULL , `usage_limit` = " + req.body.usage_limit + ", `timezone` =  '" + req.body.timezone + "', `taggable` = '" + req.body.taggable + "' , `start_date` = '" + req.body.start_date + "', `start_time` =  '" + req.body.start_time + "' , `end_date` = '" + req.body.end_date + "' , `end_time` = '" + req.body.end_time + "' WHERE `id` = " + req.body.id + " and `seller_id` = " + req.body.seller_id + " and `discount_id` = " + req.body.discount_id ;
+
+                        connection.query(query_value, function(err, results) {
+                            if (err) {
+                                res.json({ error: err, code: 101 });
+                            }
+                        });
+
+                    }
+
+                } 
+
+                }
+
+
+                
+                
+             
+            });
+
+                 res.json({ result: "results", code: 200 });
+
+                
+
+
+
+                
+
+            }
+        }
 }

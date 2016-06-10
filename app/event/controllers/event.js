@@ -591,3 +591,11 @@ exports.addlookAndFeelImage=function(req,res)
      }
  
 }
+
+
+exports.postCreateEventStepFour = function(req, res) {
+  console.log("============================================")
+  console.log("I AM IN THE BACK OF ENDS \n",req.body);
+  console.log("============================================")
+  res.send("sending back!");
+}

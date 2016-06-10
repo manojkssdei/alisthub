@@ -7,8 +7,8 @@ Description: It defined routes to call different files.It will provide you direc
 angular.module("communicationModule", []);
 // Declare app level module which depends on filters, and services
 
-var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','ngTable','color.picker','reCAPTCHA'])
 
+var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','ngTable','color.picker','reCAPTCHA','720kb.tooltips'])
 
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ocLazyLoadProvider) {
@@ -265,7 +265,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/step_event/step4/service.js').then(function(){
-                    return $ocLazyLoad.load(['modules/step_event/step4/controller.js']);
+                    return $ocLazyLoad.load(['modules/step_event/step4/controller.js','javascripts/bootstrap-timepicker.js']);
                     })
                
               }]
@@ -732,7 +732,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             views: {
                 "lazyLoadView": {
                   controller: 'assignDiscountController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/event_setting/views/discount/new_assign_discount.html'
+                  templateUrl: 'modules/event_setting/views/discount/edit_assign_discount.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -1402,6 +1402,14 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
             });
         })
+    .config(['tooltipsConfProvider', function configConf(tooltipsConfProvider) {
+  tooltipsConfProvider.configure({
+    'smart':true,
+    'size':'large',
+    'speed': 'slow',
+    //etc...
+  });
+}])
 /*================================================================================*/
 
  .directive('ngConfirmClicks', [
@@ -1421,6 +1429,21 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         };
 }])
+ .directive('fileModel', ['$parse', function ($parse) {
+            return {
+               restrict: 'A',
+               link: function(scope, element, attrs) {
+                  var model = $parse(attrs.fileModel);
+                  var modelSetter = model.assign;
+                  
+                  element.bind('change', function(){
+                     scope.$apply(function(){
+                        modelSetter(scope, element[0].files[0]);
+                     });
+                  });
+               }
+            };
+         }]);
 
 routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state,$timeout,$window)
 {
