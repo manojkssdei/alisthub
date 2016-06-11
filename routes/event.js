@@ -62,7 +62,8 @@ module.exports = function(app, express) {
       
       /*get advance settings of events*/
       router.post('/getAdvanceSetting',supportCrossOriginScript, Event.getAdvanceSetting);
-
+      // delete Event
+        router.post('/deleteEvent' , supportCrossOriginScript , Event.deleteEvent);
         
         // post event data step 4
         router.post('/postCreateEventStepFour' , supportCrossOriginScript , Event.postCreateEventStepFour);
