@@ -332,6 +332,26 @@ exports.savesecondstepdata=function(req,res)
   });
 }
 
+
+/** 
+Method: get Event Category
+Description:Function to get step2 event Category 
+Created : 2016-06-11
+Created By: Deepak khokhar  
+*/
+exports.getEventCategory=function(req,res){
+
+connection.query('SELECT * from event_categories where event_id='+req.body.event_id, function(err, results) {
+    if (err) {
+      res.json({error:err,code:101});
+    }
+    else{
+          res.json({result:results,code:200});
+         }
+  });
+}
+
+
 /** 
 Method: getAdvanceSetting
 Description:Function to get advance settings details of events

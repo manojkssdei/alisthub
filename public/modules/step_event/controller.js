@@ -16,9 +16,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   {
    $localStorage.eventId=null;
   }
-  else if ($localStorage.eventId!=$stateParams.eventId) {
-     $location.path("/view_event");
-  }else{
+  else{
     
      var event_id=$stateParams.eventId;
      $serviceTest.getEvent({'event_id':event_id},function(response){

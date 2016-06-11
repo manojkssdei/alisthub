@@ -188,9 +188,16 @@ url.getEventProductDetail = function(jsondata,callback){
     });
   };
   
-  //get Products
+  //get Event Data
   url.getEvent = function(jsondata,callback){
     communicationService.resultViaPost(webservices.getEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+  
+  //get Event Categories
+  url.getEventCat = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getEventCategory,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
       callback(res.data);
     });
   };
