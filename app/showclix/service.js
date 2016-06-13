@@ -54,16 +54,14 @@ module.exports = function()
                 headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':'c09f282dfd94767749fd2c2d7cca4f36b0c590fe56ace77dd18bb254130e5fd1'},
                 url:     "http://api.showclix.com/Event",
                 form:    {"user_id":"28676","seller_id":"22876","venue_id":"34657","event":req.body.eventname,"description":req.body.content,"inventory":"600","private_event":"0","price":"18.00","price_label":"General Admission","price_limit":"1","ticket_purchase_timelimit":null,"ticket_purchase_limit":null,"will_call_ticketing":null,"ages":"0","image":"20091252630916.jpg","url":null,"event_type":"3","ticket_note":null,"status":"1","keywords":null,"sales_open":req.body.eventdate,"event_start":req.body.eventdate,"short_name":"ninth_dance_event","display_image":"1"} }, function(error, response, body){
-                   console.log(response.headers);
-                    console.log(response.body);
-                   if (response.headers.location) {
+                  if (response.headers.location) {
                     return next({status:1,location:response.headers.location});
-                   }
-                   else
-                   {
+                  }
+                  else
+                  {
                    return next({status:0,location:""});
                                       
-                   }
+                  }
                    
                });
     

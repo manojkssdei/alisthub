@@ -1,0 +1,1042 @@
+<style>
+    .border{
+    border: 5px solid black;
+    }
+    .col-md-4.col-sm-4{
+    padding-top: 3px;
+    }
+    textarea
+    {
+    width:80% !important;
+    margin-left: 11px;
+    }
+    .inner-body{
+    width: 90%;
+    background: #F3F3F3;
+    margin: 40px auto;
+    padding: 20px;
+    }
+    .outer-body { background: #ffffff; width: 80%; margin: 0 auto;}
+</style>
+<h1>Event advanced setting</h1>
+<div class="outer-body clearfix">
+    <div class="inner-body">
+        <!-- <h1>Event advance setting</h1> -->
+        <form class="event-form" name="advSetting" novalidate>
+            <div>
+                <p class="error-fld" ng-show="error_message" >{{error}}</p>
+            </div>
+            <div>
+                <p class="success-fld" ng-show="success_message">{{success}}</p>
+            </div>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0" 
+                                id="hide_event_time_cbox" ng-model="data.hide_event_time_cbox">
+                            <label for="hide_event_time_cbox">Hide Event time</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_event_time" ng-model="data.hide_event_time" ng-disabled="!data.hide_event_time_cbox">
+                            <label class="onoffswitch-label" for="hide_event_time"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_event_date_time_cbox" ng-model="data.hide_event_date_time_cbox">
+                            <label for="hide_event_date_time_cbox">Hide Event Date and Time</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_event_date_time" ng-model="data.hide_event_date_time" ng-disabled="!data.hide_event_date_time_cbox">
+                            <label class="onoffswitch-label" for="hide_event_date_time"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_venue_info_cbox" ng-model="data.hide_venue_info_cbox" ng-model="data.hide_event_time_cbox">
+                            <label for="hide_venue_info_cbox">Hide Venue Info</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_venue_info" ng-disabled="!data.hide_venue_info_cbox" ng-model="data.hide_venue_info">
+                            <label class="onoffswitch-label" for="hide_venue_info"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_x_days_away_cbox" ng-model="data.hide_x_days_away_cbox">
+                            <label for="hide_x_days_away_cbox">Hide "x days away"</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="myonoffswitch3"  ng-disabled="!data.hide_x_days_away_cbox" ng-model="data.hide_x_days_away">
+                            <label class="onoffswitch-label" for="myonoffswitch3"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_calender_link_cbox" ng-model="data.hide_calender_link_cbox">
+                            <label for="hide_calender_link_cbox">Hide Calender link</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="myonoffswitch5"  ng-disabled="!data.hide_calender_link_cbox" ng-model="data.hide_calender_link">
+                            <label class="onoffswitch-label" for="myonoffswitch5"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_calender_icon_cbox" ng-model="data.hide_calender_icon_cbox">
+                            <label for="hide_calender_icon_cbox">Hide Calender Icon</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="myonoffswitchtret"  ng-disabled="!data.hide_calender_icon_cbox" ng-model="data.hide_calender_icon">
+                            <label class="onoffswitch-label" for="myonoffswitchtret"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_age_limit_cbox" ng-model="data.hide_age_limit_cbox">
+                            <label for="hide_age_limit_cbox">Hide Age limit</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_age_limit_cbox1"  ng-disabled="!data.hide_age_limit_cbox" ng-model="data.hide_age_limit">
+                            <label class="onoffswitch-label" for="hide_age_limit_cbox1"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_price_range_cbox" ng-model="data.hide_price_range_cbox">
+                            <label for="hide_price_range_cbox">Hide Price Range</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_price_range"  ng-disabled="!data.hide_price_range_cbox" ng-model="data.hide_price_range">
+                            <label class="onoffswitch-label" for="hide_price_range"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_best_available_cbox" ng-model="data.hide_best_available_cbox">
+                            <label for="hide_best_available_cbox">Hide "Best Aviliable"</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_best_available"  ng-disabled="!data.hide_best_available_cbox" ng-model="data.hide_best_available">
+                            <label class="onoffswitch-label" for="hide_best_available"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_presale_date_cbox" ng-model="data.hide_presale_date_cbox">
+                            <label for="hide_presale_date_cbox">Hide Presale Date</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_presale_date"  ng-disabled="!data.hide_presale_date_cbox" ng-model="data.hide_presale_date">
+                            <label class="onoffswitch-label" for="hide_presale_date"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="presale_instuction_text" ng-model="data.presale_instuction_text_cbox"/><label for="presale_instuction_text" ><b>Presale Instruction Text</b></label>
+                    <textarea name="textarea" class="form-control" cols="" rows="5" ng-disabled="!data.presale_instuction_text_cbox" ng-model="data.presale_instuction_text"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="presale_placeholder_text_cbox" ng-model="data.presale_placeholder_text_cbox" /><label for="presale_placeholder_text_cbox">Presale Placeholder Text</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="5" ng-disabled="!data.presale_placeholder_text_cbox" ng-model="data.presale_placeholder_text" ></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_presale_event_in_series_cbox" ng-model="data.hide_presale_event_in_series_cbox">
+                            <label for="hide_presale_event_in_series_cbox">Hide Presale Event in Series</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_presale_event_in_series"  ng-disabled="!data.hide_presale_event_in_series_cbox" ng-model="data.hide_presale_event_in_series">
+                            <label class="onoffswitch-label" for="hide_presale_event_in_series"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_from_search_engine_cbox" ng-model="data.hide_from_search_engine_cbox">
+                            <label for="hide_from_search_engine_cbox">Hide From Search Engine</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_from_search_engine"  ng-disabled="!data.hide_from_search_engine_cbox" ng-model="data.hide_from_search_engine">
+                            <label class="onoffswitch-label" for="hide_from_search_engine"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_social_media_cbox" ng-model="data.hide_social_media_cbox">
+                            <label for="hide_social_media_cbox">Hide Social Media</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_social_media"  ng-disabled="!data.hide_social_media_cbox" ng-model="data.hide_social_media">
+                            <label class="onoffswitch-label" for="hide_social_media"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_invite_friends_cbox" ng-model="data.hide_invite_friends_cbox">
+                            <label for="hide_invite_friends_cbox">Hide "Invite Friends"</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_invite_friends"  ng-disabled="!data.hide_invite_friends_cbox" ng-model="data.hide_invite_friends">
+                            <label class="onoffswitch-label" for="hide_invite_friends"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="checkout_text_cbox" ng-model="data.checkout_text_cbox"/><label for="checkout_text_cbox">Checkout Text</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="5" ng-disabled="!data.checkout_text_cbox" ng-model="data.checkout_text"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="confirmation_page_text_cbox" ng-model="data.confirmation_page_text_cbox"/><label for="confirmation_page_text_cbox">Confirmation Page Text</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="5"  ng-disabled="!data.confirmation_page_text_cbox" ng-model="data.confirmation_page_text"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="receipt_reminder_text_cbox" ng-model="data.receipt_reminder_text_cbox"/><label for="receipt_reminder_text_cbox"> Receipt Reminder Text</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="5"  ng-disabled="!data.receipt_reminder_text_cbox" ng-model="data.receipt_reminder_text"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="confirmation_email_text_cbox" ng-model="data.confirmation_email_text_cbox"/><label for="confirmation_email_text_cbox">Confirmation Email Text</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="5"  ng-disabled="!data.confirmation_email_text_cbox" ng-model="data.confirmation_email_text"></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_ticket_holder_name_cbox" ng-model="data.hide_ticket_holder_name_cbox">
+                            <label for="hide_ticket_holder_name_cbox">Hide Ticket Holder Name</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_ticket_holder_name"  ng-disabled="!data.hide_ticket_holder_name_cbox" ng-model="data.hide_ticket_holder_name">
+                            <label class="onoffswitch-label" for="hide_ticket_holder_name"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="donot_send_reminder_email_cbox" ng-model="data.donot_send_reminder_email_cbox">
+                            <label for="donot_send_reminder_email_cbox">Don't Send Reminder Email</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="donot_send_reminder_email"  ng-disabled="!data.donot_send_reminder_email_cbox" ng-model="data.donot_send_reminder_email">
+                            <label class="onoffswitch-label" for="donot_send_reminder_email"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_event_date_time_in_event_reminder_cbox" ng-model="data.hide_event_date_time_in_event_reminder_cbox">
+                            <label for="hide_event_date_time_in_event_reminder_cbox">Hide Event Date/Time in Event Reminder</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_event_date_time_in_event_reminder"  ng-disabled="!data.hide_event_date_time_in_event_reminder_cbox" ng-model="data.hide_event_date_time_in_event_reminder">
+                            <label class="onoffswitch-label" for="hide_event_date_time_in_event_reminder"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_venue_in_event_reminder_cbox" ng-model="data.hide_venue_in_event_reminder_cbox">
+                            <label for="hide_venue_in_event_reminder_cbox">Hide Venue in Event Reminder</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_venue_in_event_reminder"  ng-disabled="!data.hide_venue_in_event_reminder_cbox" ng-model="data.hide_venue_in_event_reminder">
+                            <label class="onoffswitch-label" for="hide_venue_in_event_reminder"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_ticket_info_in_event_reminder_cbox" ng-model="data.hide_ticket_info_in_event_reminder_cbox">
+                            <label for="hide_ticket_info_in_event_reminder_cbox">Hide Ticket info in Event Reminder</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_ticket_info_in_event_reminder"  ng-disabled="!data.hide_ticket_info_in_event_reminder_cbox" ng-model="data.hide_ticket_info_in_event_reminder">
+                            <label class="onoffswitch-label" for="hide_ticket_info_in_event_reminder"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="custom_event_reminder_message_cbox" ng-model="data.custom_event_reminder_message_cbox"/><label for="custom_event_reminder_message_cbox">Custom Event Reminder Message</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.custom_event_reminder_message_cbox" 
+                        ng-model="data.custom_event_reminder_message"></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_event_date_on_ticket_cbox" ng-model="data.hide_event_date_on_ticket_cbox">
+                            <label for="hide_event_date_on_ticket_cbox">Hide Event Date on Ticket</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_event_date_on_ticket"  ng-disabled="!data.hide_event_date_on_ticket_cbox" ng-model="data.hide_event_date_on_ticket">
+                            <label class="onoffswitch-label" for="hide_event_date_on_ticket"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="use_lat_long_coords_cbox" ng-model="data.use_lat_long_coords_cbox">
+                            <label for="use_lat_long_coords_cbox">Use Late/Long Coords</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="use_lat_long_coords"  ng-disabled="!data.use_lat_long_coords_cbox" ng-model="data.use_lat_long_coords">
+                            <label class="onoffswitch-label" for="use_lat_long_coords"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_premiere_price_level_discount_cbox" ng-model="data.hide_premiere_price_level_discount_cbox">
+                            <label for="hide_premiere_price_level_discount_cbox">Hide Premiere Price Level Discount</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_premiere_price_level_discount"  ng-disabled="!data.hide_premiere_price_level_discount_cbox" ng-model="data.hide_premiere_price_level_discount">
+                            <label class="onoffswitch-label" for="hide_premiere_price_level_discount"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="additional_receipt_text_cbox" ng-model="data.additional_receipt_text_cbox"/><label for="additional_receipt_text_cbox">Additional Receipt Text</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="5"  ng-disabled="!data.additional_receipt_text_cbox" ng-model="data.additional_receipt_text" ></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="show_sale_barcode_in_text_cbox" ng-model="data.show_sale_barcode_in_text_cbox">
+                            <label for="show_sale_barcode_in_text_cbox">Show Sale Barcode in Text</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="show_sale_barcode_in_text"  ng-disabled="!data.show_sale_barcode_in_text_cbox" ng-model="data.show_sale_barcode_in_text">
+                            <label class="onoffswitch-label" for="show_sale_barcode_in_text"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="disable_autocomplete_in_the_box_office_cbox" ng-model="data.disable_autocomplete_in_the_box_office_cbox">
+                            <label for="disable_autocomplete_in_the_box_office_cbox">Disable Autocomplete in The Box Office</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="disable_autocomplete_in_the_box_office"  ng-disabled="!data.disable_autocomplete_in_the_box_office_cbox" ng-model="data.disable_autocomplete_in_the_box_office">
+                            <label class="onoffswitch-label" for="disable_autocomplete_in_the_box_office"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="dropdown_for_reccuring_events_cbox" ng-model="data.dropdown_for_reccuring_events_cbox">
+                            <label for="dropdown_for_reccuring_events_cbox">Dropdown For Reccuring Events</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="dropdown_for_reccuring_events"  ng-disabled="!data.dropdown_for_reccuring_events_cbox" ng-model="data.dropdown_for_reccuring_events">
+                            <label class="onoffswitch-label" for="dropdown_for_reccuring_events"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="suggested_donation_amount_cbox" ng-model="data.suggested_donation_amount_cbox"/><label for="suggested_donation_amount_cbox">Suggested Donation Amount</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1" ng-disabled="!data.suggested_donation_amount_cbox"
+                        ng-model="data.suggested_donation_amount"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="sales_closed_message_cbox" ng-model="data.sales_closed_message_cbox"/><label for="sales_closed_message_cbox">Sales Closed Message</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.sales_closed_message_cbox" ng-model="data.sales_closed_message"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="custom_sold_out_message_cbox" ng-model="data.custom_sold_out_message_cbox"/><label for="custom_sold_out_message_cbox">Custom Sold Out Message</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.custom_sold_out_message_cbox" ng-model="data.custom_sold_out_message"></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="embed_show_navbar_seller_name_cbox" ng-model="data.embed_show_navbar_seller_name_cbox">
+                            <label for="embed_show_navbar_seller_name_cbox">Embed - Show Navbar Seller Name</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="embed_show_navbar_seller_name"  ng-disabled="!data.embed_show_navbar_seller_name_cbox" ng-model="data.embed_show_navbar_seller_name">
+                            <label class="onoffswitch-label" for="embed_show_navbar_seller_name"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="embed_show_header_banner_cbox" ng-model="data.embed_show_header_banner_cbox">
+                            <label for="embed_show_header_banner_cbox">Embed - Show Header Banner</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="embed_show_header_banner"  ng-disabled="!data.embed_show_header_banner_cbox" ng-model="data.embed_show_header_banner">
+                            <label class="onoffswitch-label" for="embed_show_header_banner"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="embed_hide_venue_names_on_events_list_cbox" ng-model="data.embed_hide_venue_names_on_events_list_cbox">
+                            <label for="embed_hide_venue_names_on_events_list_cbox">Embed - Hide Venue Names On Events List</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="embed_hide_venue_names_on_events_list"  ng-disabled="!data.embed_hide_venue_names_on_events_list_cbox" ng-model="data.embed_hide_venue_names_on_events_list">
+                            <label class="onoffswitch-label" for="embed_hide_venue_names_on_events_list"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="footer_message_on_event_pages_cbox" ng-model="data.footer_message_on_event_pages_cbox"/><label for="footer_message_on_event_pages_cbox">Footer Message On Event Pages</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1" ng-disabled="!data.footer_message_on_event_pages_cbox" 
+                        ng-model="data.footer_message_on_event_pages"></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="force_show_on_seller_homepage_cbox" ng-model="data.force_show_on_seller_homepage_cbox">
+                            <label for="force_show_on_seller_homepage_cbox">Force Show On Seller Homepage</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="force_show_on_seller_homepage"  ng-disabled="!data.force_show_on_seller_homepage_cbox" ng-model="data.force_show_on_seller_homepage">
+                            <label class="onoffswitch-label" for="force_show_on_seller_homepage"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_stage_front_cbox" ng-model="data.hide_stage_front_cbox">
+                            <label for="hide_stage_front_cbox">Hide Stage Front </label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_stage_front"  ng-disabled="!data.hide_stage_front_cbox" ng-model="data.hide_stage_front">
+                            <label class="onoffswitch-label" for="hide_stage_front"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="stage_front_name" ng-model="data.stage_front_name_cbox"/><label for="stage_front_name">Stage Front Name</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.stage_front_name_cbox" ng-model="data.stage_front_name"></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="lock_question_answer_cbox" ng-model="data.lock_question_answer_cbox">
+                            <label for="lock_question_answer_cbox">Lock Question Answer </label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="lock_question_answer"  ng-disabled="!data.lock_question_answer_cbox" ng-model="data.lock_question_answer">
+                            <label class="onoffswitch-label" for="lock_question_answer"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="lock_ticket_names_cbox" ng-model="data.lock_ticket_names_cbox">
+                            <label for="lock_ticket_names_cbox">Lock Ticket Names </label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="lock_ticket_names"  ng-disabled="!data.lock_ticket_names_cbox" ng-model="data.lock_ticket_names">
+                            <label class="onoffswitch-label" for="lock_ticket_names"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="lock_order_names_cbox" ng-model="data.lock_order_names_cbox">
+                            <label for="lock_order_names_cbox">Lock Order Names </label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="lock_order_names"  ng-disabled="!data.lock_order_names_cbox" ng-model="data.lock_order_names">
+                            <label class="onoffswitch-label" for="lock_order_names"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_back_to_event_button_cbox" ng-model="data.hide_back_to_event_button_cbox">
+                            <label for="hide_back_to_event_button_cbox">Hide 'Back To Event' Button </label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_back_to_event_button"  ng-disabled="!data.hide_back_to_event_button_cbox" ng-model="data.hide_back_to_event_button">
+                            <label class="onoffswitch-label" for="hide_back_to_event_button"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="custom_shipping_text_instruction_cbox" ng-model="data.custom_shipping_text_instruction_cbox"/><label for="custom_shipping_text_instruction_cbox">Custom Shipping Text Instruction</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.custom_shipping_text_instruction_cbox" ng-model="data.custom_shipping_text_instruction"></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="upsell_matching_items_cbox" ng-model="data.upsell_matching_items_cbox">
+                            <label for="upsell_matching_items_cbox">Upsell Matching Items </label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="upsell_matching_items"  ng-disabled="!data.upsell_matching_items_cbox" ng-model="data.upsell_matching_items">
+                            <label class="onoffswitch-label" for="upsell_matching_items"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="ignore_cart_limit_when_upselling_cbox" ng-model="data.ignore_cart_limit_when_upselling_cbox">
+                            <label for="ignore_cart_limit_when_upselling_cbox">Ignore Cart Limit When Upselling </label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="ignore_cart_limit_when_upselling"  ng-disabled="!data.ignore_cart_limit_when_upselling_cbox" ng-model="data.ignore_cart_limit_when_upselling">
+                            <label class="onoffswitch-label" for="ignore_cart_limit_when_upselling"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="hide_look_for_different_seats_option_cbox" ng-model="data.hide_look_for_different_seats_option_cbox">
+                            <label for="hide_look_for_different_seats_option_cbox">Hide 'Look For Different Seats' Option </label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="hide_look_for_different_seats_option"  ng-disabled="!data.hide_look_for_different_seats_option_cbox" ng-model="data.hide_look_for_different_seats_option">
+                            <label class="onoffswitch-label" for="hide_look_for_different_seats_option"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="analytics_facebook_conversion_pixel_id_cbox" ng-model="data.analytics_facebook_conversion_pixel_id_cbox"/><label for="analytics_facebook_conversion_pixel_id_cbox">Analytics - Facebook Conversion Pixel ID</label>
+                    <textarea id="analytics_facebook_conversion_pixel_id" class="form-control" cols="" rows="1"  ng-disabled="!data.analytics_facebook_conversion_pixel_id_cbox" ng-model="data.analytics_facebook_conversion_pixel_id"></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="analytics_facebook_audiance_new_pixel_cbox" ng-model="data.analytics_facebook_audiance_new_pixel_cbox">
+                            <label for="analytics_facebook_audiance_new_pixel_cbox">Analytics - Facebook Audiance New Pixel </label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="analytics_facebook_audiance_new_pixel"  ng-disabled="!data.analytics_facebook_audiance_new_pixel_cbox" ng-model="data.analytics_facebook_audiance_new_pixel">
+                            <label class="onoffswitch-label" for="analytics_facebook_audiance_new_pixel"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="analytics_facebook_custom_audiance_pixel_id_cbox" ng-model="data.analytics_facebook_custom_audiance_pixel_id_cbox"/><label for="analytics_facebook_custom_audiance_pixel_id_cbox">Analytics - Facebook Custom Audiance Pixel ID</label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.analytics_facebook_custom_audiance_pixel_id_cbox" ng-model="data.analytics_facebook_custom_audiance_pixel_id"></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="allow_extended_event_names_cbox" ng-model="data.allow_extended_event_names_cbox">
+                            <label for="allow_extended_event_names_cbox">Allow Extended Event Names </label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="allow_extended_event_names"  ng-disabled="!data.allow_extended_event_names_cbox" ng-model="data.allow_extended_event_names">
+                            <label class="onoffswitch-label" for="allow_extended_event_names"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="twitter_share_text_cbox" ng-model="data.twitter_share_text_cbox"/><label for="twitter_share_text_cbox">Twitter Share Text </label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.twitter_share_text_cbox" ng-model="data.twitter_share_text"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="name_change_fee_cbox" ng-model="data.name_change_fee_cbox"/><label for="name_change_fee_cbox"> Name Change Fee </label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.name_change_fee_cbox" ng-model="data.name_change_fee"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="name_change_cutoff_cbox" ng-model="data.name_change_cutoff_cbox"/><label for="name_change_cutoff_cbox"> Name Change Cutoff </label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.name_change_cutoff_cbox" ng-model="data.name_change_cutoff"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="email_reply_to_cbox" ng-model="data.email_reply_to_cbox"/><label for="email_reply_to_cbox"> Email Reply-To  </label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.email_reply_to_cbox" ng-model="data.email_reply_to"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="email_reply_to_name_cbox" ng-model="data.email_reply_to_name_cbox"/><label for="email_reply_to_name_cbox">Email Reply-To Name </label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.email_reply_to_name_cbox" ng-model="data.email_reply_to_name"></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="enable_sidekick_for_thermal_printing_cbox" ng-model="data.enable_sidekick_for_thermal_printing_cbox">
+                            <label for="enable_sidekick_for_thermal_printing_cbox"> Enable Sidekick for Thermal Printing</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="enable_sidekick_for_thermal_printing"  ng-disabled="!data.enable_sidekick_for_thermal_printing_cbox" ng-model="data.enable_sidekick_for_thermal_printing">
+                            <label class="onoffswitch-label" for="enable_sidekick_for_thermal_printing"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="acceptable_locales_cbox" ng-model="data.acceptable_locales_cbox"/><label for="acceptable_locales_cbox">Acceptable Locales </label>
+                    <textarea name="textarea" class="form-control" cols="" rows="5"  ng-disabled="!data.acceptable_locales_cbox" ng-model="data.acceptable_locales"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="custom_title_prefix_cbox" ng-model="data.custom_title_prefix_cbox"/><label for="custom_title_prefix_cbox">Custom Title Prefix </label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.custom_title_prefix_cbox" ng-model="data.custom_title_prefix"></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="show_support_link_in_email_cbox" ng-model="data.show_support_link_in_email_cbox">
+                            <label for="show_support_link_in_email_cbox"> Show Support Link In Email</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="show_support_link_in_email"  ng-disabled="!data.show_support_link_in_email_cbox" ng-model="data.show_support_link_in_email">
+                            <label class="onoffswitch-label" for="show_support_link_in_email"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="collect_addresses_on_free_orders_cbox" ng-model="data.collect_addresses_on_free_orders_cbox">
+                            <label for="collect_addresses_on_free_orders_cbox"> Collect Addresses on Free Orders</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="collect_addresses_on_free_orders"  ng-disabled="!data.collect_addresses_on_free_orders_cbox" ng-model="data.collect_addresses_on_free_orders">
+                            <label class="onoffswitch-label" for="collect_addresses_on_free_orders"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="ask_questions_on_checkout_cbox" ng-model="data.ask_questions_on_checkout_cbox">
+                            <label for="ask_questions_on_checkout_cbox"> Ask Questions on Checkout</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="ask_questions_on_checkout"  ng-disabled="!data.ask_questions_on_checkout_cbox" ng-model="data.ask_questions_on_checkout">
+                            <label class="onoffswitch-label" for="ask_questions_on_checkout"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="cancel_ticket_button_on_receipt_cbox" ng-model="data.cancel_ticket_button_on_receipt_cbox">
+                            <label for="cancel_ticket_button_on_receipt_cbox">  Cancel ticket button on receipt</label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="cancel_ticket_button_on_receipt"  ng-disabled="!data.cancel_ticket_button_on_receipt_cbox" ng-model="data.cancel_ticket_button_on_receipt">
+                            <label class="onoffswitch-label" for="cancel_ticket_button_on_receipt"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="custom_ticket_cancelation_message_cbox" ng-model="data.custom_ticket_cancelation_message_cbox"/><label for="custom_ticket_cancelation_message_cbox">Custom Ticket Cancelation Message
+                    </label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1"  ng-disabled="!data.custom_ticket_cancelation_message_cbox" ng-model="data.custom_ticket_cancelation_message"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="additional_email_for_receipts_cbox" ng-model="data.additional_email_for_receipts_cbox"/><label for="additional_email_for_receipts_cbox"> Additional email for receipts </label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1" ng-disabled="!data.additional_email_for_receipts_cbox" ng-model="data.additional_email_for_receipts"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="access_code_request_text_cbox" ng-model="data.access_code_request_text_cbox"/><label for="access_code_request_text_cbox"> Access Code Request Text </label>
+                    <textarea id="access_code_request_text" class="form-control" cols="" rows="1" ng-disabled="!data.access_code_request_text_cbox" ng-model="data.access_code_request_text"></textarea>
+                </section>
+            </section>
+            <section class="radio-sec custom-check sm-8">
+                <section class="form-group">
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                        id="access_code_instructions_text_cbox" ng-model="data.access_code_instructions_text_cbox"/><label for="access_code_instructions_text_cbox">  Access Code Instructions Text
+                    </label>
+                    <textarea name="textarea" class="form-control" cols="" rows="1" ng-disabled="!data.access_code_instructions_text_cbox" ng-model="data.access_code_instructions_text"></textarea>
+                </section>
+            </section>
+            <section class="form-group field-group">
+                <section class="row">
+                    <section class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
+                        <p class="radio-inline">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                id="show_bundle_details_by_default_cbox" ng-model="data.show_bundle_details_by_default_cbox">
+                            <label for="show_bundle_details_by_default_cbox">  Show Bundle Details by Default </label>
+                        </p>
+                    </section>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="show_bundle_details_by_default"  ng-disabled="!data.show_bundle_details_by_default_cbox" ng-model="data.show_bundle_details_by_default">
+                            <label class="onoffswitch-label" for="show_bundle_details_by_default"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </form>
+        <div class="editor-btn">
+            <button class="pink-btn btn" ng-click="saveAdvanceSettings()"  ng-disabled="advSetting.$invalid">Save Settings</button>   
+            <button class="pink-btn btn">cancel</button>
+        </div>
+    </div>
+</div>
