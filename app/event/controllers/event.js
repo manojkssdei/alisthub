@@ -11,38 +11,76 @@ exports.saveEvent = function(req,res) {
   
     var data=req.body;
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
-    
-    var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`, `fax`, `timezone`, `capacity`, `contact_name`, `phone`, `email`, `url`, `image`, `seating_chart`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"', '', '', '', '', '', '', '', '', '')";
-    connection.query(query, function(err7, response) {
-        var venue_id=response.insertId;
-        var eventId=null;
-        data.created = new Date();
-        var query1="INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"')";
-     connection.query(query1,function(err,result){
-        eventId=result.insertId;
-        var query2="INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`) VALUES(NULL,'"+eventId+"','"+data.eventdate+"','"+data.startevent_time+"','"+data.endevent_time+"')";
-      connection.query(query2,function(error,res1){
-         if (error) {
-                res.json({error:error,code:101});
-        }else{
-               var showClix2 = new showClix();
-               showClix2.add_event(req,res,function(data){
-                  
-                  if (data.status == 1) {
-                     
-                     //res.json({result:results,showclix:data.location,code:200});
-                  }
-                  else
-                  {                     
-                                  
-                  }
-               })
-              res.json({result:eventId,code:200}); 
-        }
-      });
+    //console.log(data); return false;
+    //var zip = parseInt(data.zipcode);
+    if(data.id=='' || data.id==undefined) {
      
-     });
-    });
+     var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"')";
+     
+      connection.query(query, function(err7, responce) {
+          console.log('second loop');
+          console.log(responce);
+          var venue_id = responce.insertId;
+          var eventId = null;
+          data.created = new Date();
+          
+          //console.log("INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"')");
+          //return false;
+
+          var query1 = "INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"')";
+         
+          connection.query(query1,function(err,result) {
+              eventId = result.insertId;
+              
+              var query2 = "INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`) VALUES(NULL,'"+eventId+"','"+data.eventdate+"','"+data.startevent_time+"','"+data.endevent_time+"')";
+              connection.query(query2,function(error,res1){
+                if (error) {
+                  res.json({error:error,code:101});
+                } else {
+                  var showClix2 = new showClix();
+                  showClix2.add_event(req,res,function(data){
+                    if (data.status == 1) {
+                      //res.json({result:results,showclix:data.location,code:200});
+                    } else {                     
+                    }
+                  })
+                  res.json({result:eventId,code:200}); 
+                }
+              });
+          });
+      });
+    } else {
+      //Update the event 
+      var venueid = '';
+      if(data.venueid!=undefined && data.venueid!='') {
+        venueid = data.venueid;
+      } else {
+        var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"')";
+     
+        connection.query(query, function(err8, vresponce) {
+          venueid = vresponce.insertId;
+        })
+      }
+      //console.log('venueID:'+venueid);
+
+      connection.query("UPDATE events SET `user_id`='"+data.userId+"',`title`='"+data.eventname+"',`description`='"+data.content+"',`venue_id`='"+venueid+"'  where id="+data.id, function(err, results) {
+         if (err) {
+          res.json({error:err,code:101});
+         }else{
+          res.json({result:data.id,code:200}); 
+         }
+      });
+      
+      //console.log("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id);
+      
+      /*connection.query("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id, function(err, results) {
+         if (err) {
+          res.json({error:err,code:101});
+         } else {
+          res.json({result:results,code:200});
+         }
+      });*/
+    }
 }
 
 /** 
@@ -121,7 +159,7 @@ Created By: Deepak khokkar
 exports.getEvent=function(req,res) {
    
     var event_id=req.body.event_id;
-    var sql="SELECT *,event_dates.date as eventdate FROM events LEFT JOIN event_dates ON events.id=event_dates.event_id  LEFT JOIN venues ON events.venue_id=venues.id where events.id="+event_id;
+    var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id where events.id="+event_id;
    
     connection.query(sql,function(err,result){
       if (err) {
