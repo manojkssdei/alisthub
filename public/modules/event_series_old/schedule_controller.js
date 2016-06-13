@@ -1,51 +1,66 @@
-/** 
-Anguler Controller to manage event steps 
-Created : 2016-04-19
-Created By: Deepak khokkar  
-Module : Event step  
-*/
 
+angular.module("google.places",[]);
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('schedule_controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad) {
 
-angular.module("google.places", []);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
-
+  //If user is not logged in and then log him out.
+  if (!$localStorage.isuserloggedIn) {
+    $state.go('login');
+  }
   $scope.loader = false;
-   //For Step 1
-  var $serviceTest = $injector.get("venues");
-  if($stateParams.eventId==='')
-  {
-   $localStorage.eventId=null;
-  }
-  else{
-    
-     var event_id=$stateParams.eventId;
-     $serviceTest.getEvent({'event_id':event_id},function(response){
-        
-        $scope.data=response.results[0];
-        $scope.selected1 = $scope.venues[1];
-        $scope.data.eventname=response.results[0].title;
-        $scope.starttime=$scope.startevent_time=response.results[0].start_time;
-        $scope.endtime=$scope.endevent_time=response.results[0].end_time;
-        $scope.data.content=response.results[0].description;
-        $scope.data.venuename=response.results[0].venue_name;
-        $scope.location_event_div=true;$scope.venue_event_div=$scope.select_delect_event=false;
-        $scope.select_delect_event = false;
-      var d = new Date(response.results[0].eventdate);
-      var curr_date = d.getDate();
-      var curr_month = d.getMonth();
-      var day = d.getDay();
-      var curr_year = d.getFullYear();
-      var cur_mon = d.getMonth() + 1;
-      $rootScope.single_start_date = curr_year + "-" + cur_mon + "-" + curr_date;
-      $rootScope.selectevent_date = weekday[day] + " " + m_names[curr_month] + " " + curr_date + "," + curr_year;
-       
-     });
-  }
-  
- 
- 
+  $scope.step1html = '';
 
- 
+
+$localStorage.eventId = null;
+
+$scope.priceLevel=[];
+        $ocLazyLoad.inject('alisthub').then(function() {
+            $scope.step1html = global_message.step1html;
+        }, function(e) {
+            console.log(e);
+        });
+    // For bundle html
+
+  $scope.bundlehtml = '';
+
+  $ocLazyLoad.inject('alisthub').then(function() {
+    $scope.bundlehtml = global_message.bundlehtml;
+  }, function(e) {
+    console.log(e);
+  });
+  //for Price level html
+  $scope.pricelevelhtml = '';
+
+  $ocLazyLoad.inject('alisthub').then(function() {
+    $scope.pricelevelhtml = global_message.pricelevelhtml;
+  }, function(e) {
+    console.log(e);
+  });
+  //For step 2 html
+  $scope.step2html = '';
+
+  $ocLazyLoad.inject('alisthub').then(function() {
+    $scope.step2html = global_message.step2html;
+  }, function(e) {
+    console.log(e);
+  });
+  //for step3 html
+  $scope.step3html = '';
+
+  $ocLazyLoad.inject('alisthub').then(function() {
+    $scope.step3html = global_message.step3html;
+  }, function(e) {
+    console.log(e);
+  });
+  //For step4 html
+  $scope.step4html = '';
+
+  $ocLazyLoad.inject('alisthub').then(function() {
+    $scope.step4html = global_message.step4html;
+  }, function(e) {
+    console.log(e);
+  });
+  //For Step 1
+  var $serviceTest = $injector.get("venues");
   //To show or hide divs
   $scope.select_delect_event = $scope.monthly_div = $scope.days_div = $scope.error_message = $scope.error_time_message = true;
   $rootScope.success_message1 = false;
@@ -140,26 +155,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   }];
 
 
-  if ($localStorage.userId !== undefined) {
-    //To get venues of a user 
-    $serviceTest.getVenues({
-      'userId': $localStorage.userId
-    }, function(response) {
-      if (response !== null) {
-
-        if (response.code === 200) {
-          $scope.total_venue = response.result;
-        }
-
-      } else {
-        $scope.total_venue = [];
-      }
-
-    });
-  }
- 
+  //$localStorage.eventId = 1977; 
   $eventId = $localStorage.eventId;
-/** 
+ 
+  /** 
   Method: change_month
   Description:Function to be execute when a month change occures 
   Created : 2016-04-19
@@ -206,7 +205,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     }, {
       id: 'yearly',
       name: 'Yearly'
-    }]
+    },]
 
   $scope.month_week_selection = [{
     id: '1',
@@ -404,7 +403,7 @@ $scope.rec_year_func = function() {
 
     if (($scope.multiple_start_date === undefined) || ($scope.multiple_end_date === undefined)) {
       if ((action === 'start') || (action === 'end')) {} else {
-        $scope.error = "";
+        $scope.error = "Please select Start and End date";
         $scope.error_message = false;
         $timeout(function() {
 
@@ -442,6 +441,43 @@ $scope.rec_year_func = function() {
 
   }
 
+   //update price level
+    $scope.getPrice=function(id){
+        $rootScope.data1={};
+        $serviceTest.getSinglePricelevel({'id':id},function(response){
+            if (response.code==200) {
+                $scope.open_price_level('lg');
+                
+                $rootScope.data1=response.results[0];
+                if (!$rootScope.data1.description) {
+                  $rootScope.data1.description = '';
+                }
+                $rootScope.maximum_quantitiy_available_value = parseInt($rootScope.data1.quantity_available) + parseInt($rootScope.inventory_remaining);
+                // console.log("line 503 max quantity value - ", $rootScope.maximum_quantitiy_available_value)
+            }
+        }); 
+    }
+    
+
+    // To get Price level.
+    $scope.availQuantity=0;
+    $scope.totalRemainings=0;
+    $scope.totalRemainingsError = false;
+    $rootScope.eventInventoryCalc=function()
+    {
+      // console.log("ineventpricecalc")
+      $scope.availQuantity=0;
+      $scope.totalRemainings=0;
+
+      
+    }
+
+    
+    // // To get Price level.
+    // $serviceTest.getPricelevel({'eventId':$eventId},function(response){
+    //   $rootScope.price_level=response.results;
+    // });
+    
     /** 
     Method: savedata
     Description:Function for save the data of recurring event 
@@ -450,28 +486,7 @@ $scope.rec_year_func = function() {
     */
 
     $scope.savedata=function(data) {
-        if (data.eventtype=='single') {
-          if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
-            data.eventdate=$scope.single_start_date;
-            
-            data.startevent_time=$scope.startevent_time;
-            data.endevent_time=$scope.endevent_time;
-            
-            data.userId=$localStorage.userId;
-            $serviceTest.saveEvent(data,function(response){
-              if (response.code == 200) {
-                 $scope.success=global_message.event_step1;
-                 $localStorage.eventId=response.result;
-                 $scope.error_message=false;
-                 $timeout(function() {
-                   $scope.success='';
-                   $scope.error_message=true;
-                 },3000);
-              }
-            });
-
-          }  
-        } else {
+       
           data.userId=$localStorage.userId;
           $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
             if (response.code == 200) {
@@ -485,173 +500,27 @@ $scope.rec_year_func = function() {
               window.location.reload();
             }
           }); 
-        }
+        
     }
 
 
-  $rootScope.starttime = $rootScope.endtime ='';
-  
+  $rootScope.starttime = '';
+  $rootScope.endtime = '';
   $scope.data = {};
-  $scope.locations =[];
-  $scope.locations[0] =[];
- 
+  $scope.locations = [];
+  $scope.locations[0] = [];
   // To show google map
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: new google.maps.LatLng(32.7990, -86.8073),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  });
-  $scope.$on('g-places-autocomplete:select', function(event, place) {
-
-    if (place.geometry) {
-      $scope.data.latitude = place.geometry.location.lat();
-      $scope.data.longitude = place.geometry.location.lng();
-    }
-
-    $scope.data.address = place.formatted_address;
-
-    $scope.data.zipcode = '';
-    $scope.data.country = '';
-    $scope.data.state = '';
-    $scope.data.city = '';
-
-    // FINDING ZIP
-    if (place.address_components[place.address_components.length - 1].types[0] === 'postal_code') {
-      $scope.data.zipcode = Number(place.address_components[place.address_components.length - 1].long_name);
-    };
-    // FINDING COUNTRY 
-    if (place.address_components[place.address_components.length - 1].types[0] === 'country' ||
-      place.address_components[place.address_components.length - 2].types[0] === 'country') {
-      if (place.address_components[place.address_components.length - 1].types[0] === 'country') {
-        $scope.data.country = place.address_components[place.address_components.length - 1].long_name;
-      } else {
-        $scope.data.country = place.address_components[place.address_components.length - 2].long_name;
-      }
-    };
-    // FINDING STATE
-    if (place.address_components[place.address_components.length - 1].types[0] === 'administrative_area_level_1' ||
-      place.address_components[place.address_components.length - 2].types[0] === 'administrative_area_level_1' ||
-      place.address_components[place.address_components.length - 3].types[0] === 'administrative_area_level_1') {
-
-      if (place.address_components[place.address_components.length - 1].types[0] === 'administrative_area_level_1') {
-        $scope.data.state = place.address_components[place.address_components.length - 1].long_name;
-      } else if (place.address_components[place.address_components.length - 2].types[0] === 'administrative_area_level_1') {
-        $scope.data.state = place.address_components[place.address_components.length - 2].long_name;
-      } else {
-        $scope.data.state = place.address_components[place.address_components.length - 3].long_name;
-      }
-    };
-    // FINDING CITY
-    if (place.address_components[place.address_components.length - 1].types[0] === 'administrative_area_level_2' ||
-      place.address_components[place.address_components.length - 2].types[0] === 'administrative_area_level_2' ||
-      place.address_components[place.address_components.length - 3].types[0] === 'administrative_area_level_2' ||
-      place.address_components[place.address_components.length - 4].types[0] === 'administrative_area_level_2' ||
-
-      place.address_components[place.address_components.length - 1].types[0] === 'sublocality_level_1' ||
-      place.address_components[place.address_components.length - 2].types[0] === 'sublocality_level_1' ||
-      place.address_components[place.address_components.length - 3].types[0] === 'sublocality_level_1' ||
-      place.address_components[place.address_components.length - 4].types[0] === 'sublocality_level_1') {
-
-      if (place.address_components[place.address_components.length - 1].types[0] === 'administrative_area_level_2' ||
-        place.address_components[place.address_components.length - 1].types[0] === 'sublocality_level_1') {
-        $scope.data.city = place.address_components[place.address_components.length - 1].long_name;
-      } else if (place.address_components[place.address_components.length - 2].types[0] === 'administrative_area_level_2' ||
-        place.address_components[place.address_components.length - 2].types[0] === 'sublocality_level_1') {
-        $scope.data.city = place.address_components[place.address_components.length - 2].long_name;
-      } else if (place.address_components[place.address_components.length - 3].types[0] === 'administrative_area_level_2' ||
-        place.address_components[place.address_components.length - 3].types[0] === 'sublocality_level_1') {
-        $scope.data.city = place.address_components[place.address_components.length - 3].long_name;
-      } else {
-        $scope.data.city = place.address_components[place.address_components.length - 4].long_name;
-      }
-    };
-
-    // FINDING STATE
-    if (place.address_components[place.address_components.length - 1].types[0] === 'administrative_area_level_1' ||
-      place.address_components[place.address_components.length - 2].types[0] === 'administrative_area_level_1' ||
-      place.address_components[place.address_components.length - 3].types[0] === 'administrative_area_level_1') {
-
-      if (place.address_components[place.address_components.length - 1].types[0] === 'administrative_area_level_1') {
-        $scope.data.state = place.address_components[place.address_components.length - 1].long_name;
-      } else if (place.address_components[place.address_components.length - 2].types[0] === 'administrative_area_level_1') {
-        $scope.data.state = place.address_components[place.address_components.length - 2].long_name;
-      } else {
-        $scope.data.state = place.address_components[place.address_components.length - 3].long_name;
-      }
-    };
-    $scope.locations[0].push($scope.data.state,
-      $scope.data.latitude,
-      $scope.data.longitude,
-      1,
-      $scope.data.city,
-      "",
-      $scope.data.address,
-      "coming soon");
-    var bounds = new google.maps.LatLngBounds();
-    var infowindow = new google.maps.InfoWindow();
-
-    var marker, i;
-
-    for (i = 0; i < $scope.locations.length; i++) {
-
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng($scope.data.latitude, $scope.data.longitude),
-        map: map
-      });
-      bounds.extend(marker.position);
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-
-          infowindow.setContent($scope.data.address, '');
-          infowindow.open(map, marker);
-        }
-      })(marker, i));
-    }
-    //now fit the map to the newly inclusive bounds
-    map.fitBounds(bounds);
-
-    //(optional) restore the zoom level after the map is done scaling
-    var listener = google.maps.event.addListener(map, "idle", function() {
-      map.setZoom(14);
-      google.maps.event.removeListener(listener);
-    });
-  });
-  $scope.venue_info = function(venuedata) {
-
-    $scope.data.venuename = venuedata.venue_name;
-    $scope.data.place = venuedata.address;
-    $scope.data.venueid = venuedata.id;
-    $scope.data.city = venuedata.city;
-    $scope.data.country = venuedata.country;
-    $scope.data.latitude = venuedata.latitude;
-    $scope.data.longitude = venuedata.longitude;
-    $scope.data.longitude = venuedata.longitude;
-    $scope.data.state = venuedata.state;
-    $scope.data.zipcode = venuedata.zipcode;
-    var bounds = new google.maps.LatLngBounds();
-    var infowindow = new google.maps.InfoWindow();
-
-    var marker, i;
-    marker = new google.maps.Marker({
-      position: new google.maps.LatLng($scope.data.latitude, $scope.data.longitude),
-      map: map
-    });
-    bounds.extend(marker.position);
-    google.maps.event.addListener(marker, 'click', (function(marker, i) {
-      return function() {
-
-        infowindow.setContent($scope.data.place, '');
-        infowindow.open(map, marker);
-      }
-    })(marker, i));
-    map.fitBounds(bounds);
-  }
-
-  $scope.data1 = {};
+  
+ 
+ $scope.data1 = {};
   $scope.data1 = {
     type_of_event: 0,
     price: 0
   };
+
+
+  
+
   //To get steps
   $scope.steps = [
 
@@ -678,7 +547,11 @@ $scope.rec_year_func = function() {
     }
 
   ];
-   var now = new Date();
+
+
+  ///////////////////////////////steps event///////////////
+
+  var now = new Date();
   if (now.getMonth() === 11) {
     var current = new Date(now.getFullYear() + 1, 0, 1);
   } else {
@@ -723,12 +596,6 @@ $scope.rec_year_func = function() {
   $scope.open4 = function() {
     $scope.popup4.opened = true;
   };
-  $scope.open5 = function() {
-    $scope.popup5.opened = true;
-  };
-  $scope.open6 = function() {
-    $scope.popup6.opened = true;
-  };
   ////
 
   $scope.popup1 = {
@@ -745,13 +612,6 @@ $scope.rec_year_func = function() {
     opened: false
   };
   ////
-  $scope.popup5 = {
-    opened: false
-  };
-
-  $scope.popup6 = {
-    opened: false
-  };
 
 
   $scope.option_ckeditor = {
@@ -762,9 +622,11 @@ $scope.rec_year_func = function() {
 
   // Called when the editor is completely ready.
   $scope.onReady = function() {
-  
+    $scope.hello();
   };
- 
+  $scope.hello = function() {
+
+  }
   $scope.options = {
     customClass: getDayClass,
     minDate: new Date(),
@@ -819,184 +681,15 @@ $scope.rec_year_func = function() {
 
   $scope.multiple_event_div = $scope.venue_event_div = $scope.price_and_link_div = $scope.look_and_feel_div = $scope.setting_div = $scope.dynamic_age_div = $scope.return_age_text_div = true;
 
-    //Default Event
-  $scope.events = [{
-      "name": "Single Event",
-      'id': 1
-    }, {
-      "name": "Multiple Event",
-      'id': 2
-    }]
-    //To show default venues 
-  $scope.venues = [{
-    "name": "Use Past Location",
-    'id': 3
-  }, {
-    "name": "Add New Venue",
-    'id': 4
-  }]
+  //To show custom age div
 
-
-  // To show selected event,venue and step.
-  $scope.selected = $scope.events[0];
-  $scope.selected1 = $scope.venues[0];
-  $scope.selected2 = $scope.steps[0];
-
-
-
-  /** 
-  Method: click_menu
-  Description:Function for changing the tab 
-  Created : 2016-04-25
-  Created By:  Deepak khokkar  
-  */
-
-  $scope.click_menu = function(menu, data, valid) {
-
-    var objectForm = this;
-    //To go to step1 event Details
-    if (menu.id === 5) {
-      $location.path("/create_event_step1");
-    }
-
-    ///TO move to price and level
-    if (menu.id === 6) {
-
-      if (objectForm.myForm.$valid === true) {
-          if ($localStorage.eventId == null) {
-              if (data.eventtype=='single') {
-                if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
-                  data.eventdate=$scope.single_start_date;
-                  
-                  data.startevent_time=$scope.startevent_time;
-                  data.endevent_time=$scope.endevent_time;
-                  
-                  data.userId=$localStorage.userId;
-                  $serviceTest.saveEvent(data,function(response){
-                    if (response.code == 200) {
-                       $scope.success=global_message.event_step1;
-                       $localStorage.eventId=response.result;
-                       $scope.error_message=false;
-                       $timeout(function() {
-                         $scope.success='';
-                         $scope.error_message=true;
-                       },3000);
-                        $location.path("/create_event_step2/"+$localStorage.eventId);
-                    }
-                  });
-
-                }  
-              } else {
-                data.userId=$localStorage.userId;
-                $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-                  if (response.code == 200) {
-                    $scope.success=global_message.event_step1;
-                    $scope.data={};
-                    $scope.error_message=false;
-                    $timeout(function() {
-                     $scope.success='';
-                     $scope.error_message=true;
-                    },3000);
-                    window.location.reload();
-                  }
-                }); 
-              }
-             
-          }
-          else {
-            
-            $location.path("/create_event_step2/"+$localStorage.eventId);
-          }
-      } else {
-        $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
-        $timeout(function() {
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.error = '';
-        }, 3000);
-      }
-    }
-
-    //look and feel div
-    if (menu.id === 7) {
-        $location.path("/create_event_step3/"+$localStorage.eventId);
-     /*if (objectForm.myForm.$valid === true) {
-      $scope.eventdetail_div = $scope.price_and_link_div = $scope.setting_div = true;
-      $scope.look_and_feel_div = false;
-      } else {
-        $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
-        $timeout(function() {
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.error = '';
-        }, 3000);
-      }*/
-
-
-    }
-    //Event Setting div
-    if (menu.id === 8) {
-
-      //if (objectForm.myForm.$valid === true) {
-          $location.path("/create_event_step4/"+$localStorage.eventId);
-     /* } else {
->>>>>>> upstream/master
-        $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
-        $timeout(function() {
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.error = '';
-        }, 3000);
-      }*/
-
-    }
-    $scope.selected2 = menu;
+  $scope.custom_age = function() {
+    $scope.age_div = $scope.age_text_div = true;
+    $scope.dynamic_age_div = $scope.return_age_text_div = false;
+    $scope.data1.ages = '';
   }
 
-  /** 
-  Method: select_venue
-  Description:Function for vanue select 
-  Created : 2016-04-25
-  Created By:  Deepak khokkar  
-  */
-
-  $scope.select_venue = function(venue) {
-    if (venue.id === 3) {
-      $scope.venue_event_div = true;
-      $scope.location_event_div = false;
-    } else {
-      $scope.venue_event_div = false;
-      $scope.location_event_div = true;
-    }
-    $scope.selected1 = venue;
-  }
-
-  /** 
-  Method: select
-  Description:Function for select event type : single / multiple   
-  Created : 2016-04-25
-  Created By:  Deepak khokkar  
-  */
-
-
-
-  $scope.select = function(item) {
-    if (item.id === 1) {
-      $scope.data.eventtype = 'single';
-      $scope.multiple_event_div = true;
-      $scope.single_event_div = false;
-    } else {
-      $scope.data.eventtype = 'multiple';
-      $scope.multiple_event_div = false;
-      $scope.single_event_div = true;
-    }
-    $scope.selected = item;
-  };
-
-
+    
   $scope.isActive = function(item) {
     return $scope.selected === item;
   };
@@ -1013,20 +706,7 @@ $scope.rec_year_func = function() {
 
   $scope.animationsEnabled = true;
 
-  $scope.open = function(size) {
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'myModalContent.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        items: function() {
-          return $scope.items;
-        }
-      }
-    });
-  };
- var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+  var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
   var weekday = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
 
   /** 
@@ -1189,25 +869,4 @@ $scope.rec_year_func = function() {
     }
 
   }
-});
-
-angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uibModalInstance, items, $rootScope) {
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
-  // data1.eventinventory
-    // Remove data of popup
-  $scope.remove = function() {
-
-    delete $rootScope.selectevent_date;
-    delete $rootScope.startevent_time;
-    delete $rootScope.endevent_time;
-
-    $uibModalInstance.close($scope.selected.item);
-  }
-
-  $scope.cancel = function() {
-    $uibModalInstance.dismiss('cancel');
-  };
 });

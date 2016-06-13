@@ -7,7 +7,7 @@ Module : Event step
 
 
 angular.module("google.places", []);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('seriesStep1Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
 
   $scope.loader = false;
    //For Step 1
@@ -141,10 +141,12 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
 
   if ($localStorage.userId !== undefined) {
-    //To get venues of a user 
+    //To get venues of a user
+    $scope.venueloader = true;
     $serviceTest.getVenues({
       'userId': $localStorage.userId
     }, function(response) {
+       $scope.venueloader = false;
       if (response !== null) {
 
         if (response.code === 200) {
@@ -386,7 +388,7 @@ $scope.rec_year_func = function() {
   Created : 2016-04-19
   Created By:  Deepak khokkar  
   */
-  $scope.recurring_period = function(action) {
+   $scope.recurring_period = function(action) {
     var stt = new Date($scope.multiple_start_date);
     stt = stt.getTime();
     var endt = new Date($scope.multiple_end_date);
@@ -440,18 +442,42 @@ $scope.rec_year_func = function() {
 
     }
 
-  }
-
-    /** 
+   }
+  
+    /** Method : Date Time Merge 
+    
+    **/
+   $scope.combine = function(dt, timeString) {
+      var startDateTime;
+      var parts = /^(\d+):(\d+) (AM|PM)$/.exec(timeString);
+      if (parts) {
+          hours = parseInt(parts[1], 10);
+          minutes = parseInt(parts[2], 10);
+          if (parts[3] === "PM" && hours !== 12) {
+              hours += 12;
+          }
+          else if (parts[3] === "AM" && hours === 12) {
+              hours = 0;
+          }
+          if (!isNaN(hours) && !isNaN(minutes)) {
+              startDateTime = new Date(dt.getTime());
+              startDateTime.setHours(hours);
+              startDateTime.setMinutes(minutes);
+          }
+      }
+      return startDateTime;
+   }
+        
+   /** 
     Method: savedata
     Description:Function for save the data of recurring event 
     Created : 2016-04-25
     Created By:  Deepak khokkar  
-    */
+   **/
 
-    $scope.savedata=function(data) {
+   $scope.savedata=function(data) {
         if (data.eventtype=='single') {
-          if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+          /*if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
             data.eventdate=$scope.single_start_date;
             
             data.startevent_time=$scope.startevent_time;
@@ -470,9 +496,27 @@ $scope.rec_year_func = function() {
               }
             });
 
-          }  
+          } */ 
         } else {
           data.userId=$localStorage.userId;
+          // Merge Event Date and Time
+          var date_time_series = [];
+          $scope.between_date.forEach(function(value,key) {
+          // $scope.combine
+          var time1 = $scope.combine(value,data.starttimeloop1[key]);
+          
+          var time2 = $scope.combine(value,data.endtimeloop1[key]);
+          
+          date_time_series.push({"from":time1,"to":time2});
+                   
+          });
+          
+          data.venue_id = $scope.data.selected_venue;
+          data.date_time_series = date_time_series;
+          console.log("====================================");
+          console.log(data);
+          console.log("====================================");
+          /*
           $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
             if (response.code == 200) {
               $scope.success=global_message.event_step1;
@@ -484,7 +528,8 @@ $scope.rec_year_func = function() {
               },3000);
               window.location.reload();
             }
-          }); 
+          });*/
+          
         }
     }
 
@@ -628,6 +673,9 @@ $scope.rec_year_func = function() {
     $scope.data.longitude = venuedata.longitude;
     $scope.data.state = venuedata.state;
     $scope.data.zipcode = venuedata.zipcode;
+    
+    $scope.data.selected_venue = venuedata.id;
+    
     var bounds = new google.maps.LatLngBounds();
     var infowindow = new google.maps.InfoWindow();
 
@@ -856,7 +904,7 @@ $scope.rec_year_func = function() {
     var objectForm = this;
     //To go to step1 event Details
     if (menu.id === 5) {
-      $location.path("/create_event_step1");
+      $location.path("/create_series_step1");
     }
 
     ///TO move to price and level
@@ -881,7 +929,7 @@ $scope.rec_year_func = function() {
                          $scope.success='';
                          $scope.error_message=true;
                        },3000);
-                        $location.path("/create_event_step2/"+$localStorage.eventId);
+                        $location.path("/create_series_step2/"+$localStorage.eventId);
                     }
                   });
 
@@ -905,7 +953,7 @@ $scope.rec_year_func = function() {
           }
           else {
             
-            $location.path("/create_event_step2/"+$localStorage.eventId);
+            $location.path("/create_series_step2/"+$localStorage.eventId);
           }
       } else {
         $scope.error_message = false;
@@ -920,7 +968,7 @@ $scope.rec_year_func = function() {
 
     //look and feel div
     if (menu.id === 7) {
-        $location.path("/create_event_step3/"+$localStorage.eventId);
+        $location.path("/create_series_step3/"+$localStorage.eventId);
      /*if (objectForm.myForm.$valid === true) {
       $scope.eventdetail_div = $scope.price_and_link_div = $scope.setting_div = true;
       $scope.look_and_feel_div = false;
@@ -940,7 +988,7 @@ $scope.rec_year_func = function() {
     if (menu.id === 8) {
 
       //if (objectForm.myForm.$valid === true) {
-          $location.path("/create_event_step4/"+$localStorage.eventId);
+          $location.path("/create_series_step4/"+$localStorage.eventId);
      /* } else {
 >>>>>>> upstream/master
         $scope.error_message = false;
@@ -982,7 +1030,7 @@ $scope.rec_year_func = function() {
   */
 
 
-
+  $scope.multiple_event_div = false;
   $scope.select = function(item) {
     if (item.id === 1) {
       $scope.data.eventtype = 'single';
