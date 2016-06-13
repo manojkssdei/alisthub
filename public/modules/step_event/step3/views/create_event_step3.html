@@ -115,44 +115,71 @@
                     
 
 		  <li data-row="1" data-col="1" data-sizex="2" data-sizey="1" id="section1">
-		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		    <div class="main-image"><img src="{{banner_image}}" id="banner_image" alt="banner image" height="150px" width="100%"  onclick="change_image()"><input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" /></div>
+		    <div class="drag" style="display:none;">
+		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		    <a onclick="remove_widget('section1')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		    </div>
+		    <div class="main-image">
+		      <img src="{{banner_image}}" id="banner_image" alt="banner image" height="150px" width="100%"  onclick="change_image()">
+			<input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
+		    </div>
 		  </li>
 		    
 		  <li data-row="2" data-col="1" data-sizex="1" data-sizey="1" id="section2">
-		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		    <a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
-		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value=''></div>
+		   <div class="drag" style="display:none;">
+		    
+		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		    <a onclick="remove_widget('section2')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		  </div>
+		   
+		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value='' class="wrap-word"></div>
 		  </li>
 		    
 		  <li data-row="3" data-col="1" data-sizex="1" data-sizey="1" id="section3">
-		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		    <a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
-		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value=''></div>
+		    <div class="drag" style="display:none;">
+		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		      <a onclick="remove_widget('section3')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		      
+		    </div>
+		    
+		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
 		  </li>
 		    
 		  <li data-row="2" data-col="2" data-sizex="1" data-sizey="1" id="section4">
-		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		    <div class="drag" style="display:none;">
+		      <span<i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		      <a onclick="remove_widget('section4')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		      
+		    </div>
 		     <div class="row">
 		      <div class="col-sm-8">
-			<div contenteditable="true" ckeditor="option_ckeditor1" name="content3"  required ng-model="content3" ready="onReady()" value=''>
+			<div contenteditable="true" ckeditor="option_ckeditor1" name="content3"  required ng-model="content3" ready="onReady()" value='' class="wrap-word">
 		      </div></div>
-		      <div class="col-sm-4"> <img src="{{section2_image}}" id="section2_image" alt="banner imageee"  height="150px" width="100%" onclick="change_image2()">
+		      <div class="col-sm-4">
+			<img src="{{section2_image}}" id="section2_image" alt="banner imageee"  height="150px" width="100%" onclick="change_image2()">
 		      <input type="file" id="my_file2"  onchange="angular.element(this).scope().encodeImageFileAsURL2(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
 		      </div>
-		  </div>
+		    </div>
 		  </li>
 		    
 		    <li data-row="3" data-col="2" data-sizex="1" data-sizey="1" id="section5">
-		      <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		      <div class="drag" style="display:none;">
+			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+			<a onclick="remove_widget('section5')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		      
+		      </div>
 		      <div> <img src="{{section3_image}}" id="section3_image" alt="banner imageee"  height="150px" width="100%" onclick="change_image3()">
 		    <input type="file" id="my_file3"  onchange="angular.element(this).scope().encodeImageFileAsURL3(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
 		    </div>
 		    </li>
 		    
 		    <li data-row="4" data-col="1" data-sizex="2" data-sizey="1"   id="section6">
-		      <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		      <div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value=''>
+		      <div class="drag" style="display:none;">
+			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+			<a onclick="remove_widget('section6')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		      
+		      </div>
+		      <div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value='' class="wrap-word">
 		      </div></li>
 		    </ul>
                       </div>
@@ -162,9 +189,6 @@
           </section>
       </section>
 
-      <section ng-hide="recipient_div">
-	Coming soon.
-      </section>
       <section ng-hide="preview_div">
 	Coming soon.
       </section>
@@ -261,7 +285,18 @@ function change_image3()
 		    $('#section6 .drag').hide();
 		   }
           })
+	  
+	  
+	  
+	  
       });
+      function remove_widget(id) 
+	{
+        $("#"+id).addClass("activ");
+        gridster.remove_widget($('.activ'));
+	}
+    
+      
     </script>
 <script type="text/ng-template" id="previewtemplate.html">
      <div class="modal-header">

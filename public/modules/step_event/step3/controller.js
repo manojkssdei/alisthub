@@ -119,19 +119,16 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
      $scope.select= function(item) {
     if (item.id==1) {
       
-      $scope.module_div=$scope.recipient_div=$scope.preview_div=true;
+      $scope.module_div=$scope.preview_div=true;
       $scope.campaign_div=false;  
     } else if (item.id==2) {
      $scope.module_div=false;
-      $scope.campaign_div=$scope.recipient_div=$scope.preview_div=true;       
+      $scope.campaign_div=$scope.preview_div=true;       
     }
-    else if (item.id==3) {
-     $scope.recipient_div=false;
-      $scope.campaign_div=$scope.module_div=$scope.preview_div=true;       
-    }
+   
     else if (item.id==4) {
      $scope.preview_div=false;
-      $scope.campaign_div=$scope.recipient_div=$scope.module_div=true;       
+      $scope.campaign_div=$scope.module_div=true;       
     }
     $scope.selected = item; 
   };
@@ -386,5 +383,5 @@ angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $u
 angular.module('alisthub').filter("sanitize", ['$sce', function($sce) {
   return function(htmlCode){	
     return $sce.trustAsHtml(htmlCode);
-  }
+  } 
 }]);
