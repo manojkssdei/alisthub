@@ -62,14 +62,15 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label> Memo</label>
-                            <input type="text" class="form-control" name="memo" placeholder="Memo that appear on credit card statements"  ng-model="user.memo"/>
+                            <input type="text" class="form-control"  tooltips tooltip-template="What will appear on credit card statements" 
+ name="memo" placeholder="Memo that appear on credit card statements"  ng-model="user.memo"/>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6 section-col" ng-class="{ 'has-error' : customMerchantForm.currency_code.$invalid && !customMerchantForm.currency_code.$pristine }">
                         <label>Currency <span class="req">*</span></label>
-                        <select class="form-control"  name="currency_code" title="" ng-model="user.currency_code" required>
+                        <select  tooltips tooltip-template="Currency Code" class="form-control"  name="currency_code" title="Currency Code" ng-model="user.currency_code" required>
                             <option value="USD">US Dollar</option>
                             <option value="AUD">Australian Dollar</option>
                             <option value="BBD">Barbados Dollar</option>
@@ -102,7 +103,7 @@
                     <div class="col-sm-6" >
                         <div class="form-group">
                             <label> Keyfile Name</label>
-                            <input type="text" class="form-control" name="keyfile_name" placeholder="Keyfile Name"  ng-model="user.keyfile_name"/>
+                            <input tooltips tooltip-template="Name of PEM File (Note this must be uploaded to in advance.  Please contact your account manager to do so.)."  type="text" class="form-control" name="keyfile_name" placeholder="Keyfile Name"  ng-model="user.keyfile_name"/>
                         </div>
                     </div>
                 </div>
@@ -110,7 +111,16 @@
                     <div class="col-sm-6" >
                         <div class="form-group">
                             <label> Store Number</label>
-                            <input type="text" class="form-control" name="store_number" placeholder="Store Number"  ng-model="user.store_number"/>
+                            <input tooltips tooltip-template="Store Number in FirstData.
+      User in PayPal and PayFlow.
+      Login ID in Authorize.NET.
+      MerchantID in BeanStream.
+      MPI ID in ICICI.
+      Username in CardConnect.
+      Transaction Center ID in GoEmerchant.
+      Merchant ID in CCAvenue.
+      Gateway ID in FirstDataGlobalGatewayE4.
+      Merchant ID in AirPay."  type="text" class="form-control" name="store_number" placeholder="Store Number"  ng-model="user.store_number"/>
                         </div>
                     </div>
                 </div>
@@ -118,7 +128,16 @@
                     <div class="col-sm-6" >
                         <div class="form-group">
                             <label> Password</label>
-                            <input type="password" class="form-control" name="account_password" placeholder="Password in PayFlow or Paypal"  ng-model="user.account_password" />
+                            <input tooltips tooltip-template="
+      Password in PayFlow and PayPal.
+      Transaction Key in Authorize.NET.
+      Password in BeanStream.
+      Password in CardConnect.
+      Working Key in CCAvenue.
+      PayHost password in PayGate.
+      Password in FirstDataGlobalGatewayE4.
+      Password in AirPay.
+      Enter 3DSecure to enable 3D secure for Stripe."  type="password" class="form-control" name="account_password" placeholder="Password in PayFlow or Paypal"  ng-model="user.account_password" />
                            
                         </div>
                     </div>
@@ -127,7 +146,18 @@
                     <div class="col-sm-6" >
                         <div class="form-group">
                             <label> Account Id</label>
-                            <input type="text" class="form-control" name="account_id" placeholder="Account Id/Username"  ng-model="user.account_id" />
+                            <input tooltips tooltip-template="The Partner in PayFlow.
+      The Signature in PayPal.
+      Username in BeanStream.
+      Username in Cybersource.
+      The Merchant ID in ICICI.
+      The Merchant ID in CardConnect.
+      Live Secret API Key in Stripe.
+      Processor ID in GoEmerchant.
+      Access Code in CCAvenue.
+      PayGate ID in PayGate.
+      Key id in FirstDataGlobalGatewayE4.
+      Username in AirPay."  type="text" class="form-control" name="account_id" placeholder="Account Id/Username"  ng-model="user.account_id" />
                             
                         </div>
                     </div>
@@ -136,7 +166,9 @@
                     <div class="col-sm-6" >
                         <div class="form-group">
                             <label> Vendor</label>
-                            <input type="text" class="form-control" name="vendor" placeholder="Name of vendor or Merchant Id from Payflow settings."  ng-model="user.vendor"/>
+                            <input tooltips tooltip-template=" Name of Vendor or Merchant ID from PayFlow Settings.  Often the same as USER.
+      Hmac key in FirstDataGlobalGatewayE4.
+      For Stripe 3dSecure, put anything in here to skip failed 3d secure checks."  type="text" class="form-control" name="vendor" placeholder="Name of vendor or Merchant Id from Payflow settings."  ng-model="user.vendor"/>
                         </div>
                     </div>
                 </div>
@@ -144,7 +176,11 @@
                     <div class="col-sm-6" >
                         <div class="form-group">
                             <label> Key</label>
-                            <textarea class="form-control" name="key" placeholder="Key"  ng-model="user.key"></textarea>
+                            <textarea tooltips tooltip-template="Key in Cybersource.
+      Gateway ID in GoEmerchant.
+      API key in AirPay.
+      For Stripe 3dSecure, add an optional comma separated list of bin numbers to require 3dSecure. If left empty, will require 3dSecure on all cards.
+      "  class="form-control" name="key" placeholder="Key"  ng-model="user.key"></textarea>
                         </div>
                     </div>
                 </div>
@@ -153,7 +189,7 @@
                         <div class="form-group">
                             <label> Zero Auth</label>
                             <div class="onoffswitch">
-                                <input type="checkbox" checked="checked" ng-true-value="1" ng-false-value="0" ng-model="user.zero_auth" id="zero_auth_id" class="onoffswitch-checkbox" name="zero_auth" >
+                                <input type="checkbox" tooltips tooltip-template="Enabling this will result in a $0 Authorization being made when an order is first processed in order to verify that the customer&#39;s credit card credentials are correct." checked="checked" ng-true-value="1" ng-false-value="0" ng-model="user.zero_auth" id="zero_auth_id" class="onoffswitch-checkbox" name="zero_auth" >
                                 <label for="zero_auth_id" class="onoffswitch-label"></label>
                             </div>
                         </div>
@@ -164,7 +200,7 @@
                         <div class="form-group">
                             <label> Capture Mode</label>
                             <div class="onoffswitch">
-                                <input type="checkbox" checked="checked" ng-true-value="1" ng-false-value="0" ng-model="user.capture_mode" id="capture_mode_id" class="onoffswitch-checkbox" name="capture_mode" >
+                                <input tooltips tooltip-template="Enabling this will cause the account to only authorize (a.k.a. hold) funds and not actually charge the account"  type="checkbox" checked="checked" ng-true-value="1" ng-false-value="0" ng-model="user.capture_mode" id="capture_mode_id" class="onoffswitch-checkbox" name="capture_mode" >
                                 <label for="capture_mode_id" class="onoffswitch-label"></label>
                             </div>
                             
@@ -174,7 +210,7 @@
                 <div class="row">
                     <div class="col-sm-6" >
                         <div class="form-group">
-                            <label> Accepted Cards</label>
+                            <label  tooltips tooltip-template="Accepted Cards" > Accepted Cards</label>
                         </div>
                     </div>
                 </div>
@@ -223,7 +259,7 @@
             </section>
         </form>
         <div class="editor-btn">
-            <button class="pink-btn btn" ng-click="submitCustomFinancialDetails()" ng-disabled="customMerchantForm.$invalid">{{button_title}} Credit Card Processing</button>          
+            <button class="pink-btn btn" tooltips tooltip-template="{{button_title}} Credit Card Processing"  ng-click="submitCustomFinancialDetails()" ng-disabled="customMerchantForm.$invalid">{{button_title}} Credit Card Processing</button>          
         </div>
     </div>
 </div>
