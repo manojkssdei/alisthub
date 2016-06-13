@@ -1,171 +1,228 @@
- <div ng-hide="setting_div">
-          
-      <form class="event-form">
-        
-          <section class="form-group field-group">
+<style>
+.border { border: 2px solid black; }
+.row {margin: 10px;}
+</style>
+<script>
+ $(document).ready(function()
+ {
+   
+     $("#dtBox").DateTimePicker();
+   
+ });
+</script>
+
+
+<div ng-hide="setting_div">
+    <form class="event-form">
+        <section class="form-group field-group">
             <label>Delivery Methods</label>
             <section class="gray-frame sub-fields">
-            	<label>Print at Home</label>
+                <label>Print at Home</label>
                 <section class="row">
-                	<section class="col-sm-8">
+                    <section class="col-sm-8">
                         <section class="radio-sec">
-                      		<section class="radio-inline">
-                              <input type="radio" name="radio1" id="radio1">
-                              <label for="radio1"><span></span>Always Available</label>
+                            <section class="radio-inline">
+                                <input type="radio" name="radio1" id="radio1" ng-model="print_at_home" value="1">
+                                <label for="radio1"><span></span>Always Available</label>
                             </section>
                             <section class="radio-inline">
-                              <input type="radio" name="radio1" id="radio2">
-                              <label for="radio2"><span></span>Never Available</label>
-                          </section>
-                             <section class="radio-inline">
-                              <input type="radio" name="radio1" id="radio3">
-                              <label for="radio3"><span></span>Set Dates</label>
-                             </section>
-                       </section>
-                       <p class="p-t10"><button class="pink-btn btn btn-small">Add a Description</button></p>
+                                <input type="radio" name="radio1" id="radio2" ng-model="print_at_home" value="2">
+                                <label for="radio2"><span></span>Never Available</label>
+                            </section>
+                            <section class="radio-inline">
+                                <input type="radio" name="radio1" id="radio3" ng-model="print_at_home" value="3">
+                                <label for="radio3"><span></span>Set Dates</label>
+                            </section>
+                        </section>
+                        <section ng-if="print_at_home == 3">
+                          <div class="" style="display: block; margin: 10px;">
+                            <div style="width: 20%; margin: 5px;" class="">Enable On: </div>
+<!--                             <div class="datepicker" style="width: 30% ; margin-left: 10%; float: left;">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="print_at_home_enable" is-open="popup5.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')"/>
+                                <span class="input-group-btn" ng-click="open5()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+                            </div>
+                            <div style="width: 30% ; margin-left: 10%;" class="input-group bootstrap-timepicker timepicker">
+                                <input ng-model="print_at_home_enable_time" class="form-control input-small timepick" type="text" ng-change="" />
+                                <span class="input-group-addon timepick1">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </span>
+                            </div> -->
+                             <input type="text" data-field="datetime" readonly>
+                          </div>
+                          <div class="" style="display: block; margin: 10px;">
+                            <div style="width: 20%; margin: 5px;" class="">Disable On: </div>
+                            <div class="datepicker" style="width: 30% ; margin-left: 10%; float: left;">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="print_at_home_disable" is-open="popup6.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')"/>
+                                <span class="input-group-btn" ng-click="open6()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+                            </div>
+                            <div style="width: 30% ; margin-left: 10%;" class="input-group bootstrap-timepicker timepicker">
+                                <input ng-model="print_at_home_disable_time" class="form-control input-small timepick" type="text" ng-change="" />
+                                <span class="input-group-addon timepick1">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </span>
+                            </div>
+                          </div>
+                        </section>
+                        <p class="p-t10">
+                            <button class="pink-btn btn btn-small">Add a Description</button>
+                        </p>
                     </section>
                     <section class="col-sm-4 mob-mt20">
                         <section class="radio-sec custom-check">
-                      		<p class="radio-inline">
+                            <p class="radio-inline">
                                 <input type="checkbox" id="test1">
                                 <label for="test1">Sun</label>
-                          </p>
-                       </section>
-                       <p class="p-t10"><button class="pink-btn btn btn-small">Add a Description</button></p>
+                            </p>
+                        </section>
+                        <p class="p-t10">
+                            <button class="pink-btn btn btn-small">Add a Description</button>
+                        </p>
                     </section>
                 </section>
             </section>
-          </section><!--/Delivery Methods-->
-          
-          <section class="form-group field-group">
+        </section>
+        <!--/Delivery Methods-->
+        <section class="form-group field-group">
             <label>Sales Times</label>
-            <section class="gray-frame sub-fields">            	
+            <section class="gray-frame sub-fields">
                 <section class="row">
-                	   <div class="col-sm-4">
+                    <div class="col-sm-4">
                         <div class="form-group">
                             <label>Online Sales Open<span class="req">*</span></label>
                             <div class="form-group datepicker">
-                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup3.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
-                         <span class="input-group-btn">
-                           <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button></span>
-                     </div>
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup3.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" />
+                                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                            </div>
                         </div>
-                  </div>
+                    </div>
                     <div class="col-sm-8">
-                     	<section class="row text-drop">
-                        	<section class="col-sm-4 form-group"><select class="form-control">
-                                  <option value=" ">HR</option>
-                                </select></section>
-                            <section class="col-sm-4 form-group"><select class="form-control">
-                                  <option value=" ">MIN</option>
-                                </select></section>
-                            <section class="col-sm-4 form-group"><select class="form-control">
-                                  <option value=" ">PM</option>
-                                </select></section>
+                        <section class="row text-drop">
+                            <section class="col-sm-4 form-group">
+                                <select class="form-control">
+                                    <option value=" ">HR</option>
+                                </select>
+                            </section>
+                            <section class="col-sm-4 form-group">
+                                <select class="form-control">
+                                    <option value=" ">MIN</option>
+                                </select>
+                            </section>
+                            <section class="col-sm-4 form-group">
+                                <select class="form-control">
+                                    <option value=" ">PM</option>
+                                </select>
+                            </section>
                         </section>
-                  </div>
+                    </div>
                 </section>
                 <section class="radio-sec custom-check m-b20">
                     <p class="radio-inline">
                         <input type="checkbox" id="test2">
                         <label for="test2">Immediately</label>
-                  </p>
-               </section>
-                       
+                    </p>
+                </section>
                 <section class="row">
-                	 <div class="col-sm-4">
+                    <div class="col-sm-4">
                         <div class="form-group">
                             <label>Online Sales Open<span class="req">*</span></label>
-                                  <div class="form-group datepicker">
-                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup4.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
-                         <span class="input-group-btn">
-                           <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button></span>
-                     </div>
-                  </div>
-                  </div>
+                            <div class="form-group datepicker">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup4.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" />
+                                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-sm-8">
-                     	<section class="row text-drop">
-                        	<section class="col-sm-4 form-group"><select class="form-control">
-                                  <option value=" ">HR</option>
-                                </select></section>
-                            <section class="col-sm-4 form-group"><select class="form-control">
-                                  <option value=" ">MIN</option>
-                                </select></section>
-                            <section class="col-sm-4 form-group"><select class="form-control">
-                                  <option value=" ">PM</option>
-                                </select></section>
+                        <section class="row text-drop">
+                            <section class="col-sm-4 form-group">
+                                <select class="form-control">
+                                    <option value=" ">HR</option>
+                                </select>
+                            </section>
+                            <section class="col-sm-4 form-group">
+                                <select class="form-control">
+                                    <option value=" ">MIN</option>
+                                </select>
+                            </section>
+                            <section class="col-sm-4 form-group">
+                                <select class="form-control">
+                                    <option value=" ">PM</option>
+                                </select>
+                            </section>
                         </section>
-                  </div>
+                    </div>
                 </section>
             </section>
-          </section><!--/Sales Times-->
-          
-          <section class="form-group field-group">
-          	<section class="row">
-              <label class="col-md-2 col-sm-4">Donations </label>
-              <section class="col-md-4 col-sm-4">
+        </section>
+        <!--/Sales Times-->
+        <section class="form-group field-group">
+            <section class="row">
+                <label class="col-md-2 col-sm-4">Donations </label>
+                <section class="col-md-4 col-sm-4">
                     <div class="onoffswitch mt-3">
                         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
                         <label class="onoffswitch-label" for="myonoffswitch"></label>
                     </div>
                 </section>
             </section>
-            <section class="gray-frame sub-fields" style="display:none;">            	
-               sss
+            <section class="gray-frame sub-fields" style="display:none;">
+                sss
             </section>
-          </section><!--/Donations-->
-          
+        </section>
+        <!--/Donations-->
         <section class="form-group field-group">
-          	<section class="row">
-              <label class="col-md-2 col-sm-4">Custom Fee </label>
-              <section class="col-md-4 col-sm-4">
+            <section class="row">
+                <label class="col-md-2 col-sm-4">Custom Fee </label>
+                <section class="col-md-4 col-sm-4">
                     <div class="onoffswitch mt-3">
                         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" checked>
                         <label class="onoffswitch-label" for="myonoffswitch2"></label>
                     </div>
                 </section>
             </section>
-            <section class="gray-frame sub-fields">            	
-               <section class="row">
-               		<section class="col-sm-6">
-                    	<section class="form-group">
+            <section class="gray-frame sub-fields">
+                <section class="row">
+                    <section class="col-sm-6">
+                        <section class="form-group">
                             <label>Fee Name</label>
                             <input type="text" placeholder="Fee Name" class="form-control" value=" " name=" ">
                         </section>
                     </section>
-               </section>
-               
-               <section class="row">
-               		<section class="col-sm-4">
-                    	<section class="form-group">
+                </section>
+                <section class="row">
+                    <section class="col-sm-4">
+                        <section class="form-group">
                             <label>Fee Type</label>
                             <select class="form-control">
-                              <option value=" ">Fixed Amount</option>
+                                <option value=" ">Fixed Amount</option>
                             </select>
                         </section>
                     </section>
-                    
                     <section class="col-sm-4">
-                    	<section class="form-group">
+                        <section class="form-group">
                             <label>Amount ($)</label>
                             <input type="text" placeholder="Fee Name" class="form-control" value=" " name=" ">
                         </section>
                     </section>
-                    
                     <section class="col-sm-4">
-                    	<section class="form-group">
+                        <section class="form-group">
                             <label>When to Apply Fee</label>
                             <select class="form-control">
-                              <option value=" ">Before Discount</option>
+                                <option value=" ">Before Discount</option>
                             </select>
                         </section>
                     </section>
-               </section>
+                </section>
             </section>
-          </section><!--/Custom Fee-->
-          
-          <section class="form-group field-group">
-          	<section class="row">
+        </section>
+        <!--/Custom Fee-->
+        <section class="form-group field-group">
+            <section class="row">
                 <label class="col-md-2 col-sm-4">Question </label>
                 <section class="col-md-4 col-sm-4">
                     <div class="onoffswitch mt-3">
@@ -174,157 +231,148 @@
                     </div>
                 </section>
             </section>
-            <section class="gray-frame sub-fields">            	
-               <section class="row">
-               		<section class="col-sm-6">
-                    	<section class="form-group">
+            <section class="gray-frame sub-fields">
+                <section class="row">
+                    <section class="col-sm-6">
+                        <section class="form-group">
                             <label>Type</label>
                             <select class="form-control">
-                              <option value=" ">Fixed Amount</option>
+                                <option value=" ">Fixed Amount</option>
                             </select>
                         </section>
                     </section>
-               </section>
-               
-               <section class="row">
-               		<section class="col-sm-8">
-                    	<section class="form-group">
+                </section>
+                <section class="row">
+                    <section class="col-sm-8">
+                        <section class="form-group">
                             <label>Question</label>
-                          <textarea name="textarea" class="form-control" cols=" " rows="5"></textarea>
-                    	</section>
+                            <textarea name="textarea" class="form-control" cols=" " rows="5"></textarea>
+                        </section>
                     </section>
-                   
-               </section>
-               
-               <section class="row">
-                <label class="col-md-2 col-sm-4">Required</label>
-                <section class="col-md-4 col-sm-4">
+                </section>
+                <section class="row">
+                    <label class="col-md-2 col-sm-4">Required</label>
+                    <section class="col-md-4 col-sm-4">
+                        <div class="onoffswitch mt-3">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4">
+                            <label class="onoffswitch-label" for="myonoffswitch4"></label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <!--/Question-->
+        <section class="form-group field-group">
+            <label>Additional Settings </label>
+            <section class="gray-frame sub-fields">
+                <section class="row">
+                    <section class="col-sm-6">
+                        <section class="row">
+                            <section class="col-sm-6">
+                                <section class="form-group">
+                                    <label>Online Service Fee</label>
+                                    <input type="text" placeholder="Online Service Fee" class="form-control" value="" name="StartTime">
+                                    <p class="info-text">%Covered</p>
+                                </section>
+                            </section>
+                            <section class="col-sm-6">
+                                <section class="form-group">
+                                    <label>Box Office Service Fee</label>
+                                    <input type="text" placeholder="Box Office Service Fee" class="form-control" value="" name="StartTime">
+                                    <p class="info-text">%Covered</p>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <section class="col-sm-6">
+                        <section class="form-group">
+                            <label>Ticket Note</label>
+                            <input type="text" name="StartTime" value="" class="form-control" placeholder="Ticket Note">
+                        </section>
+                    </section>
+                </section>
+                <section class="row">
+                    <section class="col-sm-6">
+                        <section class="row">
+                            <section class="col-sm-6">
+                                <section class="form-group">
+                                    <label>Ticket Transaction Limit</label>
+                                    <input type="text" placeholder="Ticket Transaction Limit" class="form-control" value="" name="StartTime">
+                                </section>
+                            </section>
+                            <section class="col-sm-6">
+                                <section class="form-group">
+                                    <label>Checkout Time Limit</label>
+                                    <input type="text" placeholder="Box Office Service Fee" class="form-control" value="" name="StartTime">
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <section class="col-sm-6">
+                        <section class="form-group">
+                            <label>Ticket Layout</label>
+                            <input type="text" name="StartTime" value="" class="form-control" placeholder="Ticket Layout">
+                        </section>
+                    </section>
+                </section>
+                <section class="form-group">
+                    <label>Collect Name on Each Ticket</label>
                     <div class="onoffswitch mt-3">
-                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4">
-                        <label class="onoffswitch-label" for="myonoffswitch4"></label>
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5">
+                        <label class="onoffswitch-label" for="myonoffswitch5"></label>
                     </div>
                 </section>
             </section>
-            </section>
-          </section><!--/Question-->
-          
-          <section class="form-group field-group">          	
-            <label>Additional Settings </label>
-               
-               <section class="gray-frame sub-fields">            	
-                   <section class="row">
-                        <section class="col-sm-6">
-                            <section class="row">
-                                <section class="col-sm-6">
-                                     <section class="form-group">
-                                        <label>Online Service Fee</label>
-                                        <input type="text" placeholder="Online Service Fee" class="form-control" value="" name="StartTime">
-                                       <p class="info-text">%Covered</p>
-                                    </section>
-                                </section>
-                                
-                                <section class="col-sm-6">
-                                     <section class="form-group">
-                                        <label>Box Office Service Fee</label>
-                                        <input type="text" placeholder="Box Office Service Fee" class="form-control" value="" name="StartTime">
-                                        <p class="info-text">%Covered</p>
-                                    </section>
-                                </section>
-                            </section>
-                        </section>
-                        <section class="col-sm-6">
-                       	  <section class="form-group">
-                                <label>Ticket Note</label>
-                                <input type="text" name="StartTime" value="" class="form-control" placeholder="Ticket Note">
-                            </section>
-                        </section>
-                   </section>
-                   
-                 <section class="row">
-                        <section class="col-sm-6">
-                            <section class="row">
-                                <section class="col-sm-6">
-                                     <section class="form-group">
-                                        <label>Ticket Transaction Limit</label>
-                                       <input type="text" placeholder="Ticket Transaction Limit" class="form-control" value="" name="StartTime">
-                                    </section>
-                                </section>
-                                
-                                <section class="col-sm-6">
-                                     <section class="form-group">
-                                        <label>Checkout Time Limit</label>
-                                        <input type="text" placeholder="Box Office Service Fee" class="form-control" value="" name="StartTime">
-                                    </section>
-                                </section>
-                            </section>
-                        </section>
-                        <section class="col-sm-6">
-                       	  <section class="form-group">
-                                <label>Ticket Layout</label>
-                                <input type="text" name="StartTime" value="" class="form-control" placeholder="Ticket Layout">
-                            </section>
-                        </section>
-                 </section>
-                   
-                   <section class="form-group">
-                        <label>Collect Name on Each Ticket</label>
-                        <div class="onoffswitch mt-3">
-                          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5">
-                          <label class="onoffswitch-label" for="myonoffswitch5"></label>
-                     </div>
-                 </section>
-            </section>
-          </section><!--/Additional Settings-->
-          
+        </section>
+        <!--/Additional Settings-->
         <section class="form-group field-group">
-              <label>Public Contact Info </label>
-            
-            <section class="gray-frame sub-fields">           	
-               <section class="row">
-               		<section class="col-sm-4">
-                    	<section class="form-group">
+            <label>Public Contact Info </label>
+            <section class="gray-frame sub-fields">
+                <section class="row">
+                    <section class="col-sm-4">
+                        <section class="form-group">
                             <label>Public Name</label>
-                          <input type="text" placeholder="Public Name" class="form-control" value="" name="">
+                            <input type="text" placeholder="Public Name" class="form-control" value="" name="">
                         </section>
                     </section>
-                    
                     <section class="col-sm-4">
-                    	<section class="form-group">
+                        <section class="form-group">
                             <label>Public Email</label>
-                          <input type="text" placeholder="Public Email" class="form-control" value="" name="">
+                            <input type="text" placeholder="Public Email" class="form-control" value="" name="">
                         </section>
                     </section>
-                    
                     <section class="col-sm-4">
-                    	<section class="form-group">
+                        <section class="form-group">
                             <label>Public Phone</label>
                             <input type="text" placeholder="Public Phone" class="form-control" value="" name="">
                         </section>
                     </section>
-               </section>
+                </section>
             </section>
-          </section><!--/Public Contact Info-->
-          
-          <section class="form-group field-group">
-              <label>Advanced Settings</label>
-            
-            <section class="gray-frame sub-fields">           	
-               <section class="content f-sb">
-               		<p>Make modifications to various customer-facing features, including your event listing, checkout process and Print@home tickets, using these advanced customizations. Do not make any adjustments if you're uncertain as to what will be modified </p>
-                  <br>
-               		<p>Any changes you mode to the Default Advanced Settings will automatically be set on this event You can turn any setting off or on, and even override the default, during this step </p>
-                  <br>
-                    <p><a ui-sref="advance_setting"><button class="pink-btn btn btn-small m-fw"  >Edit Event Advanced Setting</button></a></p>
-               </section>
+        </section>
+        <!--/Public Contact Info-->
+        <section class="form-group field-group">
+            <label>Advanced Settings</label>
+            <section class="gray-frame sub-fields">
+                <section class="content f-sb">
+                    <p>Make modifications to various customer-facing features, including your event listing, checkout process and Print@home tickets, using these advanced customizations. Do not make any adjustments if you're uncertain as to what will be modified </p>
+                    <br>
+                    <p>Any changes you mode to the Default Advanced Settings will automatically be set on this event You can turn any setting off or on, and even override the default, during this step </p>
+                    <br>
+                    <p>
+                        <a ui-sref="advance_setting">
+                            <button class="pink-btn btn btn-small m-fw">Edit Event Advanced Setting</button>
+                        </a>
+                    </p>
+                </section>
             </section>
-          </section><!--/Advanced Settings-->
-        
-      </form>
-      <div class="editr">        
+        </section>
+        <!--/Advanced Settings-->
+    </form>
+    <div class="editr">
         <div class="editor-btn">
-          <button class="gray-btn btn">Save</button>
-          <button class="pink-btn btn">Next</button>
+            <button class="gray-btn btn">Save</button>
+            <button class="pink-btn btn">Next</button>
         </div>
-      </div>
-    
-       </div>
+    </div>
+</div>

@@ -790,6 +790,7 @@ if(sd.getDate() == ed.getDate() && (sd.getMonth()+1) == (ed.getMonth()+1) && sd.
              if ($localStorage.userId != undefined) {
                 $scope.data.seller_id = $scope.eventInfo.seller_id = $localStorage.userId;
                 $scope.data.discount_id = $localStorage.discount;
+                $scope.data.common_id = new Date().getTime();
 
 //console.log('$rootScope.assignedPriceLevels' , $rootScope.assignedPriceLevels);
 
@@ -858,6 +859,96 @@ if($scope.data.events == "choose_events") {
             }
         }
 
+
+
+
+
+
+
+
+
+
+    $scope.updateFinalAssignment = function() {
+    console.log('$scope.data' , $scope.data);
+    var error = $scope.userForm.$error;
+    angular.forEach(error.required, function(field){
+        if(field.$invalid){
+            var fieldName = field.$name;
+            console.log('fieldName' , fieldName);
+        }
+    });
+
+
+    if ($localStorage.userId != undefined) {
+     $scope.data.common_id = new Date().getTime();
+
+
+//console.log('$rootScope.assignedPriceLevels' , $rootScope.assignedPriceLevels);
+if($scope.data.events == "choose_events") {
+console.log('inside if');
+    for(var event_id_key in $scope.data.event_id) {
+        //console.log('event_id_key' , event_id_key);
+        //console.log('$scope.data.event_id[event_id_key].price_levels' , $scope.data.event_id[event_id_key].price_levels);
+
+          if($scope.data.event_id[event_id_key].price_levels == "all_price_levels") {
+            var choosen_price_level = {};
+            //console.log('choose all price levels for event ' , event_id_key );
+
+            for( key in $rootScope.assignedPriceLevels) {
+                //console.log(' rootscope price level key' , key);
+               // push all price level of event to choosen_price_level key
+               //var choosen_price_level = $scope.data.event_id[event_id_key].choosen_price_level;
+              //console.log(' $rootScope.assignedPriceLevels[key].event_id' , $rootScope.assignedPriceLevels[key].event_id);
+              //console.log(' $rootScope.assignedPriceLevels[key].id' , $rootScope.assignedPriceLevels[key].id);
+              if($rootScope.assignedPriceLevels[key].event_id == event_id_key )
+                {
+                    var price_level_id = $rootScope.assignedPriceLevels[key].id;
+                    choosen_price_level[price_level_id] = true;
+                    //console.log('choosen_price_level' , choosen_price_level);
+                    //$scope.data.event_id[event_id_key].choosen_price_level.push(choosen_price_level);
+                $scope.data.event_id[event_id_key].choosen_price_level = choosen_price_level;
+                }
+             } 
+             
+         }
+      }
+}
+
+
+
+
+
+                if ($scope.data.discount_id == "") {
+                    $location.path("/view_discounts/list");
+                }
+                else{
+                    
+                    $scope.data.old_start_date = $rootScope.old_start_date;
+                    $scope.data.old_end_date = $rootScope.old_end_date;
+                    
+            
+                    $serviceTest.updateFinalAssignment($scope.data, function(response) {
+                        if (response.code == 200) {
+                            //$scope.success_message = true;
+                            //$scope.success = global_message.discountAssigned;
+                            $location.path("/view_discounts/list");
+                           
+
+                          
+                        } else {
+                            // display error here
+                        }
+                    });
+                    
+
+                }
+
+            }
+
+          
+}
+
+
         /** Description : To get selected discount codes details.
         Created : 2016-05-18
         Created By:  Manoj Kumar Singh  
@@ -907,27 +998,50 @@ console.log(' -------------- -------------- -------------- -------------- ');
             $scope.getSelectedDiscount();
         }
 
-        if ($state.params.edit_dis_assignId) {
-            console.log('call edit_dis_assignId' , $state.params.edit_dis_assignId);
-            // $scope.getAssignDiscountDetails($state.params.edit_dis_assignId);
-            // Coupon DiscountPreserve already has an assignment from 2016-05-04 12:00:00 to 2016-05-14 12:00:0
-        }
+  $scope.formats = ['yyyy-MM-dd','dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  $scope.format = $scope.formats[0];
+  $scope.altInputFormats = ['M!/d!/yyyy'];
 
         $scope.getAssignDiscountDetails = function(id) {
-            console.log('i am called...');
-            $scope.cdata = {};
+            $scope.data = {};
             if ($localStorage.userId != undefined) {
-                $scope.cdata.seller_id = $localStorage.userId;
-                $scope.cdata.id = id;
-                console.log('$scope.cdata ' , $scope.cdata);
+                $scope.data.seller_id = $localStorage.userId;
+                $scope.data.id = id;
 
-                $serviceTest.getAssignDiscountDetails($scope.cdata, function(response) {
+                $serviceTest.getAssignDiscountDetails($scope.data, function(response) {
                     if (response.code == 200) {
-                      console.log('response.code' , response.code);    
+                        $scope.data = response.result[0];
+if($scope.data.event_type == "1" ){
+    console.log(1);
+    $scope.data.events = "all_events";
+    $scope.enableBox(1);
+} else {
+    console.log(2);
+    $scope.data.events = "choose_events";
+    $scope.enableBox(2);
+}
+ 
+ $scope.data.start_date = new Date($scope.data.start_date);
+ $scope.data.end_date = new Date($scope.data.end_date);
+$rootScope.old_start_date = $scope.data.start_date;
+$rootScope.old_end_date = $scope.data.end_date;
+
+                      console.log('rootScope.old_end_date' , $rootScope.old_start_date);
+                      console.log('rootScope.old_end_date' , $rootScope.old_end_date);
+                      console.log('scope.data' , $scope.data);
+
                     } 
                 });
             }
         }
+
+        if ($state.params.edit_dis_assignId) {
+            console.log('call edit_dis_assignId' , $state.params.edit_dis_assignId);
+             $scope.getAssignDiscountDetails($state.params.edit_dis_assignId);
+            // Coupon DiscountPreserve already has an assignment from 2016-05-04 12:00:00 to 2016-05-14 12:00:0
+        }
+
+
 
         $scope.enableDiscountDiv = false;
 
@@ -1148,9 +1262,40 @@ console.log(' -------------- -------------- -------------- -------------- ');
                         $scope.discount = response.discount[0];
                         $scope.discountAssignments = response.discountAssignments;
                             $scope.discountAssignIds = [];
+                            $scope.commonAssignIds = [];
+                            //$scope.assignmentByCommonIds = [];
+
+
                             $scope.discountAssignments.forEach(function(value) {
                                 $scope.discountAssignIds.push(value.id);
+
+                                if ($scope.commonAssignIds.indexOf(value.common_id) == -1) {
+                                 $scope.commonAssignIds.push(value.common_id);
+                                } 
                             }); 
+
+                            console.log('value.commonAssignIds' , $scope.commonAssignIds);
+
+/*$scope.commonAssignIds.forEach(function(value) {
+    console.log('value' , value );
+    //$scope.assignmentByCommonIds[value]
+  $scope.discountAssignments.forEach(function(value1) {
+ console.log('value1.common_id' , value1.common_id);
+ console.log('value' , value);
+     if(value1.common_id == value) {
+
+console.log('$scope.discountAssignments[value1]' , $scope.discountAssignments[value1]);
+                var obj = {};
+                obj[value] =$scope.discountAssignments[value1];
+                $scope.assignmentByCommonIds.push(obj);
+     }
+  });
+
+
+}); 
+*/
+
+
                         if(response.globalDiscountAssignments[0]) {
                              $scope.globalAssignments = response.globalDiscountAssignments[0];
                         }
@@ -1190,6 +1335,28 @@ console.log(' -------------- -------------- -------------- -------------- ');
                 });
                 
             }
+        };
+
+        $scope.delPriceLevelDiscAssignment = function(common_id) {
+
+            $scope.data = {};
+            if ($localStorage.userId != undefined) {
+                   
+                $scope.data.seller_id = $localStorage.userId;
+                $scope.data.common_id = common_id;
+                if ($state.params.id) {
+                      $scope.data.discount_id = $state.params.id;
+                }
+                console.log('$scope.data', $scope.data);
+                
+                $serviceTest.delPriceLevelDiscAssignment($scope.data, function(response) {
+                    if (response.code == 200) {
+                         $location.path("/view_discounts/list");
+                    } 
+                });
+                
+            }
+
         };
 
 
@@ -1567,3 +1734,71 @@ angular.module('alisthub').directive('validNumber', function() {
       };
     });
 
+angular.module('alisthub').directive('tooltip', function ($document, $compile) {
+  return {
+    restrict: 'A',
+    scope: true,
+    link: function (scope, element, attrs) {
+
+      var tip = $compile('<div ng-class="tipClass">{{ text }}<div class="tooltip-arrow"></div></div>')(scope),
+          tipClassName = 'tooltip',
+          tipActiveClassName = 'tooltip-show';
+
+      scope.tipClass = [tipClassName];
+      scope.text = attrs.tooltip;
+      
+      if(attrs.tooltipPosition) {
+        scope.tipClass.push('tooltip-' + attrs.tooltipPosition);
+      }
+      else {
+       scope.tipClass.push('tooltip-down'); 
+      }
+      $document.find('body').append(tip);
+      
+      element.bind('mouseover', function (e) {
+        tip.addClass(tipActiveClassName);
+        
+        var pos = e.target.getBoundingClientRect(),
+            offset = tip.offset(),
+            tipHeight = tip.outerHeight(),
+            tipWidth = tip.outerWidth(),
+            elWidth = pos.width || pos.right - pos.left,
+            elHeight = pos.height || pos.bottom - pos.top,
+            tipOffset = 10;
+        
+        if(tip.hasClass('tooltip-right')) {
+          offset.top = pos.top - (tipHeight / 2) + (elHeight / 2);
+          offset.left = pos.right + tipOffset;
+        }
+        else if(tip.hasClass('tooltip-left')) {
+          offset.top = pos.top - (tipHeight / 2) + (elHeight / 2);
+          offset.left = pos.left - tipWidth - tipOffset;
+        }
+        else if(tip.hasClass('tooltip-down')) {
+          offset.top = pos.top + elHeight + tipOffset;
+          offset.left = pos.left - (tipWidth / 2) + (elWidth / 2);
+        }
+        else {
+          offset.top = pos.top - tipHeight - tipOffset;
+          offset.left = pos.left - (tipWidth / 2) + (elWidth / 2);
+        }
+
+        tip.offset(offset);
+      });
+      
+      element.bind('mouseout', function () {
+        tip.removeClass(tipActiveClassName);
+      });
+
+      tip.bind('mouseover', function () {
+        tip.addClass(tipActiveClassName);
+      });
+
+      tip.bind('mouseout', function () {
+        tip.removeClass(tipActiveClassName);
+      });
+
+      
+    }
+  }
+});

@@ -1,389 +1,376 @@
 <div ng-hide="price_and_link_div">
-           <!-- Event Detail Form -->
-
-            <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
-            
-    <form  name="myForm1" novalidate ng-submit="price_and_link_data(data1)">
-
-   <section class="row">
-              <section class="col-sm-4">
-                  <div class="form-group" ng-class="{ 'has-error' : myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid }"  >
-                    <label class="form-label">Event Inventory<span class="req">*</span></label>
-                    <input  type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" ng-blur="eventInventoryCalc()" required >
-
-                    <p class="help-inline error-fld ng-binding"  ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">Enter valid event inventory.</p>
-
-                  </div>
-<!--
-<p>
-  <input type="submit"
-  ng-disabled="myForm1.$dirty && myForm1.$invalid ">
-</p>-->
-              </section>
-              <section class="col-sm-4">
-                  <div class="form-group">
-                    <label class="form-label">Type of Event</label>
-                    <section class="radio-sec with-ftext">
-                          <section class="radio-inline">
-                              <input id="radio111" type="radio"  name="type_of_event" ng-model="data1.type_of_event"  value="0">
-                              <label for="radio111"><span></span>Ticketed</label>
-                          </section>
-                            <section class="radio-inline">
-                          <input id="radio2222" type="radio"   name="type_of_event" ng-model="data1.type_of_event" value="1">
-                          <label for="radio2222"><span></span>Registration</label>
-                          </section>
-                   </section>
-                  </div>
-              </section>
-          </section>
-   <!--Ticket Types Start -->
-          <div class="module">
-              <section class="prof-hd">
-                   <i class="fa fa-ticket hdicon pos-l16"></i>
-                    <h2>Ticket Types <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+  <!-- Event Detail Form -->
+  <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
+  
+  <form  name="myForm1" novalidate ng-submit="price_and_link_data(data1)">
+    <section class="row">
+      <section class="col-sm-4">
+        <div class="form-group" ng-class="{ 'has-error' : myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid }"  >
+          <label class="form-label">Event Inventory<span class="req">*</span></label>
+          <input  type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" ng-blur="eventInventoryCalc()" required >
+          <p class="help-inline error-fld ng-binding"  ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">Enter valid event inventory.</p>
+        </div>
+        <!--
+        <p>
+          <input type="submit"
+          ng-disabled="myForm1.$dirty && myForm1.$invalid ">
+        </p>-->
+      </section>
+      <section class="col-sm-4">
+        <div class="form-group">
+          <label class="form-label">Type of Event</label>
+          <section class="radio-sec with-ftext">
+            <section class="radio-inline">
+              <input id="radio111" type="radio"  name="type_of_event" ng-model="data1.type_of_event"  value="0">
+              <label for="radio111"><span></span>Ticketed</label>
             </section>
-                <section class="gray-frame sub-fields">
-                  <section class="grid-btn-top row">
-                      <section class="col-sm-7">
-                        <section class="radio-sec">
-                          <section class="radio-inline">
-                              <input type="radio" id="radio011"  name="price" ng-model="data1.price"   value="0">
-                              <label for="radio011"><span></span>Arrange by price</label>
-                          </section>
-                            <section class="radio-inline">
-                          <input id="radio022" type="radio"  name="price" ng-model="data1.price"  value="1">
-                          <label for="radio022"><span></span>Manually Arrange</label>
-                          </section>
-                         </section>
-                      </section>
-                      <section class="col-sm-5 right-btns text-right">
-                        
-                         <button class="pink-btn btn btn-small m-fw" type="button" ng-click="open_price_level('lg')">ADD PRICE LEVEL</button>
-                      </section>
-                    </section>
-
-<!--************************************* remaining section by***DEEPAK K ****************************-->
-                      <section class="grid-btn-top row">
-                      <section class="col-sm-7">
-                      </section>
-                      <section class="col-sm-3 right-btns text-right">
-                      <label>Remaining Inventory : {{totalRemainings}}</label>
-                      </section>
-                      <section class="col-sm-3 right-btns text-right" ng-if="totalRemainingsError">
-                      <label style="color: #ff0000 !important;">Invalid Event Inventory</label>
-                      </section>
-                      </section>
-<!-- ************************************************************************************************* -->
-
-
-                      <section class="grid-widget">
-                      <span ng-show="success_message1" ><p class="success-fld ng-binding">{{success1}}</p></span> 
-                      <span><p>{{activation_message}}</p></span> 
-         
-     <div class="table-responsive">
-              
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th width="15%">Name</th>
-                <th width="10%" class="numbers">Sold/Remaining</th>
-                <th width="13%" class="numbers">Price</th>
-                <th width="14%" class="numbers">Box office <span class="l-b">Price</span></th>
-                <th width="12%" class="numbers">Limit</th>
-                <th width="23%">&nbsp;</th>
-            </tr>
+            <section class="radio-inline">
+              <input id="radio2222" type="radio"   name="type_of_event" ng-model="data1.type_of_event" value="1">
+              <label for="radio2222"><span></span>Registration</label>
+            </section>
+          </section>
+        </div>
+      </section>
+    </section>
+    <!--Ticket Types Start -->
+    <div class="module">
+      <section class="prof-hd">
+        <i class="fa fa-ticket hdicon pos-l16"></i>
+        <h2>Ticket Types <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+      </section>
+      <section class="gray-frame sub-fields">
+        <section class="grid-btn-top row">
+          <section class="col-sm-7">
+            <section class="radio-sec">
+              <section class="radio-inline">
+                <input type="radio" id="radio011"  name="price" ng-model="data1.price"   value="0">
+                <label for="radio011"><span></span>Arrange by price</label>
+              </section>
+              <section class="radio-inline">
+                <input id="radio022" type="radio"  name="price" ng-model="data1.price"  value="1">
+                <label for="radio022"><span></span>Manually Arrange</label>
+              </section>
+            </section>
+          </section>
+          <section class="col-sm-5 right-btns text-right">
             
-        </thead>
-        <tbody>
+            <button class="pink-btn btn btn-small m-fw" type="button" ng-click="open_price_level('lg')">ADD PRICE LEVEL</button>
+          </section>
+        </section>
+        <!--************************************* remaining section by***DEEPAK K ****************************-->
+        <section class="grid-btn-top row">
+          <section class="col-sm-7">
+          </section>
+          <section class="col-sm-3 right-btns text-right">
+            <label>Remaining Inventory : {{totalRemainings}}</label>
+          </section>
+          <section class="col-sm-3 right-btns text-right" ng-if="totalRemainingsError">
+            <label style="color: #ff0000 !important;">Invalid Event Inventory</label>
+          </section>
+        </section>
+        <!-- ************************************************************************************************* -->
+        <section class="grid-widget">
+          <span ng-show="success_message1" ><p class="success-fld ng-binding">{{success1}}</p></span>
+          <span><p>{{activation_message}}</p></span>
           
-            <tr ng-repeat="price in price_level track by $index">
-                <td><strong>{{price.price_level_name}}</strong></td>
-                <td class="numbers">0/{{price.quantity_available}}</td>
-                <td class="numbers">${{price.online_price}}</td>
-                <td class="numbers">${{price.box_office_price}}</td>
-                <td class="numbers">{{price.max_per_order}}</td>
-                <td class="action">
+          <div class="table-responsive">
+            
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th width="15%">Name</th>
+                  <th width="10%" class="numbers">Sold/Remaining</th>
+                  <th width="13%" class="numbers">Price</th>
+                  <th width="14%" class="numbers">Box office <span class="l-b">Price</span></th>
+                  <th width="12%" class="numbers">Limit</th>
+                  <th width="23%">&nbsp;</th>
+                </tr>
+                
+              </thead>
+              <tbody>
+                
+                <tr ng-repeat="price in price_level track by $index">
+                  <td><strong>{{price.price_level_name}}</strong></td>
+                  <td class="numbers">0/{{price.quantity_available}}</td>
+                  <td class="numbers">${{price.online_price}}</td>
+                  <td class="numbers">${{price.box_office_price}}</td>
+                  <td class="numbers">{{price.max_per_order}}</td>
+                  <td class="action">
                     <a ng-click="getPrice(price.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
                     <a ng-click="price_change('lg',price.id)" style="cursor: pointer;"><i class="fa fa-tags"></i></a>
                     <a ng-click="changeStatus(price.id,price.is_active)" ng-confirm-click="Would you like to change Price level status ?" style="cursor: pointer;"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a>
                     <a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a></td>
-            </tr>
-            <tr ng-show="loader">
-          <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
-     </tr>
-           
-           
-
-        </tbody>
-
-    </table>
-
-
+                  </tr>
+                  <tr ng-show="loader">
+                    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                  </tr>
+                  
+                  
+                </tbody>
+              </table>
+            </div>
+          </section>
+          
+          <section class="grid-bottm clearfix">
+            <section class="gr-right pull-right">
+              <ul class="legends">
+                <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+                <li><i class="fa fa-tags"></i><span>change price</span></li>
+                <li><i class="fa fa-check-circle"></i><span>active</span></li>
+                <li><i class="fa fa-trash"></i><span>delete</span></li>
+              </ul>
+            </section>
+          </section>
+          
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group row">
+                <section class="col-sm-3" ng-hide="age_div">
+                  <label> Ages<span class="req">*</span></label>
+                  <select class="form-control" name="custom_ages" ng-model="data1.custom_ages">
+                    
+                    <option ng-repeat="age in ages" value="{{age.age}}">{{age.name}}</option>
+                  </select>
+                  
+                </section>
+                <section class="col-sm-3" ng-hide="dynamic_age_div">
+                  <label>Ages<span class="req">*</span></label>
+                  <input type="text" class="form-control"  name="dynamic_age" ng-model="data1.dynamic_age">
+                </section>
+                <section class="col-sm-3 f-12">
+                  <label>&nbsp;</label>
+                  <span ng-hide="age_text_div"><a ng-click="custom_age()" style="cursor: pointer;" class="u-text with-ftext"><strong>Define a custom age limit</strong></a></span>
+                  <span ng-hide="return_age_text_div"><a ng-click="custom_default_age()" style="cursor: pointer;" class="u-text with-ftext"><strong>Return to Default age limits</strong></a></span>
+                </section>
+              </div>
+            </div>
           </div>
+        </section>
+      </div>
+      <!-- Ticket Types Closed -->
+      <!-- Bundles Start -->
+      <section class="module">
+        <section class="prof-hd">
+          <i class="fa fa-database hdicon pos-l16"></i>
+          <h2>Bundles <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+        </section>
+        <section class="gray-frame sub-fields">
+          <section class="grid-btn-top row">
+            
+            <section class="col-sm-5 pull-right text-right">
+              <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_bundle('lg')">ADD a Bundle</button>
+            </section>
+          </section>
+          <section class="grid-widget">
+            <span ng-show="success_message_bundle" class="ng-hide"><p class="success-fld ng-binding">{{success_bundle}}</p></span>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th width="15%">Name</th>
+                    <th width="10%" class="numbers">Price</th>
+                    <th width="14%" class="numbers">Box Office Price</th>
+                    <th width="13%" class="numbers">Per-Sale Limit</th>
+                    <th width="14%" class="numbers">Max Inventory Set</th>
+                    <th width="23%">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="bundle in bundleList track by $index">
+                    <td><strong>{{bundle.bundle_name}}</strong></td>
+                    <td class="numbers">${{bundle.total_online}}</td>
+                    <td class="numbers">${{bundle.total_boxoffice}}</td>
+                    <td class="numbers">${{bundle.bundle_limit}}</td>
+                    <td class="numbers">${{bundle.bundle_inventory}}</td>
+                    <td class="action">
+                      <a ng-click="add_bundle('lg',bundle.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                      <a ng-click="changeBundleStatus(bundle.id,bundle.status)" ng-confirm-click="Would you like to change bundle status ?">
+                        <i class="fa fa-check-circle" ng-if="bundle.status == 'true'"></i>
+                        <i class="fa fa-times" ng-if="bundle.status == 'false'"></i>
+                      </a>
+                      <a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                    </td>
+                  </tr>
+                  <tr ng-show="loader_bundle">
+                    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          
+          <section class="grid-bottm clearfix">
+            <section class="gr-right pull-right">
+              <ul class="legends">
+                <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+                <li><i class="fa fa-check-circle"></i><span>active</span></li>
+                <li><i class="fa fa-trash"></i><span>delete</span></li>
+              </ul>
+            </section>
+          </section>
+        </section>
       </section>
-                  
-                  <section class="grid-bottm clearfix">
-                    <section class="gr-right pull-right">
-                      <ul class="legends">
-                          <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                            <li><i class="fa fa-tags"></i><span>change price</span></li>
-                            <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                            <li><i class="fa fa-trash"></i><span>delete</span></li>
-                        </ul>
-                    </section>
-                </section>
-                
-                  <div class="row">
-                      <div class="col-sm-12">
-                          <div class="form-group row">                            
-                            <section class="col-sm-3" ng-hide="age_div">
-                                <label> Ages<span class="req">*</span></label>
-                                <select class="form-control" name="custom_ages" ng-model="data1.custom_ages">
-                                   
-                                  <option ng-repeat="age in ages" value="{{age.age}}">{{age.name}}</option>
-                                </select>
-                               
-                            </section>
-                            <section class="col-sm-3" ng-hide="dynamic_age_div">
-                              <label>Ages<span class="req">*</span></label>
-                              <input type="text" class="form-control"  name="dynamic_age" ng-model="data1.dynamic_age">
-                            </section>
-                            <section class="col-sm-3 f-12">
-                              <label>&nbsp;</label>
-                                <span ng-hide="age_text_div"><a ng-click="custom_age()" style="cursor: pointer;" class="u-text with-ftext"><strong>Define a custom age limit</strong></a></span>
-                                <span ng-hide="return_age_text_div"><a ng-click="custom_default_age()" style="cursor: pointer;" class="u-text with-ftext"><strong>Return to Default age limits</strong></a></span>
-                            </section>
-                          </div>
-                        </div>
-                </div>
-
-            </section>
-          </div>
-          <!-- Ticket Types Closed -->
-          <!-- Bundles Start -->
-          <section class="module">
-              <section class="prof-hd">
-                   <i class="fa fa-database hdicon pos-l16"></i>
-                    <h2>Bundles <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
-                 </section>
-                <section class="gray-frame sub-fields">
-                  <section class="grid-btn-top row">
-                      
-                      <section class="col-sm-5 pull-right text-right">
-                        <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_bundle('lg')">ADD a Bundle</button>
-                      </section>
-                    </section>
-                  <section class="grid-widget">
-                  <span ng-show="success_message_bundle" class="ng-hide"><p class="success-fld ng-binding">{{success_bundle}}</p></span>
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th width="15%">Name</th>
-                                <th width="10%" class="numbers">Price</th>
-                                <th width="14%" class="numbers">Box Office Price</th>
-                                <th width="13%" class="numbers">Per-Sale Limit</th>
-                                <th width="14%" class="numbers">Max Inventory Set</th>
-                                <th width="23%">&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="bundle in bundleList track by $index">
-                                <td><strong>{{bundle.bundle_name}}</strong></td>
-                                <td class="numbers">${{bundle.total_online}}</td>
-                                <td class="numbers">${{bundle.total_boxoffice}}</td>
-                                <td class="numbers">${{bundle.bundle_limit}}</td>
-                                <td class="numbers">${{bundle.bundle_inventory}}</td>
-                                <td class="action">
-                                  <a ng-click="add_bundle('lg',bundle.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-                                  <a ng-click="changeBundleStatus(bundle.id,bundle.status)" ng-confirm-click="Would you like to change bundle status ?">
-                                    <i class="fa fa-check-circle" ng-if="bundle.status == 'true'"></i>
-                                    <i class="fa fa-times" ng-if="bundle.status == 'false'"></i>
-                                  </a>
-                                  <a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            <tr ng-show="loader_bundle">
-                                  <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                  </section>
-                  
-                  <section class="grid-bottm clearfix">
-                    <section class="gr-right pull-right">
-                      <ul class="legends">
-                        <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                        <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                        <li><i class="fa fa-trash"></i><span>delete</span></li>
-                      </ul>
-                    </section>
-                  </section>
+      <!-- Bundles Closed -->
+      <!--Product Start -->
+      <div class="module">
+        <section class="prof-hd">
+          <i class="fa fa-shopping-cart hdicon pos-l16"></i>
+          <h2>Product <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+        </section>
+        <section class="gray-frame sub-fields">
+          <section class="grid-btn-top row">
+            <section class="col-sm-5 right-btns text-right">
+              <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_product('lg')">Add Product</button>
             </section>
           </section>
-          <!-- Bundles Closed --> 
-          <!--Product Start -->
-          <div class="module">
-              <section class="prof-hd">
-                   <i class="fa fa-shopping-cart hdicon pos-l16"></i>
-                    <h2>Product <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
-              </section>
-              <section class="gray-frame sub-fields">
-                <section class="grid-btn-top row">                      
-                  <section class="col-sm-5 right-btns text-right">
-                    <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_product('lg')">Add Product</button>
-                  </section>
-                </section>
-                <section class="grid-widget">
-                  <span ng-show="success_message_product" class="ng-hide"><p class="success-fld ng-binding">{{success_product}}</p></span>
-                    <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th width="25%">Name</th>
-                                <th width="25%" class="numbers">Price</th>
-                                <th width="30%" class="numbers">Positioning</th>
-                                <th width="20%">&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          <tr ng-repeat="eventProduct in eventProductList track by $index">
-                            <td><strong>{{eventProduct.product_name}}</strong></td>
-                            <td class="numbers">${{eventProduct.price}}</td>
-                            <td class="numbers">
-                              <span class="l-b" ng-if="eventProduct.placement_listing == 1 && eventProduct.placement_confirmation == 0">Listing Page</span>
-                              <span class="l-b" ng-if="eventProduct.placement_listing == 0 && eventProduct.placement_confirmation == 1">Confirmation Page</span>
-                              <span class="l-b" ng-if="eventProduct.placement_listing == 1 && eventProduct.placement_confirmation == 1">Listing Page, Confirmation Page</span>
-                            </td>
-                            <td class="action">
-                              <a ng-click="add_product('lg',eventProduct.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-                              <a ng-click="delete_event_product('',$index,eventProduct.id)" style="cursor: pointer;"><i class="fa fa-trash"></i>
-                              </a>
-                            </td>
-                          </tr>
-                          <tr ng-show="loader_bundle">
-                            <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
-                          </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                </section>
-                
-                <section class="grid-bottm clearfix">
-                  <section class="gr-right pull-right">
-                    <ul class="legends">
-                      <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                      <li><i class="fa fa-trash"></i><span>delete</span></li>
-                    </ul>
-                  </section>
-                </section>
+          <section class="grid-widget">
+            <span ng-show="success_message_product" class="ng-hide"><p class="success-fld ng-binding">{{success_product}}</p></span>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th width="25%">Name</th>
+                    <th width="25%" class="numbers">Price</th>
+                    <th width="30%" class="numbers">Positioning</th>
+                    <th width="20%">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="eventProduct in eventProductList track by $index">
+                    <td><strong>{{eventProduct.product_name}}</strong></td>
+                    <td class="numbers">${{eventProduct.price}}</td>
+                    <td class="numbers">
+                      <span class="l-b" ng-if="eventProduct.placement_listing == 1 && eventProduct.placement_confirmation == 0">Listing Page</span>
+                      <span class="l-b" ng-if="eventProduct.placement_listing == 0 && eventProduct.placement_confirmation == 1">Confirmation Page</span>
+                      <span class="l-b" ng-if="eventProduct.placement_listing == 1 && eventProduct.placement_confirmation == 1">Listing Page, Confirmation Page</span>
+                    </td>
+                    <td class="action">
+                      <a ng-click="add_product('lg',eventProduct.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                      <a ng-click="delete_event_product('',$index,eventProduct.id)" style="cursor: pointer;"><i class="fa fa-trash"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr ng-show="loader_bundle">
+                    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </section>
-          </div>
-          <!-- Product Closed -->
-          <!--Links Start -->
-          <div class="module">
-  <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
-    <h2>Links <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
-  </section>
-  <section class="gray-frame">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="EventName"> Video</label>
-          <input type="url" name="video" ng-model="data1.video" class="form-control" placeholder="Video Url"/>
-          <span style="color:red" ng-show="myForm1.video.$dirty && myForm1.video.$invalid">
-  <span ng-show="myForm1.video.$error.required">Video is required</span>
-  </span>
-    <span style="color:red" ng-show="myForm1.video.$dirty && myForm1.video.$invalid">
-  <span ng-show="myForm1.video.$error.url">Not a valid video URL</span>
-  </span>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="EventName"> Facebook</label>
-          <input type="url" name="facebook" ng-model="data1.facebook"  class="form-control" placeholder="Facebook Url"/>
-          <span style="color:red" ng-show="myForm1.facebook.$dirty && myForm1.facebook.$invalid">
-  <span ng-show="myForm1.facebook.$error.url">Not a valid Facebook URL</span>
-  </span>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="EventName"> Twitter</label>
-          <input type="url" name="twitter" ng-model="data1.twitter"   class="form-control"  placeholder="Twitter Url"/>
-           <span style="color:red" ng-show="myForm1.twitter.$dirty && myForm1.twitter.$invalid">
-  <span ng-show="myForm1.twitter.$error.url">Not a valid Twitter URL</span>
-  </span>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="EventName"> Event Website</label>
-          <input type="url" class="form-control"  name="eventwebsite" ng-model="data1.eventwebsite"   placeholder="Event Website" />
-          <span style="color:red" ng-show="myForm1.eventwebsite.$dirty && myForm1.eventwebsite.$invalid">
-  <span ng-show="myForm1.eventwebsite.$error.url">Not a valid website URL</span>
-  </span>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-          <!--Links Closed -->
-          <!-- Search options Start -->
-           <div class="form-group clearfix">
-              <section class="prof-hd">
-                   <i class="fa fa-search hdicon pos-l16"></i>
-                    <h2>Search options <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+          
+          <section class="grid-bottm clearfix">
+            <section class="gr-right pull-right">
+              <ul class="legends">
+                <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+                <li><i class="fa fa-trash"></i><span>delete</span></li>
+              </ul>
             </section>
-                <section class="gray-frame">
-                  <div class="row">
-                      <div class="col-sm-6">
-                          <div class="form-group">
-                            <label for="EventName"> Additional Keywords/Tags</label>
-                            <input type="text" name="keyword"  ng-model="data1.keyword" class="form-control" placeholder="Additional Keywords/Tags"/>
-                            <span style="color:red" ng-show="myForm1.keyword.$dirty && myForm1.keyword.$invalid">
-  <span ng-show="myForm1.keyword.$error.required">Additional Keywords/Tags is required</span>
-  </span>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                  <div class="col-sm-4">
-                          <div class="form-group">
-                            <label for="EventName"> Categories<span class="req">*</span></label>
-                            
-                            <select class="form-control" name="category1" ng-model="data1.category1">
-                            <option ng-repeat="cat in cat1" value="{{cat.category_id}}" >{{cat.name}}</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-sm-4 text-drop">
-                          <div class="form-group">
-                            <select class="form-control" ng-model="data1.category2">
-                             <option ng-repeat="cat in cat1" value="{{cat.category_id}}">{{cat.name}}</option>  
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-sm-4 text-drop">
-                          <div class="form-group">
-                            <select class="form-control" ng-model="data1.category3">
-                             <option ng-repeat="cat in cat1" value="{{cat.category_id}}">{{cat.name}}</option> 
-                            </select>
-                          </div>
-                        </div></div>
-
-            </section>
+          </section>
+        </section>
+      </div>
+      <!-- Product Closed -->
+      <!--Links Start -->
+      <div class="module">
+        <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
+          <h2>Links <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+        </section>
+        <section class="gray-frame">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="EventName"> Video</label>
+                <input type="url" name="video" ng-model="data1.video" class="form-control" placeholder="Video Url"/>
+                <span style="color:red" ng-show="myForm1.video.$dirty && myForm1.video.$invalid">
+                  <span ng-show="myForm1.video.$error.required">Video is required</span>
+                </span>
+                <span style="color:red" ng-show="myForm1.video.$dirty && myForm1.video.$invalid">
+                  <span ng-show="myForm1.video.$error.url">Not a valid video URL</span>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="EventName"> Facebook</label>
+                <input type="url" name="facebook" ng-pattern="/(?:http:\/\/)?(?:www\.)?facebook\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-]*)/" ng-model="data1.facebook"  class="form-control" placeholder="Facebook Url"/>
+                <span style="color:red" ng-show="myForm1.facebook.$dirty && myForm1.facebook.$invalid">
+                  <span ng-show="myForm1.facebook.$error.pattern">Not a valid Facebook URL</span>
+                </span>
+              </div>
+            </div>
           </div>
-           <!-- Search options Closed -->
-           <div class="editor-btn">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="EventName"> Twitter</label>
+                <input type="url" name="twitter" ng-model="data1.twitter"   class="form-control"  placeholder="Twitter Url" ng-pattern="/(?:http:\/\/)?(?:www\.)?twitter\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-]*)/"/>
+                <span style="color:red" ng-show="myForm1.twitter.$dirty && myForm1.twitter.$invalid">
+                  <span ng-show="myForm1.twitter.$error.pattern">Not a valid Twitter URL</span>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="EventName"> Event Website</label>
+                <input type="url" class="form-control"  name="eventwebsite" ng-model="data1.eventwebsite"   placeholder="Event Website" />
+                <span style="color:red" ng-show="myForm1.eventwebsite.$dirty && myForm1.eventwebsite.$invalid">
+                  <span ng-show="myForm1.eventwebsite.$error.url">Not a valid website URL</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!--Links Closed -->
+      <!-- Search options Start -->
+      <div class="form-group clearfix">
+        <section class="prof-hd">
+          <i class="fa fa-search hdicon pos-l16"></i>
+          <h2>Search options <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+        </section>
+        <section class="gray-frame">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="EventName"> Additional Keywords/Tags</label>
+                <input type="text" name="keyword"  ng-model="data1.keyword" class="form-control" placeholder="Additional Keywords/Tags"/>
+                <span style="color:red" ng-show="myForm1.keyword.$dirty && myForm1.keyword.$invalid">
+                  <span ng-show="myForm1.keyword.$error.required">Additional Keywords/Tags is required</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="EventName"> Categories<span class="req">*</span></label>
+                
+                <select class="form-control" name="category1" ng-model="data1.category1">
+                  <option ng-repeat="cat in cat1" value="{{cat.category_id}}" >{{cat.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 text-drop">
+              <div class="form-group">
+                <select class="form-control" ng-model="data1.category2">
+                  <option ng-repeat="cat in cat1" value="{{cat.category_id}}">{{cat.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 text-drop">
+              <div class="form-group">
+                <select class="form-control" ng-model="data1.category3">
+                  <option ng-repeat="cat in cat1" value="{{cat.category_id}}">{{cat.name}}</option>
+                </select>
+              </div>
+            </div></div>
+          </section>
+        </div>
+        <!-- Search options Closed -->
+        <div class="editor-btn">
           <button type="button" ng-click="click_menu(steps[0])" class="gray-btn btn">Back</button>
-           <button type="submit" class="pink-btn btn">Save</button>
+          <button type="submit" class="pink-btn btn">Save</button>
           <button type="button" ng-click="click_menu(steps[2])" class="pink-btn btn">Next</button>
         </div>
-          
-</form>
-       </div>
+        
+      </form>
+    </div>
