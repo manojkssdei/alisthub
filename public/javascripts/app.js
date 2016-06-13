@@ -275,7 +275,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /*********create series.****************/
 
-         .state('create_series', {
+        /* .state('create_series', {
             url: '/create_series',
             
             views: {
@@ -290,12 +290,39 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_series/service.js').then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/event_series/controller.js']);
+                return $ocLazyLoad.load(['modules/event_series/controller.js','javascripts/bootstrap-timepicker.js']);
                 })
               }]
             }
           
+        })*/
+         
+         .state('create_series_step1', {
+            url: '/create_series_step1/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'seriesStep1Controller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_series/views/create_series_step1.html',
+				},
+				
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_series/service.js')/*.then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    })*/.then(function(){
+                    return $ocLazyLoad.load(['modules/event_series/step1_controller.js','javascripts/bootstrap-timepicker.js']);
+                    })
+               
+              }]
+            }
         })
+         
+         
          ////////////////*************EVENT PACKAGE****************************/////
            .state('create_package', {
             url: '/create_package',
