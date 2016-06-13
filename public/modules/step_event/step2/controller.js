@@ -1,4 +1,4 @@
-angular.module('alisthub').controller('stepevent2Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad) {
+angular.module('alisthub').controller('stepevent2Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
   $scope.loader = false;
   
 
@@ -9,6 +9,31 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
   $rootScope.success_message1 = false;
 
   $eventId = $localStorage.eventId;
+   var event_id=$stateParams.eventId;
+   
+     $serviceTest.getEvent({'event_id':event_id},function(response){
+        
+        $scope.data1=response.results[0];
+		$scope.data1.facebook=response.results[0].facebook_url;
+		$scope.data1.twitter=response.results[0].twitter_url;
+		$scope.data1.eventwebsite=response.results[0].website_url;
+		$scope.data1.eventinventory=response.results[0].inventory;
+    });
+	$serviceTest.getEventCat({'event_id':event_id},function(response){
+	 
+	 angular.forEach(response.result,function(value, key){
+	 var k=key+1;
+	 if(k==1){
+	 $scope.data1.category1=(value.category_id).toString();
+	 }
+	 if(k==2){
+	 $scope.data1.category2=(value.category_id).toString();
+	 }
+	 if(k==3){
+	 $scope.data1.category3=(value.category_id).toString();
+	 }
+	 });
+	});
   $scope.eventBundle = {};
 
   $scope.eventBundle.eventId = $localStorage.eventId;
@@ -964,6 +989,29 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     }
   };
 
+   //To get Products
+  $scope.getBundleProducts = function() {
+    if ($localStorage.userId !== undefined) {
+      $scope.data.userId = $localStorage.userId;
+
+      if ($rootScope.editBundleId === undefined) {
+        $scope.data.bundleId = $localStorage.bundleId;
+      } else {
+        $scope.data.bundleId = $rootScope.editBundleId;
+      }
+
+      $serviceTest.getBundleProducts($scope.data, function(response) {
+        $scope.loader = false;
+        if (response.code === 200) {
+          $scope.productList = response.result;
+        } else {
+          $scope.error_message = response.error;
+        }
+      });
+    }
+  };
+
+
   $scope.eventPrice = {};
   $scope.getEventPriceLevel = function() {
     if ($localStorage.userId !== undefined) {
@@ -1019,7 +1067,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
                     $scope.step_1 = $scope.step_3 = false;
 
                     // Get product list 
-                    $scope.getProduct();
+                    $scope.getBundleProducts();
                     $scope.getEventPriceLevel();
                   } else {
                     $localStorage.bundleId = bundle.id;
@@ -1035,7 +1083,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
                       $scope.step_1 = $scope.step_3 = false;
 
                       // Get product list 
-                      $scope.getProduct();
+                      $scope.getBundleProducts();
                       $scope.getEventPriceLevel();
                     });
                   }
@@ -1054,7 +1102,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
                   $scope.step_1 = $scope.step_3 = false;
 
                   // Get product list 
-                  $scope.getProduct();
+                  $scope.getBundleProducts();
                   $scope.getEventPriceLevel();
                 }
               });

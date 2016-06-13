@@ -208,6 +208,12 @@ module.exports = function(app, express) {
     router.post('/updateBundle', bundle_setting.updateBundle);
     /* get bundle lists */
     router.post('/getBundles', bundle_setting.getBundles);
+
+    /* get bundle lists */
+    router.post('/getBundleProducts', bundle_setting.getBundleProducts);
+
+    
+
     /* change the bundle status */
     router.post('/changeBundleStatus', bundle_setting.changeBundleStatus);
     /* remove the bundle  */

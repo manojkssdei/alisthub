@@ -7,14 +7,45 @@ Module : Event step
 
 
 angular.module("google.places", []);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad) {
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
 
   $scope.loader = false;
-  console.log($localStorage);
-  //$localStorage.eventId = null;
-
-  //For Step 1
+   //For Step 1
   var $serviceTest = $injector.get("venues");
+  if($stateParams.eventId==='')
+  {
+   $localStorage.eventId=null;
+  }
+  else{
+    
+     var event_id=$stateParams.eventId;
+     $serviceTest.getEvent({'event_id':event_id},function(response){
+        
+        $scope.data=response.results[0];
+        $scope.selected1 = $scope.venues[1];
+        $scope.data.eventname=response.results[0].title;
+        $scope.starttime=$scope.startevent_time=response.results[0].start_time;
+        $scope.endtime=$scope.endevent_time=response.results[0].end_time;
+        $scope.data.content=response.results[0].description;
+        $scope.data.venuename=response.results[0].venue_name;
+        $scope.location_event_div=true;$scope.venue_event_div=$scope.select_delect_event=false;
+        $scope.select_delect_event = false;
+      var d = new Date(response.results[0].eventdate);
+      var curr_date = d.getDate();
+      var curr_month = d.getMonth();
+      var day = d.getDay();
+      var curr_year = d.getFullYear();
+      var cur_mon = d.getMonth() + 1;
+      $rootScope.single_start_date = curr_year + "-" + cur_mon + "-" + curr_date;
+      $rootScope.selectevent_date = weekday[day] + " " + m_names[curr_month] + " " + curr_date + "," + curr_year;
+       
+     });
+  }
+  
+ 
+ 
+
+ 
   //To show or hide divs
   $scope.select_delect_event = $scope.monthly_div = $scope.days_div = $scope.error_message = $scope.error_time_message = true;
   $rootScope.success_message1 = false;
@@ -692,6 +723,12 @@ $scope.rec_year_func = function() {
   $scope.open4 = function() {
     $scope.popup4.opened = true;
   };
+  $scope.open5 = function() {
+    $scope.popup5.opened = true;
+  };
+  $scope.open6 = function() {
+    $scope.popup6.opened = true;
+  };
   ////
 
   $scope.popup1 = {
@@ -708,6 +745,13 @@ $scope.rec_year_func = function() {
     opened: false
   };
   ////
+  $scope.popup5 = {
+    opened: false
+  };
+
+  $scope.popup6 = {
+    opened: false
+  };
 
 
   $scope.option_ckeditor = {
@@ -894,9 +938,11 @@ $scope.rec_year_func = function() {
     }
     //Event Setting div
     if (menu.id === 8) {
+
       //if (objectForm.myForm.$valid === true) {
           $location.path("/create_event_step4/"+$localStorage.eventId);
      /* } else {
+>>>>>>> upstream/master
         $scope.error_message = false;
         $scope.error = global_message.event_step1_msg;
         $timeout(function() {

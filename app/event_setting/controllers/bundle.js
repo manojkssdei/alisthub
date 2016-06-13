@@ -241,6 +241,27 @@ exports.getProducts = function(req,res){
 }
 
 
+/** 
+Method: getBundleProducts
+Description:Function to fetch related to seller 
+Created : 2016-04-25
+Created By: Manoj kumar  
+*/
+exports.getBundleProducts = function(req,res){
+  //console.log('ashish'+req.body.bundleId);
+  //'SELECT * from products as p LEFT JOIN bundle_qty as bq on bq.product_id=p.id and bq.bundle_id=56 where p.seller_id=127 ORDER BY created DESC'
+
+  connection.query('SELECT p.*, bq.product_id,bq.bundle_id,bq.pricelevel_id,bq.qty from products as p LEFT JOIN bundle_qty as bq on bq.product_id=p.id and bq.bundle_id = '+req.body.bundleId+' where p.seller_id = '+req.body.userId+ ' ORDER BY created DESC', function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
+}
+
+
+
+
 exports.getEventPriceLevel=function(req,res){
     console.log(req.body);
     //SELECT * FROM price_levels as p LEFT JOIN bundle_qty as bq on bq.pricelevel_id = p.id and bq.bundle_id = 56 where event_id = 1977 

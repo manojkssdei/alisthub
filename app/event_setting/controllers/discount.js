@@ -21,7 +21,6 @@ exports.getDiscounts = function(req, res) {
         var event_count = "SELECT count(*) AS count, discount_id FROM discount_assignments WHERE seller_id =" + req.body.userId + " GROUP BY discount_id";
         console.log('event_count' , event_count); 
         connection.query(event_count, function(err2, cresults) {
-
             res.json({ result: results, counts: cresults, code: 200 });
         });
 
