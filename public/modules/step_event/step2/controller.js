@@ -989,6 +989,29 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     }
   };
 
+   //To get Products
+  $scope.getBundleProducts = function() {
+    if ($localStorage.userId !== undefined) {
+      $scope.data.userId = $localStorage.userId;
+
+      if ($rootScope.editBundleId === undefined) {
+        $scope.data.bundleId = $localStorage.bundleId;
+      } else {
+        $scope.data.bundleId = $rootScope.editBundleId;
+      }
+
+      $serviceTest.getBundleProducts($scope.data, function(response) {
+        $scope.loader = false;
+        if (response.code === 200) {
+          $scope.productList = response.result;
+        } else {
+          $scope.error_message = response.error;
+        }
+      });
+    }
+  };
+
+
   $scope.eventPrice = {};
   $scope.getEventPriceLevel = function() {
     if ($localStorage.userId !== undefined) {
@@ -1044,7 +1067,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
                     $scope.step_1 = $scope.step_3 = false;
 
                     // Get product list 
-                    $scope.getProduct();
+                    $scope.getBundleProducts();
                     $scope.getEventPriceLevel();
                   } else {
                     $localStorage.bundleId = bundle.id;
@@ -1060,7 +1083,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
                       $scope.step_1 = $scope.step_3 = false;
 
                       // Get product list 
-                      $scope.getProduct();
+                      $scope.getBundleProducts();
                       $scope.getEventPriceLevel();
                     });
                   }
@@ -1079,7 +1102,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
                   $scope.step_1 = $scope.step_3 = false;
 
                   // Get product list 
-                  $scope.getProduct();
+                  $scope.getBundleProducts();
                   $scope.getEventPriceLevel();
                 }
               });

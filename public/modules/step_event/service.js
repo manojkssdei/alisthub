@@ -88,6 +88,12 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
       callback(res.data);
     });
   };
+
+  url.getBundleProducts = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getBundleProducts,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
   
   //get getBundleDetail
   url.getBundleDetail = function(jsondata,callback){
