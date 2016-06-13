@@ -35,8 +35,12 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
 	 });
 	});
   $scope.eventBundle = {};
-
-  $scope.eventBundle.eventId = $localStorage.eventId;
+  
+  if($stateParams.eventId!=undefined) {
+    $scope.eventBundle.eventId = $stateParams.eventId;
+  } else {
+    $scope.eventBundle.eventId = $localStorage.eventId;
+  }
   $scope.eventBundle.userId = $localStorage.userId;
   //To get bundles
   $serviceTest.getBundles($scope.eventBundle, function(response) {
@@ -47,7 +51,12 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
 
   /* To fetch the product data related to specific event*/ 
   $scope.product = {};
-  $scope.product.eventId = $localStorage.eventId;
+  if($stateParams.eventId!=undefined) {
+    $scope.product.eventId = $stateParams.eventId;
+  } else {
+    $scope.product.eventId = $localStorage.eventId;
+  }
+  
   $scope.product.userId = $localStorage.userId;
   $serviceTest.getEventProducts($scope.product, function(response) {
     $rootScope.eventProductList = response.result;
@@ -81,7 +90,13 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
       $scope.availQuantity=0;
       $scope.totalRemainings=0;
 
-      $serviceTest.getPricelevel({'eventId':$localStorage.eventId},function(response){
+      if($stateParams.eventId!=undefined) {
+        var pricelevelEventId = $stateParams.eventId;
+      } else {
+        var pricelevelEventId = $localStorage.eventId;
+      }
+
+      $serviceTest.getPricelevel({'eventId' : pricelevelEventId},function(response){
         $rootScope.price_level=response.results;
 
         $scope.priceLevel=response.results;
