@@ -30,7 +30,7 @@
                                             <div class="col-xs-12" ng-class="{ 'has-error' : userForm.venue_name.$invalid && !userForm.venue_name.$pristine }">
                                                 <div class="form-group">
                                                     <label for="Venue">Venue<span class="req">*</span></label>
-                                                    <input type="text" class="form-control" name="venue_name" ng-model="data.venue_name" required>
+                                                    <input type="text" class="form-control" name="venue_name" ng-model="data.venue_name" required  tooltips tooltip-template="A brief description of the venue." >
                                                 <p ng-show="userForm.venue_name.$invalid && !userForm.venue_name.$pristine" class="error-fld ng-binding">Enter Venue name.</p>
                                                 </div>
                                                 
@@ -125,7 +125,8 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="Zipcode">Capacity<span class="req"></span></label>
-                                                    <input type="number" min="0" class="form-control" name="capacity" ng-model="data.capacity">
+                                                    <input type="number" min="0" class="form-control" name="capacity" ng-model="data.capacity"  tooltips tooltip-template="The maximum number of people the venue can admit for an event." 
+>
                                                     <p ng-show="userForm.capacity.$invalid && !userForm.capacity.$pristine" class="error-fld ng-binding">Enter a valid number.</p>
                                                 </div>
                                             </div>
@@ -134,13 +135,15 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="City">Contact Name<span class="req"></span></label>
-                                                    <input type="text" class="form-control" name="contact_name" ng-model="data.contact_name">
+                                                    <input type="text" class="form-control" name="contact_name" ng-model="data.contact_name"  tooltips tooltip-template="The name of the main contact at the venue. " 
+>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="Zipcode">Phone<span class="req"></span></label>
-                                                    <input type="text" class="form-control" name="phone" ng-model="data.phone">
+                                                    <input type="text" class="form-control" name="phone" ng-model="data.phone"  tooltips tooltip-template="Venue phone number." 
+>
                                                 </div>
                                             </div>
                                         </div>
@@ -148,13 +151,15 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="City">Fax<span class="req"></span></label>
-                                                    <input type="text" class="form-control" name="fax" ng-model="data.fax">
+                                                    <input type="text" class="form-control" name="fax" ng-model="data.fax"  tooltips tooltip-template="Venue fax number." 
+>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="Zipcode">Email<span class="req"></span></label>
-                                                    <input type="email" class="form-control" name="email" ng-model="data.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+                                                    <input type="email" class="form-control" name="email" ng-model="data.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"  tooltips tooltip-template="Email address for the main contact at the venue. " 
+>
                                                     <p ng-show="(userForm.email.$invalid && !userForm.email.$pristine) || userForm.email.$error.pattern" class="error-fld ng-binding">Enter a valid email.</p>  
                                                 </div>
                                             </div>
@@ -163,7 +168,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="City">URL<span class="req"></span></label>
-                                                    <input type="url" class="form-control" name="url" ng-model="data.url">
+                                                    <input type="url" class="form-control" name="url" ng-model="data.url"  tooltips tooltip-template="Venue website." >
                                                     <p ng-show="userForm.url.$invalid && !userForm.url.$pristine" class="error-fld ng-binding">Enter a valid url.</p> 
                                                 </div>
                                             </div>
@@ -172,7 +177,8 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="City">Image<span class="req"></span></label>
-                                                    <input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg">
+                                                    <input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg"  tooltips tooltip-template="Must be under 2MB." 
+>
                                                     <p>
                                                     <div id="imgTest" ng-model="picDatatest"></div>
                                                     &nbsp;</p>
@@ -184,7 +190,8 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="Zipcode">Seating Chart<span class="req"></span></label>
-                                                    <input  id="inputFileToLoad5" type="file" onchange="angular.element(this).scope().encodeChartFileAsURL(this)" file-model="file.seating_chart" accept="image/jpeg" >
+                                                    <input  id="inputFileToLoad5" type="file" onchange="angular.element(this).scope().encodeChartFileAsURL(this)" file-model="file.seating_chart" accept="image/jpeg"  tooltips tooltip-template="Must be under 2MB." 
+>
                                                     <p>
                                                     <div id="imgTest5" ng-model="picDatatest5"></div>
                                                     &nbsp;</p>

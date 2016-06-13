@@ -173,8 +173,8 @@
                     <div class="row">
                         <div class="col-sm-4" >
                             <div class="form-group">
-                                <label for="EventName">Use Limit<span class="req-limit">*</span></label>
-                                <input  type="number" min="0" class="form-control" placeholder="Limit" ng-model="data.usage_limit" name="usage_limit" required="true"/>
+                                <label for="EventName"  tooltips tooltip-template="The number of times this coupon can be used for this assignment." >Use Limit<span class="req-limit">*</span></label>
+                                <input  type="number" min="0" class="form-control" placeholder="Limit" ng-model="data.usage_limit" name="usage_limit" required="true"  tooltips tooltip-template="The number of times this coupon can be used for this assignment." />
                                 <p ng-show="userForm.usage_limit.$invalid && !userForm.usage_limit.$pristine" class="error-fld ng-binding">Enter valid usage limit.</p>
                             </div>
                         </div>
