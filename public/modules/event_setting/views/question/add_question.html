@@ -20,8 +20,9 @@
                       <div class="row">
                         <div class="col-sm-6" ng-class="{ 'has-error' : userForm.question_type.$invalid && !userForm.question_type.$pristine }">
                           <div class="form-group">
-                            <label for="EventName">Question Type<span class="req">*</span></label>
-                            <select class="form-control" name="question_type" ng-change="showDiv();" ng-model="data.question_type" required>
+                            <label for="EventName" tooltips tooltip-template="Choosing Text will display a text input.<br />Choosing Multiple Choice will display the options you add to the customer in a dropdown menu. They will only be able to select one answer.<br />Choosing Waiver will display the waiver text and a check box that the customer is required to check before proceding.">Question Type<span class="req" >*</span></label>
+                            <select 
+ class="form-control" name="question_type" ng-change="showDiv();" ng-model="data.question_type" title="Choosing Text will display a text input.<br />Choosing Multiple Choice will display the options you add to the customer in a dropdown menu. They will only be able to select one answer.<br />Choosing Waiver will display the waiver text and a check box that the customer is required to check before proceding." required>
                               <option>Text</option>
 			      <option>Multiple Choice</option>
 			      <option>Waiver</option>
@@ -36,7 +37,7 @@
                         <div class="col-xs-12" ng-class="{ 'has-error' : userForm.question_name.$invalid && !userForm.question_name.$pristine }">
                           <div class="form-group">
                             <label for="Venue">Question<span class="req">*</span></label>
-                            <textarea class="form-control" name="question_name" ng-model="data.question_name" required></textarea>
+                            <textarea  tooltips tooltip-template="The question that you’d like to ask customers during checkout. Maximum 250 characters." class="form-control" name="question_name" ng-model="data.question_name" required></textarea>
                           <p ng-show="userForm.question_name.$invalid && !userForm.question_name.$pristine" class="error-fld ng-binding">Enter Question name.</p>
                           </div>
 			  
@@ -44,9 +45,9 @@
                       </div>
                       <div class="row">
                         <div class="col-xs-12">
-			 <label for="Venue">Required</label>
+			 <label for="Venue" tooltips tooltip-template="Select Yes to require customers to answer this question before the checkout process can be completed.">Required</label>
                           <div class="onoffswitch">
-			 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.required" value="1" checked>
+			 <input type="checkbox"  name="onoffswitch" title="Select Yes to require customers to answer this question before the checkout process can be completed." class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.required" value="1" checked>
 			 <label class="onoffswitch-label" for="myonoffswitch4"></label>
 		       </div>
                         </div>
@@ -115,14 +116,16 @@
                         <div class="col-xs-12">
 			 <label for="Venue">Waiver Text</label>
 			 
-			 <div ckeditor="option_ckeditor" ng-model="data.weaver_text" ready="onReady()"></div>
+			 <div  tooltips tooltip-template="The waiver text" 
+ ckeditor="option_ckeditor" ng-model="data.weaver_text" ready="onReady()"></div>
                          </div>
 		      </div>
 		      
 		      <div class="row" ng-show="div_2">
                         <div class="col-xs-12">
 			 <label for="Venue">Agreement Phrase</label>
-			 <input type="text" name="data.agree_phase" ng-model="data.agree_phase"> 
+			 <input  tooltips tooltip-template="The option you are asking the customer to agree to" 
+ type="text" name="data.agree_phase" ng-model="data.agree_phase"> 
                          </div>
 		       </div>
 		      <!-- End Div 2 -->
@@ -131,12 +134,14 @@
 		      <div class="row" ng-show="div_3">
                         <div class="col-xs-6">
 			 <label for="Venue">Address Mapping</label>
-			 <input type="checkbox" name="address_map_bill" ng-model="data.address_map_bill">  Map To Billing Address
+			 <input  tooltips tooltip-template="If selected, the address information from this question will be copied over when a sale is created." 
+ type="checkbox" name="address_map_bill" ng-model="data.address_map_bill">  Map To Billing Address
 	   
                          </div>
 			<div class="col-xs-6">
 			 <label for="Venue">&nbsp;</label>
-			  <input type="checkbox" name="address_map_ship" ng-model="data.address_map_ship">  Map To Shipping Address   
+			  <input  tooltips tooltip-template="If selected, the address information from this question will be copied over when a sale is created." 
+ type="checkbox" name="address_map_ship" ng-model="data.address_map_ship">  Map To Shipping Address   
                          </div>
 		      </div>
 		     

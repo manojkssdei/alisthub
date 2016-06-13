@@ -184,6 +184,16 @@
                         <h2>Product Details 2<span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
                     </section>
                     <section class="gray-frame">
+                    <div class="row">
+                    <div class="col-sm-12">
+<p>The total order will also include a <strong>Flat Shipping Fee</strong></p><br/>
+<p>Fulfillment Fees are contracted between the seller and the fulfiller. ALIST Solutions LLC does not add this fee; it is included in the <strong>Retail Price.</strong></p><br/>
+<p>After each sale, ALIST Solutions LLC records the <strong>Fulfillment Fee</strong> owed to the fulfiller.</p><br/><br/>
+<hr/>
+
+                    </div>
+                    </div>
+
                         <div class="row">
                             <div class="col-sm-4" ng-class="{ 'has-error' : userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine }">
                                 <div class="form-group">
@@ -204,7 +214,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="EventName"> Service Fee Covered</label>
-                                    <input  type="number" min="0" class="form-control" placeholder="Service Fee Covered" ng-model="data.service_fee" name ="service_fee"/>
+                                    <input  type="number" min="0" class="form-control" placeholder="Service Fee Covered" ng-model="data.service_fee" name ="service_fee" tooltips tooltip-template="The percentage (0 – 100) of the per product service fee that you’re paying. If you’re passing the entire service fee on to the customer, set to 0%."/>
                                     <p ng-show="userForm2.service_fee.$invalid && !userForm2.service_fee.$pristine" class="error-fld ng-binding">Enter valid service fee.</p>
                                     
                                 </div>
@@ -257,6 +267,13 @@
                         <h2>Product Details 3<span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
                     </section>
                     <section class="gray-frame">
+
+                     <div class="row">
+                    <div class="col-sm-12">
+<p>If the product has multiple sizes, colors, or formats for the buyer to choose, define them here.</p><br/>
+<p>If the product is one-size-fits-all (e.g., pens, glowsticks) then select "Single" and define an inventory.</p><br/><br/>
+<hr/>
+                    </div>
                         <div class="row">
                             <div class="col-sm-3" ng-class="{ 'has-error' : userForm3.configuration.$invalid && !userForm3.configuration.$pristine }">
                                 <div class="form-group">
@@ -270,7 +287,7 @@
                             </div>
                             <div class="col-sm-9" ng-show="data_configuration">
                                 <div class="form-group">
-                                    <label for="EventName"> Display Name</label>
+                                    <label for="EventName"> Display Name  (Option - e.g., "Size", "Color")</label>
                                     <input type="text" class="form-control" placeholder="Display Name" ng-model="data.display_name"/>
                                 </div>
                                 
@@ -291,7 +308,7 @@
 			    <div class="col-sm-3" ng-show="!data_configuration">
 			    <div class="form-group"  ng-class="{ 'has-error' : userForm3.inventory.$invalid && !userForm3.inventory.$pristine }">
                                     <label for="EventName"> Inventory <span class="req">*</span></label>
-                                    <input  type="number" min="0" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration" required name="inventory"/>
+                                    <input  type="number" min="0" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration" required name="inventory" tooltips tooltip-template="Current inventory" />
                                     <p ng-show="userForm3.inventory.$invalid && !userForm3.inventory.$pristine" class="error-fld ng-binding">Enter Inventory.</p>
 
                                 </div>
@@ -301,7 +318,7 @@
 			     <div class="col-sm-3" ng-show="!data_configuration" ng-class="{ 'has-error' : userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine }">
                                 <div class="form-group">
                                     <label for="EventName"> Pre Sale Limit <span class="req">*</span></label>
-                                    <input  type="number" min="0" name="pre_sale_limit" class="form-control"  ng-model="data.pre_sale_limit" ng-required="!data_configuration">
+                                    <input  type="number" min="0" name="pre_sale_limit" class="form-control"  ng-model="data.pre_sale_limit" ng-required="!data_configuration" tooltips tooltip-template="Max items per sale" >
                                     <p ng-show="userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine" class="error-fld ng-binding">Enter Pre Sale Limit.</p>
                                     
                                 </div>
@@ -312,6 +329,8 @@
                        
                         <!--- Step 4 -->
                         <section class="grid-widget" ng-show="data_configuration">
+                        <br/><label>Value (e.g., Small, Medium, Large, Red, Blue, Black)</label>
+                        <br/><br/>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -341,10 +360,10 @@
                                             </td>
                                             <td><textarea class="form-control" placeholder="Details" ng-model="cdata[key.id].description"/></textarea></td>
                                             <td><input type="checkbox" ng-model="cdata[key.id].print_voucher"></td>
-                                            <td><input type="number" min="0" class="form-control" placeholder="limit" ng-model="cdata[key.id].pre_sale_limit" name="pre_sale_limit" />
+                                            <td><input type="number" min="0" class="form-control" placeholder="limit" ng-model="cdata[key.id].pre_sale_limit" name="pre_sale_limit" tooltips tooltip-template="Max items per sale"/>
 <p ng-show="userForm3.pre_sale_limit.$invalid && !userForm3.pre_sale_limit.$pristine" class="error-fld ng-binding">Enter valid limit.</p>
                                             </td>
-                                            <td><input type="text" class="form-control" placeholder="Inventory" ng-model="cdata[key.id].inventory" name="inventory"/>
+                                            <td><input type="text" class="form-control" placeholder="Inventory" ng-model="cdata[key.id].inventory" name="inventory" tooltips tooltip-template="Current Inventory"/>
                                             <p ng-show="userForm3.inventory.$invalid && !userForm3.inventory.$pristine" class="error-fld ng-binding">Enter valid inventory.</p>
                                             </td>
                                             <td><a  ng-click="removeMoreRowKey($index,key.id)"><i class="fa fa-trash"></i></a></td>
