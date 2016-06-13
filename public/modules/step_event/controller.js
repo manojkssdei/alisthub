@@ -1211,3 +1211,96 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
     $uibModalInstance.dismiss('cancel');
   };
 });
+
+angular.module('alisthub').controller('advanceSetting', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad) { 
+
+  if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+  }
+
+  var $serviceTest = $injector.get("venues");
+
+ $scope.data = {};
+
+ $scope.getAdvanceSetting = function() {
+  console.log('calling getAdvanceSetting');
+            if ($localStorage.userId != undefined) {
+                $scope.data.seller_id = $localStorage.userId;
+                $scope.data.event_id = 10;
+                $serviceTest.getAdvanceSetting($scope.data, function(response) {
+                    $scope.loader = false;
+                    if (response.code == 200) {
+                        $scope.data = {};
+                        $scope.data = response.result[0];
+                    } else {
+                        $scope.error_message = response.error;
+                    }
+
+                });
+
+            }
+        };
+  $scope.getAdvanceSetting();
+
+  $scope.saveAdvanceSettings = function() {
+      if ($localStorage.userId != undefined) {
+            $scope.data.event_id = 10;
+            $scope.data.seller_id = $localStorage.userId;
+            $serviceTest.saveAdvanceSettings($scope.data, function(response) {
+                if (response.code == 200) {
+                    $rootScope.success_message = true;
+                    $rootScope.success = global_message.advanceSettingSaved;
+                    $scope.data = response.result[0];
+                } else {
+                    $scope.error_message = true;
+                    $scope.error =  global_message.advanceSettingSavingError;
+
+                  $timeout(function() {
+                    $scope.error_message = false;
+                    $scope.error = '';
+                  }, 3000);
+                }
+
+            });
+        } 
+  }
+
+
+     /* Edit advance settings of seller*/
+   /*if ($state.params.id) {
+        $scope.callfunction = 1;
+        
+        $scope.getAdvanceSetting = function() {
+            if ($localStorage.userId != undefined) {
+                $scope.data.seller_id = $localStorage.userId;
+                $scope.data.event_id = $state.params.id;
+                $serviceTest.getAdvanceSetting($scope.data, function(response) {
+                    $scope.loader = false;
+                    if (response.code == 200) {
+                        $scope.data = {};
+                        $scope.data = response.result[0];
+                    } else {
+                        $scope.error_message = response.error;
+                    }
+
+                });
+
+            }
+        };
+        $scope.getAdvanceSetting();
+        $scope.editAdvanceSetting = function() {
+            if ($localStorage.userId != undefined) {
+                $scope.data.seller_id = $localStorage.userId;
+                $scope.data.id = $state.params.id;
+                $serviceTest.saveAdvanceSettings($scope.data);
+            }
+        };
+    }
+    */
+    
+
+
+
+  
+});
+

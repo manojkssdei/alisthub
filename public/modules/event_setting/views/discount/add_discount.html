@@ -17,8 +17,11 @@
                             <div>
                                 <p class="success-fld" ng-show="success_message">{{success}}</p>
                             </div>
-                            <div>
-                                <p ng-show="edit_note">Note: Changes to this coupon will affect all of the events for which this coupon is applied.</p>
+                            <div class="col-sm-12">
+                                <p ng-show="edit_note"><strong>Note:</strong> Changes to this coupon will affect all of the events for which this coupon is applied.</p>
+                                <br/>
+                                <br/>
+                                <hr/>
                             </div>
                         </div>
                         <div class="row">
@@ -28,8 +31,8 @@
                                         <div class="row">
                                             <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_type.$invalid && !userForm.coupon_type.$pristine }">
                                                 <div class="form-group">
-                                                    <label for="EventName">Coupon Type<span class="req">*</span></label>
-                                                    <select class="form-control" name="coupon_type" ng-change="showPageLayout();" ng-model="data.coupon_type" ng-required = "true">
+                                                    <label for="EventName" tooltips tooltip-template="{{coupon_type_tooltip}}" >Coupon Type<span class="req">*</span></label>
+                                                    <select class="form-control" name="coupon_type" ng-change="showPageLayout();" ng-model="data.coupon_type" ng-required = "true" >
                                                         <option>Discount</option>
                                                         <option>Automatic</option>
                                                         <option>Reserve</option>
@@ -42,15 +45,15 @@
                                             </div>
                                             <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_name.$invalid && !userForm.coupon_name.$pristine }">
                                                 <div class="form-group">
-                                                    <label for="EventName">Coupon Name<span class="req">*</span></label>
-                                                    <input type="text" class="form-control" name="coupon_name" placeholder="Coupon name" ng-model="data.coupon_name" ng-required = "true"/>
+                                                    <label for="EventName" tooltips tooltip-template="Enter unique names to identify different coupons." >Coupon Name<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="coupon_name" placeholder="Coupon name" ng-model="data.coupon_name" ng-required = "true"  tooltips tooltip-template="Enter unique names to identify different coupons." />
                                                     <p ng-show="userForm.coupon_name.$invalid && !userForm.coupon_name.$pristine" class="error-fld ng-binding">Enter coupon name.</p>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4" ng-class="{ 'has-error' : userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine }" ng-show="coupon_code_div">
                                                 <div class="form-group">
-                                                    <label for="EventName">Code<span class="req">*</span></label>
-                                                    <input type="text" class="form-control" name="coupon_code" placeholder="Coupon code" ng-model="data.coupon_code" ng-required = "data.coupon_type !='Automatic'" ng-blur="checkUniqueDiscount()"/>
+                                                    <label for="EventName" tooltip-template="Distribute this code to customers. The code must be entered during the checkout process to receive the discount. Limit 15 characters.">Code<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" name="coupon_code" placeholder="Coupon code" ng-model="data.coupon_code" ng-required = "data.coupon_type !='Automatic'" ng-blur="checkUniqueDiscount()"  tooltips tooltip-template="Distribute this code to customers. The code must be entered during the checkout process to receive the discount. Limit 15 characters." />
                                                     <p ng-show="userForm.coupon_code.$invalid && !userForm.coupon_code.$pristine" id="coupon_code_error_div" class="error-fld ng-binding">Enter code.</p>
                                                 </div>
                                             </div>
@@ -67,8 +70,8 @@
                                             </div>
                                             <div class="col-sm-4" ng-class="{ 'has-error' : userForm.amount.$invalid && !userForm.amount.$pristine }" ng-show="amount_div">
                                                 <div class="form-group">
-                                                    <label for="EventName">Amount{{data.amount_type.symbol}}<span class="req">*</span></label>
-                                                    <input  type="number" min="0" class="form-control" name="amount" placeholder="Amount in dollars" ng-model="data.amount" ng-required = "data.coupon_type =='Automatic' || data.coupon_type =='Discount'" validNumber />
+                                                    <label for="EventName"  tooltips tooltip-template="The discounted amount per order.">Amount{{data.amount_type.symbol}}<span class="req">*</span></label>
+                                                    <input  type="number" min="0" class="form-control" name="amount" placeholder="Amount in dollars" ng-model="data.amount" ng-required = "data.coupon_type =='Automatic' || data.coupon_type =='Discount'" validNumber  tooltips tooltip-template="The discounted amount per order."  />
                                                     <p ng-show="userForm.amount.$invalid && !userForm.amount.$pristine" class="error-fld ng-binding">Enter valid amount.</p>
                                                     
                                                 </div>
@@ -76,7 +79,7 @@
                                             <div class="col-sm-4" ng-class="{ 'has-error' : userForm.amount_target.$invalid && !userForm.amount_target.$pristine }" ng-show="amount_target_div">
                                                 <div class="form-group">
                                                     <label for="EventName">Amount Target($)<span class="req">*</span></label>
-                                                    <input  type="number" min="0" class="form-control" name="amount_target" placeholder="Amount in dollars" ng-model="data.amount_target" ng-required = "data.coupon_type =='Automatic'"/>
+                                                    <input tooltips tooltip-template="The target amount that must be reached in the shopping cart, before the discount is applied."  type="number" min="0" class="form-control" name="amount_target" placeholder="Amount in dollars" ng-model="data.amount_target" ng-required = "data.coupon_type =='Automatic'"  tooltips tooltip-template="The target amount that must be reached in the shopping cart, before the discount is applied." />
                                                     <p ng-show="userForm.amount_target.$invalid && !userForm.amount_target.$pristine" class="error-fld ng-binding">Enter valid target amount.</p>
                                                    
                                                 </div>

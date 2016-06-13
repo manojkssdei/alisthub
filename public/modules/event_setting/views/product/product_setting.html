@@ -11,13 +11,13 @@
                     </div>
                     <div class="col-sm-4 section-col"ng-class="{ 'has-error' : productoverviewform.flat_fee.$invalid && !productoverviewform.flat_fee.$pristine }">
                         <label>Shiping Flat Fee </label>
-                        <input  type="number" min="0" name="flat_fee" ng-model="products.flat_fee" class="form-control" placeholder="$">
+                        <input  type="number" min="0" name="flat_fee" ng-model="products.flat_fee" class="form-control" placeholder="$" tooltips tooltip-template="Shipping Flat Fee is applied to the subtotal for orders containing products fulfilled by smartdata.">
                         <p ng-show="productoverviewform.flat_fee.$invalid && !productoverviewform.flat_fee.$pristine" class="error-fld ng-binding">Enter Numbers or decimal Only.</p>
                     </div>
                     <!-- "text"  ng-pattern="/^[0-9]+([,.][0-9]+)?$/" -->
                     <div class="col-sm-4 section-col"ng-class="{ 'has-error' : productoverviewform.service_fee.$invalid && !productoverviewform.service_fee.$pristine }">
                         <label> Service Fee Covered</label>
-                        <input  type="number" min="0" class="form-control" name="service_fee"    ng-model="products.service_fee" placeholder="%"/>
+                        <input  type="number" min="0" class="form-control" name="service_fee"    ng-model="products.service_fee" placeholder="%"  tooltips tooltip-template="ALIST Solutions LLC collects a service fee for each product sold. This is the percentage (0 ‑ 100) of the per product service fee that you’re paying. If you’re passing the entire service fee on to the customer, set to 0%."/>
                         <p ng-show="productoverviewform.service_fee.$invalid && !productoverviewform.service_fee.$pristine" class="error-fld ng-binding">Enter Numbers or decimal Only.</p>
                     </div>
                     <div class="col-sm-12 editr" ng-class="{ 'has-error' : productoverviewform.description.$invalid && !productoverviewform.description.$pristine }">
