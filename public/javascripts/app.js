@@ -253,7 +253,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         .state('create_event_step4', {
             url: '/create_event_step4/:eventId',
             
-            views: {
+            views: { 
                 "lazyLoadView": {
                   controller: 'stepevent4Controller', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/step_event/step4/views/create_event_step4.html',
