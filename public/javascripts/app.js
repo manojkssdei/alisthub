@@ -1191,7 +1191,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     //var $serviceTest = $injector.get("CustomerFirstLoad");
                            // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     })*/.then(function(){
-                    return $ocLazyLoad.load(['modules/step_event/controller.js','javascripts/bootstrap-timepicker.js']);
+                    return $ocLazyLoad.load(['modules/step_event/controller.js']);
                     })
                
               }]
