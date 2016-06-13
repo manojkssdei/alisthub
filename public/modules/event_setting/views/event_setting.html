@@ -9,9 +9,10 @@
                 <h2>Venues  <span class="rt-img"><i class="fa {{venuetabclass}}"></i></span></h2>
             </section>
             <section class="gray-frame"  ng-show="venuetab">
+            <label>Location information for events (incl. name, address, time zone, etc.).</label>
                 <ul class="btns-widget clearfix">
                     <li><a href="{{redirectvenue}}"><i class="fa fa-list-ul icon-fa"></i>{{ venuecount }}  Venues</a></li>
-                    <li><a href="#/add_venue"><i class="fa fa-user icon-fa"></i>Add Venue</a></li>
+                    <li><a href="#/add_venue"><i class="fa fa-home icon-fa"></i>Add Venue</a></li>
                 </ul>
             </section>
         </section>
@@ -22,9 +23,10 @@
                 <h2>Products <span class="rt-img"><i class="fa {{producttabclass}}"></i></span></h2>
             </section>
             <section class="gray-frame" ng-show="producttab">
+            <label>Merchandise or other items included with ticket purchases.</label>
                 <ul class="btns-widget clearfix">
-                    <li><a href="{{redirectproduct}}"><i class="fa fa-user icon-fa"><span class="fa fa-plus-square-o sub-fa"></span></i>{{productcount}} Products</a></li>
-                    <li><a href="#/add_product"><i class="fa fa-user icon-fa"><span class="fa fa-pencil-square-o sub-fa"></i>Add Product</a></li>
+                    <li><a href="{{redirectproduct}}"><i class="fa fa-list-ul icon-fa"><span class="fa fa-list-ul sub-fa"></span></i>{{productcount}} Products</a></li>
+                    <li><a href="#/add_product"><i class="fa fa-qrcode icon-fa"></i>Add Product</a></li>
                 </ul>
             </section>
         </section>
@@ -35,6 +37,7 @@
                 <h2>Discount <span class="rt-img"><i class="fa {{discounttabclass}}"></i></span></h2>
             </section>
             <section class="gray-frame" ng-show="discounttab">
+            <label>Codes for special offers (e.g. discounts, presales, comps, reserve).</label>
                 <ul class="btns-widget clearfix">
                     <li><a href="{{redirectdiscount}}"><i class="fa fa-calendar-o icon-fa"></i>{{discountcount}} Discount Codes</a></li>
                     <li><a href="#/add_discount"><i class="fa fa-shopping-cart icon-fa"></i>Add Discount Code</a></li>
@@ -48,6 +51,7 @@
                 <h2>Question <span class="rt-img"><i class="fa {{questiontabclass}}"></i></span></h2>
             </section>
             <section class="gray-frame" ng-show="questiontab">
+            <label>Questions during checkout for collecting customer info (ex. surveys, marketing).</label>
                 <ul class="btns-widget clearfix">
                     <li><a href="{{redirectques}}"><i class="fa fa-plus-square-o icon-fa"></i>{{ quescount }} Question</a></li>
                     <li><a href="#/add_question"><i class="fa fa-ticket icon-fa"></i>Add Question</a></li>

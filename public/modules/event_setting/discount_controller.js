@@ -39,6 +39,7 @@ angular.module('alisthub')
     $scope.coupon_code_div = true;
     $scope.amount_type_div = true;
     $scope.amount_div = true;
+    $scope.coupon_type_tooltip = "";
 
     /*Default page layout of add discount*/
     $scope.showPageLayout = function() {
@@ -46,18 +47,39 @@ angular.module('alisthub')
         $scope.amount_type_div = false;
         $scope.amount_div = false;
         $scope.amount_target_div = false;
+        $scope.coupon_type_tooltip = "";
         if ($scope.data.coupon_type == "Discount") {
             $scope.coupon_code_div = true;
             $scope.amount_type_div = true;
             $scope.amount_div = true;
+            $scope.coupon_type_tooltip = $scope.coupon_type_options[0].description;
         }
         if ($scope.data.coupon_type == "Automatic") {
             $scope.amount_type_div = true;
             $scope.amount_div = true;
             $scope.amount_target_div = true;
+            $scope.coupon_type_tooltip = $scope.coupon_type_options[1].description;
+
         }
-        if ($scope.data.coupon_type == "Reserve" || $scope.data.coupon_type == "Presale" || $scope.data.coupon_type == "Complimentary" || $scope.data.coupon_type == "Access Code") {
+        if ($scope.data.coupon_type == "Reserve" ) {
             $scope.coupon_code_div = true;
+            $scope.coupon_type_tooltip = $scope.coupon_type_options[2].description;
+
+        }
+         if ($scope.data.coupon_type == "Presale" ) {
+            $scope.coupon_code_div = true;
+            $scope.coupon_type_tooltip = $scope.coupon_type_options[3].description;
+
+        }
+         if ($scope.data.coupon_type == "Complimentary" ) {
+            $scope.coupon_code_div = true;
+            $scope.coupon_type_tooltip = $scope.coupon_type_options[4].description;
+
+        }
+         if ($scope.data.coupon_type == "Access Code" ) {
+            $scope.coupon_code_div = true;
+            $scope.coupon_type_tooltip = $scope.coupon_type_options[5].description;
+
         }
     }
 
