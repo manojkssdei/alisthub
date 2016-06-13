@@ -88,6 +88,12 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
       callback(res.data);
     });
   };
+
+  url.getBundleProducts = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getBundleProducts,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
   
   //get getBundleDetail
   url.getBundleDetail = function(jsondata,callback){
@@ -110,7 +116,7 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
     });
      };
 
-  //change price levels
+  //change bundle status
   url.changeBundleStatus = function(jsondata,callback){
     communicationService.resultViaPost(webservices.changeBundleStatus,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
       callback(res.data);
@@ -138,6 +144,7 @@ url.saveAdvanceSettings = function(jsondata,callback){
     });
 };
 
+//Get Advanced Setting
 url.getAdvanceSetting = function(jsondata,callback){
   console.log('getAdvanceSetting service');
        communicationService.resultViaPost(webservices.getAdvanceSetting,appConstants.authorizationKey,headerConstants.json,jsondata,function(res,req){
@@ -159,6 +166,7 @@ url.getEventProducts = function(jsondata,callback){
   });
 };
 
+//Get Event Product Detail
 url.getEventProductDetail = function(jsondata,callback){
   communicationService.resultViaPost(webservices.getEventProductDetail,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
     callback(res.data);
@@ -182,6 +190,20 @@ url.getEventProductDetail = function(jsondata,callback){
   //get Products
   url.getAllProducts = function(jsondata,callback){
     communicationService.resultViaPost(webservices.getAllProducts,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+  
+  //get Event Data
+  url.getEvent = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+  
+  //get Event Categories
+  url.getEventCat = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getEventCategory,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
       callback(res.data);
     });
   };
