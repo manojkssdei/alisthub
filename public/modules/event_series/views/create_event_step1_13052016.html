@@ -1,31 +1,12 @@
 <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
 <script src="javascripts/timepicker.js" type="text/javascript"></script>
-<style>
-.DocumentList
-{
-    overflow-y:scroll;
-    overflow-x:hidden;
-    height:200px;
-    width:100%;
-    padding: 0 15px;
-}
-.ScrollVenueList{
-    overflow-y:scroll;
-    overflow-x:hidden;
-    height:400px;
-    width:100%;
-    padding: 0 15px;
-}
-</style>
 <div class="container">
-       <h1>Create an Event Series</h1>
+     <h1>Create an Event</h1>
     <!-- Step Form -->
     
     <div class="stage-container clearfix">
-        <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)">
-          <div class="stage-icon"><i class="{{step.icon}}"></i> </div>
-          <div class="stage-title">{{step.title}}</div> 
-        </div>
+      <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+        <div class="stage-title">{{step.title}}</div> </div>
     
     </div>
     
@@ -34,43 +15,91 @@
     <!-- Form COntainer -->
     
     <div class="form-section  wt-frame">
-       <div ng-hide="eventdetail_div" class="eventseries">
-       <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
+     
+
+<div ng-hide="eventdetail_div">
+     <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
           <div class="form-group">
-              <label for="eventname">Series Name<span class="req">*</span></label>
-              <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="Name of given Series" required>
-              <span style="color:red" ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">  <span  ng-show="myForm.eventname.$error.required">Series name is required</span></span>
+            <label for="eventname">Event Name<span class="req">*</span></label>
+            <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="Title of your Event" required>
+             <span style="color:red" ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">  <span  ng-show="myForm.eventname.$error.required">Event name is required</span></span>
           </div>
-          <div class="form-group field-group">
-              <label>Date and Time<span class="req">*</span></label>
-          </div>
-          
+           <div class="form-group field-group">
+            <label>Date and Time<span class="req">*</span></label>
             <div class="event-date fieldSection"> 
-    <!-- Nav tabs -->
-              <!--<div class="content-tab">
-                    <ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
-                     <li ng-repeat="event in events" ng-click="select(event)" ng-class="{active: isActive(event)}" ><a class="pointer multiple_div" href="javascript:void(0)" >{{event.name}}</a>
-                     <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype" >
-                     </li>
-                    
-                    </ul>
-              </div>-->
-               <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype" >
+              <!-- Nav tabs -->
+              <div class="content-tab">
+                <ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
+               <li ng-repeat="event in events" ng-click="select(event)" ng-class="{active: isActive(event)}" ><a class="pointer" href="javascript:void(0)" >{{event.name}}</a>
+                    <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype" >
+               </li>
+              
+                </ul>
+              </div>
+              
               <!-- Tab panes -->
               <div class="tab-content">
-                
-                <div role="tabpanel"  id="multiple-event">
-                
-                <div ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
+                <div role="tabpanel" class="active"  id="single-event" ng-hide="single_event_div">
+                  <div class="row">
+                    <div class="col-sm-4">
+                     
+                      <div class="form-group">
+                       <!-- <label>From</label>-->
+                        
+                       <uib-datepicker ng-model="start_date" class="well well-sm" datepicker-options="options" ng-change="single_eventstart(this)"></uib-datepicker>
+ 
+                      </div>
+                        <!-- <div class="form-group">
+                        <label>To</label>
+                        <uib-datepicker ng-model="end_date" class="well well-sm" datepicker-options="options1" ng-change="single_eventend()"></uib-datepicker>
+                      </div>-->
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                   <div class="form-group">
+                        <label for="StartTime">Start Time</label>
+                         <div class="input-group bootstrap-timepicker timepicker">
+                          <input  ng-model="starttime" ng-change="changedstarttime()"  class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                        </div>
+                    </div>
+                   </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="EndTime">End Time</label>
+                         <div class="input-group bootstrap-timepicker timepicker">
+                          <input ng-model="endtime" ng-change="changedendtime()" class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                         </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+             <div class="row" ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
+                  <div class="row" ng-hide="select_delect_event">
+                    <div class="col-xs-12">
+                      <label>Select/Deselect Events</label>
+                      <div class="clearfix list-event-date">
+                      <div class="col-sm-3 pull-right text-right lss-top"> <a  href="javascript:void(0)" ng-click="remove_event()"><i class="fa fa-close"></i></a> </div>
+                        <div class="col-sm-3"> {{selectevent_date }} <span style="display:none;">{{single_start_date}}</span> </div>
+                        <div class="col-sm-3"> Start Time :{{startevent_time}}</div>
+                        <div class="col-sm-3"> End Time :{{endevent_time}} </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div role="tabpanel"  id="multiple-event"  ng-hide="multiple_event_div">
+                   
+               <div ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="EndTime">Start Date<span class="req">*</span></label>
                       <div class="form-group datepicker">
-                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
-                        <span class="input-group-btn">
-                        <i class="glyphicon glyphicon-calendar" ng-click="open1()"></i></span>
-                      </div>
+                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
+                         <span class="input-group-btn">
+                           <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                     </div>
                     </div>
                   </div>
                   <div class="col-sm-4">
@@ -78,134 +107,116 @@
                       <label for="EndTime">End Date<span class="req">*</span></label>
                       <div class="form-group datepicker">
                         <input type="text" class="form-control" uib-datepicker-popup ng-model="multiple_end_date" is-open="popup2.opened" datepicker-options="dateOptions"  close-text="Close"  ng-change="recurring_period('end')"/>
-                        <span class="input-group-btn">
-                          <i class="glyphicon glyphicon-calendar" ng-click="open2()"></i>
-                        </span>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <div class="row">
                   <div class="col-sm-4">
-                    <label for="City">Recurring<span class="req">*</span></label>
-                    <div class="form-group">
+                  	<label for="City">Recurring<span class="req">*</span></label>
+                    <div class="form-group">                      
                       <select class="form-control" ng-model="data.period" ng-change="recurring_period('period')">
                         <option ng-repeat="option in timeperiod" value="{{option.id}}">{{option.name}}</option>
                       </select>
                     </div>
                   </div>
-                  <div class="col-sm-4" ng-if="dailyrecurring_div">
-                    <label>Repeat Every (Days)<span class="req">*</span></label>
-                    <div class="form-group">
-                      <input type="text" class="form-control" ng-model="rec_days_value" ng-change="rec_days_func(rec_days_value)" required>
-                    </div>
-                  </div>
-                  
                   <div class="col-sm-8 event" ng-hide="days_div">
                     <div class="form-group custom-check m-t40">
                       <p class="custom-check" ng-repeat="day in days">
                         <input type="checkbox"  ng-model="day.selected" id={{day.id}} ng-change="select_checkbox(day.selected)"  value={{day.id}}>
                         <label for="{{day.id}}">{{day.name}}</label>
                       </p>
+                      
                     </div>
                   </div>
-                  <!-- DIV END -->
                   <div class="col-sm-4 event" ng-hide="weekly_div">
                     <div class="form-group custom-check m-t30">
-                      <select ng-model="data.weekly_option" ng-change="weekly_option_change()" class="form-control">
-                        <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
-                      </select>
-                    </div>
-                  </div> 
-                  <!-- MONTHLY START -->
-                  <div class="col-sm-8 event m-t40" ng-hide="monthly_div">
-                  	<div class="inline-radio">
-                    <label class="radiolabel"><input type="radio" name="everythisday" value="everythisday" ng-model="monthly.type"><span>Select Particular Day</span></label></div> <div class="inline-radio"><label class="radiolabel"><input type="radio" name="everythisweek" value="everythisweek" ng-model="monthly.type"><span>Select Particular Week's Day</span></label></div>
-                      <div class="monthly-padding" ng-show="monthly.type == 'everythisday'">
-                        On day
-                        <select ng-model="data.monthly_option" ng-change="change_month()" class="form-control sml-sel w-auto">
-                          <option ng-repeat="date in dates" value="{{date.id}}">{{date.id}}</option>
-                        </select> 
-                        of every month
-                      </div>
-                   
-                      <div class="monthly-padding" ng-show="monthly.type == 'everythisweek'">
-                        On the 
-                        <select ng-model="data.monthly_week_value" ng-change="rec_monthly_func()" class="form-control sml-sel w-auto">
-                          <option ng-repeat="week_value in month_week_selection" value="{{week_value.id}}">{{week_value.name}}</option>
+                        <select ng-model="data.weekly_option" ng-change="weekly_option_change()" class="form-control">
+                         <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
                         </select>
-                        <select ng-model="data.monthly_day_value" ng-change="rec_monthly_func()" class="form-control sml-sel w-auto">
-                          <option ng-repeat="day in days" value="{{day.id}}">{{day.name}}</option>
-                        </select> 
-                        of every month
-                        <br><span style="color: red">{{monthly_error}}</span>
-                      </div>
-                     
+                    </div>
                   </div>
-                  <!-- MONTHLY END -->                 
+                  
+                  <div class="col-sm-4 event" ng-hide="monthly_div">
+                    <div class="form-group custom-check m-t30">
+                        <select class="form-control" ng-model="data.monthly_option" ng-change="change_month()">
+                         <option ng-repeat="date in dates" value="{{date.id}}">{{date.id}}</option>
+                        </select>
+                    </div>
+                  </div>
+                  
+                  
+                  
+
                 </div>
-                
-                <div class="row">
+                 <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="StartTime">Start Time<span class="req">*</span></label>
-                      <div class="input-group bootstrap-timepicker timepicker">
-                        <input  ng-model="multiple_starttime"  class="form-control input-small timepick" type="text" ng-change="multiplestart()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                      </div>
+                     
+                         <div class="input-group bootstrap-timepicker timepicker">
+                         <input  ng-model="multiple_starttime"  class="form-control input-small timepick" type="text" ng-change="multiplestart()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                         </div>
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="EndTime">End Time</label>
-                      <div class="input-group bootstrap-timepicker timepicker">
-                        <input  ng-model="multiple_endtime"  class="form-control input-small timepick" type="text" ng-change="multipleend()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                      </div>
+                         <div class="input-group bootstrap-timepicker timepicker">
+                         <input  ng-model="multiple_endtime"  class="form-control input-small timepick" type="text" ng-change="multipleend()"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                         </div>
                       
                     </div>
                   </div>
                 </div>
-                
+
+                             
                 <div class="row">
-                  <div class="col-xs-12 DocumentList" ng-show="between_date">
+                  <div class="col-xs-12">
                     <label>Select/Deselect Events</label>
-                    <div class="row" ng-hide="error_time_message"  ><p class="error-fld" >{{error_time_display_message}}</p></div>
-                    <div class="clearfix list-event-date form-inline" ng-repeat="between in between_date track by $index">
-                      <div class="col-sm-1 pull-right text-right lss-top"> <a ng-click="removediv($index)"><i class="fa fa-close"></i></a> </div>
-                      
-                      <div class="sel-d col-sm-3">
-                        <label> {{between| date:'EEEE MMMM dd,yyyy'}} </label>
-                      </div>
-                      <div class="sel-d col-sm-4">
-                        <label for="exampleInputName2">Start Time:</label>
-                        <div class="input-group bootstrap-timepicker timepicker">
-                          <input   class="form-control input-small timepick" type="text" ng-model="data.starttimeloop1[$index]" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                        </div>
+                     <div class="row" ng-hide="error_time_message"  ><p class="error-fld" >{{error_time_display_message}}</p></div>
+
+                    <div class="clearfix list-event-date form-inline"  ng-repeat="between in between_date track by $index">
+                         <div class="col-sm-1 pull-right text-right lss-top"> <a ng-click="removediv($index)"><i class="fa fa-close"></i></a> </div>
                         
-                        
-                      </div>
-                      <div class="sel-d col-sm-4">
-                        <label for="exampleInputEmail2">End Time : </label>
-                        <div class="input-group bootstrap-timepicker timepicker">
-                          <input   class="form-control input-small timepick" type="text" ng-model="data.endtimeloop1[$index]" ng-change="checkStartEndTime($index)"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                        </div>
-                        
-                      </div>
-                      
-                      
-                    </div>
+                           <div class="sel-d col-sm-3">
+                             <label> {{between| date:'EEEE MMMM dd,yyyy'}} </label>
+                           </div>
+                           <div class="sel-d col-sm-4">
+                             <label for="exampleInputName2">Start Time:</label>
+                          <div class="input-group bootstrap-timepicker timepicker">
+                              <input   class="form-control input-small timepick" type="text" ng-model="data.starttimeloop1[$index]" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+			 </div>
+                   
+                
+                           </div>
+                           <div class="sel-d col-sm-4">
+                             <label for="exampleInputEmail2">End Time : </label>
+                              <div class="input-group bootstrap-timepicker timepicker">    
+                              <input   class="form-control input-small timepick" type="text" ng-model="data.endtimeloop1[$index]" ng-change="checkStartEndTime($index)"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                              </div>
                     
+                           </div>
+
+           
+
+                      
+                       </div>
+      
                   </div>
                 </div>
                 
                 
+                </div>
               </div>
             </div>
-            <!---oooooooooooo-->     
-	  <!--- End Schedule code --->
-             
-	      </div><!-- ========== -->
-            </div>
-            <div class="form-group field-group">
+          </div>
+
+ <div class="form-group field-group">
             <label for="Location">Location<span class="req">*</span></label>
             <!-- Date Event Group -->
             <div class="event-date fieldSection">
@@ -221,7 +232,7 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="EventName">Venue Type<span class="req">*</span></label>
-                            <select class="form-control" ng-model="data.venuetype" autocomplete="off">
+                            <select class="form-control" ng-model="data.venuetype">
                               <option>Ticket</option>
                             </select>
                           </div>
@@ -231,7 +242,7 @@
                         <div class="col-xs-12">
                           <div class="form-group">
                             <label for="Venue">Venue<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.venuename" name="venuename" value="" autocomplete="off" required>
+                            <input type="text" class="form-control" ng-model="data.venuename" name="venuename" value="" required>
                               <span style="color:red" ng-show="myForm.venuename.$dirty && myForm.venuename.$invalid">  <span  ng-show="myForm.venuename.$error.required">Venue name is required</span></span>
                             <input type="hidden" class="form-control" ng-model="data.venueid">
                           </div>
@@ -241,7 +252,7 @@
                         <div class="col-xs-12">
                           <div class="form-group">
                             <label for="Address">Address<span class="req">*</span></label>
-                             <input type="text" class="form-control" name="place" ng-model="data.place" autocomplete="off" g-places-autocomplete required>
+                             <input type="text" class="form-control" name="place" ng-model="data.place"  g-places-autocomplete required>
                           </div>
                         </div>
                       </div>
@@ -249,14 +260,14 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="City">City<span class="req">*</span></label>
-                            <input type="text" class="form-control" name="city" ng-model="data.city" autocomplete="off" required>
+                            <input type="text" class="form-control" name="city" ng-model="data.city" required>
                               <span style="color:red" ng-show="myForm.city.$dirty && myForm.city.$invalid">  <span  ng-show="myForm.city.$error.required">City is required</span></span>
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="Zipcode">Zipcode<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" autocomplete="off" required>
+                            <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" required>
                            <span style="color:red" ng-show="myForm.zipcode.$dirty && myForm.zipcode.$invalid">  <span  ng-show="myForm.zipcode.$error.required">Zipcode is required</span></span>
                           </div>
                         </div>
@@ -265,7 +276,7 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="City">State<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.state" name="state" autocomplete="off" required>
+                            <input type="text" class="form-control" ng-model="data.state" name="state" required>
                               <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
                               
                           </div>
@@ -273,7 +284,7 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="Zipcode">Country<span class="req">*</span></label>
-                            <input type="text" class="form-control" ng-model="data.country" name="country" autocomplete="off" required>
+                            <input type="text" class="form-control" ng-model="data.country" name="country" required>
                               <span style="color:red" ng-show="myForm.country.$dirty && myForm.country.$invalid">  <span  ng-show="myForm.country.$error.required">Country is required</span></span>
                             <input type="hidden" class="form-control" ng-model="data.latitude">
                             <input type="hidden" class="form-control" ng-model="data.longitude">
@@ -283,9 +294,9 @@
                     </div>
                     <div role="tabpanel"  id="location-event" ng-hide="location_event_div">
                          <div class="row">
-                        <div class="col-sm-12 loc-list ScrollVenueList">
+                        <div class="col-sm-12 loc-list">
                          
-                     <ul>
+                  	 <ul>
                               
                             <li ng-repeat="venue in total_venue track by $index">
                                    <i class="fa fa-map-marker"></i>
@@ -294,7 +305,7 @@
                             </li>
                           
                         </ul>
-                      </div>
+                  	  </div>
                      </div>
                     </div>
                   </div>
@@ -308,114 +319,6 @@
               </div>
             </div>
           </div>
-          <div class="editr">
-              
-                    
-
-        <label>Event Description<span class="req">*</span></label>
-         <div ckeditor="option_ckeditor" name="content" required ng-model="data.content" ready="onReady()"></div>
-         <!-- create the setting section for series-->
-
-<div class="form-group field-group">
-            <label for="Location">Settings</label>
-            <!-- Date Event Group -->
-            <div class="event-date fieldSection">
-              <div class="row">
-        <div class="col-sm-12">
-        <div class="col-sm-4">
-                      <label class="form-label">Type of Event</label>
-                    </div>
-                    <div class="col-sm-4">
-                     <label for="EventName"> Categories<span class="req">*</span></label>
-                    </div>
-
-                    <div class="col-sm-4">
-                     <label> Ages<span class="req">*</span></label>
-                    </div>
-                    </div>
-                    <section class="radio-sec with-ftext col-sm-12">
-                        <div class="col-sm-4">
-                          <section class="radio-inline">
-                              <input type="radio"  name="type_of_event" ng-model="data1.type_of_event" checked>
-                              <label for="radio1"><span></span>Ticketed</label>
-                          </section>
-                          <section class="radio-inline">
-                          <input type="radio"   name="type_of_event" ng-model="data1.type_of_event">
-                          <label for="radio2"><span></span>Registration</label>
-                          </section>
-                        </div>
-                        <div class="col-sm-4">
-                   
-
-                            <select class="form-control">
-                              <option value="Ticket">Art/exhibit</option>
-                            </select>
-                        
-                        </div>
-                        <div class="col-sm-4">
-                                <select class="form-control" name="ages" ng-model="data1.ages">
-                                  <option ng-repeat="age in ages" value="{{age.id}}">{{age.name}}</option>
-                                </select>
-                               
-                          <div class="col-sm-12">
-                          <section>
-                                <span ng-hide="age_text_div">
-                                <a ng-click="custom_age()" style="cursor: pointer;" class="u-text with-ftext">
-                                <strong>Define a custom age limit</strong>
-                                </a></span>
-                                <span ng-hide="return_age_text_div"><a ng-click="custom_default_age()" style="cursor: pointer;" class="u-text with-ftext"><strong>Return to Default age limits</strong></a></span>
-                            </section>
-                            </div>
-                            
-                        </div>
-                         <div class="col-sm-12">
-                      <label class="form-label">Series Website</label>
-                   <input type="text" name="website" ng-model="website" class="form-control" required>
-                   </div>
-                  
-
-                     <div class="col-sm-12">
-                   <br>
-                   <br>
-                        <label class="form-label">Images</label>
-                         <div class="col-sm-12">
-                           <div class="col-sm-6">
-                             <input type="file" name="choose file"  width="10%" height="10%"/required>
-                           </div>
-                          <div class="radio-sec custom-check m-b20 col-md-4 col-sm-4">
-            
-                            <p class="radio-inline">
-                            <input type="checkbox" id="test2">
-                            <label for="test2">Display image an event Listing</label>
-                           </p>
-                          </div>
-                        </div>
-                     </section>
-                     
-
-                </div>
-              
-
-              </div>
-                <div class="editor-btn">
-                    <button type="submit" 
-                   ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
-                  <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
-              </div>
-        <div ng-hide="error_message" style="color:green;">{{success}}</div>
-      
-      </form>
-       </div>
-       </div>
-       </section>
-  </div>
-
- <!-------------------------------   END STEP 1 --------------------------------------------------->
- <!-------------------------------   END STEP 1 --------------------------------------------------->
- <!-------------------------------   END STEP 1 --------------------------------------------------->
- <!-------------------------------   END STEP 1 --------------------------------------------------->
- 
- 
  <fieldset>
           <div class="form-top">
             <div class="form-top-left">
@@ -469,12 +372,22 @@
           </div>
         </fieldset>
      
-      
-       
+      <div class="editr">
+              
+                    
 
-
-
-<!--price and link part -->
+        <label>Event Description<span class="req">*</span></label>
+         <div ckeditor="option_ckeditor" name="content" required ng-model="data.content" ready="onReady()"></div>
+         
+        <div class="editor-btn">
+          <button type="submit" 
+ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button> 
+          <button type="button"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
+        </div>
+        <div ng-hide="error_message" style="color:green;">{{success}}</div>
+      </div>
+      </form>
+       </div>
  <div ng-hide="price_and_link_div">
            <!-- Event Detail Form -->
    	<form  name="myForm1" novalidate>
@@ -483,10 +396,10 @@
           	  <section class="col-sm-4">
                   <div class="form-group">
                     <label class="form-label">Event Inventory<span class="req">*</span></label>
-                    <input type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" required>
-                    <p ng-show="myForm1.eventinventory.$invalid && !myForm1.eventinventory.$pristine" class="error-fld ng-binding">Enter Numbers Only.</p>
-                    <p ng-show="myForm1.eventinventory.$error.required" class="error-fld ng-binding">Event Inventory is required</p>
-
+                    <input type="number" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" required>
+                     <span style="color:red" ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">
+  <span ng-show="myForm1.eventinventory.$error.required">Event Inventory is required</span>
+  </span>
                   </div>
 <!--
 <p>
@@ -725,10 +638,6 @@
       </section>
                   
                   <section class="grid-bottm clearfix">
-                    <section class="col-sm-3 f-12">
-                              <label>&nbsp;</label>
-                                <span><a style="cursor: pointer;" class="u-text with-ftext"><strong>Please set your fulfillment setting</strong></a></span>
-                            </section>
                     <section class="gr-right pull-right">
                     	<ul class="legends">
                         	<li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
@@ -753,19 +662,107 @@
       			</section>
           </div>
           <!-- Product Closed -->
-        
-          
+          <!--Links Start -->
+          <div class="module">
+  <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
+    <h2>Links <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+  </section>
+  <section class="gray-frame">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="EventName"> Video</label>
+          <input type="text" name="video" ng-model="data1.video" class="form-control" placeholder="Video Url"/>
+          <span style="color:red" ng-show="myForm1.video.$dirty && myForm1.video.$invalid">
+  <span ng-show="myForm1.video.$error.required">Video is required</span>
+  </span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="EventName"> Facebook</label>
+          <input type="text" name="facebook" ng-model="data1.facebook"  class="form-control" placeholder="Facebook Url"/>
+          <span style="color:red" ng-show="myForm1.facebook.$dirty && myForm1.facebook.$invalid">
+  <span ng-show="myForm1.video.$error.required">Facebook Url is required</span>
+  </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="EventName"> Twitter</label>
+          <input type="text" name="twitter" ng-model="data1.twitter"   class="form-control"  placeholder="Twitter Url"/>
+           <span style="color:red" ng-show="myForm1.twitter.$dirty && myForm1.twitter.$invalid">
+  <span ng-show="myForm1.twitter.$error.required">Twitter is required</span>
+  </span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="EventName"> Event Website</label>
+          <input type="text" class="form-control"  name="eventwebsite" ng-model="data1.eventwebsite"   placeholder="Event Website" />
+          <span style="color:red" ng-show="myForm1.eventwebsite.$dirty && myForm1.eventwebsite.$invalid">
+  <span ng-show="myForm1.eventwebsite.$error.required">Event Website is required</span>
+  </span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+          <!--Links Closed -->
+          <!-- Search options Start -->
+           <div class="form-group clearfix">
+             	<section class="prof-hd">
+                   <i class="fa fa-search hdicon pos-l16"></i>
+                    <h2>Search options <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+            </section>
+                <section class="gray-frame">
+                	<div class="row">
+                	    <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="EventName"> Additional Keywords/Tags</label>
+                            <input type="text" name="keyword"  ng-model="data1.keyword" class="form-control" placeholder="Additional Keywords/Tags"/>
+                            <span style="color:red" ng-show="myForm1.keyword.$dirty && myForm1.keyword.$invalid">
+  <span ng-show="myForm1.keyword.$error.required">Additional Keywords/Tags is required</span>
+  </span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                	<div class="col-sm-4">
+                          <div class="form-group">
+                            <label for="EventName"> Categories<span class="req">*</span></label>
+                            <select class="form-control">
+                              <option value="Ticket">Dance</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-4 text-drop">
+                          <div class="form-group">
+                            <select class="form-control">
+                              <option value="Ticket">Comedy</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-4 text-drop">
+                          <div class="form-group">
+                            <select class="form-control">
+                              <option value="Ticket">Singing</option>
+                            </select>
+                          </div>
+                        </div></div>
+
+      			</section>
+          </div>
+           <!-- Search options Closed -->
            <div class="editor-btn">
-          <button type="button" ng-click="click_menu(steps[0])" class="gray-btn btn">Previous</button>
+          <button type="button" ng-click="click_menu(steps[0])" class="gray-btn btn">Back</button>
            <button type="submit" class="pink-btn btn">Save</button>
           <button type="button" ng-click="click_menu(steps[2])" class="pink-btn btn">Next</button>
         </div>
 </form>
        </div>
-
-
-
-       <!-- look and feel start-->
        <div ng-hide="look_and_feel_div"><div class="module template-view">
        <div class="main-image"><img src="images/img/f-img.jpg" alt=""/></div>
          
@@ -849,14 +846,12 @@
             <label>Sales Times</label>
             <section class="gray-frame sub-fields">            	
                 <section class="row">
-                	   <div class="col-sm-4">
+                	<div class="col-sm-4">
                         <div class="form-group">
                             <label>Online Sales Open<span class="req">*</span></label>
-                            <div class="form-group datepicker">
-                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup3.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
-                         <span class="input-group-btn">
-                           <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button></span>
-                     </div>
+                            <div id="datetimepicker1" class="input-group date">
+                              <input type="text" class="form-control">
+                              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span> </div>
                         </div>
                   </div>
                     <div class="col-sm-8">
@@ -881,15 +876,13 @@
                </section>
                        
                 <section class="row">
-                	 <div class="col-sm-4">
+                	<div class="col-sm-4">
                         <div class="form-group">
                             <label>Online Sales Open<span class="req">*</span></label>
-                                  <div class="form-group datepicker">
-                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="multiple_start_date" is-open="popup4.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats"  ng-change="recurring_period('start')"/>
-                         <span class="input-group-btn">
-                           <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button></span>
-                     </div>
-                  </div>
+                            <div id="datetimepicker1" class="input-group date">
+                              <input type="text" class="form-control">
+                              <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span> </div>
+                        </div>
                   </div>
                     <div class="col-sm-8">
                      	<section class="row text-drop">
@@ -1119,10 +1112,8 @@
             <section class="gray-frame sub-fields">           	
                <section class="content f-sb">
                		<p>Make modifications to various customer-facing features, including your event listing, checkout process and Print@home tickets, using these advanced customizations. Do not make any adjustments if you're uncertain as to what will be modified </p>
-                  <br>
                		<p>Any changes you mode to the Default Advanced Settings will automatically be set on this event You can turn any setting off or on, and even override the default, during this step </p>
-                  <br>
-                    <p><a ui-sref="advance_setting"><button class="pink-btn btn btn-small m-fw"  >Edit Event Advanced Setting</button></a></p>
+                    <p><button class="pink-btn btn btn-small m-fw">Edit Event Advanced Setting</button></p>
                </section>
             </section>
           </section><!--/Advanced Settings-->
@@ -1141,7 +1132,7 @@
     
     <!-- //Form COntainer --> 
   </div>
-<script type="text/ng-template" id="myModalContent.html"> 
+<script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
             <h3 class="modal-title">Remove Previous Event</h3>
         </div>
@@ -1249,274 +1240,15 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
         </form>
     </script>
 
-    <script type="text/ng-template" id="myModalContentBundle.html"> 
+<script type="text/ng-template" id="myModalContentBundle.html">
         <div class="modal-header">
             <h3 class="modal-title">Add a Bundle</h3>
         </div>
-        <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="savepriceleveldata(data1)" novalidate>
         <div class="modal-body">
-      
-        <!-- Step Form -->
-        <div class="stage-container stage-container-3steps clearfix">
-          <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)"><div class="stage-icon"><i class="{{step.icon}}"></i> </div>
-            <div class="stage-title">{{step.title}}</div> </div>
+            Modal Content Price
         </div>
-        <!-- //Step Form --> 
-
-
-        <div class="form-section  wt-frame">
-                <!-- Step 1 start -->
-                   <div ng-show="step_1">
-                    <!-- Event Detail Form -->
-                          <form class="event-form" name="userForm" novalidate ng-submit="saveBundle(1)">
-                                 <div>
-                                    <div class="module">
-                                        <section class="prof-hd" > <!-- add  class="prof-hd"if u need to display this as tab -->
-                                         <i class="fa fa-link hdicon pos-l16"></i>
-                                          <h2> Details <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
-                                        </section>
-                                        <section class="gray-frame">
-                                          
-
-                                          <div class="row">
-                                            <div class="col-sm-4">
-                                              <div class="form-group">
-                                                <label for="EventName">Name<span class="req">*</span></label>
-                                                <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="data.bundle_name" required/>
-                                              </div>
-                                              <span style="color:red" ng-show="userForm.bundle_name.$dirty && userForm.bundle_name.$invalid">  <span  ng-show="userForm.bundle_name.$error.required">Enter bundle name.</span></span>
-                                            </div>
-                                            <div class="col-sm-8">
-                                              <div class="form-group">
-                                                <label for="EventName"> Description</label>
-                                                <div class="bundle-editr" >
-                                                  <div ckeditor="option_ckeditor" ng-model="data.bundle_description" ready="onReady()"></div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="row">
-                                            <div class="col-sm-4" >
-                                              <div class="form-group">
-                                                <label for="EventName"> Limit<span class="req-limit">*</span></label>
-                                                <input  type="number" min="0" class="form-control" placeholder="Limit" ng-model="data.bundle_limit" name="bundle_limit"/>
-
-                                                <p ng-show="userForm.bundle_limit.$invalid && !userForm.bundle_limit.$pristine" class="error-fld ng-binding">Enter bundle limit in numbers only.</p>
-
-                                              </div>
-                                               
-                                            </div>
-                                            <div class="col-sm-4">
-                                              <div class="form-group">
-                                                <label for="EventName"> Minimum Purchase</label>
-                                                <input  type="number" min="0" class="form-control" placeholder="Minimum Purchase" ng-model="data.bundle_minimum_purchase" name="bundle_minimum_purchase"/>
-
-                                                <p ng-show="userForm.bundle_minimum_purchase.$invalid && !userForm.bundle_minimum_purchase.$pristine" class="error-fld ng-binding">Enter numbers only.</p>
-                                                
-                                              </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                              <div class="form-group">
-                                                <label for="EventName"> Multiple Ticket Holders?</label>
-                                                <div class="onoffswitch">
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="data.multiple_ticket_holder" checked>
-                                                  <label class="onoffswitch-label" for="myonoffswitch2"></label>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <br/>
-                                          <br/>
-                                          <div class="row">
-                                            <div class="col-sm-12">
-                                              <div class="form-group">
-                                                <p for="EventName"> When an inventory is not set on this bundle it will fallback to the inventory of events and pricing levels in this bundle</p>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <br/>
-                                          <br/>
-                                          <div class="row">
-                                            <div class="col-sm-4">
-                                              <div class="form-group">
-                                                <label for="EventName"> Assign Inventory?<span class="req">*</span></label>
-                                                <div class="onoffswitch">
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="data.assign_inventory"  ng-model="checked" checked>
-                                                  <label class="onoffswitch-label" for="myonoffswitch4"></label>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                              <div class="form-group">
-                                                <label for="EventName"> Inventory</label>
-                                                <input type="text" class="form-control" ng-disabled="!data.assign_inventory" placeholder="Inventory" ng-model="data.bundle_inventory"/>
-                                              </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                              <div class="form-group">
-                                                <label for="EventName"> Active</label>
-                                                <div class="onoffswitch">
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch1" ng-model="data.status" checked>
-                                                  <label class="onoffswitch-label" for="myonoffswitch1"></label>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="row">
-                                            <div class="col-sm-4">
-                                              <div class="form-group">
-                                                <label for="EventName"> Hide Online?</label>
-                                                <div class="onoffswitch">
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="data.hide_online" checked>
-                                                  <label class="onoffswitch-label" for="myonoffswitch3"></label>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                              <div class="form-group">
-                                                <label for="EventName"> Hide in box office?</label>
-                                                <div class="onoffswitch">
-                                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.hide_in_box_office" checked>
-                                                  <label class="onoffswitch-label" for="myonoffswitch5"></label>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-
-
-                                       </section>
-                                  </div>
-                                </div>
-                                
-                                <div>
-                                    <div class="editor-btn">
-                                        <button type="submit" 
-                          ng-disabled="userForm.$invalid" class="pink-btn btn">Save</button>
-                                        <button class="pink-btn btn" ng-click="click_menu({id:2});">Next</button>
-                                  </div>   
-                                </div>
-                                <div ng-hide="error_message" style="color:green;">{{success}}</div>
-                        </form>
-               </div>
-               <!-- Step 1 end -->
-              
-                 
-              <!-- Step 2 start -->
-            <div ng-show="step_2">
-              <div class="module">
-                <section class="prof-hd">
-                  <i class="fa fa-link hdicon pos-l16"></i>
-                  <h2>Products<span style="float:right;">Quantity</span></h2>
-                </section>
-                <section class="gray-frame">
-                  <div class="row">
-                    <div class="col-sm-8" >
-                      <div class="form-group">
-                        <label for="EventName">  gtr e (Price: $0.00) </label>
-                      </div>
-                    </div>
-                    <div class="col-sm-4" >
-                      <div class="form-group">
-                        <select class="form-control" ng-model="coupon_type" required>
-                          <option>0</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          <option>6</option>
-                          <option>7</option>
-                          <option>8</option>
-                          <option>9</option>
-                          <option>10</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-                <div class="editor-btn">
-                  <button class="pink-btn btn" ng-click="click_menu({id:1});">Prev</button>
-                  <button class="pink-btn btn" ng-click="saveProduct(2)">Save</button>
-                  <button class="pink-btn btn" ng-click="click_menu({id:3});">Next</button>
-                </div>
-              </div>
-            </div>
-               <!-- Step 2 end -->
-               
-               <!-- Step 3 start -->
-               <div ng-show="step_3">
-                    <div class="module">
-                        <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
-                          <h2>How much does the bundle cost?<span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
-                        </section>
-                        <section class="gray-frame">
-                            <div class="row">
-                              <div class="col-sm-12" >
-                                <div class="form-group">
-                                  <label for="EventName"> Total</label>
-                                </div>
-                              </div>
-                           </div>
-                            <section class="grid-widget">
-                                <div class="table-responsive">
-                                  <table class="table table-striped">
-                                    <thead>
-                                      <tr>
-                                          <th width="25%">Price Level</th>
-                                          <th width="25%">Quantity</th>
-                                          <th width="25%">Online Price</th>
-                                          <th width="25%">Box Office Price</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        <td>Test</td>
-                                        <td>1</td>
-                                        <td>$150.00</td>
-                                        <td>$140.00</td>
-                                       </tr>
-                                      </tbody>
-                                  </table>
-                                </div>
-                           </section>
-                      </section>
-                       <div class="editor-btn">
-                            <button class="pink-btn btn" ng-click="click_menu({id:2});">Prev</button>
-                            <button class="pink-btn btn" ng-click="saveProduct(3)">Save</button>
-                            <button class="pink-btn btn" ng-click="saveProduct(4)">Submit</button>
-                      </div> 
-                  </div>
-               </div>
-               <!-- Step 3 end --> 
-          </div>
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
-        </form>
         <div class="modal-footer">
-            
+            <button class="btn btn-primary" type="button">Submit</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
     </script>
@@ -1526,59 +1258,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
             <h3 class="modal-title">Add a Product</h3>
         </div>
         <div class="modal-body">
-            
-            <fieldset class="form-group">
-               <div class="col-sm-4">Available Products</div>
-               <div class="col-sm-8"><select ng-model="data1.price_type" name="price_type" class="form-control"
-               ng-change="change_price_type()">
-                    <option value="">---</option>
-                    <option value="test1">Test 1</option>
-                    <option value="test2">Test 2</option>
-               </select></div>
-            </fieldset>
-            <fieldset class="form-group">
-               <div class="col-sm-4">Retail Price</div>
-               <div class="col-sm-8"><span class="form-control">17.00</span></div> 
-            </fieldset>
-            
-            <fieldset class="form-group" ng-hide="min_price">
-               <div class="col-sm-4">Price(USD $)</div>
-               <div class="col-sm-8"><input type="text" ng-model="data1.minimum_price" name="minimum_price" class="form-control"></div>
-            </fieldset>
-            
-            <fieldset class="form-group">
-               <div class="col-sm-4">Placement</div>
-               <div class="col-sm-8">
-                  <section class="radio-sec custom-check">
-                    <section class="radio-inline">
-                      <input type="checkbox" id="checkbox03" name="listing" ng-model="data1.listing">
-                      <label for="checkbox03">Listing Page</label>
-                    </section>
-                    <section class="radio-inline">
-                      <input type="checkbox" id="checkbox04"  name="confirmation" ng-model="data1.confirmation">
-                      <label for="checkbox04"> Confirmation Page</label>
-                    </section>
-                  </section>
-               </div>
-            </fieldset>
-
-            <fieldset class="form-group">
-               <div class="col-sm-4">Hide in Box Office</div>
-               <div class="col-sm-8">
-
-                <section class="radio-sec">
-                  <section class="radio-inline">
-                    <div class="onoffswitch">
-                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.hide_in_box_office" checked>
-                      <label class="onoffswitch-label" for="myonoffswitch5"></label>
-                    </div>
-                  </section>
-                </section>
-               </div>
-            </fieldset>
-            
-
-
+            Modal Content Price
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" type="button">Submit</button>
