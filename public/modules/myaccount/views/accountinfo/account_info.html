@@ -189,6 +189,7 @@
             </section>
             <section class="gray-frame" ng-show="questiontab">
 
+ <form name="advSettings" class="event-form"  ng-submit="advSettings.$valid && updateUserAdvSetting(advSetting)" novalidate>
                  <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -196,11 +197,12 @@
                                 
                             </div>
                         </div>
+                       
                         <div class="col-sm-6" >
                             <div class="form-group">
                                <div class="onoffswitch mt-3">
                             <input type="checkbox" ng-true-value="1" ng-false-value="0"
-                                class="onoffswitch-checkbox" id="sidekick_thermal_printing"  ng-model="advSetting.sidekick_thermal_printing">
+                                class="onoffswitch-checkbox" id="sidekick_thermal_printing"  ng-model="advSetting.sidekick_thermal_printing" name="sidekick_thermal_printing" ng-checked="advSetting.sidekick_thermal_printing==1">
                             <label class="onoffswitch-label" for="sidekick_thermal_printing">
                                 
                             </label>
@@ -212,9 +214,11 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            <button class="pink-btn btn" ng-click="updateUserAdvSetting(1)" ng-disabled="true">Submit</button>
+                            <button class="pink-btn btn" ng-click="submitted1=true" ng-disabled="!advSettings.$valid">Submit</button>
                         </div>
                     </div>
+                    
+                    </form>
 
 
                     <!--
