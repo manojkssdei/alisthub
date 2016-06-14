@@ -38,6 +38,23 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     margin: 0px 0 15px;
     padding: 10px;
 }
+/** Create series scroll
+ */
+.DocumentList
+{
+    overflow-y:scroll;
+    overflow-x:hidden;
+    height:200px;
+    width:100%;
+    padding: 0 15px;
+}
+.ScrollVenueList{
+    overflow-y:scroll;
+    overflow-x:hidden;
+    height:400px;
+    width:100%;
+    padding: 0 15px;
+}
 
 /* Common CSS
    ========================================================================== */
@@ -156,6 +173,7 @@ select.form-control{padding:6px 12px; font-style:normal; font-style:italic; colo
 .bundle-editr{margin:15px 0px 50px 0px;}/*Editor*/
 .editr label{margin-bottom:30px;}
 
+.dtn-date{min-width:18px !important;}
 .btn{border-radius:0px; padding:8px 20px; border-radius:0px; color:#fff; font-size:14px; min-width:125px; vertical-align:middle;}
 
 .uib-datepicker td,.uib-datepicker th{
