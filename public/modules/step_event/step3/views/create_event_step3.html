@@ -118,6 +118,7 @@
 		    <div class="drag" style="display:none;">
 		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		    <a onclick="remove_widget('section1')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		    <a onclick="crop_image('banner_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
 		    </div>
 		    <div class="main-image">
 		      <img src="{{banner_image}}" id="banner_image" alt="banner image" height="150px" width="100%"  onclick="change_image()">
@@ -147,9 +148,9 @@
 		    
 		  <li data-row="2" data-col="2" data-sizex="1" data-sizey="1" id="section4">
 		    <div class="drag" style="display:none;">
-		      <span<i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		      <a onclick="remove_widget('section4')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		      
+		      <a onclick="crop_image('section2_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
 		    </div>
 		     <div class="row">
 		      <div class="col-sm-8">
@@ -166,7 +167,7 @@
 		      <div class="drag" style="display:none;">
 			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 			<a onclick="remove_widget('section5')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		      
+		        <a onclick="crop_image('section3_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
 		      </div>
 		      <div> <img src="{{section3_image}}" id="section3_image" alt="banner imageee"  height="150px" width="100%" onclick="change_image3()">
 		    <input type="file" id="my_file3"  onchange="angular.element(this).scope().encodeImageFileAsURL3(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
@@ -182,8 +183,12 @@
 		      <div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value='' class="wrap-word">
 		      </div></li>
 		    </ul>
+		  
+      
                       </div>
-                  <!-- <button onclick="test()">test</button>-->
+		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
+		<input type="text" id="select_image" value="{{select_image_val}}">
+                 </span>
 		    </section>
                </section><!--Left-->
           </section>
@@ -206,6 +211,7 @@ function change_image3()
 {
   $('#my_file3').click();
 }
+
  function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
@@ -295,7 +301,66 @@ function change_image3()
         $("#"+id).addClass("activ");
         gridster.remove_widget($('.activ'));
 	}
-    
+     var featherEditor = new Aviary.Feather({
+
+        apiKey: 'fc1c0f6d-76a8-4910-8d0f-1baf64baebdc', // your api key , you can get one from http://developers.aviary.com/
+
+        apiVersion: 3, // the api version . 3 is the last one so far
+
+        theme: 'light', // there are 'light' and 'dark' themes
+
+        tools: 'all', // you can specify the tools from here, you can include/exclude what ever you want
+
+        appendTo: '',
+
+        onSave: function(imageID, newURL) {
+
+            var img = $('#select_image').val(); 
+            
+            $("#"+img).attr('src',newURL); // after save, replacs the image with the new one from aviary.com
+
+            featherEditor.close();
+
+        },
+
+        onError: function(errorObj) { 
+
+            alert(errorObj.message);
+
+        }
+
+    });
+
+  
+    function launchEditor(id, src) {
+
+        featherEditor.launch({
+
+            image: id,
+
+            url: src
+
+        });
+
+       return false;
+
+    }
+
+    $(document).on('click', '#editImagePreview', function() {
+
+         
+         var url =$('#ImagePreview').attr("src");
+         return launchEditor('ImagePreview',url);
+
+    });
+    function crop_image(image_id)
+    {
+      $('#select_image').val(image_id);
+      var image_src=$("#"+image_id).attr('src');
+      $('#ImagePreview').attr("src",image_src);
+      var url =$('#ImagePreview').attr("src");
+      return launchEditor('ImagePreview',url);
+    }
       
     </script>
 <script type="text/ng-template" id="previewtemplate.html">

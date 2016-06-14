@@ -9,6 +9,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
      $scope.error_message = true;
 
 
+
   /** 
   Method: click_menu
   Description:Function for changing the tab 
@@ -358,9 +359,9 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
             }
         }
         
-        $scope.banner_image='images/img/f-img-o.jpg';
-        $scope.section2_image='images/img/s-img-o.jpg';
-        $scope.section3_image='images/img/f-img-o.jpg';
+        $scope.banner_image='http://s3.amazonaws.com/feather-files-aviary-prod-us-east-1/fc1c0f6d-76a8-4910-8d0f-1baf64baebdc/2016-06-14/0ee81f30b9824a3494e8c2d83d66551a.png';
+        $scope.section2_image='http://s3.amazonaws.com/feather-files-aviary-prod-us-east-1/fc1c0f6d-76a8-4910-8d0f-1baf64baebdc/2016-06-14/1de91717915b4c25b9a1cf62c8f2dccd.png';
+        $scope.section3_image='http://s3.amazonaws.com/feather-files-aviary-prod-us-east-1/fc1c0f6d-76a8-4910-8d0f-1baf64baebdc/2016-06-14/0ee81f30b9824a3494e8c2d83d66551a.png';
          $scope.encodeImageFileAsURL1 = function() {
             var filesSelected = document.getElementById("my_file").files;
             if (filesSelected.length > 0) {
@@ -382,7 +383,11 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
                             {
                              
                              if (response.result.insertId!='') {
-                                $scope.banner_image=$scope.image;
+                                 $scope.banner_image1=$scope.image;
+                                 $scope.select_image_val='banner_image';
+                                  $timeout(function() {
+                                  angular.element('#editImagePreview').click();   
+                                  },500);
                              }
                             }
                 
@@ -418,7 +423,11 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
                             {
                              
                              if (response.result.insertId!='') {
-                                $scope.section2_image=$scope.image;
+                                $scope.banner_image1=$scope.image;
+                                 $scope.select_image_val='section2_image';
+                                  $timeout(function() {
+                                  angular.element('#editImagePreview').click();   
+                                  },500);
                              }
                             }
                 
@@ -453,7 +462,12 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
                             {
                              
                              if (response.result.insertId!='') {
-                                $scope.section3_image=$scope.image;
+                                
+                                $scope.banner_image1=$scope.image;
+                                 $scope.select_image_val='section3_image';
+                                  $timeout(function() {
+                                  angular.element('#editImagePreview').click();   
+                                  },500);
                              }
                             }
                 
