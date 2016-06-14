@@ -4,12 +4,13 @@ Created : 2016-05-26
 Created By: Deepak khokkar  
 Module : Step 3 Event step  
 */
+
 angular.module('alisthub').controller('stepevent3Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
+
      var $serviceTest = $injector.get("Lookservice");
      var $serviceTestVenue = $injector.get("venues");
      $scope.error_message = true;
-     
-     var event_id=$stateParams.eventId;
+    var event_id=$stateParams.eventId;
     $serviceTestVenue.getEvent({'event_id':event_id},function(response){
         
         $scope.data1=response.results[0];
@@ -30,27 +31,133 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
 		
     });  
 
-    $scope.click_menu = function(menu, data, valid) {
 
+
+
+  /** 
+  Method: click_menu
+  Description:Function for changing the tab 
+  Created : 2016-04-25
+  Created By:  Deepak khokkar  
+  */
+
+  $scope.click_menu = function(menu, data, valid) {
+    console.log($stateParams.eventId+':3');
+    var objectForm = this;
+    //To go to step1 event Details
     if (menu.id === 5) {
-     $location.path("/create_event_step1/"+$localStorage.eventId);
+      $location.path("/create_event_step1");
     }
 
     ///TO move to price and level
     if (menu.id === 6) {
 
-            
-            $location.path("/create_event_step2/"+$localStorage.eventId);
-     
+      if (objectForm.myForm.$valid === true) {
+          if ($localStorage.eventId == null) {
+              if (data.eventtype=='single') {
+                if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+                  data.eventdate=$scope.single_start_date;
+                  
+                  data.startevent_time=$scope.startevent_time;
+                  data.endevent_time=$scope.endevent_time;
+                  
+                  data.userId=$localStorage.userId;
+                  $serviceTest.saveEvent(data,function(response){
+                    if (response.code == 200) {
+                      $scope.success=global_message.event_step1;
+                      $localStorage.eventId=response.result;
+                      $scope.error_message=false;
+                      $timeout(function() {
+                        $scope.success='';
+                        $scope.error_message=true;
+                      },3000);
+
+                      if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+                        $location.path("/create_event_step2/"+$stateParams.eventId);
+                      } else {
+                        $location.path("/create_event_step2/"+$localStorage.eventId);
+                      }
+                    }
+                  });
+
+                }  
+              } else {
+                data.userId=$localStorage.userId;
+                $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
+                  if (response.code == 200) {
+                    $scope.success=global_message.event_step1;
+                    $scope.data={};
+                    $scope.error_message=false;
+                    $timeout(function() {
+                     $scope.success='';
+                     $scope.error_message=true;
+                    },3000);
+                    window.location.reload();
+                  }
+                }); 
+              }
+             
+          }
+          else {
+            if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+              $location.path("/create_event_step2/"+$stateParams.eventId);
+            } else {
+              $location.path("/create_event_step2/"+$localStorage.eventId);
+            }
+          }
+      } else {
+        $scope.error_message = false;
+        $scope.error = global_message.event_step1_msg;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 3000);
+      }
     }
 
     //look and feel div
     if (menu.id === 7) {
+      if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+        $location.path("/create_event_step3/"+$stateParams.eventId);
+      } else {
         $location.path("/create_event_step3/"+$localStorage.eventId);
-     }
+      }
+     /*if (objectForm.myForm.$valid === true) {
+      $scope.eventdetail_div = $scope.price_and_link_div = $scope.setting_div = true;
+      $scope.look_and_feel_div = false;
+      } else {
+        $scope.error_message = false;
+        $scope.error = global_message.event_step1_msg;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 3000);
+      }*/
+
+
+    }
     //Event Setting div
     if (menu.id === 8) {
-      $location.path("/create_event_step4/"+$localStorage.eventId);
+
+      //if (objectForm.myForm.$valid === true) {
+          if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+            $location.path("/create_event_step4/"+$stateParams.eventId);
+          } else {
+            $location.path("/create_event_step4/"+$localStorage.eventId);
+          }
+     /* } else {
+
+        $scope.error_message = false;
+        $scope.error = global_message.event_step1_msg;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 3000);
+      }*/
+
     }
     $scope.selected2 = menu;
   }
