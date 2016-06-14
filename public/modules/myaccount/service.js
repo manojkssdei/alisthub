@@ -22,6 +22,12 @@ angular.module('alisthub')
       });
     };
 
+    url.updateUserAdvSetting = function(jsondata,callback){
+      communicationService.resultViaPost(webservices.updateUserAdvSetting,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+        callback(res.data);
+      });
+    };
+
     url.updateSocial = function(jsondata,callback){
       communicationService.resultViaPost(webservices.updateSocial,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
         callback(res.data);

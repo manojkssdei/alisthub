@@ -409,7 +409,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_package/service.js').then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/event_package/controller.js']);
+                return $ocLazyLoad.load(['modules/event_package/controller.js','javascripts/bootstrap-timepicker.js']);
                 })
               }]
             }

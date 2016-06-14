@@ -56,6 +56,10 @@ var webservices = {
      "getEvent":"/event/getEvent",
      "getEventCategory":"/event/getEventCategory",
      "deleteEvent":"/event/deleteEvent",
+
+     // event package
+    "stepOneEventPackage"  :  "/event/stepOneEventPackage",
+
     
 
     /* Constants for the discount module */
@@ -114,6 +118,7 @@ var webservices = {
     "updatePassword" : baseUrl + "/webservices/updatePassword",
     "updateEmail" : baseUrl + "/webservices/updateEmail",
     "getData" : baseUrl + "/webservices/getData",
+    "updateUserAdvSetting" : baseUrl + "/webservices/updateUserAdvSetting",
     "getSocialData" :  "/profile/getData",
 
     /* Constants for the create event step 2 price level */

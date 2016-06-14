@@ -68,6 +68,8 @@ var venues = require('./routes/event_setting')(app, express);
 var seller_user = require('./routes/seller_user')(app, express);
 //For financial setting of user
 var account = require('./routes/account')(app, express);
+//For event package
+var package = require('./routes/package')(app, express);
 //For event managment 
 require('./routes/event')(app, express);
 
