@@ -23,6 +23,7 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
     $scope.social = {};
     $scope.userdetail = {};
     $scope.email = {};
+    $scope.advSetting = {};
 
    $scope.openTab = function(id)
     {
@@ -278,6 +279,37 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
     };
 
     
+    /*Update social details of user*/
+    $scope.updateUserAdvSetting = function(advSetting) {
+        
+        if ($localStorage.userId!=undefined && $scope.social!=undefined) {
+            $scope.advSetting.user_id   = $localStorage.userId;
+            console.log('advSetting' , advSetting);
+
+            var url = webservices.updateUserAdvSetting+"?data="+JSON.stringify($scope.advSetting)+"&callback=jsonp_callback10";
+            console.log('url ' , url);        
+            $http.jsonp(url);
+
+            $window.jsonp_callback10 = function(data) {
+                console.log('data.code ', data);
+                  if (data.code == 200) {
+                      $location.path("/view_account");
+                      $scope.success_message = true;
+                      $scope.success=global_message.infoSaved;
+                      $timeout(function() {
+                          $scope.error='';
+                          $scope.success_message=false;
+                          $scope.success='';
+                      },3000);
+                  }
+                  else
+                  {
+                  $scope.error_message = true;
+                  $scope.error=global_message.errorChangeEmail;
+                  }
+            }
+        } 
+    };
 
     /*Update social details of user*/
     $scope.updateSocial = function(social) {
@@ -322,11 +354,14 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                       
             $window.jsonp_callback7 = function(data) {
                     if (data.code == 200) {
-                      console.log(data);
+                      console.log('data here ',data);
                       $scope.data       = data.data;
                       $scope.email      = data.data;
                       $scope.userdetail = data.data;
-                       console.log($scope.data);
+                      console.log('data.data.sidekick_thermal_printing0 ' , data.data.sidekick_thermal_printing);
+                      $scope.advSetting.sidekick_thermal_printing = data.data.sidekick_thermal_printing;
+                      console.log('$scope.advSetting.sidekick_thermal_printing ' , $scope.advSetting.sidekick_thermal_printing);
+
                     }
                     else {
                       $scope.activation_message = global_message.ErrorInActivation;
@@ -346,6 +381,7 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                         
                          $scope.loader = false;
                           if (data && data.code == 200) {
+                            console.log('data.result[0] ' , data.result[0]) ;
                              $scope.password = data.result[0];
                              $scope.social.facebook_link = data.result[0].facebook_link;
                              $scope.social.twitter_link = data.result[0].twitter_link;
@@ -356,7 +392,7 @@ angular.module('alisthub').controller('accountinfoController', function($scope,$
                              $scope.userdetail.timezone = data.result[0].timezone;
                              $scope.userdetail.phone_no = data.result[0].phone_no;
                              $scope.userdetail.fax = data.result[0].fax;
-                             
+                            // $scope.userdetail.sidekick_thermal_printing = data.result[0].sidekick_thermal_printing;
                              $scope.email.email = data.result[0].email;
                           } else {
                              $scope.error_message = data.fetchError;

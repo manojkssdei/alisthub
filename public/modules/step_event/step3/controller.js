@@ -4,32 +4,160 @@ Created : 2016-05-26
 Created By: Deepak khokkar  
 Module : Step 3 Event step  
 */
-angular.module('alisthub').controller('stepevent3Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad) {
+
+angular.module('alisthub').controller('stepevent3Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
+
      var $serviceTest = $injector.get("Lookservice");
+     var $serviceTestVenue = $injector.get("venues");
      $scope.error_message = true;
-      
+    var event_id=$stateParams.eventId;
+    $serviceTestVenue.getEvent({'event_id':event_id},function(response){
+        
+        $scope.data1=response.results[0];
+        console.log($scope.data1);
+        $scope.title=response.results[0].title;
+        $scope.content2=response.results[0].description;
+        $scope.venue_name=response.results[0].venue_name;
+        $scope.city=response.results[0].city;
+        $scope.state=response.results[0].state;
+        $scope.country=response.results[0].country;
+        $scope.start_date=response.results[0].start_date;
+        $scope.start_time=response.results[0].start_time;
+        $scope.end_time=response.results[0].end_time;
+        $scope.zipcode=response.results[0].zipcode;
+        $scope.facebook_url=response.results[0].facebook_url;
+        $scope.twitter_url=response.results[0].twitter_url;
+        $scope.eventwebsite_url=response.results[0].website_url;
+		
+    });  
 
-    $scope.click_menu = function(menu, data, valid) {
 
+
+
+  /** 
+  Method: click_menu
+  Description:Function for changing the tab 
+  Created : 2016-04-25
+  Created By:  Deepak khokkar  
+  */
+
+  $scope.click_menu = function(menu, data, valid) {
+    console.log($stateParams.eventId+':3');
+    var objectForm = this;
+    //To go to step1 event Details
     if (menu.id === 5) {
-     $location.path("/create_event_step1/"+$localStorage.eventId);
+      $location.path("/create_event_step1");
     }
 
     ///TO move to price and level
     if (menu.id === 6) {
 
-            
-            $location.path("/create_event_step2/"+$localStorage.eventId);
-     
+      if (objectForm.myForm.$valid === true) {
+          if ($localStorage.eventId == null) {
+              if (data.eventtype=='single') {
+                if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+                  data.eventdate=$scope.single_start_date;
+                  
+                  data.startevent_time=$scope.startevent_time;
+                  data.endevent_time=$scope.endevent_time;
+                  
+                  data.userId=$localStorage.userId;
+                  $serviceTest.saveEvent(data,function(response){
+                    if (response.code == 200) {
+                      $scope.success=global_message.event_step1;
+                      $localStorage.eventId=response.result;
+                      $scope.error_message=false;
+                      $timeout(function() {
+                        $scope.success='';
+                        $scope.error_message=true;
+                      },3000);
+
+                      if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+                        $location.path("/create_event_step2/"+$stateParams.eventId);
+                      } else {
+                        $location.path("/create_event_step2/"+$localStorage.eventId);
+                      }
+                    }
+                  });
+
+                }  
+              } else {
+                data.userId=$localStorage.userId;
+                $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
+                  if (response.code == 200) {
+                    $scope.success=global_message.event_step1;
+                    $scope.data={};
+                    $scope.error_message=false;
+                    $timeout(function() {
+                     $scope.success='';
+                     $scope.error_message=true;
+                    },3000);
+                    window.location.reload();
+                  }
+                }); 
+              }
+             
+          }
+          else {
+            if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+              $location.path("/create_event_step2/"+$stateParams.eventId);
+            } else {
+              $location.path("/create_event_step2/"+$localStorage.eventId);
+            }
+          }
+      } else {
+        $scope.error_message = false;
+        $scope.error = global_message.event_step1_msg;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 3000);
+      }
     }
 
     //look and feel div
     if (menu.id === 7) {
+      if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+        $location.path("/create_event_step3/"+$stateParams.eventId);
+      } else {
         $location.path("/create_event_step3/"+$localStorage.eventId);
-     }
+      }
+     /*if (objectForm.myForm.$valid === true) {
+      $scope.eventdetail_div = $scope.price_and_link_div = $scope.setting_div = true;
+      $scope.look_and_feel_div = false;
+      } else {
+        $scope.error_message = false;
+        $scope.error = global_message.event_step1_msg;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 3000);
+      }*/
+
+
+    }
     //Event Setting div
     if (menu.id === 8) {
-      $location.path("/create_event_step4/"+$localStorage.eventId);
+
+      //if (objectForm.myForm.$valid === true) {
+          if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+            $location.path("/create_event_step4/"+$stateParams.eventId);
+          } else {
+            $location.path("/create_event_step4/"+$localStorage.eventId);
+          }
+     /* } else {
+
+        $scope.error_message = false;
+        $scope.error = global_message.event_step1_msg;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 3000);
+      }*/
+
     }
     $scope.selected2 = menu;
   }
@@ -163,7 +291,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
   };
    
   $scope.content1="<h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur </p>";
-  $scope.content2='<h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>';
+  
   $scope.content3='<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>';
   $scope.content4='<p>Footer content will be shown here.</p>';
   // Called when the editor is completely ready.
@@ -255,9 +383,9 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
             }
         }
         
-        $scope.banner_image='images/img/f-img-o.jpg';
-        $scope.section2_image='images/img/s-img-o.jpg';
-        $scope.section3_image='images/img/f-img-o.jpg';
+        $scope.banner_image='http://s3.amazonaws.com/feather-files-aviary-prod-us-east-1/fc1c0f6d-76a8-4910-8d0f-1baf64baebdc/2016-06-14/0ee81f30b9824a3494e8c2d83d66551a.png';
+        $scope.section2_image='http://s3.amazonaws.com/feather-files-aviary-prod-us-east-1/fc1c0f6d-76a8-4910-8d0f-1baf64baebdc/2016-06-14/1de91717915b4c25b9a1cf62c8f2dccd.png';
+        $scope.section3_image='http://s3.amazonaws.com/feather-files-aviary-prod-us-east-1/fc1c0f6d-76a8-4910-8d0f-1baf64baebdc/2016-06-14/0ee81f30b9824a3494e8c2d83d66551a.png';
          $scope.encodeImageFileAsURL1 = function() {
             var filesSelected = document.getElementById("my_file").files;
             if (filesSelected.length > 0) {

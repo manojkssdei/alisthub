@@ -9,15 +9,20 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
   $rootScope.success_message1 = false;
 
   $eventId = $localStorage.eventId;
-   var event_id=$stateParams.eventId;
-   
-     $serviceTest.getEvent({'event_id':event_id},function(response){
-        
+    
+    var event_id = '';
+    if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+      event_id = $stateParams.eventId;
+    } else {
+      event_id = $localStorage.eventId;
+    }
+
+    $serviceTest.getEvent({'event_id':event_id},function(response){
         $scope.data1=response.results[0];
-		$scope.data1.facebook=response.results[0].facebook_url;
-		$scope.data1.twitter=response.results[0].twitter_url;
-		$scope.data1.eventwebsite=response.results[0].website_url;
-		$scope.data1.eventinventory=response.results[0].inventory;
+    		$scope.data1.facebook=response.results[0].facebook_url;
+    		$scope.data1.twitter=response.results[0].twitter_url;
+    		$scope.data1.eventwebsite=response.results[0].website_url;
+    		$scope.data1.eventinventory=response.results[0].inventory;
     });
 	$serviceTest.getEventCat({'event_id':event_id},function(response){
 	 
@@ -36,7 +41,7 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
 	});
   $scope.eventBundle = {};
   
-  if($stateParams.eventId!=undefined) {
+  if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
     $scope.eventBundle.eventId = $stateParams.eventId;
   } else {
     $scope.eventBundle.eventId = $localStorage.eventId;
@@ -51,7 +56,7 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
 
   /* To fetch the product data related to specific event*/ 
   $scope.product = {};
-  if($stateParams.eventId!=undefined) {
+  if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
     $scope.product.eventId = $stateParams.eventId;
   } else {
     $scope.product.eventId = $localStorage.eventId;
@@ -90,7 +95,7 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
       $scope.availQuantity=0;
       $scope.totalRemainings=0;
 
-      if($stateParams.eventId!=undefined) {
+      if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
         var pricelevelEventId = $stateParams.eventId;
       } else {
         var pricelevelEventId = $localStorage.eventId;
@@ -298,36 +303,134 @@ $scope.success_message = false;
   $scope.selected2 = $scope.steps[1];
 
 
-
   /** 
   Method: click_menu
   Description:Function for changing the tab 
   Created : 2016-04-25
   Created By:  Deepak khokkar  
   */
-  $scope.click_menu = function(menu, data, valid) {
 
+  $scope.click_menu = function(menu, data, valid) {
+    console.log($stateParams.eventId+':1');
+    console.log(data);
+    var objectForm = this;
+    $scope.selectedClass = 1;
+    //To go to step1 event Details
     if (menu.id === 5) {
-     $location.path("/create_event_step1/"+$localStorage.eventId);
+      $location.path("/create_event_step1");
+      $scope.selectedClass = 1;
     }
 
     ///TO move to price and level
     if (menu.id === 6) {
+      if (objectForm.myForm.$valid === true) {
+          $scope.selectedClass = 2;
+          if ($localStorage.eventId == null) {
+              if (data.eventtype=='single') {
+                if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+                  data.eventdate=$scope.single_start_date;
+                  
+                  data.startevent_time=$scope.startevent_time;
+                  data.endevent_time=$scope.endevent_time;
+                  
+                  data.userId=$localStorage.userId;
+                  $serviceTest.saveEvent(data,function(response){
+                    if (response.code == 200) {
+                      $scope.success=global_message.event_step1;
+                      $localStorage.eventId=response.result;
+                      $scope.error_message=false;
+                      $timeout(function() {
+                        $scope.success='';
+                        $scope.error_message=true;
+                      },3000);
 
-            
-            $location.path("/create_event_step2/"+$localStorage.eventId);
-     
+                      if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+                        $location.path("/create_event_step2/"+$stateParams.eventId);
+                      } else {
+                        $location.path("/create_event_step2/"+$localStorage.eventId);
+                      }
+                    }
+                  });
+                }  
+              } else {
+                data.userId=$localStorage.userId;
+                $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
+                  if (response.code == 200) {
+                    $scope.success=global_message.event_step1;
+                    $scope.data={};
+                    $scope.error_message=false;
+                    $timeout(function() {
+                     $scope.success='';
+                     $scope.error_message=true;
+                    },3000);
+                    window.location.reload();
+                  }
+                }); 
+              }
+             
+          }
+          else {
+            if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+              $location.path("/create_event_step2/"+$stateParams.eventId);
+            } else {
+              $location.path("/create_event_step2/"+$localStorage.eventId);
+            }
+          }
+      } else {
+        $scope.selectedClass = 1;
+        $scope.error_message = false;
+        $scope.error = global_message.event_step1_msg;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 3000);
+      }
     }
 
     //look and feel div
     if (menu.id === 7) {
-        $location.path("/create_event_step3/"+$localStorage.eventId);
-     }
+      if (objectForm.myForm1.$valid === true) {
+        $scope.selectedClass = 3;
+        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+          $location.path("/create_event_step3/"+$stateParams.eventId);
+        } else {
+          $location.path("/create_event_step3/"+$localStorage.eventId);
+        }
+      } else {
+        $scope.selectedClass = 2;
+        $scope.error_message = false;
+        $scope.error = global_message.event_step2_msg;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 3000);
+      }
+    }
+
     //Event Setting div
     if (menu.id === 8) {
-      $location.path("/create_event_step4/"+$localStorage.eventId);
+      $scope.selectedClass = 4;
+      //if (objectForm.myForm.$valid === true) {
+          if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+            $location.path("/create_event_step4/"+$stateParams.eventId);
+          } else {
+            $location.path("/create_event_step4/"+$localStorage.eventId);
+          }
+     /* } else {
+
+        $scope.error_message = false;
+        $scope.error = global_message.event_step1_msg;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 3000);
+      }*/
+
     }
-    $scope.selected2 = menu;
+    //$scope.selected2 = menu;
   }
   
 
@@ -1129,7 +1232,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
           $scope.step_1 = $scope.step_3 = false;
 
           // Get product list 
-          $scope.getProducts();
+          $scope.getBundleProducts();
           $scope.getEventPriceLevel();
         }
 

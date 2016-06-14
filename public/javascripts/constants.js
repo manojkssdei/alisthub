@@ -56,6 +56,10 @@ var webservices = {
      "getEvent":"/event/getEvent",
      "getEventCategory":"/event/getEventCategory",
      "deleteEvent":"/event/deleteEvent",
+
+     // event package
+    "stepOneEventPackage"  :  "/event/stepOneEventPackage",
+
     
 
     /* Constants for the discount module */
@@ -114,6 +118,7 @@ var webservices = {
     "updatePassword" : baseUrl + "/webservices/updatePassword",
     "updateEmail" : baseUrl + "/webservices/updateEmail",
     "getData" : baseUrl + "/webservices/getData",
+    "updateUserAdvSetting" : baseUrl + "/webservices/updateUserAdvSetting",
     "getSocialData" :  "/profile/getData",
 
     /* Constants for the create event step 2 price level */
@@ -264,7 +269,8 @@ var global_message = {
      "customer_blacklist":'modules/customers/views/customer_blacklist.html',
 
     "event_step2":"Price & links Successfully Saved.",
-    "event_step1_msg":"Please update the event detail data.",
+    "event_step1_msg":"Please update the event detail.",
+    "event_step2_msg":"Please update the price and links data of event.",
     "date_comparison":'End time must be greater than start time. ',
     "start_date":'Kindly select start time.',
     "bundle_save":"Bundle status changed successfully.",
