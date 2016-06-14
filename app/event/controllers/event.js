@@ -32,18 +32,18 @@ exports.saveEvent = function(req,res) {
           connection.query(query1,function(err,result) {
               eventId = result.insertId;
               
-              var query2 = "INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`) VALUES(NULL,'"+eventId+"','"+data.eventdate+"','"+data.startevent_time+"','"+data.endevent_time+"')";
+              var query2 = "INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`,`created`,`modified`) VALUES(NULL,'"+eventId+"','"+data.eventdate+"','"+data.startevent_time+"','"+data.endevent_time+"','"+curtime+"','"+curtime+"')";
               connection.query(query2,function(error,res1){
                 if (error) {
                   res.json({error:error,code:101});
                 } else {
-                  var showClix2 = new showClix();
+                  /*var showClix2 = new showClix();
                   showClix2.add_event(req,res,function(data){
                     if (data.status == 1) {
                       //res.json({result:results,showclix:data.location,code:200});
                     } else {                     
                     }
-                  })
+                  });*/
                   res.json({result:eventId,code:200}); 
                 }
               });
@@ -54,23 +54,31 @@ exports.saveEvent = function(req,res) {
       var venueid = '';
       if(data.venueid!=undefined && data.venueid!='') {
         venueid = data.venueid;
+        connection.query("UPDATE venues SET `venue_type`='"+data.venuetype+"',`venue_name`='"+data.venuename+"',`address`='"+data.address+"',`city`='"+data.city+"',`zipcode`='"+parseInt(data.zipcode)+"',`state`='"+data.state+"',`country`='"+data.country+"',`latitude`='"+data.latitude+"',`longitude`='"+data.longitude+"'  where id=" + venueid, function(err2, results2) {
+           if (err2) {
+            res.json({error:err2,code:101});
+           } 
+        });
       } else {
         var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"')";
      
-        connection.query(query, function(err8, vresponce) {
-          venueid = vresponce.insertId;
-        })
+          connection.query(query, function(err8, vresponce) {
+            if (err8) {
+             res.json({error:err2,code:101});
+            } 
+            venueid = vresponce.insertId;
+          })
       }
       //console.log('venueID:'+venueid);
 
       connection.query("UPDATE events SET `user_id`='"+data.userId+"',`title`='"+data.eventname+"',`description`='"+data.content+"',`venue_id`='"+venueid+"'  where id="+data.id, function(err, results) {
          if (err) {
           res.json({error:err,code:101});
-         }else{
-          res.json({result:data.id,code:200}); 
          }
       });
       
+      res.json({result:data.id,code:200}); 
+         
       //console.log("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id);
       
       /*connection.query("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id, function(err, results) {
@@ -159,14 +167,18 @@ Created By: Deepak khokkar
 exports.getEvent=function(req,res) {
    
     var event_id=req.body.event_id;
-    var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id where events.id="+event_id;
-   
-    connection.query(sql,function(err,result){
-      if (err) {
-        res.send({err:"error",code:101}); 
-      }
-      res.send({"results":result,code:200});  
-    });
+    if(event_id!=undefined){
+      var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id where events.id="+event_id;
+     
+      connection.query(sql,function(err,result){
+        if (err) {
+          res.send({err:"error",code:101}); 
+        }
+        res.send({"results":result,code:200});  
+      });
+    } else {
+      res.send({"results":{},code:200});
+    }
 } 
 
 exports.savepricelevel=function(req,res){
@@ -377,16 +389,18 @@ Description:Function to get step2 event Category
 Created : 2016-06-11
 Created By: Deepak khokhar  
 */
-exports.getEventCategory=function(req,res){
-
-connection.query('SELECT * from event_categories where event_id='+req.body.event_id, function(err, results) {
-    if (err) {
-      res.json({error:err,code:101});
-    }
-    else{
-          res.json({result:results,code:200});
-         }
-  });
+exports.getEventCategory=function(req,res) {
+  if(req.body.event_id!=undefined) {
+    connection.query('SELECT * from event_categories where event_id='+req.body.event_id, function(err, results) {
+      if (err) {
+        res.json({error:err,code:101});
+      } else{
+        res.json({result:results,code:200});
+      }
+    });
+  }else {
+      res.send({"results":{},code:200});
+  }
 }
 
 
