@@ -670,3 +670,10 @@ exports.postCreateEventStepFour = function(req, res) {
   console.log("============================================")
   res.send("sending back!");
 }
+
+exports.stepOneEventPackage = function(req,res) {
+ 
+ console.log('stepOneEventPackage' , req);
+ res.send({"results":'result',code:200}); 
+
+}

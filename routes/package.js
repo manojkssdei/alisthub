@@ -10,9 +10,13 @@ module.exports = function(app, express) {
     	    next();
     	}
          /* For saving the event data */
-       router.post('/savePackage', Package.savePackage);
+       //router.post('/savePackage', Package.savePackage);
        /* Save reoccuring event data */
-       router.post('/saverecurringPackage', Package.saverecurringPackage);
+       //router.post('/saverecurringPackage', Package.saverecurringPackage);
+
+       
+
+       
 
 }  
   

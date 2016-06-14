@@ -68,5 +68,9 @@ module.exports = function(app, express) {
         // post event data step 4
         router.post('/postCreateEventStepFour' , supportCrossOriginScript , Event.postCreateEventStepFour);
          
+         // post event package data step 1
+        router.post('/stepOneEventPackage' , supportCrossOriginScript , Event.stepOneEventPackage);
+         
+         
 	app.use('/event', router);
 }

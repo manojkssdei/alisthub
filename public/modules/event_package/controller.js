@@ -2,7 +2,8 @@
 angular.module("google.places",[]);
 angular.module('alisthub', ['google.places', 'angucomplete']).controller('createpackageController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location) { 
    //For Step 1
-    var $serviceTest = $injector.get("venues");
+     $scope.data = {};
+    var $serviceTest = $injector.get("event_package");
     $scope.select_delect_event=$scope.monthly_div=$scope.days_div=$scope.error_message=$scope.error_time_message=true;
   //////////////////////////////////////////////////////
    $scope.upcoming_event_data=$scope.past_event_data=$scope.event_package_data = [
@@ -216,6 +217,151 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
   
   var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
   var weekday = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+
+  
+  $scope.today = function() {
+    $scope.dt = new Date();
+  };
+  $scope.today();
+
+  $scope.clear = function() {
+    $scope.dt = null;
+  };
+
+  $scope.inlineOptions = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: true
+  };
+
+  $scope.dateOptions = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+    maxDate: new Date(2020, 5, 22),
+    minDate: new Date(),
+    startingDay: 1
+  };
+
+  // Disable weekend selection
+  function disabled(data) {
+    var date = data.date,
+      mode = data.mode;
+    return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+  }
+
+  $scope.toggleMin = function() {
+    $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+    $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+  };
+
+  $scope.toggleMin();
+
+  $scope.open1 = function() {
+    $scope.popup1.opened = true;
+  };
+
+  $scope.open2 = function() {
+    $scope.popup2.opened = true;
+  };
+
+  $scope.setDate = function(year, month, day) {
+    $scope.dt = new Date(year, month, day);
+  };
+
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  $scope.format = $scope.formats[0];
+  $scope.altInputFormats = ['M!/d!/yyyy'];
+
+ 
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date();
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [
+    {
+      date: tomorrow,
+      status: 'full'
+    },
+    {
+      date: afterTomorrow,
+      status: 'partially'
+    }
+  ];
+
+  function getDayClass(data) {
+    var date = data.date,
+      mode = data.mode;
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+      for (var i = 0; i < $scope.events.length; i++) {
+        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+        if (dayToCheck === currentDay) {
+          return $scope.events[i].status;
+        }
+      }
+    }
+
+    return '';
+  }
+
+
+/** Method : Date Time Merge
+**/
+$scope.combine = function(dt, timeString) {
+var startDateTime;
+var parts = /^(\d+):(\d+) (AM|PM)$/.exec(timeString);
+if (parts) {
+hours = parseInt(parts[1], 10);
+minutes = parseInt(parts[2], 10);
+if (parts[3] === "PM" && hours !== 12) {
+hours += 12;
+}
+else if (parts[3] === "AM" && hours === 12) {
+hours = 0;
+}
+if (!isNaN(hours) && !isNaN(minutes)) {
+startDateTime = new Date(dt.getTime());
+startDateTime.setHours(hours);
+startDateTime.setMinutes(minutes);
+}
+}
+return startDateTime;
+}
+
+
+  $scope.stepOne = function() {
+    console.log('stepOne data' , $scope.data);
+    console.log('$localStorage.userId' , $localStorage.userId);
+
+            //$scope.loader = false;
+           if ($localStorage.userId != undefined) {
+
+if($scope.data.online_sales_open_date && $scope.data.online_sales_open_time) {
+  $scope.data.online_sales_open_date_time = $scope.combine($scope.data.online_sales_open_date , $scope.data.online_sales_open_time);
+}
+    
+if($scope.data.online_sales_close_date && $scope.data.online_sales_close_time) {
+  $scope.data.online_sales_close_date_time = $scope.combine($scope.data.online_sales_close_date , $scope.data.online_sales_close_time);
+}
+            
+                $scope.data.user_id=$localStorage.userId;
+                //$scope.loader = true;
+                $serviceTest.stepOneEventPackage($scope.data, function(response) {
+                  console.log('response' , response);
+                    //$scope.loader = false;
+                    if (response.code == 200) {
+                        //$scope.data = response.result[0];
+                    } else {
+                        //$scope.error_message = response.error;
+                    }
+
+                });
+
+            }
+
+  }
 
 });
 
