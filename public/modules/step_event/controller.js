@@ -639,6 +639,7 @@ $scope.rec_year_func = function() {
 
     $scope.data.venuename = venuedata.venue_name;
     $scope.data.place = venuedata.address;
+    $scope.data.address = venuedata.address;
     $scope.data.venueid = venuedata.id;
     $scope.data.city = venuedata.city;
     $scope.data.country = venuedata.country;
@@ -871,17 +872,25 @@ $scope.rec_year_func = function() {
   */
 
   $scope.click_menu = function(menu, data, valid) {
-
+    console.log($stateParams.eventId+':1');
+    console.log(data);
     var objectForm = this;
+    $scope.selectedClass = 1;
     //To go to step1 event Details
     if (menu.id === 5) {
-      $location.path("/create_event_step1");
+      if($stateParams.eventId!=undefined){
+        $location.path("/create_event_step1/"+$stateParams.eventId);
+      } else {
+        $location.path("/create_event_step1");
+      }
+      
+      $scope.selectedClass = 1;
     }
 
     ///TO move to price and level
     if (menu.id === 6) {
-
       if (objectForm.myForm.$valid === true) {
+          $scope.selectedClass = 2;
           if ($localStorage.eventId == null) {
               if (data.eventtype=='single') {
                 if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
@@ -901,14 +910,13 @@ $scope.rec_year_func = function() {
                         $scope.error_message=true;
                       },3000);
 
-                      if($stateParams.eventId!=undefined) {
+                      if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
                         $location.path("/create_event_step2/"+$stateParams.eventId);
                       } else {
                         $location.path("/create_event_step2/"+$localStorage.eventId);
                       }
                     }
                   });
-
                 }  
               } else {
                 data.userId=$localStorage.userId;
@@ -928,13 +936,14 @@ $scope.rec_year_func = function() {
              
           }
           else {
-            if($stateParams.eventId!=undefined) {
+            if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
               $location.path("/create_event_step2/"+$stateParams.eventId);
             } else {
               $location.path("/create_event_step2/"+$localStorage.eventId);
             }
           }
       } else {
+        $scope.selectedClass = 1;
         $scope.error_message = false;
         $scope.error = global_message.event_step1_msg;
         $timeout(function() {
@@ -947,29 +956,36 @@ $scope.rec_year_func = function() {
 
     //look and feel div
     if (menu.id === 7) {
-        $location.path("/create_event_step3/"+$localStorage.eventId);
-     /*if (objectForm.myForm.$valid === true) {
-      $scope.eventdetail_div = $scope.price_and_link_div = $scope.setting_div = true;
-      $scope.look_and_feel_div = false;
+      if (objectForm.myForm1.$valid === true) {
+        $scope.selectedClass = 3;
+        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+          $location.path("/create_event_step3/"+$stateParams.eventId);
+        } else {
+          $location.path("/create_event_step3/"+$localStorage.eventId);
+        }
       } else {
+        $scope.selectedClass = 2;
         $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
+        $scope.error = global_message.event_step2_msg;
         $timeout(function() {
           $scope.error = '';
           $scope.error_message = true;
           $scope.error = '';
         }, 3000);
-      }*/
-
-
+      }
     }
+
     //Event Setting div
     if (menu.id === 8) {
-
+      $scope.selectedClass = 4;
       //if (objectForm.myForm.$valid === true) {
-          $location.path("/create_event_step4/"+$localStorage.eventId);
+          if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+            $location.path("/create_event_step4/"+$stateParams.eventId);
+          } else {
+            $location.path("/create_event_step4/"+$localStorage.eventId);
+          }
      /* } else {
->>>>>>> upstream/master
+
         $scope.error_message = false;
         $scope.error = global_message.event_step1_msg;
         $timeout(function() {
@@ -980,8 +996,11 @@ $scope.rec_year_func = function() {
       }*/
 
     }
-    $scope.selected2 = menu;
+    //$scope.selected2 = menu;
   }
+  
+
+
 
   /** 
   Method: select_venue

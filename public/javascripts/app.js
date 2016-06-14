@@ -1501,10 +1501,10 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         })
     .config(['tooltipsConfProvider', function configConf(tooltipsConfProvider) {
   tooltipsConfProvider.configure({
-    //'smart':true,
+    'smart':true,
     'size':'small', // 'large', 'small',  'medium'
     'speed': 'slow', //'fast', 'slow', 'medium'
-    'side' : 'right', // 'left','right','top','bottom'
+    //'side' : 'right', // 'left','right','top','bottom'
     //etc...
   });
 }])
