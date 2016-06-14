@@ -1,0 +1,72 @@
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+  <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+
+  <script type="text/javascript" >  
+
+    /* edit Images using aviray */
+
+    var featherEditor = new Aviary.Feather({
+
+        apiKey: 'fc1c0f6d-76a8-4910-8d0f-1baf64baebdc', // your api key , you can get one from http://developers.aviary.com/
+
+        apiVersion: 3, // the api version . 3 is the last one so far
+
+        theme: 'light', // there are 'light' and 'dark' themes
+
+        tools: 'all', // you can specify the tools from here, you can include/exclude what ever you want
+
+        appendTo: '',
+
+        onSave: function(imageID, newURL) {
+
+            var img = document.getElementById(imageID);
+
+            img.src = newURL; // after save, replacs the image with the new one from aviary.com
+
+            featherEditor.close();
+
+        },
+
+        onError: function(errorObj) { 
+
+            alert(errorObj.message);
+
+        }
+
+    });
+
+  
+    function launchEditor(id, src) {
+
+        featherEditor.launch({
+
+            image: id,
+
+            url: src
+
+        });
+
+       return false;
+
+    }
+
+    $(document).on('click', '#editImagePreview', function() {
+
+         var url =$('#ImagePreview').attr("src");
+
+         return launchEditor('ImagePreview',url);
+
+    });       
+
+  </script>
+
+
+
+                       <img width="300px;" id="ImagePreview" src="http://pcmedia.gamespy.com/pc/image/article/710/710023/eve-online-the-path-to-kali-20060524040618557.jpg" alt="your image"/>
+
+                    </div>
+
+                    <button  type="button" class="black-add-button" id="editImagePreview"> Edit!
+
+                    </button> 
