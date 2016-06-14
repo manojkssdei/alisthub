@@ -127,13 +127,23 @@
 		  </li>
 		    
 		  <li data-row="2" data-col="1" data-sizex="1" data-sizey="1" id="section2">
-		   <div class="drag" style="display:none;">
+		   <div class="drag1" style="display:none;">
 		    
 		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		    <a onclick="remove_widget('section2')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		  </div>
-		   
-		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value='' class="wrap-word"></div>
+		   <div>Event Title:{{title}}</div>
+		   <div>Start Date:{{start_date| date:'yyyy-MM-dd'}} {{start_time}}</div>
+		   <div>End Date:{{start_date| date:'yyyy-MM-dd'}} {{end_time}}</div>
+		   <div>Venue Name:{{venue_name}}</div>
+		   <div>City:{{city}}</div>
+		   <div>State:{{state}}</div>
+		   <div>Zipcode:{{zipcode}}</div>
+		   <div>Country:{{country}}</div>
+		   <div>facebook:{{facebook_url}}</div>
+		   <div>Twitter:{{twitter_url}}</div>
+		   <div>Event Website:{{eventwebsite_url}}</div>
+		    <!--<div contenteditable="true" ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value='' class="wrap-word"></div>-->
 		  </li>
 		    
 		  <li data-row="3" data-col="1" data-sizex="1" data-sizey="1" id="section3">

@@ -4,10 +4,31 @@ Created : 2016-05-26
 Created By: Deepak khokkar  
 Module : Step 3 Event step  
 */
-angular.module('alisthub').controller('stepevent3Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad) {
+angular.module('alisthub').controller('stepevent3Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
      var $serviceTest = $injector.get("Lookservice");
+     var $serviceTestVenue = $injector.get("venues");
      $scope.error_message = true;
-      
+     
+     var event_id=$stateParams.eventId;
+    $serviceTestVenue.getEvent({'event_id':event_id},function(response){
+        
+        $scope.data1=response.results[0];
+        console.log($scope.data1);
+        $scope.title=response.results[0].title;
+        $scope.content2=response.results[0].description;
+        $scope.venue_name=response.results[0].venue_name;
+        $scope.city=response.results[0].city;
+        $scope.state=response.results[0].state;
+        $scope.country=response.results[0].country;
+        $scope.start_date=response.results[0].start_date;
+        $scope.start_time=response.results[0].start_time;
+        $scope.end_time=response.results[0].end_time;
+        $scope.zipcode=response.results[0].zipcode;
+        $scope.facebook_url=response.results[0].facebook_url;
+        $scope.twitter_url=response.results[0].twitter_url;
+        $scope.eventwebsite_url=response.results[0].website_url;
+		
+    });  
 
     $scope.click_menu = function(menu, data, valid) {
 
@@ -163,7 +184,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
   };
    
   $scope.content1="<h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur </p>";
-  $scope.content2='<h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>';
+  
   $scope.content3='<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>';
   $scope.content4='<p>Footer content will be shown here.</p>';
   // Called when the editor is completely ready.
