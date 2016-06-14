@@ -15,21 +15,31 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   if($stateParams.eventId==='')
   {
    $localStorage.eventId=null;
-  }
-  else{
-    
-     var event_id=$stateParams.eventId;
-     $serviceTest.getEvent({'event_id':event_id},function(response){
-        
-        $scope.data=response.results[0];
-        $scope.selected1 = $scope.venues[1];
-        $scope.data.eventname=response.results[0].title;
-        $scope.starttime=$scope.startevent_time=response.results[0].start_time;
-        $scope.endtime=$scope.endevent_time=response.results[0].end_time;
-        $scope.data.content=response.results[0].description;
-        $scope.data.venuename=response.results[0].venue_name;
-        $scope.location_event_div=true;$scope.venue_event_div=$scope.select_delect_event=false;
-        $scope.select_delect_event = false;
+  } else {
+    var event_id=$stateParams.eventId;
+    $serviceTest.getEvent({'event_id':event_id},function(response) {
+      $scope.data=response.results[0];
+
+      if($scope.data.recurring_or_not==0) {
+        $scope.data.eventtype = 'single';  
+      } else {
+        $scope.data.eventtype = 'multiple';
+      }
+      
+      $scope.selected1 = $scope.venues[1];
+      $scope.data.eventname=response.results[0].title;
+      $scope.starttime=$scope.startevent_time=response.results[0].start_time;
+      $scope.endtime=$scope.endevent_time=response.results[0].end_time;
+      $scope.data.content=response.results[0].description;
+      
+      $scope.data.venueid = response.results[0].eventvenueId;
+      //console.log($scope.data.venueid);
+      $scope.data.venuetype = response.results[0].venue_type;
+      $scope.data.place = response.results[0].address;
+
+      $scope.data.venuename=response.results[0].venue_name;
+      $scope.location_event_div=true;$scope.venue_event_div=$scope.select_delect_event=false;
+      $scope.select_delect_event = false;
       var d = new Date(response.results[0].eventdate);
       var curr_date = d.getDate();
       var curr_month = d.getMonth();
@@ -38,8 +48,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       var cur_mon = d.getMonth() + 1;
       $rootScope.single_start_date = curr_year + "-" + cur_mon + "-" + curr_date;
       $rootScope.selectevent_date = weekday[day] + " " + m_names[curr_month] + " " + curr_date + "," + curr_year;
-       
-     });
+    });
   }
   
  
@@ -159,6 +168,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   }
  
   $eventId = $localStorage.eventId;
+  $scope.between_date = [];
 /** 
   Method: change_month
   Description:Function to be execute when a month change occures 
@@ -450,42 +460,48 @@ $scope.rec_year_func = function() {
     */
 
     $scope.savedata=function(data) {
-        if (data.eventtype=='single') {
-          if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
-            data.eventdate=$scope.single_start_date;
-            
-            data.startevent_time=$scope.startevent_time;
-            data.endevent_time=$scope.endevent_time;
-            
-            data.userId=$localStorage.userId;
-            $serviceTest.saveEvent(data,function(response){
-              if (response.code == 200) {
-                 $scope.success=global_message.event_step1;
-                 $localStorage.eventId=response.result;
-                 $scope.error_message=false;
-                 $timeout(function() {
-                   $scope.success='';
-                   $scope.error_message=true;
-                 },3000);
-              }
-            });
 
-          }  
-        } else {
+      if($stateParams.eventId==='') {
+        $localStorage.eventId = null;
+      } else {
+        data.id = $stateParams.eventId;
+      }
+      console.log(data);
+      if (data.eventtype=='single') {
+        if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+          data.eventdate=$scope.single_start_date;
+          
+          data.startevent_time=$scope.startevent_time;
+          data.endevent_time=$scope.endevent_time;
+          
           data.userId=$localStorage.userId;
-          $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
+          $serviceTest.saveEvent(data,function(response){
             if (response.code == 200) {
-              $scope.success=global_message.event_step1;
-              $scope.data={};
-              $scope.error_message=false;
-              $timeout(function() {
-               $scope.success='';
-               $scope.error_message=true;
-              },3000);
-              window.location.reload();
+               $scope.success=global_message.event_step1;
+               $localStorage.eventId=response.result;
+               $scope.error_message=false;
+               $timeout(function() {
+                 $scope.success='';
+                 $scope.error_message=true;
+               },3000);
             }
-          }); 
-        }
+          });
+        }  
+      } else {
+        data.userId=$localStorage.userId;
+        $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
+          if (response.code == 200) {
+            $scope.success=global_message.event_step1;
+            $scope.data={};
+            $scope.error_message=false;
+            $timeout(function() {
+             $scope.success='';
+             $scope.error_message=true;
+            },3000);
+            window.location.reload();
+          }
+        }); 
+      }
     }
 
 
@@ -514,6 +530,7 @@ $scope.rec_year_func = function() {
     $scope.data.country = '';
     $scope.data.state = '';
     $scope.data.city = '';
+    $scope.data.venueid = '';
 
     // FINDING ZIP
     if (place.address_components[place.address_components.length - 1].types[0] === 'postal_code') {
@@ -616,6 +633,8 @@ $scope.rec_year_func = function() {
       google.maps.event.removeListener(listener);
     });
   });
+
+
   $scope.venue_info = function(venuedata) {
 
     $scope.data.venuename = venuedata.venue_name;
@@ -874,14 +893,19 @@ $scope.rec_year_func = function() {
                   data.userId=$localStorage.userId;
                   $serviceTest.saveEvent(data,function(response){
                     if (response.code == 200) {
-                       $scope.success=global_message.event_step1;
-                       $localStorage.eventId=response.result;
-                       $scope.error_message=false;
-                       $timeout(function() {
-                         $scope.success='';
-                         $scope.error_message=true;
-                       },3000);
+                      $scope.success=global_message.event_step1;
+                      $localStorage.eventId=response.result;
+                      $scope.error_message=false;
+                      $timeout(function() {
+                        $scope.success='';
+                        $scope.error_message=true;
+                      },3000);
+
+                      if($stateParams.eventId!=undefined) {
+                        $location.path("/create_event_step2/"+$stateParams.eventId);
+                      } else {
                         $location.path("/create_event_step2/"+$localStorage.eventId);
+                      }
                     }
                   });
 
@@ -904,8 +928,11 @@ $scope.rec_year_func = function() {
              
           }
           else {
-            
-            $location.path("/create_event_step2/"+$localStorage.eventId);
+            if($stateParams.eventId!=undefined) {
+              $location.path("/create_event_step2/"+$stateParams.eventId);
+            } else {
+              $location.path("/create_event_step2/"+$localStorage.eventId);
+            }
           }
       } else {
         $scope.error_message = false;
@@ -1211,3 +1238,96 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
     $uibModalInstance.dismiss('cancel');
   };
 });
+
+angular.module('alisthub').controller('advanceSetting', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad) { 
+
+  if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+  }
+
+  var $serviceTest = $injector.get("venues");
+
+ $scope.data = {};
+
+ $scope.getAdvanceSetting = function() {
+  console.log('calling getAdvanceSetting');
+            if ($localStorage.userId != undefined) {
+                $scope.data.seller_id = $localStorage.userId;
+                $scope.data.event_id = 10;
+                $serviceTest.getAdvanceSetting($scope.data, function(response) {
+                    $scope.loader = false;
+                    if (response.code == 200) {
+                        $scope.data = {};
+                        $scope.data = response.result[0];
+                    } else {
+                        $scope.error_message = response.error;
+                    }
+
+                });
+
+            }
+        };
+  $scope.getAdvanceSetting();
+
+  $scope.saveAdvanceSettings = function() {
+      if ($localStorage.userId != undefined) {
+            $scope.data.event_id = 10;
+            $scope.data.seller_id = $localStorage.userId;
+            $serviceTest.saveAdvanceSettings($scope.data, function(response) {
+                if (response.code == 200) {
+                    $rootScope.success_message = true;
+                    $rootScope.success = global_message.advanceSettingSaved;
+                    $scope.data = response.result[0];
+                } else {
+                    $scope.error_message = true;
+                    $scope.error =  global_message.advanceSettingSavingError;
+
+                  $timeout(function() {
+                    $scope.error_message = false;
+                    $scope.error = '';
+                  }, 3000);
+                }
+
+            });
+        } 
+  }
+
+
+     /* Edit advance settings of seller*/
+   /*if ($state.params.id) {
+        $scope.callfunction = 1;
+        
+        $scope.getAdvanceSetting = function() {
+            if ($localStorage.userId != undefined) {
+                $scope.data.seller_id = $localStorage.userId;
+                $scope.data.event_id = $state.params.id;
+                $serviceTest.getAdvanceSetting($scope.data, function(response) {
+                    $scope.loader = false;
+                    if (response.code == 200) {
+                        $scope.data = {};
+                        $scope.data = response.result[0];
+                    } else {
+                        $scope.error_message = response.error;
+                    }
+
+                });
+
+            }
+        };
+        $scope.getAdvanceSetting();
+        $scope.editAdvanceSetting = function() {
+            if ($localStorage.userId != undefined) {
+                $scope.data.seller_id = $localStorage.userId;
+                $scope.data.id = $state.params.id;
+                $serviceTest.saveAdvanceSettings($scope.data);
+            }
+        };
+    }
+    */
+    
+
+
+
+  
+});
+

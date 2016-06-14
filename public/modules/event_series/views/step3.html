@@ -1,0 +1,273 @@
+
+<div ng-hide="look_and_feel_div" ng-controller="step3Controller">
+  <div class="tab-widget">
+        <ul role="tablist" id="event-date" class="nav nav-tabs responsive-tabs">
+         
+	  <li ng-repeat="look_and_feel in look_and_feel_step" ng-click="select(look_and_feel)" ng-class="{active: isActive(look_and_feel)}" ><a class="pointer" href="javascript:void(0)" >{{look_and_feel.name}}</a>
+                  
+               </li>
+        </ul>
+      </div> 	
+      <div ng-hide="campaign_div">
+      <h2 class="head">Choose campaign template from below</h2>
+       <section class="module row">
+       		<section class="col-sm-3 temp-view" ng-repeat="template in templates track by $index">
+            	<section class="form-group">
+                    <p class="temp-image"><img src="{{template.image}}" alt=""/></p>	
+                    <section class="top-buttons text-center">
+		      <button ng-click="preview_btn(template.id,'')" class="btn pink-btn btn-small mw-100" type="button">Preview</button>
+		      <button ng-click="select_btn(template.id)" class="btn pink-btn btn-small mw-100" type="button">Select</button>
+		    </section>
+                </section>
+            </section>
+            
+       </section>
+    </div>
+      <section class="tb-con"  ng-hide="module_div">
+      	  <section class="design-top gray-frame">
+          	 <section class="row">
+                 <section class="col-sm-7">
+                     <section class="form-group">
+                        <div class="domain-name"><input type="text" placeholder="Title of your Event" class="form-control" name="eventname"><span class="dname">.alist.com</span></div>
+                      </section>
+                  </section>
+                  <section class="col-sm-5">
+                  	  <p class="text-right top-buttons"><button class="btn pink-btn">Public</button><button class="btn pink-btn">Private</button></p>
+                  </section>
+             </section>
+           </section>
+      	  <section class="row">
+          	   <section class="col-sm-3 design-left">
+               		<section class="tabs-widget">
+                        <ul class="tabs">
+                            
+			    <li ng-repeat="choose in look_and_feel_choose_type" ng-click="select1(choose)" ng-class="{active: isActive1(choose)}" ><a class="pointer" href="javascript:void(0)" >{{choose.name}}</a>
+                  
+               </li>
+                        </ul>
+                        
+                        <section class="tbs-container">
+                        	<section class="tab-con" ng-hide="color_div">
+                            	<ul class="choose-color">
+                                	<li>
+                                    	<span class="color-txt">Outer Background</span>
+                                       <color-picker ng-model="backgroundColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                                    </li>
+                                    <li>
+                                    	<span class="color-txt">Inner Background</span>
+                                        <color-picker ng-model="InnerbackgroundColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                                    </li>
+                                    <li>
+                                    	<span class="color-txt">Text</span>
+                                        <color-picker ng-model="TextColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                                    </li>
+                                    <li>
+                                    	<span class="color-txt">Outer Border</span>
+                                       <color-picker ng-model="OuterborderColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                                    </li>
+                                    <li>
+                                    	<span class="color-txt">Inner Border</span>
+                                        <color-picker ng-model="InnerborderColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                                    </li>
+                                </ul>
+                            </section>
+                            
+                            <section class="tab-con" ng-hide="image_div">
+                            	<span class="file-input btn pink-btn btn-small btn-file">Upload Images<input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg"></span>
+                            	<ul class="images-widget" id="imgTest">
+                                	
+                                </ul>
+                            </section>
+			    <section class="tab-con" ng-hide="block_div">
+                            	
+                            	<ul class="blocks-widget clearfix">
+                                	<li><a href="#"><i aria-hidden="true" class="fa fa-file-video-o"></i></a><span>Video</span></li>
+                                    <li><a href="#"><i aria-hidden="true" class="fa fa-file-image-o"></i></a><span>Brochure</span></li>
+                                    <li><a href="#"><i aria-hidden="true" class="fa fa-share-alt-square"></i></a><span>Social</span></li>
+                                    <li><a href="#"><i aria-hidden="true" class="fa fa-facebook-square"></i></a><span>Facebook</span></li>
+                                </ul>
+                           
+                            </section>
+                        </section>
+                    </section>
+               </section><!--Left-->
+               <section class="col-sm-9 design-right">
+		<section class="gray-frame1" style="background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">               		
+		<div class="module  gridster">
+		  <ul ng-style="{background: background_inner,border:border_color}"> 
+                    
+
+		  <li data-row="1" data-col="1" data-sizex="2" data-sizey="1" id="section1">
+		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		    <div class="main-image"><img src="{{banner_image}}" id="banner_image" alt="banner image" height="150px" width="100%"  onclick="change_image()"><input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" /></div>
+		  </li>
+		    
+		  <li data-row="2" data-col="1" data-sizex="1" data-sizey="1" id="section2">
+		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		    <a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value=''></div>
+		  </li>
+		    
+		  <li data-row="3" data-col="1" data-sizex="1" data-sizey="1" id="section3">
+		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		    <a class="edit" style="display:none;" href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value=''></div>
+		  </li>
+		    
+		  <li data-row="2" data-col="2" data-sizex="1" data-sizey="1" id="section4">
+		    <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		     <div class="row">
+		      <div class="col-sm-8">
+			<div contenteditable="true" ckeditor="option_ckeditor1" name="content3"  required ng-model="content3" ready="onReady()" value=''>
+		      </div></div>
+		      <div class="col-sm-4"> <img src="{{section2_image}}" id="section2_image" alt="banner imageee"  height="150px" width="100%" onclick="change_image2()">
+		      <input type="file" id="my_file2"  onchange="angular.element(this).scope().encodeImageFileAsURL2(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
+		      </div>
+		  </div>
+		  </li>
+		    
+		    <li data-row="3" data-col="2" data-sizex="1" data-sizey="1" id="section5">
+		      <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		      <div> <img src="{{section3_image}}" id="section3_image" alt="banner imageee"  height="150px" width="100%" onclick="change_image3()">
+		    <input type="file" id="my_file3"  onchange="angular.element(this).scope().encodeImageFileAsURL3(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
+		    </div>
+		    </li>
+		    
+		    <li data-row="4" data-col="1" data-sizex="2" data-sizey="1"   id="section6">
+		      <span class="drag" style="display:none;"><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		      <div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value=''>
+		      </div></li>
+		    </ul>
+                      </div>
+                  <!-- <button onclick="test()">test</button>-->
+		    </section>
+               </section><!--Left-->
+          </section>
+      </section>
+
+      <section ng-hide="recipient_div">
+	Coming soon.
+      </section>
+      <section ng-hide="preview_div">
+	Coming soon.
+      </section>
+</div>
+<script type="text/javascript">
+function change_image()
+{
+  $('#my_file').click();
+}
+function change_image2()
+{
+  $('#my_file2').click();
+}
+function change_image3()
+{
+  $('#my_file3').click();
+}
+ function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+      var gridster;
+    function test(){
+     gridster.add_widget('<li class="new"><img src="http://www.sparity.com/images/facebookIcon.jpg" alt="facebook"  ></li>', 1, 1);
+  }
+      $(function(){
+
+        gridster = $(".gridster ul").gridster({
+          widget_base_dimensions: [300, 225],
+          widget_margins: [10, 10],
+		  helper: 'clone',
+		  resize: {
+            enabled: true,
+			handles: ['n', 'e', 's', 'w', 'se', 'sw']
+          },
+		  pushing: true,
+		floating: true,
+		draggable: {
+			handle: '.header'
+		}
+        }).data('gridster');
+
+
+        // resize widgets on hover
+        gridster.$el
+          .on('mouseenter', '> li', function() {
+		   if($(this).attr('id')=='section1')
+		   {
+		    $('#section1 .drag').show();
+		   }
+		    if($(this).attr('id')=='section2')
+		   {
+		    $('#section2 .drag').show();
+		   }
+		   if($(this).attr('id')=='section3')
+		   {
+		    $('#section3 .drag').show();
+		   }
+		   if($(this).attr('id')=='section4')
+		   {
+		    $('#section4 .drag').show();
+		   }
+		   if($(this).attr('id')=='section5')
+		   {
+		    $('#section5 .drag').show();
+		   }
+		   if($(this).attr('id')=='section6')
+		   {
+		    $('#section6 .drag').show();
+		   }
+          }).on('mouseleave', '> li', function() {
+		  if($(this).attr('id')=='section1')
+		   {
+		 
+		    $('#section1 .drag').hide();
+		   }
+		   if($(this).attr('id')=='section2')
+		   {
+		    $('#section2 .drag').hide();
+		   }
+		   if($(this).attr('id')=='section3')
+		   {
+		    $('#section3 .drag').hide();
+		   }
+		    if($(this).attr('id')=='section4')
+		   {
+		    $('#section4 .drag').hide();
+		   }
+		   if($(this).attr('id')=='section5')
+		   {
+		    $('#section5 .drag').hide();
+		   }
+		   if($(this).attr('id')=='section6')
+		   {
+		    $('#section6 .drag').hide();
+		   }
+          })
+      });
+    </script>
+<script type="text/ng-template" id="previewtemplate.html">
+     <div class="modal-header">
+            <h3 class="modal-title">Preview Template</h3>
+        </div>
+        <div class="modal-body">
+            <img src='{{preview_image}}'/>
+        </div>
+        <div class="modal-footer">
+            
+            <button class="btn btn-warning" type="button" ng-click="cancel()">close</button>
+        </div>
+  </script>
+<script type="text/ng-template" id="editfooter.html">
+     <div class="modal-header">
+            <h3 class="modal-title">Edit Section</h3>
+        </div>
+        <div class="modal-body">
+             <div ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value=''>
+        </div>
+        <div class="modal-footer">
+            
+            <button class="btn btn-warning" type="button" ng-click="cancel()">close</button>
+        </div>
+  </script>
+

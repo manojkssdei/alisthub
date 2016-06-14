@@ -188,11 +188,41 @@
                 <h2>Advanced Settings<span class="rt-img"><i class="fa {{questiontabclass}}"></i></span></h2>
             </section>
             <section class="gray-frame" ng-show="questiontab">
+
+                 <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="fname" tooltips tooltip-template="Enable the use of Sidekick for Thermal Printing" >Enable Sidekick for Thermal Printing<span class="req">*</span></label>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-6" >
+                            <div class="form-group">
+                               <div class="onoffswitch mt-3">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                class="onoffswitch-checkbox" id="sidekick_thermal_printing"  ng-model="advSetting.sidekick_thermal_printing">
+                            <label class="onoffswitch-label" for="sidekick_thermal_printing">
+                                
+                            </label>
+                        </div>                                                  
+                            </div>
+                            
+                        </div>
+                      
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button class="pink-btn btn" ng-click="updateUserAdvSetting(1)" ng-disabled="true">Submit</button>
+                        </div>
+                    </div>
+
+
+                    <!--
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="Zipcode">Advanced Settings</label>
-                            <button class="btn pink-btn btn-small" ui-sref="advance_setting" type="button">Edit Advanced Settings</button>
+                            <a ui-sref="advance_setting"><button class="btn pink-btn btn-small" ui-sref="advance_setting" type="button">Edit Advanced Settings</button></a>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -206,7 +236,7 @@
                     <div class="col-sm-4">
                         <button class="pink-btn btn" ng-click="saveBasic(1)">Update</button>
                     </div>
-                </div>
+                </div> -->
             </section>
         </section>
         <!--/Downloads-->

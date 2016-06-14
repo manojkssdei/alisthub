@@ -167,7 +167,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                     }
                     else
                     { //checkshowclix
-                        console.log("888888888888888");   
+                      
                      $scope.error = global_message.LoginNotMatchingError;
                      $scope.error_message = false;
                         $timeout(function() {

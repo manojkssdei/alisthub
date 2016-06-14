@@ -275,7 +275,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /*********create series.****************/
 
-         .state('create_series', {
+        /*.state('create_series', {
             url: '/create_series',
             
             views: {
@@ -290,12 +290,109 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_series/service.js').then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/event_series/controller.js']);
+                return $ocLazyLoad.load(['modules/event_series/controller.js','javascripts/bootstrap-timepicker.js']);
                 })
               }]
             }
           
+        })*/
+         
+         .state('create_series_step1', {
+            url: '/create_series_step1/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'seriesStep1Controller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_series/step1/views/create_series_step1.html',
+				},
+				
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_series/service.js')/*.then(function(){
+                    //var $serviceTest = $injector.get("CustomerFirstLoad");
+                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
+                    })*/.then(function(){
+                    return $ocLazyLoad.load(['modules/event_series/step1/controller.js','javascripts/bootstrap-timepicker.js']);
+                    })
+               
+              }]
+            }
         })
+         
+         
+         /* Setting for Create Series Event step2 screen */
+        .state('create_series_step2', {
+            url: '/create_series_step2/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'seriesStep2Controller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_series/step2/views/create_series_step2.html',
+				},
+				
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_series/service.js').then(function(){
+                    return $ocLazyLoad.load(['modules/event_series/step2/controller.js']);
+                    })
+               
+              }]
+            }
+        })
+        
+         /* Setting for Create Series Event step2 screen */
+        .state('create_series_step3', {
+            url: '/create_series_step3/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'seriesStep3Controller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_series/step3/views/create_series_step3.html',
+		},
+				
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_series/step3/service.js').then(function(){
+                    return $ocLazyLoad.load(['modules/event_series/step3/controller.js']);
+                    })
+               
+              }]
+            }
+        })
+        
+         /* Setting for Create Series Event step4 screen */
+        .state('create_series_step4', {
+            url: '/create_series_step4/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'seriesStep4Controller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_series/step4/views/create_series_step4.html',
+				},
+				
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_series/step4/service.js').then(function(){
+                    return $ocLazyLoad.load(['modules/event_series/step4/controller.js','javascripts/bootstrap-timepicker.js']);
+                    })
+               
+              }]
+            }
+        })
+         
+         
          ////////////////*************EVENT PACKAGE****************************/////
            .state('create_package', {
             url: '/create_package',
@@ -337,7 +434,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/event_series/schedule_service.js').then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/event_series/schedule_controller.js']);
+                return $ocLazyLoad.load(['modules/event_series/schedule_controller.js','javascripts/bootstrap-timepicker.js']);
                 })
               }]
             }
@@ -1191,7 +1288,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     //var $serviceTest = $injector.get("CustomerFirstLoad");
                            // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     })*/.then(function(){
-                    return $ocLazyLoad.load(['modules/step_event/controller.js','javascripts/bootstrap-timepicker.js']);
+                    return $ocLazyLoad.load(['modules/step_event/controller.js']);
                     })
                
               }]
@@ -1216,7 +1313,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                     //var $serviceTest = $injector.get("CustomerFirstLoad");
                            // return $serviceTest.testLoad(); // <-- CHANGED HERE
                     })*/.then(function(){
-                    return $ocLazyLoad.load(['modules/step_event/controller.js','javascripts/bootstrap-timepicker.js']);
+                    return $ocLazyLoad.load(['modules/step_event/controller.js']);
                     })
                
               }]
@@ -1404,9 +1501,10 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         })
     .config(['tooltipsConfProvider', function configConf(tooltipsConfProvider) {
   tooltipsConfProvider.configure({
-    'smart':true,
-    'size':'large',
-    'speed': 'slow',
+    //'smart':true,
+    'size':'small', // 'large', 'small',  'medium'
+    'speed': 'slow', //'fast', 'slow', 'medium'
+    'side' : 'right', // 'left','right','top','bottom'
     //etc...
   });
 }])
