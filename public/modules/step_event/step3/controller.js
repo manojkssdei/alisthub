@@ -7,6 +7,8 @@ Module : Step 3 Event step
 angular.module('alisthub').controller('stepevent3Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad) {
      var $serviceTest = $injector.get("Lookservice");
      $scope.error_message = true;
+      
+
     $scope.click_menu = function(menu, data, valid) {
 
     if (menu.id === 5) {
@@ -277,7 +279,11 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
                             {
                              
                              if (response.result.insertId!='') {
-                                $scope.banner_image=$scope.image;
+                                 $scope.banner_image1=$scope.image;
+                                 $scope.select_image_val='banner_image';
+                                  $timeout(function() {
+                                  angular.element('#editImagePreview').click();   
+                                  },500);
                              }
                             }
                 
@@ -313,7 +319,11 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
                             {
                              
                              if (response.result.insertId!='') {
-                                $scope.section2_image=$scope.image;
+                                $scope.banner_image1=$scope.image;
+                                 $scope.select_image_val='section2_image';
+                                  $timeout(function() {
+                                  angular.element('#editImagePreview').click();   
+                                  },500);
                              }
                             }
                 
@@ -348,7 +358,12 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
                             {
                              
                              if (response.result.insertId!='') {
-                                $scope.section3_image=$scope.image;
+                                
+                                $scope.banner_image1=$scope.image;
+                                 $scope.select_image_val='section3_image';
+                                  $timeout(function() {
+                                  angular.element('#editImagePreview').click();   
+                                  },500);
                              }
                             }
                 

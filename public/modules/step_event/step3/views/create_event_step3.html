@@ -182,8 +182,12 @@
 		      <div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value='' class="wrap-word">
 		      </div></li>
 		    </ul>
+		  
+      
                       </div>
-                  <!-- <button onclick="test()">test</button>-->
+		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
+		<input type="text" id="select_image" value="{{select_image_val}}">
+                 </span>
 		    </section>
                </section><!--Left-->
           </section>
@@ -295,7 +299,58 @@ function change_image3()
         $("#"+id).addClass("activ");
         gridster.remove_widget($('.activ'));
 	}
-    
+     var featherEditor = new Aviary.Feather({
+
+        apiKey: 'fc1c0f6d-76a8-4910-8d0f-1baf64baebdc', // your api key , you can get one from http://developers.aviary.com/
+
+        apiVersion: 3, // the api version . 3 is the last one so far
+
+        theme: 'light', // there are 'light' and 'dark' themes
+
+        tools: 'all', // you can specify the tools from here, you can include/exclude what ever you want
+
+        appendTo: '',
+
+        onSave: function(imageID, newURL) {
+
+            var img = $('#select_image').val(); 
+            
+            $("#"+img).attr('src',newURL); // after save, replacs the image with the new one from aviary.com
+
+            featherEditor.close();
+
+        },
+
+        onError: function(errorObj) { 
+
+            alert(errorObj.message);
+
+        }
+
+    });
+
+  
+    function launchEditor(id, src) {
+
+        featherEditor.launch({
+
+            image: id,
+
+            url: src
+
+        });
+
+       return false;
+
+    }
+
+    $(document).on('click', '#editImagePreview', function() {
+
+         var url =$('#ImagePreview').attr("src");
+         
+         return launchEditor('ImagePreview',url);
+
+    }); 
       
     </script>
 <script type="text/ng-template" id="previewtemplate.html">
