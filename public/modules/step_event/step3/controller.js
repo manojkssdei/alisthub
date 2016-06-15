@@ -14,7 +14,6 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
     $serviceTestVenue.getEvent({'event_id':event_id},function(response){
         
         $scope.data1=response.results[0];
-        console.log($scope.data1);
         $scope.title=response.results[0].title;
         $scope.content2=response.results[0].description;
         $scope.venue_name=response.results[0].venue_name;
@@ -28,6 +27,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
         $scope.facebook_url=response.results[0].facebook_url;
         $scope.twitter_url=response.results[0].twitter_url;
         $scope.eventwebsite_url=response.results[0].website_url;
+        $scope.video_url=response.results[0].video;
 		
     });  
 
@@ -123,40 +123,16 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
       } else {
         $location.path("/create_event_step3/"+$localStorage.eventId);
       }
-     /*if (objectForm.myForm.$valid === true) {
-      $scope.eventdetail_div = $scope.price_and_link_div = $scope.setting_div = true;
-      $scope.look_and_feel_div = false;
-      } else {
-        $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
-        $timeout(function() {
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.error = '';
-        }, 3000);
-      }*/
-
-
-    }
+ }
     //Event Setting div
     if (menu.id === 8) {
 
-      //if (objectForm.myForm.$valid === true) {
           if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
             $location.path("/create_event_step4/"+$stateParams.eventId);
           } else {
             $location.path("/create_event_step4/"+$localStorage.eventId);
           }
-     /* } else {
-
-        $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
-        $timeout(function() {
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.error = '';
-        }, 3000);
-      }*/
+    
 
     }
     $scope.selected2 = menu;
