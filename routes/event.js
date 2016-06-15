@@ -6,10 +6,10 @@ Module : Event
 */
 module.exports = function(app, express) {
 	var router = express.Router();
+      
+      Event    = require('./../app/event/controllers/event.js');
+      EventSetting    = require('./../app/event/controllers/setting.js');
 
-       
-
-	Event    = require('./../app/event/controllers/event.js');
       function supportCrossOriginScript(req, res, next) {
     	    res.header('Access-Control-Allow-Origin', '*');
     	    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -70,6 +70,11 @@ module.exports = function(app, express) {
          
          // post event package data step 1
         router.post('/stepOneEventPackage' , supportCrossOriginScript , Event.stepOneEventPackage);
+
+        // Save event setting data
+        router.post('/saveSetting' , supportCrossOriginScript , EventSetting.saveSetting);
+
+        EventSetting
          
          
 	app.use('/event', router);

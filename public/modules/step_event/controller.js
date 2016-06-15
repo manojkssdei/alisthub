@@ -694,7 +694,7 @@ $scope.rec_year_func = function() {
       "title": "Setting",
       "icon": 'fa fa-cog',
       'id': 8,
-      "formname": 'event-form'
+      "formname": 'eventSettingForm'
     }
 
   ];
@@ -889,68 +889,74 @@ $scope.rec_year_func = function() {
 
     ///TO move to price and level
     if (menu.id === 6) {
-      if (objectForm.myForm.$valid === true) {
-          $scope.selectedClass = 2;
-          if ($localStorage.eventId == null) {
-              if (data.eventtype=='single') {
-                if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
-                  data.eventdate=$scope.single_start_date;
-                  
-                  data.startevent_time=$scope.startevent_time;
-                  data.endevent_time=$scope.endevent_time;
-                  
+      if(objectForm.myForm!=undefined) {
+        if (objectForm.myForm.$valid === true) {
+            $scope.selectedClass = 2;
+            if ($localStorage.eventId == null) {
+                if (data.eventtype=='single') {
+                  if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+                    data.eventdate=$scope.single_start_date;
+                    
+                    data.startevent_time=$scope.startevent_time;
+                    data.endevent_time=$scope.endevent_time;
+                    
+                    data.userId=$localStorage.userId;
+                    $serviceTest.saveEvent(data,function(response){
+                      if (response.code == 200) {
+                        $scope.success=global_message.event_step1;
+                        $localStorage.eventId=response.result;
+                        $scope.error_message=false;
+                        $timeout(function() {
+                          $scope.success='';
+                          $scope.error_message=true;
+                        },3000);
+
+                        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+                          $location.path("/create_event_step2/"+$stateParams.eventId);
+                        } else {
+                          $location.path("/create_event_step2/"+$localStorage.eventId);
+                        }
+                      }
+                    });
+                  }  
+                } else {
                   data.userId=$localStorage.userId;
-                  $serviceTest.saveEvent(data,function(response){
+                  $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
                     if (response.code == 200) {
                       $scope.success=global_message.event_step1;
-                      $localStorage.eventId=response.result;
+                      $scope.data={};
                       $scope.error_message=false;
                       $timeout(function() {
-                        $scope.success='';
-                        $scope.error_message=true;
+                       $scope.success='';
+                       $scope.error_message=true;
                       },3000);
-
-                      if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-                        $location.path("/create_event_step2/"+$stateParams.eventId);
-                      } else {
-                        $location.path("/create_event_step2/"+$localStorage.eventId);
-                      }
+                      window.location.reload();
                     }
-                  });
-                }  
-              } else {
-                data.userId=$localStorage.userId;
-                $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-                  if (response.code == 200) {
-                    $scope.success=global_message.event_step1;
-                    $scope.data={};
-                    $scope.error_message=false;
-                    $timeout(function() {
-                     $scope.success='';
-                     $scope.error_message=true;
-                    },3000);
-                    window.location.reload();
-                  }
-                }); 
-              }
-             
-          }
-          else {
-            if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-              $location.path("/create_event_step2/"+$stateParams.eventId);
+                  }); 
+                }
             } else {
-              $location.path("/create_event_step2/"+$localStorage.eventId);
+              if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+                $location.path("/create_event_step2/"+$stateParams.eventId);
+              } else {
+                $location.path("/create_event_step2/"+$localStorage.eventId);
+              }
             }
-          }
+        } else {
+          $scope.selectedClass = 1;
+          $scope.error_message = false;
+          $scope.error = global_message.event_step1_msg;
+          $timeout(function() {
+            $scope.error = '';
+            $scope.error_message = true;
+            $scope.error = '';
+          }, 3000);
+        }
       } else {
-        $scope.selectedClass = 1;
-        $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
-        $timeout(function() {
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.error = '';
-        }, 3000);
+        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+          $location.path("/create_event_step2/"+$stateParams.eventId);
+        } else {
+          $location.path("/create_event_step2/"+$localStorage.eventId);
+        }
       }
     }
 
