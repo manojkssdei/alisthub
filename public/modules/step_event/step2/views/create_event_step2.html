@@ -298,12 +298,12 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="EventName"> Video</label>
-          <input type="url" name="video" ng-model="data1.video" class="form-control" placeholder="Video Url"/>
+          <input type="url" name="video" ng-model="data1.video" class="form-control" placeholder="Video Embed Url"/>
           <span style="color:red" ng-show="myForm1.video.$dirty && myForm1.video.$invalid">
-  <span ng-show="myForm1.video.$error.required">Video is required</span>
+  <span ng-show="myForm1.video.$error.required">Video embed url is required</span>
   </span>
     <span style="color:red" ng-show="myForm1.video.$dirty && myForm1.video.$invalid">
-  <span ng-show="myForm1.video.$error.url">Not a valid video URL</span>
+  <span ng-show="myForm1.video.$error.url">Not a valid video embed URL</span>
   </span>
         </div>
       </div>

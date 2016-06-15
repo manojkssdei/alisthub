@@ -406,7 +406,7 @@ $scope.rec_year_func = function() {
 
     if (($scope.multiple_start_date === undefined) || ($scope.multiple_end_date === undefined)) {
       if ((action === 'start') || (action === 'end')) {} else {
-        $scope.error = "";
+        $scope.error = "Please select start and end date";
         $scope.error_message = false;
         $timeout(function() {
 
@@ -476,29 +476,7 @@ $scope.rec_year_func = function() {
    **/
 
    $scope.savedata=function(data) {
-        if (data.eventtype=='single') {
-          /*if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
-            data.eventdate=$scope.single_start_date;
-            
-            data.startevent_time=$scope.startevent_time;
-            data.endevent_time=$scope.endevent_time;
-            
-            data.userId=$localStorage.userId;
-            $serviceTest.saveEvent(data,function(response){
-              if (response.code == 200) {
-                 $scope.success=global_message.event_step1;
-                 $localStorage.eventId=response.result;
-                 $scope.error_message=false;
-                 $timeout(function() {
-                   $scope.success='';
-                   $scope.error_message=true;
-                 },3000);
-              }
-            });
-
-          } */ 
-        } else {
-          data.userId=$localStorage.userId;
+         data.userId=$localStorage.userId;
           // Merge Event Date and Time
           var date_time_series = [];
           $scope.between_date.forEach(function(value,key) {
@@ -507,18 +485,24 @@ $scope.rec_year_func = function() {
           
           var time2 = $scope.combine(value,data.endtimeloop1[key]);
           
-          date_time_series.push({"from":time1,"to":time2});
-                   
+          date_time_series.push({"from":time1,"to":time2,"date":value,"start_time":data.starttimeloop1[key],"end_time":data.endtimeloop1[key]});
+                             
           });
           
           data.venue_id = $scope.data.selected_venue;
           data.date_time_series = date_time_series;
+          data.venue_event_div  = $scope.venue_event_div;
           console.log("====================================");
           console.log(data);
           console.log("====================================");
-          /*
+         
+         if(data.venue_id != "" && data.venue_id !== undefined)
+         {
+          
           $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-            if (response.code == 200) {
+            
+            console.log(response);
+            /*if (response.code == 200) {
               $scope.success=global_message.event_step1;
               $scope.data={};
               $scope.error_message=false;
@@ -527,10 +511,24 @@ $scope.rec_year_func = function() {
                $scope.error_message=true;
               },3000);
               window.location.reload();
-            }
-          });*/
-          
-        }
+            }*/
+            
+          });
+         }
+         else
+         {
+            $scope.error = "Please select venue to create event";
+             $scope.error_message = false;
+             $scope.multiple_endtime = "";
+             $timeout(function() {
+     
+               $scope.error = '';
+               $scope.error_message = true;
+               $scope.data.period = '';
+             }, 3000);  
+         }
+      
+       
     }
 
 
@@ -665,6 +663,7 @@ $scope.rec_year_func = function() {
 
     $scope.data.venuename = venuedata.venue_name;
     $scope.data.place = venuedata.address;
+    $scope.data.address = venuedata.address;
     $scope.data.venueid = venuedata.id;
     $scope.data.city = venuedata.city;
     $scope.data.country = venuedata.country;
@@ -1195,14 +1194,26 @@ $scope.rec_year_func = function() {
   $scope.data = {};
   //To multiple start
   $scope.multiplestart = function() {
-
+   
     $scope.data.starttimeloop1 = [];
-
+    if($scope.between_date !== undefined){ 
     var i = 0;
     while (i < $scope.between_date.length) {
       $scope.data.starttimeloop1.push(JSON.parse(JSON.stringify($scope.multiple_starttime)));
 
       i++;
+    }
+    }
+    else{
+       $scope.error = "Please select start and end date";
+        $scope.error_message = false;
+        $scope.multiple_starttime = "";
+        $timeout(function() {
+
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.data.period = '';
+        }, 3000);  
     }
 
   }
@@ -1210,6 +1221,9 @@ $scope.rec_year_func = function() {
 
   //To multiple end date
   $scope.multipleend = function() {
+    
+   if($scope.between_date !== undefined){ 
+    
     if ($scope.data.period && $scope.multiple_endtime) {
 
       var stt = new Date("January 01, 2016 " + $scope.multiple_starttime);
@@ -1234,6 +1248,19 @@ $scope.rec_year_func = function() {
     while (j < $scope.between_date.length) {
       $scope.data.endtimeloop1.push(JSON.parse(JSON.stringify($scope.multiple_endtime)));
       j++;
+    }
+    
+   }
+   else{
+       $scope.error = "Please select start and end date";
+        $scope.error_message = false;
+        $scope.multiple_endtime = "";
+        $timeout(function() {
+
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.data.period = '';
+        }, 3000);  
     }
 
   }
