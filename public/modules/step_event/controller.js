@@ -904,18 +904,16 @@ $scope.rec_year_func = function() {
                     $serviceTest.saveEvent(data,function(response){
                       if (response.code == 200) {
                         $scope.success=global_message.event_step1;
-                        $localStorage.eventId=response.result;
+                        $localStorage.eventId = response.result;
                         $scope.error_message=false;
                         $timeout(function() {
                           $scope.success='';
                           $scope.error_message=true;
                         },3000);
 
-                        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-                          $location.path("/create_event_step2/"+$stateParams.eventId);
-                        } else {
-                          $location.path("/create_event_step2/"+$localStorage.eventId);
-                        }
+                        console.log(response.result);
+                        $location.path("/create_event_step2/"+$localStorage.eventId);
+                        
                       }
                     });
                   }  
