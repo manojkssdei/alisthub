@@ -100,7 +100,36 @@ Created By: Deepak khokkar
 exports.saverecurringEvent=function(req,res){
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
     var data=req.body.data;
-    console.log(data);
+    
+    // Rollback local events
+    function rollback_events(ids,type)
+    {
+        if (ids == null || ids == "" || ids === undefined) {
+            res.json({result:"Rollback error",code:110});
+        }
+        else{
+            if (type == 1) {
+            var delquery = "Delete from events where parent_id="+ids;
+            var delquery2 = "Delete from event_dates where parent_id="+ids;
+            connection.query(delquery,function(cerr,cresult){
+                connection.query(delquery2,function(cerr,cresult){
+                    //res.json({result:"success",code:200});
+                });
+            });
+            }
+            if (type == 2) {
+            var delquery = "Delete from events where id="+ids+" OR parent_id="+ids;
+            var delquery2 = "Delete from event_dates where parent_id="+ids;
+            connection.query(delquery,function(cerr,cresult){
+                connection.query(delquery2,function(cerr,cresult){
+                   // res.json({result:"success",code:200});
+                });
+            });
+            }
+           
+        }
+    }
+    
     function save_event(data)
     {
        if(data.period == "daily"){ data.period = 1; }
@@ -110,17 +139,31 @@ exports.saverecurringEvent=function(req,res){
        data.start_date = data.date_time_series[0].date;
        var length = data.date_time_series.length;
        data.end_date   = data.date_time_series[length-1].date;
-       var curtime55 = moment(data.start_date).format('YYYY-MM-DD');
-              
-       var save_query = "INSERT INTO `events` (`id`, `user_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+data.content+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+curtime+"')";
-       console.log(save_query);
+       
+       // For update parent event
+       if(data.event_id && data.event_id != null && data.event_id !== undefined)
+       {      
+        var save_query = "UPDATE `events` SET user_id='"+data.userId+"',title='"+data.eventname+"',start_date='"+data.start_date+"',recurring_or_not='1',recurring_type='"+data.period+"',description='"+data.content+"',event_steps='1',end_date='"+data.end_date+"',venue_id='"+data.venue_id+"',created='"+curtime+"' where id="+data.event_id;
+        rollback_events(data.event_id,1);
+       }
+       else // For Insert parent event
+       {
+        var save_query = "INSERT INTO `events` (`id`, `user_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+data.content+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+curtime+"')";
+       }
         // Save Parent Event
         connection.query(save_query,function(perr,presult){
             console.log(presult);
-            var parent_id = presult.insertId;
+            if(data.event_id && data.event_id != null && data.event_id !== undefined)
+            {
+                var parent_id = data.event_id;
+            }
+            else{
+                var parent_id = presult.insertId;
+            }
+            
             if (parent_id != null && parent_id !== undefined) {
                 var date_array = data.date_time_series;
-                //console.log(date_array);
+                
                 /// Save Child events
                 date_array.forEach(function(date_arr){
                 
@@ -136,27 +179,22 @@ exports.saverecurringEvent=function(req,res){
                     
                 });
                 }
-                
-                        
                 }); 
         
                 });
                 
-                res.json({result:"success",code:200});
+                res.json({result:"success",code:200,parent_id:parent_id});
                 
             }
             else{
                 res.json({result:"Parent Not Save",code:200});
             }
-            
-            
         });
- 
-        
     }
-   
+    
+      
+    
    //console.log(data);
-   
    //Case 1: Step -1 Saving
    // server side validation
    if(data.eventname !== undefined && data.eventtype !== undefined && data.date_time_series !== undefined && data.userId !== undefined){
@@ -167,18 +205,17 @@ exports.saverecurringEvent=function(req,res){
     if (data.venue_event_div == true && data.venue_id !== undefined) {
        
        // Save Parent Event data
-       var parent_query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`, `fax`, `timezone`, `capacity`, `contact_name`, `phone`, `email`, `url`, `image`, `seating_chart`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"', '', '', '', '', '', '', '', '', '')";
-       
        save_event(data);
        
     }
-    else{
+    else
+    {
         if(data.venuetype !== undefined && data.venuename !== undefined && data.address !== undefined && data.city !== undefined && data.zipcode !== undefined && data.state !== undefined && data.country !== undefined)
         {
             var venuequery = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`, `fax`, `timezone`, `capacity`, `contact_name`, `phone`, `email`, `url`, `image`, `seating_chart`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"', '', '', '', '', '', '', '', '', '')";
             connection.query(venuequery,function(verr,vresult){
             
-            var parent_query = "";
+            data.venue_id = vresult.insertId;
             
             save_event(data);    
             
@@ -190,44 +227,11 @@ exports.saverecurringEvent=function(req,res){
             res.json({result:"venuevalidation",code:103});
         }
    }
-    
-    
+ 
    }
    else{
     res.json({result:"validation",code:101}); 
    }
-   
-   
-   // data.created = new Date();
-  /*   var i=0;
-    dates.forEach(function(date_arr){
-    
-  var Date1=new Date(dates[i]);
-  var mon=Date1.getMonth()+1;
-  var date=Date1.getFullYear()+"-"+mon+"-"+Date1.getDate();
-          data.created = new Date();
-       var j=0;
-     var query1="INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+date+"','"+data.content+"')";
-     
-     connection.query(query1,function(err,result){
- 
-        var query2="INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`) VALUES(NULL,'"+result.insertId+"','"+date+"','"+req.body.data.starttimeloop1[j]+"','"+req.body.data.endtimeloop1[j]+"')";
-        
-     connection.query(query2);
-     j++;
-        })  ;
-    i++;
-        })
-    
-    var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`, `fax`, `timezone`, `capacity`, `contact_name`, `phone`, `email`, `url`, `image`, `seating_chart`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"', '', '', '', '', '', '', '', '', '')";
-    
-    if (dates != "")
-     {
-          res.json({result:"results",code:200}); 
-     }
-     else{
-          res.json({error:"error",code:101}); 
-     }*/
 
 }
 
@@ -784,4 +788,22 @@ exports.stepOneEventPackage = function(req,res) {
  console.log('stepOneEventPackage' , req);
  res.send({"results":'result',code:200}); 
 
+}
+
+/** 
+Method: updatesocialLink
+Description:Function to changesocial link 
+Created : 2016-06-15
+Created By: Deepak khokhar  
+*/
+exports.updatesociallink = function(req,res) {
+    
+    var facebook_url=req.body.social_link.facebook_url;
+    var twitter_url=req.body.social_link.twitter_url;
+    connection.query("UPDATE events SET facebook_url='"+facebook_url+"',twitter_url='"+twitter_url+"' where id="+req.body.eventId, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
 }

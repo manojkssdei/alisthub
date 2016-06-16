@@ -35,6 +35,12 @@ angular.module('alisthub').factory('Lookservice', ['$q', '$timeout','communicati
        communicationService.resultViaPost(webservices.addlookAndFeelImage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
 			callback(res.data);
 		});
+    }
+    //update  social link
+    url.updatesociallink = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.updatesociallink,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
        
       
   };
