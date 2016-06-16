@@ -71,6 +71,7 @@ select.sml-sel{height:30px; font-size:14px; padding:0 12px}
 .drag{position:absolute; right:-24px; top:10px;}
 .drag a, .drag span{display:block; margin-bottom: 1px; color: #333;}
 .drag .fa{background:#f3f3f3; border-bottom:1px #ccc solid; padding:10px; min-width: 36px; text-align: center;}
-
+.social_link{display:inline-block; margin-bottom: 1px; color: #333;padding:10px; min-width: 36px; text-align: center;}
 .inline-radio{display:inline-block; margin-right:20px;}
 .wrap-word{ word-wrap: break-word;}
+.p5{ padding:5%;}

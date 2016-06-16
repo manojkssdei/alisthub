@@ -70,6 +70,7 @@ module.exports = function(app, express) {
          
          // post event package data step 1
         router.post('/stepOneEventPackage' , supportCrossOriginScript , Event.stepOneEventPackage);
+        router.post('/updatesociallink' , supportCrossOriginScript , Event.updatesociallink);
          
          
 	app.use('/event', router);
