@@ -9,6 +9,8 @@ module.exports = function(app, express) {
       
       Event    = require('./../app/event/controllers/event.js');
       EventSetting    = require('./../app/event/controllers/setting.js');
+      
+      EventSeries    = require('./../app/event/controllers/series.js');
 
       function supportCrossOriginScript(req, res, next) {
     	    res.header('Access-Control-Allow-Origin', '*');
@@ -20,8 +22,6 @@ module.exports = function(app, express) {
       /* For saving the event data */
       router.post('/saveEvent', Event.saveEvent);
       
-      /* Save reoccuring event data */
-      router.post('/saverecurringEvent', Event.saverecurringEvent);
       /*save price level*///
       router.post('/savepricelevel', Event.savepricelevel);
       /*get price level*///
@@ -74,8 +74,13 @@ module.exports = function(app, express) {
         // Save event setting data
         router.post('/saveSetting' , supportCrossOriginScript , EventSetting.saveSetting);
 
-        EventSetting
-         
+        
+	/*********************************** Service for Series events ******************************/
+        /* Save reoccuring event data */
+        router.post('/saverecurringEvent', EventSeries.saverecurringEvent);
+	
+	/*save price level for series event*///
+        router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel); 
          
 	app.use('/event', router);
 }
