@@ -50,6 +50,7 @@ var webservices = {
     "saveProductSetting"  :  "/event_setting/saveProductSetting",
     "getProductSetting"  :  "/event_setting/getProductSetting",
     "saverecurringEvent"  :  "/event/saverecurringEvent",
+    "updatesociallink"  :  "/event/updatesociallink",
         /////get event category////
      "getEventsdetail":"/event/getEventsdetail",
      "getEvents":"/event/getEvents",

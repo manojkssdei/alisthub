@@ -789,3 +789,21 @@ exports.stepOneEventPackage = function(req,res) {
  res.send({"results":'result',code:200}); 
 
 }
+
+/** 
+Method: updatesocialLink
+Description:Function to changesocial link 
+Created : 2016-06-15
+Created By: Deepak khokhar  
+*/
+exports.updatesociallink = function(req,res) {
+    
+    var facebook_url=req.body.social_link.facebook_url;
+    var twitter_url=req.body.social_link.twitter_url;
+    connection.query("UPDATE events SET facebook_url='"+facebook_url+"',twitter_url='"+twitter_url+"' where id="+req.body.eventId, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
+}

@@ -70,10 +70,14 @@ module.exports = function(app, express) {
          
          // post event package data step 1
         router.post('/stepOneEventPackage' , supportCrossOriginScript , Event.stepOneEventPackage);
+        // To update social links from step 3
+        router.post('/updatesociallink' , supportCrossOriginScript , Event.updatesociallink);
+
 
         // Save event setting data
         router.post('/saveSetting' , supportCrossOriginScript , EventSetting.saveSetting);
 
+<<<<<<< HEAD
         
 	/*********************************** Service for Series events ******************************/
         /* Save reoccuring event data */
@@ -81,6 +85,10 @@ module.exports = function(app, express) {
 	
 	/*save price level for series event*///
         router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel); 
+=======
+
+         
+>>>>>>> pb/master
          
 	app.use('/event', router);
 }

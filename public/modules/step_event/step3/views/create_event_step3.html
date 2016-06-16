@@ -90,7 +90,7 @@
                             </section>
                             
                             <section class="tab-con" ng-hide="image_div">
-                            	<span class="file-input btn pink-btn btn-small btn-file">Upload Images<input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg"></span>
+                            	<!--<span class="file-input btn pink-btn btn-small btn-file">Upload Images<input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg"></span>-->
                             	<ul class="images-widget" id="imgTest">
                                 	
                                 </ul>
@@ -99,7 +99,7 @@
                             	
                             	<ul class="blocks-widget clearfix">
                                 	<li><a href="#"><i aria-hidden="true" class="fa fa-file-video-o"></i></a><span>Video</span></li>
-                                    <li><a href="#"><i aria-hidden="true" class="fa fa-file-image-o"></i></a><span>Brochure</span></li>
+                                    
                                     <li><a href="#"><i aria-hidden="true" class="fa fa-share-alt-square"></i></a><span>Social</span></li>
                                     <li><a href="#"><i aria-hidden="true" class="fa fa-facebook-square"></i></a><span>Facebook</span></li>
                                 </ul>
@@ -132,6 +132,7 @@
 		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		    <a onclick="remove_widget('section2')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		  </div>
+		   <div><a  ng-click="socialLink('')">Edit</a><a href="{{sociallink.facebook_url}}" class="social_link" ><i class="p5 fa fa-facebook" aria-hidden="true"></i></a><a href="{{sociallink.twitter_url}}"   class="social_link"><i class="p5 fa fa-twitter" aria-hidden="true"></i></a></div>
 		   <div>Event Title:{{title}}</div>
 		   <div>Start Date:{{start_date| date:'yyyy-MM-dd'}} {{start_time}}</div>
 		   <div>End Date:{{start_date| date:'yyyy-MM-dd'}} {{end_time}}</div>
@@ -140,10 +141,10 @@
 		   <div>State:{{state}}</div>
 		   <div>Zipcode:{{zipcode}}</div>
 		   <div>Country:{{country}}</div>
-		   <div>facebook:{{facebook_url}}</div>
-		   <div>Twitter:{{twitter_url}}</div>
-		   <div>Event Website:{{eventwebsite_url}}</div>
-		    
+
+		   
+		   <div>Website Url:{{eventwebsite_url}}</div>
+
 		  </li>
 		    
 		  <li data-row="3" data-col="1" data-sizex="1" data-sizey="1" id="section3">
@@ -183,8 +184,15 @@
 		    <input type="file" id="my_file3"  onchange="angular.element(this).scope().encodeImageFileAsURL3(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
 		    </div>
 		    </li>
-		    
-		    <li data-row="4" data-col="1" data-sizex="2" data-sizey="1"   id="section6">
+		    <li data-row="4" data-col="1" data-sizex="2" data-sizey="1"   id="section7">
+		      <div class="drag" style="display:none;">
+			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+			<a onclick="remove_widget('section7')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		      
+		      </div>
+		     <div><iframe  width="100%" height=225" src="https://www.youtube.com/embed/ODaWO5eYQgI" frameborder="1" allowfullscreen></iframe></div> 
+		    </li>
+		    <li data-row="5" data-col="1" data-sizex="2" data-sizey="1"   id="section6">
 		      <div class="drag" style="display:none;">
 			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 			<a onclick="remove_widget('section6')"><i class="fa fa-trash" aria-hidden="true"></i></a>
@@ -194,7 +202,7 @@
 		      </div></li>
 		    </ul>
 		  
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/ODaWO5eYQgI" frameborder="1" allowfullscreen></iframe>
+      
                       </div>
 		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
 		<input type="text" id="select_image" value="{{select_image_val}}">
@@ -274,6 +282,10 @@ function change_image3()
 		   {
 		    $('#section6 .drag').show();
 		   }
+		   if($(this).attr('id')=='section7')
+		   {
+		    $('#section7 .drag').show();
+		   }
           }).on('mouseleave', '> li', function() {
 		  if($(this).attr('id')=='section1')
 		   {
@@ -299,6 +311,10 @@ function change_image3()
 		   if($(this).attr('id')=='section6')
 		   {
 		    $('#section6 .drag').hide();
+		   }
+		   if($(this).attr('id')=='section7')
+		   {
+		    $('#section7 .drag').hide();
 		   }
           })
 	  
@@ -392,10 +408,38 @@ function change_image3()
         <div class="modal-body">
              <div ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value=''>
         </div>
+	</div>
         <div class="modal-footer">
             
             <button class="btn btn-warning" type="button" ng-click="cancel()">close</button>
         </div>
   </script>
     </div>
-</div>
+
+
+    <script type="text/ng-template" id="socialLinktemplate.html">
+     <div class="modal-header">
+            <h3 class="modal-title">Social link</h3>
+        </div>
+     <form  name="sociallinkForm" ng-submit="updatesociallink(sociallink)" novalidate>
+        <div class="modal-body">
+            <fieldset class="form-group">
+           <div class="col-sm-4">Facebook</div>
+           <div class="col-sm-8">
+	    <input type="text" class="input form-control" ng-model="sociallink.facebook_url" value="{{sociallink.facebook_url}}">
+	   </div>
+	    </fieldset>
+	     <fieldset class="form-group">
+           <div class="col-sm-4">Twitter</div>
+           <div class="col-sm-8">
+	    <input type="text" class="input form-control"  ng-model="sociallink.twitter_url" value="{{sociallink.twitter_url}}">
+	   </div>
+	    </fieldset>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="submit">save</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">cancel</button>
+        </div>
+	</form>
+  </script>
+
