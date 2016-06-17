@@ -15,6 +15,38 @@ angular.module('alisthub').factory('event_package', ['$q', '$timeout','communica
 			callback(res.data);
 		});
   };
+
+  //get Package Data
+  url.getPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+  //get Events in Package 
+  url.getEventsInPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getEventsInPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+    //get Bundles 
+  url.getBundlesInPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getBundlesInPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+
+    //get Bundles 
+  url.getProductsInPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getProductsInPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  
+
   
 return url;
 
