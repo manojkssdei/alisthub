@@ -77,7 +77,7 @@ module.exports = function(app, express) {
         // Save event setting data
         router.post('/saveSetting' , supportCrossOriginScript , EventSetting.saveSetting);
 
-<<<<<<< HEAD
+
         
 	/*********************************** Service for Series events ******************************/
         /* Save reoccuring event data */
@@ -85,10 +85,7 @@ module.exports = function(app, express) {
 	
 	/*save price level for series event*///
         router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel); 
-=======
 
-         
->>>>>>> pb/master
          
 	app.use('/event', router);
 }
