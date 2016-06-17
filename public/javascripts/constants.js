@@ -59,6 +59,10 @@ var webservices = {
 
      // event package
     "stepOneEventPackage"  :  "/event/stepOneEventPackage",
+    "getPackage" : "/package/getPackage",
+    "getEventsInPackage" : "/package/getEventsInPackage",
+    "getBundlesInPackage" : "/package/getBundlesInPackage",
+    "getProductsInPackage" : "/package/getProductsInPackage",
 
     
 

@@ -1483,6 +1483,7 @@ angular.module('alisthub').controller('EventModalInstanceCtrl', function($localS
                         //console.log($rootScope.assignedPriceLevels);
 
                         $rootScope.eventsChoosed = 1;
+                        console.log('$rootScope.assignedEvents ' , $rootScope.assignedEvents);
 
                         //console.log('$rootScope.eventsChoosed' , $rootScope.eventsChoosed);
                        // $rootScope.discount = $localStorage.discount = "";
