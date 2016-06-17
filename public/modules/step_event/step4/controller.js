@@ -294,7 +294,7 @@ $scope.click_menu = function(menu, data, valid) {
   **/
 
   $scope.combine = function(dt, timeString) {
-    var startDateTime;
+    var startDateTime = '';
     var parts = /^(\d+):(\d+) (AM|PM)$/.exec(timeString);
     if (parts) {
       hours = parseInt(parts[1], 10);
@@ -331,8 +331,15 @@ $scope.click_menu = function(menu, data, valid) {
 
     $scope.formdata.online_sales_open = $scope.combine($scope.formdata.online_sales_open.date,$scope.formdata.online_sales_open.time);
     $scope.formdata.online_sales_close = $scope.combine($scope.formdata.online_sales_close.date,$scope.formdata.online_sales_close.time);
-    $scope.formdata.print_enable_date = $scope.combine($scope.formdata.print_enable_date.date,$scope.formdata.print_enable_date.time);
-    $scope.formdata.print_disable_date = $scope.combine($scope.formdata.print_disable_date.date,$scope.formdata.print_disable_date.time);
+
+    $scope.formdata.print_enable_date = {};
+    $scope.formdata.print_disable_date = {};
+    if($scope.formdata.print_enable_date.date!=undefined && $scope.formdata.print_enable_date.time!=undefined && $scope.formdata.print_enable_date.date!='' && $scope.formdata.print_enable_date.time!=''){
+      $scope.formdata.print_enable_date = $scope.combine($scope.formdata.print_enable_date.date,$scope.formdata.print_enable_date.time);  
+    }
+    if($scope.formdata.print_disable_date.date!=undefined && $scope.formdata.print_disable_date.time!=undefined && $scope.formdata.print_disable_date.date!='' && $scope.formdata.print_disable_date.time!=''){
+      $scope.formdata.print_disable_date = $scope.combine($scope.formdata.print_disable_date.date,$scope.formdata.print_disable_date.time);
+    }
 
     console.log($scope.formdata);
 
@@ -373,33 +380,39 @@ $scope.click_menu = function(menu, data, valid) {
   //To get settings
   $serviceTest.getSettings($scope.eventSetting, function(response) {
     $scope.formdata = response.result[0];
+    if($scope.formdata!=undefined){
+      $scope.formdata.will_call = parseInt($scope.formdata.will_call);
+      $scope.formdata.sales_immediatly = parseInt($scope.formdata.sales_immediatly);
+      $scope.formdata.donation = parseInt($scope.formdata.donation);
+      $scope.formdata.custom_fee = parseInt($scope.formdata.custom_fee);
+      $scope.formdata.question_required = parseInt($scope.formdata.question_required);
+      $scope.formdata.collect_name = parseInt($scope.formdata.collect_name);
 
-    $scope.formdata.will_call = parseInt($scope.formdata.will_call);
-    $scope.formdata.sales_immediatly = parseInt($scope.formdata.sales_immediatly);
-    $scope.formdata.donation = parseInt($scope.formdata.donation);
-    $scope.formdata.custom_fee = parseInt($scope.formdata.custom_fee);
-    $scope.formdata.question_required = parseInt($scope.formdata.question_required);
-    $scope.formdata.collect_name = parseInt($scope.formdata.collect_name);
+      var openDateTime = getDateTime($scope.formdata.online_sales_open);
+      $scope.formdata.online_sales_open = {};
+      $scope.formdata.online_sales_open.date = openDateTime.date;
+      $scope.formdata.online_sales_open.time = openDateTime.time;
 
-    var openDateTime = getDateTime($scope.formdata.online_sales_open);
-    $scope.formdata.online_sales_open = {};
-    $scope.formdata.online_sales_open.date = openDateTime.date;
-    $scope.formdata.online_sales_open.time = openDateTime.time;
+      var closeDateTime = getDateTime($scope.formdata.online_sales_close);
+      $scope.formdata.online_sales_close = {};
+      $scope.formdata.online_sales_close.date = closeDateTime.date;
+      $scope.formdata.online_sales_close.time = closeDateTime.time;
 
-    var closeDateTime = getDateTime($scope.formdata.online_sales_close);
-    $scope.formdata.online_sales_close = {};
-    $scope.formdata.online_sales_close.date = closeDateTime.date;
-    $scope.formdata.online_sales_close.time = closeDateTime.time;
+      var enableDateTime = getDateTime($scope.formdata.print_enable_date);
+      $scope.formdata.print_enable_date = {};
+      $scope.formdata.print_enable_date.date = null;
+      $scope.formdata.print_enable_date.time = null;
 
-    var enableDateTime = getDateTime($scope.formdata.print_enable_date);
-    $scope.formdata.print_enable_date = {};
-    $scope.formdata.print_enable_date.date = enableDateTime.date;
-    $scope.formdata.print_enable_date.time = enableDateTime.time;
+      if(enableDateTime.date!='' && enableDateTime.time!=''){
+        $scope.formdata.print_enable_date.date = enableDateTime.date;
+        $scope.formdata.print_enable_date.time = enableDateTime.time;  
+      }
 
-    var disableDateTime = getDateTime($scope.formdata.print_disable_date);
-    $scope.formdata.print_disable_date = {};
-    $scope.formdata.print_disable_date.date = disableDateTime.date;
-    $scope.formdata.print_disable_date.time = disableDateTime.time;
+      var disableDateTime = getDateTime($scope.formdata.print_disable_date);
+      $scope.formdata.print_disable_date = {};
+      $scope.formdata.print_disable_date.date = disableDateTime.date;
+      $scope.formdata.print_disable_date.time = disableDateTime.time;
+    }
 
   });
 
