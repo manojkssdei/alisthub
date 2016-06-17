@@ -8,6 +8,7 @@ Module : Step 3 Event step
 angular.module('alisthub').controller('stepevent3Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
 
      var $serviceTest = $injector.get("Lookservice");
+     $scope.ticket_image='./images/ticket.png';
      var $serviceTestVenue = $injector.get("venues");
      $scope.error_message = true;
     var event_id=$stateParams.eventId;
