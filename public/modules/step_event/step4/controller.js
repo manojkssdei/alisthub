@@ -393,9 +393,6 @@ $scope.click_menu = function(menu, data, valid) {
 
     var enableDateTime = getDateTime($scope.formdata.print_enable_date);
     $scope.formdata.print_enable_date = {};
-    $scope.formdata.print_enable_date.date = null;
-    $scope.formdata.print_enable_date.time = null;
-    if(enableDateTime.date)
     $scope.formdata.print_enable_date.date = enableDateTime.date;
     $scope.formdata.print_enable_date.time = enableDateTime.time;
 
