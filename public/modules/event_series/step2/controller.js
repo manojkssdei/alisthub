@@ -125,7 +125,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
         $scope.data.id   = id;
          $scope.data.status   = status==1?0:1;
          $scope.loader = true;
-        $serviceTest.changePricelevelStatus($scope.data,function(response){
+        $serviceTest.changeseriesPricelevelStatus($scope.data,function(response){
             
             if (response.code == 200) {
                      $eventId=$scope.eventId;
@@ -619,7 +619,7 @@ angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $
   $scope.remove = function() {
 
     var $serviceTest = $injector.get("venues");
-    $serviceTest.removepricelevel({
+    $serviceTest.removeseriespricelevel({
       'price_leveldelete_id': $rootScope.price_leveldelete_id
     }, function(response) {
       if (response.code === 200) {
@@ -867,10 +867,14 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     if ($localStorage.userId !== undefined) {
       $scope.bundle.seller_id = $localStorage.userId;
       $scope.bundle.step = 1;
-      $scope.bundle.event_id = $localStorage.eventId;
-
-
-      $serviceTest.addBundle($scope.bundle, function(response) {
+      if ($scope.items.eventId) {
+	$scope.bundle.event_id = $scope.items.eventId;
+      }
+      else{
+	$scope.bundle.event_id = $localStorage.eventId;
+      }
+      
+      $serviceTest.addseriesBundle($scope.bundle, function(response) {
 
         if (response.code === 200) {
           if (bundle.id === undefined) {
@@ -882,7 +886,12 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
             $localStorage.bundleId = bundle.id;
             $scope.success = global_message.bundle_update;
 
-            $scope.eventBundle.eventId = $localStorage.eventId;
+            if ($scope.items.eventId) {
+	      $scope.eventBundle.eventId = $scope.items.eventId;
+	    }
+	    else{
+	      $scope.eventBundle.eventId = $localStorage.eventId;
+	    }
             $scope.eventBundle.userId = $localStorage.userId;
 
             $serviceTest.getBundles($scope.eventBundle, function(response) {
@@ -912,14 +921,20 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     var totalBoxoffice = 0;
 
     for (var i = 0; i < $scope.price_level.length; i++) {
-      var quantity = $scope.price_level[i].qty;
+      if ($scope.price_level[i].qty == null) {
+	var quantity = 0;
+      }
+      else{
+        var quantity = $scope.price_level[i].qty;
+      }
+      
       totalQty += parseInt(quantity);
       totalOnline += parseFloat(quantity * $scope.price_level[i].online_price);
       totalBoxoffice += parseFloat(quantity * $scope.price_level[i].box_office_price);
     }
 
     for (var i = 0; i < $scope.productList.length; i++) {
-      var quantity = $scope.productList[i].qty;
+      var quantity = $scope.productList[i].qty == null?0:$scope.productList[i].qty;
       totalQty += parseInt(quantity);
       totalOnline += parseFloat(quantity * $scope.productList[i].retail_price);
       totalBoxoffice += parseFloat(quantity * $scope.productList[i].retail_price);
@@ -957,7 +972,13 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     $serviceTest.updateBundle($scope.bundle, function(response) {
 
       if (response.code === 200) {
-        $scope.eventBundle.eventId = $localStorage.eventId;
+        //$scope.eventBundle.eventId = $localStorage.eventId;
+	if ($scope.items.eventId) {
+	      $scope.eventBundle.eventId = $scope.items.eventId;
+	}
+	else{
+	      $scope.eventBundle.eventId = $localStorage.eventId;
+	}
         $scope.eventBundle.userId = $localStorage.userId;
 
         $serviceTest.getBundles($scope.eventBundle, function(response) {
@@ -1028,8 +1049,13 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
   $scope.getEventPriceLevel = function() {
     if ($localStorage.userId !== undefined) {
       $scope.eventPrice.userId = $localStorage.userId;
-      $scope.eventPrice.eventId = $localStorage.eventId;
-
+      if ($scope.items.eventId) {
+	$scope.eventPrice.eventId = $scope.items.eventId;
+      }
+      else{
+	$scope.eventPrice.eventId = $localStorage.eventId;
+      }
+      
       if ($rootScope.editBundleId === undefined) {
         $scope.eventPrice.bundleId = $localStorage.bundleId;
       } else {
@@ -1066,8 +1092,13 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
             if ($localStorage.userId !== undefined) {
               $scope.bundle.seller_id = $localStorage.userId;
               $scope.bundle.step = 1;
-              $scope.bundle.event_id = $localStorage.eventId;
-
+	      if ($scope.items.eventId) {
+		$scope.bundle.event_id = $scope.items.eventId;
+	      }
+	      else{
+		$scope.bundle.event_id = $localStorage.eventId;
+	      }
+             
               $serviceTest.addBundle($scope.bundle, function(response) {
                 if (response.code === 200) {
                   if (bundle.id === undefined) {
@@ -1085,7 +1116,13 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
                     $localStorage.bundleId = bundle.id;
                     $scope.success = global_message.bundle_update;
 
-                    $scope.eventBundle.eventId = $localStorage.eventId;
+                    if ($scope.items.eventId) {
+		      $scope.eventBundle.eventId = $scope.items.eventId;
+		    }
+		    else{
+		      $scope.eventBundle.eventId = $localStorage.eventId;
+		    }
+		    
                     $scope.eventBundle.userId = $localStorage.userId;
 
                     $serviceTest.getBundles($scope.eventBundle, function(res2) {
@@ -1126,7 +1163,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
           $scope.step_1 = $scope.step_3 = false;
 
           // Get product list 
-          $scope.getProducts();
+          $scope.getProduct();
           $scope.getEventPriceLevel();
         }
 

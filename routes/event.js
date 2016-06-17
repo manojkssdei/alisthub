@@ -77,18 +77,27 @@ module.exports = function(app, express) {
         // Save event setting data
         router.post('/saveSetting' , supportCrossOriginScript , EventSetting.saveSetting);
 
-<<<<<<< HEAD
-        
+       
 	/*********************************** Service for Series events ******************************/
         /* Save reoccuring event data */
         router.post('/saverecurringEvent', EventSeries.saverecurringEvent);
 	
 	/*save price level for series event*///
-        router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel); 
-=======
-
-         
->>>>>>> pb/master
-         
+        router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel);
+	
+	/* Delete price level for series event */
+	
+        router.post('/removeseriespricelevel', EventSeries.removeseriespricelevel);
+	
+	/* Change status Series events */
+	
+        router.post('/changeseriesPricelevelStatus', EventSeries.changeseriesPricelevelStatus);
+	
+	/* For series post price change */
+	router.post('/postseriesPriceChange', EventSeries.postseriesPriceChange);
+	
+	/* For series add Bundle */
+	router.post('/addseriesBundle', EventSeries.addseriesBundle);
+	
 	app.use('/event', router);
 }
