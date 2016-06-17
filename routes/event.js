@@ -87,9 +87,28 @@ module.exports = function(app, express) {
         router.post('/saverecurringEvent', EventSeries.saverecurringEvent);
 	
 	/*save price level for series event*///
+
+        router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel);
+	
+	/* Delete price level for series event */
+	
+        router.post('/removeseriespricelevel', EventSeries.removeseriespricelevel);
+	
+	/* Change status Series events */
+	
+        router.post('/changeseriesPricelevelStatus', EventSeries.changeseriesPricelevelStatus);
+	
+	/* For series post price change */
+	router.post('/postseriesPriceChange', EventSeries.postseriesPriceChange);
+	
+	/* For series add Bundle */
+	router.post('/addseriesBundle', EventSeries.addseriesBundle);
+	
+
         router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel); 
 
          
+
 	app.use('/event', router);
 
 }

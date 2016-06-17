@@ -1,15 +1,15 @@
 /** 
 Controller for the vanue managment page 
 Created : 2016-04-25
-Created By: Manoj kumar  
-Module : manage bundle 
+Created By: Manoj kumar Singh 
+Module : manage bundle Singh
 */
 
 /** 
 Method: addBundle
 Description:Function for adding the bundle for user 
 Created : 2016-04-25
-Created By: Manoj kumar  
+Created By: Manoj kumar  Singh
 */
 exports.addBundle = function(req,res){
     console.log(req.body);
@@ -52,8 +52,7 @@ exports.addBundle = function(req,res){
       } else {
           var query = "INSERT INTO `bundles` (`id`,`event_id`, `seller_id`, `bundle_name`, `bundle_description`, `bundle_limit`, `bundle_minimum_purchase`, `bundle_inventory`, `multiple_ticket_holder`, `hide_online`,  `assign_inventory`, `hide_in_box_office`, `created`,`status`) VALUES (NULL, '"+req.body.event_id+"' , '"+req.body.seller_id+"', '"+req.body.bundle_name+"', '"+req.body.bundle_description+"', '"+req.body.bundle_limit+"', '"+req.body.bundle_minimum_purchase+"', '"+inventory+"', "+multiple_ticket_holder+", "+hide_online+" , "+assign_inventory+" , "+hide_in_box_office+", NOW(),"+status+" )";
       }
-
-      //console.log(query);
+      
     }
    
     if (query != "") {
@@ -266,8 +265,8 @@ exports.getEventPriceLevel=function(req,res){
     console.log(req.body);
     //SELECT * FROM price_levels as p LEFT JOIN bundle_qty as bq on bq.pricelevel_id = p.id and bq.bundle_id = 56 where event_id = 1977 
     var eventId = req.body.eventId;
-    if(eventId!=undefined) {
-      connection.query('SELECT p.*, bq.product_id,bq.bundle_id,bq.pricelevel_id,bq.qty FROM price_levels as p LEFT JOIN bundle_qty as bq on bq.pricelevel_id = p.id and bq.bundle_id = '+ req.body.bundleId +' where event_id = '+ eventId, function(err, results) {
+    if(eventId!==undefined) {
+      connection.query('SELECT p.*, bq.product_id,bq.bundle_id,bq.pricelevel_id,bq.qty FROM price_levels as p LEFT JOIN bundle_qty as bq on bq.pricelevel_id = p.id and bq.bundle_id = '+req.body.bundleId+' where event_id = '+ eventId, function(err, results) {
          if (err) {
           res.json({error:err,code:101});
          }
@@ -275,6 +274,6 @@ exports.getEventPriceLevel=function(req,res){
       });
 
     } else {
-      res.json({result:results,code:200});
+      res.json({result:"missing event id",code:200});
     }
 }

@@ -233,9 +233,9 @@ exports.getPricelevel=function(req,res){
     }
 }
 
-exports.removepricelevel=function(req,res){
+exports.removeseriespricelevel=function(req,res){
     var price_leveldelete_id=req.body.price_leveldelete_id;
-    var sql="Delete FROM price_levels where id="+price_leveldelete_id;
+    var sql="Delete FROM price_levels where id="+price_leveldelete_id+" OR parent_id="+price_leveldelete_id;
     
     connection.query(sql,function(err,result){
        
@@ -252,8 +252,8 @@ Description:Function to change Price level data status
 Created : 2016-05-18
 Created By: Deepak khokhar  
 */
-exports.changePricelevelStatus = function(req,res) { 
-  connection.query("UPDATE price_levels SET is_active='"+req.body.status+"' where id="+req.body.id, function(err, results) {
+exports.changeseriesPricelevelStatus = function(req,res) { 
+  connection.query("UPDATE price_levels SET is_active='"+req.body.status+"' where id="+req.body.id+" OR parent_id="+req.body.id, function(err, results) {
      if (err) {
       res.json({error:err,code:101});
      }
@@ -328,7 +328,7 @@ Description:Function to change Price level data status
 Created : 2016-05-18
 Created By: Deepak khokhar  
 */
-exports.postPriceChange = function(req,res) {
+exports.postseriesPriceChange = function(req,res) {
     
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
     var Date1=new Date(req.body.startdate_pricechange);
@@ -342,9 +342,12 @@ exports.postPriceChange = function(req,res) {
     }else{
         month=req.body.month;
     }
-    var change_price_date=date+" "+month+":"+req.body.time+":00";
- 
- connection.query("UPDATE price_levels SET `new_price`='"+req.body.new_price+"',`apply_to`='"+req.body.apply+"',`price_change_datetime`='"+change_price_date+"' where id="+req.body.price_change_id, function(err, results) {
+    var change_price_date = date+" "+month+":"+req.body.time+":00";
+    
+    var query = "UPDATE price_levels SET `new_price`='"+req.body.new_price+"',`apply_to`='"+req.body.apply+"',`price_change_datetime`='"+change_price_date+"' where id="+req.body.price_change_id+" OR parent_id="+req.body.price_change_id;
+    
+    
+ connection.query(query, function(err, results) {
      if (err) {
       res.json({error:err,code:101});
      }else{
@@ -698,3 +701,120 @@ exports.stepOneEventPackage = function(req,res) {
  res.send({"results":'result',code:200}); 
 
 }
+
+/** 
+Method: addBundle
+Description:Function for adding the bundle for user 
+Created : 2016-06-17
+Created By: Manoj kumar  Singh
+*/
+exports.addseriesBundle = function(req,res){
+    //For Step 1
+    var inventory=0;
+    var event_id = req.body.event_id;
+
+    if (req.body.step == 1) {
+      if (req.body.assign_inventory == true) {
+        inventory=req.body.bundle_inventory;
+      }
+
+      var multiple_ticket_holder = 'false';
+      if(req.body.multiple_ticket_holder == true) {
+        multiple_ticket_holder = 'true';
+      }
+      
+      var assign_inventory = 'false';
+      if (req.body.assign_inventory == true) {
+        assign_inventory = 'true';
+      } 
+
+      var hide_in_box_office = 'false';
+      if ((req.body.hide_in_box_office == true)) {
+        hide_in_box_office='true';
+      }
+
+      var status = 'false';
+      if ((req.body.status==true)) {
+        status='true';
+      } 
+
+      var hide_online = 'false';
+      if ((req.body.hide_online==true)) {
+        hide_online = 'true';
+      } 
+      
+    if(req.body.id!=undefined && req.body.id!=''){
+          var query = "UPDATE bundles SET bundle_name='"+req.body.bundle_name+"',bundle_description='"+req.body.bundle_description+"',bundle_limit='"+req.body.bundle_limit+"',bundle_minimum_purchase='"+req.body.bundle_minimum_purchase+"',bundle_inventory='"+inventory+"',multiple_ticket_holder='"+multiple_ticket_holder+"',hide_online='"+hide_online+"',assign_inventory='"+assign_inventory+"',hide_in_box_office='"+hide_in_box_office+"',status='"+status+"' where id="+req.body.id;
+    } else {
+          var query = "INSERT INTO `bundles` (`id`,`event_id`, `seller_id`, `bundle_name`, `bundle_description`, `bundle_limit`, `bundle_minimum_purchase`, `bundle_inventory`, `multiple_ticket_holder`, `hide_online`,  `assign_inventory`, `hide_in_box_office`, `created`,`status`) VALUES (NULL, '"+req.body.event_id+"' , '"+req.body.seller_id+"', '"+req.body.bundle_name+"', '"+req.body.bundle_description+"', '"+req.body.bundle_limit+"', '"+req.body.bundle_minimum_purchase+"', '"+inventory+"', "+multiple_ticket_holder+", "+hide_online+" , "+assign_inventory+" , "+hide_in_box_office+", NOW(),"+status+" )";
+    }
+      
+    }
+   
+    if (query != "") {
+      connection.query(query, function(err7, results) {
+        if (err7) {
+          res.json({error:err7,code:101});
+        }
+        res.json({result:results,code:200 });
+      });
+    }
+}
+
+/** 
+Method: updateBundle
+Description:Function for update the bundle for event 
+Created : 2016-04-25
+Created By: Manoj kumar  
+*/
+exports.updateBundle = function(req,res){
+    //console.log(req.body.price_level);
+    var query_value = "";
+    var query_value_price = "";
+
+    connection.query("UPDATE bundles SET total_qty='"+req.body.totalQty+"',total_online='"+req.body.totalOnline+"',total_boxoffice='"+req.body.totalBoxoffice+"' where id="+req.body.id, function(err, results) {
+       if (err) {
+        res.json({error:err,code:101});
+       }
+
+        var bundleDeleteId=req.body.bundleDeleteId;
+        var sql="Delete FROM bundle_qty where bundle_id="+req.body.id;
+        connection.query(sql,function(err,result){ });
+
+        //Product list entry
+        var productList1 = req.body.productList;
+        if(productList1.length > 0){
+          for(i=0; i < productList1.length; i++ ) {
+            if (productList1[i].qty != null && productList1[i].qty != "" && productList1[i].qty != "undefined") {
+              query_value += "(NULL, '"+req.body.id+"',NULL, '"+productList1[i].id+"', '"+productList1[i].qty+"'),";
+            }
+          }
+          if (query_value != "") {
+            query_value = query_value.substr(0, query_value.length-1);
+            var query_option = "INSERT INTO `bundle_qty` (`id`, `bundle_id`, `pricelevel_id`, `product_id`,`qty`) VALUES " + query_value;
+            console.log(query_option);
+            connection.query(query_option, function(err8, res) { });
+          }  
+        }
+
+        //price level tickets entry
+        var price_level1 = req.body.price_level;
+        if(price_level1.length > 0){
+          for(i=0; i < price_level1.length; i++ ) {
+            if (price_level1[i].qty != null && price_level1[i].qty != "" && price_level1[i].qty != "undefined") {
+              query_value_price += "(NULL, '"+req.body.id+"', '"+price_level1[i].id+"',NULL, '"+price_level1[i].qty+"'),";
+            }
+          }
+          if (query_value_price != "") {
+            query_value_price = query_value_price.substr(0, query_value_price.length-1);
+            var query_option_price = "INSERT INTO `bundle_qty` (`id`, `bundle_id`, `pricelevel_id`, `product_id`,`qty`) VALUES " + query_value_price;
+            console.log(query_option_price);
+            connection.query(query_option_price, function(err8, res) { });
+          }  
+        }
+        
+
+        res.json({result:results,code:200});
+    });
+}
+
