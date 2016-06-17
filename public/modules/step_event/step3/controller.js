@@ -497,7 +497,9 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
             }
         }
 
-    
+    $scope.data = {};
+  $scope.locations =[];
+  $scope.locations[0] =[];
     
 });
 angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {

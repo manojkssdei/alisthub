@@ -80,12 +80,16 @@ module.exports = function(app, express) {
   router.post('/saveSetting' , supportCrossOriginScript , EventSetting.saveSetting);
   router.post('/getSettings' , supportCrossOriginScript , EventSetting.getSettings);
   
-  /*********************************** Service for Series events ******************************/
-  /* Save reoccuring event data */
-  router.post('/saverecurringEvent', EventSeries.saverecurringEvent);
+  
 
-  /*save price level for series event*///
-  router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel); 
+	/*********************************** Service for Series events ******************************/
+        /* Save reoccuring event data */
+        router.post('/saverecurringEvent', EventSeries.saverecurringEvent);
+	
+	/*save price level for series event*///
+        router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel); 
 
-  app.use('/event', router);
+         
+	app.use('/event', router);
+
 }
