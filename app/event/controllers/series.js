@@ -7,90 +7,6 @@ Created By: Deepak khokkar
 var moment       = require('moment-timezone');
 var showClix   = require('./../../showclix/service.js');
 
-exports.saveEvent = function(req,res) {
-  
-    var data=req.body;
-    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
-    //console.log(data); return false;
-    //var zip = parseInt(data.zipcode);
-    if(data.id=='' || data.id==undefined) {
-     
-     var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"')";
-     
-      connection.query(query, function(err7, responce) {
-          console.log('second loop');
-          console.log(responce);
-          var venue_id = responce.insertId;
-          var eventId = null;
-          data.created = new Date();
-          
-          //console.log("INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"')");
-          //return false;
-
-          var query1 = "INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"')";
-         
-          connection.query(query1,function(err,result) {
-              eventId = result.insertId;
-              
-              var query2 = "INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`,`created`,`modified`) VALUES(NULL,'"+eventId+"','"+data.eventdate+"','"+data.startevent_time+"','"+data.endevent_time+"','"+curtime+"','"+curtime+"')";
-              connection.query(query2,function(error,res1){
-                if (error) {
-                  res.json({error:error,code:101});
-                } else {
-                  /*var showClix2 = new showClix();
-                  showClix2.add_event(req,res,function(data){
-                    if (data.status == 1) {
-                      //res.json({result:results,showclix:data.location,code:200});
-                    } else {                     
-                    }
-                  });*/
-                  res.json({result:eventId,code:200}); 
-                }
-              });
-          });
-      });
-    } else {
-      //Update the event 
-      var venueid = '';
-      if(data.venueid!=undefined && data.venueid!='') {
-        venueid = data.venueid;
-        connection.query("UPDATE venues SET `venue_type`='"+data.venuetype+"',`venue_name`='"+data.venuename+"',`address`='"+data.address+"',`city`='"+data.city+"',`zipcode`='"+parseInt(data.zipcode)+"',`state`='"+data.state+"',`country`='"+data.country+"',`latitude`='"+data.latitude+"',`longitude`='"+data.longitude+"'  where id=" + venueid, function(err2, results2) {
-           if (err2) {
-            res.json({error:err2,code:101});
-           } 
-        });
-      } else {
-        var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"')";
-     
-          connection.query(query, function(err8, vresponce) {
-            if (err8) {
-             res.json({error:err2,code:101});
-            } 
-            venueid = vresponce.insertId;
-          })
-      }
-      //console.log('venueID:'+venueid);
-
-      connection.query("UPDATE events SET `user_id`='"+data.userId+"',`title`='"+data.eventname+"',`description`='"+data.content+"',`venue_id`='"+venueid+"'  where id="+data.id, function(err, results) {
-         if (err) {
-          res.json({error:err,code:101});
-         }
-      });
-      
-      res.json({result:data.id,code:200}); 
-         
-      //console.log("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id);
-      
-      /*connection.query("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id, function(err, results) {
-         if (err) {
-          res.json({error:err,code:101});
-         } else {
-          res.json({result:results,code:200});
-         }
-      });*/
-    }
-}
-
 /** 
 Method: saverecurringEvent
 Description:Function to save event recurring data  
@@ -236,71 +152,64 @@ exports.saverecurringEvent=function(req,res){
 }
 
 
-
-/** 
-Method: getEvents
-Description:Function to get event data  
-Created : 2016-04-19
-Created By: Deepak khokkar  
-*/
-exports.getEvents=function(req,res) {
-  var user_id=req.body.user_id;
-  var sql="SELECT events.id, events.title, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id="+user_id;
-
-
-  connection.query(sql,function(err,result){
-    if (err) {
-      res.send({err:"error",code:101}); 
+exports.saveseriespricelevel=function(req,res){
+    function remove_level(id)
+    {
+        var qu = "Delete from price_levels where parent_id="+id;
+        connection.query(qu,function(err,result){
+        });
+        
     }
-    res.send({"results":result,code:200});  
-  });
-}
-
-/** 
-Method: getEvent
-Description:Function to get event data  
-Created : 2016-04-19
-Created By: Deepak khokkar  
-*/
-exports.getEvent=function(req,res) {
-   
-    var event_id=req.body.event_id;
-    if(event_id!=undefined){
-      var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id where events.id="+event_id;
-     
-      connection.query(sql,function(err,result){
-        if (err) {
-          res.send({err:"error",code:101}); 
-        }
-        res.send({"results":result,code:200});  
-      });
-    } else {
-      res.send({"results":{},code:200});
-    }
-}
-
-
-
-exports.savepricelevel=function(req,res){
     
     var data=req.body;
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
-    // Case : For single event
-    if (data.id!=undefined) {
-        var query = "UPDATE `price_levels` SET `event_id`='"+data.eventId+"',`user_id`='"+data.userId+"',`price_level_name`='"+data.price_level+"',`price_level_name`='"+data.price_level+"',`price_level_type`='"+data.price_type+"',`min_price`='"+parseFloat(data.minimum_price)+"',`suggested_price`='"+parseFloat(data.suggested_price)+"',`online_price`='"+parseFloat(data.online_price)+"',`box_office_price`='"+parseFloat(data.box_office_price)+"',`quantity_available`='"+parseFloat(data.quantity_available)+"',`hide_online`='"+data.hide_online+"',`hide_in_box_office`='"+data.hide_in_box_office+"',`min_per_order`='"+data.minimum_per_order+"', `max_per_order`='"+data.maximum_per_order+"',`created_at`='"+curtime+"',`description`='"+data.description+"' where `id`='"+data.id+"'";
-    }else{
-        if (data.price_level!=undefined) {
-        var query = "INSERT INTO `price_levels` (`id`, `event_id`, `user_id`, `price_level_name`, `price_level_type`, `min_price`, `suggested_price`, `online_price`, `box_office_price`, `quantity_available`, `hide_online`, `hide_in_box_office`, `min_per_order`, `max_per_order`, `created_at`,`description`) VALUES (NULL, '"+data.eventId+"', '"+data.userId+"', '"+data.price_level+"', '"+data.price_type+"', '"+parseFloat(data.minimum_price)+"', '"+parseFloat(data.suggested_price)+"', '"+parseFloat(data.online_price)+"', '"+parseFloat(data.box_office_price)+"', '"+parseFloat(data.quantity_available)+"', '"+data.hide_online+"', '"+data.hide_in_box_office+"', '"+data.minimum_per_order+"', '"+data.maximum_per_order+"', '"+curtime+"','"+data.description+"')";
+    // Case : For series event
+     if (data.id!=undefined) {
+            var query = "UPDATE `price_levels` SET `event_id`='"+data.eventId+"',`user_id`='"+data.userId+"',`price_level_name`='"+data.price_level+"',`price_level_name`='"+data.price_level+"',`price_level_type`='"+data.price_type+"',`min_price`='"+parseFloat(data.minimum_price)+"',`suggested_price`='"+parseFloat(data.suggested_price)+"',`online_price`='"+parseFloat(data.online_price)+"',`box_office_price`='"+parseFloat(data.box_office_price)+"',`quantity_available`='"+parseFloat(data.quantity_available)+"',`hide_online`='"+data.hide_online+"',`hide_in_box_office`='"+data.hide_in_box_office+"',`min_per_order`='"+data.minimum_per_order+"', `max_per_order`='"+data.maximum_per_order+"',`created_at`='"+curtime+"',`description`='"+data.description+"' where `id`='"+data.id+"'";
+        remove_level(data.id);
+        var parent_id = data.id;
+        }else{
+            if (data.price_level!=undefined) {
+            var query = "INSERT INTO `price_levels` (`id`, `event_id`, `user_id`, `price_level_name`, `price_level_type`, `min_price`, `suggested_price`, `online_price`, `box_office_price`, `quantity_available`, `hide_online`, `hide_in_box_office`, `min_per_order`, `max_per_order`, `created_at`,`description`) VALUES (NULL, '"+data.eventId+"', '"+data.userId+"', '"+data.price_level+"', '"+data.price_type+"', '"+parseFloat(data.minimum_price)+"', '"+parseFloat(data.suggested_price)+"', '"+parseFloat(data.online_price)+"', '"+parseFloat(data.box_office_price)+"', '"+parseFloat(data.quantity_available)+"', '"+data.hide_online+"', '"+data.hide_in_box_office+"', '"+data.minimum_per_order+"', '"+data.maximum_per_order+"', '"+curtime+"','"+data.description+"')";
+            }
         }
-    }
+    
     if (query != "") {
         connection.query(query,function(err,result){
        
         if (err) {
            res.send({err:"error",code:101}); 
+        }else{
+           /////////////////////////////////////////////////////////////////
+            if (data.id != undefined) {
+                var parent_id = data.id;
+            }
+            else{
+                var parent_id = result.insertId;
+            }
+            var eventsquery = "select id from events where parent_id="+data.eventId;
+            connection.query(eventsquery,function(verr,vresult){
+            var ids = vresult;
+                if (ids != null && ids !== undefined)
+                {
+                    ids.forEach(function(childs){
+                    ////////////////////////////////////////////////
+                    console.log(childs.id);
+                    var child_event_id = childs.id;
+                    var query_1 = "INSERT INTO `price_levels` (`id`, `event_id`, `parent_id`, `user_id`, `price_level_name`, `price_level_type`, `min_price`, `suggested_price`, `online_price`, `box_office_price`, `quantity_available`, `hide_online`, `hide_in_box_office`, `min_per_order`, `max_per_order`, `created_at`,`description`) VALUES (NULL, '"+child_event_id+"', '"+parent_id+"', '"+data.userId+"', '"+data.price_level+"', '"+data.price_type+"', '"+parseFloat(data.minimum_price)+"', '"+parseFloat(data.suggested_price)+"', '"+parseFloat(data.online_price)+"', '"+parseFloat(data.box_office_price)+"', '"+parseFloat(data.quantity_available)+"', '"+data.hide_online+"', '"+data.hide_in_box_office+"', '"+data.minimum_per_order+"', '"+data.maximum_per_order+"', '"+curtime+"','"+data.description+"')";
+                    console.log(query_1);
+                    connection.query(query_1,function(cerr,cresult){
+                        console.log(cresult);
+                    });
+                    ///////////////////////////////////////////////
+                    });
+                    res.send({"results":"success",code:200}); 
+                    
+                    ///////////////////////////////////////////////////////////////////////////////////////
+                }
+            });
         }
-           res.send({"results":result,code:200});  
-        
+           ////////////////////////////////////////////////////////////////
         });
     }
     else{
@@ -788,22 +697,4 @@ exports.stepOneEventPackage = function(req,res) {
  console.log('stepOneEventPackage' , req);
  res.send({"results":'result',code:200}); 
 
-}
-
-/** 
-Method: updatesocialLink
-Description:Function to changesocial link 
-Created : 2016-06-15
-Created By: Deepak khokhar  
-*/
-exports.updatesociallink = function(req,res) {
-    
-    var facebook_url=req.body.social_link.facebook_url;
-    var twitter_url=req.body.social_link.twitter_url;
-    connection.query("UPDATE events SET facebook_url='"+facebook_url+"',twitter_url='"+twitter_url+"' where id="+req.body.eventId, function(err, results) {
-     if (err) {
-      res.json({error:err,code:101});
-     }
-     res.json({result:results,code:200});
-  });
 }

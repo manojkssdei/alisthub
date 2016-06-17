@@ -195,40 +195,30 @@ select.form-control{padding:6px 12px; font-style:normal; font-style:italic; colo
 
 .gray-btn{background:#969696;}
 
-footer{background:#0275d0;padding:50px 0px;}
-footer h2{color:#fff;font-size:18px;font-weight:bold;}
-footer ul{margin-top:25px;}
-footer li{font-size:13px;font-weight:300;color:#fff;line-height:22px;}
-footer li a{font-size:13px;font-weight:300;color:#fff;line-height:32px; text-decoration:none;}
-footer li a:hover{color:#fff; text-decoration:underline;}
-footer i{color:#fff;margin:15px 10px 0px 0px;}
-.price {margin-top: 45px;}
-.nwsltr input[type="text"] {
- background: #fff none repeat scroll 0 0;
-    border: 0 none;
-    font-size: 13px;
-    height: 48px;
-    margin: 30px 0 0;
-    padding: 10px 40px 10px 10px;
-    position: relative;
-    width: 100%;
-}
-.ent {
-  background: #fff none repeat scroll 0 0;
-    border: 0 none;
-    bottom: 0;
-    height: 48px;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    right: 25px;
-}
-.ent i {
-  color: #0275d0;
-  font-size: 24px;
-  margin: 0;
-}
-.footer-btm{background:#7b7b7b;color:#fff;font-size:15px;text-align:center;padding:22px 0px;}
+footer{background:#0275d0;padding:50px 0px; color:#fff; font-size:13px; line-height:20px;}
+footer h2{color:#fff;font-size:18px;font-weight:bold; margin-bottom:25px;}
+.f-links li{font-size:13px; margin-bottom:12px; background:url(./images/arrow-wt.png) no-repeat left 7px; padding-left:16px;}
+.f-links li a{color:#fff; text-decoration:none;}
+.f-links li a:hover{color:#fff; text-decoration:underline;}
+footer i{color:#fff;}
+
+.f-logo, .f-facebook{margin:15px 0 20px;}
+
+.contact-info > li{position:relative; margin-bottom:12px; padding-left:22px;}
+.contact-info > li .fa{position:absolute; left:0; width:14px; text-align:center; top:4px;}
+
+.newletter-row{position:relative; margin-bottom:20px;}
+.nwsltr input[type="text"] {background: #fff none repeat scroll 0 0; border: 0 none; font-size: 13px; height: 48px; padding: 10px 40px 10px 10px; position: relative; width: 100%; color:#333;}
+.ent {background: #fff none repeat scroll 0 0; border: 0 none; bottom: 0; padding:0 15px; height: 48px; position: absolute; right:0;}
+.ent i {color: #0275d0; font-size: 24px; margin: 0;}
+.footer-btm{background:#939598;color:#fff;font-size:15px;text-align:center;padding:16px;}
+.socialmedia{margin:0 -8px;}
+.socialmedia > li {float:left; padding:0 8px;}
+.socialmedia > li a{background:rgba(255,255,255,0.3); height:32px; width:32px; display:inline-table; text-align:center; border-radius:50%;}
+.socialmedia > li a:hover{background:rgba(255,255,255,1);}
+.socialmedia > li a:hover .fa{color:#333;}
+.socialmedia > li a .fa{display:table-cell; vertical-align:middle;}
+
 #venue-event .bootstrap-select.btn-group .dropdown-toggle .caret{border-left:10px solid transparent;border-right:10px solid transparent;border-top:10px dashed; color:#b3b3b3;}/*Select*/
 .btn{border-radius:0px;}
 .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn){width:100%;}
@@ -769,4 +759,6 @@ color-picker{float: right !important;}
 
 .action.unassign{
   font-size:12px;
-}
+} 
+.content .wrap-word > p{ padding: 3%;}
+.gray-frame1 {   background: rgba(0, 0, 0, 0) url("./images/bg/bg.jpg") no-repeat scroll center top / cover ;}

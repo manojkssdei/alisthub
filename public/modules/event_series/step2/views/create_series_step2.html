@@ -420,6 +420,7 @@
         <div  class="modal-header">
             <h3 class="modal-title" style="float:left;">Manage Price Level</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
         </div>
+        <div ng-show="error_message"><p class="error-fld ng-binding">{{error}}</p></div>
         <form  name="pricelevelForm" class="pricelevelForm"  ng-submit="savepriceleveldata(data1)" novalidate>
         <div  class="modal-body">
         <!-- {{data1}}-->

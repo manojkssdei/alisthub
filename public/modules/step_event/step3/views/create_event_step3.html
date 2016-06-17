@@ -90,7 +90,7 @@
                             </section>
                             
                             <section class="tab-con" ng-hide="image_div">
-                            	<span class="file-input btn pink-btn btn-small btn-file">Upload Images<input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg"></span>
+                            	<!--<span class="file-input btn pink-btn btn-small btn-file">Upload Images<input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg"></span>-->
                             	<ul class="images-widget" id="imgTest">
                                 	
                                 </ul>
@@ -99,7 +99,7 @@
                             	
                             	<ul class="blocks-widget clearfix">
                                 	<li><a href="#"><i aria-hidden="true" class="fa fa-file-video-o"></i></a><span>Video</span></li>
-                                    <li><a href="#"><i aria-hidden="true" class="fa fa-file-image-o"></i></a><span>Brochure</span></li>
+                                    
                                     <li><a href="#"><i aria-hidden="true" class="fa fa-share-alt-square"></i></a><span>Social</span></li>
                                     <li><a href="#"><i aria-hidden="true" class="fa fa-facebook-square"></i></a><span>Facebook</span></li>
                                 </ul>
@@ -109,13 +109,11 @@
                     </section>
                </section><!--Left-->
                <section class="col-sm-9 design-right">
-		<section class="gray-frame1" style="background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">               		
+		<section class="gray-frame1" style="background: rgba(0, 0, 0, 0) url('./images/bg/bg.jpg') no-repeat scroll center top / cover ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">               		
 		<div class="module  gridster">
 		  <ul ng-style="{background: background_inner,border:border_color}"> 
-                    
-
-		  <li data-row="1" data-col="1" data-sizex="2" data-sizey="1" id="section1">
-		    <div class="drag" style="display:none;">
+                 <li data-row="1" data-col="1" data-sizex="4" data-sizey="1"  id="section1">
+		  <div class="drag" style="display:none;">
 		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		    <a onclick="remove_widget('section1')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		    <a onclick="crop_image('banner_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
@@ -124,40 +122,58 @@
 		      <img src="{{banner_image}}" id="banner_image" alt="banner image" height="150px" width="100%"  onclick="change_image()">
 			<input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
 		    </div>
-		  </li>
-		    
-		  <li data-row="2" data-col="1" data-sizex="1" data-sizey="1" id="section2">
-		   <div class="drag1" style="display:none;">
+		    <section class="social-media" ng-click="socialLink('')">                          	  
+		      <a class="facebook-net" href="{{sociallink.facebook_url}}"><span class="network-icon"><i class="fa fa-facebook"></i></span></a>
+		      <a class="google-net" href="#"><span class="network-icon"><i class="fa fa-google"></i></span></a>                      
+		      <a class="twitter-net" href="{{sociallink.twitter_url}}"><span class="network-icon"><i class="fa fa-twitter"></i></span></a>                    
+		      <a class="linkedin-net" href="#"><span class="network-icon"><i class="fa fa-linkedin"></i></span></a>
+		      <a class="instagram-net" href="#"><span class="network-icon"><i class="fa fa-instagram"></i></span></a>
+		      <a class="youtube-net" href="#"><span class="network-icon"><i class="fa fa-youtube-play"></i></span></a>
+                                    
+                    </section>
+		 </li>   
+		<li data-row="2" data-col="1" data-sizex="3" data-sizey="1">
+		  <div class="drag1" style="display:none;">
 		    
 		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		    <a onclick="remove_widget('section2')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		  </div>
-		   <div>Event Title:{{title}}</div>
-		   <div>Start Date:{{start_date| date:'yyyy-MM-dd'}} {{start_time}}</div>
-		   <div>End Date:{{start_date| date:'yyyy-MM-dd'}} {{end_time}}</div>
-		   <div>Venue Name:{{venue_name}}</div>
-		   <div>City:{{city}}</div>
-		   <div>State:{{state}}</div>
-		   <div>Zipcode:{{zipcode}}</div>
-		   <div>Country:{{country}}</div>
-		   <div>facebook:{{facebook_url}}</div>
-		   <div>Twitter:{{twitter_url}}</div>
-		   <div>Event Website:{{eventwebsite_url}}</div>
-		    
-		  </li>
-		    
-		  <li data-row="3" data-col="1" data-sizex="1" data-sizey="1" id="section3">
-		    <div class="drag" style="display:none;">
+		  
+		  <section class="form-group">
+		    <div class="media">
+			  <section class="media-left m-fw">
+				<section class="date-media">
+				   <div class="date-view"><span class="date-m">Mar</span> <span class="date-d">12</span></div>
+				   -
+				   <div class="date-view"><span class="date-m">Mar</span> <span class="date-d">18</span></div>
+			       </section>
+			       
+			       
+			  </section>
+			  <div class="media-body content m-fw">
+			      <h4>{{title}}</h4>                                  
+			      <p>{{start_date| date:'yyyy-MM-dd'}} {{start_time}} - {{start_date| date:'yyyy-MM-dd'}} {{end_time}}</p>
+			      <p>{{eventwebsite_url}}</p>
+			      <p class="clearfix event-labels clearfix"><span class="event-price pull-left">$299.00</span><span class="event-label pull-right">All Ages</span></p>
+			  </div>
+			</div>
+		  </section>
+		  
+		</li>
+		<li data-row="3" data-col="1" data-sizex="3" data-sizey="1"  id="section3">
+		  <div class="drag" style="display:none;">
 		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		      <a onclick="remove_widget('section3')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		      
 		    </div>
-		    
+		    <section class="event-details">
+		    <section class="content">
 		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
-		  </li>
-		    
-		  <li data-row="2" data-col="2" data-sizex="1" data-sizey="1" id="section4">
-		    <div class="drag" style="display:none;">
+		    </section>
+		    </section>
+		</li>
+		<li data-row="4" data-col="1" data-sizex="3" data-sizey="1"  id="section4">
+		  <div class="drag" style="display:none;">
 		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		      <a onclick="remove_widget('section4')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		      <a onclick="crop_image('section2_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
@@ -171,10 +187,9 @@
 		      <input type="file" id="my_file2"  onchange="angular.element(this).scope().encodeImageFileAsURL2(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
 		      </div>
 		    </div>
-		  </li>
-		    
-		    <li data-row="3" data-col="2" data-sizex="1" data-sizey="1" id="section5">
-		      <div class="drag" style="display:none;">
+		</li>
+		<li data-row="2" data-col="4" data-sizex="1" data-sizey="1"  id="section5">
+		  <div class="drag" style="display:none;">
 			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 			<a onclick="remove_widget('section5')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		        <a onclick="crop_image('section3_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
@@ -182,19 +197,62 @@
 		      <div> <img src="{{section3_image}}" id="section3_image" alt="banner imageee"  height="150px" width="100%" onclick="change_image3()">
 		    <input type="file" id="my_file3"  onchange="angular.element(this).scope().encodeImageFileAsURL3(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
 		    </div>
-		    </li>
-		    
-		    <li data-row="4" data-col="1" data-sizex="2" data-sizey="1"   id="section6">
-		      <div class="drag" style="display:none;">
+		</li>
+		<li data-row="3" data-col="4" data-sizex="1" data-sizey="2">
+		  
+		      <p><a class="btn pink-btn buyticket" href="#">Buy Ticket</a></p>
+		      <section class="panel panel-primary">
+		     <section class="panel-heading"><h5 class="m-b0">Venue</h5></section>                       
+		     <section class="panel-body">
+			  <p><img alt="" src="./images/map.jpg"></p>
+			  <ul class="address-list">
+			      <li><p><strong>{{venue_name}}</strong></p>
+			      <p>{{city}}</p>
+			      <p>({{state}}) </p>
+			      <p>{{zipcode}}</p>
+			      <p>{{country}}</p>
+			      </li>
+			  </ul>
+			  
+			</section>
+		   </section>
+                 </li>
+		<li data-row="5" data-col="4" data-sizex="1" data-sizey="1">
+		  <section class="panel panel-primary">
+			<section class="panel-heading"><h5 class="m-b0">Find us on Facebook</h5></section>                       
+			<section class="panel-body p5">
+			    Facebook Plugin                                           
+			</section>
+		   </section>
+		</li>
+		
+		
+		<li data-row="5" data-col="1" data-sizex="3" data-sizey="1"   id="section7">
+		  <div class="drag" style="display:none;">
+			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+			<a onclick="remove_widget('section7')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		      
+		      </div>
+		     <div><iframe  width="100%" height=225" src="https://www.youtube.com/embed/ODaWO5eYQgI" frameborder="1" allowfullscreen></iframe></div> 
+		  
+		</li>
+		
+		<li data-row="6" data-col="1" data-sizex="4" data-sizey="1"    id="section6">
+		  <div class="drag" style="display:none;">
 			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 			<a onclick="remove_widget('section6')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		      
 		      </div>
 		      <div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value='' class="wrap-word">
-		      </div></li>
+		      </div>
+		</li>
+		
+       
+			
+			
 		    </ul>
 		  
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/ODaWO5eYQgI" frameborder="1" allowfullscreen></iframe>
+      
                       </div>
 		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
 		<input type="text" id="select_image" value="{{select_image_val}}">
@@ -232,7 +290,7 @@ function change_image3()
       $(function(){
 
         gridster = $(".gridster ul").gridster({
-          widget_base_dimensions: [300, 225],
+          widget_base_dimensions: [140, 225],
           widget_margins: [10, 10],
 		  helper: 'clone',
 		  resize: {
@@ -274,6 +332,10 @@ function change_image3()
 		   {
 		    $('#section6 .drag').show();
 		   }
+		   if($(this).attr('id')=='section7')
+		   {
+		    $('#section7 .drag').show();
+		   }
           }).on('mouseleave', '> li', function() {
 		  if($(this).attr('id')=='section1')
 		   {
@@ -299,6 +361,10 @@ function change_image3()
 		   if($(this).attr('id')=='section6')
 		   {
 		    $('#section6 .drag').hide();
+		   }
+		   if($(this).attr('id')=='section7')
+		   {
+		    $('#section7 .drag').hide();
 		   }
           })
 	  
@@ -392,10 +458,38 @@ function change_image3()
         <div class="modal-body">
              <div ckeditor="option_ckeditor1" name="content1"  required ng-model="content1" ready="onReady()" value=''>
         </div>
+	</div>
         <div class="modal-footer">
             
             <button class="btn btn-warning" type="button" ng-click="cancel()">close</button>
         </div>
   </script>
     </div>
-</div>
+
+
+    <script type="text/ng-template" id="socialLinktemplate.html">
+     <div class="modal-header">
+            <h3 class="modal-title">Social link</h3>
+        </div>
+     <form  name="sociallinkForm" ng-submit="updatesociallink(sociallink)" novalidate>
+        <div class="modal-body">
+            <fieldset class="form-group">
+           <div class="col-sm-4">Facebook</div>
+           <div class="col-sm-8">
+	    <input type="text" class="input form-control" ng-model="sociallink.facebook_url" value="{{sociallink.facebook_url}}">
+	   </div>
+	    </fieldset>
+	     <fieldset class="form-group">
+           <div class="col-sm-4">Twitter</div>
+           <div class="col-sm-8">
+	    <input type="text" class="input form-control"  ng-model="sociallink.twitter_url" value="{{sociallink.twitter_url}}">
+	   </div>
+	    </fieldset>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="submit">save</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">cancel</button>
+        </div>
+	</form>
+  </script>
+

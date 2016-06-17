@@ -31,6 +31,13 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 			callback(res.data);
 		});
   };
+  
+  //save series price levels
+  url.saveseriespriceleveldata = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.saveseriespricelevel,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+  };
   //get price levels
   url.getPricelevel = function(jsondata,callback){
     communicationService.resultViaPost(webservices.getPricelevel,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
