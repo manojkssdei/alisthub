@@ -394,27 +394,73 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
          
          
          ////////////////*************EVENT PACKAGE****************************/////
-           .state('create_package', {
-            url: '/create_package',
+           .state('event_package_step_1', {
+            url: '/event_package_step_1',
             
             views: {
                 "lazyLoadView": {
                   controller: 'createpackageController',
-                  templateUrl: 'modules/event_package/views/event_package.html'
+                  templateUrl: 'modules/event_package/step1/views/event_package_step_1.html'
                 }
             },
              resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
               authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/event_package/service.js').then(function(){
+                return $ocLazyLoad.load(['modules/event_package/service.js', 'modules/event_setting/service.js' ]).then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/event_package/controller.js','javascripts/bootstrap-timepicker.js']);
+                return $ocLazyLoad.load(['modules/event_package/step1/controller.js','javascripts/bootstrap-timepicker.js']);
                 })
               }]
             }
           
         })
+
+
+ .state('event_package_step_2', {
+            url: '/event_package_step_2/:packageId',
+
+            views: {
+                "lazyLoadView": {
+                  controller: 'createpackageController',
+                  templateUrl: 'modules/event_package/step2/views/event_package_step_2.html'
+                }
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(['modules/event_package/service.js', 'modules/event_setting/service.js' ]).then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_package/step2/controller.js','javascripts/bootstrap-timepicker.js']);
+                })
+              }]
+            }
+          
+        })
+
+  .state('event_package_step_3', {
+            url: '/event_package_step_3/:packageId',
+
+            views: {
+                "lazyLoadView": {
+                  controller: 'createpackageController',
+                  templateUrl: 'modules/event_package/step3/views/event_package_step_3.html'
+                }
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(['modules/event_package/service.js', 'modules/event_setting/service.js' ]).then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_package/step3/controller.js','javascripts/bootstrap-timepicker.js']);
+                })
+              }]
+            }
+          
+        })
+
 
 
 //**************add more scheduling***********************//
