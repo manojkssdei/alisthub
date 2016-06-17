@@ -480,6 +480,21 @@ exports.savesecondstepdata=function(req,res)
   });
 }
 
+/** 
+Method: saveInventory
+Description:Function to save step2 
+Created : 2016-06-17
+Created By: Deepak khokhar  
+*/
+exports.saveInventory=function(req,res) {
+  connection.query("UPDATE events SET `inventory`='"+req.body.eventinventory+"' where id="+req.body.event_id, function(err, results) {
+   if (err) {
+    res.json({error:err,code:101});
+   } else {
+    res.json({result:results,code:200});
+   }
+  });
+}
 
 /** 
 Method: get Event Category

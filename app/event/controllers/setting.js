@@ -55,3 +55,24 @@ exports.saveSetting = function(req,res) {
     
 }
 
+
+/** 
+Method: getSettings
+Description:Function for fetching settings 
+Created : 2016-06-17
+Created By: Deepak khokkar  
+*/
+exports.getSettings = function(req,res) {
+  if(req.body.eventId!=undefined) {
+    connection.query('SELECT * from event_settings where user_id='+req.body.userId+ ' and event_id='+ req.body.eventId +' ORDER BY created DESC', function(err, results) {
+      if (err) {
+        res.json({error:err,code:101});
+      }
+      res.json({result:results,code:200});
+    });  
+  } else {
+    res.json({result:{},code:200});
+  }
+}
+
+
