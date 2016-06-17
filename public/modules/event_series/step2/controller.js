@@ -7,11 +7,14 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
   //To show or hide divs
   $scope.select_delect_event = $scope.monthly_div = $scope.days_div = $scope.error_message = $scope.error_time_message = true;
   $rootScope.success_message1 = false;
-
-  $eventId = $localStorage.eventId;
-   var event_id=$stateParams.eventId;
+  
+  if ($stateParams.eventId) {
+   $scope.eventId = $stateParams.eventId;
+  }else{
+    $localStorage.eventId = "";
+  }
    
-     $serviceTest.getEvent({'event_id':event_id},function(response){
+     $serviceTest.getEvent({'event_id':$scope.eventId},function(response){
         
         $scope.data1=response.results[0];
 		$scope.data1.facebook=response.results[0].facebook_url;
@@ -19,7 +22,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
 		$scope.data1.eventwebsite=response.results[0].website_url;
 		$scope.data1.eventinventory=response.results[0].inventory;
     });
-	$serviceTest.getEventCat({'event_id':event_id},function(response){
+	$serviceTest.getEventCat({'event_id':$scope.eventId},function(response){
 	 
 	 angular.forEach(response.result,function(value, key){
 	 var k=key+1;
@@ -36,8 +39,8 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
 	});
   $scope.eventBundle = {};
 
-  $scope.eventBundle.eventId = $localStorage.eventId;
-  $scope.eventBundle.userId = $localStorage.userId;
+  $scope.eventBundle.eventId = $scope.eventId;
+  $scope.eventBundle.userId  = $localStorage.userId;
   //To get bundles
   $serviceTest.getBundles($scope.eventBundle, function(response) {
     //$rootScope.bundleList = response.results;
@@ -47,7 +50,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
 
   /* To fetch the product data related to specific event*/ 
   $scope.product = {};
-  $scope.product.eventId = $localStorage.eventId;
+  $scope.product.eventId = $scope.eventId;
   $scope.product.userId = $localStorage.userId;
   $serviceTest.getEventProducts($scope.product, function(response) {
     $rootScope.eventProductList = response.result;
@@ -81,7 +84,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
       $scope.availQuantity=0;
       $scope.totalRemainings=0;
 
-      $serviceTest.getPricelevel({'eventId':$localStorage.eventId},function(response){
+      $serviceTest.getPricelevel({'eventId':$scope.eventId},function(response){
         $rootScope.price_level=response.results;
 
         $scope.priceLevel=response.results;
@@ -125,7 +128,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
         $serviceTest.changePricelevelStatus($scope.data,function(response){
             
             if (response.code == 200) {
-                     $eventId=$localStorage.eventId;
+                     $eventId=$scope.eventId;
                     $serviceTest.getPricelevel({'eventId':$eventId},function(response){
                         
                         $rootScope.price_level=response.results;
@@ -213,7 +216,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
 
   //To save step2 data.
   $scope.price_and_link_data = function(data1) {
-    data1.eventId = $localStorage.eventId;
+    data1.eventId = $scope.eventId;
     $serviceTest.postSecondStepdata(data1, function(response) {
       if (response.code == 200) {
         $scope.success = global_message.event_step2;
@@ -293,24 +296,24 @@ $scope.success_message = false;
   $scope.click_menu = function(menu, data, valid) {
 
     if (menu.id === 5) {
-     $location.path("/create_series_step1/"+$localStorage.eventId);
+     $location.path("/create_series_step1/"+$scope.eventId);
     }
 
     ///TO move to price and level
     if (menu.id === 6) {
 
             
-            $location.path("/create_series_step2/"+$localStorage.eventId);
+            $location.path("/create_series_step2/"+$scope.eventId);
      
     }
 
     //look and feel div
     if (menu.id === 7) {
-        $location.path("/create_series_step3/"+$localStorage.eventId);
+        $location.path("/create_series_step3/"+$scope.eventId);
      }
     //Event Setting div
     if (menu.id === 8) {
-      $location.path("/create_series_step4/"+$localStorage.eventId);
+      $location.path("/create_series_step4/"+$scope.eventId);
     }
     $scope.selected2 = menu;
   }
@@ -330,7 +333,11 @@ $scope.success_message = false;
   };
 
   //For Step 2
-  $scope.items = ['item1'];
+  $scope.items = {};
+  if ($stateParams.eventId) {
+    $scope.items.eventId = $stateParams.eventId;
+  }
+  
 
   $scope.animationsEnabled = true;
 
@@ -448,7 +455,7 @@ $scope.success_message = false;
             $scope.success_bundle = '';
           }, 3000);
 
-          $scope.eventBundle.eventId = $localStorage.eventId;
+          $scope.eventBundle.eventId = $scope.eventId;
           $scope.eventBundle.userId = $localStorage.userId;
           $serviceTest.getBundles($scope.eventBundle, function(response) {
             $rootScope.bundleList = response.result;
@@ -637,9 +644,6 @@ angular.module('alisthub').controller('DeletePricelevelCtrl', function($scope, $
 angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope, $uibModalInstance, items, $rootScope, $localStorage, $injector, $timeout) {
   var $serviceTest = $injector.get("venues");
 
-
-
-
   if ($rootScope.data1.id === undefined) {
     $scope.data1 = {
       hide_online: 0,
@@ -666,10 +670,11 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     $scope.data1.maximum_per_order = null;
   }
 
-
-
-
   $scope.items = items;
+  console.log("=========================");
+  console.log($scope.items);
+  console.log("=========================");
+  
   $scope.min_price = true;
   //To change Price type function
   $scope.change_price_type = function() {
@@ -686,7 +691,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   $scope.onlinePricefunc = function() {
 
       $scope.data1.box_office_price = $scope.data1.online_price;
-    }
+  }
     //Suggested Price function
   $scope.suggestedPricefunc = function() {
 
@@ -697,8 +702,6 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     item: $scope.items[0]
   };
 
-
-
   $scope.cancel = function() {
     $uibModalInstance.dismiss('cancel');
   };
@@ -706,9 +709,17 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   //For step 2 Save Price level
   $scope.savepriceleveldata = function(data1) {
     data1.userId = $localStorage.userId;
-    data1.eventId = $localStorage.eventId;
-
-    $serviceTest.savepriceleveldata(data1, function(response) {
+    
+    if ($scope.items.eventId) {
+      data1.eventId = $scope.items.eventId;
+    }
+    else{
+      data1.eventId = $localStorage.eventId;
+    }
+    
+    if (data1.eventId != null && data1.eventId !== undefined)
+    {
+      $serviceTest.saveseriespriceleveldata(data1, function(response) {
 
       if (response !== null) {
         if (response.code === 200) {
@@ -722,9 +733,6 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
             } else {
               $rootScope.success1 = global_message.price_level_add;
             }
-
-
-
             $timeout(function() {
               $rootScope.error = '';
               $rootScope.success_message1 = false;
@@ -740,22 +748,26 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       }
 
       $rootScope.data1={};
-    });
+      });
+  }else{
+    $scope.error_message = true;
+     $scope.error = "There is some issue on server side , please try after some time.";
+      $timeout(function() {
+	      $scope.error_message = false;
+              $scope.error = "";
+              $scope.success_message1 = '';
+              $scope.success1 = '';
+      }, 3000);
   }
-
-   
-
+     
+  }
  /* CREATED BY DEEPAK K */ 
-
-  
   $scope.eventInventory = $rootScope.inventory_remaining;
   if ($rootScope.maximum_quantitiy_available_value)
     $scope.eventInventory=$rootScope.maximum_quantitiy_available_value;
 
   // console.log($scope.eventInventory)
   /***********************************************/
- 
-
 });
 
 /*

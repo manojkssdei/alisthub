@@ -50,6 +50,7 @@ var webservices = {
     "saveProductSetting"  :  "/event_setting/saveProductSetting",
     "getProductSetting"  :  "/event_setting/getProductSetting",
     "saverecurringEvent"  :  "/event/saverecurringEvent",
+    "updatesociallink"  :  "/event/updatesociallink",
         /////get event category////
      "getEventsdetail":"/event/getEventsdetail",
      "getEvents":"/event/getEvents",
@@ -127,6 +128,7 @@ var webservices = {
 
     /* Constants for the create event step 2 price level */
     "savepricelevel" : "/event/savepricelevel",
+    "saveseriespricelevel" : "/event/saveseriespricelevel",
     "getPricelevel" : "/event/getPricelevel",
     "removepricelevel" : "/event/removepricelevel",
     "changePricelevelStatus" : "/event/changePricelevelStatus",
@@ -185,6 +187,10 @@ var webservices = {
     "getEventPriceLevel" :  "/event_setting/getEventPriceLevel",
     "getAllProducts" :  "/event_setting/getAllProducts",
 
+    //Event step 4 
+    "getSettings" :  "/event/getSettings",
+    "saveSetting" :  "/event/saveSetting",
+    "saveInventory" :  "/event/saveInventory",
     
 
     

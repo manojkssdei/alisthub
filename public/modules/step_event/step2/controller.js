@@ -101,6 +101,12 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
         var pricelevelEventId = $localStorage.eventId;
       }
 
+      var eventInventory = null;
+      if($scope.data1!=undefined && $scope.data1.eventinventory!=undefined && $scope.data1.eventinventory!=''){
+        eventInventory = $scope.data1.eventinventory;
+      }
+      $scope.saveInventory(eventInventory);
+
       $serviceTest.getPricelevel({'eventId' : pricelevelEventId},function(response){
         $rootScope.price_level=response.results;
 
@@ -129,6 +135,20 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
 
             $rootScope.inventory_remaining = $scope.totalRemainings;
         }
+      });
+    }
+
+    $rootScope.saveInventory=function(eventInventory) {
+      $scope.formdata = {};
+      $scope.formdata.eventinventory = eventInventory;
+      if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+        $scope.formdata.event_id = $stateParams.eventId;
+      } else {
+        $scope.formdata.event_id = $localStorage.eventId;
+      }
+
+      $serviceTest.saveInventory($scope.formdata,function(response) {
+        if (response.code == 200) { }
       });
     }
 
@@ -310,81 +330,92 @@ $scope.success_message = false;
   Created By:  Deepak khokkar  
   */
 
-  $scope.click_menu = function(menu, data, valid) {
+ $scope.click_menu = function(menu, data, valid) {
     console.log($stateParams.eventId+':1');
     console.log(data);
     var objectForm = this;
     $scope.selectedClass = 1;
     //To go to step1 event Details
     if (menu.id === 5) {
-      $location.path("/create_event_step1");
+      if($stateParams.eventId!=undefined){
+        $location.path("/create_event_step1/"+$stateParams.eventId);
+      } else {
+        $location.path("/create_event_step1");
+      }
+      
       $scope.selectedClass = 1;
     }
 
     ///TO move to price and level
     if (menu.id === 6) {
-      if (objectForm.myForm.$valid === true) {
-          $scope.selectedClass = 2;
-          if ($localStorage.eventId == null) {
-              if (data.eventtype=='single') {
-                if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
-                  data.eventdate=$scope.single_start_date;
-                  
-                  data.startevent_time=$scope.startevent_time;
-                  data.endevent_time=$scope.endevent_time;
-                  
+      if(objectForm.myForm!=undefined) {
+        if (objectForm.myForm.$valid === true) {
+            $scope.selectedClass = 2;
+            if ($localStorage.eventId == null) {
+                if (data.eventtype=='single') {
+                  if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+                    data.eventdate=$scope.single_start_date;
+                    
+                    data.startevent_time=$scope.startevent_time;
+                    data.endevent_time=$scope.endevent_time;
+                    
+                    data.userId=$localStorage.userId;
+                    $serviceTest.saveEvent(data,function(response){
+                      if (response.code == 200) {
+                        $scope.success=global_message.event_step1;
+                        $localStorage.eventId=response.result;
+                        $scope.error_message=false;
+                        $timeout(function() {
+                          $scope.success='';
+                          $scope.error_message=true;
+                        },3000);
+
+                        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+                          $location.path("/create_event_step2/"+$stateParams.eventId);
+                        } else {
+                          $location.path("/create_event_step2/"+$localStorage.eventId);
+                        }
+                      }
+                    });
+                  }  
+                } else {
                   data.userId=$localStorage.userId;
-                  $serviceTest.saveEvent(data,function(response){
+                  $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
                     if (response.code == 200) {
                       $scope.success=global_message.event_step1;
-                      $localStorage.eventId=response.result;
+                      $scope.data={};
                       $scope.error_message=false;
                       $timeout(function() {
-                        $scope.success='';
-                        $scope.error_message=true;
+                       $scope.success='';
+                       $scope.error_message=true;
                       },3000);
-
-                      if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-                        $location.path("/create_event_step2/"+$stateParams.eventId);
-                      } else {
-                        $location.path("/create_event_step2/"+$localStorage.eventId);
-                      }
+                      window.location.reload();
                     }
-                  });
-                }  
-              } else {
-                data.userId=$localStorage.userId;
-                $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-                  if (response.code == 200) {
-                    $scope.success=global_message.event_step1;
-                    $scope.data={};
-                    $scope.error_message=false;
-                    $timeout(function() {
-                     $scope.success='';
-                     $scope.error_message=true;
-                    },3000);
-                    window.location.reload();
-                  }
-                }); 
-              }
-             
-          }
-          else {
-            if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-              $location.path("/create_event_step2/"+$stateParams.eventId);
+                  }); 
+                }
             } else {
-              $location.path("/create_event_step2/"+$localStorage.eventId);
+              if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+                $location.path("/create_event_step2/"+$stateParams.eventId);
+              } else {
+                $location.path("/create_event_step2/"+$localStorage.eventId);
+              }
             }
-          }
+        } else {
+          $scope.selectedClass = 1;
+          $scope.error_message = false;
+          $scope.error = global_message.event_step1_msg;
+          $timeout(function() {
+            $scope.error = '';
+            $scope.error_message = true;
+            $scope.error = '';
+          }, 3000);
+        }
       } else {
-        $scope.selectedClass = 1;
-        $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
-        $timeout(function() {
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.error = '';
-        }, 3000);
+        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+          $location.path("/create_event_step2/"+$stateParams.eventId);
+        } else {
+          $location.path("/create_event_step2/"+$localStorage.eventId);
+        }
       }
     }
 
@@ -432,7 +463,6 @@ $scope.success_message = false;
     }
     //$scope.selected2 = menu;
   }
-  
 
 
 

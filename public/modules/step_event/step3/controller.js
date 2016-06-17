@@ -11,10 +11,10 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
      var $serviceTestVenue = $injector.get("venues");
      $scope.error_message = true;
     var event_id=$stateParams.eventId;
+    $rootScope.sociallink={};
     $serviceTestVenue.getEvent({'event_id':event_id},function(response){
         
         $scope.data1=response.results[0];
-        console.log($scope.data1);
         $scope.title=response.results[0].title;
         $scope.content2=response.results[0].description;
         $scope.venue_name=response.results[0].venue_name;
@@ -25,9 +25,10 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
         $scope.start_time=response.results[0].start_time;
         $scope.end_time=response.results[0].end_time;
         $scope.zipcode=response.results[0].zipcode;
-        $scope.facebook_url=response.results[0].facebook_url;
-        $scope.twitter_url=response.results[0].twitter_url;
+        $rootScope.sociallink.facebook_url=response.results[0].facebook_url;
+        $rootScope.sociallink.twitter_url=response.results[0].twitter_url;
         $scope.eventwebsite_url=response.results[0].website_url;
+        $scope.video_url=response.results[0].video;
 		
     });  
 
@@ -123,40 +124,16 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
       } else {
         $location.path("/create_event_step3/"+$localStorage.eventId);
       }
-     /*if (objectForm.myForm.$valid === true) {
-      $scope.eventdetail_div = $scope.price_and_link_div = $scope.setting_div = true;
-      $scope.look_and_feel_div = false;
-      } else {
-        $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
-        $timeout(function() {
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.error = '';
-        }, 3000);
-      }*/
-
-
-    }
+ }
     //Event Setting div
     if (menu.id === 8) {
 
-      //if (objectForm.myForm.$valid === true) {
           if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
             $location.path("/create_event_step4/"+$stateParams.eventId);
           } else {
             $location.path("/create_event_step4/"+$localStorage.eventId);
           }
-     /* } else {
-
-        $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
-        $timeout(function() {
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.error = '';
-        }, 3000);
-      }*/
+    
 
     }
     $scope.selected2 = menu;
@@ -282,6 +259,21 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
               }
             }
           });
+    }
+    
+    $scope.socialLink=function(size)
+    {
+      $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'socialLinktemplate.html',
+            controller: 'socialLinkCtrl',
+            size: size,
+            resolve: {
+              items: function () {
+                return $scope.items;
+              }
+            }
+          });  
     }
     
   $scope.option_ckeditor1 = {
@@ -505,7 +497,9 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
             }
         }
 
-    
+    $scope.data = {};
+  $scope.locations =[];
+  $scope.locations[0] =[];
     
 });
 angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
@@ -516,6 +510,30 @@ angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $u
         $scope.preview_image=response.result[0].preview_image;
        }
     });
+     $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+});
+
+
+angular.module('alisthub').controller('socialLinkCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,$stateParams, $state) {
+    var $serviceTest = $injector.get("Lookservice");
+    var event_id=$stateParams.eventId;
+     $scope.items = items;
+     $scope.selected = {
+      item: $scope.items[0]
+     };
+    $scope.updatesociallink=function(sociallink)
+    {
+         
+        $serviceTest.updatesociallink({'eventId':event_id,'social_link':sociallink},function(response){
+           if (response.code=='200') {
+            $rootScope.sociallink=sociallink;
+           }
+        });
+      $uibModalInstance.close($scope.selected.item);  
+    }
+   
      $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
