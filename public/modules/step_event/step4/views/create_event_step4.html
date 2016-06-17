@@ -53,7 +53,7 @@
                                         <label for="radio3"><span></span>Set Dates</label>
                                     </section>
                                 </section>
-                                <section ng-if="print_at_home == 3">
+                                <section ng-if="formdata.print_home == 3">
                                     <div class="" style="display: block; margin: 10px;">
                                         <section class="row">
                                             <div class="col-sm-4">
@@ -135,7 +135,7 @@
                         <section class="row">
                             <div class="col-sm-4">
                                     <div class="form-group datepicker" ng-class="{ 'has-error' : eventSettingForm.online_sales_open.$dirty && eventSettingForm.online_sales_open.$invalid }">
-                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}"  ng-model="formdata.online_sales_open.date" is-open="popup3.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" name="online_sales_open" required/>
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="formdata.online_sales_open.date" is-open="popup3.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" name="online_sales_open" required/>
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button>
                                         </span>
@@ -160,7 +160,7 @@
                         </section>
                         <section class="row">
                             <div class="col-sm-4">
-                                    <label>Online Sales Close</label>
+                                    <label>Online Sales Close<span class="req">*</span></label>
                             </div>
                         </section>
                         <section class="row">

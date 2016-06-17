@@ -101,6 +101,12 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
         var pricelevelEventId = $localStorage.eventId;
       }
 
+      var eventInventory = null;
+      if($scope.data1!=undefined && $scope.data1.eventinventory!=undefined && $scope.data1.eventinventory!=''){
+        eventInventory = $scope.data1.eventinventory;
+      }
+      $scope.saveInventory(eventInventory);
+
       $serviceTest.getPricelevel({'eventId' : pricelevelEventId},function(response){
         $rootScope.price_level=response.results;
 
@@ -129,6 +135,20 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
 
             $rootScope.inventory_remaining = $scope.totalRemainings;
         }
+      });
+    }
+
+    $rootScope.saveInventory=function(eventInventory) {
+      $scope.formdata = {};
+      $scope.formdata.eventinventory = eventInventory;
+      if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+        $scope.formdata.event_id = $stateParams.eventId;
+      } else {
+        $scope.formdata.event_id = $localStorage.eventId;
+      }
+
+      $serviceTest.saveInventory($scope.formdata,function(response) {
+        if (response.code == 200) { }
       });
     }
 
