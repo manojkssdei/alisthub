@@ -480,6 +480,21 @@ exports.savesecondstepdata=function(req,res)
   });
 }
 
+/** 
+Method: saveInventory
+Description:Function to save step2 
+Created : 2016-06-17
+Created By: Deepak khokhar  
+*/
+exports.saveInventory=function(req,res) {
+  connection.query("UPDATE events SET `inventory`='"+req.body.eventinventory+"' where id="+req.body.event_id, function(err, results) {
+   if (err) {
+    res.json({error:err,code:101});
+   } else {
+    res.json({result:results,code:200});
+   }
+  });
+}
 
 /** 
 Method: get Event Category
@@ -784,10 +799,97 @@ exports.postCreateEventStepFour = function(req, res) {
 }
 
 exports.stepOneEventPackage = function(req,res) {
- 
- console.log('stepOneEventPackage' , req);
- res.send({"results":'result',code:200}); 
 
+
+
+   if (req.body.imageData && req.body.imageData != "" && req.body.imageData != undefined) {
+
+        var path_event = process.cwd()+'/public/images/events';
+        var user_id = req.body.user_id;
+        var photoname = user_id+'_image_'+Date.now() + '.jpg';
+        var imagename = path_event+'/'+photoname;
+        var base64Data = req.body.imageData.replace(/^data:image\/jpeg;base64,/, "");
+        
+        fs.writeFile(imagename, base64Data, 'base64', function(err) {
+        if (err) {
+         console.log("Image Failure Upload");
+        }
+        });
+    req.body.image = photoname ;
+}
+ console.log('stepOneEventPackage req.body before ' );
+ console.log( req.body );
+
+ var fields = ['package_name', 'package_description', 'online_sales_open_date', 'online_sales_open_time','online_sales_open_date_time', 'immidiately', 'online_sales_close_date', 'online_sales_close_time', 'online_sales_close_date_time', 'event_type', 'category', 'ages', 'custom_age', 'website', 'image', 'display_image_in_listing' ];
+
+console.log('fields ' , fields);
+
+    var fieldsData = '';
+
+    for (var index in fields) {
+        fieldName = fields[index];
+        if (req.body[fieldName] == undefined) {
+            req.body[fieldName] = '';
+        }
+        fieldsData+= " `"+fieldName+"` = '" + req.body[fieldName]+ "', ";
+    }
+
+    console.log('fieldsData ' , fieldsData);
+
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    req.body.created = curtime;
+    req.body.modified = curtime;
+
+    if (req.body.id && req.body.id != "" && req.body.id != undefined) {
+
+    var query = "UPDATE `event_package` SET "+ fieldsData +" `modified` = '" + req.body.modified + "' WHERE user_id = '" + req.body.user_id + "' && id=" + req.body.id;
+    } else {
+    var query = "INSERT INTO `event_package` SET "+ fieldsData +" user_id = "+req.body.user_id +" , `created` = '" + req.body.created +"'";
+         }
+
+
+    if (query != "") {
+        console.log('query', query)
+        connection.query(query, function(err7, results) {
+            if (err7) {
+                res.json({ error: err7,code: 101});
+            }
+
+
+
+
+            // fetch last inserted id and then add event keys corresponding to this
+
+
+if(results) {
+  console.log('results' );
+  console.log('results.insertId' , results.insertId);
+var package_id = results.insertId;
+            for (var index in  req.body.event_ids) {
+                
+                if (req.body.event_ids[index] != undefined) {
+                    var event = req.body.event_ids[index];
+                    var query_event = "INSERT INTO package_event_map ( event_id , package_id) VALUES ( "+ event +" , "+ package_id +")";
+
+
+console.log('------------------');
+console.log(query_event);
+
+                    connection.query(query_event, function(subErr, subResults) {
+                      if (subErr) {
+                          res.json({ error: subErr,code: 101});
+                      }
+                      });
+                
+            }
+          }
+          res.json({ result: package_id , code: 200 });
+        }
+
+
+        });
+    }
+    
 }
 
 /** 

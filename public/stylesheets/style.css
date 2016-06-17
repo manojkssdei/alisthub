@@ -759,4 +759,6 @@ color-picker{float: right !important;}
 
 .action.unassign{
   font-size:12px;
-}
+} 
+.content .wrap-word > p{ padding: 3%;}
+.gray-frame1 {   background: rgba(0, 0, 0, 0) url("./images/bg/bg.jpg") no-repeat scroll center top / cover ;}

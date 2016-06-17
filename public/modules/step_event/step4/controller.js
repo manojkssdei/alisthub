@@ -259,107 +259,201 @@ $scope.click_menu = function(menu, data, valid) {
     opened: false
   };
 
-function getDayClass(data) {
-    var date = data.date,
-      mode = data.mode;
-    if (mode === 'day') {
-      var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-      for (var i = 0; i < $scope.events.length; i++) {
-        var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-        if (dayToCheck === currentDay) {
-          return $scope.events[i].status;
+  function getDayClass(data) {
+      var date = data.date,
+        mode = data.mode;
+      if (mode === 'day') {
+        var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+        for (var i = 0; i < $scope.events.length; i++) {
+          var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+          if (dayToCheck === currentDay) {
+            return $scope.events[i].status;
+          }
         }
       }
+      return '';
     }
-    return '';
+  // Datepicker end
+
+  //timepicker
+    // $scope.mytime = new Date();
+  // timepicker end
+
+  $scope.formdata = {};
+  $scope.enable_on = {};
+  $scope.disable_on = {};
+
+  $scope.next_func = function(formdata) {
+    console.log(formdata);
+    $http.post('/event/postCreateEventStepFour' , formdata).then(function(response) {
+      console.log("Response", response)
+    })
   }
-// Datepicker end
 
-//timepicker
-  // $scope.mytime = new Date();
-// timepicker end
+  /** Method : Date Time Merge 
+  **/
 
-$scope.formdata = {};
-$scope.enable_on = {};
-$scope.disable_on = {};
-
-$scope.next_func = function(formdata) {
-  console.log(formdata);
-  $http.post('/event/postCreateEventStepFour' , formdata).then(function(response) {
-    console.log("Response", response)
-  })
-}
-
-/** Method : Date Time Merge 
-**/
-
-$scope.combine = function(dt, timeString) {
-  var startDateTime;
-  var parts = /^(\d+):(\d+) (AM|PM)$/.exec(timeString);
-  if (parts) {
-    hours = parseInt(parts[1], 10);
-    minutes = parseInt(parts[2], 10);
-    if (parts[3] === "PM" && hours !== 12) {
-      hours += 12;
-    } else if (parts[3] === "AM" && hours === 12) {
-      hours = 0;
+  $scope.combine = function(dt, timeString) {
+    var startDateTime = '';
+    var parts = /^(\d+):(\d+) (AM|PM)$/.exec(timeString);
+    if (parts) {
+      hours = parseInt(parts[1], 10);
+      minutes = parseInt(parts[2], 10);
+      if (parts[3] === "PM" && hours !== 12) {
+        hours += 12;
+      } else if (parts[3] === "AM" && hours === 12) {
+        hours = 0;
+      }
+      if (!isNaN(hours) && !isNaN(minutes)) {
+        startDateTime = new Date(dt.getTime());
+        startDateTime.setHours(hours);
+        startDateTime.setMinutes(minutes);
+      }
     }
-    if (!isNaN(hours) && !isNaN(minutes)) {
-      startDateTime = new Date(dt.getTime());
-      startDateTime.setHours(hours);
-      startDateTime.setMinutes(minutes);
+    var d = new Date();
+    var n = d.getTimezoneOffset(); 
+    if (n > 0) {
+      var newdate = new Date(startDateTime .getTime() + n*60000);
+    } else {
+      var newdate = new Date(startDateTime .getTime() - n*60000);
+    }
+    return newdate;
+  }
+
+
+
+  $scope.save_setting = function(formdata) {
+    if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+      $scope.formdata.event_id = $stateParams.eventId;
+    } else {
+      $scope.formdata.event_id = $localStorage.eventId;
+    }
+
+    $scope.formdata.online_sales_open = $scope.combine($scope.formdata.online_sales_open.date,$scope.formdata.online_sales_open.time);
+    $scope.formdata.online_sales_close = $scope.combine($scope.formdata.online_sales_close.date,$scope.formdata.online_sales_close.time);
+
+    $scope.formdata.print_enable_date = {};
+    $scope.formdata.print_disable_date = {};
+    if($scope.formdata.print_enable_date.date!=undefined && $scope.formdata.print_enable_date.time!=undefined && $scope.formdata.print_enable_date.date!='' && $scope.formdata.print_enable_date.time!=''){
+      $scope.formdata.print_enable_date = $scope.combine($scope.formdata.print_enable_date.date,$scope.formdata.print_enable_date.time);  
+    }
+    if($scope.formdata.print_disable_date.date!=undefined && $scope.formdata.print_disable_date.time!=undefined && $scope.formdata.print_disable_date.date!='' && $scope.formdata.print_disable_date.time!=''){
+      $scope.formdata.print_disable_date = $scope.combine($scope.formdata.print_disable_date.date,$scope.formdata.print_disable_date.time);
+    }
+
+    console.log($scope.formdata);
+
+    if ($localStorage.userId !== undefined) {
+      $scope.formdata.user_id = $localStorage.userId;
+
+      $serviceTest.saveSetting($scope.formdata, function(response) {
+
+          if (response.code === 200) {
+
+            $scope.success = global_message.bundle_add;
+            $scope.success_message = true;
+
+            $timeout(function() {
+              $scope.error = '';
+              $scope.success_message = false;
+              $scope.success = '';
+            }, 3000);
+
+          } else {
+            $scope.activation_message = global_message.ErrorInActivation;
+          }
+
+      });
+
     }
   }
-  var d = new Date();
-  var n = d.getTimezoneOffset(); 
-  if (n > 0) {
-    var newdate = new Date(startDateTime .getTime() + n*60000);
-  } else {
-    var newdate = new Date(startDateTime .getTime() - n*60000);
-  }
-  return newdate;
-}
 
-
-
-$scope.save_setting = function(formdata) {
+  $scope.eventSetting = {};
+    
   if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-    $scope.formdata.event_id = $stateParams.eventId;
+    $scope.eventSetting.eventId = $stateParams.eventId;
   } else {
-    $scope.formdata.event_id = $localStorage.eventId;
+    $scope.eventSetting.eventId = $localStorage.eventId;
   }
 
-  $scope.formdata.online_sales_open = $scope.combine($scope.formdata.online_sales_open.date,$scope.formdata.online_sales_open.time);
-  $scope.formdata.online_sales_close = $scope.combine($scope.formdata.online_sales_close.date,$scope.formdata.online_sales_close.time);
+  $scope.eventSetting.userId = $localStorage.userId;
+  //To get settings
+  $serviceTest.getSettings($scope.eventSetting, function(response) {
+    $scope.formdata = response.result[0];
+    if($scope.formdata!=undefined){
+      $scope.formdata.will_call = parseInt($scope.formdata.will_call);
+      $scope.formdata.sales_immediatly = parseInt($scope.formdata.sales_immediatly);
+      $scope.formdata.donation = parseInt($scope.formdata.donation);
+      $scope.formdata.custom_fee = parseInt($scope.formdata.custom_fee);
+      $scope.formdata.question_required = parseInt($scope.formdata.question_required);
+      $scope.formdata.collect_name = parseInt($scope.formdata.collect_name);
 
-  console.log($scope.formdata);
+      var openDateTime = getDateTime($scope.formdata.online_sales_open);
+      $scope.formdata.online_sales_open = {};
+      $scope.formdata.online_sales_open.date = openDateTime.date;
+      $scope.formdata.online_sales_open.time = openDateTime.time;
 
-  if ($localStorage.userId !== undefined) {
-    $scope.formdata.user_id = $localStorage.userId;
+      var closeDateTime = getDateTime($scope.formdata.online_sales_close);
+      $scope.formdata.online_sales_close = {};
+      $scope.formdata.online_sales_close.date = closeDateTime.date;
+      $scope.formdata.online_sales_close.time = closeDateTime.time;
 
-    $serviceTest.saveSetting($scope.formdata, function(response) {
+      var enableDateTime = getDateTime($scope.formdata.print_enable_date);
+      $scope.formdata.print_enable_date = {};
+      $scope.formdata.print_enable_date.date = null;
+      $scope.formdata.print_enable_date.time = null;
 
-        if (response.code === 200) {
+      if(enableDateTime.date!='' && enableDateTime.time!=''){
+        $scope.formdata.print_enable_date.date = enableDateTime.date;
+        $scope.formdata.print_enable_date.time = enableDateTime.time;  
+      }
 
-          $scope.success = global_message.bundle_add;
-          $scope.success_message = true;
+      var disableDateTime = getDateTime($scope.formdata.print_disable_date);
+      $scope.formdata.print_disable_date = {};
+      $scope.formdata.print_disable_date.date = disableDateTime.date;
+      $scope.formdata.print_disable_date.time = disableDateTime.time;
+    }
 
-          $timeout(function() {
-            $scope.error = '';
-            $scope.success_message = false;
-            $scope.success = '';
-          }, 3000);
+  });
 
-        } else {
-          $scope.activation_message = global_message.ErrorInActivation;
-        }
+  function toBoolean(value) {
+    var strValue = String(value).toLowerCase();
+    strValue = ((!isNaN(strValue) && strValue !== '0') &&
+      strValue !== '' &&
+      strValue !== 'null' &&
+      strValue !== 'undefined') ? '1' : strValue;
+    return strValue === 'true' || strValue === '1' ? true : false
+  };
 
-    });
-
+  function hours_am_pm(time) {
+    var hours = time[0] + time[1];
+    var min = time[2] + time[3];
+    if (hours < 12) {
+      return hours + ':' + min + ' AM';
+    } else {
+      hours=hours - 12;
+      hours=(hours.length < 10) ? '0'+hours:hours;
+      return hours+ ':' + min + ' PM';
+    }
   }
 
-}
 
+  function getDateTime(openDate) {
+    var date1 = new Date(openDate);
+    
+    var date = ('0' + (date1.getUTCDate())).slice(-2);
+    var year = date1.getUTCFullYear();
+    var month = ('0' + (date1.getUTCMonth()+1)).slice(-2);
+    
+    var hours = ('0' + (date1.getUTCHours())).slice(-2);
+    var minutes = ('0' + (date1.getUTCMinutes())).slice(-2);
+    var seconds = date1.getUTCSeconds();
 
+    var convertedDate = {};
+    convertedDate.date = new Date(year+"-"+month+"-"+date);
+
+    convertedDate.time = hours_am_pm(hours+""+minutes);
+    return convertedDate ;
+  };
 
 });

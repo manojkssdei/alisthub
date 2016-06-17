@@ -60,6 +60,10 @@ var webservices = {
 
      // event package
     "stepOneEventPackage"  :  "/event/stepOneEventPackage",
+    "getPackage" : "/package/getPackage",
+    "getEventsInPackage" : "/package/getEventsInPackage",
+    "getBundlesInPackage" : "/package/getBundlesInPackage",
+    "getProductsInPackage" : "/package/getProductsInPackage",
 
     
 
@@ -187,7 +191,10 @@ var webservices = {
     "getAllProducts" :  "/event_setting/getAllProducts",
 
     //Event step 4 
+    "getSettings" :  "/event/getSettings",
     "saveSetting" :  "/event/saveSetting",
+    "saveInventory" :  "/event/saveInventory",
+    
 
     
     

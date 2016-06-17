@@ -17,6 +17,16 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
       
   };
 
+  //save Inventory
+  url.saveInventory = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.saveInventory,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+
+  
+
   //save recurring events
   url.saverecurringEvent = function(jsondata,callback){
    
