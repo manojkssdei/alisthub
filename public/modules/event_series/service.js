@@ -50,11 +50,26 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 			callback(res.data);
 		});
   };
+  
+  //remove price levels
+  url.removeseriespricelevel = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.removeseriespricelevel,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+			callback(res.data);
+		});
+  };
+
 
   
   //change price levels
   url.changePricelevelStatus = function(jsondata,callback){
     communicationService.resultViaPost(webservices.changePricelevelStatus,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+			callback(res.data);
+		});
+  };
+  
+  //change price levels
+  url.changeseriesPricelevelStatus = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.changeseriesPricelevelStatus,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
 			callback(res.data);
 		});
   };
@@ -73,12 +88,28 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 		});
   };
   
+  //change price levels
+  url.postseriesPriceChange = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.postseriesPriceChange,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+			callback(res.data);
+		});
+  };
+  
 
 //add Bundle
 
   url.addBundle = function(jsondata,callback){
 
     communicationService.resultViaPost(webservices.addBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+  
+  //add Bundle for series
+
+  url.addseriesBundle = function(jsondata,callback){
+
+    communicationService.resultViaPost(webservices.addseriesBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
       callback(res.data);
     });
   };
