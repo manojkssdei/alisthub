@@ -162,7 +162,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             url: '/view_event',
             views: {
                 "lazyLoadView": {
-                  controller: 'eventhomeController', // This view will use AppCtrl loaded below in the resolve
+                  controller: 'allEventController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/events/views/view_event.html'
                 },
             },
@@ -172,7 +172,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load('modules/events/service.js').then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/events/controller.js']);
+                return $ocLazyLoad.load(['modules/events/allevent_controller.js']);
                 })
               }]
             }
