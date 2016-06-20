@@ -51,14 +51,20 @@ var webservices = {
     "getProductSetting"  :  "/event_setting/getProductSetting",
     "saverecurringEvent"  :  "/event/saverecurringEvent",
     "updatesociallink"  :  "/event/updatesociallink",
-        /////get event category////
-     "getEventsdetail":"/event/getEventsdetail",
-     "getEvents":"/event/getEvents",
-     "getEvent":"/event/getEvent",
-     "getEventCategory":"/event/getEventCategory",
-     "deleteEvent":"/event/deleteEvent",
+    
+    /////get event category////
+    "getEventsdetail":"/event/getEventsdetail",
+    "getEvents":"/event/getEvents",
+    "getEvent":"/event/getEvent",
+    "getEventCategory":"/event/getEventCategory",
+    "deleteEvent":"/event/deleteEvent",
 
-     // event package
+    "getUpcommingEvent":"/event/getUpcommingEvent",
+    "getPastEvent":"/event/getPastEvent",
+    "getEventSeries":"/event/getEventSeries",
+    "getAllEvent":"/event/getAllEvent",
+
+    // event package
     "stepOneEventPackage"  :  "/event/stepOneEventPackage",
     "getPackage" : "/package/getPackage",
     "getEventsInPackage" : "/package/getEventsInPackage",
