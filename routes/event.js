@@ -10,6 +10,7 @@ module.exports = function(app, express) {
   Event    = require('./../app/event/controllers/event.js');
   EventSetting    = require('./../app/event/controllers/setting.js');
   EventSeries    = require('./../app/event/controllers/series.js');
+  AllEvent    = require('./../app/event/controllers/allevent.js');
 
   function supportCrossOriginScript(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -36,6 +37,17 @@ module.exports = function(app, express) {
   
   /* To get data of the all events */
   router.post('/getEvents',supportCrossOriginScript,Event.getEvents);
+
+  /* To get data of the all upcomming events */
+  router.post('/getUpcommingEvent',supportCrossOriginScript,Event.getUpcommingEvent);
+  /* To get data of the all past events */
+  router.post('/getPastEvent',supportCrossOriginScript,Event.getPastEvent);
+
+  /* To get data of the all event series */
+  router.post('/getEventSeries',supportCrossOriginScript,Event.getEventSeries);
+
+  /* To get data of the all event data */
+  router.post('/getAllEvent',supportCrossOriginScript,AllEvent.getAllEvent);
   
   /* To get the event data */
   router.post('/getEvent',supportCrossOriginScript, Event.getEvent);
