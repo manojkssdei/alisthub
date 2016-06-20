@@ -138,8 +138,8 @@
                                     <!-- CHECKBOXES WAALA DIV -->
                                     <div class="col-sm-8 event" ng-hide="days_div">
                                         <div class="form-group custom-check m-t40">
-                                            <p class="custom-check" ng-repeat="day in days">
-                                                <input type="checkbox" ng-model="day.selected" id={{day.id}} ng-change="select_checkbox(day.selected)" value={{day.id}}>
+                                            <p class="custom-check" ng-repeat="(key,day) in days">
+                                                <input type="checkbox" ng-model="day.selected" id={{day.id}} ng-change="select_checkbox(day.selected)" ng-checked="day.id==week_repeat[key]" value={{day.id}}>
                                                 <label for="{{day.id}}">{{day.name}}</label>
                                             </p>
                                         </div>

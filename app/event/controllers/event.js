@@ -279,6 +279,38 @@ exports.getEvent=function(req,res) {
     }
 }
 
+/** 
+Method: getEvent for series event
+Description:Function to get event data for series event 
+Created : 2016-06-20
+Created By: Deepak khokkar  
+*/
+
+
+exports.getSeriesEvent=function(req,res) {
+   
+    var event_id=req.body.event_id;
+    if(event_id!=undefined){
+      var sql="SELECT E.*,V.id as venue_id,V.venue_name,V.address,V.city,V.zipcode,V.state,V.country,V.latitude,V.longitude FROM events as E LEFT JOIN venues as V on E.venue_id=V.id where E.id="+event_id;
+     
+      var sqltime="SELECT * FROM event_dates where parent_id="+event_id+" ORDER BY start_date_time ASC";
+      
+      connection.query(sql,function(err,result){
+        if (err) {
+          res.send({err:"error",code:101}); 
+        }
+        connection.query(sqltime,function(err5,result5){
+            
+        res.send({"results":result,timing:result5,code:200});
+        
+        });
+        
+      });
+    } else {
+      res.send({"results":{},code:200});
+    }
+}
+
 
 
 exports.savepricelevel=function(req,res){
