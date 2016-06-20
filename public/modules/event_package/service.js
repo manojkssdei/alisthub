@@ -45,9 +45,45 @@ angular.module('alisthub').factory('event_package', ['$q', '$timeout','communica
     });
   };
 
-  
+  url.addBundleInPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.addBundleInPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
 
   
+  url.getBundleProductsInPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getBundleProductsInPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+  
+   //get price level
+  url.getEventPriceLevelInPackage = function(jsondata,callback) {
+        console.log('in service getEventPriceLevelInPackage' );
+
+    communicationService.resultViaPost(webservices.getEventPriceLevelInPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+
+ url.getAllEventsPriceLevelInPackage = function(jsondata,callback) {
+        console.log('in service getAllEventsPriceLevelInPackage' );
+
+    communicationService.resultViaPost(webservices.getAllEventsPriceLevelInPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+//update bundles
+  url.updateBundleInPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.updateBundleInPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+
 return url;
 
 }]);
