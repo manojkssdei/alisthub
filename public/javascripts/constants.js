@@ -128,13 +128,16 @@ var webservices = {
 
     /* Constants for the create event step 2 price level */
     "savepricelevel" : "/event/savepricelevel",
-    "saveseriespricelevel" : "/event/saveseriespricelevel",
+    "saveseriespricelevel" : "/event/saveseriespricelevel", // for series
     "getPricelevel" : "/event/getPricelevel",
     "removepricelevel" : "/event/removepricelevel",
+    "removeseriespricelevel" : "/event/removeseriespricelevel", // for series
     "changePricelevelStatus" : "/event/changePricelevelStatus",
+    "changeseriesPricelevelStatus" : "/event/changeseriesPricelevelStatus", // for series
     "getSinglePricelevel" : "/event/getSinglePricelevel",
     "postPriceChange" : "/event/postPriceChange",
-
+    "postseriesPriceChange" : "/event/postseriesPriceChange",
+    "addseriesBundle" : "/event/addseriesBundle", 
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",
     "getFinancialDetails" : "/account/getFinancialDetails",
