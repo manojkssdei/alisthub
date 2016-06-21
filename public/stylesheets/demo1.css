@@ -5,6 +5,7 @@
 .gridster {
     position:relative;
      width: auto;
+     margin: 0 auto;
 }
 
 .gridster > * {
@@ -18,7 +19,7 @@
 
 .gridster .gs-w {
     z-index: 2;
-    
+    position: absolute;
 }
 
 .ready .gs-w:not(.preview-holder) {
@@ -140,6 +141,7 @@ ul {
 
 .gridster ul {
     background-color: #EFEFEF;
+    margin: 0 auto;
 }
 
 .gridster li {

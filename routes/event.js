@@ -104,10 +104,26 @@ module.exports = function(app, express) {
 	/* For series add Bundle */
 	router.post('/addseriesBundle', EventSeries.addseriesBundle);
 	
-
+       /* Save price level*/
         router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel); 
 
-         
+        router.post('/preview_template',function(req,res){
+            console.log("preview template");
+            var __dir = './public/preview_template';
+            if (!fs.existsSync(__dir)){
+                fs.mkdirSync(__dir);
+            }
+           /* fs.openSync(__dir + "/index.html", 'w');
+            
+            var a1='<html><head></head><body>I am here for fun.s</body></html>';
+            fs.appendFile(__dir + "/index.html",a1 , function (err) {
+            
+            });*/
+           fs.createReadStream(__dir + "/index.html").pipe(fs.createWriteStream(__dir + "/index1.html"));
+
+
+            res.send("Preview template");
+        }); 
 
 	app.use('/event', router);
 

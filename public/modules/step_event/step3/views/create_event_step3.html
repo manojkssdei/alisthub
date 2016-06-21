@@ -159,7 +159,7 @@
                                     
                     </section>
 		 </li>   
-		<li data-row="2" data-col="1" data-sizex="3" data-sizey="1"  ng-style="{background: background_inner}">
+		<li data-row="2" data-col="1" data-sizex="3" data-sizey="1"  id="section2"   ng-style="{background: background_inner}">
 		  <div class="drag1" style="display:none;">
 		    
 		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
@@ -225,7 +225,7 @@
 		    <input type="file" id="my_file3"  onchange="angular.element(this).scope().encodeImageFileAsURL3(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
 		    </div>
 		</li>
-		<li data-row="3" data-col="4" data-sizex="1" data-sizey="1"  ng-style="{background: background_inner}">
+		<li data-row="3" data-col="4" data-sizex="1" data-sizey="1" id="section8"  ng-style="{background: background_inner}">
 		  
 		      <section class="panel panel-primary">
 		     <section class="panel-heading"><h5 class="m-b0">Venue</h5></section>                     
@@ -243,11 +243,11 @@
 			</section>
 		   </section>
                  </li>
-		<li data-row="4" data-col="4" data-sizex="1" data-sizey="1"  ng-style="{background: background_inner}">
+		<li data-row="4" data-col="4" data-sizex="1" data-sizey="1" id="section9"  ng-style="{background: background_inner}">
 		 
 	     <img width="100%;" height="auto" src="{{ticket_image}}" alt="your image"/>
 		</li>
-		<li data-row="5" data-col="4" data-sizex="1" data-sizey="1"  ng-style="{background: background_inner}">
+		<li data-row="5" data-col="4" data-sizex="1" data-sizey="1" id="section10"  ng-style="{background: background_inner}">
 		
 		 <div id="fb-root"></div>
 	      <script>(function(d, s, id) {
@@ -278,7 +278,7 @@
 		  
 		</li>
 		
-		<li data-row="6" data-col="1" data-sizex="4" data-sizey="1"    id="section6"  ng-style="{background: background_inner}">
+		<!--<li data-row="6" data-col="1" data-sizex="4" data-sizey="1"    id="section6"  ng-style="{background: background_inner}">
 		  <div class="drag" style="display:none;">
 			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 			<a onclick="remove_widget('section6')"><i class="fa fa-trash" aria-hidden="true"></i></a>
@@ -286,13 +286,13 @@
 		      </div>
 		      <div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value='' class="wrap-word">
 		      </div>
-		</li>
+		</li>-->
 		
        
 			
 			
 		    </ul>
-		  
+		 <!-- <button type="button" class="js-seralize">Serialize</button>-->
       
                       </div>
 		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
@@ -329,7 +329,7 @@ function change_image3()
      gridster.add_widget('<li class="new"><img src="http://www.sparity.com/images/facebookIcon.jpg" alt="facebook"  ></li>', 1, 1);
   }
       $(function(){
-
+      
         gridster = $(".gridster ul").gridster({
 	  widget_base_dimensions: [140, 225],
           widget_margins: [10, 10],
@@ -344,8 +344,31 @@ function change_image3()
 			handle: '.header'
 		}
         }).data('gridster');
-
-
+          var eventdata=new Array();
+          $('.js-seralize').on('click', function() {
+            var s = gridster.serialize();
+	    
+           s.forEach(function(item,index){
+	      eventdata.push(item.row+""+item.col);
+	      /* if($( ".module.gridster.ready > ul > li[data-col="+item.col+"]" )&& $( ".module.gridster.ready > ul > li[data-row="+item.row+"]" ))
+	      {
+		
+	      }*/
+	     
+	      })
+	   
+	   var events=eventdata.sort();
+	   
+	   $.map(events, function(value, index) {
+	     
+	      var column=value.slice(-1);
+	      var row=value.slice(0,1);
+	      var section=$('.module.gridster.ready > ul > li[data-col='+column+'][data-row='+row+']').attr('id');
+		console.log($("#"+section).html());
+	       
+	  });
+	  
+        })
         // resize widgets on hover
         gridster.$el
           .on('mouseenter', '> li', function() {
