@@ -19,6 +19,55 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
       };	  
     }
 
+    $scope.UPCtab = false;
+    $scope.UPCtabclass = "fa-caret-down";
+    $scope.id1 = 1;
+    $scope.openTabUPC = function(id) {
+        if (id == 1) {
+            $scope.id1 = 2;
+            $scope.UPCtab = true;
+            $scope.UPCtabclass = "fa-caret-up";
+        }
+        if (id == 2) {
+            $scope.id1 = 1;
+            $scope.UPCtab = false;
+            $scope.UPCtabclass = "fa-caret-down";
+        }
+    }
+
+    $scope.PASTtab = false;
+    $scope.PASTtabclass = "fa-caret-down";
+    $scope.id2 = 1;
+    $scope.openTabPAST = function(id) {
+        if (id == 1) {
+            $scope.id2 = 2;
+            $scope.PASTtab = true;
+            $scope.PASTtabclass = "fa-caret-up";
+        }
+        if (id == 2) {
+            $scope.id2 = 1;
+            $scope.PASTtab = false;
+            $scope.PASTtabclass = "fa-caret-down";
+        }
+    }
+
+    $scope.PAKtab = false;
+    $scope.PAKtabclass = "fa-caret-down";
+    $scope.id3 = 1;
+    $scope.openTabPAK = function(id) {
+        if (id == 1) {
+            $scope.id3 = 2;
+            $scope.PAKtab = true;
+            $scope.PAKtabclass = "fa-caret-up";
+        }
+        if (id == 2) {
+            $scope.id3 = 1;
+            $scope.PAKtab = false;
+            $scope.PAKtabclass = "fa-caret-down";
+        }
+    }
+
+
     //upcomming event list
     $scope.getUpcommingEvent = function(eventType) {
       type = 0;      
