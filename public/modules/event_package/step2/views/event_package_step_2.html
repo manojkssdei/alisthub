@@ -91,6 +91,10 @@
                                   <a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
+                            <tr ng-if="bundleInPackageList == []">
+                                  <td colspan="7" align="center">You have not created a bundle for this package.</td>
+                            </tr>
+
                             <tr ng-show="loader_bundle">
                                   <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
                             </tr>
@@ -155,8 +159,13 @@
                               </a>
                             </td>
                           </tr>
-                          <tr ng-show="loader_bundle">
-                            <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+
+                           <tr ng-if="productInPackageList == []">
+                                  <td colspan="4" align="center">You have not added any products to this package</td>
+                            </tr>
+
+                          <tr ng-show="loader_product">
+                            <td colspan="4" align="center"><img src="/images/icons/loader.gif"> {{productInPackageList}}</td>
                           </tr>
                         </tbody>
                     </table>
@@ -574,12 +583,13 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
             <div class="module">
               <form class="" name="bundlestep2" ng-submit="bundlestep2.$valid && updateQty()" novalidate>
                 
-
-                <section ng-if="price_level.length > 0" class="prof-hd">
+<div ng-if="eventsInPackage.length > 0" >
+                <section  ng-repeat="event in eventsInPackage"  class="prof-hd">
                   <i class="fa fa-link hdicon pos-l16"></i>
-                  <h2>Event<span style="float:right;">Quantity</span></h2>
+                  <h2>Event : {{event.event_id}} <span style="float:right;">Quantity</span></h2>
                 </section>
-                <section ng-if="price_level.length > 0" class="gray-frame">
+                <section ng-if="event.event_id == price_level.event_id" class="gray-frame">
+                 
                   <div class="row" ng-repeat="price in price_level" >
                     <div class="col-sm-8" >
                       <div class="form-group">
@@ -593,7 +603,11 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                       </div>
                     </div>
                   </div>
+
+
                 </section>
+
+                </div>
 
                 <section class="prof-hd">
                   <i class="fa fa-link hdicon pos-l16"></i>

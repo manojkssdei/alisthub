@@ -51,19 +51,32 @@ var webservices = {
     "getProductSetting"  :  "/event_setting/getProductSetting",
     "saverecurringEvent"  :  "/event/saverecurringEvent",
     "updatesociallink"  :  "/event/updatesociallink",
-        /////get event category////
-     "getEventsdetail":"/event/getEventsdetail",
-     "getEvents":"/event/getEvents",
-     "getEvent":"/event/getEvent",
-     "getEventCategory":"/event/getEventCategory",
-     "deleteEvent":"/event/deleteEvent",
+    
+    /////get event category////
+    "getEventsdetail":"/event/getEventsdetail",
+    "getEvents":"/event/getEvents",
+    "getEvent":"/event/getEvent",
+    "getEventCategory":"/event/getEventCategory",
+    "deleteEvent":"/event/deleteEvent",
 
-     // event package
+    "getUpcommingEvent":"/event/getUpcommingEvent",
+    "getPastEvent":"/event/getPastEvent",
+    "getEventSeries":"/event/getEventSeries",
+    "getAllEvent":"/event/getAllEvent",
+
+    // event package
     "stepOneEventPackage"  :  "/event/stepOneEventPackage",
     "getPackage" : "/package/getPackage",
     "getEventsInPackage" : "/package/getEventsInPackage",
     "getBundlesInPackage" : "/package/getBundlesInPackage",
     "getProductsInPackage" : "/package/getProductsInPackage",
+    "addBundleInPackage" : "/package/addBundleInPackage",
+    "getBundleProductsInPackage" : "/package/getBundleProductsInPackage",
+    "getEventPriceLevelInPackage" : "/package/getEventPriceLevelInPackage",
+    "getAllEventsPriceLevelInPackage" : "/package/getAllEventsPriceLevelInPackage",
+    "updateBundleInPackage" : "/package/updateBundleInPackage",
+    
+
 
     
 
@@ -128,13 +141,16 @@ var webservices = {
 
     /* Constants for the create event step 2 price level */
     "savepricelevel" : "/event/savepricelevel",
-    "saveseriespricelevel" : "/event/saveseriespricelevel",
+    "saveseriespricelevel" : "/event/saveseriespricelevel", // for series
     "getPricelevel" : "/event/getPricelevel",
     "removepricelevel" : "/event/removepricelevel",
+    "removeseriespricelevel" : "/event/removeseriespricelevel", // for series
     "changePricelevelStatus" : "/event/changePricelevelStatus",
+    "changeseriesPricelevelStatus" : "/event/changeseriesPricelevelStatus", // for series
     "getSinglePricelevel" : "/event/getSinglePricelevel",
     "postPriceChange" : "/event/postPriceChange",
-
+    "postseriesPriceChange" : "/event/postseriesPriceChange",
+    "addseriesBundle" : "/event/addseriesBundle", 
     /* Constants for saving the financial settings */
     "addFinancialDetails" : "/account/addFinancialDetails",
     "getFinancialDetails" : "/account/getFinancialDetails",

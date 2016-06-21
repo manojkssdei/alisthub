@@ -396,8 +396,8 @@
            <!-- Search options Closed -->
            <div class="editor-btn">
           <button type="button" ng-click="click_menu(steps[0])" class="gray-btn btn">Back</button>
-           <button type="submit" class="pink-btn btn">Save</button>
-          <button type="button" ng-click="click_menu(steps[2])" class="pink-btn btn">Next</button>
+           <button type="submit" ng-disabled="myForm1.$invalid" class="pink-btn btn">Save</button>
+          <button type="button" ng-disabled="myForm1.$invalid" ng-click="click_menu(steps[2])" class="pink-btn btn">Next</button>
         </div>
           
 </form>

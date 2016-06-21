@@ -1,0 +1,81 @@
+
+html,
+body {height: 100%;}
+
+img { border: 0; max-width:100%;}
+
+.login-frame .form-control{ background-color: #ffffff; border-radius: 0px; -webkit-border-radius: 0px; border-color: #c2c2c2; box-shadow: none; color: #333333; font-size: 16px;  height: 44px; padding: 6px 15px;}
+.login-frame select.form-control{padding:6px 12px; font-style:normal;}
+
+.wrapper{min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -62px; background:url(../images/bg.jpg) no-repeat 100% center fixed; background-size:cover;}
+.wrapper a, .wrapper a:active, .wrapper a:hover, .wrapper a:focus { outline: 0; color:#fff; }
+
+.header{padding:72px 0 38px; text-align:center;}
+
+.login-frame{background-color:rgba(123,123,123,0.8); color:#fff; padding:60px 70px 25px; text-align:center; width:90%; margin:0 auto 100px;}
+.login-frame h1{font-size:36px; text-transform:uppercase; margin:0 0 15px; font-weight:700; padding:0; color:#fff;}
+.tagline{font-size:20px; margin-bottom:25px;}
+.login-form .form-control{height:56px; padding-left:50px;}
+.icon-div p{position:relative; margin-bottom:15px;}
+.input-icons{color:#c7c7c7; font-size:24px; position:absolute; top:0; left:14px; line-height:56px;}
+
+.btn-l{border-radius:0; background-color:rgba(193,41,185, 0.8); height:38px; font-size:14px; font-size:24px; height:54px; min-width:260px; text-transform:uppercase; margin-top:20px; border:none;}
+.btn-l:hover{color:#fff; background-color:rgba(193,41,185, 1);}
+
+.otherlinks{padding-top:20px;}
+.otherlinks p{margin-top:30px;}
+.otherlinks p:first-child{margin-top:0;}
+.signup-link{font-size:18px; font-weight:bold; text-decoration:underline;}
+.signup-link:hover{text-decoration:none;}
+
+.footer, #push{height:62px;}
+.footer{background-color:rgba(123,123,123,0.8); color:#fff; padding:22px 15px; text-align:center; font-size:15px;}
+
+/*-------Sign up--------*/
+.signup{text-align:left;}
+.form-widget label{margin-bottom:10px; display:inline-block; color:#fff; }
+.section-col{margin-bottom:15px;}
+
+.login-frame .has-error .checkbox, 
+.login-frame .has-error .checkbox-inline, 
+.login-frame .has-error .control-label, 
+.login-frame .has-error .help-block, 
+.login-frame .has-error .radio, 
+.login-frame .has-error .radio-inline, 
+.login-frame .has-error.checkbox label, 
+.login-frame .has-error.checkbox-inline label, 
+.login-frame .has-error.radio label, 
+.login-frame .has-error.radio-inline label{
+	color:#fff;	background-color:rgba(255,0,0,0.5);	padding:5px 10px; font-weight:bold; text-align:left; position: relative;
+	}
+	
+	
+
+.login-frame .help-block:after {
+	bottom: 100%;
+	left: 30px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: rgba(255,0,0,0.5);
+	border-width: 10px;
+	margin-left: -10px;
+}
+
+
+@media (max-width: 1000px) {
+	.login-frame{padding-left:25px; padding-right:25px; width:auto;}
+}
+
+@media (max-width: 767px) {
+	.header{padding:30px 15px;}
+	.login-frame{padding:25px; margin-left:-15px; margin-right:-15px;}
+	.tagline{font-size:15px; line-height:18px;}
+	.section-col:last-child{margin-bottom:0;}
+	
+	.m-fw{width:100%; min-width:inherit;}
+}
