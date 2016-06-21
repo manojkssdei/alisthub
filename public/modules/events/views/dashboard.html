@@ -69,11 +69,11 @@
         </section>
         <!--/Top Section-->
         <section class="module">
-            <section class="prof-hd no-icon">
+            <section class="prof-hd no-icon" ng-click="openTabUPC(id1)">
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
-                <h2>Upcoming Events <span class="rt-img"></span></h2>
+                <h2>Upcoming Events <span class="rt-img"><i class="fa {{UPCtabclass}}"></i></span></h2>
             </section>
-            <section class="gray-frame">
+            <section class="gray-frame" ng-show="UPCtab">
                 <section class="top-buttons">
                     <a ui-sref="create_an_event">
                         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Create Event</button>
@@ -97,9 +97,11 @@
 
                                         <!--  <td class="numbers">{{upcoming.sold}}</td>-->
                                         <td title="'Action'" class="action" width="20%">
-                                            <!--<a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a>-->
-                                            <a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
-    									    <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
+                                            <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
+                                            <a title="Schedules" href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a>
+                                            <a title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
+    									    <a title="View" href="javascript:void(0)"><i class="fa fa-eye"></i></a>
+                                            <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
     									</td>
                                     </tr>
                                     <tr ng-show="loader">
@@ -117,9 +119,9 @@
                             <ul class="legends">
                                 <li><i class="fa fa-calendar-o"></i> <span>Schedules</span></li>
                                 <li><i class="fa fa-pie-chart"></i><span>Overview</span></li>
-                                <li><i class="fa fa-list-ul"></i><span>Guest List</span></li>
                                 <li><i class="fa fa-edit"></i><span>Edit</span></li>
                                 <li><i class="fa fa-eye"></i><span>View</span></li>
+                                <li><i class="fa fa-trash"></i><span>Delete</span></li>
                             </ul>
                         </section>
                     </section>
@@ -128,11 +130,11 @@
         </section>
         <!--/Upcoming Events-->
         <section class="module">
-            <section class="prof-hd no-icon">
+            <section class="prof-hd no-icon" ng-click="openTabPAST(id2)">
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
-                <h2>Past Events <span class="rt-img"></span></h2>
+                <h2>Past Events <span class="rt-img"><i class="fa {{PASTtabclass}}"></i></span></h2>
             </section>
-            <section class="gray-frame">
+            <section class="gray-frame" ng-show="PASTtab">
                 <section class="top-buttons">
                     <button type="button" class="btn pink-btn btn-small" ng-click="getPastEvent('event')">View All Past Events</button><button type="button" class="btn pink-btn btn-small" ng-click="getPastEvent('series')">View All Past Series</button>
                 </section>
@@ -148,7 +150,12 @@
                                     <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.recurring_or_not == 0 ? (pdata.start_date | date:"dd MMMM yyyy") : 'Event Series'}}</td>
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>
                                     <td class="numbers">{{upcoming.inventory}}</td>-->
-                                    <td title="'Action'" class="action" width="20%"><!--<a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a>--><a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a></td>
+                                    <td title="'Action'" class="action" width="20%">
+                                    <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
+                                    <a title="Schedules" href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a>
+                                    <a title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
+                                    <a title="View" href="javascript:void(0)"><i class="fa fa-eye"></i></a>
+                                    </td>
                                 </tr>
                                 <tr ng-show="loader">
                                     <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
@@ -165,7 +172,6 @@
                             <ul class="legends">
                                 <li><i class="fa fa-calendar-o"></i> <span>Schedules</span></li>
                                 <li><i class="fa fa-pie-chart"></i><span>Overview</span></li>
-                                <li><i class="fa fa-list-ul"></i><span>Guest List</span></li>
                                 <li><i class="fa fa-edit"></i><span>Edit</span></li>
                                 <li><i class="fa fa-eye"></i><span>View</span></li>
                             </ul>
@@ -176,11 +182,11 @@
         </section>
         <!--/Past Events-->
         <section class="module">
-            <section class="prof-hd no-icon">
+            <section class="prof-hd no-icon" ng-click="openTabPAK(id3)">
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
-                <h2>Event Packages <span class="rt-img"></span></h2>
+                <h2>Event Packages <span class="rt-img"><i class="fa {{PAKtabclass}}"></i></span></h2>
             </section>
-            <section class="gray-frame">
+            <section class="gray-frame" ng-show="PAKtab">
                 <section class="top-buttons">
                     <button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Create Package</button><span class="file-input btn pink-btn btn-small btn-file">
                     Export CSV <input type="file" multiple>
@@ -189,34 +195,40 @@
                 <section class="grid-widget">
                     <div class="table-responsive">
                         <table ng-table="tableParams2"  class="table table-striped table-ng-style">
-                               
                             <tbody>
-                                    <tr  ng-repeat="pdata in $data | filter:filter">
-                                        <td header-class="'header-text-align'"  title="'Id'" header-class="'header-text-align'" filter="{ id: 'number'}" sortable="'id'" width="20%"><a href="#"><strong>{{pdata.id}}</strong></a></td>
+                                <tr  ng-repeat="pdata in $data | filter:filter">
+                                    <td header-class="'header-text-align'"  title="'Id'" header-class="'header-text-align'" filter="{ id: 'number'}" sortable="'id'" width="20%"><a href="#"><strong>{{pdata.id}}</strong></a></td>
+                                    
                                     <td title="'Name'" header-class="'header-text-align'" filter="{ title: 'text'}" sortable="'package_name'" width="40%">
                                         <p><a href="#"><strong>{{pdata.package_name}}</strong></a></p>
-                                        
                                     </td>
+                                    
                                     <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'online_sales_open_date'}" sortable="'online_sales_open_date'" width="20%">{{pdata.online_sales_open_date | date:"dd MMMM yyyy"}}</td>
-                                  <!--  <td class="numbers">{{upcoming.sold}}</td>
+                                    
+                                    <!--  <td class="numbers">{{upcoming.sold}}</td>
                                     <td class="numbers">{{upcoming.inventory}}</td>-->
-                                    <td title="'Action'" class="action" width="20%"><!--<a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a>--><a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a></td>
+                                    
+                                    <td title="'Action'" class="action" width="20%">
+                                        <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
+                                        <a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>
+                                        <a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
+                                        <a title="View" href="javascript:void(0)"><i class="fa fa-eye"></i></a>
+                                    </td>
                                 </tr>
-                                    <tr ng-show="loader">
-                                        <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
-                                    </tr>
-				    <tr ng-if="$data == ''">
-                                        <td colspan="4" align="center">No Record found!</td>
-                                    </tr>
-                                </tbody>
-</table> 
+                                <tr ng-show="loader">
+                                    <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
+                                </tr>
+			                    <tr ng-if="$data == ''">
+                                    <td colspan="4" align="center">No Record found!</td>
+                                </tr>
+                            </tbody>
+                        </table> 
                     </div>
                    
                     <section class="grid-bottm clearfix">
                         <section class="gr-right pull-right">
                             <ul class="legends">
                                 <li><i class="fa fa-calendar-o"></i> <span>Schedules</span></li>
-                                <li><i class="fa fa-pie-chart"></i><span>Overview</span></li>
                                 <li><i class="fa fa-list-ul"></i><span>Guest List</span></li>
                                 <li><i class="fa fa-edit"></i><span>Edit</span></li>
                                 <li><i class="fa fa-eye"></i><span>View</span></li>
