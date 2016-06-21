@@ -139,7 +139,7 @@
                                     <div class="col-sm-8 event" ng-hide="days_div">
                                         <div class="form-group custom-check m-t40">
                                             <p class="custom-check" ng-repeat="(key,day) in days">
-                                                <input type="checkbox" ng-model="day.selected" id={{day.id}} ng-change="select_checkbox(day.selected)" ng-checked="day.id==week_repeat[key]" value={{day.id}}>
+                                                <input type="checkbox" ng-model="day.selected" id={{day.id}} ng-change="select_checkbox(day.selected)" ng-checked="day.checked == 1" value={{day.id}}>
                                                 <label for="{{day.id}}">{{day.name}}</label>
                                             </p>
                                         </div>
@@ -156,7 +156,7 @@
                                     <div class="col-sm-8 event m-t40" ng-hide="monthly_div">
                                         <div class="inline-radio">
                                             <label class="radiolabel">
-                                                <input type="radio" name="everythisday" value="everythisday" ng-model="monthly.type"><span>Select Particular Day</span></label>
+                                                <input type="radio" name="everythisday" value="everythisday" ng-model="monthly.type"><span>Select Particular Day </span></label>
                                         </div>
                                         <div class="inline-radio">
                                             <label class="radiolabel">
@@ -237,7 +237,7 @@
                     </div>
                 </div>
                 <div class="form-group field-group">
-                    <label for="Location">Location<span class="req">*</span></label>
+                    <label for="Location">Location <span class="req">*</span></label>
                     <!-- Date Event Group -->
                     <div class="event-date fieldSection">
                         <div class="row">
@@ -319,7 +319,7 @@
                                             <ul>
                                                 <li ng-repeat="venue in total_venue track by $index">
                                                     <i class="fa fa-map-marker"></i>
-                                                    <a ng-click="venue_info(venue)">{{venue.venue_name}}</a>
+                                                    <a ng-click="venue_info(venue,1)">{{venue.venue_name}}</a>
                                                     <span>{{venue.address}}, {{venue.city}}&nbsp;,&nbsp;{{venue.state}}&nbsp;,&nbsp;{{venue.zipcode}}</span>
                                                 </li>
                                                 <li ng-show="venueloader">
@@ -357,6 +357,12 @@
                             </div>
                         </div>
                     </div>
+      </div>
+      
+      <div class="form-group field-group">
+        <label for="Location" ng-class="{ 'has-error' : myForm.short_name.$dirty && myForm.short_name.$invalid }">Title <span class="req">*</span></label>
+        <div class="domain-name"><input type="text" name="short_name" ng-model="data.short_name" class="form-control" placeholder="Title of your Event" required><span class="dname">.alist.com</span></div>
+        <p class="help-inline error-fld ng-binding"  ng-show="myForm.short_name.$dirty && myForm.short_name.$invalid">Title is required</p>
       </div>
       
       

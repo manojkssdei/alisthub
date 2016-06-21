@@ -138,58 +138,57 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('series
          $scope.data.state     = response.results[0].state;
          $scope.data.zipcode   = response.results[0].zipcode;
          $scope.data.selected_venue = response.results[0].venue_id;
-         $scope.venue_info($scope.data)
+         console.log($scope.data.selected_venue);
+         console.log("===========================");
+         $scope.venue_info($scope.data,2);
+         console.log($scope.data.selected_venue);
+         console.log("===========================");
+         
+         
         ///////////////////////// Venue Info  /////////////////////////////
         
-        
-        //$scope.venue_info(response.results[0].venue_id)
         // For start date and end Date      
-        var d = new Date();
-        var n = d.getTimezoneOffset(); 
+         var d = new Date();
+         var n = d.getTimezoneOffset(); 
         
-        //if (n > 0) {
-            var ee = new Date(response.results[0].end_date);
-            var ss = new Date(response.results[0].start_date);
-            $scope.multiple_start_date = ss;
-            $scope.multiple_end_date   = ee;
-            //$scope.multiple_start_date = new Date(ss.getTime() - n*60000);
-            //$scope.multiple_end_date   = new Date(ee.getTime() - n*60000);
-            //console.log(response.results[0].start_date +":::"+ss+"::::"+$scope.multiple_start_date);
-        /*}
-        else{
-            var ee = new Date(response.results[0].end_date);
-            var ss = new Date(response.results[0].start_date);
-            $scope.multiple_start_date = new Date(ss.getTime() + n*60000);
-            $scope.multiple_end_date = new Date(ee.getTime() + n*60000);
-            console.log(response.results[0].start_date +":::"+ss+"::::"+$scope.multiple_start_date);
-        }*/
-        
+         var ee = new Date(response.results[0].end_date);
+         var ss = new Date(response.results[0].start_date);
+         $scope.multiple_start_date = ss;
+         $scope.multiple_end_date   = ee;
+            
         
         // for showing recurring type
         if (response.results[0].recurring_type == 1) {
          $scope.data.period    = "daily";
          $scope.rec_days_value = response.results[0].repeat_every;
         }
+        
         if (response.results[0].recurring_type == 2) {
          $scope.day = {};
          $scope.week_repeat2 =[];
          $scope.data.period = "weekly";
          var str  = response.results[0].repeat_every;
          $scope.week_repeat = str.split(",");
-         /*$scope.week_repeat.forEach(function(arr){
-            $scope.week_repeat[arr] = arr;
+         
+         $scope.week_repeat.forEach(function(arr){
+            $scope.days[arr].checked = 1;
          });
-         $scope.days.forEach(function(arr){
-            $scope.week_repeat2 = arr;
-         });*/
-         console.log($scope.week_repeat);
+         
         }
+        
         if (response.results[0].recurring_type == 3) {
          $scope.data.period = "monthly";
+         $scope.monthly = {};
+         $scope.monthly.type            = response.results[0].repeat_every;
+         $scope.data.monthly_option     = response.results[0].monthly_option;
+         $scope.data.monthly_week_value = response.results[0].monthly_week_value;
+         $scope.data.monthly_day_value  = response.results[0].monthly_day_value;
         }
+        
         if (response.results[0].recurring_type == 4) {
          $scope.data.period = "yearly";
         }
+        
         $scope.recurring_period('period');
         
         
@@ -242,6 +241,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('series
 
         if (response.code === 200) {
           $scope.total_venue = response.result;
+          if ($scope.total_venue != "") {
+            $scope.select_venue($scope.venues[0])
+          }
+          else{
+            $scope.select_venue($scope.venues[1]);
+          }
+          
         }
 
       } else {
@@ -485,7 +491,7 @@ $scope.rec_year_func = function() {
     var endt = new Date($scope.multiple_end_date);
     endt = endt.getTime();
 
-    if (stt >= endt) {
+    if (stt > endt) {
       $scope.error_message = false;
       $scope.multiple_end_date = '';
       $scope.error = global_message.date_error;
@@ -624,19 +630,28 @@ $scope.rec_year_func = function() {
             // Repeat every
             if (data.period == 'daily') {
                data.repeat_every = $scope.rec_days_value;
+               data.monthly_option     = "";
+               data.monthly_week_value = "";
+               data.monthly_day_value  = "";
             }
             if (data.period == 'weekly') {
                data.repeat_every = $scope.recur_day;
+               data.monthly_option     = "";
+               data.monthly_week_value = "";
+               data.monthly_day_value  = "";
             }
             if (data.period == 'monthly') {
                console.log($scope.monthly.type+"::"+$scope.data.monthly_option+"::"+$scope.data.monthly_week_value+$scope.monthly_day_value);
                data.repeat_every       = $scope.monthly.type;
                data.monthly_option     = $scope.data.monthly_option;
-               data.monthly_week_value = $scope.monthly_week_value;
-               data.monthly_day_value  = $scope.monthly_day_value;
+               data.monthly_week_value = $scope.data.monthly_week_value;
+               data.monthly_day_value  = $scope.data.monthly_day_value;
             }
             if (data.period == 'yearly') {
                data.repeat_every = $scope.rec_days_value;
+               data.monthly_option     = "";
+               data.monthly_week_value = "";
+               data.monthly_day_value  = "";
             }
             console.log(data);
             console.log($scope.rec_days_value);
@@ -807,12 +822,11 @@ $scope.rec_year_func = function() {
       google.maps.event.removeListener(listener);
     });
   });
-  $scope.venue_info = function(venuedata) {
+  $scope.venue_info = function(venuedata,ctr) {
 
     $scope.data.venuename = venuedata.venue_name;
     $scope.data.place = venuedata.address;
     $scope.data.address = venuedata.address;
-    $scope.data.venueid = venuedata.id;
     $scope.data.city = venuedata.city;
     $scope.data.country = venuedata.country;
     $scope.data.latitude = venuedata.latitude;
@@ -820,9 +834,14 @@ $scope.rec_year_func = function() {
     $scope.data.longitude = venuedata.longitude;
     $scope.data.state = venuedata.state;
     $scope.data.zipcode = venuedata.zipcode;
-    
-    $scope.data.selected_venue = venuedata.id;
-    
+    if (ctr == 2) {
+      $scope.data.venueid        = venuedata.venue_id;
+      $scope.data.selected_venue = venuedata.venue_id;
+    }else {
+      $scope.data.venueid        = venuedata.id;
+      $scope.data.selected_venue = venuedata.id; 
+    }
+        
     var bounds = new google.maps.LatLngBounds();
     var infowindow = new google.maps.InfoWindow();
 
@@ -1034,7 +1053,14 @@ $scope.rec_year_func = function() {
 
   // To show selected event,venue and step.
   $scope.selected = $scope.events[0];
-  $scope.selected1 = $scope.venues[0];
+  
+  if ($scope.total_venue != "") {
+    $scope.selected1 = $scope.venues[0];
+  }else{
+    $scope.selected1 = $scope.venues[1];
+  }
+ 
+  
   $scope.selected2 = $scope.steps[0];
 
 

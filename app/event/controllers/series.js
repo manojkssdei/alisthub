@@ -55,20 +55,26 @@ exports.saverecurringEvent=function(req,res){
        data.start_date = data.date_time_series[0].from;
        var length = data.date_time_series.length;
        data.end_date   = data.date_time_series[length-1].from;
+       console.log(length+":::::::"+data.end_date);
+       
+       if (!data.repeat_every) {  data.repeat_every  = ""; }
+       if (!data.monthly_option) {  data.monthly_option  = ""; }
+       if (!data.monthly_week_value) {  data.monthly_week_value  = ""; }
+       if (!data.monthly_day_value) {  data.monthly_day_value  = ""; }
        
        // For update parent event
        if(data.event_id && data.event_id != null && data.event_id !== undefined)
        {      
-        var save_query = "UPDATE `events` SET user_id='"+data.userId+"',title='"+data.eventname+"',start_date='"+data.start_date+"',recurring_or_not='1',recurring_type='"+data.period+"',description='"+data.content+"',event_steps='1',end_date='"+data.end_date+"',venue_id='"+data.venue_id+"',repeat_every='"+data.repeat_every+"',created='"+curtime+"' where id="+data.event_id;
+        var save_query = "UPDATE `events` SET user_id='"+data.userId+"',title='"+data.eventname+"',start_date='"+data.start_date+"',recurring_or_not='1',recurring_type='"+data.period+"',description='"+data.content+"',event_steps='1',end_date='"+data.end_date+"',venue_id='"+data.venue_id+"',repeat_every='"+data.repeat_every+"',monthly_option='"+data.monthly_option+"',monthly_week_value='"+data.monthly_week_value+"',monthly_day_value='"+data.monthly_day_value+"',short_name='"+data.short_name+"',created='"+curtime+"' where id="+data.event_id;
         rollback_events(data.event_id,1);
        }
        else // For Insert parent event
        {
-        var save_query = "INSERT INTO `events` (`id`, `user_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `repeat_every`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+data.content+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+data.repeat_every+"', '"+curtime+"')";
+        var save_query = "INSERT INTO `events` (`id`, `user_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `repeat_every`, `monthly_option`, `monthly_week_value`, `monthly_day_value`, `short_name`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+data.content+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+data.repeat_every+"', '"+data.monthly_option+"', '"+data.monthly_week_value+"', '"+data.monthly_day_value+"', '"+data.short_name+"', '"+curtime+"')";
        }
         // Save Parent Event
         connection.query(save_query,function(perr,presult){
-            console.log(presult);
+            
             if(data.event_id && data.event_id != null && data.event_id !== undefined)
             {
                 var parent_id = data.event_id;
@@ -83,7 +89,8 @@ exports.saverecurringEvent=function(req,res){
                 /// Save Child events
                 date_array.forEach(function(date_arr){
                 
-                var child_save_query = "INSERT INTO `events` (`id`, `user_id`, `parent_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `repeat_every`, `created`) VALUES (NULL, '"+data.userId+"', '"+parent_id+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+data.content+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+data.repeat_every+"', '"+curtime+"')";
+                var child_save_query = "INSERT INTO `events` (`id`, `user_id`, `parent_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `repeat_every`, `monthly_option`, `monthly_week_value`, `monthly_day_value`, `short_name`, `created`) VALUES (NULL, '"+data.userId+"', '"+parent_id+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+data.content+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+data.repeat_every+"', '"+data.monthly_option+"', '"+data.monthly_week_value+"', '"+data.monthly_day_value+"', '"+data.short_name+"', '"+curtime+"')";
+                console.log(child_save_query);
                 
                 connection.query(child_save_query,function(cerr,cresult){
                 var child_id = cresult.insertId;
@@ -112,7 +119,7 @@ exports.saverecurringEvent=function(req,res){
    //console.log(data);
    //Case 1: Step -1 Saving
    // server side validation
-   if(data.eventname !== undefined && data.eventtype !== undefined && data.date_time_series !== undefined && data.userId !== undefined){
+   if(data.eventname !== undefined && data.short_name !== undefined && data.eventtype !== undefined && data.date_time_series !== undefined && data.userId !== undefined){
     var query = "";
     
     // Venue if add new venue  
