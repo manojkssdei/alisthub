@@ -332,11 +332,9 @@ $scope.click_menu = function(menu, data, valid) {
     $scope.formdata.online_sales_open = $scope.combine($scope.formdata.online_sales_open.date,$scope.formdata.online_sales_open.time);
     $scope.formdata.online_sales_close = $scope.combine($scope.formdata.online_sales_close.date,$scope.formdata.online_sales_close.time);
 
-    $scope.formdata.print_enable_date = {};
-    $scope.formdata.print_disable_date = {};
     if($scope.formdata.print_enable_date.date!=undefined && $scope.formdata.print_enable_date.time!=undefined && $scope.formdata.print_enable_date.date!='' && $scope.formdata.print_enable_date.time!=''){
       $scope.formdata.print_enable_date = $scope.combine($scope.formdata.print_enable_date.date,$scope.formdata.print_enable_date.time);  
-    }
+    } 
     if($scope.formdata.print_disable_date.date!=undefined && $scope.formdata.print_disable_date.time!=undefined && $scope.formdata.print_disable_date.date!='' && $scope.formdata.print_disable_date.time!=''){
       $scope.formdata.print_disable_date = $scope.combine($scope.formdata.print_disable_date.date,$scope.formdata.print_disable_date.time);
     }
@@ -402,7 +400,7 @@ $scope.click_menu = function(menu, data, valid) {
       $scope.formdata.print_enable_date = {};
       $scope.formdata.print_enable_date.date = null;
       $scope.formdata.print_enable_date.time = null;
-
+      
       if(enableDateTime.date!='' && enableDateTime.time!=''){
         $scope.formdata.print_enable_date.date = enableDateTime.date;
         $scope.formdata.print_enable_date.time = enableDateTime.time;  
@@ -441,19 +439,27 @@ $scope.click_menu = function(menu, data, valid) {
   function getDateTime(openDate) {
     var date1 = new Date(openDate);
     
-    var date = ('0' + (date1.getUTCDate())).slice(-2);
-    var year = date1.getUTCFullYear();
-    var month = ('0' + (date1.getUTCMonth()+1)).slice(-2);
-    
-    var hours = ('0' + (date1.getUTCHours())).slice(-2);
-    var minutes = ('0' + (date1.getUTCMinutes())).slice(-2);
-    var seconds = date1.getUTCSeconds();
+    if(date1!="Invalid Date" && openDate!=null) {
+      console.log(openDate);
+      var date = ('0' + (date1.getUTCDate())).slice(-2);
+      var year = date1.getUTCFullYear();
+      var month = ('0' + (date1.getUTCMonth()+1)).slice(-2);
+      
+      var hours = ('0' + (date1.getUTCHours())).slice(-2);
+      var minutes = ('0' + (date1.getUTCMinutes())).slice(-2);
+      var seconds = date1.getUTCSeconds();
 
-    var convertedDate = {};
-    convertedDate.date = new Date(year+"-"+month+"-"+date);
+      var convertedDate = {};
+      convertedDate.date = new Date(year+"-"+month+"-"+date);
 
-    convertedDate.time = hours_am_pm(hours+""+minutes);
-    return convertedDate ;
+      convertedDate.time = hours_am_pm(hours+""+minutes);
+      return convertedDate ;  
+    } else {
+      var convertedDate = {};
+      convertedDate.date = null;
+      convertedDate.time = null;
+      return convertedDate ;
+    }
   };
 
 });
