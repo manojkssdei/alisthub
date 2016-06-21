@@ -17,7 +17,7 @@
     <div class="form-section  wt-frame">
         <div>
            <!-- Event Detail Form --> 
-    <form  name="myForm1" novalidate ng-submit="price_and_link_data(data)">
+    <form  name="myForm1" novalidate ng-submit="postSecondStepPackageData(data)">
 
    <!--Ticket Types Start -->
           <div class="module">
@@ -91,8 +91,8 @@
                                   <a ng-click="delete_bundle('',$index,bundle.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
-                            <tr ng-if="bundleInPackageList == []">
-                                  <td colspan="7" align="center">You have not created a bundle for this package.</td>
+                            <tr ng-if="bundleInPackageList == '' ">
+                                  <td colspan="7" align="left">You have not created a bundle for this package. </td>
                             </tr>
 
                             <tr ng-show="loader_bundle">
@@ -160,8 +160,8 @@
                             </td>
                           </tr>
 
-                           <tr ng-if="productInPackageList == []">
-                                  <td colspan="4" align="center">You have not added any products to this package</td>
+                           <tr ng-if="productInPackageList == '' ">
+                                  <td colspan="4" align="left">You have not added any products to this package</td>
                             </tr>
 
                           <tr ng-show="loader_product">

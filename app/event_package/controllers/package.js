@@ -71,22 +71,24 @@ exports.getProductsInPackage=function(req,res) {
 
 	var condition = "";
     if (req.body.user_id != "" && req.body.user_id != "[]" && req.body.user_id != "undefined") {
-        condition = " seller_id =" + req.body.user_id;
+        condition = " ep.seller_id =" + req.body.user_id;
     }
 
     if (req.body.package_id != "" && req.body.package_id != "[]" && req.body.package_id != "undefined") {
-        condition+= " AND package_id =" + req.body.package_id;
+        condition+= " AND ep.package_id =" + req.body.package_id;
     }
 
  	if(req.body.eventsInPackage!= '' && req.body.eventsInPackage != undefined && req.body.eventsInPackage != "[]") {
 		var strold = req.body.eventsInPackage;
         var strnew = strold.substr(1, strold.length - 2);
-        condition += " OR event_id IN (" + strnew + ")";
+        condition += " OR ep.event_id IN (" + strnew + ")";
 	}
 
     if(req.body.package_id!=undefined){
 
-	  var sql = 'select * from event_products where ' + condition +' ORDER BY created DESC';
+   // var sql = 'select * from event_products where ' + condition +' ORDER BY created DESC';
+	  var sql = 'select ep.*, p.product_name from event_products ep LEFT JOIN products p ON ep.product_id = p.id where ' + condition +' ORDER BY created DESC';
+
       console.log('sql ' + sql);
 
       connection.query(sql,function(err,result){
@@ -283,3 +285,109 @@ exports.updateBundleInPackage = function(req,res){
     });
 }
 
+
+
+/** 
+Method: getAllProducts
+Description:Function to fetch related to seller 
+Created : 2016-04-25
+Created By: Manoj kumar  
+*/
+exports.getAllProductsInPackage = function(req,res){
+  console.log('req '+req.body.req);
+
+  connection.query('SELECT * from products where seller_id = '+req.body.userId+ ' ORDER BY created DESC', function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
+}
+
+
+
+/** 
+Method: addEventProductInPackage
+Description:Function for adding the product for package 
+Created : 2016-05-25
+Created By: Manoj
+*/
+exports.addEventProductInPackage = function(req,res){
+    var inventory=0;
+   // var event_id = req.body.event_id;
+    var package_id = req.body.package_id;
+
+    var hide_in_box_office = 0;
+    if ((req.body.hide_in_box_office == true)) {
+      hide_in_box_office = 1;
+    }
+
+    var placement_listing = 0;
+    if ((req.body.placement_listing == true)) {
+      placement_listing = 1;
+    }
+
+    var placement_confirmation = 0;
+    if ((req.body.placement_confirmation == true)) {
+      placement_confirmation = 1;
+    }
+
+      
+    if(req.body.id!=undefined && req.body.id!=''){
+        var query = "UPDATE event_products SET product_id='"+req.body.product_id+"',price='"+req.body.price+"',hide_in_box_office='"+hide_in_box_office+"',placement_listing='"+placement_listing+"',placement_confirmation='"+placement_confirmation+"' where id="+req.body.id;
+    } else {
+        var query = "INSERT INTO `event_products` (`id`,`package_id`, `seller_id`, `product_id`, `price`, `hide_in_box_office`, `placement_listing`, `placement_confirmation`,`created`,`status`) VALUES (NULL, '"+req.body.package_id+"' , '"+req.body.seller_id+"', '"+req.body.product_id+"', '"+req.body.price+"', '"+hide_in_box_office+"', '"+placement_listing+"', '"+placement_confirmation+"', NOW(),1 )";
+    }
+
+    if (query != "") {
+      connection.query(query, function(err7, results) {
+        if (err7) {
+          res.json({error:err7,code:101});
+        }
+        res.json({result:results,code:200 });
+      });
+    }
+}
+
+/** 
+Method: getEventProducts
+Description:Function to fetch related products of event
+Created : 2016-05-25
+Created By: Deepak khokkar  
+*/
+exports.getEventProductsInPackage = function(req,res) {
+
+  if(req.body.userId!=undefined && req.body.packageId!=undefined){
+    //LEFT JOIN events AS E on E.id=QA.event_id where
+    connection.query('SELECT EP.*, p.product_name from event_products as EP LEFT JOIN products AS p on p.id = EP.product_id where EP.seller_id='+req.body.userId+ ' and EP.package_id='+ req.body.packageId +' ORDER BY EP.created DESC', function(err, results) {
+       if (err) {
+        res.json({error:err,code:101});
+       }
+       res.json({result:results,code:200});
+    });  
+  } else {
+    res.json({result:{},code:200});
+  }
+}
+
+
+
+
+
+/** 
+Method: postSecondStepPackageData
+Description:Function to save step2 
+Created : 2016-05-20
+Created By: Manoj
+*/
+exports.postSecondStepPackageData=function(req,res)
+{
+   var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+   connection.query("UPDATE event_package SET `price_type`='"+req.body.price_type+"' where id="+req.body.packageId, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }else{
+     res.json({result:results,code:200});
+     }
+  });
+}
