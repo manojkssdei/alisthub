@@ -95,10 +95,8 @@ module.exports = function(app, express) {
   router.post('/stepOneEventPackage' , supportCrossOriginScript , Event.stepOneEventPackage);
   // To update social links from step 3
   router.post('/updatesociallink' , supportCrossOriginScript , Event.updatesociallink);
- router.post('/look_and_feel_save_html' ,function(req,res){
-    console.log(req.body.html);
-    console.log(req.body.eventId);
-    });
+  router.post('/look_and_feel_save_html' , supportCrossOriginScript , Event.look_and_feel_save_html);
+ 
   
   // Save event setting data
   router.post('/saveSetting' , supportCrossOriginScript , EventSetting.saveSetting);
