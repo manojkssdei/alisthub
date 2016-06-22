@@ -45,7 +45,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
 
   
  $scope.click_menu = function(menu, data, valid) {
-    console.log($stateParams.eventId+':2');
+    console.log($stateParams.eventId+':3');
     console.log(menu.id);
     console.log(data);
     var objectForm = this;
