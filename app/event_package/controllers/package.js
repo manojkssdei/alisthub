@@ -391,3 +391,45 @@ exports.postSecondStepPackageData=function(req,res)
      }
   });
 }
+
+exports.postThirdStepPackageData = function(req,res) {
+
+
+console.log('req.body before ' , req.body);
+
+ var fields = ['print_home' , 'print_enable_date' , 'print_disable_date' , 'print_description' , 'donation' , 'donation_name' , 'custom_fee' , 'custom_fee_name' , 'custom_fee_type' , 'custom_fee_amount' , 'custom_when' , 'online_service_fee' , 'box_office_service_fee' , 'ticket_note' , 'ticket_transaction_limit' , 'checkout_time_limit' , 'collect_name' , 'private_event' , 'show_seating_chart' , 'url_short_name' ]; 
+
+
+console.log('fields ' , fields);
+
+var fieldsData = '';
+
+for (var index in fields) {
+    fieldName = fields[index];
+
+        if (req.body[fieldName] == undefined) {
+            req.body[fieldName] = '';
+        }
+        fieldsData+= " `"+fieldName+"` = '" + req.body[fieldName]+ "', ";
+
+    }
+
+    console.log('fieldsData ' , fieldsData);
+
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    req.body.created = curtime;
+    req.body.modified = curtime;
+
+  var query = "UPDATE `event_package` SET "+ fieldsData +" `modified` = '" + req.body.modified + "' WHERE id=" + req.body.id ; 
+  console.log('query', query)
+
+
+   connection.query( query , function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }else{
+     res.json({result:results,code:200});
+     }
+  });
+   
+}

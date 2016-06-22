@@ -79,7 +79,7 @@ var webservices = {
     "addEventProductInPackage" : "/package/addEventProductInPackage",
     "getEventProductsInPackage" : "/package/getEventProductsInPackage",
     "postSecondStepPackageData" : "/package/postSecondStepPackageData" ,
-    
+    "postThirdStepPackageData" : "/package/postThirdStepPackageData" ,
 
     
 

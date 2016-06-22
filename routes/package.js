@@ -55,6 +55,11 @@ module.exports = function(app, express) {
   /* To post second step package Data*/
       router.post('/postSecondStepPackageData',supportCrossOriginScript, Package.postSecondStepPackageData);
 
+ /* To post second step package Data*/
+      router.post('/postThirdStepPackageData',supportCrossOriginScript, Package.postThirdStepPackageData);
+
+
+
 
 
       

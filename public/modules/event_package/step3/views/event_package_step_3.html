@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
 
 <div class="container">
-    <h1>Create an Event</h1>
+    <h1>Create an Package</h1>
     <!-- Step Form -->
     <div class="stage-container clearfix">
         <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)">
@@ -32,7 +32,7 @@
         }
         </style>
         <div ng-hide="setting_div">
-            <form name="eventSettingForm" class="event-form"  ng-submit="save_setting(data)" novalidate>
+            <form name="eventSettingForm" class="event-form"  ng-submit="postThirdStepPackageData(data)" novalidate>
                 <section class="form-group field-group">
                     <label>Delivery Methods</label>
                     <section class="gray-frame sub-fields">
@@ -65,7 +65,7 @@
                                         <section class="row">
                                             <div class="col-sm-4">
                                                 <div class="form-group datepicker">
-                                                    <input type="date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.print_enable_date.date" is-open="popup5.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" />
+                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.print_enable_date.date" is-open="popup5.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" />
                                                     <span class="input-group-btn">
                                                     <button type="button" class="btn btn-default" ng-click="open5()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                                                 </div>
@@ -104,11 +104,13 @@
                                 </section>
                                 <section class="row">
                                     <button type="button" class="pink-btn btn btn-small" ng-hide="desc_box_1" ng-click="desc_box_1=true">Add a Description</button>
-                                    <textarea class="desc_1 input form-control" ng-show="desc_box_1"  rows="7" ng-model="data.print_description"></textarea>
+                                    <textarea class="desc_1 input form-control" ng-show="desc_box_1"  rows="7" ng-model="data.print_description" tooltips tooltip-template="Provide customers with additional information about the delivery method. For example: Will Call
+                                tickets can be picked up at the venue box office. The info entered here will be displayed next to the delivery
+                                method option during the checkout process."></textarea>
                                 </section>
                             </section>
                             <div style="height: 30px;" class="col-sm-12"></div>
-                            <section class="col-sm-12 mob-mt20">
+                            <!--<section class="col-sm-12 mob-mt20">
                                 <section class="radio-sec custom-check">
                                     <p class="radio-inline">
                                         <input type="checkbox" id="test1" ng-model="data.will_call" ng-true-value="1" ng-false-value="0">
@@ -119,11 +121,12 @@
                                     <button type="button" class="pink-btn btn btn-small" ng-hide="desc_box_2" ng-click="desc_box_2=true">Add a Description</button>
                                     <textarea class="desc_2 form-control input" ng-show="desc_box_2" rows="7" ng-model="data.will_call_description"> </textarea>
                                 </section>
-                            </section>
+                            </section> -->
                         </section>
                     </section>
                 </section>
                 <!--/Delivery Methods-->
+                <!--
                 <section class="form-group field-group">
                     <label>Sales Times</label>
                     <section class="gray-frame sub-fields">
@@ -180,7 +183,7 @@
                         </section>
                         <span style="font: red;">{{date_error_message}}</span>
                     </section>
-                </section>
+                </section>-->
                 <!--/Sales Times-->
 
                 <section class="" style="margin-top: 50px; padding-bottom: 20px; margin-bottom: 20px;">
@@ -206,7 +209,7 @@
                                 <label class="label-padding">Donation Name</label>
                             </div>
                             <div class="col-sm-9">
-                                <input type="text" placeholder="Donation Name" class="form-control" value="" name="StartTime" ng-model="data.donation_name">
+                                <input type="text" placeholder="Donation Name" class="form-control" value="" name="StartTime" ng-model="data.donation_name" tooltips tooltip-template="The name of the organization that is receiving the donations you’re collecting.">
                             </div>
                         </section>
                     </section>
@@ -238,7 +241,7 @@
                                     <label class="label-padding">Fee Name</label>
                                   </div>
                                   <div class="col-sm-9">
-                                    <input type="text" placeholder="Fee Name" class="form-control" value=" " name="custom_fee_name" ng-model="data.custom_fee_name">
+                                    <input type="text" placeholder="Fee Name" class="form-control" value=" " name="custom_fee_name" ng-model="data.custom_fee_name" tooltips tooltip-template="Enter the name of the fee. This will be publicly added as a line item to the checkout process for your customers.">
                                   </div>
                             <!-- </section> -->
                         </section>
@@ -249,7 +252,7 @@
                                     <label class="label-padding">Fee Type</label>
                                   </div>
                                   <div class="col-sm-9">
-                                    <select class="form-control" name="custom_fee_type" ng-model="data.custom_fee_type">
+                                    <select class="form-control" name="custom_fee_type" ng-model="data.custom_fee_type" tooltips tooltip-template="Select whether the fee is a fixed amount or a percentage of the order total.">
                                         <option value="1">Fixed Amount</option>
                                     </select>
                                   </div>
@@ -262,7 +265,7 @@
                                     <label class="label-padding">Amount ($)</label>
                                   </div>
                                   <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="" name="custom_fee_amount"  ng-model="data.custom_fee_amount">
+                                    <input type="text" class="form-control" value="" name="custom_fee_amount"  ng-model="data.custom_fee_amount" >
                                   </div>
                             <!-- </section> -->
                         </section>
@@ -273,7 +276,7 @@
                                     <label class="label-padding">When to Apply Fee</label>
                                   </div>
                                   <div class="col-sm-9">
-                                    <select class="form-control" name="custom_when" ng-model="data.custom_when">
+                                    <select class="form-control" name="custom_when" ng-model="data.custom_when" tooltips tooltip-template="Select whether to apply this fee to the order before or after a discount coupon has adjusted the order total. If no discount coupons are in effect, this option will not affect the order.">
                                         <option value="1">Before Discount</option>
                                     </select>
                                   </div>
@@ -284,48 +287,6 @@
                 </section>
                 <!--/Custom Fee-->
 
-                <section class="" style="margin-top: 50px; padding-bottom: 20px;">
-                    <label class="col-md-2 col-sm-4" style="margin-left: 0; padding-left: 0;">Question </label>
-<!--                     <section class="col-md-4 col-sm-4">
-                        <div class="onoffswitch mt-3">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" checked ng-model="data.question" ng-true-value="true" ng-false-value="false">
-                            <label class="onoffswitch-label" for="myonoffswitch3"></label>
-                        </div>
-                    </section> -->
-                </section>
-
-                <section class="form-group field-group">
-                    <section class="gray-frame sub-fields">
-                        <section class="row">
-                            <section class="col-sm-12">
-                                <section class="form-group">
-                                    <label>Type</label>
-                                    <select class="form-control" ng-model="data.question_type">
-                                        <option value="1">Fixed Amount</option>
-                                    </select>
-                                </section>
-                            </section>
-                        </section>
-                        <section class="row">
-                            <section class="col-sm-12">
-                                <section class="form-group">
-                                    <label>Question</label>
-                                    <textarea name="textarea" class="form-control" cols=" " rows="5" ng-model="data.question"></textarea>
-                                </section>
-                            </section>
-                        </section>
-                        <section class="row">
-                            <label class="col-md-2 col-sm-4">Required</label>
-                            <section class="col-md-4 col-sm-4">
-                                <div class="onoffswitch mt-3">
-                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4"  ng-model="data.question_required" ng-true-value="1" ng-false-value="0">
-                                    <label class="onoffswitch-label" for="myonoffswitch4"></label>
-                                </div>
-                            </section>
-                        </section>
-                    </section>
-                </section>
-                <!--/Question-->
                 <section class="form-group field-group" style="margin-top: 50px;">
                     <label>Additional Settings </label>
                     <section class="gray-frame sub-fields">
@@ -338,7 +299,7 @@
                                               <label class="label-padding">Online Service Fee</label>
                                             </div>
                                             <div class="col-sm-7">
-                                              <input type="text" placeholder="Online Service Fee" class="form-control" value="" name="StartTime" ng-model="data.online_service_fee">
+                                              <input type="text" placeholder="Online Service Fee" class="form-control" value="" name="StartTime" ng-model="data.online_service_fee" tooltips tooltip-template="The percentage (0 – 100) of the per ticket service fee that you’re paying when processing online. If you’re passing the entire service fee on to the customer, set to 0%.">
                                             </div>
                                             <div class="col-sm-2 info-padding" >%Covered</div>
                                         </section>
@@ -350,7 +311,7 @@
                                         <label class="label-padding">Box Office Service Fee</label>
                                       </div>
                                       <div class="col-sm-7">
-                                        <input type="text" placeholder="Box Office Service Fee" class="form-control" value="" name="StartTime" ng-model="data.box_office_service_fee">
+                                        <input type="text" placeholder="Box Office Service Fee" class="form-control" value="" name="StartTime" ng-model="data.box_office_service_fee" tooltips tooltip-template="The percentage (0 – 100) of the service fee per ticket that you will pay when processing orders in the Box Office. If you’re passing the entire service fee on to the customer, set to 0%. If you\'re covering the entire service fee, set to 100% (Note: fees for credit card processing are not included and must be paid by seller).">
                                       </div>
                                       <div class="col-sm-2 info-padding">
                                         %Covered
@@ -364,7 +325,7 @@
                                         <label class="label-padding">Ticket Note</label>
                                       </div>
                                       <div class="col-sm-7">
-                                        <input type="text" name="StartTime" value="" class="form-control" placeholder="Ticket Note"  ng-model="data.ticket_note">
+                                        <input type="text" name="StartTime" value="" class="form-control" placeholder="Ticket Note"  ng-model="data.ticket_note" tooltips tooltip-template="Note appears on each ticket.  Typically helpful info for buyers (e.g. Doors open at 6pm). Limited to 40 characters.">
                                       </div>
                                       <div class="col-sm-2 info-padding">
 
@@ -378,7 +339,7 @@
                                         <label class="label-padding">Ticket Transaction Limit</label>
                                       </div>
                                       <div class="col-sm-7">
-                                        <input type="text" placeholder="Ticket Transaction Limit" class="form-control" value="" name="StartTime"  ng-model="data.ticket_transaction_limit">
+                                        <input type="text" placeholder="Ticket Transaction Limit" class="form-control" value="" name="StartTime"  ng-model="data.ticket_transaction_limit" tooltips tooltip-template="The maximum number of tickets that can be purchased in one transaction. Must be a number between 1 – 100.">
                                       </div>
                                       <div class="col-sm-2 info-padding">
 
@@ -392,7 +353,7 @@
                                         <label class="label-padding">Checkout Time Limit</label>
                                       </div>
                                       <div class="col-sm-7">
-                                        <input type="text" placeholder="Checkout Time Limit" class="form-control" value="" name="StartTime"  ng-model="data.checkout_time_limit">
+                                        <input type="text" placeholder="Checkout Time Limit" class="form-control" value="" name="StartTime"  ng-model="data.checkout_time_limit" tooltips tooltip-template="The amount of time given to a customer to complete the checkout process.">
                                       </div>
                                       <div class="col-sm-2 info-padding">
 
@@ -400,7 +361,7 @@
                                     </section>
                                 </section>
 
-                                <section class="row">
+                                <!--<section class="row">
                                     <section class="form-group">
                                       <div class="col-sm-3 left-margin-zero">
                                         <label class="label-padding">Ticket Layout</label>
@@ -412,66 +373,59 @@
 
                                       </div>
                                     </section>
-                                </section>
+                                </section> -->
                             </section>
                         </section>
                         <div style="height: 30px;" class="col-sm-12"></div>
                         <section class="row">
                             <label class="col-md-4 col-sm-6">Collect Name on Each Ticket</label>
                             <section class="col-md-4 col-sm-4">
-                              <div class="onoffswitch mt-3">
-                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.collect_name" ng-true-value='1' ng-false-value='0'>
+                              <div class="onoffswitch mt-3" tooltips tooltip-template="Select YES to collect names on each ticket, or select NO to collect a single name for all tickets.">
+                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" ng-model="data.collect_name" ng-true-value='1' ng-false-value='0' >
                                   <label class="onoffswitch-label" for="myonoffswitch5"></label>
                               </div>
                             </section>
                         </section>
 
-                    </section>
-                </section>
-                <!--/Additional Settings-->
-                <section class="form-group field-group">
-                    <label>Public Contact Info </label>
-                    <section class="gray-frame sub-fields">
 
-                        <section class="row">
-                            <section class="col-sm-12">
-                                <section class="form-group">
-                                    <div class="col-sm-3 left-margin-zero">
-                                      <label class="label-padding">Public Name</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                      <input type="text" placeholder="Public Name" class="form-control" value="" name="" ng-model="data.public_contact_name"> 
-                                    </div>
-                                </section>
+                         <section class="row">
+                            <label class="col-md-4 col-sm-6">Private Event</label>
+                            <section class="col-md-4 col-sm-4">
+                              <div class="onoffswitch mt-3"  tooltips tooltip-template="Select NO if you would like people to be able to search for and find your event on search engines, tickets.alistixs.com/, or other public listings.<hr/>Select YES if you do not want people to be able to search for your event. People will only be able to access the ticketing page through the URL that you distribute. Good for private or invite-only events.">
+                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="private_event" ng-model="data.private_event" ng-true-value='1' ng-false-value='0'>
+                                  <label class="onoffswitch-label" for="private_event"></label>
+                              </div>
                             </section>
                         </section>
-                        <section class="row">
-                            <section class="col-sm-12">
-                                <section class="form-group">
-                                    <div class="col-sm-3 left-margin-zero">
-                                      <label class="label-padding">Public Email</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                      <input type="text" placeholder="Public Email" class="form-control" value="" name="" ng-model="data.public_contact_email">
-                                    </div>
-                                </section>
+
+
+                            <section class="row">
+                            <label class="col-md-4 col-sm-6">Show Seating Chart</label>
+                            <section class="col-md-8 col-sm-6">
+                                  <label > There is no seating chart assigned to this event's venue.</label>
                             </section>
                         </section>
-                        <section class="row">
-                            <section class="col-sm-12">
-                                <section class="form-group">
-                                  <div class="col-sm-3 left-margin-zero">
-                                    <label class="label-padding">Public Phone</label>
-                                  </div>
-                                  <div class="col-sm-9">
-                                    <input type="text" placeholder="Public Phone" class="form-control" value="" name="" ng-model="data.public_contact_phone">
-                                  </div>
+
+
+                                <section class="row">
+                                    <section class="form-group">
+                                      <div class="col-sm-3 col-md-3 left-margin-zero">
+                                        <label class="label-padding">URL Short Name<span class="req">*</span></label>
+                                      </div>
+                                      <div class="col-sm-9 col-md-9" tooltips tooltip-template="A ticketing page’s unique URL. By default, the Event Name is plugged in as the last part of the URL. Must be 5 - 30 characters in length.">
+                                      <label> tickets.alistixs.com/event/</label>
+                                        <input type="text" placeholder="URL Short Name" class="form-control" value="" name="url_short_name"  ng-model="data.url_short_name" >
+                                      </div>
+                                      <div class="col-sm-2 info-padding">
+
+                                      </div>
+                                    </section>
                                 </section>
-                            </section>
-                        </section>
+
+
                     </section>
                 </section>
-                <!--/Public Contact Info-->
+            
                 <section class="form-group field-group">
                     <label>Advanced Settings</label>
                     <section class="gray-frame sub-fields">

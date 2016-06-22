@@ -112,6 +112,15 @@ url.postSecondStepPackageData = function(jsondata,callback){
   });
 };
 
+//get Event Product
+url.postThirdStepPackageData = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.postThirdStepPackageData,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+
+
 /*url.saveSetting = function(jsondata,callback){
       communicationService.resultViaPost(webservices.saveSetting,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
         callback(res.data);

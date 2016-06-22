@@ -10,7 +10,7 @@ angular.module('alisthub').controller('createpackageController', function($scope
   var $serviceTest = $injector.get("event_package");
 
   $scope.success_message = false;
-  $scope.error_message = false;
+  $scope.error_message = true;
   
 
     if(window.innerWidth>767){ 
@@ -229,15 +229,15 @@ angular.module('alisthub').controller('createpackageController', function($scope
 
 
 
-  $scope.save_setting = function(data) {
-    if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-      $scope.data.event_id = $stateParams.eventId;
+  $scope.postThirdStepPackageData = function(data) {
+    if($stateParams.packageId!=undefined && $stateParams.packageId!='') {
+      $scope.data.id = $stateParams.packageId;
     } else {
-      $scope.data.event_id = $localStorage.eventId;
+      $scope.data.id = $localStorage.packageId;
     }
 
-    $scope.data.online_sales_open = $scope.combine($scope.data.online_sales_open.date,$scope.data.online_sales_open.time);
-    $scope.data.online_sales_close = $scope.combine($scope.data.online_sales_close.date,$scope.data.online_sales_close.time);
+   // $scope.data.online_sales_open = $scope.combine($scope.data.online_sales_open.date,$scope.data.online_sales_open.time);
+   // $scope.data.online_sales_close = $scope.combine($scope.data.online_sales_close.date,$scope.data.online_sales_close.time);
 
     if($scope.data.print_enable_date.date!=undefined && $scope.data.print_enable_date.time!=undefined && $scope.data.print_enable_date.date!='' && $scope.data.print_enable_date.time!=''){
       $scope.data.print_enable_date = $scope.combine($scope.data.print_enable_date.date,$scope.data.print_enable_date.time);  
@@ -251,9 +251,10 @@ angular.module('alisthub').controller('createpackageController', function($scope
     if ($localStorage.userId !== undefined) {
       $scope.data.user_id = $localStorage.userId;
 
-      $serviceTest.saveSetting($scope.data, function(response) {
+      $serviceTest.postThirdStepPackageData($scope.data, function(response) {
 
           if (response.code === 200) {
+            //$scope.data = response.result;
 
             $scope.success = global_message.bundle_add;
             $scope.success_message = true;
