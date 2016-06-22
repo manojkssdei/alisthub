@@ -67,6 +67,13 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
         }
     }
 
+    $scope.recurringHref = function(eventId,recurringOrNot){
+      if(recurringOrNot==0){
+        $location.path("/#/create_event_step1/" + eventId);  
+      } else {
+        $location.path("/#/create_series_step1/" + eventId);
+      }
+    }
 
     //upcomming event list
     $scope.getUpcommingEvent = function(eventType) {
@@ -78,7 +85,7 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
       eventService.getUpcommingEvent({'user_id':$localStorage.userId,'type':type},function(response) {
         if (response!=null) {
           if (response.code == 200) {
-            $scope.upcoming_event_data = $scope.event_package_data =response.results;
+            $scope.upcoming_event_data = response.results;
             $scope.tableParams = new ngTableParams({
                                     page: 1,            // show first page
                                     count: 5,           // count per page
