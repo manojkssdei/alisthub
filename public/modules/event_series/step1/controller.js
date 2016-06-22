@@ -599,6 +599,7 @@ $scope.rec_year_func = function() {
    
    $scope.savedata=function(data) {
          data.userId=$localStorage.userId;
+         $scope.saveloader = true;
           // Merge Event Date and Time
           var date_time_series = [];
                    
@@ -662,7 +663,7 @@ $scope.rec_year_func = function() {
             }
             
             $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-            
+            $scope.saveloader = false;
             console.log(response);
             if (response.code == 200) {
               $scope.success=global_message.event_step1;

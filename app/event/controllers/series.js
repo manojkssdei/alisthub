@@ -71,6 +71,13 @@ exports.saverecurringEvent=function(req,res){
        else // For Insert parent event
        {
         var save_query = "INSERT INTO `events` (`id`, `user_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `repeat_every`, `monthly_option`, `monthly_week_value`, `monthly_day_value`, `short_name`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+data.content+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+data.repeat_every+"', '"+data.monthly_option+"', '"+data.monthly_week_value+"', '"+data.monthly_day_value+"', '"+data.short_name+"', '"+curtime+"')";
+        var showClix2 = new showClix();
+                  showClix2.add_series_event(data,res,function(data){
+                    if (data.status == 1) {
+                      //res.json({result:results,showclix:data.location,code:200});
+                    } else {                     
+                    }
+        });
        }
         // Save Parent Event
         connection.query(save_query,function(perr,presult){

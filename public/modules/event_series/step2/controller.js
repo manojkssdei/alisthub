@@ -204,12 +204,9 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
     'var': 'event_category'
   }, function(response) {
 
-
     if (response.code === 200) {
       $scope.cat1 = $scope.cat2 = $scope.cat3 = response.results;
       $scope.data1.category1 = ($scope.cat1[0].category_id).toString();
-
-
     }
 
   });
@@ -217,7 +214,9 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
   //To save step2 data.
   $scope.price_and_link_data = function(data1) {
     data1.eventId = $scope.eventId;
+    $scope.saveloader = true;
     $serviceTest.postSecondStepdata(data1, function(response) {
+      $scope.saveloader = false;
       if (response.code == 200) {
         $scope.success = global_message.event_step2;
 
@@ -285,8 +284,6 @@ $scope.success_message = false;
 
   $scope.selected2 = $scope.steps[1];
 
-
-
   /** 
   Method: click_menu
   Description:Function for changing the tab 
@@ -301,10 +298,7 @@ $scope.success_message = false;
 
     ///TO move to price and level
     if (menu.id === 6) {
-
-            
-            $location.path("/create_series_step2/"+$scope.eventId);
-     
+      $location.path("/create_series_step2/"+$scope.eventId);
     }
 
     //look and feel div
@@ -428,10 +422,6 @@ $scope.success_message = false;
       }
     });
   };
-
-
-   
-
 
   /** Module: Event page Step 2*/
  $scope.eventBundle = {};

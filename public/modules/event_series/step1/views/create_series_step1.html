@@ -20,8 +20,8 @@
         <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
           <div class="form-group" ng-class="{ 'has-error' : myForm.eventname.$dirty && myForm.eventname.$invalid }"  >
             <label for="eventname">Event Name<span class="req">*</span></label>
-            <input type="text" name="eventname" ng-model="data.eventname" class="form-control" placeholder="Title of your Event" required>
-            <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">Event Name is required</p>
+            <input type="text" tooltips tooltip-template="This is the title of your event. Minimum 3 characters, maximum 50 characters." name="eventname" ng-model="data.eventname" class="form-control" placeholder="Title of your Event" minlength="3" maxlength="50" required>
+            <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">Event Name is required (Minimum 3 characters , maximum 50 characters)</p>
           </div>
           <div class="form-group field-group">
             <label>Date and Time<span class="req">*</span></label>
@@ -237,7 +237,7 @@
                     </div>
                 </div>
                 <div class="form-group field-group">
-                    <label for="Location">Location <span class="req">*</span></label>
+                    <label for="Location" tooltips tooltip-template="The Location where your event is taking place.">Location <span class="req">*</span></label>
                     <!-- Date Event Group -->
                     <div class="event-date fieldSection">
                         <div class="row">
@@ -368,7 +368,7 @@
       
       <div class="editr">
         <label>Event Description<span class="req">*</span></label>
-        <div ckeditor="option_ckeditor" name="content"  required ng-model="data.content" ready="onReady()" value=''></div>
+        <div ckeditor="option_ckeditor" name="content" tooltips tooltip-template="The area of the ticketing page where you can display additional details about the event. The description box is HTML enabled, which means that you can add HTML code to change the color and size of the font in this area of the ticketing page, as well as embed images, video and audio."  required ng-model="data.content" ready="onReady()" value=''></div>
         
         <div class="editor-btn">
           <button type="submit"
@@ -380,7 +380,9 @@
     </form>
     
     <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
-  
+    <div ng-show="saveloader" align="center">
+          <img src="/images/icons/loader.gif">
+    </div>
 </div>
 </div>
 
