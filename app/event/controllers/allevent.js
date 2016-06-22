@@ -32,11 +32,21 @@ exports.getAllEvent=function(req,res) {
   			sql += " and events.recurring_or_not = 1 ";
   		}
   	}
-  	console.log(req.body.allevent.eventFilter);	
+
+    if(req.body.allevent.eventFilter != undefined && req.body.allevent.eventFilter != '') {
+      if(req.body.allevent.eventFilter == 'upcoming') {
+        sql += " and Date(events.start_date) >= '" + curtime + "' ";       
+      }
+
+      if(req.body.allevent.eventFilter == 'past') {
+        sql += " and Date(events.start_date) <= '" + curtime + "' ";
+      }
+    }
   }
 
   sql += " ORDER BY start_date ASC";
   console.log(sql);
+  
   connection.query(sql,function(err,result) {
     if (err) {
       res.send({err:"error",code:101}); 

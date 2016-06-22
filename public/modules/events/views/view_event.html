@@ -23,26 +23,25 @@
                         </section>
                         <section class="col-sm-6 right-btns text-right">
                             <section class="inline-section">
-                                <select class="form-control select30" ng-model="allevent.eventType" ng-change="getAllEvent(allevent)">
-                                    <option value="0">Event Type</option>
+                                <select class="form-control select30" name="eventType" ng-model="allevent.eventType" ng-change="getAllEvent(allevent)">
+                                    <option disabled value="">Event Type</option>
                                     <option value="single">Single Event</option>
                                     <option value="series">Series Event</option>
                                 </select>
                             </section>
                             
                             <section class="inline-section">
-                                <select class="form-control select30" ng-model="allevent.eventFilter" ng-change="getAllEvent(allevent)">
-                                    <option value="0">No Filter</option>
+                                <select class="form-control select30" name="eventFilter" ng-model="allevent.eventFilter" ng-change="getAllEvent(allevent)">
+                                    <option disabled="" value="">No Filter</option>
                                     <option value="upcoming">Upcoming</option>
                                     <option value="past">Past</option>
                                     <option value="approval">For Approval</option>
                                 </select>
                             </section>
 
-                            <button class="pink-btn btn btn-small m-fw">Date Range</button>
+                            <button class="pink-btn btn btn-small m-fw" ng-click="add_product('lg',allevent)">Date Range</button>
                         </section>
                     </section>
-<!--{{upcoming_event_data}}-->
                     <section class="grid-widget">
                         <div class="table-responsive">
                             <table ng-table="tableParams"  class="table table-striped table-ng-style">
@@ -56,10 +55,11 @@
                                     <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.start_date | date:"dd MMMM yyyy"}}</td>
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>-->
                                     <td title="'Action'" class="action" width="20%">
-                                    <!--<a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
-                                    <a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a>
-                                    <a href="javascript:void(0)"><i class="fa fa-eye"></i></a>-->
-                                    <a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
+                                    <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
+                                    <a title="Schedules" href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a>
+                                    <!--<a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>-->
+                                    <a title="View" href="javascript:void(0)"><i class="fa fa-eye"></i></a>
+                                    <a title="Edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
                                     <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -80,9 +80,11 @@
                         </section>
                         <section class="gr-right pull-right">
                             <ul class="legends">
-                                <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                                <li><i class="fa fa-tags"></i><span>change price</span></li>
-                                <li><i class="fa fa-check-circle"></i><span>active</span></li>
+                                <li><i class="fa fa-pie-chart"></i><span>Overview</span></li>
+                                <li><i class="fa fa-calendar-o"></i> <span>Schedules</span></li>
+                                <li><i class="fa fa-list-ul"></i><span>Guest List</span></li>
+                                <li><i class="fa fa-eye"></i><span>View</span></li>
+                                <li><i class="fa fa-edit"></i><span>Edit</span></li>
                                 <li><i class="fa fa-trash"></i><span>delete</span></li>
                             </ul>
                         </section>
@@ -90,15 +92,51 @@
                 </section>
 
             </div>
-
-            <!-- Ticket Types Closed --> 
-            <!--<div class="editor-btn">
-                <button class="gray-btn btn">Back</button>
-                <button class="pink-btn btn">Save</button>
-                <button class="pink-btn btn">Next</button>
-            </div>-->
         </form>
     </div>
 
     <!-- //Form COntainer --> 
 </div>
+
+
+<script type="text/ng-template" id="myModalContentDate.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Date Range Search</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+    </div>
+    <form  name="dateForm" ng-submit="searchDate(dateEvent,allevent)" novalidate>
+    
+    <div class="modal-body">
+        
+        <fieldset class="form-group">
+           <div class="col-sm-12">
+               <span class="l-b">Search for events falling between the following two dates. Leave one of the two fields blank to un-restrict the date range on that end.</span>
+               <span class="l-b">For example, setting a date on the "To" field and leaving the "From" field blank will pull all events up to the "To" date selected. </span>
+           </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+           <div class="col-sm-4">From</div>
+           <div class="col-sm-6 datepicker">
+               <input type="date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dateEvent.searchFromDate" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close"   />
+               <span class="input-group-btn">
+               <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+           </div>
+        </fieldset>
+        
+        <fieldset class="form-group">
+            <div class="col-sm-4">To</div>
+            <div class="col-sm-6 datepicker">
+               <input type="date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dateEvent.searchFromDateDate" is-open="popup2.opened" datepicker-options="dateOptions" close-text="Close"   />
+               <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+               </span>
+            </div> 
+        </fieldset>
+        
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" >Submit</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+    </form>
+</script>
