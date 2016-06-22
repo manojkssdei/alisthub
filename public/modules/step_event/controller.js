@@ -871,7 +871,6 @@ $scope.rec_year_func = function() {
   Created By:  Deepak khokkar  
   */
 
-  
  $scope.click_menu = function(menu, data, valid) {
     console.log($stateParams.eventId+':2');
     console.log(menu.id);
@@ -964,7 +963,7 @@ $scope.rec_year_func = function() {
 
     //look and feel div
     if (menu.id === 7) {
-      if(objectForm.myForm!=undefined) {
+      if(objectForm.myForm1!=undefined) {
       if (objectForm.myForm1.$valid === true) {
 
         if(data != undefined) {
@@ -988,16 +987,6 @@ $scope.rec_year_func = function() {
           } 
         }
       } else {
-        $scope.selectedClass = 3;
-        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-          $location.path("/create_event_step3/"+$stateParams.eventId);
-        } else {
-          $location.path("/create_event_step3/"+$localStorage.eventId);
-        } 
-      }
-
-        
-      } else {
         $scope.selectedClass = 2;
         $scope.error_message = false;
         $scope.error = global_message.event_step2_msg;
@@ -1005,7 +994,19 @@ $scope.rec_year_func = function() {
           $scope.error = '';
           $scope.error_message = true;
           $scope.error = '';
-        }, 3000);
+        }, 3000); 
+      }
+
+        
+      } else {
+       
+        $scope.selectedClass = 3;
+        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+          $location.path("/create_event_step3/"+$stateParams.eventId);
+        } else {
+          $location.path("/create_event_step3/"+$localStorage.eventId);
+        } 
+
       }
     }
 
