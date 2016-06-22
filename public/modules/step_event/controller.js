@@ -19,7 +19,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     var event_id=$stateParams.eventId;
     $serviceTest.getEvent({'event_id':event_id},function(response) {
       $scope.data=response.results[0];
-
+      console.log($scope.data);
       if($scope.data.recurring_or_not==0) {
         $scope.data.eventtype = 'single';  
       } else {
@@ -871,8 +871,10 @@ $scope.rec_year_func = function() {
   Created By:  Deepak khokkar  
   */
 
-  $scope.click_menu = function(menu, data, valid) {
-    console.log($stateParams.eventId+':1');
+  
+ $scope.click_menu = function(menu, data, valid) {
+    console.log($stateParams.eventId+':2');
+    console.log(menu.id);
     console.log(data);
     var objectForm = this;
     $scope.selectedClass = 1;
@@ -893,6 +895,7 @@ $scope.rec_year_func = function() {
         if (objectForm.myForm.$valid === true) {
             $scope.selectedClass = 2;
             if ($localStorage.eventId == null) {
+              if(data != undefined) {
                 if (data.eventtype=='single') {
                   if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
                     data.eventdate=$scope.single_start_date;
@@ -932,6 +935,7 @@ $scope.rec_year_func = function() {
                     }
                   }); 
                 }
+              }
             } else {
               if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
                 $location.path("/create_event_step2/"+$stateParams.eventId);
@@ -960,13 +964,39 @@ $scope.rec_year_func = function() {
 
     //look and feel div
     if (menu.id === 7) {
+      if(objectForm.myForm!=undefined) {
       if (objectForm.myForm1.$valid === true) {
+
+        if(data != undefined) {
+          data.eventId = $localStorage.eventId;
+          $serviceTest.postSecondStepdata(data, function(response) {
+            if (response.code == 200) {
+              $scope.selectedClass = 3;
+              if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+                $location.path("/create_event_step3/"+$stateParams.eventId);
+              } else {
+                $location.path("/create_event_step3/"+$localStorage.eventId);
+              }      
+            }
+          });
+        } else {
+          $scope.selectedClass = 3;
+          if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+            $location.path("/create_event_step3/"+$stateParams.eventId);
+          } else {
+            $location.path("/create_event_step3/"+$localStorage.eventId);
+          } 
+        }
+      } else {
         $scope.selectedClass = 3;
         if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
           $location.path("/create_event_step3/"+$stateParams.eventId);
         } else {
           $location.path("/create_event_step3/"+$localStorage.eventId);
-        }
+        } 
+      }
+
+        
       } else {
         $scope.selectedClass = 2;
         $scope.error_message = false;
