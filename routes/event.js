@@ -21,7 +21,11 @@ module.exports = function(app, express) {
 	}
   /* For saving the event data */
   router.post('/saveEvent', Event.saveEvent);
-  
+
+    router.post('/addComment', Event.addComment);
+
+      router.post('/getComment', Event.getComment);
+  //eventOverview
   /*save price level*///
   router.post('/savepricelevel', Event.savepricelevel);
   /*get price level*///
