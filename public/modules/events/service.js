@@ -10,6 +10,27 @@ angular.module('alisthub').factory('events', ['$q', '$timeout','communicationSer
 		});
       
   };
+
+           url.addComment = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.addComment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+
+
+           url.getComment = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getComment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
+
+   url.getEvent = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
  
 //delete events
     url.deleteEvent = function(jsondata,callback){
@@ -19,7 +40,13 @@ angular.module('alisthub').factory('events', ['$q', '$timeout','communicationSer
       
   };
 
- 
+
+
+ url.duplicateVenue = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.duplicateVenue,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
 return url;
 
 }]);

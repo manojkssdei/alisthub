@@ -57,6 +57,8 @@ var webservices = {
      "getEvent":"/event/getEvent",
      "getEventCategory":"/event/getEventCategory",
      "deleteEvent":"/event/deleteEvent",
+     "addComment":"/event/addComment",
+      "getComment" :  "/event/getComment",
 
      // event package
     "stepOneEventPackage"  :  "/event/stepOneEventPackage",

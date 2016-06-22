@@ -10,7 +10,11 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
     
    var eventService = $injector.get("events");
    
-   eventService.getEventUser({'user_id':$localStorage.userId},function(response){
+ 
+
+ $scope.data = {};
+ $scope.error_message = true;
+ eventService.getEventUser({'user_id':$localStorage.userId},function(response){
             
             if (response!=null) {
 
@@ -115,8 +119,21 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
 	 }
    });
   }
- 
-   if (!$localStorage.isuserloggedIn) {
+if (!$localStorage.isuserloggedIn) {
       $state.go('login');
    }
 })
+
+
+
+
+
+
+
+
+                
+          
+
+
+ 
+ 

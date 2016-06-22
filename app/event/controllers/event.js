@@ -281,6 +281,39 @@ exports.getEvent=function(req,res) {
 
 
 
+exports.getComment = function(req,res){
+  console.log(req.body);
+  connection.query('SELECT * from event_comments where event_id='+req.body.event_id+ ' ORDER BY created DESC', function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
+}
+
+
+exports.addComment=function(req,res)
+{
+     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    req.body.created = curtime;
+    console.log(req.body);
+    //var data=req.body;
+     var query = "INSERT INTO `event_comments` (`id`,`event_id`,`seller_id`,`comment`,`created`) VALUES ('NULL','" + req.body.event_id + "','" + req.body.seller_id + "','" + req.body.comment + "','"+ curtime + "')";
+     
+     console.log(query); 
+     if (query != "") {
+    connection.query(query, function(err7, results) {
+      if (err7) {
+       return  res.json({error:err7,code:101});
+      }
+     return  res.json({result:results,code:200});
+    });
+
+  } else {
+      return res.json({error:"error",code:101}); 
+  }
+}
+
 exports.savepricelevel=function(req,res){
     
     var data=req.body;
@@ -776,6 +809,8 @@ exports.addlookAndFeelImage=function(req,res)
      }
  
 }
+
+
 
 exports.deleteEvent= function(req, res) {
 

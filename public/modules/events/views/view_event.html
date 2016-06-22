@@ -50,7 +50,9 @@
                                     <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.start_date | date:"dd MMMM yyyy"}}</td>
                                   <!--  <td class="numbers">{{upcoming.sold}}</td>
                                     <td class="numbers">{{upcoming.inventory}}</td>-->
-                                    <td title="'Action'" class="action" width="20%"><!--<a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a>--><a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a></td>
+                                    <td title="'Action'" class="action" width="20%"><!--<a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a>--><a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
+                                        <a title="view" href="/#/event/{{pdata.id}}"><i class="fa fa-eye"></i></a></td>
+                                    
                                 </tr>
                                     <tr ng-show="loader">
                                         <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
