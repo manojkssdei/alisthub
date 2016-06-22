@@ -159,7 +159,7 @@
                                     
                     </section>
 		 </li>   
-		<li data-row="2" data-col="1" data-sizex="3" data-sizey="1"  id="section2"   ng-style="{background: background_inner}">
+		<li data-row="2" data-col="1" data-sizex="3" data-sizey="2"  id="section2"   ng-style="{background: background_inner}">
 		  <div class="drag1" style="display:none;">
 		    
 		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
@@ -185,20 +185,20 @@
 			  </div>
 			</div>
 		  </section>
-		  
+		  <section class="content">
+		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
+		    </section>
 		</li>
-		<li data-row="3" data-col="1" data-sizex="3" data-sizey="1"  id="section3"  ng-style="{background: background_inner}">
+		<!--<li data-row="3" data-col="1" data-sizex="3" data-sizey="1"  id="section3"  ng-style="{background: background_inner}">
 		  <div class="drag" style="display:none;">
 		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		      <a onclick="remove_widget('section3')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		      
 		    </div>
 		    <section>
-		    <section class="content">
-		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
+		    
 		    </section>
-		    </section>
-		</li>
+		</li>-->
 		<li data-row="4" data-col="1" data-sizex="3" data-sizey="1"  id="section4"  ng-style="{background: background_inner}">
 		  <div class="drag" style="display:none;">
 		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
@@ -292,7 +292,7 @@
 			
 			
 		    </ul>
-		 <!-- <button type="button" class="js-seralize">Serialize</button>-->
+		  <button type="button" class="js-seralize">Serialize</button>
       
                       </div>
 		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
@@ -350,23 +350,28 @@ function change_image3()
 	    
            s.forEach(function(item,index){
 	      eventdata.push(item.row+""+item.col);
-	      /* if($( ".module.gridster.ready > ul > li[data-col="+item.col+"]" )&& $( ".module.gridster.ready > ul > li[data-row="+item.row+"]" ))
-	      {
-		
-	      }*/
-	     
 	      })
 	   
 	   var events=eventdata.sort();
-	   
+	   var arr = {};
 	   $.map(events, function(value, index) {
 	     
 	      var column=value.slice(-1);
 	      var row=value.slice(0,1);
 	      var section=$('.module.gridster.ready > ul > li[data-col='+column+'][data-row='+row+']').attr('id');
-		console.log($("#"+section).html());
-	       
+		
+	       arr[index]=$("#"+section).html();
 	  });
+	   var href = window.location.href;
+          var eventId=href.substr(href.lastIndexOf('/') + 1);
+	   $.ajax({
+	    method: "POST",
+	    url: "/event/look_and_feel_save_html",
+	    data: {"html":arr,"eventId":eventId}
+	  })
+	    .done(function( response ) {
+	      console.log(response);
+	    });
 	  
         })
         // resize widgets on hover
@@ -380,10 +385,7 @@ function change_image3()
 		   {
 		    $('#section2 .drag').show();
 		   }
-		   if($(this).attr('id')=='section3')
-		   {
-		    $('#section3 .drag').show();
-		   }
+		   
 		   if($(this).attr('id')=='section4')
 		   {
 		    $('#section4 .drag').show();
@@ -410,10 +412,7 @@ function change_image3()
 		   {
 		    $('#section2 .drag').hide();
 		   }
-		   if($(this).attr('id')=='section3')
-		   {
-		    $('#section3 .drag').hide();
-		   }
+		  
 		    if($(this).attr('id')=='section4')
 		   {
 		    $('#section4 .drag').hide();
@@ -556,4 +555,3 @@ function change_image3()
         </div>
 	</form>
   </script>
-

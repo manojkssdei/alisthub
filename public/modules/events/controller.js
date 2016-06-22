@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /** 
 Angular Events Home Controller
 Created : 2016-04-05
@@ -6,17 +7,20 @@ Module : Events Home
 */
 
 angular.module('alisthub').controller('eventhomeController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams,$http) { 
+=======
+angular.module('alisthub').controller('eventhomeController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams) { 
+>>>>>>> pb/master
     
     $rootScope.class_status=false;
     var eventService = $injector.get("events");
     
     if(window.innerWidth>767) { 
-      $scope.navCollapsed = false;	  
+      $scope.navCollapsed = false;    
     } else {
       $scope.navCollapsed = true;
       $scope.toggleMenu = function() {
         $scope.navCollapsed = $scope.navCollapsed === false ? true: false;
-      };	  
+      };    
     }
     
     // if seller has no event then
@@ -91,6 +95,13 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
         }
     }
 
+    $scope.recurringHref = function(eventId,recurringOrNot){
+      if(recurringOrNot==0){
+        $location.path("/#/create_event_step1/" + eventId);  
+      } else {
+        $location.path("/#/create_series_step1/" + eventId);
+      }
+    }
 
     //upcomming event list
     $scope.getUpcommingEvent = function(eventType) {
@@ -102,7 +113,7 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
       eventService.getUpcommingEvent({'user_id':$localStorage.userId,'type':type},function(response) {
         if (response!=null) {
           if (response.code == 200) {
-            $scope.upcoming_event_data = $scope.event_package_data =response.results;
+            $scope.upcoming_event_data = response.results;
             $scope.tableParams = new ngTableParams({
                                     page: 1,            // show first page
                                     count: 5,           // count per page
@@ -178,8 +189,8 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
     
      eventService.deleteEvent({'event_id':event_id},function(response){
        if(response.code==200)
-  	 {
-  	 eventService.getEventUser({'user_id':$localStorage.userId},function(response){
+     {
+     eventService.getEventUser({'user_id':$localStorage.userId},function(response){
               
               if (response!=null) {
 
@@ -223,7 +234,7 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
               }
               
           });
-  	 }
+     }
      });
     }
  

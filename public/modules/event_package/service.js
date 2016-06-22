@@ -84,6 +84,60 @@ angular.module('alisthub').factory('event_package', ['$q', '$timeout','communica
   };
 
 
+  //get Products
+  url.getAllProductsInPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getAllProductsInPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+//add Product
+url.addEventProductInPackage = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.addEventProductInPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+//get Event Product
+url.getEventProductsInPackage = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.getEventProductsInPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+//get Event Product
+url.postSecondStepPackageData = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.postSecondStepPackageData,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+//get Event Product
+url.postThirdStepPackageData = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.postThirdStepPackageData,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+
+
+/*url.saveSetting = function(jsondata,callback){
+      communicationService.resultViaPost(webservices.saveSetting,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+        callback(res.data);
+      });
+};
+
+url.getSettingsOfPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getSettings,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+};
+
+*/
+
+
+
+
 return url;
 
 }]);
