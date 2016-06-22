@@ -976,3 +976,31 @@ exports.updatesociallink = function(req,res) {
      res.json({result:results,code:200});
   });
 }
+
+/** 
+Method: getlookandFeelTemplatehtml
+Description:Function to getlookandFeelTemplatehtml
+Created : 2016-06-21
+Created By: Deepak khokhar  
+*/
+exports.getlookandFeelTemplatehtml = function(req,res) {
+   
+      var templateName=req.body.template_name;
+    
+    $sql="select * from look_and_feel_template_html where template_name='"+templateName+"'";
+    
+     connection.query($sql, function(err, results) 
+     {
+      if (err)
+      {
+        res.json({error:err,code:101});
+     }
+       else
+     {
+      res.json({result:results,code:200});
+    }
+   
+   
+});
+}
+
