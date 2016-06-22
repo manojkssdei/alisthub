@@ -16,8 +16,6 @@
         <div>
            <!-- Event Detail Form -->
 
-            <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
-            
     <form  name="myForm1" novalidate ng-submit="price_and_link_data(data1)">
 
    <section class="row">
@@ -401,6 +399,10 @@
         </div>
           
 </form>
+     <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
+     <div ng-show="saveloader" align="center">
+          <img src="/images/icons/loader.gif">
+     </div>
        </div>
     </div>
  </div>
