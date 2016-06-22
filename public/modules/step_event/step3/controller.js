@@ -136,7 +136,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
 
     //look and feel div
     if (menu.id === 7) {
-      if(objectForm.myForm!=undefined) {
+      if(objectForm.myForm1!=undefined) {
       if (objectForm.myForm1.$valid === true) {
 
         if(data != undefined) {
@@ -160,16 +160,6 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
           } 
         }
       } else {
-        $scope.selectedClass = 3;
-        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-          $location.path("/create_event_step3/"+$stateParams.eventId);
-        } else {
-          $location.path("/create_event_step3/"+$localStorage.eventId);
-        } 
-      }
-
-        
-      } else {
         $scope.selectedClass = 2;
         $scope.error_message = false;
         $scope.error = global_message.event_step2_msg;
@@ -177,7 +167,19 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
           $scope.error = '';
           $scope.error_message = true;
           $scope.error = '';
-        }, 3000);
+        }, 3000); 
+      }
+
+        
+      } else {
+       
+        $scope.selectedClass = 3;
+        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+          $location.path("/create_event_step3/"+$stateParams.eventId);
+        } else {
+          $location.path("/create_event_step3/"+$localStorage.eventId);
+        } 
+
       }
     }
 
