@@ -1036,3 +1036,26 @@ exports.getlookandFeelTemplatehtml = function(req,res) {
 });
 }
 
+/** 
+Method: look_and_feel_save_html
+Description:Function to getlookandFeelTemplatehtml
+Created : 2016-06-21
+Created By: Deepak khokhar  
+*/
+
+exports.look_and_feel_save_html = function(req,res) {
+   
+     var html=(JSON.stringify(req.body.html) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+      var eventId=req.body.eventId;
+    console.log("UPDATE events SET step3_html='"+html+"' where id="+eventId);
+    connection.query("UPDATE events SET step3_html='"+html+"' where id="+eventId, function(err, results)
+    {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
+    
+    
+}
+
