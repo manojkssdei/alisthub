@@ -11,7 +11,7 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
             $state.go('login');
         }
         var $serviceTest = $injector.get("venues");
-
+        // $scope.data.eventname=response.results[0].title;
               
         if (window.innerWidth > 767) {
             $scope.navCollapsed = false;
@@ -30,6 +30,7 @@ angular.module('alisthub', ['google.places', 'angucomplete'])
             center: new google.maps.LatLng(32.7990, -86.8073),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+        
         $scope.$on('g-places-autocomplete:select', function(event, place) {
 
             if (place.geometry) {
