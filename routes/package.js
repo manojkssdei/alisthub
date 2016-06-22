@@ -43,6 +43,23 @@ module.exports = function(app, express) {
   /* To update bundles of Package*/
       router.post('/updateBundleInPackage',supportCrossOriginScript, Package.updateBundleInPackage);
 
+  /* To get all products of User*/
+      router.post('/getAllProductsInPackage',supportCrossOriginScript, Package.getAllProductsInPackage);
+
+  /* To add event of product in package*/
+      router.post('/addEventProductInPackage',supportCrossOriginScript, Package.addEventProductInPackage);
+
+  /* To products in package*/
+      router.post('/getEventProductsInPackage',supportCrossOriginScript, Package.getEventProductsInPackage);
+
+  /* To post second step package Data*/
+      router.post('/postSecondStepPackageData',supportCrossOriginScript, Package.postSecondStepPackageData);
+
+ /* To post second step package Data*/
+      router.post('/postThirdStepPackageData',supportCrossOriginScript, Package.postThirdStepPackageData);
+
+
+
 
 
       

@@ -51,6 +51,9 @@ module.exports = function(app, express) {
   
   /* To get the event data */
   router.post('/getEvent',supportCrossOriginScript, Event.getEvent);
+  
+  /* To get the event series data */
+  router.post('/getSeriesEvent',supportCrossOriginScript, Event.getSeriesEvent);
 
   /* To save the event Inventory */
   router.post('/saveInventory',supportCrossOriginScript, Event.saveInventory);
@@ -65,6 +68,8 @@ module.exports = function(app, express) {
   router.post('/savesecondstepdata',supportCrossOriginScript, Event.savesecondstepdata);
   /*get event look and feel*///
   router.post('/getlookAndFeeltemplate',supportCrossOriginScript, Event.getlookAndFeeltemplate);
+  /* To get look and feel Template*/
+  router.post('/getlookandFeelTemplatehtml',supportCrossOriginScript, Event.getlookandFeelTemplatehtml);
   /*get preview Image*///
   router.post('/getpreviewImage',supportCrossOriginScript, Event.getpreviewImage);
   /*get Template*///
@@ -86,8 +91,11 @@ module.exports = function(app, express) {
   router.post('/stepOneEventPackage' , supportCrossOriginScript , Event.stepOneEventPackage);
   // To update social links from step 3
   router.post('/updatesociallink' , supportCrossOriginScript , Event.updatesociallink);
-
-
+ router.post('/look_and_feel_save_html' ,function(req,res){
+    console.log(req.body.html);
+    console.log(req.body.eventId);
+    });
+  
   // Save event setting data
   router.post('/saveSetting' , supportCrossOriginScript , EventSetting.saveSetting);
   router.post('/getSettings' , supportCrossOriginScript , EventSetting.getSettings);
@@ -117,7 +125,8 @@ module.exports = function(app, express) {
 	router.post('/addseriesBundle', EventSeries.addseriesBundle);
 	
        /* Save price level*/
-        router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel); 
+        router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel);
+        
 
         router.post('/preview_template',function(req,res){
             console.log("preview template");
