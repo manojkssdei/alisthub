@@ -17,7 +17,8 @@ angular.module('alisthub').controller('stepevent4Controller', function($scope, $
   */
 
 $scope.click_menu = function(menu, data, valid) {
-    console.log($stateParams.eventId+':1');
+    console.log($stateParams.eventId+':2');
+    console.log(menu.id);
     console.log(data);
     var objectForm = this;
     $scope.selectedClass = 1;
@@ -38,6 +39,7 @@ $scope.click_menu = function(menu, data, valid) {
         if (objectForm.myForm.$valid === true) {
             $scope.selectedClass = 2;
             if ($localStorage.eventId == null) {
+              if(data != undefined) {
                 if (data.eventtype=='single') {
                   if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
                     data.eventdate=$scope.single_start_date;
@@ -49,18 +51,16 @@ $scope.click_menu = function(menu, data, valid) {
                     $serviceTest.saveEvent(data,function(response){
                       if (response.code == 200) {
                         $scope.success=global_message.event_step1;
-                        $localStorage.eventId=response.result;
+                        $localStorage.eventId = response.result;
                         $scope.error_message=false;
                         $timeout(function() {
                           $scope.success='';
                           $scope.error_message=true;
                         },3000);
 
-                        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-                          $location.path("/create_event_step2/"+$stateParams.eventId);
-                        } else {
-                          $location.path("/create_event_step2/"+$localStorage.eventId);
-                        }
+                        console.log(response.result);
+                        $location.path("/create_event_step2/"+$localStorage.eventId);
+                        
                       }
                     });
                   }  
@@ -79,6 +79,7 @@ $scope.click_menu = function(menu, data, valid) {
                     }
                   }); 
                 }
+              }
             } else {
               if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
                 $location.path("/create_event_step2/"+$stateParams.eventId);
@@ -107,12 +108,28 @@ $scope.click_menu = function(menu, data, valid) {
 
     //look and feel div
     if (menu.id === 7) {
+      if(objectForm.myForm1!=undefined) {
       if (objectForm.myForm1.$valid === true) {
-        $scope.selectedClass = 3;
-        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-          $location.path("/create_event_step3/"+$stateParams.eventId);
+
+        if(data != undefined) {
+          data.eventId = $localStorage.eventId;
+          $serviceTest.postSecondStepdata(data, function(response) {
+            if (response.code == 200) {
+              $scope.selectedClass = 3;
+              if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+                $location.path("/create_event_step3/"+$stateParams.eventId);
+              } else {
+                $location.path("/create_event_step3/"+$localStorage.eventId);
+              }      
+            }
+          });
         } else {
-          $location.path("/create_event_step3/"+$localStorage.eventId);
+          $scope.selectedClass = 3;
+          if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+            $location.path("/create_event_step3/"+$stateParams.eventId);
+          } else {
+            $location.path("/create_event_step3/"+$localStorage.eventId);
+          } 
         }
       } else {
         $scope.selectedClass = 2;
@@ -122,7 +139,19 @@ $scope.click_menu = function(menu, data, valid) {
           $scope.error = '';
           $scope.error_message = true;
           $scope.error = '';
-        }, 3000);
+        }, 3000); 
+      }
+
+        
+      } else {
+       
+        $scope.selectedClass = 3;
+        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+          $location.path("/create_event_step3/"+$stateParams.eventId);
+        } else {
+          $location.path("/create_event_step3/"+$localStorage.eventId);
+        } 
+
       }
     }
 
@@ -332,11 +361,9 @@ $scope.click_menu = function(menu, data, valid) {
     $scope.formdata.online_sales_open = $scope.combine($scope.formdata.online_sales_open.date,$scope.formdata.online_sales_open.time);
     $scope.formdata.online_sales_close = $scope.combine($scope.formdata.online_sales_close.date,$scope.formdata.online_sales_close.time);
 
-    $scope.formdata.print_enable_date = {};
-    $scope.formdata.print_disable_date = {};
     if($scope.formdata.print_enable_date.date!=undefined && $scope.formdata.print_enable_date.time!=undefined && $scope.formdata.print_enable_date.date!='' && $scope.formdata.print_enable_date.time!=''){
       $scope.formdata.print_enable_date = $scope.combine($scope.formdata.print_enable_date.date,$scope.formdata.print_enable_date.time);  
-    }
+    } 
     if($scope.formdata.print_disable_date.date!=undefined && $scope.formdata.print_disable_date.time!=undefined && $scope.formdata.print_disable_date.date!='' && $scope.formdata.print_disable_date.time!=''){
       $scope.formdata.print_disable_date = $scope.combine($scope.formdata.print_disable_date.date,$scope.formdata.print_disable_date.time);
     }
@@ -402,7 +429,7 @@ $scope.click_menu = function(menu, data, valid) {
       $scope.formdata.print_enable_date = {};
       $scope.formdata.print_enable_date.date = null;
       $scope.formdata.print_enable_date.time = null;
-
+      
       if(enableDateTime.date!='' && enableDateTime.time!=''){
         $scope.formdata.print_enable_date.date = enableDateTime.date;
         $scope.formdata.print_enable_date.time = enableDateTime.time;  
@@ -441,19 +468,27 @@ $scope.click_menu = function(menu, data, valid) {
   function getDateTime(openDate) {
     var date1 = new Date(openDate);
     
-    var date = ('0' + (date1.getUTCDate())).slice(-2);
-    var year = date1.getUTCFullYear();
-    var month = ('0' + (date1.getUTCMonth()+1)).slice(-2);
-    
-    var hours = ('0' + (date1.getUTCHours())).slice(-2);
-    var minutes = ('0' + (date1.getUTCMinutes())).slice(-2);
-    var seconds = date1.getUTCSeconds();
+    if(date1!="Invalid Date" && openDate!=null) {
+      console.log(openDate);
+      var date = ('0' + (date1.getUTCDate())).slice(-2);
+      var year = date1.getUTCFullYear();
+      var month = ('0' + (date1.getUTCMonth()+1)).slice(-2);
+      
+      var hours = ('0' + (date1.getUTCHours())).slice(-2);
+      var minutes = ('0' + (date1.getUTCMinutes())).slice(-2);
+      var seconds = date1.getUTCSeconds();
 
-    var convertedDate = {};
-    convertedDate.date = new Date(year+"-"+month+"-"+date);
+      var convertedDate = {};
+      convertedDate.date = new Date(year+"-"+month+"-"+date);
 
-    convertedDate.time = hours_am_pm(hours+""+minutes);
-    return convertedDate ;
+      convertedDate.time = hours_am_pm(hours+""+minutes);
+      return convertedDate ;  
+    } else {
+      var convertedDate = {};
+      convertedDate.date = null;
+      convertedDate.time = null;
+      return convertedDate ;
+    }
   };
 
 });

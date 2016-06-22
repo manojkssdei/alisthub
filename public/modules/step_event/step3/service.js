@@ -44,5 +44,16 @@ angular.module('alisthub').factory('Lookservice', ['$q', '$timeout','communicati
        
       
   };
+  
+  //look and feel Template html
+    url.getlookandFeelTemplatehtml = function(jsondata,callback){
+	
+       communicationService.resultViaPost(webservices.getlookandFeelTemplatehtml,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+			callback(res.data);
+		});
+       
+      
+  };
+  
   return url;
 }]);

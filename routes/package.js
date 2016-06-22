@@ -27,7 +27,41 @@ module.exports = function(app, express) {
      /* To get the products In the Package*/
       router.post('/getProductsInPackage',supportCrossOriginScript, Package.getProductsInPackage);
 
-      
+      /* To add the bundles In the Package*/
+      router.post('/addBundleInPackage',supportCrossOriginScript, Package.addBundleInPackage);
 
+   /* To get the bundles In the Package*/
+      router.post('/getBundleProductsInPackage',supportCrossOriginScript, Package.getBundleProductsInPackage);
+
+      /* To get the price level In the event of Package*/
+      router.post('/getEventPriceLevelInPackage',supportCrossOriginScript, Package.getEventPriceLevelInPackage);
+
+  /* To get price level In all of the events of Package*/
+      router.post('/getAllEventsPriceLevelInPackage',supportCrossOriginScript, Package.getAllEventsPriceLevelInPackage);
+
+
+  /* To update bundles of Package*/
+      router.post('/updateBundleInPackage',supportCrossOriginScript, Package.updateBundleInPackage);
+
+  /* To get all products of User*/
+      router.post('/getAllProductsInPackage',supportCrossOriginScript, Package.getAllProductsInPackage);
+
+  /* To add event of product in package*/
+      router.post('/addEventProductInPackage',supportCrossOriginScript, Package.addEventProductInPackage);
+
+  /* To products in package*/
+      router.post('/getEventProductsInPackage',supportCrossOriginScript, Package.getEventProductsInPackage);
+
+  /* To post second step package Data*/
+      router.post('/postSecondStepPackageData',supportCrossOriginScript, Package.postSecondStepPackageData);
+
+ /* To post second step package Data*/
+      router.post('/postThirdStepPackageData',supportCrossOriginScript, Package.postThirdStepPackageData);
+
+
+
+
+
+      
        app.use('/package', router);
 }  

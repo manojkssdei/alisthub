@@ -51,21 +51,49 @@ var webservices = {
     "getProductSetting"  :  "/event_setting/getProductSetting",
     "saverecurringEvent"  :  "/event/saverecurringEvent",
     "updatesociallink"  :  "/event/updatesociallink",
-        /////get event category////
+
+     /////get event category////
      "getEventsdetail":"/event/getEventsdetail",
      "getEvents":"/event/getEvents",
      "getEvent":"/event/getEvent",
      "getEventCategory":"/event/getEventCategory",
      "deleteEvent":"/event/deleteEvent",
+
      "addComment":"/event/addComment",
       "getComment" :  "/event/getComment",
 
+     "getSeriesEvent":"/event/getSeriesEvent",
+
+
      // event package
+    
+    /////get event category////
+    
+    "getUpcommingEvent":"/event/getUpcommingEvent",
+    "getPastEvent":"/event/getPastEvent",
+    "getEventSeries":"/event/getEventSeries",
+    "getAllEvent":"/event/getAllEvent",
+
+    // event package
+
     "stepOneEventPackage"  :  "/event/stepOneEventPackage",
     "getPackage" : "/package/getPackage",
     "getEventsInPackage" : "/package/getEventsInPackage",
     "getBundlesInPackage" : "/package/getBundlesInPackage",
     "getProductsInPackage" : "/package/getProductsInPackage",
+    "addBundleInPackage" : "/package/addBundleInPackage",
+    "getBundleProductsInPackage" : "/package/getBundleProductsInPackage",
+    "getEventPriceLevelInPackage" : "/package/getEventPriceLevelInPackage",
+    "getAllEventsPriceLevelInPackage" : "/package/getAllEventsPriceLevelInPackage",
+    "updateBundleInPackage" : "/package/updateBundleInPackage",
+    "getAllProductsInPackage" : "/package/getAllProductsInPackage",
+    "addEventProductInPackage" : "/package/addEventProductInPackage",
+    "getEventProductsInPackage" : "/package/getEventProductsInPackage",
+    "postSecondStepPackageData" : "/package/postSecondStepPackageData" ,
+    "postThirdStepPackageData" : "/package/postThirdStepPackageData" ,
+
+    
+
 
     
 
@@ -182,6 +210,7 @@ var webservices = {
     "getpreviewImage":"event/getpreviewImage",
     "getTemplate":"event/getTemplate",
     "addlookAndFeelImage":"event/addlookAndFeelImage",
+    "getlookandFeelTemplatehtml":"event/getlookandFeelTemplatehtml",
 
     //Add event product
     "addEventProduct" :  "/event_setting/addEventProduct",

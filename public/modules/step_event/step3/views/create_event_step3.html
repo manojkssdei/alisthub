@@ -159,7 +159,7 @@
                                     
                     </section>
 		 </li>   
-		<li data-row="2" data-col="1" data-sizex="3" data-sizey="1"  ng-style="{background: background_inner}">
+		<li data-row="2" data-col="1" data-sizex="3" data-sizey="2"  id="section2"   ng-style="{background: background_inner}">
 		  <div class="drag1" style="display:none;">
 		    
 		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
@@ -185,20 +185,20 @@
 			  </div>
 			</div>
 		  </section>
-		  
+		  <section class="content">
+		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
+		    </section>
 		</li>
-		<li data-row="3" data-col="1" data-sizex="3" data-sizey="1"  id="section3"  ng-style="{background: background_inner}">
+		<!--<li data-row="3" data-col="1" data-sizex="3" data-sizey="1"  id="section3"  ng-style="{background: background_inner}">
 		  <div class="drag" style="display:none;">
 		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		      <a onclick="remove_widget('section3')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		      
 		    </div>
 		    <section>
-		    <section class="content">
-		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
+		    
 		    </section>
-		    </section>
-		</li>
+		</li>-->
 		<li data-row="4" data-col="1" data-sizex="3" data-sizey="1"  id="section4"  ng-style="{background: background_inner}">
 		  <div class="drag" style="display:none;">
 		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
@@ -225,7 +225,7 @@
 		    <input type="file" id="my_file3"  onchange="angular.element(this).scope().encodeImageFileAsURL3(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
 		    </div>
 		</li>
-		<li data-row="3" data-col="4" data-sizex="1" data-sizey="1"  ng-style="{background: background_inner}">
+		<li data-row="3" data-col="4" data-sizex="1" data-sizey="1" id="section8"  ng-style="{background: background_inner}">
 		  
 		      <section class="panel panel-primary">
 		     <section class="panel-heading"><h5 class="m-b0">Venue</h5></section>                     
@@ -243,37 +243,13 @@
 			</section>
 		   </section>
                  </li>
-		<li data-row="4" data-col="4" data-sizex="1" data-sizey="1"  ng-style="{background: background_inner}">
-		 <!-- <script type="text/javascript">
-		var EventsWidgetDisplayPreferences = {
-		    seller_id: '22381',
-		    uri: 'http://tickets.alistixs.com/events/22381',
-		    domain: 'tickets.alistixs.com',
-		    white_label: 'ALIST Solutions LLC',
-		    max_number_of_events: '4',
-		    group_series_events: 'true',
-		    title_text: 'Upcoming Events',
-		    height: 'auto',
-		    width: '330px',
-		    background_color: '#2c344b',
-		    header_color: '#FFFFFF',
-		    row_background_color: '#FFFFFF',
-		    text_color: '#333',
-		    link_color: '#fe1e5a',
-		    include_scrollbar: 'auto',
-		    display_title_bar: 'true',
-		    display_date_block: 'true',
-		    display_image: 'none',
-		    display_full_date: 'true',
-		    display_time: 'true',
-		    display_venue: 'true',
-		    display_tickets_link: 'none'
-		}
-	    </script>
-	    <script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js">
-	    </script>-->
-	    <!-- Load Facebook SDK for JavaScript -->
-	      <div id="fb-root"></div>
+		<li data-row="4" data-col="4" data-sizex="1" data-sizey="1" id="section9"  ng-style="{background: background_inner}">
+		 
+	     <img width="100%;" height="auto" src="{{ticket_image}}" alt="your image"/>
+		</li>
+		<li data-row="5" data-col="4" data-sizex="1" data-sizey="1" id="section10"  ng-style="{background: background_inner}">
+		
+		 <div id="fb-root"></div>
 	      <script>(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
 		if (d.getElementById(id)) return;
@@ -290,14 +266,6 @@
 			data-show-faces="true">
 		</div>
 		</li>
-		<li data-row="5" data-col="4" data-sizex="1" data-sizey="1"  ng-style="{background: background_inner}">
-		  <section class="panel panel-primary">
-			<section class="panel-heading"><h5 class="m-b0"></h5></section>                       
-			<section class="panel-body p5">
-			                                               
-			</section>
-		   </section>
-		</li>
 		
 		
 		<li data-row="5" data-col="1" data-sizex="3" data-sizey="1"   id="section7"  ng-style="{background: background_inner}">
@@ -310,7 +278,7 @@
 		  
 		</li>
 		
-		<li data-row="6" data-col="1" data-sizex="4" data-sizey="1"    id="section6"  ng-style="{background: background_inner}">
+		<!--<li data-row="6" data-col="1" data-sizex="4" data-sizey="1"    id="section6"  ng-style="{background: background_inner}">
 		  <div class="drag" style="display:none;">
 			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 			<a onclick="remove_widget('section6')"><i class="fa fa-trash" aria-hidden="true"></i></a>
@@ -318,13 +286,13 @@
 		      </div>
 		      <div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value='' class="wrap-word">
 		      </div>
-		</li>
+		</li>-->
 		
        
 			
 			
 		    </ul>
-		  
+		  <button type="button" class="js-seralize">Serialize</button>
       
                       </div>
 		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
@@ -361,7 +329,7 @@ function change_image3()
      gridster.add_widget('<li class="new"><img src="http://www.sparity.com/images/facebookIcon.jpg" alt="facebook"  ></li>', 1, 1);
   }
       $(function(){
-
+      
         gridster = $(".gridster ul").gridster({
 	  widget_base_dimensions: [140, 225],
           widget_margins: [10, 10],
@@ -376,8 +344,36 @@ function change_image3()
 			handle: '.header'
 		}
         }).data('gridster');
-
-
+          var eventdata=new Array();
+          $('.js-seralize').on('click', function() {
+            var s = gridster.serialize();
+	    
+           s.forEach(function(item,index){
+	      eventdata.push(item.row+""+item.col);
+	      })
+	   
+	   var events=eventdata.sort();
+	   var arr = {};
+	   $.map(events, function(value, index) {
+	     
+	      var column=value.slice(-1);
+	      var row=value.slice(0,1);
+	      var section=$('.module.gridster.ready > ul > li[data-col='+column+'][data-row='+row+']').attr('id');
+		
+	       arr[index]=$("#"+section).html();
+	  });
+	   var href = window.location.href;
+          var eventId=href.substr(href.lastIndexOf('/') + 1);
+	   $.ajax({
+	    method: "POST",
+	    url: "/event/look_and_feel_save_html",
+	    data: {"html":arr,"eventId":eventId}
+	  })
+	    .done(function( response ) {
+	      console.log(response);
+	    });
+	  
+        })
         // resize widgets on hover
         gridster.$el
           .on('mouseenter', '> li', function() {
@@ -389,10 +385,7 @@ function change_image3()
 		   {
 		    $('#section2 .drag').show();
 		   }
-		   if($(this).attr('id')=='section3')
-		   {
-		    $('#section3 .drag').show();
-		   }
+		   
 		   if($(this).attr('id')=='section4')
 		   {
 		    $('#section4 .drag').show();
@@ -419,10 +412,7 @@ function change_image3()
 		   {
 		    $('#section2 .drag').hide();
 		   }
-		   if($(this).attr('id')=='section3')
-		   {
-		    $('#section3 .drag').hide();
-		   }
+		  
 		    if($(this).attr('id')=='section4')
 		   {
 		    $('#section4 .drag').hide();
@@ -565,4 +555,3 @@ function change_image3()
         </div>
 	</form>
   </script>
-

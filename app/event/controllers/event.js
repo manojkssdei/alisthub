@@ -256,6 +256,73 @@ exports.getEvents=function(req,res) {
   });
 }
 
+
+/** 
+Method: getUpcommingEvent
+Description:Function to get latest upcomming event data  
+Created : 2016-06-20
+Created By: Deepak khokkar  
+*/
+exports.getUpcommingEvent=function(req,res) {
+  var user_id = req.body.user_id;
+  var curtime = moment().format('YYYY-MM-DD');
+  var eventType = req.body.type;
+ 
+  var sql = "SELECT events.id, events.title, events.sub_title, events.recurring_or_not, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id=" + user_id + " and Date(events.start_date) >= '" +curtime + "' and events.recurring_or_not = "+ eventType +" ORDER BY start_date ASC LIMIT 5";
+  
+  connection.query(sql,function(err,result) {
+    if (err) {
+      res.send({err:"error",code:101}); 
+    }
+    res.send({"results":result,code:200});  
+  });
+}
+
+/** 
+Method: getPastEvent
+Description:Function to get past upcomming event data  
+Created : 2016-06-20
+Created By: Deepak khokkar  
+*/
+exports.getPastEvent=function(req,res) {
+  var user_id = req.body.user_id;
+  var curtime = moment().format('YYYY-MM-DD');
+  var eventType = req.body.type;
+  
+  var sql = "SELECT events.id, events.parent_id, events.title, events.recurring_or_not, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id = " + user_id + " and Date(events.start_date) <= '" + curtime + "' and events.recurring_or_not = "+ eventType +" ORDER BY start_date DESC LIMIT 5";
+  
+  connection.query(sql,function(err,result) {
+    if (err) {
+      res.send({err:"error",code:101}); 
+    }
+    res.send({"results":result,code:200});  
+  });
+}
+
+
+/** 
+Method: getEventSeries
+Description:Function to get event series data  
+Created : 2016-06-20
+Created By: Deepak khokkar  
+*/
+exports.getEventSeries=function(req,res) {
+  var user_id = req.body.user_id;
+
+  var curtime = moment().format('YYYY-MM-DD');
+
+  var sql = "SELECT  event_package.id,  event_package.package_name, event_package.online_sales_open_date FROM event_package where event_package.user_id = " + user_id + " ORDER BY event_package.online_sales_open_date ASC LIMIT 5";
+  
+  connection.query(sql,function(err,result) {
+    if (err) {
+      res.send({err:"error",code:101}); 
+    }
+    res.send({"results":result,code:200});  
+  });
+}
+
+
+
 /** 
 Method: getEvent
 Description:Function to get event data  
@@ -273,6 +340,38 @@ exports.getEvent=function(req,res) {
           res.send({err:"error",code:101}); 
         }
         res.send({"results":result,code:200});  
+      });
+    } else {
+      res.send({"results":{},code:200});
+    }
+}
+
+/** 
+Method: getEvent for series event
+Description:Function to get event data for series event 
+Created : 2016-06-20
+Created By: Deepak khokkar  
+*/
+
+
+exports.getSeriesEvent=function(req,res) {
+   
+    var event_id=req.body.event_id;
+    if(event_id!=undefined){
+      var sql="SELECT E.*,V.id as venue_id,V.venue_name,V.address,V.city,V.zipcode,V.state,V.country,V.latitude,V.longitude FROM events as E LEFT JOIN venues as V on E.venue_id=V.id where E.id="+event_id;
+     
+      var sqltime="SELECT * FROM event_dates where parent_id="+event_id+" ORDER BY start_date_time ASC";
+      
+      connection.query(sql,function(err,result){
+        if (err) {
+          res.send({err:"error",code:101}); 
+        }
+        connection.query(sqltime,function(err5,result5){
+            
+        res.send({"results":result,timing:result5,code:200});
+        
+        });
+        
       });
     } else {
       res.send({"results":{},code:200});
@@ -944,3 +1043,31 @@ exports.updatesociallink = function(req,res) {
      res.json({result:results,code:200});
   });
 }
+
+/** 
+Method: getlookandFeelTemplatehtml
+Description:Function to getlookandFeelTemplatehtml
+Created : 2016-06-21
+Created By: Deepak khokhar  
+*/
+exports.getlookandFeelTemplatehtml = function(req,res) {
+   
+      var templateName=req.body.template_name;
+    
+    $sql="select * from look_and_feel_template_html where template_name='"+templateName+"'";
+    
+     connection.query($sql, function(err, results) 
+     {
+      if (err)
+      {
+        res.json({error:err,code:101});
+     }
+       else
+     {
+      res.json({result:results,code:200});
+    }
+   
+   
+});
+}
+

@@ -239,6 +239,13 @@ url.getEventProductDetail = function(jsondata,callback){
     });
   };
   
+  //get Series Event Data
+  url.getSeriesEvent = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getSeriesEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+  
   //get Event Categories
   url.getEventCat = function(jsondata,callback){
     communicationService.resultViaPost(webservices.getEventCategory,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
