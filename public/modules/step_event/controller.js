@@ -872,7 +872,7 @@ $scope.rec_year_func = function() {
   */
 
  $scope.click_menu = function(menu, data, valid) {
-    console.log($stateParams.eventId+':2');
+    console.log($stateParams.eventId+':1');
     console.log(menu.id);
     console.log(data);
     var objectForm = this;
