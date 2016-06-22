@@ -76,6 +76,13 @@ var webservices = {
     "getEventsInPackage" : "/package/getEventsInPackage",
     "getBundlesInPackage" : "/package/getBundlesInPackage",
     "getProductsInPackage" : "/package/getProductsInPackage",
+    "addBundleInPackage" : "/package/addBundleInPackage",
+    "getBundleProductsInPackage" : "/package/getBundleProductsInPackage",
+    "getEventPriceLevelInPackage" : "/package/getEventPriceLevelInPackage",
+    "getAllEventsPriceLevelInPackage" : "/package/getAllEventsPriceLevelInPackage",
+    "updateBundleInPackage" : "/package/updateBundleInPackage",
+    
+
 
     
 
