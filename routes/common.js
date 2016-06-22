@@ -15,5 +15,7 @@ module.exports = function(app, express) {
     /* For getting list of usa states*/
     router.get('/getUSAStates', common_setting.getUSAStates);
 
+
+
     app.use('/common', router);
 }

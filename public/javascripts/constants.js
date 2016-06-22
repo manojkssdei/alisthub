@@ -80,6 +80,7 @@ var webservices = {
     "getEventProductsInPackage" : "/package/getEventProductsInPackage",
     "postSecondStepPackageData" : "/package/postSecondStepPackageData" ,
     "postThirdStepPackageData" : "/package/postThirdStepPackageData" ,
+    "getEventCategoriesList" : "/package/getEventCategoriesList" ,
 
     
 

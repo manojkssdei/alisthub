@@ -58,7 +58,7 @@
                                 <tr ng-repeat="event in FinalEvents" >
                                     <td><a href="#"><strong>{{event.id}}</strong></a></td>
                                     <td>
-                                        <p> <b>{{event.title}}</b> @ {{event.event_address}} {{event.city}}</p>
+                                        <p> <b>{{event.title}}</b><span ng-if="event.event_address != '' " > @ {{event.event_address}} {{event.city}}</span></p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -124,7 +124,7 @@
                             <div class="form-group">
                       <label for="EndTime">End Time</label>
                       <div class="input-group bootstrap-timepicker timepicker">
-                        <input type="text" id="online_sales_close_time" name="online_sales_close_time" ng-model="data.online_sales_close_time" class="form-control input-small timepick" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                        <input type="text" id="online_sales_close_time" name="online_sales_close_time" ng-model="data.online_sales_close_time" class="form-control input-small timepick" ng-change="changedendtime()" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
                       </div>
                     </div>
                         </div>
@@ -165,9 +165,9 @@
 
                             <div class="col-sm-4">
 
-<select class="form-control" ng-model="data.category" id="category" name="category" required>
-<option value="9">Art / Exhibit</option><option value="23">Classes</option><option value="17">Club Night</option><option value="5">Comedy</option><option value="7">Community</option><option value="1">Concert</option><option value="4">Conference</option><option value="19">Dance</option><option value="6">Festival</option><option value="20">Film</option><option value="14">Fundraiser</option><option value="3">Networking</option><option value="24">Online Events</option><option value="10">Other</option><option value="11">Party</option><option value="2">Performing Arts</option><option value="13">Raffle</option><option value="16">Retreat</option><option value="15">Reunion</option><option value="12">Sporting</option><option value="22">Teacher Training</option><option value="21">Tour</option><option value="8">Trade Show</option><option value="18">Workshop</option>
-                                </select>
+                              <select class="form-control" name="category" ng-model="data.category" required>
+                            <option ng-repeat="cat in cat1" value="{{cat.category_id}}" >{{cat.name}}</option>
+                            </select>
 
                                  <p ng-show="myForm.category.$invalid && !myForm.category.$pristine" class="error-fld ng-binding">Event category is required.</p>
 

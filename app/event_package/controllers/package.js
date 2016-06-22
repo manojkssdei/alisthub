@@ -433,3 +433,15 @@ for (var index in fields) {
   });
    
 }
+
+exports.getEventCategoriesList = function(req, res) {
+    var query = "SELECT * FROM `event_category` order by id asc";
+    console.log('query ' , query);
+    connection.query(query, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: results, code: 200 });
+    });
+}
+

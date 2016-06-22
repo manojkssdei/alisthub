@@ -407,7 +407,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load(['modules/event_package/service.js', 'modules/event_setting/service.js' ]).then(function(){
+                return $ocLazyLoad.load(['modules/event_package/service.js',  'modules/event_setting/service.js' ]).then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/event_package/step1/controller.js','javascripts/bootstrap-timepicker.js']);
                 })

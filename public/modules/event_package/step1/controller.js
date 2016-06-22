@@ -142,7 +142,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
   };
 
   $scope.dateOptions = {
-    dateDisabled: disabled,
+   // dateDisabled: disabled,
     formatYear: 'yy',
     maxDate: new Date(2020, 5, 22),
     minDate: new Date(),
@@ -191,6 +191,9 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
     if (menu.id==1) {
       $scope.eventdetail_div=false;
       $scope.price_and_link_div=$scope.setting_div=true;
+
+
+      $scope.stepOne();
     }
 
     if (menu.id==2) {
@@ -217,6 +220,51 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
     return $scope.selected2 === step2;
   };
  
+
+
+ $scope.changedendtime = function() {
+  console.log('changedendtime');
+      if ($scope.online_sales_open_time !== '' && $scope.online_sales_close_time !== '' ) {
+        console.log('time exist');
+        if ($scope.online_sales_open_date === $scope.online_sales_close_date) {
+           console.log('same date');
+          var stt = new Date("January 01, 2016 " + $scope.online_sales_open_time);
+          stt = stt.getTime();
+          var endt = new Date("January 01, 2016 " + $scope.online_sales_close_time);
+          endt = endt.getTime();
+
+          if (stt >= endt) {
+            console.log('greater start date');
+            $scope.error_message = false;
+            $scope.endtime = '';
+            $scope.error = global_message.date_comparison;
+            $scope.endtime = '';
+            $timeout(function() {
+              $scope.error = '';
+              $scope.error_message = true;
+            }, 3000);
+
+          }
+        }
+        //$scope.select_delect_event = false;
+        //$rootScope.endevent_time = $filter('date')($scope.endtime, 'shortTime');
+      } 
+    }
+
+
+   //To get Event Category
+
+  $serviceTest.getEventCategoriesList({
+    'var': 'event_category'
+  }, function(response) {
+    if (response.code === 200) {
+      $scope.cat1 = response.result;
+     // $scope.data.category = ($scope.cat1[0].category_id).toString();
+      $scope.data.category = response.result;
+      console.log('$scope.data.category' , $scope.data.category);
+    }
+  });
+
 
  /**************Encode imgae as base64 URL starts **************/
     $scope.encodeImageFileAsURL = function(str, id) {
@@ -330,7 +378,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
                 //$scope.loader = false;
                 if (response.code == 200) {
                     $scope.data.package_id = response.result;
-                     $location.path("/event_package_step_2/"+$scope.data.package_id);
+                    // $location.path("/event_package_step_2/"+$scope.data.package_id);
                 } else {
                     $scope.error_message = response.error;
                 }

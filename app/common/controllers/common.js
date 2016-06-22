@@ -40,4 +40,3 @@ exports.getUSAStates = function(req, res) {
     });
 }
 
-
