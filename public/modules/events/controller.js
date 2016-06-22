@@ -5,7 +5,7 @@ Created By: Deepak Khokkar
 Module : Events Home 
 */
 
-angular.module('alisthub').controller('eventhomeController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams) { 
+angular.module('alisthub').controller('eventhomeController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams,$http) { 
     
     $rootScope.class_status=false;
     var eventService = $injector.get("events");
@@ -18,7 +18,31 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
         $scope.navCollapsed = $scope.navCollapsed === false ? true: false;
       };	  
     }
-
+    
+    // if seller has no event then
+                  if ($localStorage.userId) {
+                     $http({
+                        url: webservices.getEvents,
+                        method: 'POST',
+                        data: "user_id="+$localStorage.userId,
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                            "Accept": "application/json",
+                        }
+                    }).success(function(datae, status, headers, config) {
+                        
+                        if (datae && datae != "") {
+                             
+                        }
+                        else{
+                               $state.go('create_an_event'); 
+                        }
+                    });
+                  }
+                    
+     //////
+     
+     
     $scope.UPCtab = false;
     $scope.UPCtabclass = "fa-caret-down";
     $scope.id1 = 1;
