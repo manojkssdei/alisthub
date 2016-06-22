@@ -14,7 +14,7 @@ padding: 0 15px;
     <h1>Create an Event</h1>
     <!-- Step Form -->
     <div class="stage-container clearfix">
-        <div class="stage" ng-repeat="step in steps" data-ng-class="{current: $index + 1 === selectedClass}" ng-click="click_menu(step)">
+        <div class="stage" ng-repeat="step in steps" data-ng-class="{current: $index + 1 === selectedClass}" ng-click="click_menu(step,data)">
             <div class="stage-icon"><i class="{{step.icon}}"></i> </div>
             <div class="stage-title">{{step.title}}</div>
         </div>
@@ -366,9 +366,9 @@ padding: 0 15px;
         
         
         <div class="editor-btn">
-          <button type="submit"
-          ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>
-          <button type="button" ng-disabled="myForm.$invalid" ng-click="click_menu(steps[1] , data)" class="pink-btn btn">Next</button>
+          <!--<button type="submit"
+          ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>-->
+          <button type="button" ng-disabled="myForm.$invalid" ng-click="click_menu(steps[1] , data)" class="pink-btn btn">Save &amp Continue</button>
         </div>
         <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
       </div>
