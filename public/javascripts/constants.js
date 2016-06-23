@@ -73,6 +73,7 @@ var webservices = {
     "getPastEvent": "/event/getPastEvent",
     "getEventSeries": "/event/getEventSeries",
     "getAllEvent": "/event/getAllEvent",
+    "getEventDates": "/event/getEventDates",
 
     // event package
 

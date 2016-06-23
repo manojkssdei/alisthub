@@ -52,7 +52,10 @@ module.exports = function(app, express) {
 
   /* To get data of the all event data */
   router.post('/getAllEvent',supportCrossOriginScript,AllEvent.getAllEvent);
-  
+
+  /* To get data of the all event dates for series */
+  router.post('/getEventDates',supportCrossOriginScript,AllEvent.getEventDates);
+
   /* To get the event data */
   router.post('/getEvent',supportCrossOriginScript, Event.getEvent);
   
