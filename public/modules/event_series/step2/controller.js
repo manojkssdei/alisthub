@@ -4,6 +4,48 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
 
   //For Step 1
   var $serviceTest = $injector.get("venues");
+  
+  // To done toggle block
+  $scope.enable_1 = $scope.enable_2 = $scope.enable_3 = $scope.enable_4 = $scope.enable_5 = "fa-caret-down";
+  $scope.block_1  = $scope.block_2  = $scope.block_3  = $scope.block_4  = $scope.block_5  = true;
+  $scope.str_1    = $scope.str_2    = $scope.str_3    = $scope.str_4    = $scope.str_5 = 1;
+  $scope.toggle_block = function(id,str)
+  {
+    if (id == 1) {
+      str == 1?$scope.block_1=false:true;
+      str == 2?$scope.block_1=true:false;
+      if (str == 1) { $scope.str_1 = 2;$scope.enable_1 = "fa-caret-up"; }
+      else{
+	$scope.str_1 = 1;$scope.enable_1 = "fa-caret-down"; }
+    }
+    if (id == 2) {
+      
+      str == 1?$scope.block_2=false:true;
+      str == 2?$scope.block_2=true:false;
+      if (str == 1) { $scope.str_2 = 2;$scope.enable_2 = "fa-caret-up"; }
+      else{ $scope.str_2 = 1;$scope.enable_2 = "fa-caret-down"; }
+    }
+    if (id == 3) {
+      str == 1?$scope.block_3=false:true;
+      str == 2?$scope.block_3=true:false;
+      if (str == 1) { $scope.str_3 = 2;$scope.enable_3 = "fa-caret-up"; }else{ $scope.str_3 = 1;$scope.enable_3 = "fa-caret-down"; }
+    }
+    if (id == 4) {
+      $scope.enable_4 = "fa-caret-up";
+      str == 1?$scope.block_4=false:true;
+      str == 2?$scope.block_4=true:false;
+      if (str == 1) { $scope.str_4 = 2;$scope.enable_4 = "fa-caret-up"; }else{ $scope.str_4 = 1;$scope.enable_4 = "fa-caret-down"; }
+    }
+    if (id == 5) {
+      str == 1?$scope.block_5=false:true;
+      str == 2?$scope.block_5=true:false;
+      if (str == 1) { $scope.str_5 = 2;$scope.enable_5 = "fa-caret-up"; }
+      else{ $scope.str_5 = 1;$scope.enable_5 = "fa-caret-down"; }
+    }
+  }
+  
+  
+  
   //To show or hide divs
   $scope.select_delect_event = $scope.monthly_div = $scope.days_div = $scope.error_message = $scope.error_time_message = true;
   $rootScope.success_message1 = false;
@@ -21,6 +63,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
 		$scope.data1.twitter=response.results[0].twitter_url;
 		$scope.data1.eventwebsite=response.results[0].website_url;
 		$scope.data1.eventinventory=response.results[0].inventory;
+		$scope.data1.price=response.results[0].price_type;
     });
 	$serviceTest.getEventCat({'event_id':$scope.eventId},function(response){
 	 
@@ -204,12 +247,9 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
     'var': 'event_category'
   }, function(response) {
 
-
     if (response.code === 200) {
       $scope.cat1 = $scope.cat2 = $scope.cat3 = response.results;
       $scope.data1.category1 = ($scope.cat1[0].category_id).toString();
-
-
     }
 
   });
@@ -217,7 +257,9 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
   //To save step2 data.
   $scope.price_and_link_data = function(data1) {
     data1.eventId = $scope.eventId;
+    $scope.saveloader = true;
     $serviceTest.postSecondStepdata(data1, function(response) {
+      $scope.saveloader = false;
       if (response.code == 200) {
         $scope.success = global_message.event_step2;
 
@@ -285,8 +327,6 @@ $scope.success_message = false;
 
   $scope.selected2 = $scope.steps[1];
 
-
-
   /** 
   Method: click_menu
   Description:Function for changing the tab 
@@ -301,10 +341,7 @@ $scope.success_message = false;
 
     ///TO move to price and level
     if (menu.id === 6) {
-
-            
-            $location.path("/create_series_step2/"+$scope.eventId);
-     
+      $location.path("/create_series_step2/"+$scope.eventId);
     }
 
     //look and feel div
@@ -428,10 +465,6 @@ $scope.success_message = false;
       }
     });
   };
-
-
-   
-
 
   /** Module: Event page Step 2*/
  $scope.eventBundle = {};
@@ -919,32 +952,59 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     var totalQty = 0;
     var totalOnline = 0;
     var totalBoxoffice = 0;
-
+    // Case 1:
     for (var i = 0; i < $scope.price_level.length; i++) {
-      if ($scope.price_level[i].qty == null) {
+      if ($scope.price_level[i].qty == null || $scope.price_level[i].qty === undefined) {
 	var quantity = 0;
       }
       else{
         var quantity = $scope.price_level[i].qty;
       }
+      if ($scope.price_level[i].online_price == null || $scope.price_level[i].online_price === undefined) {
+	var online_price = 0;
+      }
+      else{
+        var online_price = $scope.price_level[i].online_price;
+      }
+      
+      if ($scope.price_level[i].box_office_price == null || $scope.price_level[i].box_office_price === undefined) {
+	var box_office_price = 0;
+      }
+      else{
+        var box_office_price = $scope.price_level[i].box_office_price;
+      }
       
       totalQty += parseInt(quantity);
-      totalOnline += parseFloat(quantity * $scope.price_level[i].online_price);
-      totalBoxoffice += parseFloat(quantity * $scope.price_level[i].box_office_price);
+      totalOnline += parseFloat(quantity * online_price);
+      totalBoxoffice += parseFloat(quantity * box_office_price);
     }
-
+    // case 2: 
     for (var i = 0; i < $scope.productList.length; i++) {
-      var quantity = $scope.productList[i].qty == null?0:$scope.productList[i].qty;
+      if ($scope.productList[i].qty == null || $scope.productList[i].qty === undefined) {
+	var quantity = 0;
+      }
+      else{
+        var quantity = $scope.productList[i].qty;
+      }
+      
+      if ($scope.productList[i].retail_price == null || $scope.productList[i].retail_price === undefined) {
+	var retail_price = 0;
+      }
+      else{
+        var retail_price = $scope.productList[i].retail_price;
+      }
+      
+      console.log(quantity +":::::"+retail_price);           
       totalQty += parseInt(quantity);
-      totalOnline += parseFloat(quantity * $scope.productList[i].retail_price);
-      totalBoxoffice += parseFloat(quantity * $scope.productList[i].retail_price);
+      totalOnline += parseFloat(quantity * retail_price);
+      totalBoxoffice += parseFloat(quantity * retail_price);
+      
     }
-
-    $scope.totalQty = totalQty;
+    $scope.totalQty        = totalQty;
     $scope.totalOnlineShow = totalOnline;
     $scope.totalBoxofficeShow = totalBoxoffice;
-    $scope.totalOnline = totalOnline;
-    $scope.totalBoxoffice = totalBoxoffice;
+    $scope.totalOnline     = totalOnline;
+    $scope.totalBoxoffice  = totalBoxoffice;
   }
 
 

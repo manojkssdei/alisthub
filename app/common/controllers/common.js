@@ -1,7 +1,7 @@
 /** 
 Controller for all common functions 
 Created : 2016-05-17
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 Module : Common Module 
 */
 var moment = require('moment-timezone');
@@ -10,7 +10,7 @@ var moment = require('moment-timezone');
 Method: getCountries
 Description:Function for getting the list of countries
 Created : 2016-05-17
-Created By:Harpreet Kaur
+Created By:Manoj Kumar
 */
 exports.getCountries = function(req, res) {
     var query = "SELECT countryName from countries order by countryName";
@@ -27,7 +27,7 @@ exports.getCountries = function(req, res) {
 Method: getUSAStates
 Description:Function for getting the list of usa states
 Created : 2016-05-17
-Created By:Harpreet Kaur
+Created By:Manoj Kumar
 */
 exports.getUSAStates = function(req, res) {
     var query = "SELECT distinct state_name FROM `zips` order by state_name";

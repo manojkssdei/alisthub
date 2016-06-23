@@ -16,8 +16,9 @@
 <link rel="stylesheet" href="assets/css/event.css" type="text/css" />
 <link rel="stylesheet" href="assets/css/media.css" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+
 </head>
-<body ng-app="alistApp">
+<body ng-app="myapp" >
 <!-- Wrapper -->
 <div class="ev-container wtframe"> 
     <section class="ev-image"> <div class="drag" style="display:none;">
@@ -154,10 +155,16 @@
 </div>
 <!-- /Wrapper --> 
 
-<!-- Scripts --> 
+<!-- Scripts -->
+<script type="text/javascript" src="http://localhost:5502/javascripts/jquery.min.js"></script>
 <script src="assets/js/angular-min.js"></script> 
 
 <script src="assets/js/ui-bootstrap-tpls-0.12.0.min.js"></script> 
 <script type="text/javascript" src="assets/js/custom.js"></script>
+<script type="text/javascript">
+    $(function(){
+	alert("dgsghk");
+	});
+</script>
 </body>
 </html>

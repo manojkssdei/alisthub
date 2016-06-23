@@ -1,7 +1,7 @@
 /** 
 Angular Discount Controller
 Created : 2016-05-16
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 Module : Discount 
 */
 angular.module('alisthub')
@@ -300,7 +300,7 @@ angular.module('alisthub')
 /** 
 Angular Manage Discount Controller
 Created : 2016-05-16
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 Module : Discount 
 */
 .controller('manageDiscountController', function($scope, $localStorage, $injector, $http, $state, $rootScope, $location , $timeout , ngTableParams) {
@@ -572,7 +572,7 @@ Module : Discount
 /** 
 Angular Export Discount Controller
 Created : 2016-05-16
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 Module : Export Discount 
 */
         if ($scope.listQues == 1) {

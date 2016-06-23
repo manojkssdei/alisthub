@@ -163,7 +163,9 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                     $rootScope.showclix_user_id   = $localStorage.showclix_user_id   = response.user_id;
                     $rootScope.showclix_seller_id = $localStorage.showclix_seller_id = response.seller_id;
                     /// Showclix storage end
+                    
                     $state.go('dashboard');
+                    
                     }
                     else
                     { //checkshowclix

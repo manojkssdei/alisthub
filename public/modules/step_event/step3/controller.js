@@ -45,7 +45,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
 
   
  $scope.click_menu = function(menu, data, valid) {
-    console.log($stateParams.eventId+':2');
+    console.log($stateParams.eventId+':3');
     console.log(menu.id);
     console.log(data);
     var objectForm = this;
@@ -445,7 +445,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
         
         $scope.banner_image='./images/img/f-img-o.jpg';
         $scope.section2_image='./images/img/s-img-o.jpg';
-        $scope.section3_image='./images/img/f-img-o.jpg';
+        $scope.section3_image='./images/img/s-img-o.jpg';
          $scope.encodeImageFileAsURL1 = function() {
             var filesSelected = document.getElementById("my_file").files;
             if (filesSelected.length > 0) {
