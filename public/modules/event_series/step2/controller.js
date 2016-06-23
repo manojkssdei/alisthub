@@ -43,9 +43,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
       else{ $scope.str_5 = 1;$scope.enable_5 = "fa-caret-down"; }
     }
   }
-  
-  
-  
+    
   //To show or hide divs
   $scope.select_delect_event = $scope.monthly_div = $scope.days_div = $scope.error_message = $scope.error_time_message = true;
   $rootScope.success_message1 = false;
@@ -56,7 +54,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
     $localStorage.eventId = "";
   }
    
-     $serviceTest.getEvent({'event_id':$scope.eventId},function(response){
+    $serviceTest.getEvent({'event_id':$scope.eventId},function(response){
         
         $scope.data1=response.results[0];
 		$scope.data1.facebook=response.results[0].facebook_url;
@@ -1029,7 +1027,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     $scope.bundle.productList = $scope.productList;
 
 
-    $serviceTest.updateBundle($scope.bundle, function(response) {
+    $serviceTest.updateSeriesBundle($scope.bundle, function(response) {
 
       if (response.code === 200) {
         //$scope.eventBundle.eventId = $localStorage.eventId;
@@ -1144,7 +1142,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
       $scope.step_1 = true;
       $scope.step_2 = $scope.step_3 = false;
     }
-    if (menu.id === 2) {
+    if (menu.id === 2) { $scope.getBundleProducts();
       if (bundleForm.bundleForm.$valid === true) {
 
         if (!$localStorage.bundleId) {
@@ -1159,7 +1157,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
 		$scope.bundle.event_id = $localStorage.eventId;
 	      }
              
-              $serviceTest.addBundle($scope.bundle, function(response) {
+              $serviceTest.addseriesBundle($scope.bundle, function(response) {
                 if (response.code === 200) {
                   if (bundle.id === undefined) {
                     $localStorage.bundleId = response.result.insertId;
@@ -1223,7 +1221,8 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
           $scope.step_1 = $scope.step_3 = false;
 
           // Get product list 
-          $scope.getProduct();
+          //$scope.getProduct();
+	  $scope.getBundleProducts();
           $scope.getEventPriceLevel();
         }
 

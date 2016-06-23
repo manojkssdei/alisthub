@@ -23,6 +23,7 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
     		$scope.data1.twitter=response.results[0].twitter_url;
     		$scope.data1.eventwebsite=response.results[0].website_url;
     		$scope.data1.eventinventory=response.results[0].inventory;
+        $scope.data1.price = response.results[0].price_type;
     });
 	$serviceTest.getEventCat({'event_id':event_id},function(response){
 	 
@@ -255,6 +256,7 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
   //To save step2 data.
   $scope.price_and_link_data = function(data1) {
     data1.eventId = $localStorage.eventId;
+    console.log("data:258");
     $serviceTest.postSecondStepdata(data1, function(response) {
       if (response.code == 200) {
         $scope.success = global_message.event_step2;
@@ -427,7 +429,12 @@ $scope.success_message = false;
       if (objectForm.myForm1.$valid === true) {
 
         if(data != undefined) {
-          data.eventId = $localStorage.eventId;
+          if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+            data.eventId = $stateParams.eventId;
+          } else {
+            data.eventId = $localStorage.eventId;
+          }
+          //console.log(data); return false;
           $serviceTest.postSecondStepdata(data, function(response) {
             if (response.code == 200) {
               $scope.selectedClass = 3;
@@ -508,7 +515,15 @@ $scope.success_message = false;
   };
 
   //For Step 2
-  $scope.items = ['item1'];
+  //$scope.items = ['item1'];
+
+
+  $scope.items = {};
+  if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+    $scope.items.eventId = $stateParams.eventId;
+  } else {
+    $scope.items.eventId = $localStorage.eventId;
+  }
 
   $scope.animationsEnabled = true;
 
@@ -884,8 +899,8 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   //For step 2 Save Price level
   $scope.savepriceleveldata = function(data1) {
     data1.userId = $localStorage.userId;
-    data1.eventId = $localStorage.eventId;
-
+    data1.eventId = items.eventId;
+    
     $serviceTest.savepriceleveldata(data1, function(response) {
 
       if (response !== null) {
@@ -1072,31 +1087,67 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
 
 
   //To get Total of Bundle
+    
   $scope.getTotal = function() {
     var totalQty = 0;
     var totalOnline = 0;
     var totalBoxoffice = 0;
-
+    // Case 1:
     for (var i = 0; i < $scope.price_level.length; i++) {
-      var quantity = $scope.price_level[i].qty;
+      if ($scope.price_level[i].qty == null || $scope.price_level[i].qty === undefined) {
+	var quantity = 0;
+      }
+      else{
+        var quantity = $scope.price_level[i].qty;
+      }
+      
+    if ($scope.price_level[i].online_price == null || $scope.price_level[i].online_price === undefined) {
+	var online_price = 0;
+      }
+      else{
+        var online_price = $scope.price_level[i].online_price;
+      }
+      
+    if ($scope.price_level[i].box_office_price == null || $scope.price_level[i].box_office_price === undefined) {
+	var box_office_price = 0;
+      }
+      else{
+        var box_office_price = $scope.price_level[i].box_office_price;
+      }
+      
       totalQty += parseInt(quantity);
-      totalOnline += parseFloat(quantity * $scope.price_level[i].online_price);
-      totalBoxoffice += parseFloat(quantity * $scope.price_level[i].box_office_price);
+      totalOnline += parseFloat(quantity * online_price);
+      totalBoxoffice += parseFloat(quantity * box_office_price);
     }
-
+    // case 2: 
     for (var i = 0; i < $scope.productList.length; i++) {
-      var quantity = $scope.productList[i].qty;
+      if ($scope.productList[i].qty == null || $scope.productList[i].qty === undefined) {
+	var quantity = 0;
+      }
+      else{
+        var quantity = $scope.productList[i].qty;
+      }
+      
+      if ($scope.productList[i].retail_price == null || $scope.productList[i].retail_price === undefined) {
+	var retail_price = 0;
+      }
+      else{
+        var retail_price = $scope.productList[i].retail_price;
+      }
+                  
       totalQty += parseInt(quantity);
-      totalOnline += parseFloat(quantity * $scope.productList[i].retail_price);
-      totalBoxoffice += parseFloat(quantity * $scope.productList[i].retail_price);
+      totalOnline += parseFloat(quantity * retail_price);
+      totalBoxoffice += parseFloat(quantity * retail_price);
+      
     }
-
-    $scope.totalQty = totalQty;
+    $scope.totalQty        = totalQty;
     $scope.totalOnlineShow = totalOnline;
     $scope.totalBoxofficeShow = totalBoxoffice;
-    $scope.totalOnline = totalOnline;
-    $scope.totalBoxoffice = totalBoxoffice;
+    $scope.totalOnline     = totalOnline;
+    $scope.totalBoxoffice  = totalBoxoffice;
   }
+  
+  
 
 
 

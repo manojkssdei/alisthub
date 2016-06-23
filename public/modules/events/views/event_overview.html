@@ -88,7 +88,21 @@
                     <section class="form-group field-group">
                         <section class="row form-group">
                             <ul id="myList">
-                                <li ng-repeat="comment in comments">{{comment}}</li>
+                                <li ng-repeat="comment in comments">
+                                 <p>{{comment[1] | date:"dd MMMM yyyy"}}</p>
+                                <section class="gray-frame sub-fields">
+                                <!--  <p>{{comment[1] | date:"dd MMMM yyyy"}}</p> -->
+                                    <p>
+                                        {{comment[0]}}
+                                    </p>
+
+                                    </section>
+                                   <!--  <div>
+                                        <p style="font-weight:bold; font-size:12px;">{{comment[2]}} {{comment[3]}}</p> 
+                                        <p>{{comment[1] | date:"dd MMMM yyyy"}}</p>
+                                    </div> -->
+                                   
+                                </li>
                             </ul>
                         </section>
                     </section>

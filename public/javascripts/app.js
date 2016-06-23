@@ -177,8 +177,27 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               }]
             }
         })
-        
 
+         /* Setting for event schedule listing */
+        .state('event_schedule', {
+            url: '/event_schedule/:eventId',
+            views: {
+                "lazyLoadView": {
+                  controller: 'EventScheduleController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/events/views/event_schedule_list.html'
+                },
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/events/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/events/event_schedule_controller.js']);
+                })
+              }]
+            }
+        })
 
         .state('view_event', {
             url: '/view_event/:eventId',

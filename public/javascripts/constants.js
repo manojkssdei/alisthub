@@ -12,6 +12,7 @@ var webservices = {
     "checkTokenExpiry": baseUrl + "/webservices/check_token_expiry",
     "refreshTokenExpiry": baseUrl + "/webservices/refresh_token_expiry",
     "checkEmailUnique": baseUrl + "/webservices/checkEmailUnique",
+    
     "updateEmailAccount": baseUrl + "/webservices/updateEmailAccount",
 
     /* Constants for managing venue */
@@ -42,7 +43,7 @@ var webservices = {
     /* Constants for the event and event setting */
     "saveEvent": "/event/saveEvent",
     "viewEvents": "/event_setting/viewEvents", //makeAssignment
-
+    "checkeventurl":"/event/checkeventurl",
     "makeAssignment": "/event_setting/makeAssignment",
     "delAssignment": "/event_setting/delAssignment",
     "deleteProduct": "/event_setting/deleteProduct",
@@ -72,6 +73,7 @@ var webservices = {
     "getPastEvent": "/event/getPastEvent",
     "getEventSeries": "/event/getEventSeries",
     "getAllEvent": "/event/getAllEvent",
+    "getEventDates": "/event/getEventDates",
 
     // event package
 
@@ -122,6 +124,7 @@ var webservices = {
     "changeBundleStatus": "/event_setting/changeBundleStatus",
     "removeBundle": "/event_setting/removeBundle",
     "getBundleDetail": "/event_setting/getBundleDetail",
+    "updateSeriesBundle": "/event/updateSeriesBundle",
 
     /* Constants for the manage users */
     "addUser": "/user/addUser",
