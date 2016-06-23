@@ -131,6 +131,8 @@ module.exports = function(app, express) {
        /* Save price level*/
         router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel);
         
+	/* Series bundles */
+	router.post('/updateSeriesBundle', EventSeries.updateSeriesBundle);
 
         router.post('/preview_template',function(req,res){
             console.log("preview template");
