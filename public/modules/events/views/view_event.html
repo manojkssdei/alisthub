@@ -53,19 +53,13 @@
                                         <p><a href="#"><strong>{{pdata.title}}</strong></a></p>
                                     </td>
                                     <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.start_date | date:"dd MMMM yyyy"}}</td>
-
-                                  <!--  <td class="numbers">{{upcoming.sold}}</td>
-                                    <td class="numbers">{{upcoming.inventory}}</td>-->
-                                    <td title="'Action'" class="action" width="20%"><!--<a href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a><a href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a><a href="javascript:void(0)"><i class="fa fa-eye"></i></a>--><a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
-                                        <a title="view" href="/#/event/{{pdata.id}}"><i class="fa fa-eye"></i></a></td>
                                     
-
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>-->
                                     <td title="'Action'" class="action" width="20%">
                                     <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
                                     <a title="Schedules" href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a>
                                     <!--<a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>-->
-                                    <a title="View" href="javascript:void(0)"><i class="fa fa-eye"></i></a>
+                                    <a title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
                                     <a title="Edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
                                     <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
                                     </td>

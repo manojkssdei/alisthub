@@ -6,6 +6,10 @@ Module : Events Home
 */
 
 angular.module('alisthub').controller('eventhomeController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams,$http) { 
+<<<<<<< HEAD
+=======
+
+>>>>>>> pb/master
     
     $rootScope.class_status=false;
     var eventService = $injector.get("events");
