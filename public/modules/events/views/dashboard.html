@@ -98,23 +98,23 @@
                                     <td title="'Action'" class="action" width="20%">
                                         <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
                                         <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
-                                        
-                                        <!--<a title="edit" href="{{(pdata.recurring_or_not==0) ? '/#/create_event_step1/' : '/#/create_series_step1/'}}"><i class="fa fa-edit"></i></a> -->
-
-                                        <a title="edit" href="javascript:void(0)" href="recurringHref({{pdata.id}},{{pdata.recurring_or_not}})"><i class="fa fa-edit"></i></a>
-									    
-                                        <a title="View" href="javascript:void(0)"><i class="fa fa-eye"></i></a>
-                                        <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
+                                    
+                                    <a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
+									<a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
+                                    <a title="view" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
 									</td>
+                                    <!--  <td><a title="view" href="/#/event/{{pdata.id}}"><i class="fa fa-clone"></i></a></td> --> 
                                 </tr>
-                                <tr ng-show="loader">
-                                    <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
-                                </tr>
-			                    <tr ng-if="$data == ''">
-                                    <td colspan="4" align="center">No Record found!</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                       
+
+                                    <tr ng-show="loader">
+                                        <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+				                    <tr ng-if="$data == ''">
+                                        <td colspan="4" align="center">No Record found!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                     </div>
                     
                     <section class="grid-bottm clearfix">
@@ -153,12 +153,14 @@
                                     <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.recurring_or_not == 0 ? (pdata.start_date | date:"dd MMMM yyyy") : 'Event Series'}}</td>
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>
                                     <td class="numbers">{{upcoming.inventory}}</td>-->
+
                                     <td title="'Action'" class="action" width="20%">
                                     <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
                                     <a title="Schedules"  ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
                                     <a title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
                                     <a title="View" href="javascript:void(0)"><i class="fa fa-eye"></i></a>
                                     </td>
+
                                 </tr>
                                 <tr ng-show="loader">
                                     <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
@@ -210,6 +212,7 @@
                                     
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>
                                     <td class="numbers">{{upcoming.inventory}}</td>-->
+
                                     
                                     <td title="'Action'" class="action" width="20%">
                                         <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
@@ -217,6 +220,7 @@
                                         <a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
                                         <a title="View" href="javascript:void(0)"><i class="fa fa-eye"></i></a>
                                     </td>
+
                                 </tr>
                                 <tr ng-show="loader">
                                     <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>

@@ -247,7 +247,7 @@ exports.getEvents=function(req,res) {
   var user_id=req.body.user_id;
   var sql="SELECT events.id, events.title, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id="+user_id;
 
-
+  console.log(req.body);
   connection.query(sql,function(err,result){
     if (err) {
       res.send({err:"error",code:101}); 
@@ -379,6 +379,39 @@ exports.getSeriesEvent=function(req,res) {
 }
 
 
+
+exports.getComment = function(req,res){
+  console.log(req.body);
+  connection.query('SELECT * from event_comments where event_id='+req.body.event_id+ ' ORDER BY created DESC', function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
+}
+
+
+exports.addComment=function(req,res)
+{
+     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    req.body.created = curtime;
+    console.log(req.body);
+    //var data=req.body;
+     var query = "INSERT INTO `event_comments` (`id`,`event_id`,`seller_id`,`comment`,`created`) VALUES ('NULL','" + req.body.event_id + "','" + req.body.seller_id + "','" + req.body.comment + "','"+ curtime + "')";
+     
+     console.log(query); 
+     if (query != "") {
+    connection.query(query, function(err7, results) {
+      if (err7) {
+       return  res.json({error:err7,code:101});
+      }
+     return  res.json({result:results,code:200});
+    });
+
+  } else {
+      return res.json({error:"error",code:101}); 
+  }
+}
 
 exports.savepricelevel=function(req,res){
     
@@ -876,6 +909,8 @@ exports.addlookAndFeelImage=function(req,res)
  
 }
 
+
+
 exports.deleteEvent= function(req, res) {
 
 connection.query("Delete from events where id=" + req.body.event_id, function(err, result1) {
@@ -1034,5 +1069,28 @@ exports.getlookandFeelTemplatehtml = function(req,res) {
    
    
 });
+}
+
+/** 
+Method: look_and_feel_save_html
+Description:Function to getlookandFeelTemplatehtml
+Created : 2016-06-21
+Created By: Deepak khokhar  
+*/
+
+exports.look_and_feel_save_html = function(req,res) {
+   
+     var html=(JSON.stringify(req.body.html) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+      var eventId=req.body.eventId;
+    console.log("UPDATE events SET step3_html='"+html+"' where id="+eventId);
+    connection.query("UPDATE events SET step3_html='"+html+"' where id="+eventId, function(err, results)
+    {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
+    
+    
 }
 

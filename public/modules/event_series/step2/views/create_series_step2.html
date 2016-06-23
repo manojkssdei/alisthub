@@ -51,11 +51,11 @@
           </section>
    <!--Ticket Types Start -->
           <div class="module">
-              <section class="prof-hd">
+              <section class="prof-hd" ng-click="toggle_block(1,str_1)">
                    <i class="fa fa-ticket hdicon pos-l16"></i>
-                    <h2>Ticket Types <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                    <h2>Ticket Types <span class="rt-img"><i class="fa {{enable_1}}"></i></span></h2>
             </section>
-                <section class="gray-frame sub-fields">
+                <section class="gray-frame sub-fields" ng-show="block_1">
                   <section class="grid-btn-top row">
                       <section class="col-sm-7">
                         <section class="radio-sec">
@@ -175,11 +175,11 @@
           <!-- Ticket Types Closed -->
           <!-- Bundles Start -->
           <section class="module">
-              <section class="prof-hd">
+              <section class="prof-hd" ng-click="toggle_block(2,str_2)">
                    <i class="fa fa-database hdicon pos-l16"></i>
-                    <h2>Bundles <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                    <h2>Bundles <span class="rt-img"><i class="fa {{enable_2}}"></i></span></h2>
                  </section>
-                <section class="gray-frame sub-fields">
+                <section class="gray-frame sub-fields" ng-show="block_2">
                   <section class="grid-btn-top row">
                       
                       <section class="col-sm-5 pull-right text-right">
@@ -238,11 +238,11 @@
           <!-- Bundles Closed --> 
           <!--Product Start -->
           <div class="module">
-              <section class="prof-hd">
+              <section class="prof-hd" ng-click="toggle_block(3,str_3)">
                    <i class="fa fa-shopping-cart hdicon pos-l16"></i>
-                    <h2>Product <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                    <h2>Product <span class="rt-img"><i class="fa {{enable_3}}"></i></span></h2>
               </section>
-              <section class="gray-frame sub-fields">
+              <section class="gray-frame sub-fields" ng-show="block_3">
                 <section class="grid-btn-top row">                      
                   <section class="col-sm-5 right-btns text-right">
                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_product('lg')">Add Product</button>
@@ -296,10 +296,10 @@
           <!-- Product Closed -->
           <!--Links Start -->
           <div class="module">
-  <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
-    <h2>Links <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+  <section class="prof-hd" ng-click="toggle_block(4,str_4)"> <i class="fa fa-link hdicon pos-l16"></i>
+    <h2>Links <span class="rt-img"><i class="fa {{enable_4}}"></i></span></h2>
   </section>
-  <section class="gray-frame">
+  <section class="gray-frame" ng-show="block_4">
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
@@ -348,11 +348,11 @@
           <!--Links Closed -->
           <!-- Search options Start -->
            <div class="form-group clearfix">
-              <section class="prof-hd">
+              <section class="prof-hd" ng-click="toggle_block(5,str_5)">
                    <i class="fa fa-search hdicon pos-l16"></i>
-                    <h2>Search options <span class="rt-img"><i class="fa fa-caret-down"></i></span></h2>
+                    <h2>Search options <span class="rt-img"><i class="fa {{enable_5}}"></i></span></h2>
             </section>
-                <section class="gray-frame">
+                <section class="gray-frame" ng-show="block_5">
                   <div class="row">
                       <div class="col-sm-6">
                           <div class="form-group">
@@ -853,7 +853,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                                       <th width="25%">Box Office Price</th>
                                   </tr>
                                 </thead>
-                                <tbody>
+                                <tbody> 
                                     <tr ng-repeat="price in price_level">
                                     <td>{{price.price_level_name}}</td>
                                     <td>{{price.qty}}</td>
@@ -885,7 +885,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                                       <th width="25%">Box Office Price</th>
                                   </tr>
                                 </thead>
-                                <tbody>
+                                <tbody> {{productList}}
                                     <tr ng-repeat="product in productList">
                                     <td>{{product.product_name}}</td>
                                     <td>{{product.qty}}</td>
