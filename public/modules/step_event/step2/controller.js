@@ -1087,31 +1087,67 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
 
 
   //To get Total of Bundle
+    
   $scope.getTotal = function() {
     var totalQty = 0;
     var totalOnline = 0;
     var totalBoxoffice = 0;
-
+    // Case 1:
     for (var i = 0; i < $scope.price_level.length; i++) {
-      var quantity = $scope.price_level[i].qty;
+      if ($scope.price_level[i].qty == null || $scope.price_level[i].qty === undefined) {
+	var quantity = 0;
+      }
+      else{
+        var quantity = $scope.price_level[i].qty;
+      }
+      
+    if ($scope.price_level[i].online_price == null || $scope.price_level[i].online_price === undefined) {
+	var online_price = 0;
+      }
+      else{
+        var online_price = $scope.price_level[i].online_price;
+      }
+      
+    if ($scope.price_level[i].box_office_price == null || $scope.price_level[i].box_office_price === undefined) {
+	var box_office_price = 0;
+      }
+      else{
+        var box_office_price = $scope.price_level[i].box_office_price;
+      }
+      
       totalQty += parseInt(quantity);
-      totalOnline += parseFloat(quantity * $scope.price_level[i].online_price);
-      totalBoxoffice += parseFloat(quantity * $scope.price_level[i].box_office_price);
+      totalOnline += parseFloat(quantity * online_price);
+      totalBoxoffice += parseFloat(quantity * box_office_price);
     }
-
+    // case 2: 
     for (var i = 0; i < $scope.productList.length; i++) {
-      var quantity = $scope.productList[i].qty;
+      if ($scope.productList[i].qty == null || $scope.productList[i].qty === undefined) {
+	var quantity = 0;
+      }
+      else{
+        var quantity = $scope.productList[i].qty;
+      }
+      
+      if ($scope.productList[i].retail_price == null || $scope.productList[i].retail_price === undefined) {
+	var retail_price = 0;
+      }
+      else{
+        var retail_price = $scope.productList[i].retail_price;
+      }
+                  
       totalQty += parseInt(quantity);
-      totalOnline += parseFloat(quantity * $scope.productList[i].retail_price);
-      totalBoxoffice += parseFloat(quantity * $scope.productList[i].retail_price);
+      totalOnline += parseFloat(quantity * retail_price);
+      totalBoxoffice += parseFloat(quantity * retail_price);
+      
     }
-
-    $scope.totalQty = totalQty;
+    $scope.totalQty        = totalQty;
     $scope.totalOnlineShow = totalOnline;
     $scope.totalBoxofficeShow = totalBoxoffice;
-    $scope.totalOnline = totalOnline;
-    $scope.totalBoxoffice = totalBoxoffice;
+    $scope.totalOnline     = totalOnline;
+    $scope.totalBoxoffice  = totalBoxoffice;
   }
+  
+  
 
 
 
