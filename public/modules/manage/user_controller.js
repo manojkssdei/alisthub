@@ -37,7 +37,7 @@ angular.module('alisthub')
                 $serviceTest.getUser($scope.data, function(response) {
                     $scope.loader = false;
                     if (response.code == 200) {
-                        console.log(response);
+                        
                         $scope.userData = response.result;
                        
                        $scope.tableParams = new ngTableParams(
