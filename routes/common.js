@@ -1,7 +1,7 @@
 /** 
 Routes defnition for Financial settings Module
 Created : 2016-05-19 
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 Module : Financial Setting
 */
 
@@ -14,6 +14,8 @@ module.exports = function(app, express) {
     
     /* For getting list of usa states*/
     router.get('/getUSAStates', common_setting.getUSAStates);
+
+
 
     app.use('/common', router);
 }

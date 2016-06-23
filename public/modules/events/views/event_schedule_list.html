@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>View all Events</h1>
+    <h1>Schedule Events</h1>
     <!-- Form COntainer -->
     <div class="wt-frame form-section">
         <form class="event-form">
@@ -22,20 +22,12 @@
                             </section>
                         </section>
                         <section class="col-sm-6 right-btns text-right">
-                            <section class="inline-section">
-                                <select class="form-control select30" name="eventType" ng-model="allevent.eventType" ng-change="getAllEvent(allevent)">
-                                    <option disabled value="">Event Type</option>
-                                    <option value="single">Single Event</option>
-                                    <option value="series">Series Event</option>
-                                </select>
-                            </section>
                             
                             <section class="inline-section">
-                                <select class="form-control select30" name="eventFilter" ng-model="allevent.eventFilter" ng-change="getAllEvent(allevent)">
+                                <select class="form-control select30" name="eventFilter" ng-model="allevent.eventFilter" ng-change="getEventDates(allevent)">
                                     <option disabled="" value="">No Filter</option>
                                     <option value="upcoming">Upcoming</option>
                                     <option value="past">Past</option>
-                                    <option value="approval">For Approval</option>
                                 </select>
                             </section>
 
@@ -52,7 +44,7 @@
                                     <td title="'Name'" header-class="'header-text-align'" filter="{ title: 'text'}" sortable="'title'" width="40%">
                                         <p><a href="#"><strong>{{pdata.title}}</strong></a></p>
                                     </td>
-                                    <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.start_date | date:"dd MMMM yyyy"}}</td>
+                                    <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.date | date:"dd MMMM yyyy"}} at {{pdata.start_time}}</td>
                                     
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>-->
                                     <td title="'Action'" class="action" width="20%">

@@ -114,12 +114,19 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
     });
   };
 
-//update bundles
+//update bundles updateSeriesBundle
   url.updateBundle = function(jsondata,callback){
     communicationService.resultViaPost(webservices.updateBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
       callback(res.data);
     });
   };
+  
+  url.updateSeriesBundle = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.updateSeriesBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+  
   //get Products
   url.getProducts = function(jsondata,callback){
     communicationService.resultViaPost(webservices.getProducts,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {

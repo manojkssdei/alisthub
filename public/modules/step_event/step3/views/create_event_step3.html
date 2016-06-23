@@ -47,7 +47,7 @@
   <div class="tab-widget">
         <ul role="tablist" id="event-date" class="nav nav-tabs responsive-tabs">
          
-	  <li ng-repeat="look_and_feel in look_and_feel_step" ng-click="select(look_and_feel)" ng-class="{active: isActive(look_and_feel)}" ><a class="pointer" href="javascript:void(0)" >{{look_and_feel.name}}</a>
+	  <li ng-repeat="look_and_feel in look_and_feel_step" ng-click="select(look_and_feel)" ng-class="{active: isActive(look_and_feel)}" ><a id="lookstep{{look_and_feel.id}}" class="pointer" href="javascript:void(0)" >{{look_and_feel.name}}</a>
                   
                </li>
         </ul>
@@ -68,18 +68,6 @@
        </section>
     </div>
       <section class="tb-con"  ng-hide="module_div">
-      	  <section class="design-top gray-frame">
-          	 <section class="row">
-                 <section class="col-sm-7">
-                     <section class="form-group">
-                        <div class="domain-name"><input type="text" placeholder="Title of your Event" class="form-control" name="eventname"><span class="dname">.alist.com</span></div>
-                      </section>
-                  </section>
-                  <section class="col-sm-5">
-                  	  <p class="text-right top-buttons"><button class="btn pink-btn">Public</button><button class="btn pink-btn">Private</button></p>
-                  </section>
-             </section>
-           </section>
       	  <section class="row">
           	   <section class="col-sm-3 design-left">
                		<section class="tabs-widget">
@@ -298,12 +286,13 @@
 			
 			
 		    </ul>
-		  <button type="button" class="js-seralize">Serialize</button>
+		  
       
                       </div>
 		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
 		<input type="text" id="select_image" value="{{select_image_val}}">
                  </span>
+		<button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
 		    </section>
                </section><!--Left-->
           </section>
@@ -360,13 +349,15 @@ function change_image3()
 	   
 	   var events=eventdata.sort();
 	   var arr = {};
+	   var i=0;
 	   $.map(events, function(value, index) {
 	     
 	      var column=value.slice(-1);
 	      var row=value.slice(0,1);
 	      var section=$('.module.gridster.ready > ul > li[data-col='+column+'][data-row='+row+']').attr('id');
 		
-	       arr[index]=$("#"+section).html();
+	       arr[i]=$("#"+section).html();
+	       i++;
 	  });
 	   var href = window.location.href;
           var eventId=href.substr(href.lastIndexOf('/') + 1);
@@ -376,7 +367,9 @@ function change_image3()
 	    data: {"html":arr,"eventId":eventId}
 	  })
 	    .done(function( response ) {
-	      console.log(response);
+	      if (response.code==200) {
+		$('#lookstep4').click();
+	      }
 	    });
 	  
         })

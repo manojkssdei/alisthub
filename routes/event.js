@@ -21,7 +21,11 @@ module.exports = function(app, express) {
 	}
   /* For saving the event data */
   router.post('/saveEvent', Event.saveEvent);
-  
+
+    router.post('/addComment', Event.addComment);
+
+      router.post('/getComment', Event.getComment);
+  //eventOverview
   /*save price level*///
   router.post('/savepricelevel', Event.savepricelevel);
   /*get price level*///
@@ -48,7 +52,10 @@ module.exports = function(app, express) {
 
   /* To get data of the all event data */
   router.post('/getAllEvent',supportCrossOriginScript,AllEvent.getAllEvent);
-  
+
+  /* To get data of the all event dates for series */
+  router.post('/getEventDates',supportCrossOriginScript,AllEvent.getEventDates);
+
   /* To get the event data */
   router.post('/getEvent',supportCrossOriginScript, Event.getEvent);
   
@@ -57,7 +64,8 @@ module.exports = function(app, express) {
 
   /* To save the event Inventory */
   router.post('/saveInventory',supportCrossOriginScript, Event.saveInventory);
-  
+  /* check event domain*/
+  router.post('/checkeventurl' , supportCrossOriginScript , Event.checkeventurl);
 
   /* To get the event Category */
   router.post('/getEventCategory',supportCrossOriginScript, Event.getEventCategory);
@@ -91,14 +99,13 @@ module.exports = function(app, express) {
   router.post('/stepOneEventPackage' , supportCrossOriginScript , Event.stepOneEventPackage);
   // To update social links from step 3
   router.post('/updatesociallink' , supportCrossOriginScript , Event.updatesociallink);
- router.post('/look_and_feel_save_html' ,function(req,res){
-    console.log(req.body.html);
-    console.log(req.body.eventId);
-    });
+  router.post('/look_and_feel_save_html' , supportCrossOriginScript , Event.look_and_feel_save_html);
+ 
   
   // Save event setting data
   router.post('/saveSetting' , supportCrossOriginScript , EventSetting.saveSetting);
   router.post('/getSettings' , supportCrossOriginScript , EventSetting.getSettings);
+  
   
   
 
@@ -127,9 +134,18 @@ module.exports = function(app, express) {
        /* Save price level*/
         router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel);
         
+	/* Series bundles */
+	router.post('/updateSeriesBundle', EventSeries.updateSeriesBundle);
 
         router.post('/preview_template',function(req,res){
             console.log("preview template");
+           /* var data={};
+            data.userId=226;
+            eventId=391;
+             var __dir = './public/preview_template/'+data.userId;
+            if (!fs.existsSync(__dir)){
+                fs.mkdirSync(__dir);
+            }
             var __dir = './public/preview_template';
             if (!fs.existsSync(__dir)){
                 fs.mkdirSync(__dir);
@@ -139,9 +155,9 @@ module.exports = function(app, express) {
             var a1='<html><head></head><body>I am here for fun.s</body></html>';
             fs.appendFile(__dir + "/index.html",a1 , function (err) {
             
-            });*/
+            });
            fs.createReadStream(__dir + "/index.html").pipe(fs.createWriteStream(__dir + "/index1.html"));
-
+*/
 
             res.send("Preview template");
         }); 

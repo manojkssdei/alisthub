@@ -28,12 +28,11 @@
             <div class="event-date fieldSection">
               <!-- Nav tabs -->
               <div class="content-tab">
-                <!--<ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
-                  <li ng-repeat="event in events" ng-click="select(event)" ng-class="{active: isActive(event)}" ><a class="pointer" href="javascript:void(0)" >{{event.name}}</a>
-                  <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype" >
-                </li>
+                <ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
+                  <li ng-repeat="event in events"  ng-class="{active: isActive(event)}" ><a class="pointer" ui-sref="{{event.href}}" >{{event.name}}</a>
+                  </li>
                 
-              </ul>-->
+              </ul>
                <input type="hidden" name="eventtype" ng-init="data.eventtype='multiple'" ng-model="data.eventtype" >
             </div>
             

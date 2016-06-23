@@ -19,7 +19,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     var event_id=$stateParams.eventId;
     $serviceTest.getEvent({'event_id':event_id},function(response) {
       $scope.data=response.results[0];
-      console.log($scope.data);
+     
       if($scope.data.recurring_or_not==0) {
         $scope.data.eventtype = 'single';  
       } else {
@@ -28,6 +28,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       
       $scope.selected1 = $scope.venues[1];
       $scope.data.eventname=response.results[0].title;
+      $scope.data.eventurl=response.results[0].event_domain;
       $scope.starttime=$scope.startevent_time=response.results[0].start_time;
       $scope.endtime=$scope.endevent_time=response.results[0].end_time;
       $scope.data.content=response.results[0].description;
@@ -51,7 +52,31 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     });
   }
   
- 
+    $scope.unique = false;
+    $scope.message = "";
+    
+    $scope.unique_type = 0;
+     $scope.successuniquemessage=$scope.erroruniquemessage=true;
+         $scope.checkeventurl = function() 
+         {
+          $serviceTest.checkeventurl({'eventurl':$scope.data.eventurl},function(response){
+           
+            if(response.result<1)
+            {
+                $scope.successuniquemessage = false;
+                $scope.erroruniquemessage = true;
+                $scope.data.domain_url_availability=1;
+                $scope.unique = "Available";
+            }
+            else{
+                $scope.erroruniquemessage = false;
+                $scope.successuniquemessage = true;
+                $scope.data.domain_url_availability='';
+                $scope.unique = "This domain already taken.";
+            }
+          });
+
+        };
  
 
  
@@ -308,7 +333,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   Method: rec_days_func
   Description:Function for Daily Recurring Events Date repeat
   Created : 2016-06-01
-  Created By:  Ravnit Suri
+  Created By:  Deepak khokhar
   */
 $scope.rec_days_func = function(value) {
 
@@ -334,7 +359,7 @@ $scope.rec_days_func = function(value) {
   Method: rec_monthly_func
   Description:Function for Monthly Recurring Events Date repeat
   Created : 2016-06-01
-  Created By:  Ravnit Suri
+  Created By: Deepak khokhar
   */
 $scope.rec_monthly_func = function() {
     if ($scope.data.monthly_week_value && $scope.data.monthly_day_value){
@@ -373,7 +398,7 @@ $scope.rec_monthly_func = function() {
   Method: rec_year_func
   Description:Function for reccuring yearly process 
   Created : 2016-04-19
-  Created By:  Ravnit Suri
+  Created By:  Deepak khokhar
   */
 $scope.rec_year_func = function() {
     var yearly_start = new Date($scope.multiple_start_date);
@@ -394,7 +419,7 @@ $scope.rec_year_func = function() {
   Method: recurring_period
   Description:Function for reccuring process 
   Created : 2016-04-19
-  Created By:  Deepak khokkar  
+  Created By:  Deepak khokhar  
   */
   $scope.recurring_period = function(action) {
     var stt = new Date($scope.multiple_start_date);
@@ -872,7 +897,7 @@ $scope.rec_year_func = function() {
   */
 
  $scope.click_menu = function(menu, data, valid) {
-    console.log($stateParams.eventId+':2');
+    console.log($stateParams.eventId+':1');
     console.log(menu.id);
     console.log(data);
     var objectForm = this;

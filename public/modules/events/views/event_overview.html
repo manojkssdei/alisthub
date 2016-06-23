@@ -1,0 +1,139 @@
+<div class="container">
+    <h1>view event</h1>
+    <!-- Form COntainer -->
+    <!--       <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script> -->
+    <div class="wt-frame form-section">
+        <form class="event-form">
+            <section class="top-buttons bb-1 text-right">
+                <button type="button" class="btn pink-btn btn-small"><i class="fa fa-twitter"></i> Tweet </button>
+                <button type="button" class="btn pink-btn btn-small"><i class="fa fa-facebook"></i> Facebook </button>
+                <!--  <div class="fb-like"
+      data-href="https://developers.facebook.com/docs/plugins/"
+      data-layout="standard" data-action="like">
+    </div> -->
+            </section>
+            <section class="form-group field-group row">
+                <section class="col-sm-8">
+                    <section class="form-group field-group">
+                        <div class="media">
+                            <section class="media-left">
+                                <section class="date-media">
+                                    <div class="date-view"><span class="date-m">{{start_date| date:'MMMM'}} </span> <span class="date-d">{{start_date| date:'dd'}} </span></div>
+                                    <div class="date-view"><span class="date-m">{{start_date| date:'MMMM'}}</span> <span class="date-d">{{start_date| date:'dd'}}</span></div>
+                                </section>
+                            </section>
+                            <div class="media-body content">
+                                <h4>{{title}}</h4>
+                                <p>{{start_date | date:"dd MMMM yyyy"}} {{start_time}} - {{start_date| date:"dd MMMM yyyy"}} {{end_time}}</p>
+                                <br>
+                                <p>
+                                    <button class="btn pink-btn btn-small" type="button">{{ages}}</button>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <!--/Package-->
+                    <section class="form-group field-group">
+                        <h4>EVENT Details</h4>
+                        <section class="gray-frame sub-fields">
+                            <section class="content">
+                                <div ng-bind-html="content2"></div>
+                            </section>
+                        </section>
+                    </section>
+                    <!--/Package Details-->
+                    <section class="form-group field-group">
+                        <section class="row form-group">
+                            <h4 class="col-sm-8"><span></span> Comments</h4>
+                            <section class="col-sm-4 right-btns text-right">
+                                <section class="inline-section">
+                                    <select class="form-control select30">
+                                        <option value="Ticket">Sort by</option>
+                                    </select>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="sub-fields">
+                            <div class="media">
+                                <a class="media-left" href="#">
+                                    <img class="media-object img-circle" src="assets/images/user.jpg" alt="Generic placeholder image">
+                                </a>
+                                <div class="media-body">
+                                    <section class="form-group">
+                                        <textarea name="textarea" row="6" cols="" class="form-control" ng-model="data.comment"></textarea>
+                                    </section>
+                                    <section class="row">
+                                        <section class="col-sm-6">
+                                            <section class="radio-sec custom-check">
+                                                <p class="radio-inline">
+                                                    <input type="checkbox" id="test1">
+                                                    <label for="test1">Also post on Facebook</label>
+                                                </p>
+                                            </section>
+                                        </section>
+                                        <section class="col-sm-6 text-right">
+                                            <button class="pink-btn btn btn-small m-fw" ng-click="addComment()">Log in to post</button>
+                                        </section>
+                                    </section>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                    <section class="form-group field-group">
+                        <section class="row form-group">
+                            <ul id="myList">
+                                <li ng-repeat="comment in comments">
+                                 <p>{{comment[1] | date:"dd MMMM yyyy"}}</p>
+                                <section class="gray-frame sub-fields">
+                                <!--  <p>{{comment[1] | date:"dd MMMM yyyy"}}</p> -->
+                                    <p>
+                                        {{comment[0]}}
+                                    </p>
+
+                                    </section>
+                                   <!--  <div>
+                                        <p style="font-weight:bold; font-size:12px;">{{comment[2]}} {{comment[3]}}</p> 
+                                        <p>{{comment[1] | date:"dd MMMM yyyy"}}</p>
+                                    </div> -->
+                                   
+                                </li>
+                            </ul>
+                        </section>
+                    </section>
+                    <!--/Comments-->
+                </section>
+                <!--/Left-->
+                <section class="col-sm-4">
+                    <section class="panel panel-primary">
+                        <section class="panel-heading">
+                            <h5 class="m-b0">Select Tickets</h5></section>
+                        <section class="panel-body">Sorry, online ticket sales have closed.</section>
+                    </section>
+                    <section class="panel panel-primary">
+                        <section class="panel-heading">
+                            <h5 class="m-b0">Venue Details</h5></section>
+                        <section class="panel-body">
+                            <section class="v-map-overview">
+                                <div id="map" style="height:400px;"></div>
+                            </section>
+                            <ul class="address-list">
+                                <li>
+                                    <p><strong>{{venue_name}}</strong></p>
+                                    <p>{{country}} {{state}}</p>
+                                    <p>{{city}} {{zipcode}}</p>
+                                </li>
+                            </ul>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </form>
+    </div>
+    <!-- //Form COntainer -->
+</div>
