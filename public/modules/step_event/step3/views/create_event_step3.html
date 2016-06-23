@@ -185,9 +185,15 @@
 			  </div>
 			</div>
 		  </section>
-		  <section class="content">
-		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
-		    </section>
+          <section class="form-group field-group">
+          	  <h4>Description</h4>
+              <section class="event-details">
+                    <section class="content">
+		    			<div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
+		    </section>        
+              </section>
+          </section>
+		  
 		</li>
 		<!--<li data-row="3" data-col="1" data-sizex="3" data-sizey="1"  id="section3"  ng-style="{background: background_inner}">
 		  <div class="drag" style="display:none;">
@@ -206,8 +212,8 @@
 		      <a onclick="crop_image('section2_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
 		    </div>
 		     <div class="row">
-		      <div class="col-sm-8">
-			<div contenteditable="true" ckeditor="option_ckeditor1" name="content3"  required ng-model="content3" ready="onReady()" value='' class="wrap-word">
+		      <div class="col-sm-8 content">
+			       <div contenteditable="true" ckeditor="option_ckeditor1" name="content3"  required ng-model="content3" ready="onReady()" value='' class="wrap-word">
 		      </div></div>
 		      <div class="col-sm-4">
 			<img src="{{section2_image}}" id="section2_image" alt="banner imageee"  height="auto" width="100%" onclick="change_image2()">
