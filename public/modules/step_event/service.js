@@ -218,7 +218,12 @@ url.getEventProductDetail = function(jsondata,callback){
     });
   };
 
-
+url.checkeventurl = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.checkeventurl,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
 
  
 return url;

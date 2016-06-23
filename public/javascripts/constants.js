@@ -12,6 +12,7 @@ var webservices = {
     "checkTokenExpiry": baseUrl + "/webservices/check_token_expiry",
     "refreshTokenExpiry": baseUrl + "/webservices/refresh_token_expiry",
     "checkEmailUnique": baseUrl + "/webservices/checkEmailUnique",
+    
     "updateEmailAccount": baseUrl + "/webservices/updateEmailAccount",
 
     /* Constants for managing venue */
@@ -42,7 +43,7 @@ var webservices = {
     /* Constants for the event and event setting */
     "saveEvent": "/event/saveEvent",
     "viewEvents": "/event_setting/viewEvents", //makeAssignment
-
+    "checkeventurl":"/event/checkeventurl",
     "makeAssignment": "/event_setting/makeAssignment",
     "delAssignment": "/event_setting/delAssignment",
     "deleteProduct": "/event_setting/deleteProduct",
