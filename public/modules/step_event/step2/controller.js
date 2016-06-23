@@ -23,6 +23,7 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
     		$scope.data1.twitter=response.results[0].twitter_url;
     		$scope.data1.eventwebsite=response.results[0].website_url;
     		$scope.data1.eventinventory=response.results[0].inventory;
+        $scope.data1.price = response.results[0].price_type;
     });
 	$serviceTest.getEventCat({'event_id':event_id},function(response){
 	 
@@ -255,6 +256,7 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
   //To save step2 data.
   $scope.price_and_link_data = function(data1) {
     data1.eventId = $localStorage.eventId;
+    console.log("data:258");
     $serviceTest.postSecondStepdata(data1, function(response) {
       if (response.code == 200) {
         $scope.success = global_message.event_step2;
@@ -427,7 +429,12 @@ $scope.success_message = false;
       if (objectForm.myForm1.$valid === true) {
 
         if(data != undefined) {
-          data.eventId = $localStorage.eventId;
+          if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+            data.eventId = $stateParams.eventId;
+          } else {
+            data.eventId = $localStorage.eventId;
+          }
+          //console.log(data); return false;
           $serviceTest.postSecondStepdata(data, function(response) {
             if (response.code == 200) {
               $scope.selectedClass = 3;
@@ -508,7 +515,15 @@ $scope.success_message = false;
   };
 
   //For Step 2
-  $scope.items = ['item1'];
+  //$scope.items = ['item1'];
+
+
+  $scope.items = {};
+  if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+    $scope.items.eventId = $stateParams.eventId;
+  } else {
+    $scope.items.eventId = $localStorage.eventId;
+  }
 
   $scope.animationsEnabled = true;
 
@@ -884,8 +899,8 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   //For step 2 Save Price level
   $scope.savepriceleveldata = function(data1) {
     data1.userId = $localStorage.userId;
-    data1.eventId = $localStorage.eventId;
-
+    data1.eventId = items.eventId;
+    
     $serviceTest.savepriceleveldata(data1, function(response) {
 
       if (response !== null) {
