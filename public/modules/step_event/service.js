@@ -204,6 +204,7 @@ url.getEventProductDetail = function(jsondata,callback){
     });
   };
   
+
   //get Event Data
   url.getEvent = function(jsondata,callback){
     communicationService.resultViaPost(webservices.getEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
@@ -225,7 +226,5 @@ url.checkeventurl = function(jsondata,callback){
       
   };
 
- 
-return url;
 
 }]);

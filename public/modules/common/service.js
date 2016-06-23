@@ -15,5 +15,12 @@ angular.module('alisthub').factory('common', ['$q', '$timeout','communicationSer
     });
   };
 
+   url.getEventCategoriesList = function(jsondata,callback){
+       communicationService.resultViaGet(webservices.getEventCategoriesList,appConstants.authorizationKey,headerConstants.json, function(res,req){
+      callback(res.data);
+    });
+  };
+
+
 return url;
 }])

@@ -267,7 +267,7 @@ exports.delAssignment = function(req,res) {
 Method: Export of Questions into CSV
 Description:Function to Export Questions  
 Created : 2016-05-26
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 */
 
 exports.exportQuestionCSV = function(req,res){
@@ -302,7 +302,7 @@ exports.exportQuestionCSV = function(req,res){
 Method: Get Selected Questions
 Description:Get Selected Questions  
 Created : 2016-05-26
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 */
 
 exports.getSelectedQuestion = function(req,res)

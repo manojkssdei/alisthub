@@ -58,10 +58,13 @@ module.exports = function(app, express) {
  /* To post second step package Data*/
       router.post('/postThirdStepPackageData',supportCrossOriginScript, Package.postThirdStepPackageData);
 
+ /* To post second step package Data*/
+      router.post('/getEventCategoriesList',supportCrossOriginScript, Package.getEventCategoriesList);
 
+      
+      router.post('/viewSelectedEvents',supportCrossOriginScript, Package.viewSelectedEvents);
 
-
-
+      
       
        app.use('/package', router);
 }  

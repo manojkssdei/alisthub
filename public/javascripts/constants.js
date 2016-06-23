@@ -77,25 +77,23 @@ var webservices = {
 
     // event package
 
-    "stepOneEventPackage": "/event/stepOneEventPackage",
-    "getPackage": "/package/getPackage",
-    "getEventsInPackage": "/package/getEventsInPackage",
-    "getBundlesInPackage": "/package/getBundlesInPackage",
-    "getProductsInPackage": "/package/getProductsInPackage",
-    "addBundleInPackage": "/package/addBundleInPackage",
-    "getBundleProductsInPackage": "/package/getBundleProductsInPackage",
-    "getEventPriceLevelInPackage": "/package/getEventPriceLevelInPackage",
-    "getAllEventsPriceLevelInPackage": "/package/getAllEventsPriceLevelInPackage",
-    "updateBundleInPackage": "/package/updateBundleInPackage",
-    "getAllProductsInPackage": "/package/getAllProductsInPackage",
-    "addEventProductInPackage": "/package/addEventProductInPackage",
-    "getEventProductsInPackage": "/package/getEventProductsInPackage",
-    "postSecondStepPackageData": "/package/postSecondStepPackageData",
-    "postThirdStepPackageData": "/package/postThirdStepPackageData",
-
-
-
-
+    "stepOneEventPackage"  :  "/event/stepOneEventPackage",
+    "getPackage" : "/package/getPackage",
+    "getEventsInPackage" : "/package/getEventsInPackage",
+    "getBundlesInPackage" : "/package/getBundlesInPackage",
+    "getProductsInPackage" : "/package/getProductsInPackage",
+    "addBundleInPackage" : "/package/addBundleInPackage",
+    "getBundleProductsInPackage" : "/package/getBundleProductsInPackage",
+    "getEventPriceLevelInPackage" : "/package/getEventPriceLevelInPackage",
+    "getAllEventsPriceLevelInPackage" : "/package/getAllEventsPriceLevelInPackage",
+    "updateBundleInPackage" : "/package/updateBundleInPackage",
+    "getAllProductsInPackage" : "/package/getAllProductsInPackage",
+    "addEventProductInPackage" : "/package/addEventProductInPackage",
+    "getEventProductsInPackage" : "/package/getEventProductsInPackage",
+    "postSecondStepPackageData" : "/package/postSecondStepPackageData" ,
+    "postThirdStepPackageData" : "/package/postThirdStepPackageData" ,
+    "getEventCategoriesList" : "/package/getEventCategoriesList" ,
+    "viewSelectedEvents" : "/package/viewSelectedEvents",
 
 
     /* Constants for the discount module */
