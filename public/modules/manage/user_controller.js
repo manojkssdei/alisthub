@@ -37,6 +37,7 @@ angular.module('alisthub')
                 $serviceTest.getUser($scope.data, function(response) {
                     $scope.loader = false;
                     if (response.code == 200) {
+                        
                         $scope.userData = response.result;
                        
                        $scope.tableParams = new ngTableParams(
@@ -129,13 +130,10 @@ angular.module('alisthub')
     $scope.unique_type = 0;
     
 
-
-
-   ///////////////////////////////
          $scope.checkuniqueUser = function() 
          {
           $serviceTest.checkuniqueUser({'email':$scope.user.email},function(response){
-            console.log(response);
+           
             if(response.result[0].cnt<1)
             {
                 $scope.success_message = true;
