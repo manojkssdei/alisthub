@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /** 
 Angular Events Home Controller
 Created : 2016-04-05
@@ -7,9 +6,6 @@ Module : Events Home
 */
 
 angular.module('alisthub').controller('eventhomeController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams,$http) { 
-=======
-angular.module('alisthub').controller('eventhomeController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams) { 
->>>>>>> pb/master
     
     $rootScope.class_status=false;
     var eventService = $injector.get("events");
