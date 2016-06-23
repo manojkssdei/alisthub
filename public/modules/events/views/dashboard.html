@@ -69,7 +69,7 @@
         </section>
         <!--/Top Section-->
         <section class="module">
-            <section class="prof-hd no-icon" ng-if='upcoming_event_data.length>0' ng-click="openTabUPC(id1)">
+            <section class="prof-hd no-icon" ng-if='upcoming_event_data.length > 0 || past_event_data.length > 0 || event_package_data.length > 0' ng-click="openTabUPC(id1)">
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
                 <h2>Upcoming Events <span class="rt-img"><i class="fa {{UPCtabclass}}"></i></span></h2>
             </section>
@@ -133,7 +133,7 @@
         </section>
         <!--/Upcoming Events-->
         <section class="module">
-            <section class="prof-hd no-icon" ng-click="openTabPAST(id2)" ng-if="past_event_data.length > 0">
+            <section class="prof-hd no-icon" ng-click="openTabPAST(id2)" ng-if='upcoming_event_data.length > 0 || past_event_data.length > 0 || event_package_data.length > 0'>
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
                 <h2>Past Events <span class="rt-img"><i class="fa {{PASTtabclass}}"></i></span></h2>
             </section>
@@ -187,7 +187,7 @@
         </section>
         <!--/Past Events-->
         <section class="module">
-            <section class="prof-hd no-icon" ng-click="openTabPAK(id3)" ng-if="event_package_data.length > 0">
+            <section class="prof-hd no-icon" ng-click="openTabPAK(id3)" ng-if='upcoming_event_data.length > 0 || past_event_data.length > 0 || event_package_data.length > 0'>
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
                 <h2>Event Packages <span class="rt-img"><i class="fa {{PAKtabclass}}"></i></span></h2>
             </section>
