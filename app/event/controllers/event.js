@@ -384,7 +384,8 @@ exports.getSeriesEvent=function(req,res) {
 
 exports.getComment = function(req,res){
   console.log(req.body);
-  connection.query('SELECT * from event_comments where event_id='+req.body.event_id+ ' ORDER BY created DESC', function(err, results) {
+  var data=req.body;
+  connection.query('SELECT E.*,S.first_name,S.last_name FROM seller_users as S LEFT JOIN event_comments  as E on S.seller_id=E.seller_id where E.seller_id='+data.seller_id+ ' ORDER BY created DESC', function(err, results) {
      if (err) {
       res.json({error:err,code:101});
      }
@@ -398,8 +399,10 @@ exports.addComment=function(req,res)
      var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
     req.body.created = curtime;
     console.log(req.body);
+    //console.log("rootscope",$rootScope.userId);
     //var data=req.body;
-     var query = "INSERT INTO `event_comments` (`id`,`event_id`,`seller_id`,`comment`,`created`) VALUES ('NULL','" + req.body.event_id + "','" + req.body.seller_id + "','" + req.body.comment + "','"+ curtime + "')";
+    var comment=(JSON.stringify(req.body.comment) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+     var query = "INSERT INTO `event_comments` (`id`,`seller_users_id`,`event_id`,`seller_id`,`comment`,`created`) VALUES ('NULL','"+req.body.seller_users_id+"','" + req.body.event_id + "','" + req.body.seller_id + "','" + comment + "','"+ curtime + "')";
      
      console.log(query); 
      if (query != "") {
