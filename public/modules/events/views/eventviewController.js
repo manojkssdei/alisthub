@@ -32,6 +32,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('eventv
     //service created to get event detail
 
     eventService.getEvent({ 'event_id': event_id }, function(response) {
+     console.log(response);
         var ages;
         if (response.results[0].custom_ages == null || response.results[0].custom_ages == 0) {
             ages = "All Ages";
@@ -91,21 +92,24 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('eventv
     //get comment  
     $scope.array = [];
 
-    eventService.getComment({ 'event_id': event_id }, function(response) {
+
+    eventService.getComment({ 'seller_id': $localStorage.userId}, function(response) {
 
         if (response != null) {
 
-            if (response.code == 200) {
+           if (response.code == 200) {
                 for (j in response.result) {
-                    $scope.array.push(response.result[j].comment);
+                    var comment_detail = response.result[j];
+                    console.log("************",comment_detail);
+                    $scope.array.push([comment_detail.comment, comment_detail.created,comment_detail.first_name,comment_detail.last_name]);
 
                 }
 
                 $scope.comments = $scope.array;
+                console.log($scope.comments);
             } else {
                 $scope.activation_message = global_message.ErrorInActivation;
             }
-
         }
     });
 
@@ -113,10 +117,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('eventv
 
     $scope.data = {};
     $scope.addComment = function() {
+        // console.log($rootscope.name);
         if ($localStorage.userId != undefined) {
+            $scope.data.seller_users_id=$rootScope.name;
             $scope.data.seller_id = $localStorage.userId;
             $scope.data.event_id = $stateParams.eventId;
             $scope.data.comment = $scope.data.comment;
+            console.log($scope.data);
 
             eventService.addComment($scope.data, function(response) {
                 if (response.code == 200) {
