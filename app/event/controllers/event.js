@@ -18,8 +18,7 @@ exports.saveEvent = function(req,res) {
      var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"')";
      
       connection.query(query, function(err7, responce) {
-          console.log('second loop');
-          console.log(responce);
+         
           var venue_id = responce.insertId;
           var eventId = null;
           data.created = new Date();
@@ -27,23 +26,26 @@ exports.saveEvent = function(req,res) {
           //console.log("INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"')");
           //return false;
 
-          var query1 = "INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"')";
+          var query1 = "INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`,`event_domain`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"','"+data.eventurl+"')";
          
           connection.query(query1,function(err,result) {
               eventId = result.insertId;
-              
+               var __dir = './public/preview_template/'+data.userId;
+            if (!fs.existsSync(__dir)){
+                fs.mkdirSync(__dir);
+            }
+              var __dir1 = './public/preview_template/'+data.userId+'/'+eventId;
+            if (!fs.existsSync(__dir1)){
+                fs.mkdirSync(__dir1);
+            }
+            fs.openSync(__dir1 + "/index.html", 'w');
+             fs.createReadStream("./public/preview_template/look-n-feel-design-preview.html").pipe(fs.createWriteStream(__dir1 + "/index.html"));
               var query2 = "INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`,`created`,`modified`) VALUES(NULL,'"+eventId+"','"+data.eventdate+"','"+data.startevent_time+"','"+data.endevent_time+"','"+curtime+"','"+curtime+"')";
               connection.query(query2,function(error,res1){
                 if (error) {
                   res.json({error:error,code:101});
                 } else {
-                  /*var showClix2 = new showClix();
-                  showClix2.add_event(req,res,function(data){
-                    if (data.status == 1) {
-                      //res.json({result:results,showclix:data.location,code:200});
-                    } else {                     
-                    }
-                  });*/
+               
                   res.json({result:eventId,code:200}); 
                 }
               });
@@ -1094,6 +1096,32 @@ exports.look_and_feel_save_html = function(req,res) {
      res.json({result:results,code:200});
   });
     
+    
+}
+/** 
+Method: event domain valid
+Description:Function to check unique domain
+Created : 2016-06-23
+Created By: Deepak khokhar  
+*/
+
+exports.checkeventurl=function(req,res){
+    
+    
+        sql = 'SELECT count(*) as count from events where event_domain = "' + req.body.eventurl + '"';
+    
+    connection.query(sql, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        if (results) {
+            count = results[0].count;
+            if (count > 0)
+                res.json({ result: count, code: 101 });
+            else
+                res.json({ result: count, code: 200 });
+        }
+    });
     
 }
 

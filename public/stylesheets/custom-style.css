@@ -74,4 +74,5 @@ select.sml-sel{height:30px; font-size:14px; padding:0 12px}
 .social_link{display:inline-block; margin-bottom: 1px; color: #333;padding:10px; min-width: 36px; text-align: center;}
 .inline-radio{display:inline-block; margin-right:20px;}
 .wrap-word{ word-wrap: break-word;}
-.p5{ padding:5%;}
+.p5{ padding:5%;} 
+.ScrollVenueList{ overflow-y:scroll;overflow-x:hidden;height:400px;width:100%;padding: 0 15px;}
