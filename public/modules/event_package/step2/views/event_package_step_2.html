@@ -61,7 +61,7 @@
                         <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_bundle('lg')">ADD a Bundle</button>
                       </section>
                     </section>
-                  <section class="grid-widget">
+                  <section class="grid-widget" ng-show="showBundleList">
                   <span ng-show="success_message_bundle" class="ng-hide"><p class="success-fld ng-binding">{{success_bundle}}</p></span>
                   <div class="table-responsive">
                     <table class="table table-striped">
@@ -132,7 +132,7 @@
                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_product('lg')">Add Product</button>
                   </section>
                 </section>
-                <section class="grid-widget">
+                <section class="grid-widget"  ng-show="showProductsList">
                   <span ng-show="success_message_product" class="ng-hide"><p class="success-fld ng-binding">{{success_product}}</p></span>
                     <div class="table-responsive">
                     <table class="table table-striped">

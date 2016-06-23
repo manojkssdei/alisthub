@@ -62,5 +62,9 @@ module.exports = function(app, express) {
       router.post('/getEventCategoriesList',supportCrossOriginScript, Package.getEventCategoriesList);
 
       
+      router.post('/viewSelectedEvents',supportCrossOriginScript, Package.viewSelectedEvents);
+
+      
+      
        app.use('/package', router);
 }  

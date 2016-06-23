@@ -971,6 +971,9 @@ console.log('fields ' , fields);
     console.log('fieldsData ' , fieldsData);
 
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    req.body.online_sales_open_date = moment(req.body.online_sales_open_date).format('YYYY-MM-DD');
+    req.body.online_sales_close_date = moment(req.body.online_sales_close_date).format('YYYY-MM-DD');
+
     req.body.created = curtime;
     req.body.modified = curtime;
 
@@ -997,8 +1000,14 @@ console.log('fields ' , fields);
 
 if(results) {
   console.log('results' );
-  console.log('results.insertId' , results.insertId);
-var package_id = results.insertId;
+  console.log('results.insertId' ,results.insertId );
+ var package_id = '';
+  if(results.insertId != 0 && results.insertId=='' ) {
+    package_id = results.insertId;
+  }
+  if (req.body.id && req.body.id != "" && req.body.id != undefined) {
+    package_id = req.body.id;
+  }
             for (var index in  req.body.event_ids) {
                 
                 if (req.body.event_ids[index] != undefined) {

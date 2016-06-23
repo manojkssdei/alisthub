@@ -91,6 +91,7 @@ var webservices = {
     "postSecondStepPackageData" : "/package/postSecondStepPackageData" ,
     "postThirdStepPackageData" : "/package/postThirdStepPackageData" ,
     "getEventCategoriesList" : "/package/getEventCategoriesList" ,
+    "viewSelectedEvents" : "/package/viewSelectedEvents",
 
 
     /* Constants for the discount module */
