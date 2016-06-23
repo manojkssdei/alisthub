@@ -268,7 +268,7 @@ exports.getUpcommingEvent=function(req,res) {
   var curtime = moment().format('YYYY-MM-DD');
   var eventType = req.body.type;
  
-  var sql = "SELECT events.id, events.title, events.sub_title, events.recurring_or_not, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id=" + user_id + " and Date(events.start_date) >= '" +curtime + "' and events.recurring_or_not = "+ eventType +" ORDER BY start_date ASC LIMIT 5";
+  var sql = "SELECT events.id, events.title, events.sub_title, events.recurring_or_not, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.parent_id IS NULL and events.user_id=" + user_id + " and Date(events.start_date) >= '" +curtime + "' and events.recurring_or_not = "+ eventType +" ORDER BY start_date ASC LIMIT 5";
   
   connection.query(sql,function(err,result) {
     if (err) {
@@ -289,7 +289,7 @@ exports.getPastEvent=function(req,res) {
   var curtime = moment().format('YYYY-MM-DD');
   var eventType = req.body.type;
   
-  var sql = "SELECT events.id, events.parent_id, events.title, events.recurring_or_not, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id = " + user_id + " and Date(events.start_date) <= '" + curtime + "' and events.recurring_or_not = "+ eventType +" ORDER BY start_date DESC LIMIT 5";
+  var sql = "SELECT events.id, events.parent_id, events.title, events.recurring_or_not, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.parent_id IS NULL and events.user_id = " + user_id + " and Date(events.start_date) <= '" + curtime + "' and events.recurring_or_not = "+ eventType +" ORDER BY start_date DESC LIMIT 5";
   
   connection.query(sql,function(err,result) {
     if (err) {

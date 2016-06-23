@@ -70,6 +70,15 @@ angular.module('alisthub').factory('events', ['$q', '$timeout','communicationSer
       });
     };
 
+    //get event dates for the series events
+    url.getEventDates = function(jsondata,callback) {
+      communicationService.resultViaPost(webservices.getEventDates,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+        callback(res.data);
+      });
+    };
+
+    
+
     //delete events
     url.deleteEvent = function(jsondata,callback){
       communicationService.resultViaPost(webservices.deleteEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
