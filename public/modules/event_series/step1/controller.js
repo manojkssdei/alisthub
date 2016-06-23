@@ -903,7 +903,7 @@ $scope.rec_year_func = function() {
   $scope.inlineOptions = {
     customClass: getDayClass,
     minDate: new Date(),
-    showWeeks: true
+    showWeeks: false
   };
 
   $scope.dateOptions = {
@@ -989,7 +989,7 @@ $scope.rec_year_func = function() {
   $scope.options1 = {
     customClass: getDayClass,
     initDate: current,
-    showWeeks: true
+    showWeeks: false
   };
 
   var tomorrow = new Date();
@@ -1035,15 +1035,24 @@ $scope.rec_year_func = function() {
   $scope.multiple_event_div = $scope.venue_event_div = $scope.price_and_link_div = $scope.look_and_feel_div = $scope.setting_div = $scope.dynamic_age_div = $scope.return_age_text_div = true;
 
     //Default Event
-  $scope.events = [{
+    if (!$stateParams.eventId) {
+      var href = 'create_event_step1';
+    }
+    else{
+      var href = 'javascript:void(0)'; 
+    }
+    
+   $scope.events = [{
       "name": "Single Event",
-      'id': 1
+      'id': 1,
+      'href':href
     }, {
       "name": "Multiple Event",
-      'id': 2
+      'id': 2,
+      'href':'javascript:void(0)'
     }]
     //To show default venues 
-  $scope.venues = [{
+   $scope.venues = [{
     "name": "Use Past Location",
     'id': 3
   }, {
@@ -1053,7 +1062,7 @@ $scope.rec_year_func = function() {
 
 
   // To show selected event,venue and step.
-  $scope.selected = $scope.events[0];
+  $scope.selected = $scope.events[1];
   
   if ($scope.total_venue != "") {
     $scope.selected1 = $scope.venues[0];
