@@ -12,7 +12,33 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('series
   $scope.loader = false;
    //For Step 1
   var $serviceTest = $injector.get("venues");
-  
+  $scope.unique = false;
+    $scope.message = "";
+    
+    $scope.unique_type = 0;
+     $scope.successuniquemessage=$scope.erroruniquemessage=true;
+     
+         $scope.checkeventurl = function() 
+         {
+          
+          $serviceTest.checkeventurl({'eventurl':$scope.data.eventurl},function(response){
+           
+            if(response.result<1)
+            {
+                $scope.successuniquemessage = false;
+                $scope.erroruniquemessage = true;
+                $scope.data.domain_url_availability=1;
+                $scope.unique = "Available";
+            }
+            else{
+                $scope.erroruniquemessage = false;
+                $scope.successuniquemessage = true;
+                $scope.data.domain_url_availability='';
+                $scope.unique = "This domain already taken.";
+            }
+          });
+
+        };
   
   //To show or hide divs
   $scope.select_delect_event = $scope.monthly_div = $scope.days_div = $scope.error_message = $scope.error_time_message = true;

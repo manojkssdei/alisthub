@@ -367,6 +367,7 @@ input[type="radio"].assignEvents { display: block; }
 
 /*-----------------Event Dashboard------------*/
 .panel-primary {border-color: #0275d0;}
+.panel-grey {border-color: #b5b5b5;}
 .panel-primary > .panel-heading {background-color: #0275d0; border-color: #0275d0;}
 .huge {font-size: 40px; margin-bottom:10px;}
 .panel, .panel-heading{border-radius:0;}
@@ -463,9 +464,22 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 .loc-list li a {white-space: inherit;}
 /*--------08-04-2016---------------*/
 
-/*--------Always at Bottom---------*/
-.m-t35 {margin-top: 35px;}
-.m-t40 {margin-top: 40px;}
+.info-text{font-size:12px; color:#727272; text-align:right; padding:8px 0;}
+.content{font-size:14px; line-height:20px;}
+.content p{margin-top:20px;}
+.content p:first-child{margin-top:0;}
+
+/*11-04-2016*/
+.input30{width:180px !important;height:30px;}
+.sel-d label{display:inline;}
+.sel-d label {
+  display: inline-block;
+  margin: 0;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.hg-80{height:80px;}
+/*11-04-2016*/
 
 .u-text{text-decoration:underline;}
 .u-text:hover{text-decoration:none;}
@@ -589,25 +603,6 @@ table:focus {
     outline: none;
 }
 
-/*--------Always at Bottom---------*/
-.m-t35 {margin-top: 35px;}
-.m-t40 {margin-top: 40px;}
-
-.mt-3{margin-top:-3px;}
-
-.m-b0{margin-bottom:0px;}
-.m-b20{margin-bottom:20px;}
-
-.p-t10{padding-top:10px;}
-
-.u-text{text-decoration:underline;}
-.u-text:hover{text-decoration:none;}
-
-.bb-1{border-bottom:1px #ccc solid;}
-
-.f-n{font-weight:400;}
-.f-b{font-weight:700;}
-.f-sb{font-weight:600;}
 .stage-container-3steps{
   max-width: 485px;
 }
