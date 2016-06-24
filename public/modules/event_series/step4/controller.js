@@ -5,7 +5,7 @@ Created By: Deepak khokkar
 Module : Event setting  
 */
 
-angular.module('alisthub').controller('seriesStep4Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad , $http) {
+angular.module('alisthub').controller('seriesStep4Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad , $http, $stateParams) {
 var $serviceTest = $injector.get("event_setting");
 $scope.error_message = true;
   
@@ -229,7 +229,7 @@ $scope.selected2 = $scope.steps[3];
   $scope.inlineOptions = {
     customClass: getDayClass,
     minDate: new Date(),
-    showWeeks: true
+    showWeeks: false
   };
 
   $scope.dateOptions = {

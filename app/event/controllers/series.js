@@ -808,7 +808,7 @@ exports.addseriesBundle = function(req,res){
                     });
                     ///////////////////////////////////////////////
                     });
-                    res.send({"result":"success",code:200}); 
+                    res.send({"result":"success",code:200,parent_id:parent_id}); 
                     
                     ///////////////////////////////////////////////////////////////////////////////////////
             }
@@ -961,3 +961,258 @@ exports.updateSeriesBundle = function(req,res){
     });
 }
 
+// Series Product
+/** 
+Method: addSeriesEventProduct
+Description:Function for adding the product for events 
+Created : 2016-06-24
+Created By: Manoj Kumar Singh
+*/
+exports.addSeriesEventProduct = function(req,res){
+    
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    function remove_level(id)
+    {
+        var qu = "Delete from event_products where parent_id="+id;
+        connection.query(qu,function(err,result){
+        });
+        
+    }
+    
+    function saveChildProduct(req,parent)
+    {
+        var eventsquery = "select id from events where parent_id="+parent;
+        connection.query(eventsquery,function(verr,vresult){
+        var ids = vresult;
+        remove_level(ids);
+        if (ids != null && ids !== undefined)
+        {
+          ids.forEach(function(childs){
+                    ////////////////////////////////////////////////
+            var child_bundle_id = childs.id;
+            var query = "INSERT INTO `event_products` (`id`,`event_id`, `seller_id`, `product_id`, `price`, `hide_in_box_office`, `placement_listing`, `placement_confirmation`,`created`,`status`) VALUES (NULL, '"+child_bundle_id+"' , '"+req.body.seller_id+"', '"+req.body.product_id+"', '"+req.body.price+"', '"+hide_in_box_office+"', '"+placement_listing+"', '"+placement_confirmation+"', '"+curtime+"',1 )";
+            
+            connection.query(query, function(err, results) {
+            
+             
+            });
+        });
+        
+        }
+        });
+    }
+    
+    var inventory=0;
+    var event_id = req.body.event_id;
+
+    var hide_in_box_office = 0;
+    if ((req.body.hide_in_box_office == true)) {
+      hide_in_box_office = 1;
+    }
+
+    var placement_listing = 0;
+    if ((req.body.placement_listing == true)) {
+      placement_listing = 1;
+    }
+
+    var placement_confirmation = 0;
+    if ((req.body.placement_confirmation == true)) {
+      placement_confirmation = 1;
+    }
+
+      
+    if(req.body.id!=undefined && req.body.id!=''){
+        var query = "UPDATE event_products SET product_id='"+req.body.product_id+"',price='"+req.body.price+"',hide_in_box_office='"+hide_in_box_office+"',placement_listing='"+placement_listing+"',placement_confirmation='"+placement_confirmation+"' where id="+req.body.id;
+      
+    } else {
+        var query = "INSERT INTO `event_products` (`id`,`event_id`, `seller_id`, `product_id`, `price`, `hide_in_box_office`, `placement_listing`, `placement_confirmation`,`created`,`status`) VALUES (NULL, '"+req.body.event_id+"' , '"+req.body.seller_id+"', '"+req.body.product_id+"', '"+req.body.price+"', '"+hide_in_box_office+"', '"+placement_listing+"', '"+placement_confirmation+"', '"+curtime+"',1 )";
+        
+    }
+
+    if (query != "") {
+      connection.query(query, function(err7, results) {
+        if (err7) {
+          res.json({error:err7,code:101});
+        }
+         
+         if (req.body.id !== undefined && req.body.id != '') {
+            var parent_id = req.body.id;
+        }
+        else{
+            var parent_id = results.insertId;
+        }
+         
+        saveChildProduct(req,parent_id);
+        
+        res.json({result:results,code:200 });
+      });
+    }
+}
+
+/** 
+Method: saveSeriessecondstepdata
+Description:Function to save step2 
+Created : 2016-05-20
+Created By: Manoj Kumar Singh  
+*/
+exports.savesecondSeriesstepdata=function(req,res)
+{
+ var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+ 
+ function saveChildProduct(req,parent)
+ {
+        var eventsquery = "select id from events where parent_id="+parent;
+        connection.query(eventsquery,function(verr,vresult){
+        var ids = vresult;
+        if (ids != null && ids !== undefined)
+        {
+          ids.forEach(function(childs){
+                    ////////////////////////////////////////////////
+            var child_id = childs.id;
+            
+            if (req.body.category1!==undefined) {
+                var $sql1="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+child_id+"', '"+req.body.category1+"','"+curtime+"')";
+              connection.query($sql1,function(err,res){
+                });
+             }
+             if (req.body.category2!==undefined) {
+                var $sql2="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+child_id+"', '"+req.body.category2+"','"+curtime+"')";
+              connection.query($sql2,function(err,res){
+                });
+             }
+             if (req.body.category3!==undefined) {
+                var $sql3="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+child_id+"', '"+req.body.category3+"','"+curtime+"')";
+              connection.query($sql3,function(err,res){
+                });
+             }
+            
+            
+            var query = "UPDATE events SET `website_url`='"+req.body.eventwebsite+"',`keyword`='"+req.body.keyword+"',`inventory`='"+req.body.eventinventory+"',`facebook_url`='"+req.body.facebook+"',`twitter_url`='"+req.body.twitter+"',`video`='"+req.body.video+"',`type_of_event`='"+req.body.type_of_event+"',`custom_ages`='"+req.body.custom_ages+"',`price_type`='"+req.body.price+"' where id="+child_id;
+            connection.query(query, function(err, results) { });
+        });
+        
+        }
+        });
+  }
+ 
+    
+ if (req.body.category1!==undefined) {
+    var $sql1="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category1+"','"+curtime+"')";
+  connection.query($sql1,function(err,res){
+    });
+ }
+ if (req.body.category2!==undefined) {
+    var $sql2="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category2+"','"+curtime+"')";
+  connection.query($sql2,function(err,res){
+    });
+ }
+ if (req.body.category3!==undefined) {
+    var $sql3="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category3+"','"+curtime+"')";
+  connection.query($sql3,function(err,res){
+    });
+ }
+  
+  
+   connection.query("UPDATE events SET `website_url`='"+req.body.eventwebsite+"',`keyword`='"+req.body.keyword+"',`inventory`='"+req.body.eventinventory+"',`facebook_url`='"+req.body.facebook+"',`twitter_url`='"+req.body.twitter+"',`video`='"+req.body.video+"',`type_of_event`='"+req.body.type_of_event+"',`custom_ages`='"+req.body.custom_ages+"',`price_type`='"+req.body.price+"' where id="+req.body.eventId, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }else{
+     saveChildProduct(req,req.body.eventId)    
+     res.json({result:results,code:200});
+     }
+  });
+}
+
+/** Save Series event step -4 Data
+Created : 2016-06-24
+By : Manoj Kumar Singh
+**/
+exports.saveSeriesSetting = function(req,res) {
+    
+    var data = req.body;
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    
+    var settingFields =  ['user_id','online_service_fee', 'box_office_service_fee', 'ticket_note', 'ticket_transaction_limit', 'checkout_time_limit', 'ticket_layout', 'collect_name', 'custom_fee', 'custom_fee_name', 'custom_fee_type', 'custom_fee_amount', 'custom_when', 'question_type', 'question', 'question_required', 'print_home', 'print_enable_date', 'print_disable_date', 'print_description', 'will_call', 'will_call_description', 'online_sales_open', 'online_sales_close', 'sales_immediatly', 'donation', 'donation_name', 'public_contact_name', 'public_contact_email', 'public_contact_phone'];
+    
+    var fieldsData = '';
+    // insert into ages set `name` = 'testing name' , `age` = 26
+    for (var index in settingFields) {
+    settingFieldName = settingFields[index];
+      if (req.body[settingFieldName] == undefined) {
+        req.body[settingFieldName] = '';
+      }
+      fieldsData+= " `"+settingFieldName+"` = '" + req.body[settingFieldName]+ "', ";
+    }
+    
+    
+    
+    function saveChildProduct(req,parent)
+    {
+        var eventsquery = "select id from events where parent_id="+parent;
+        connection.query(eventsquery,function(verr,vresult){
+        var ids = vresult;
+        if (ids != null && ids !== undefined)
+        {
+            ids.forEach(function(childs){
+                    ////////////////////////////////////////////////
+            var child_id = childs.id;
+            
+            var squery = "Select COUNT(*) AS exist from `event_settings` where event_id = "+ child_id;
+     
+            connection.query(squery, function(err8, selectResponse) {
+              
+              console.log(selectResponse[0].exist);
+        
+              if(selectResponse[0].exist > 0) {
+                var uquery = "UPDATE `event_settings` SET "+ fieldsData +"  `event_id` = '" + child_id + "',`modified` = '" + curtime + "' WHERE event_id= " + child_id;
+                connection.query(uquery, function(err, results) {
+                  
+                });
+              } else {
+                var query = "INSERT INTO `event_settings` SET "+ fieldsData + "  `event_id` = '" + child_id + "' ,`created` = '" + curtime +"' , `modified` = '" + curtime +"'";
+                connection.query(query, function(err7, responce) {
+                                 
+                });
+              }
+            });
+            
+            
+        })
+    
+    }
+        })
+    }
+       
+    
+    var squery = "Select COUNT(*) AS exist from `event_settings` where event_id = "+ data.event_id;
+     
+    connection.query(squery, function(err8, selectResponse) {
+      if(err8) {
+        res.json({error:err8,code:101});
+      }
+      
+      console.log(selectResponse[0].exist);
+      
+      saveChildProduct(req,data.event_id);
+      
+      if(selectResponse[0].exist > 0) {
+        var uquery = "UPDATE `event_settings` SET "+ fieldsData +"  `modified` = '" + curtime + "' WHERE event_id= " + data.event_id;
+        connection.query(uquery, function(err, results) {
+          if (err) {
+            res.json({error:err,code:101});
+          }
+          res.json({result:results,code:200});
+        });
+      } else {
+        var query = "INSERT INTO `event_settings` SET "+ fieldsData + " `event_id` = '" + data.event_id + "', `created` = '" + curtime +"' , `modified` = '" + curtime +"'";
+        connection.query(query, function(err7, responce) {
+          if (err7) {
+            res.json({error:err7,code:101});
+          }
+          res.json({result:responce,code:200});
+        });
+      }
+      
+    });
+    
+}
