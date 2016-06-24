@@ -649,3 +649,41 @@ footer h2{text-transform: capitalize;}
 .overflow-h{overflow:hidden;}
 
 .w-auto{width:auto; display:inline-block; min-width:inherit;}
+body{padding-top:50px;}
+
+.ev-header{position:fixed; top:0; left:0; width:100%; background:#0275d0;z-index: 9;}
+.alist-logo{float:left; margin:10px;}
+.alist-logo img{height:30px; width:auto;}
+
+/*.navbar-toggle, .btn-navbar {background-color: #fff; border-color: #fff; cursor: pointer; margin-right: 0; margin-top: 17px; display: none;}
+.navbar-toggle {background-image: none; border-radius: 4px; float: right; margin-bottom: 8px; padding: 9px 10px; position: relative;}
+.navbar-toggle .icon-bar, .btn-navbar .icon-bar {background-color: #0275d0; border-radius: 1px; display: block; height: 2px; width: 22px;}
+.navbar-toggle .icon-bar + .icon-bar { margin-top: 4px;}*/
+.navbar-toggle, .btn-navbar{margin-top:9px; margin-right:10px;}
+
+.topnav{float:right;}
+.ev-menu > li{float:left; font-size:18px; font-weight:600; text-transform:uppercase;}
+.ev-menu > li a{display:block; padding:0 20px; line-height:50px; color:#fff;}
+.ev-menu > li a:hover, .ev-menu > li a.active{text-decoration:none; background:rgba(0,0,0,0.5);}
+
+.ev-container{max-width:1024px; padding-left:15px; padding-right:15px; margin: 35px auto 0;}
+.wtframe{background:#fff;}
+.ev-image{margin-bottom:15px;}
+.media-sc{background:#f3f3f3; padding:10px;}
+
+.module-div{margin-bottom:20px;}
+
+.footer-block{padding:15px; margin-top:20px;}
+
+@media all and (min-width: 767px)
+{
+   .ev-menu{display:block !important;}
+}
+
+@media all and (max-width: 767px)
+{
+	.navbar-toggle, .btn-navbar{display:block;}
+   hidden-xs{display:none;}
+   .topnav, .ev-menu > li{width:100%;}
+}
+

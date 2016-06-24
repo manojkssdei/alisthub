@@ -5,7 +5,7 @@ Created By: Deepak Khokkar
 Module : Events Home 
 */
 
-angular.module('alisthub').controller('allEventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams) { 
+angular.module('alisthub').controller('EventScheduleController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams,$stateParams) { 
     
     $rootScope.class_status=false;
     var eventService = $injector.get("events");
@@ -20,23 +20,22 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
     }
 
     //upcomming event list
-    $rootScope.getAllEvent = function(allevent) {
-      if(allevent==undefined){
+    $rootScope.getEventDates = function(allevent) {
+      if(allevent == undefined) {
         allevent = $rootScope.allevent;
       }
-      var dateRange = {};
- 
-      if($rootScope.searchFromDate!=undefined){
-        dateRange.searchFromDate = $rootScope.searchFromDate;
-      }
-      if($rootScope.searchToDate!=undefined) {
-        dateRange.searchToDate = $rootScope.searchToDate;
-      }
       
-      eventService.getAllEvent({ 'user_id' : $localStorage.userId , 'allevent' : allevent, 'dateRange': dateRange },function(response) {
+      if($rootScope.searchFromDate!=undefined && $rootScope.searchFromDate!='') {
+        console.log($rootScope.searchFromDate);
+      }
+
+      console.log($stateParams.eventId);
+
+      eventService.getEventDates({ 'user_id' : $localStorage.userId, 'eventId' : $stateParams.eventId, 'allevent' : allevent },function(response) {
+        console.log(response);
         if (response!=null) {
           if (response.code == 200) {
-            $scope.upcoming_event_data = $scope.event_package_data =response.results;
+            $scope.upcoming_event_data =response.results;
             $scope.tableParams = new ngTableParams({
                                     page: 1,            // show first page
                                     count: 50,           // count per page
@@ -51,27 +50,18 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
       });
     }
 
-    $scope.getAllEvent();
+    $scope.getEventDates();
 
+    if (!$localStorage.isuserloggedIn) {
+      $state.go('login');
+    }
+    
     $scope.recurringHref = function(eventId,recurringOrNot) {
-      console.log(eventId+"__"+recurringOrNot); //return false;
       if(recurringOrNot==0){
         $location.path("/create_event_step1/" + eventId);  
       } else {
         $location.path("/create_series_step1/" + eventId);
       }
-    }
-
-    $scope.delEvent=function(event_id) {
-      eventService.deleteEvent({'event_id':event_id},function(response) {
-        if(response.code==200) {
-          $scope.getAllEvent();
-    	  }
-      });
-    }
- 
-    if (!$localStorage.isuserloggedIn) {
-      $state.go('login');
     }
 
     $scope.animationsEnabled = true;
@@ -91,10 +81,7 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
         }
       });
     };
-
 });
-
-
 
 /*
 Code for product popup
@@ -118,15 +105,16 @@ angular.module('alisthub').controller('ModalDateCtrl', function($scope, $uibModa
 
   $scope.inlineOptions = {
     customClass: getDayClass,
-    minDate: new Date()
+    minDate: new Date(),
+    showWeeks: true
   };
 
   $scope.dateOptions = {
     dateDisabled: disabled,
     formatYear: 'yy',
-    minDate: new Date("2016/01/01"),
-    startingDay: 1,
-    showWeeks: false
+
+    minDate: new Date(),
+    startingDay: 1
   };
 
   // Disable weekend selection
@@ -179,7 +167,7 @@ angular.module('alisthub').controller('ModalDateCtrl', function($scope, $uibModa
     $rootScope.searchFromDate = dateEvent.searchFromDate;
     $rootScope.searchToDate = dateEvent.searchToDate;
     $scope.cancel();
-    $rootScope.getAllEvent();
+    $rootScope.getEventDates();
   }
 
 });

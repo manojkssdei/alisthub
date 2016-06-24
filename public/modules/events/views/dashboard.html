@@ -69,7 +69,7 @@
         </section>
         <!--/Top Section-->
         <section class="module">
-            <section class="prof-hd no-icon" ng-if='upcoming_event_data.length>0' ng-click="openTabUPC(id1)">
+            <section class="prof-hd no-icon" ng-if='upcoming_event_data.length > 0 || past_event_data.length > 0 || event_package_data.length > 0' ng-click="openTabUPC(id1)">
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
                 <h2>Upcoming Events <span class="rt-img"><i class="fa {{UPCtabclass}}"></i></span></h2>
             </section>
@@ -99,7 +99,7 @@
                                         <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
                                         <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
                                     
-                                    <a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
+                                    <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
 									<a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
                                     <a title="view" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
 									</td>
@@ -133,7 +133,7 @@
         </section>
         <!--/Upcoming Events-->
         <section class="module">
-            <section class="prof-hd no-icon" ng-click="openTabPAST(id2)" ng-if="past_event_data.length > 0">
+            <section class="prof-hd no-icon" ng-click="openTabPAST(id2)" ng-if='upcoming_event_data.length > 0 || past_event_data.length > 0 || event_package_data.length > 0'>
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
                 <h2>Past Events <span class="rt-img"><i class="fa {{PASTtabclass}}"></i></span></h2>
             </section>
@@ -157,8 +157,8 @@
                                     <td title="'Action'" class="action" width="20%">
                                     <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
                                     <a title="Schedules"  ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
-                                    <a title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
-                                    <a title="View" href="javascript:void(0)"><i class="fa fa-eye"></i></a>
+                                    <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
+                                    <a title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
                                     </td>
 
                                 </tr>
@@ -187,7 +187,7 @@
         </section>
         <!--/Past Events-->
         <section class="module">
-            <section class="prof-hd no-icon" ng-click="openTabPAK(id3)" ng-if="event_package_data.length > 0">
+            <section class="prof-hd no-icon" ng-click="openTabPAK(id3)" ng-if='upcoming_event_data.length > 0 || past_event_data.length > 0 || event_package_data.length > 0'>
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
                 <h2>Event Packages <span class="rt-img"><i class="fa {{PAKtabclass}}"></i></span></h2>
             </section>
@@ -218,7 +218,7 @@
                                         <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
                                         <a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>
                                         <a  title="edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
-                                        <a title="View" href="javascript:void(0)"><i class="fa fa-eye"></i></a>
+                                        <a title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
                                     </td>
 
                                 </tr>

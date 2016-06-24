@@ -21,6 +21,20 @@
 </style>
 </head>
 <body  ng-app="myApp" ng-controller="GreetingController">
+<section class="ev-header">
+	<a class="alist-logo" href="#"><img alt="" src="http://localhost:5502/preview_template/assets/images/img/logo-l.png"></a>
+    <a class="navbar-toggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
+    <div class="topnav hidden-xs">    	
+        <ul class="ev-menu">
+            <li><a class="active" href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </div>
+</section>
 <!-- Wrapper -->
 <div class="ev-container wtframe"> 
     <section class="ev-image" id="section1"> <div ng-bind-html="section1"></div></section><!--Main Pic-->
@@ -63,7 +77,8 @@
 
 <!-- Scripts -->
 <script type="text/javascript" src="http://localhost:5502/javascripts/jquery.min.js"></script>
-<script src="http://localhost:5502/preview_template/assets/js/angular-min.js"></script> 
+
+<script src="http://localhost:5502/javascripts/angular-min.js"></script>
 
 <script src="http://localhost:5502/preview_template/assets/js/ui-bootstrap-tpls-0.12.0.min.js"></script> 
 <script type="text/javascript" src="http://localhost:5502/preview_template/assets/js/custom.js"></script>

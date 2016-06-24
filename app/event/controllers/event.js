@@ -154,7 +154,7 @@ exports.saverecurringEvent=function(req,res){
        }
         // Save Parent Event
         connection.query(save_query,function(perr,presult){
-            console.log(presult);
+          //  console.log(presult);
             if(data.event_id && data.event_id != null && data.event_id !== undefined)
             {
                 var parent_id = data.event_id;
@@ -249,7 +249,7 @@ exports.getEvents=function(req,res) {
   var user_id=req.body.user_id;
   var sql="SELECT events.id, events.title, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id="+user_id;
 
-  console.log(req.body);
+  //console.log(req.body);
   connection.query(sql,function(err,result){
     if (err) {
       res.send({err:"error",code:101}); 
@@ -270,7 +270,7 @@ exports.getUpcommingEvent=function(req,res) {
   var curtime = moment().format('YYYY-MM-DD');
   var eventType = req.body.type;
  
-  var sql = "SELECT events.id, events.title, events.sub_title, events.recurring_or_not, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id=" + user_id + " and Date(events.start_date) >= '" +curtime + "' and events.recurring_or_not = "+ eventType +" ORDER BY start_date ASC LIMIT 5";
+  var sql = "SELECT events.id, events.title, events.sub_title, events.recurring_or_not, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.parent_id IS NULL and events.user_id=" + user_id + " and Date(events.start_date) >= '" +curtime + "' and events.recurring_or_not = "+ eventType +" ORDER BY start_date ASC LIMIT 5";
   
   connection.query(sql,function(err,result) {
     if (err) {
@@ -291,7 +291,7 @@ exports.getPastEvent=function(req,res) {
   var curtime = moment().format('YYYY-MM-DD');
   var eventType = req.body.type;
   
-  var sql = "SELECT events.id, events.parent_id, events.title, events.recurring_or_not, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id = " + user_id + " and Date(events.start_date) <= '" + curtime + "' and events.recurring_or_not = "+ eventType +" ORDER BY start_date DESC LIMIT 5";
+  var sql = "SELECT events.id, events.parent_id, events.title, events.recurring_or_not, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.parent_id IS NULL and events.user_id = " + user_id + " and Date(events.start_date) <= '" + curtime + "' and events.recurring_or_not = "+ eventType +" ORDER BY start_date DESC LIMIT 5";
   
   connection.query(sql,function(err,result) {
     if (err) {
@@ -332,7 +332,7 @@ Created : 2016-04-19
 Created By: Deepak khokkar  
 */
 exports.getEvent=function(req,res) {
-   
+  // console.log(req.body);
     var event_id=req.body.event_id;
     if(event_id!=undefined){
       var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id where events.id="+event_id;
@@ -383,7 +383,7 @@ exports.getSeriesEvent=function(req,res) {
 
 
 exports.getComment = function(req,res){
-  console.log(req.body);
+  //console.log(req.body);
   var data=req.body;
   connection.query('SELECT E.*,S.first_name,S.last_name FROM seller_users as S LEFT JOIN event_comments  as E on S.seller_id=E.seller_id where E.seller_id='+data.seller_id+ ' ORDER BY created DESC', function(err, results) {
      if (err) {
@@ -398,13 +398,13 @@ exports.addComment=function(req,res)
 {
      var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
     req.body.created = curtime;
-    console.log(req.body);
+    //console.log(req.body);
     //console.log("rootscope",$rootScope.userId);
     //var data=req.body;
     var comment=(JSON.stringify(req.body.comment) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
      var query = "INSERT INTO `event_comments` (`id`,`seller_users_id`,`event_id`,`seller_id`,`comment`,`created`) VALUES ('NULL','"+req.body.seller_users_id+"','" + req.body.event_id + "','" + req.body.seller_id + "','" + comment + "','"+ curtime + "')";
      
-     console.log(query); 
+     //console.log(query); 
      if (query != "") {
     connection.query(query, function(err7, results) {
       if (err7) {
@@ -590,25 +590,53 @@ Created By: Deepak khokhar
 */
 exports.savesecondstepdata=function(req,res)
 {
-    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
- if (req.body.category1!=undefined) {
-    var $sql1="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category1+"','"+curtime+"')";
-  connection.query($sql1,function(err,res){
-    });
- }
- if (req.body.category2!=undefined) {
-    var $sql2="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category2+"','"+curtime+"')";
-  connection.query($sql2,function(err,res){
-    });
- }
- if (req.body.category3!=undefined) {
-    var $sql3="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category3+"','"+curtime+"')";
-  connection.query($sql3,function(err,res){
-    });
- }
+   var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+   if (req.body.category1!=undefined) {
+      var $sql1="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category1+"','"+curtime+"')";
+    connection.query($sql1,function(err,res){
+      });
+   }
+   if (req.body.category2!=undefined) {
+      var $sql2="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category2+"','"+curtime+"')";
+    connection.query($sql2,function(err,res){
+      });
+   }
+   if (req.body.category3!=undefined) {
+      var $sql3="INSERT INTO `event_categories` (`id`, `event_id`, `category_id`, `created`) VALUES (NULL, '"+req.body.eventId+"', '"+req.body.category3+"','"+curtime+"')";
+    connection.query($sql3,function(err,res){
+      });
+   }
+
+   var eventwebsite = ''
+   if(req.body.eventwebsite!='' && req.body.eventwebsite!=null) {
+    eventwebsite = req.body.eventwebsite;
+   }
+   var keyword = ''
+   if(req.body.keyword!='' && req.body.keyword!=null) {
+    keyword = req.body.keyword;
+   }
+   var eventinventory = ''
+   if(req.body.eventinventory!='' && req.body.eventinventory!=null) {
+    eventinventory = req.body.eventinventory;
+   }
+   var facebook = ''
+   if(req.body.facebook!='' && req.body.facebook!=null) {
+    facebook = req.body.facebook;
+   }
+   var twitter = ''
+   if(req.body.twitter!='' && req.body.twitter!=null) {
+    twitter = req.body.twitter;
+   }
+   var video = ''
+   if(req.body.video!='' && req.body.video!=null) {
+    video = req.body.video;
+   }
+
   
-  
-   connection.query("UPDATE events SET `website_url`='"+req.body.eventwebsite+"',`keyword`='"+req.body.keyword+"',`inventory`='"+req.body.eventinventory+"',`facebook_url`='"+req.body.facebook+"',`twitter_url`='"+req.body.twitter+"',`video`='"+req.body.video+"',`type_of_event`='"+req.body.type_of_event+"',`custom_ages`='"+req.body.custom_ages+"',`price_type`='"+req.body.price+"' where id="+req.body.eventId, function(err, results) {
+  /*console.log("UPDATE events SET `website_url`='"+eventwebsite+"',`keyword`='"+keyword+"',`inventory`='"+eventinventory+"',`facebook_url`='"+facebook+"',`twitter_url`='"+twitter+"',`video`='"+video+"',`type_of_event`='"+req.body.type_of_event+"',`custom_ages`='"+req.body.custom_ages+"',`price_type`='"+req.body.price+"' where id="+req.body.eventId);*/
+  //res.json({error:err,code:101});
+
+   connection.query("UPDATE events SET `website_url`='"+eventwebsite+"',`keyword`='"+keyword+"',`inventory`='"+eventinventory+"',`facebook_url`='"+facebook+"',`twitter_url`='"+twitter+"',`video`='"+video+"',`type_of_event`='"+req.body.type_of_event+"',`custom_ages`='"+req.body.custom_ages+"',`price_type`='"+req.body.price+"' where id="+req.body.eventId, function(err, results) {
      if (err) {
       res.json({error:err,code:101});
      }else{
@@ -658,7 +686,7 @@ exports.getEventCategory=function(req,res) {
 Method: getAdvanceSetting
 Description:Function to get advance settings details of events
 Created : 2016-05-20
-Created By: Harpreet Kaur 
+Created By: Manoj Kumar 
 */
 var fs         = require('fs');
 var moment     = require('moment-timezone');
@@ -680,7 +708,7 @@ exports.getAdvanceSetting = function(req,res){
 Method: saveAdvanceSettings
 Description:Function to save advance settings of events
 Created : 2016-05-20
-Created By: Harpreet Kaur 
+Created By: Manoj Kumar 
 */
 
 exports.saveAdvanceSettings = function(req,res) {
@@ -761,7 +789,7 @@ exports.saveAdvanceSettings = function(req,res) {
 'access_code_instructions_text',
 'show_bundle_details_by_default' ];
 
-console.log('req.body' , req.body);
+//console.log('req.body' , req.body);
 for(var key in advance_settings_fields) {
   var field_name = advance_settings_fields[key];
   var checkboxkey = field_name+'_cbox';
@@ -784,7 +812,7 @@ else
 var query1 = "INSERT INTO  `"+table_name+"` SET event_id = "+req.body.event_id+" , seller_id = "+req.body.seller_id +", "+ query_fields + created;
 }
 
-console.log('query_value ' , query1);
+//console.log('query_value ' , query1);
 
   connection.query(query1, function(err, results) {
      if (err) {
@@ -956,12 +984,12 @@ exports.stepOneEventPackage = function(req,res) {
         });
     req.body.image = photoname ;
 }
- console.log('stepOneEventPackage req.body before ' );
- console.log( req.body );
+ //console.log('stepOneEventPackage req.body before ' );
+ //console.log( req.body );
 
  var fields = ['package_name', 'package_description', 'online_sales_open_date', 'online_sales_open_time','online_sales_open_date_time', 'immidiately', 'online_sales_close_date', 'online_sales_close_time', 'online_sales_close_date_time', 'event_type', 'category', 'ages', 'custom_age', 'website', 'image', 'display_image_in_listing' ];
 
-console.log('fields ' , fields);
+//console.log('fields ' , fields);
 
     var fieldsData = '';
 
@@ -973,9 +1001,12 @@ console.log('fields ' , fields);
         fieldsData+= " `"+fieldName+"` = '" + req.body[fieldName]+ "', ";
     }
 
-    console.log('fieldsData ' , fieldsData);
+   // console.log('fieldsData ' , fieldsData);
 
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    req.body.online_sales_open_date = moment(req.body.online_sales_open_date).format('YYYY-MM-DD');
+    req.body.online_sales_close_date = moment(req.body.online_sales_close_date).format('YYYY-MM-DD');
+
     req.body.created = curtime;
     req.body.modified = curtime;
 
@@ -988,7 +1019,7 @@ console.log('fields ' , fields);
 
 
     if (query != "") {
-        console.log('query', query)
+       // console.log('query', query)
         connection.query(query, function(err7, results) {
             if (err7) {
                 res.json({ error: err7,code: 101});
@@ -1001,9 +1032,15 @@ console.log('fields ' , fields);
 
 
 if(results) {
-  console.log('results' );
-  console.log('results.insertId' , results.insertId);
-var package_id = results.insertId;
+  //console.log('results' );
+ //console.log('results.insertId' ,results.insertId );
+ var package_id = '';
+  if(results.insertId != 0 && results.insertId=='' ) {
+    package_id = results.insertId;
+  }
+  if (req.body.id && req.body.id != "" && req.body.id != undefined) {
+    package_id = req.body.id;
+  }
             for (var index in  req.body.event_ids) {
                 
                 if (req.body.event_ids[index] != undefined) {
@@ -1011,8 +1048,8 @@ var package_id = results.insertId;
                     var query_event = "INSERT INTO package_event_map ( event_id , package_id) VALUES ( "+ event +" , "+ package_id +")";
 
 
-console.log('------------------');
-console.log(query_event);
+//console.log('------------------');
+//console.log(query_event);
 
                     connection.query(query_event, function(subErr, subResults) {
                       if (subErr) {
@@ -1084,11 +1121,18 @@ Created By: Deepak khokhar
 */
 
 exports.look_and_feel_save_html = function(req,res) {
+   var html1=req.body.html[0].replace(/'/g, "\\'");
+   var html2=req.body.html[1].replace(/'/g, "\\'");
+   var html3=req.body.html[2].replace(/'/g, "\\'");
+   var html4=req.body.html[3].replace(/'/g, "\\'");
+   var html5=req.body.html[4].replace(/'/g, "\\'");
+   var html6=req.body.html[5].replace(/'/g, "\\'");
+   var html7=req.body.html[6].replace(/'/g, "\\'");
+   var html8=req.body.html[7].replace(/'/g, "\\'");
    
-     var html=(JSON.stringify(req.body.html) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
-      var eventId=req.body.eventId;
-    console.log("UPDATE events SET step3_html='"+html+"' where id="+eventId);
-    connection.query("UPDATE events SET step3_html='"+html+"' where id="+eventId, function(err, results)
+     var eventId=req.body.eventId;
+    
+    connection.query("UPDATE events SET section1='"+html1+"',section2='"+html2+"',section3='"+html3+"',section4='"+html4+"',section5='"+html5+"',section6='"+html6+"',section7='"+html7+"',section8='"+html8+"' where id="+eventId, function(err, results)
     {
      if (err) {
       res.json({error:err,code:101});

@@ -1,7 +1,7 @@
 /** 
 Angular Controller for the finacial setting of user 
 Created : 2016-05-17
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 Module : Financial Setting Module  
 */
 angular.module('alisthub')

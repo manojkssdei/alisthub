@@ -21,28 +21,23 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
     }
     
     // if seller has no event then
-                  if ($localStorage.userId) {
-                     $http({
-                        url: webservices.getEvents,
-                        method: 'POST',
-                        data: "user_id="+$localStorage.userId,
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                            "Accept": "application/json",
-                        }
-                    }).success(function(datae, status, headers, config) {
-                        
-                        if (datae && datae != "") {
-                             
-                        }
-                        else{
-                               $state.go('create_an_event'); 
-                        }
-                    });
-                  }
-                    
-     //////
-     
+    if ($localStorage.userId) {
+      $http({
+        url: webservices.getEvents,
+        method: 'POST',
+        data: "user_id="+$localStorage.userId,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "Accept": "application/json",
+        }
+      }).success(function(datae, status, headers, config) {
+        if (datae && datae != "") {
+        
+        } else {
+          $state.go('create_an_event'); 
+        }
+      });
+    }
      
     $scope.UPCtab = false;
     $scope.UPCtabclass = "fa-caret-down";
@@ -92,11 +87,11 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
         }
     }
 
-    $scope.recurringHref = function(eventId,recurringOrNot){
+    $scope.recurringHref = function(eventId,recurringOrNot) {
       if(recurringOrNot==0){
-        $location.path("/#/create_event_step1/" + eventId);  
+        $location.path("/create_event_step1/" + eventId);  
       } else {
-        $location.path("/#/create_series_step1/" + eventId);
+        $location.path("/create_series_step1/" + eventId);
       }
     }
 

@@ -864,14 +864,23 @@ $scope.rec_year_func = function() {
 
   $scope.multiple_event_div = $scope.venue_event_div = $scope.price_and_link_div = $scope.look_and_feel_div = $scope.setting_div = $scope.dynamic_age_div = $scope.return_age_text_div = true;
 
-    //Default Event
-  $scope.events = [{
+   //Default Event
+  if (!$stateParams.eventId) {
+      var href = 'create_event_step1';
+  } else {
+      var href = 'javascript:void(0)'; 
+  }
+    
+   $scope.events = [{
       "name": "Single Event",
-      'id': 1
+      'id': 1,
+      'href':href
     }, {
       "name": "Multiple Event",
-      'id': 2
+      'id': 2,
+      'href':'javascript:void(0)'
     }]
+
     //To show default venues 
   $scope.venues = [{
     "name": "Use Past Location",

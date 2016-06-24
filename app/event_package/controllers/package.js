@@ -21,12 +21,21 @@ exports.getPackage=function(req,res) {
     if(package_id!=undefined){
       //var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id where events.id="+event_id;
       var sql="SELECT * from event_package where id="+package_id+" and user_id ="+user_id;
-     
+      var query_event = "SELECT event_id from package_event_map where package_id = "+package_id;
+
       connection.query(sql,function(err,result){
         if (err) {
           res.send({err:"error",code:101}); 
         }
-        res.send({"results":result,code:200});  
+        //res.send({"results":result,code:200});  
+
+        connection.query(query_event,function(err1,package_events){
+        if (err1) {
+          res.send({err1:"error",code:101}); 
+        }
+        res.send({"results":result, "package_events":package_events,code:200});  
+      });
+
       });
     } else {
       res.send({"results":{},code:200});
@@ -433,3 +442,32 @@ for (var index in fields) {
   });
    
 }
+
+exports.getEventCategoriesList = function(req, res) {
+    var query = "SELECT * FROM `event_category` order by id asc";
+    console.log('query ' , query);
+    connection.query(query, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: results, code: 200 });
+    });
+}
+
+exports.viewSelectedEvents = function(req, res) {
+  if(req.body.choosenEventsIds != undefined && choosenEventsIds != "") {
+    var choosenEventsIds = req.body.choosenEventsIds;
+    choosenEventsIdsStr = choosenEventsIds.substr(0, choosenEventsIds.length-1);
+
+    var query = "SELECT id, title, event_address , city FROM `events` where id in ("+choosenEventsIdsStr+")";
+    console.log('query ' , query);
+    connection.query(query, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: results, code: 200 });
+    });
+}
+}
+
+   
