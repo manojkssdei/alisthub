@@ -180,6 +180,9 @@ angular.module('alisthub').controller('createpackageController', function($scope
       }
       return '';
     }
+
+
+
   // Datepicker end
 
   //timepicker
@@ -200,6 +203,9 @@ angular.module('alisthub').controller('createpackageController', function($scope
   /** Method : Date Time Merge 
   **/
 
+$scope.redirectToDashboard = function() {
+   $location.path("/dashboard");
+}
   $scope.combine = function(dt, timeString) {
     var startDateTime = '';
     var parts = /^(\d+):(\d+) (AM|PM)$/.exec(timeString);
@@ -256,7 +262,7 @@ angular.module('alisthub').controller('createpackageController', function($scope
           if (response.code === 200) {
             //$scope.data = response.result;
 
-            $scope.success = global_message.bundle_add;
+            $scope.success = global_message.save_package;
             $scope.success_message = true;
 
             $timeout(function() {
@@ -276,13 +282,15 @@ angular.module('alisthub').controller('createpackageController', function($scope
 
   $scope.eventSetting = {};
     
-  if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-    $scope.eventSetting.eventId = $stateParams.eventId;
+  if($stateParams.packageId!=undefined && $stateParams.packageId!='') {
+    //$scope.eventSetting.eventId = $stateParams.eventId;
+    $scope.eventSetting.package_id = $stateParams.packageId;
   } else {
-    $scope.eventSetting.eventId = $localStorage.eventId;
+    //$scope.eventSetting.eventId = $localStorage.eventId;
+    $scope.eventSetting.package_id = $localStorage.packageId;
   }
 
-  $scope.eventSetting.userId = $localStorage.userId;
+  $scope.eventSetting.user_id = $localStorage.userId;
   //To get settings 
  // $serviceTest.getSettings($scope.eventSetting, function(response) {
   $serviceTest.getPackage($scope.eventSetting, function(response) {

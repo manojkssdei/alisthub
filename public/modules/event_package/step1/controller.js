@@ -58,6 +58,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
     $scope.end_time_error = true;
     $scope.loader = false;
 
+      $scope.success_message = false;
+
     if ($localStorage.userId != undefined) {
         $scope.data.user_id = $localStorage.userId;
         userId = $localStorage.userId;
@@ -192,7 +194,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
 
     if ($state.params.packageId === '') {
         $localStorage.packageId = null;
-    } else {
+    } 
+
+console.log('$state.params.packageId' , $state.params.packageId);
+    if ($state.params.packageId) {
         console.log('edit called');
 
         var packageId = $localStorage.packageId = $state.params.packageId;
@@ -203,8 +208,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
             $scope.data = response.results[0];
             $scope.package_events = response.package_events;
 
-            $scope.data.online_sales_open_date = new Date($scope.data.online_sales_open_date);
-            $scope.data.online_sales_close_date = new Date($scope.data.online_sales_close_date);
+            $scope.data.online_sales_open_date = new Date($scope.data.online_sales_open_date_time);
+            $scope.data.online_sales_close_date = new Date($scope.data.online_sales_close_date_time);
 
             if ($scope.data.custom_age != '' && $scope.data.custom_age != undefined) {
                 $scope.data.defined_age = 1;
@@ -225,6 +230,7 @@ $scope.data.image_1 = $scope.data.image ;
             }
 
             $rootScope.choosenSelectedEventsIds = $scope.event_ids;
+            console.log('$rootScope.choosenSelectedEventsIds' , $rootScope.choosenSelectedEventsIds) ;
             console.log('$scope.data.event_ids', $scope.event_ids);
             console.log('$scope.data.event_idsStr', $scope.event_idsStr);
 
@@ -240,6 +246,7 @@ $scope.data.image_1 = $scope.data.image ;
             $serviceTest.viewSelectedEvents($scope.eventPostData, function(response) {
                 if (response.code == 200) {
                     $scope.choosenEventsArea = true;
+                    $scope.eventsChoosedFlag = true;
                     $rootScope.FinalEvents = $scope.FinalEvents = response.result;
 
                     $scope.tableParams = new ngTableParams({
@@ -285,8 +292,13 @@ $scope.data.image_1 = $scope.data.image ;
                 $location.path("/event_package_step_2/" + $localStorage.packageId);
             }
 
+            if ($localStorage.packageId !== '' && $rootScope.packageId  !== "" && $rootScope.packageId === $localStorage.packageId ) {
+                console.log(' edit case......... go ..............');
+                $location.path("/event_package_step_2/" + $localStorage.packageId);
+            }
+
             if ($localStorage.packageId == '' && $rootScope.packageId === $localStorage.packageId) {
-                console.log('save & go');
+                console.log('save & go in case of direct edit');
                 $scope.stepOne();
                 $location.path("/event_package_step_2/" + $localStorage.packageId);
             }
@@ -479,6 +491,18 @@ $scope.data.image_1 = $scope.data.image ;
                     if (response.code == 200) {
                         $rootScope.packageId = $scope.data.id = response.result;
                         $localStorage.packageId = $scope.data.id;
+
+
+                        $scope.success = global_message.save_package;
+
+                        $scope.success_message = true;
+                        $timeout(function() {
+                          $scope.success = '';
+                          $scope.success_message = false;
+                        }, 3000);
+                        // window.location.reload();
+    
+
                         // $location.path("/event_package_step_2/"+$scope.data.package_id);
                     } else {
                         $scope.error_message = response.error;
@@ -660,7 +684,7 @@ angular.module('alisthub').controller('EventModalInstanceCtrl', function($localS
                         var valId = $scope.eventdata[index].id;
 
                         $scope.eventdata[index].checked = 0;
-                        if ($rootScope.choosenSelectedEventsIds != '') {
+                        if ($rootScope.choosenSelectedEventsIds != undefined ) {
                             if ($rootScope.choosenSelectedEventsIds.indexOf(valId) !== -1) {
                                 $scope.eventdata[index].checked = 1;
                             }
@@ -686,8 +710,10 @@ angular.module('alisthub').controller('EventModalInstanceCtrl', function($localS
                         $scope.event_id.push(value.id);
                     }); */
 
-                    if ($rootScope.choosenSelectedEventsIds != '') {
+                    if ($rootScope.choosenSelectedEventsIds != '' && $rootScope.choosenSelectedEventsIds != undefined) {
                         console.log('$rootScope.choosenSelectedEventsIds', $rootScope.choosenSelectedEventsIds);
+                       // $scope.eventcheckbox = [];
+                        console.log('$rootScope.choosenSelectedEventsIds');
                         $scope.eventcheckbox = $rootScope.choosenSelectedEventsIds;
 console.log('$scope.eventcheckbox ' , $scope.eventcheckbox );
 
