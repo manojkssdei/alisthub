@@ -15,48 +15,34 @@ angular.module('alisthub').controller('createpackageController', function($scope
     };    
  }
 
-
   $scope.click_menu = function(menu, data, valid) {
     console.log('$stateParams.packageId ' , $stateParams.packageId);
     console.log('menu.id ' , menu.id );
     var objectForm = this;
     $scope.selectedClass = 1;
+    console.log('menu.id' , menu.id);
     //To go to step1 event Details
     if (menu.id === 1) {
-      $location.path("/create_event_step1");
-      $scope.selectedClass = 1;
+          console.log('------1----');
+      if($stateParams.packageId != null && $stateParams.packageId !=undefined && $stateParams.packageId !='') {
+            $location.path("/edit_event_step1/"+$stateParams.packageId);
+          } 
     }
 
     ///TO move to price and level
     if (menu.id === 2) {
       console.log('------2----');
-      if (objectForm.myForm.$valid === true) {
-          $scope.selectedClass = 2;
-          if($stateParams.packageId != null && $stateParams.packageId !=undefined && $stateParams.packageId !='') {
+     if($stateParams.packageId != null && $stateParams.packageId !=undefined && $stateParams.packageId !='') {
             $location.path("/event_package_step_3/"+$stateParams.packageId);
           } 
-          
-      } else {
-        $scope.selectedClass = 1;
-        $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
-        $timeout(function() {
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.error = '';
-        }, 3000);
-      }
     }
 
     if (menu.id === 3) {
             console.log('-----3----');
-
-      $scope.selectedClass = 3;
-          if($stateParams.packageId!=undefined && $stateParams.packageId!='' && $stateParams.packageId!= null) {
+          if($stateParams.packageId != null && $stateParams.packageId !=undefined && $stateParams.packageId !='') {
             $location.path("/event_package_step_3/"+$stateParams.packageId);
           } 
     }
-    //$scope.selected2 = menu;
   }
   
 
