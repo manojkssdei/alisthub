@@ -293,7 +293,7 @@
       </section>
 
       <section ng-hide="preview_div">
-	Coming soon.
+	<a href="{{preview_link}}" target="_blank">Preview Template</a>
       </section>
 </div>
 <script type="text/javascript">
@@ -333,8 +333,9 @@ function change_image3()
 			handle: '.header'
 		}
         }).data('gridster');
-          var eventdata=new Array();
+         
           $('.js-seralize').on('click', function() {
+	     var eventdata=new Array();
             var s = gridster.serialize();
 	    
            s.forEach(function(item,index){
@@ -355,6 +356,8 @@ function change_image3()
 	  });
 	   var href = window.location.href;
           var eventId=href.substr(href.lastIndexOf('/') + 1);
+	  console.log(arr);
+	  console.log(typeof arr);
 	   $.ajax({
 	    method: "POST",
 	    url: "/event/look_and_feel_save_html",

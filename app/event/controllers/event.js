@@ -332,7 +332,7 @@ Created : 2016-04-19
 Created By: Deepak khokkar  
 */
 exports.getEvent=function(req,res) {
-   
+   console.log(req.body);
     var event_id=req.body.event_id;
     if(event_id!=undefined){
       var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id where events.id="+event_id;
@@ -1084,11 +1084,18 @@ Created By: Deepak khokhar
 */
 
 exports.look_and_feel_save_html = function(req,res) {
+   var html1=(JSON.stringify(req.body.html[0]) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+   var html2=(JSON.stringify(req.body.html[1]) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+   var html3=(JSON.stringify(req.body.html[2]) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+   var html4=(JSON.stringify(req.body.html[3]) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+   var html5=(JSON.stringify(req.body.html[4]) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+   var html6=(JSON.stringify(req.body.html[5]) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+   var html7=(JSON.stringify(req.body.html[6]) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+   var html8=(JSON.stringify(req.body.html[7]) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
    
-     var html=(JSON.stringify(req.body.html) + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
-      var eventId=req.body.eventId;
-    console.log("UPDATE events SET step3_html='"+html+"' where id="+eventId);
-    connection.query("UPDATE events SET step3_html='"+html+"' where id="+eventId, function(err, results)
+     var eventId=req.body.eventId;
+    
+    connection.query("UPDATE events SET section1='"+html1+"',section2='"+html2+"',section3='"+html3+"',section4='"+html4+"',section5='"+html5+"',section6='"+html6+"',section7='"+html7+"',section8='"+html8+"' where id="+eventId, function(err, results)
     {
      if (err) {
       res.json({error:err,code:101});

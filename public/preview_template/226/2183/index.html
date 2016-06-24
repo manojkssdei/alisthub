@@ -21,31 +21,31 @@
 <body  ng-app="myApp" ng-controller="GreetingController">
 <!-- Wrapper -->
 <div class="ev-container wtframe"> 
-    <section class="ev-image" id="section1"> Section 1</section><!--Main Pic-->
+    <section class="ev-image" id="section1"> <div ng-bind-html="section1"></div></section><!--Main Pic-->
   
     
     <section class="row">
     	<section class="col-sm-8">
         	<section class="ev-details module-div">
-            	section2
+            	<div ng-bind-html="section2"></div>
             </section><!--Event Details-->
            
 	   
 	    <section class="ev-details module-div">
-            	section3
+            	<div ng-bind-html="section3"></div>
             </section><!--Video Block-->
         </section><!--Left Panel-->
         <section class="col-sm-4">
         	<section class="venue-panel module-div">
-            	<div id="venue-panel">section4</div>
+            	<div id="venue-panel"><div ng-bind-html="section4"></div></div>
             </section><!--Venue Block-->
             
             <section class="ticket-panel module-div">
-            	<div id="ticket-panel">section5</div>
+            	<div id="ticket-panel"><div ng-bind-html="section5"></div></div>
             </section><!--Venue Block-->
             
             <section class="fb-block module-div">
-            	Section6
+            	<div ng-bind-html="section6"></div>
             </section><!--Facebook Block-->
             
         </section><!--Right Panel-->
@@ -57,14 +57,33 @@
 
 <!-- Scripts -->
 <script type="text/javascript" src="http://localhost:5502/javascripts/jquery.min.js"></script>
-<script src="http://localhost:5502/preview_template/assets/js/angular-min.js"></script> 
+
+<script src="http://localhost:5502/javascripts/angular-min.js"></script>
 
 <script src="http://localhost:5502/preview_template/assets/js/ui-bootstrap-tpls-0.12.0.min.js"></script> 
 <script type="text/javascript" src="http://localhost:5502/preview_template/assets/js/custom.js"></script>
 <script type="text/javascript">
     var myApp = angular.module('myApp',[]);
 
-myApp.controller('GreetingController', ['$scope', function($scope) {
+myApp.controller('GreetingController', ['$scope','$http','$sce', function($scope,$http,$sce) {
+    
+    $http({
+        method : "POST",
+        url : "http://localhost:5502/event/getEvent",
+	data:{'event_id':2183}
+    }).then(function(response) {
+	
+	$scope.section1=$sce.trustAsHtml(response.data.results[0].section1);
+	$scope.section2=$sce.trustAsHtml(response.data.results[0].section2);
+	$scope.section3=$sce.trustAsHtml(response.data.results[0].section3);
+	$scope.section4=$sce.trustAsHtml(response.data.results[0].section4);
+	$scope.section5=$sce.trustAsHtml(response.data.results[0].section5);
+	$scope.section6=$sce.trustAsHtml(response.data.results[0].section6);
+	$scope.section7=$sce.trustAsHtml(response.data.results[0].section7);
+	});
+    
+	
+    
  
 }]);
 </script>

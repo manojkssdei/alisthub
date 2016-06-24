@@ -9,6 +9,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
 
      var $serviceTest = $injector.get("Lookservice");
      $scope.ticket_image='./images/ticket.png';
+     $scope.preview_link="http://192.155.246.146:5502/preview_template/"+$localStorage.userId+"/"+$stateParams.eventId;
      var $serviceTestVenue = $injector.get("venues");
      $scope.error_message = true;
     var event_id=$stateParams.eventId;
