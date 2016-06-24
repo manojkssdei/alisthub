@@ -104,7 +104,6 @@ module.exports = function(app, express) {
   router.post('/getSettings' , supportCrossOriginScript , EventSetting.getSettings);
   
   
-  
 
 	/*********************************** Service for Series events ******************************/
         /* Save reoccuring event data */
@@ -128,12 +127,21 @@ module.exports = function(app, express) {
 	/* For series add Bundle */
 	router.post('/addseriesBundle', EventSeries.addseriesBundle);
 	
+	/* For series add product */
+	router.post('/addSeriesEventProduct', EventSeries.addSeriesEventProduct);
+	
        /* Save price level*/
         router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel);
         
 	/* Series bundles */
 	router.post('/updateSeriesBundle', EventSeries.updateSeriesBundle);
+	
+	/*save Series second step data*///
+        router.post('/savesecondSeriesstepdata',supportCrossOriginScript, EventSeries.savesecondSeriesstepdata);
 
+	/** Save Series event step -4 **/
+	router.post('/saveSeriesSetting' , supportCrossOriginScript , EventSeries.saveSeriesSetting);
+	
         router.post('/preview_template',function(req,res){
             console.log("preview template");
            /* var data={};

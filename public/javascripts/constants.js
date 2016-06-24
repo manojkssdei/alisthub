@@ -201,6 +201,7 @@ var webservices = {
 
     //save second step data
     "secondStepdata": "/event/savesecondstepdata",
+    "secondSeriesStepdata": "/event/savesecondSeriesstepdata",
 
     // advance settings of events
     "saveAdvanceSettings": "/event/saveAdvanceSettings",
@@ -215,6 +216,7 @@ var webservices = {
 
     //Add event product
     "addEventProduct": "/event_setting/addEventProduct",
+    "addSeriesEventProduct": "/event/addSeriesEventProduct",
     //Add event product
     "getEventProducts": "/event_setting/getEventProducts",
     "getEventProductDetail": "/event_setting/getEventProductDetail",
@@ -225,6 +227,7 @@ var webservices = {
     //Event step 4 
     "getSettings": "/event/getSettings",
     "saveSetting": "/event/saveSetting",
+    "saveSeriesSetting": "/event/saveSeriesSetting",
     "saveInventory": "/event/saveInventory",
 
 
