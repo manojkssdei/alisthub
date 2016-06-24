@@ -29,6 +29,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       $scope.selected1 = $scope.venues[1];
       $scope.data.eventname=response.results[0].title;
       $scope.data.eventurl=response.results[0].event_domain;
+      $scope.data.domain_url_availability=1;
       $scope.starttime=$scope.startevent_time=response.results[0].start_time;
       $scope.endtime=$scope.endevent_time=response.results[0].end_time;
       $scope.data.content=response.results[0].description;
