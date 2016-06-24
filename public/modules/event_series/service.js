@@ -259,7 +259,13 @@ url.getEventProductDetail = function(jsondata,callback){
       callback(res.data);
     });
   };
-
+ //check event Domain
+url.checkeventurl = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.checkeventurl,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
 
 
  

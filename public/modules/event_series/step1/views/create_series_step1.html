@@ -23,6 +23,22 @@
             <input type="text" tooltips tooltip-template="This is the title of your event. Minimum 3 characters, maximum 50 characters." name="eventname" ng-model="data.eventname" class="form-control" placeholder="Title of your Event" minlength="3" maxlength="50" required>
             <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">Event Name is required (Minimum 3 characters , maximum 50 characters)</p>
           </div>
+          <div class="form-group"  >
+            <label for="eventname">Event Url<span class="req">*</span></label>
+           
+            <section class="form-group"  ng-class="{ 'has-error' : myForm.eventurl.$dirty && myForm.eventurl.$invalid }">
+                        <div class="domain-name"><input  type="text" name="eventurl" ng-model="data.eventurl" class="form-control" placeholder="Url of your Event" ng-blur="checkeventurl();"  required><span class="dname">.alist.com</span></div>
+                         <input type="hidden"  ng-model="data.domain_url_availability" class="form-control" required> 
+                        <span ng-hide="successuniquemessage">
+                            <p class="success-fld">{{unique}}</p>
+                        </span>
+                        <span ng-hide="erroruniquemessage">
+                            <p class="error-fld">{{unique}}</p>
+                        </span>
+                        <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventurl.$dirty && myForm.eventurl.$invalid">Event Url is required</p>
+                      </section>
+            
+          </div>
           <div class="form-group field-group">
             <label>Date and Time<span class="req">*</span></label>
             <div class="event-date fieldSection">
@@ -358,11 +374,7 @@
                     </div>
       </div>
       
-      <div class="form-group field-group">
-        <label for="Location" ng-class="{ 'has-error' : myForm.short_name.$dirty && myForm.short_name.$invalid }">Title <span class="req">*</span></label>
-        <div class="domain-name"><input type="text" name="short_name" ng-model="data.short_name" class="form-control" placeholder="Title of your Event" required><span class="dname">.alist.com</span></div>
-        <p class="help-inline error-fld ng-binding"  ng-show="myForm.short_name.$dirty && myForm.short_name.$invalid">Title is required</p>
-      </div>
+      
       
       
       <div class="editr">

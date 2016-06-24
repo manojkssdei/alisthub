@@ -32,6 +32,8 @@
         }
         </style>
         <div ng-hide="setting_div">
+        <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success_setting_message}}</p></span>
+        
             <form name="eventSettingForm" class="event-form"  ng-submit="save_setting(formdata)" novalidate>
                 <section class="form-group field-group">
                     <label>Delivery Methods</label>
@@ -483,7 +485,7 @@
                           </div>
                             <br>
                             <p>
-                                <a ui-sref="advance_setting">
+                                <a href = "/#/edit_advance_setting/{{RefEvnetId}}">
                                     <button class="pink-btn btn btn-small m-fw">Edit Event Advanced Setting</button>
                                 </a>
                             </p>
@@ -494,8 +496,7 @@
             
                 <div class="editr">
                     <div class="editor-btn">
-                        <button type="submit" ng-disabled="eventSettingForm.$invalid" class="gray-btn btn">Save</button>
-                        <button class="pink-btn btn" ng-click="next_func(formdata)">Next</button>
+                        <button type="submit" ng-disabled="eventSettingForm.$invalid" class="gray-btn btn">Save &amp; Finish</button>
                     </div>
                 </div>
             </form>
