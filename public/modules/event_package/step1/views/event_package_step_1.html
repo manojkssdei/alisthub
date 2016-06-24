@@ -16,6 +16,7 @@
         <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
 
      <span ng-show="success_message"><p class="success-fld ng-binding">{{success}}</p></span>
+
      
         <div ng-hide="eventdetail_div" class="eventseries">
             <form  name="myForm" class="event-form" novalidate>
@@ -207,9 +208,7 @@
                     <button type="button" ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
                 </div>
             </form>
-            <div ng-hide="error_message">
-                <p class="success-fld ng-binding">{{success}}</p>
-            </div>
+            
         </div>
     </div>
 </div>

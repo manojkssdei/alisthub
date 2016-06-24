@@ -314,7 +314,7 @@ console.log('-----------------');
 var condition = '';
 
 
-     if(results1[0].excluded_product_id  !== '' ) {
+     if(results1[0].excluded_product_id  !== '' && results1[0].excluded_product_id != null && results1[0].excluded_product_id != 'null' ) {
 condition = ' AND id NOT IN (' + results1[0].excluded_product_id+')';
      }
 

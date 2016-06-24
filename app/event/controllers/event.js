@@ -1035,10 +1035,12 @@ if(results) {
   console.log('results' );
   console.log('results.insertId' ,results.insertId );
  var package_id = '';
-  if(results.insertId != 0 && results.insertId=='' ) {
+  if(results.insertId != 0 && results.insertId !='' ) {
+    console.log(' ---------1--------');
     package_id = results.insertId;
   }
   if (req.body.id && req.body.id != "" && req.body.id != undefined) {
+    console.log(' ---------2--------');
     package_id = req.body.id;
   }
             for (var index in  req.body.event_ids) {

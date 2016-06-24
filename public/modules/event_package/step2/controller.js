@@ -19,7 +19,7 @@ var $serviceTest = $injector.get("event_package");
   $scope.showBundleList = $rootScope.showBundleList=true;
   $scope.showProductsList = $rootScope.showProductsList = true;
   
-  $scope.error_message = $scope.error_time_message = true;
+  $scope.success_message = $scope.error_time_message = true;
   $rootScope.success_message1 = false;
 
 
@@ -47,7 +47,6 @@ var $serviceTest = $injector.get("event_package");
      { "title":"OPTIONS","icon":'fa fa-cog','id':3},
    ];
 
-  $scope.success_message = false;
   $scope.error_message = true;
 
 
@@ -286,10 +285,10 @@ var $serviceTest = $injector.get("event_package");
       if (response.code == 200) {
         $scope.success = global_message.save_package;
 
-        $scope.error_message = false;
+        $scope.success_message = false;
         $timeout(function() {
           $scope.success = '';
-          $scope.error_message = true;
+          $scope.success_message = true;
         }, 3000);
         // window.location.reload();
       }
@@ -342,8 +341,11 @@ var $serviceTest = $injector.get("event_package");
     $scope.selectedClass = 1;
     //To go to step1 event Details
     if (menu.id === 1) {
+console.log('$stateParams.packageId ' , $stateParams.packageId);
+console.log('$rootScope.packageId ' , $rootScope.packageId);
 
       if($stateParams.packageId == $rootScope.packageId) {
+        console.log('============1===========');
         $location.path("/edit_event_step1/"+$rootScope.packageId ); 
 
       }
@@ -362,11 +364,11 @@ var $serviceTest = $injector.get("event_package");
           
       } else {
         $scope.selectedClass = 1;
-        $scope.error_message = false;
+        $scope.success_message = false;
         $scope.error = global_message.event_step1_msg;
         $timeout(function() {
           $scope.error = '';
-          $scope.error_message = true;
+          $scope.success_message = true;
           $scope.error = '';
         }, 3000);
       }
@@ -509,7 +511,7 @@ var $serviceTest = $injector.get("event_package");
       $scope.loader_bundle = true;
       $serviceTest.changePackageBundleStatus($scope.data, function(response) {
         if (response.code === 200) {
-
+$scope.loader_bundle = false;
           $scope.success_message_bundle = true;
           $scope.success_bundle = global_message.bundle_save;
           $timeout(function() {
