@@ -9,6 +9,8 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
 
      var $serviceTest = $injector.get("Lookservice");
      $scope.ticket_image='./images/ticket.png';
+     var href = window.location.href.split("/");
+     $scope.preview_link="http://"+href[2]+"/preview_template/"+$localStorage.userId+"/"+$stateParams.eventId;
      var $serviceTestVenue = $injector.get("venues");
      $scope.error_message = true;
     var event_id=$stateParams.eventId;
@@ -266,9 +268,9 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
   ]
     
     $scope.look_and_feel_choose_type = [
-    { "name": "Color",'id':5},
-    {"name": "Images",'id':6},
-    {"name": "Blocks",'id':7}
+    { "name": "Color",'id':5}
+  /*  {"name": "Images",'id':6},
+    {"name": "Blocks",'id':7}*/
    
   ]
     

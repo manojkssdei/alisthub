@@ -8,34 +8,7 @@
       <div class="stage-title">{{step.title}}</div>
     </div>
  </div>
-  <!-- <script type="text/javascript">
-    var EventsWidgetDisplayPreferences = {
-        seller_id: '22381',
-        uri: 'http://tickets.alistixs.com/events/22381',
-        domain: 'tickets.alistixs.com',
-        white_label: 'ALIST Solutions LLC',
-        max_number_of_events: '4',
-        group_series_events: 'true',
-        title_text: 'Upcoming Events',
-        height: 'auto',
-        width: '330px',
-        background_color: '#2c344b',
-        header_color: '#FFFFFF',
-        row_background_color: '#FFFFFF',
-        text_color: '#333',
-        link_color: '#fe1e5a',
-        include_scrollbar: 'auto',
-        display_title_bar: 'true',
-        display_date_block: 'true',
-        display_image: 'none',
-        display_full_date: 'true',
-        display_time: 'true',
-        display_venue: 'true',
-        display_tickets_link: 'none'
-    }
-</script>
-<script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js">
-</script>-->
+ 
     <!-- //Step Form -->
     
     <!-- Form COntainer -->
@@ -173,9 +146,15 @@
 			  </div>
 			</div>
 		  </section>
-		  <section class="content">
-		    <div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
-		    </section>
+          <section class="form-group field-group">
+          	  <h4>Description</h4>
+              <section class="event-details">
+                    <section class="content">
+		    			<div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
+		    </section>        
+              </section>
+          </section>
+		  
 		</li>
 		<!--<li data-row="3" data-col="1" data-sizex="3" data-sizey="1"  id="section3"  ng-style="{background: background_inner}">
 		  <div class="drag" style="display:none;">
@@ -194,8 +173,8 @@
 		      <a onclick="crop_image('section2_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
 		    </div>
 		     <div class="row">
-		      <div class="col-sm-8">
-			<div contenteditable="true" ckeditor="option_ckeditor1" name="content3"  required ng-model="content3" ready="onReady()" value='' class="wrap-word">
+		      <div class="col-sm-8 content">
+			       <div contenteditable="true" ckeditor="option_ckeditor1" name="content3"  required ng-model="content3" ready="onReady()" value='' class="wrap-word">
 		      </div></div>
 		      <div class="col-sm-4">
 			<img src="{{section2_image}}" id="section2_image" alt="banner imageee"  height="auto" width="100%" onclick="change_image2()">
@@ -293,7 +272,7 @@
       </section>
 
       <section ng-hide="preview_div">
-	Coming soon.
+	<a href="{{preview_link}}" target="_blank">Preview Template</a>
       </section>
 </div>
 <script type="text/javascript">
@@ -333,8 +312,9 @@ function change_image3()
 			handle: '.header'
 		}
         }).data('gridster');
-          var eventdata=new Array();
+         
           $('.js-seralize').on('click', function() {
+	     var eventdata=new Array();
             var s = gridster.serialize();
 	    
            s.forEach(function(item,index){
@@ -355,6 +335,7 @@ function change_image3()
 	  });
 	   var href = window.location.href;
           var eventId=href.substr(href.lastIndexOf('/') + 1);
+	
 	   $.ajax({
 	    method: "POST",
 	    url: "/event/look_and_feel_save_html",
