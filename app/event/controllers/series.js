@@ -88,6 +88,18 @@ exports.saverecurringEvent=function(req,res){
             }
             else{
                 var parent_id = presult.insertId;
+                               
+                var __dir = './public/preview_template/'+data.userId;
+                if (!fs.existsSync(__dir)){
+                    fs.mkdirSync(__dir);
+                }
+                  var __dir1 = './public/preview_template/'+data.userId+'/'+parent_id;
+                if (!fs.existsSync(__dir1)){
+                    fs.mkdirSync(__dir1);
+                }
+                fs.openSync(__dir1 + "/index.html", 'w');
+                 fs.createReadStream("./public/preview_template/look-n-feel-design-preview.html").pipe(fs.createWriteStream(__dir1 + "/index.html"));
+                 
             }
             
             if (parent_id != null && parent_id !== undefined) {

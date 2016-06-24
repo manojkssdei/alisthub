@@ -141,9 +141,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('series
   else{
      
      var event_id=$stateParams.eventId;
+     $scope.pageloader = true;
      $serviceTest.getSeriesEvent({'event_id':event_id},function(response){
+        $scope.pageloader = false;
         console.log(response.results[0]);
         $scope.data=response.results[0];
+        $scope.data.eventurl= $scope.data.event_domain;
+        $scope.data.domain_url_availability = 1;
         $scope.selected1 = $scope.venues[1];
         $scope.data.eventname=response.results[0].title;
         $scope.starttime=$scope.startevent_time=response.results[0].start_time;
@@ -940,6 +944,16 @@ $scope.rec_year_func = function() {
     startingDay: 1
   };
 
+   $scope.dateOptions3 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+  $scope.dateOptions4 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
   // Disable weekend selection
   function disabled(data) {
     var date = data.date,
@@ -1065,7 +1079,7 @@ $scope.rec_year_func = function() {
       var href = 'create_event_step1';
     }
     else{
-      var href = 'javascript:void(0)'; 
+      var href = 'create_series_step1'; 
     }
     
    $scope.events = [{
@@ -1075,7 +1089,7 @@ $scope.rec_year_func = function() {
     }, {
       "name": "Multiple Event",
       'id': 2,
-      'href':'javascript:void(0)'
+      'href':href
     }]
     //To show default venues 
    $scope.venues = [{
