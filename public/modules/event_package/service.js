@@ -134,6 +134,48 @@ url.viewSelectedEvents = function(jsondata,callback){
   });
 };
 
+//Get Event Product Detail
+url.getPackageProductDetail = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.getPackageProductDetail,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+//get Event Product
+url.getPackageProducts = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.getPackageProducts,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+
+url.removePackageProduct = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.removePackageProduct,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+    callback(res.data);
+  });
+};
+
+  //change bundle status
+  url.changePackageBundleStatus = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.changePackageBundleStatus,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+    //remove Bundle
+  url.removePackageBundle = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.removePackageBundle,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+ url.getBundleDetailOfPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getBundleDetailOfPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+  
 
 
 /*url.saveSetting = function(jsondata,callback){
