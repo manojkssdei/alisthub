@@ -225,6 +225,7 @@ url.checkeventurl = function(jsondata,callback){
     });
       
   };
+return url;
 
-
-}]);
+}])
+;
