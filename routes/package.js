@@ -64,7 +64,23 @@ module.exports = function(app, express) {
       
       router.post('/viewSelectedEvents',supportCrossOriginScript, Package.viewSelectedEvents);
 
+   
+      router.post('/getPackageProductDetail',supportCrossOriginScript, Package.getPackageProductDetail);
+
+
+      router.post('/getPackageProducts',supportCrossOriginScript, Package.getPackageProducts);
+
+
+      router.post('/removePackageProduct',supportCrossOriginScript, Package.removePackageProduct);
+
       
+      router.post('/changePackageBundleStatus',supportCrossOriginScript, Package.changePackageBundleStatus);
+
+         
+      router.post('/removePackageBundle',supportCrossOriginScript, Package.removePackageBundle);
+
+      router.post('/getBundleDetailOfPackage',supportCrossOriginScript, Package.getBundleDetailOfPackage);
+    
       
        app.use('/package', router);
 }  

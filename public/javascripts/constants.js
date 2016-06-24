@@ -94,6 +94,13 @@ var webservices = {
     "postThirdStepPackageData" : "/package/postThirdStepPackageData" ,
     "getEventCategoriesList" : "/package/getEventCategoriesList" ,
     "viewSelectedEvents" : "/package/viewSelectedEvents",
+    "getPackageProductDetail" : "/package/getPackageProductDetail",
+    "getPackageProducts" : "/package/getPackageProducts",
+    "removePackageProduct" : "/package/removePackageProduct",
+    "changePackageBundleStatus" : "/package/changePackageBundleStatus",
+    "removePackageBundle" : "/package/removePackageBundle",
+    "getBundleDetailOfPackage" : "/package/getBundleDetailOfPackage" ,
+
 
 
     /* Constants for the discount module */
@@ -200,6 +207,7 @@ var webservices = {
 
     //save second step data
     "secondStepdata": "/event/savesecondstepdata",
+    "secondSeriesStepdata": "/event/savesecondSeriesstepdata",
 
     // advance settings of events
     "saveAdvanceSettings": "/event/saveAdvanceSettings",
@@ -214,6 +222,7 @@ var webservices = {
 
     //Add event product
     "addEventProduct": "/event_setting/addEventProduct",
+    "addSeriesEventProduct": "/event/addSeriesEventProduct",
     //Add event product
     "getEventProducts": "/event_setting/getEventProducts",
     "getEventProductDetail": "/event_setting/getEventProductDetail",
@@ -224,6 +233,7 @@ var webservices = {
     //Event step 4 
     "getSettings": "/event/getSettings",
     "saveSetting": "/event/saveSetting",
+    "saveSeriesSetting": "/event/saveSeriesSetting",
     "saveInventory": "/event/saveInventory",
 
 
@@ -325,6 +335,8 @@ var global_message = {
     "error_in_step1": "Please update the step 1",
     "bundle_update": "Bundle information has been updated successfully.",
     "bundle_add": "Bundle information has been added.",
+
+     "save_package": "Package information has been saved successfully.",
 
     /**/
     "advanceSettingSaved": "Advance settings saved successfully",

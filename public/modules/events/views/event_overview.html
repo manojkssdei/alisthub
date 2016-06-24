@@ -1,22 +1,22 @@
 <div class="container">
     <h1>view event</h1>
     <!-- Form COntainer -->
-    <!--       <script>(function(d, s, id) {
+          <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s); js.id = id;
     js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
     fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script> -->
+        }(document, 'script', 'facebook-jssdk'));</script>
     <div class="wt-frame form-section">
         <form class="event-form">
             <section class="top-buttons bb-1 text-right">
                 <button type="button" class="btn pink-btn btn-small"><i class="fa fa-twitter"></i> Tweet </button>
-                <button type="button" class="btn pink-btn btn-small"><i class="fa fa-facebook"></i> Facebook </button>
-                <!--  <div class="fb-like"
+           <!--      <button type="button" class="btn pink-btn btn-small"><i class="fa fa-facebook"></i> Facebook </button> -->
+                 <div class="fb-like"
       data-href="https://developers.facebook.com/docs/plugins/"
       data-layout="standard" data-action="like">
-    </div> -->
+    </div>
             </section>
             <section class="form-group field-group row">
                 <section class="col-sm-8">
@@ -87,12 +87,12 @@
                     </section>
                     <section class="form-group field-group">
                         <section class="row form-group">
+                        <div class="col-sm-12 loc-list ScrollVenueList">
                             <ul id="myList">
-                                <li ng-repeat="comment in comments">
-                                 <p>{{comment[1] | date:"dd MMMM yyyy"}}</p>
+                                <li ng-repeat="comment in comments"><p>{{comment[1] | date:"dd MMMM yyyy"}}</p>
                                 <section class="gray-frame sub-fields">
-                                <!--  <p>{{comment[1] | date:"dd MMMM yyyy"}}</p> -->
-                                    <p>
+
+                                    <p style="font-weight:italic; font-size:12px;">
                                         {{comment[0]}}
                                     </p>
 
@@ -101,9 +101,11 @@
                                         <p style="font-weight:bold; font-size:12px;">{{comment[2]}} {{comment[3]}}</p> 
                                         <p>{{comment[1] | date:"dd MMMM yyyy"}}</p>
                                     </div> -->
+                                    <br>
                                    
                                 </li>
                             </ul>
+                            </div>
                         </section>
                     </section>
                     <!--/Comments-->

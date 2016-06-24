@@ -175,8 +175,8 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
     });
   };
 //post second Step data
-url.postSecondStepdata=function(jsondata,callback){
-    communicationService.resultViaPost(webservices.secondStepdata,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+url.postSeriesSecondStepdata=function(jsondata,callback){
+    communicationService.resultViaPost(webservices.secondSeriesStepdata,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
       callback(res.data);
     });
 };
@@ -199,8 +199,8 @@ url.getAdvanceSetting = function(jsondata,callback){
 
 
 //add Product
-url.addEventProduct = function(jsondata,callback){
-  communicationService.resultViaPost(webservices.addEventProduct,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+url.addSeriesEventProduct = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.addSeriesEventProduct,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
     callback(res.data);
   });
 };
@@ -259,7 +259,13 @@ url.getEventProductDetail = function(jsondata,callback){
       callback(res.data);
     });
   };
-
+ //check event Domain
+url.checkeventurl = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.checkeventurl,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+      
+  };
 
 
  

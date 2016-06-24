@@ -21,6 +21,9 @@
     <!-- //Step Form -->
     <!-- Form COntainer -->
     <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
+
+     <span ng-show="success_message"><p class="success-fld ng-binding">{{success}}</p></span>
+
     <div class="form-section  wt-frame">
         <style>
         .border {
@@ -103,8 +106,8 @@
                                     </div>
                                 </section>
                                 <section class="row">
-                                    <button type="button" class="pink-btn btn btn-small" ng-hide="desc_box_1" ng-click="desc_box_1=true">Add a Description</button>
-                                    <textarea class="desc_1 input form-control" ng-show="desc_box_1"  rows="7" ng-model="data.print_description" tooltips tooltip-template="Provide customers with additional information about the delivery method. For example: Will Call
+                                    <button type="button" class="pink-btn btn btn-small" ng-hide="desc_box_1 || data.print_description != '' " ng-click="desc_box_1=true">Add a Description</button>
+                                    <textarea class="desc_1 input form-control" ng-show="desc_box_1 || data.print_description != ''"  rows="7" ng-model="data.print_description" tooltips tooltip-template="Provide customers with additional information about the delivery method. For example: Will Call
                                 tickets can be picked up at the venue box office. The info entered here will be displayed next to the delivery
                                 method option during the checkout process."></textarea>
                                 </section>
@@ -407,20 +410,21 @@
                         </section>
 
 
-                                <section class="row">
+<section class="row">
                                     <section class="form-group">
-                                      <div class="col-sm-3 col-md-3 left-margin-zero">
-                                        <label class="label-padding">URL Short Name<span class="req">*</span></label>
+                                      <div class="col-sm-3 left-margin-zero">
+                                        <label class="label-padding">URL Short Name</label>
                                       </div>
-                                      <div class="col-sm-9 col-md-9" tooltips tooltip-template="A ticketing page’s unique URL. By default, the Event Name is plugged in as the last part of the URL. Must be 5 - 30 characters in length.">
-                                      <label> tickets.alistixs.com/event/</label>
-                                        <input type="text" placeholder="URL Short Name" class="form-control" value="" name="url_short_name"  ng-model="data.url_short_name" >
+                                      <div class="col-sm-7">
+
+                                        <input type="url" placeholder="URL Short Name" class="form-control"  value="tickets.alistixs.com/event/XYZ"  name="url_short_name"  ng-model="data.url_short_name"  tooltips tooltip-template="A ticketing page’s unique URL. By default, the Event Name is plugged in as the last part of the URL. Must be 5 - 30 characters in length.">
                                       </div>
                                       <div class="col-sm-2 info-padding">
 
                                       </div>
                                     </section>
                                 </section>
+
 
 
                     </section>
@@ -448,8 +452,8 @@
             
                 <div class="editr">
                     <div class="editor-btn">
-                        <button type="submit" ng-disabled="eventSettingForm.$invalid" class="gray-btn btn">Save</button>
-                        <button class="pink-btn btn" ng-click="next_func(data)">Next</button>
+                        <button type="submit" class="gray-btn btn">Save</button>
+                        <button class="pink-btn btn" ng-click="redirectToDashboard()">Submit</button>
                     </div>
                 </div>
             </form>
