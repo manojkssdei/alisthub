@@ -13,7 +13,7 @@ angular.module('alisthub').controller('createpackageController', function($scope
     $scope.toggleMenu = function() {
     $scope.navCollapsed = $scope.navCollapsed === false ? true: false;
     };    
- }
+ } 
 
   $scope.click_menu = function(menu, data, valid) {
     console.log('$stateParams.packageId ' , $stateParams.packageId);
