@@ -4,32 +4,210 @@ Created : 2016-05-26
 Created By: Deepak khokkar  
 Module : Step 3 Event step  
 */
-angular.module('alisthub').controller('seriesStep3Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad) {
-     var $serviceTest = $injector.get("Lookservice");
-     $scope.error_message = true;
-    $scope.click_menu = function(menu, data, valid) {
 
+
+angular.module('alisthub').controller('seriesStep3Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
+
+     var $serviceTest = $injector.get("Lookservice");
+     $scope.ticket_image='./images/ticket.png';
+     var href = window.location.href.split("/");
+     $scope.preview_link="http://"+href[2]+"/preview_template/"+$localStorage.userId+"/"+$stateParams.eventId;
+     var $serviceTestVenue = $injector.get("venues");
+     $scope.error_message = true;
+    var event_id=$stateParams.eventId;
+    $rootScope.sociallink={};
+    $serviceTestVenue.getEvent({'event_id':event_id},function(response){
+        
+        $scope.data1=response.results[0];
+        $scope.title=response.results[0].title;
+        $scope.content2=response.results[0].description;
+        $scope.venue_name=response.results[0].venue_name;
+        $scope.city=response.results[0].city;
+        $scope.state=response.results[0].state;
+        $scope.country=response.results[0].country;
+        $scope.start_date=response.results[0].start_date;
+        $scope.start_time=response.results[0].start_time;
+        $scope.end_time=response.results[0].end_time;
+        $scope.zipcode=response.results[0].zipcode;
+        $rootScope.sociallink.facebook_url=response.results[0].facebook_url;
+        $rootScope.sociallink.twitter_url=response.results[0].twitter_url;
+        $scope.eventwebsite_url=response.results[0].website_url;
+        $scope.video_url=response.results[0].video;
+		
+    });  
+
+
+
+
+  /** 
+  Method: click_menu
+  Description:Function for changing the tab 
+  Created : 2016-04-25
+  Created By:  Deepak khokkar  
+  */
+
+  
+ $scope.click_menu = function(menu, data, valid) {
+    console.log($stateParams.eventId+':3');
+    console.log(menu.id);
+    console.log(data);
+    var objectForm = this;
+    $scope.selectedClass = 1;
+    //To go to step1 event Details
     if (menu.id === 5) {
-     $location.path("/create_series_step1/"+$localStorage.eventId);
+      if($stateParams.eventId!=undefined){
+        $location.path("/create_event_step1/"+$stateParams.eventId);
+      } else {
+        $location.path("/create_event_step1");
+      }
+      
+      $scope.selectedClass = 1;
     }
 
     ///TO move to price and level
     if (menu.id === 6) {
+      if(objectForm.myForm!=undefined) {
+        if (objectForm.myForm.$valid === true) {
+            $scope.selectedClass = 2;
+            if ($localStorage.eventId == null) {
+              if(data != undefined) {
+                if (data.eventtype=='single') {
+                  if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+                    data.eventdate=$scope.single_start_date;
+                    
+                    data.startevent_time=$scope.startevent_time;
+                    data.endevent_time=$scope.endevent_time;
+                    
+                    data.userId=$localStorage.userId;
+                    $serviceTest.saveEvent(data,function(response){
+                      if (response.code == 200) {
+                        $scope.success=global_message.event_step1;
+                        $localStorage.eventId = response.result;
+                        $scope.error_message=false;
+                        $timeout(function() {
+                          $scope.success='';
+                          $scope.error_message=true;
+                        },3000);
 
-            
-            $location.path("/create_series_step2/"+$localStorage.eventId);
-     
+                        console.log(response.result);
+                        $location.path("/create_event_step2/"+$localStorage.eventId);
+                        
+                      }
+                    });
+                  }  
+                } else {
+                  data.userId=$localStorage.userId;
+                  $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
+                    if (response.code == 200) {
+                      $scope.success=global_message.event_step1;
+                      $scope.data={};
+                      $scope.error_message=false;
+                      $timeout(function() {
+                       $scope.success='';
+                       $scope.error_message=true;
+                      },3000);
+                      window.location.reload();
+                    }
+                  }); 
+                }
+              }
+            } else {
+              if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+                $location.path("/create_event_step2/"+$stateParams.eventId);
+              } else {
+                $location.path("/create_event_step2/"+$localStorage.eventId);
+              }
+            }
+        } else {
+          $scope.selectedClass = 1;
+          $scope.error_message = false;
+          $scope.error = global_message.event_step1_msg;
+          $timeout(function() {
+            $scope.error = '';
+            $scope.error_message = true;
+            $scope.error = '';
+          }, 3000);
+        }
+      } else {
+        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+          $location.path("/create_event_step2/"+$stateParams.eventId);
+        } else {
+          $location.path("/create_event_step2/"+$localStorage.eventId);
+        }
+      }
     }
 
     //look and feel div
     if (menu.id === 7) {
-        $location.path("/create_series_step3/"+$localStorage.eventId);
-     }
+      if(objectForm.myForm1!=undefined) {
+      if (objectForm.myForm1.$valid === true) {
+
+        if(data != undefined) {
+          data.eventId = $localStorage.eventId;
+          $serviceTest.postSecondStepdata(data, function(response) {
+            if (response.code == 200) {
+              $scope.selectedClass = 3;
+              if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+                $location.path("/create_event_step3/"+$stateParams.eventId);
+              } else {
+                $location.path("/create_event_step3/"+$localStorage.eventId);
+              }      
+            }
+          });
+        } else {
+          $scope.selectedClass = 3;
+          if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+            $location.path("/create_event_step3/"+$stateParams.eventId);
+          } else {
+            $location.path("/create_event_step3/"+$localStorage.eventId);
+          } 
+        }
+      } else {
+        $scope.selectedClass = 2;
+        $scope.error_message = false;
+        $scope.error = global_message.event_step2_msg;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 3000); 
+      }
+
+        
+      } else {
+       
+        $scope.selectedClass = 3;
+        if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+          $location.path("/create_event_step3/"+$stateParams.eventId);
+        } else {
+          $location.path("/create_event_step3/"+$localStorage.eventId);
+        } 
+
+      }
+    }
+
     //Event Setting div
     if (menu.id === 8) {
-      $location.path("/create_series_step4/"+$localStorage.eventId);
+      $scope.selectedClass = 4;
+      //if (objectForm.myForm.$valid === true) {
+          if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+            $location.path("/create_event_step4/"+$stateParams.eventId);
+          } else {
+            $location.path("/create_event_step4/"+$localStorage.eventId);
+          }
+     /* } else {
+
+        $scope.error_message = false;
+        $scope.error = global_message.event_step1_msg;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 3000);
+      }*/
+
     }
-    $scope.selected2 = menu;
+    //$scope.selected2 = menu;
   }
 
      //To get steps
@@ -91,9 +269,9 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
   ]
     
     $scope.look_and_feel_choose_type = [
-    { "name": "Color",'id':5},
-    {"name": "Images",'id':6},
-    {"name": "Blocks",'id':7}
+    { "name": "Color",'id':5}
+  /*  {"name": "Images",'id':6},
+    {"name": "Blocks",'id':7}*/
    
   ]
     
@@ -119,19 +297,16 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
      $scope.select= function(item) {
     if (item.id==1) {
       
-      $scope.module_div=$scope.recipient_div=$scope.preview_div=true;
+      $scope.module_div=$scope.preview_div=true;
       $scope.campaign_div=false;  
     } else if (item.id==2) {
      $scope.module_div=false;
-      $scope.campaign_div=$scope.recipient_div=$scope.preview_div=true;       
+      $scope.campaign_div=$scope.preview_div=true;       
     }
-    else if (item.id==3) {
-     $scope.recipient_div=false;
-      $scope.campaign_div=$scope.module_div=$scope.preview_div=true;       
-    }
+   
     else if (item.id==4) {
      $scope.preview_div=false;
-      $scope.campaign_div=$scope.recipient_div=$scope.module_div=true;       
+      $scope.campaign_div=$scope.module_div=true;       
     }
     $scope.selected = item; 
   };
@@ -157,6 +332,21 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
           });
     }
     
+    $scope.socialLink=function(size)
+    {
+      $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'socialLinktemplate.html',
+            controller: 'socialLinkCtrl',
+            size: size,
+            resolve: {
+              items: function () {
+                return $scope.items;
+              }
+            }
+          });  
+    }
+    
   $scope.option_ckeditor1 = {
     language: 'en',
     allowedContent: true,
@@ -164,7 +354,7 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
   };
    
   $scope.content1="<h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur </p>";
-  $scope.content2='<h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>';
+  
   $scope.content3='<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>';
   $scope.content4='<p>Footer content will be shown here.</p>';
   // Called when the editor is completely ready.
@@ -256,9 +446,9 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
             }
         }
         
-        $scope.banner_image='images/img/f-img-o.jpg';
-        $scope.section2_image='images/img/s-img-o.jpg';
-        $scope.section3_image='images/img/f-img-o.jpg';
+        $scope.banner_image='./images/img/f-img-o.jpg';
+        $scope.section2_image='./images/img/s-img-o.jpg';
+        $scope.section3_image='./images/img/s-img-o.jpg';
          $scope.encodeImageFileAsURL1 = function() {
             var filesSelected = document.getElementById("my_file").files;
             if (filesSelected.length > 0) {
@@ -280,7 +470,11 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
                             {
                              
                              if (response.result.insertId!='') {
-                                $scope.banner_image=$scope.image;
+                                 $scope.banner_image1=$scope.image;
+                                 $scope.select_image_val='banner_image';
+                                  $timeout(function() {
+                                  angular.element('#editImagePreview').click();   
+                                  },500);
                              }
                             }
                 
@@ -316,7 +510,11 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
                             {
                              
                              if (response.result.insertId!='') {
-                                $scope.section2_image=$scope.image;
+                                $scope.banner_image1=$scope.image;
+                                 $scope.select_image_val='section2_image';
+                                  $timeout(function() {
+                                  angular.element('#editImagePreview').click();   
+                                  },500);
                              }
                             }
                 
@@ -351,7 +549,12 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
                             {
                              
                              if (response.result.insertId!='') {
-                                $scope.section3_image=$scope.image;
+                                
+                                $scope.banner_image1=$scope.image;
+                                 $scope.select_image_val='section3_image';
+                                  $timeout(function() {
+                                  angular.element('#editImagePreview').click();   
+                                  },500);
                              }
                             }
                 
@@ -365,7 +568,9 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
             }
         }
 
-    
+    $scope.data = {};
+  $scope.locations =[];
+  $scope.locations[0] =[];
     
 });
 angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout) {
@@ -382,9 +587,33 @@ angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $u
 });
 
 
+angular.module('alisthub').controller('socialLinkCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,$stateParams, $state) {
+    var $serviceTest = $injector.get("Lookservice");
+    var event_id=$stateParams.eventId;
+     $scope.items = items;
+     $scope.selected = {
+      item: $scope.items[0]
+     };
+    $scope.updatesociallink=function(sociallink)
+    {
+         
+        $serviceTest.updatesociallink({'eventId':event_id,'social_link':sociallink},function(response){
+           if (response.code=='200') {
+            $rootScope.sociallink=sociallink;
+           }
+        });
+      $uibModalInstance.close($scope.selected.item);  
+    }
+   
+     $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+});
+
+
 
 angular.module('alisthub').filter("sanitize", ['$sce', function($sce) {
   return function(htmlCode){	
     return $sce.trustAsHtml(htmlCode);
-  }
+  } 
 }]);

@@ -310,9 +310,9 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="EventName"> Facebook</label>
-          <input type="url" name="facebook" ng-model="data1.facebook"  class="form-control" placeholder="Facebook Url"/>
+         <input type="url" name="facebook" ng-model="data1.facebook"  class="form-control" ng-pattern="/^(https?:\/\/)?(www\.)?facebook.com/" placeholder="Facebook Url"/>
           <span style="color:red" ng-show="myForm1.facebook.$dirty && myForm1.facebook.$invalid">
-  <span ng-show="myForm1.facebook.$error.url">Not a valid Facebook URL</span>
+  <span ng-show="myForm1.facebook.$error.pattern">Not a valid Facebook URL</span>
   </span>
         </div>
       </div>
@@ -321,9 +321,9 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="EventName"> Twitter</label>
-          <input type="url" name="twitter" ng-model="data1.twitter"   class="form-control"  placeholder="Twitter Url"/>
+         <input type="url" name="twitter" ng-model="data1.twitter"   class="form-control" ng-pattern="/^(https?:\/\/)?(www\.)?twitter.com/" placeholder="Twitter Url"/>
            <span style="color:red" ng-show="myForm1.twitter.$dirty && myForm1.twitter.$invalid">
-  <span ng-show="myForm1.twitter.$error.url">Not a valid Twitter URL</span>
+  <span ng-show="myForm1.twitter.$error.pattern">Not a valid Twitter URL</span>
   </span>
         </div>
       </div>

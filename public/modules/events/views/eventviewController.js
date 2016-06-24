@@ -116,25 +116,42 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('eventv
     //add the comments 
 
     $scope.data = {};
-    $scope.addComment = function() {
-        // console.log($rootscope.name);
-        if ($localStorage.userId != undefined) {
-            $scope.data.seller_users_id=$rootScope.name;
-            $scope.data.seller_id = $localStorage.userId;
-            $scope.data.event_id = $stateParams.eventId;
-            $scope.data.comment = $scope.data.comment;
-            
-            eventService.addComment($scope.data, function(response) {
+    eventService.addComment($scope.data, function(response) {
                 if (response.code == 200) {
-                    $scope.success = "comment Successfully Saved.";
+                    // $scope.success = "comment Successfully Saved.";
 
-                    //                  
-                    var node = document.createElement("LI");
-                    var textnode = document.createTextNode($scope.data.comment);
+                    //  
 
-                    node.appendChild(textnode);
-                    document.getElementById("myList").appendChild(node);
-                    $scope.data.comment = "";
+                    $scope.array = [];
+
+
+                    eventService.getComment({ 'seller_id': $localStorage.userId }, function(response) {
+
+                        if (response != null) {
+
+                            if (response.code == 200) {
+                                for (j in response.result) {
+                                    var comment_detail = response.result[j];
+
+                                    $scope.array.push([comment_detail.comment, comment_detail.created, comment_detail.first_name, comment_detail.last_name]);
+
+                                }
+
+                                $scope.comments = $scope.array;
+                           
+                            }
+                             else {
+                                $scope.activation_message = global_message.ErrorInActivation;
+                            }
+                        }
+                    });
+                    // var node = document.createElement("LI");
+                    // var textnode = document.createTextNode($scope.data.comment);
+
+                    // node.appendChild(textnode);
+                    // document.getElementById("myList").appendChild(node);
+                    // $scope.data.comment = "";
+                         $scope.data.comment = "";
 
 
                 } else {
@@ -142,9 +159,6 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('eventv
                 }
 
             });
-        }
-    };
-
 
 
 
