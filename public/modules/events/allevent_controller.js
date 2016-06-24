@@ -9,7 +9,7 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
     
     $rootScope.class_status=false;
     var eventService = $injector.get("events");
-    
+    $scope.eventloader = false;
     if(window.innerWidth>767) { 
       $scope.navCollapsed = false;	  
     } else {
@@ -18,9 +18,10 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
         $scope.navCollapsed = $scope.navCollapsed === false ? true: false;
       };	  
     }
-
+    $scope.seller_id = $localStorage.userId;
     //upcomming event list
     $rootScope.getAllEvent = function(allevent) {
+      $scope.eventloader = true;
       if(allevent==undefined){
         allevent = $rootScope.allevent;
       }
@@ -34,6 +35,7 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
       }
       
       eventService.getAllEvent({ 'user_id' : $localStorage.userId , 'allevent' : allevent, 'dateRange': dateRange },function(response) {
+        $scope.eventloader = false;
         if (response!=null) {
           if (response.code == 200) {
             $scope.upcoming_event_data = $scope.event_package_data =response.results;

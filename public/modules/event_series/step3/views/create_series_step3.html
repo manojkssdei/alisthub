@@ -336,7 +336,7 @@ function change_image3()
 	   var href = window.location.href;
           var eventId=href.substr(href.lastIndexOf('/') + 1);
 	
-	  /* $.ajax({
+	   $.ajax({
 	    method: "POST",
 	    url: "/event/look_and_feel_save_html",
 	    data: {"html":arr,"eventId":eventId}
@@ -347,7 +347,7 @@ function change_image3()
 	      }
 	    });
 	  
-        })*/
+        })
         // resize widgets on hover
         gridster.$el
           .on('mouseenter', '> li', function() {

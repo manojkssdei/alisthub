@@ -100,6 +100,8 @@ var webservices = {
     "changePackageBundleStatus" : "/package/changePackageBundleStatus",
     "removePackageBundle" : "/package/removePackageBundle",
     "getBundleDetailOfPackage" : "/package/getBundleDetailOfPackage" ,
+    "saveAdvanceSettingsOfPackage" : "/package/saveAdvanceSettingsOfPackage" ,
+    "getAdvanceSettingOfPackage" : "/package/getAdvanceSettingOfPackage",
 
 
 

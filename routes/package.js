@@ -80,6 +80,10 @@ module.exports = function(app, express) {
       router.post('/removePackageBundle',supportCrossOriginScript, Package.removePackageBundle);
 
       router.post('/getBundleDetailOfPackage',supportCrossOriginScript, Package.getBundleDetailOfPackage);
+
+      router.post('/saveAdvanceSettingsOfPackage',supportCrossOriginScript, Package.saveAdvanceSettingsOfPackage);
+      
+      router.post('/getAdvanceSettingOfPackage',supportCrossOriginScript, Package.getAdvanceSettingOfPackage);
     
       
        app.use('/package', router);

@@ -18,7 +18,11 @@
                     <section class="grid-btn-top row">
                         <section class="col-sm-6">
                             <section class="top-buttons">
-                                <button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Create Event</button><span class="file-input btn pink-btn btn-small btn-file">Export CSV <input type="file" multiple></span>
+                                <a class="btn pink-btn btn-small" ui-sref="create_an_event" href="#/create_an_event"><i class="fa fa-plus-square"></i>&nbsp;Create an Event</a>
+                                <!-- <a href="/event/exportAllEventCSV?ids={{common_ids}}&seller={{seller_id}}"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button></a> -->
+
+                                <a href="/event/exportAllEventCSV?seller={{seller_id}}"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button></a>
+
                             </section>
                         </section>
                         <section class="col-sm-6 right-btns text-right">
@@ -70,6 +74,9 @@
                                 </tr>
 			                    <tr ng-if="$data == ''">
                                     <td colspan="4" align="center">No Record found!</td>
+                                </tr>
+                                <tr ng-show="eventloader">
+                                    <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
                                 </tr>
                             </tbody>
 </table>

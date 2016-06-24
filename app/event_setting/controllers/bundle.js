@@ -190,7 +190,7 @@ Created By: Deepak khokkar
 exports.removeBundle=function(req,res){
     var bundleDeleteId=req.body.bundleDeleteId;
     var sql="Delete FROM bundles where id="+bundleDeleteId;
-    
+     
     connection.query(sql,function(err,result){
        
         if (err) {

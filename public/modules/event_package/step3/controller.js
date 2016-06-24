@@ -84,7 +84,7 @@ angular.module('alisthub').controller('createpackageController', function($scope
   $scope.loader = false;
 
 
-  $scope.selected2 = $scope.steps[3];
+  $scope.selected2 = $scope.steps[2];
   $scope.isActive2 = function(step2) {
     return $scope.selected2 === step2;
   };
@@ -290,6 +290,7 @@ $scope.redirectToDashboard = function() {
     $scope.eventSetting.package_id = $localStorage.packageId;
   }
 
+$scope.advSettingPackageId = $scope.eventSetting.package_id;
   $scope.eventSetting.user_id = $localStorage.userId;
   //To get settings 
  // $serviceTest.getSettings($scope.eventSetting, function(response) {
