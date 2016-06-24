@@ -87,11 +87,11 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
         }
     }
 
-    $scope.recurringHref = function(eventId,recurringOrNot){
+    $scope.recurringHref = function(eventId,recurringOrNot) {
       if(recurringOrNot==0){
-        $location.path("/#/create_event_step1/" + eventId);  
+        $location.path("/create_event_step1/" + eventId);  
       } else {
-        $location.path("/#/create_series_step1/" + eventId);
+        $location.path("/create_series_step1/" + eventId);
       }
     }
 

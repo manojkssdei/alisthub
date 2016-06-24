@@ -24,9 +24,16 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
       if(allevent==undefined){
         allevent = $rootScope.allevent;
       }
-      console.log($rootScope.searchFromDate);
+      var dateRange = {};
+ 
+      if($rootScope.searchFromDate!=undefined){
+        dateRange.searchFromDate = $rootScope.searchFromDate;
+      }
+      if($rootScope.searchToDate!=undefined) {
+        dateRange.searchToDate = $rootScope.searchToDate;
+      }
       
-      eventService.getAllEvent({ 'user_id' : $localStorage.userId , 'allevent' : allevent },function(response) {
+      eventService.getAllEvent({ 'user_id' : $localStorage.userId , 'allevent' : allevent, 'dateRange': dateRange },function(response) {
         if (response!=null) {
           if (response.code == 200) {
             $scope.upcoming_event_data = $scope.event_package_data =response.results;
@@ -45,6 +52,15 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
     }
 
     $scope.getAllEvent();
+
+    $scope.recurringHref = function(eventId,recurringOrNot) {
+      console.log(eventId+"__"+recurringOrNot); //return false;
+      if(recurringOrNot==0){
+        $location.path("/create_event_step1/" + eventId);  
+      } else {
+        $location.path("/create_series_step1/" + eventId);
+      }
+    }
 
     $scope.delEvent=function(event_id) {
       eventService.deleteEvent({'event_id':event_id},function(response) {
@@ -102,16 +118,15 @@ angular.module('alisthub').controller('ModalDateCtrl', function($scope, $uibModa
 
   $scope.inlineOptions = {
     customClass: getDayClass,
-    minDate: new Date(),
-    showWeeks: true
+    minDate: new Date()
   };
 
   $scope.dateOptions = {
     dateDisabled: disabled,
     formatYear: 'yy',
-
-    minDate: new Date(),
-    startingDay: 1
+    minDate: new Date("2016/01/01"),
+    startingDay: 1,
+    showWeeks: false
   };
 
   // Disable weekend selection

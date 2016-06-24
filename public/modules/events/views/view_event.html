@@ -52,15 +52,15 @@
                                     <td title="'Name'" header-class="'header-text-align'" filter="{ title: 'text'}" sortable="'title'" width="40%">
                                         <p><a href="#"><strong>{{pdata.title}}</strong></a></p>
                                     </td>
-                                    <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.start_date | date:"dd MMMM yyyy"}}</td>
+                                    <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.recurring_or_not == 0 ? (pdata.start_date | date:"dd MMMM yyyy") : 'Event Series'}}</td>
                                     
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>-->
                                     <td title="'Action'" class="action" width="20%">
                                     <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
-                                    <a title="Schedules" href="javascript:void(0)"><i class="fa fa-calendar-o"></i></a>
+                                    <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
                                     <!--<a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>-->
                                     <a title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
-                                    <a title="Edit" href="/#/create_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
+                                    <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
                                     <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -128,7 +128,7 @@
         <fieldset class="form-group">
             <div class="col-sm-4">To</div>
             <div class="col-sm-6 datepicker">
-               <input type="date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dateEvent.searchFromDateDate" is-open="popup2.opened" datepicker-options="dateOptions" close-text="Close"   />
+               <input type="date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dateEvent.searchToDate" is-open="popup2.opened" datepicker-options="dateOptions" close-text="Close"   />
                <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                </span>
