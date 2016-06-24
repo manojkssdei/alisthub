@@ -1,7 +1,7 @@
 /** 
 Controller for the finacial setting of user 
 Created : 2016-05-17
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 Module : Financial Setting Module  
 */
 var moment = require('moment-timezone');
@@ -11,7 +11,7 @@ var moment = require('moment-timezone');
 Method: getFinancialDetails
 Description:Function for getting the existing financial details of the user 
 Created : 2016-05-17
-Created By:Harpreet Kaur
+Created By:Manoj Kumar
 */
 exports.getFinancialDetails = function(req, res) {
     connection.query('SELECT * from financial_settings where seller_id=' + req.body.seller_id, function(err, results) {
@@ -26,7 +26,7 @@ exports.getFinancialDetails = function(req, res) {
 Method: addCustomFinancialDetails
 Description:Function for saving and updating the merchants custom financial setting for the user 
 Created : 2016-05-19
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 */
 exports.addCustomFinancialDetails = function(req, res) {
     
@@ -209,7 +209,7 @@ console.log('fieldsData ' , fieldsData);
 Method: addFinancialDetails
 Description:Function for saving and updating the financial setting for the user 
 Created : 2016-05-17
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 */
 exports.addFinancialDetails = function(req, res) {
     for (var index in req.body) {
@@ -265,7 +265,7 @@ exports.addFinancialDetails = function(req, res) {
 Method: viewCustomFinancialSetting
 Description:Function for getting the existing merchant financial details of the seller 
 Created : 2016-05-19
-Created By:Harpreet Kaur
+Created By:Manoj Kumar
 */
 exports.viewCustomFinancialSetting = function(req, res) {
     var query = 'SELECT * from custom_financial_settings where seller_id=' + req.body.seller_id ;
@@ -282,7 +282,7 @@ exports.viewCustomFinancialSetting = function(req, res) {
 Method: checkAlreadyAddedMerchant
 Description:Function for checking the existing merchant financial details of the seller 
 Created : 2016-05-19
-Created By:Harpreet Kaur
+Created By:Manoj Kumar
 */
 exports.checkAlreadyAddedMerchant = function(req, res) {
     var query = 'SELECT * from custom_financial_settings where seller_id=' + req.body.seller_id +' && merchant_type = "'+ req.body.merchant_type+'"';
@@ -299,7 +299,7 @@ exports.checkAlreadyAddedMerchant = function(req, res) {
 Method: getCustomFinancialSetting
 Description:Function for getting the existing custom merchant financial detail of the seller 
 Created : 2016-05-19
-Created By:Harpreet Kaur
+Created By:Manoj Kumar
 */
 exports.getCustomFinancialSetting = function(req, res) {
 var query = 'SELECT * from custom_financial_settings where id='+ req.body.id+' && seller_id=' + req.body.seller_id;

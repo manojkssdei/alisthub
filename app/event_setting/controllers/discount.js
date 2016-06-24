@@ -326,7 +326,7 @@ exports.getSelectedDiscount = function(req, res) {
 Method: getEventPriceLevels
 Description:Function to get the event details and its corresponding price levels  
 Created : 2016-05-27
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 */
 exports.getEventPriceLevels = function(req, res) {
 
@@ -377,7 +377,7 @@ exports.getEventPriceLevels = function(req, res) {
 Method: saveFinalAssignmet
 Description:Function to assign coupons to the event details and its corresponding price levels  
 Created : 2016-05-30
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 */
 exports.saveFinalAssignmet = function(req, res) {
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -469,7 +469,7 @@ exports.saveFinalAssignmet = function(req, res) {
 Method: discountAssignmentOverview
 Description:Function for discount Assignment Overview
 Created : 2016-06-06
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 */
 exports.discountAssignmentOverview = function(req, res) {
     var query_discount = 'SELECT coupon_name, coupon_code from discounts where id=' + req.body.id;
@@ -550,7 +550,7 @@ exports.delPriceLevelDiscAssignment = function(req, res) {
 Method: getAssignDiscountDetails
 Description:Function for discount Assignment Details
 Created : 2016-06-08
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 */
 
 exports.getAssignDiscountDetails = function(req, res) {

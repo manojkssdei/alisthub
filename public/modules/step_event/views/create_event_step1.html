@@ -4,7 +4,7 @@
     <h1>Create an Event</h1>
     <!-- Step Form -->
     <div class="stage-container clearfix">
-        <div class="stage" ng-repeat="step in steps" data-ng-class="{current: $index + 1 === selectedClass}" ng-click="click_menu(step,data)">
+        <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step,data)">
             <div class="stage-icon"><i class="{{step.icon}}"></i> </div>
             <div class="stage-title">{{step.title}}</div>
         </div>

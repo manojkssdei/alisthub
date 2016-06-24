@@ -185,7 +185,7 @@
                       <section class="col-sm-5 pull-right text-right">
                         <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_bundle('lg')">ADD a Bundle</button>
                       </section>
-                    </section>
+                  </section>
                   <section class="grid-widget">
                   <span ng-show="success_message_bundle" class="ng-hide"><p class="success-fld ng-binding">{{success_bundle}}</p></span>
                   <div class="table-responsive">
@@ -885,7 +885,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                                       <th width="25%">Box Office Price</th>
                                   </tr>
                                 </thead>
-                                <tbody> {{productList}}
+                                <tbody> 
                                     <tr ng-repeat="product in productList">
                                     <td>{{product.product_name}}</td>
                                     <td>{{product.qty}}</td>

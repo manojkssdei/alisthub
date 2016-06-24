@@ -73,28 +73,27 @@ var webservices = {
     "getPastEvent": "/event/getPastEvent",
     "getEventSeries": "/event/getEventSeries",
     "getAllEvent": "/event/getAllEvent",
+    "getEventDates": "/event/getEventDates",
 
     // event package
 
-    "stepOneEventPackage": "/event/stepOneEventPackage",
-    "getPackage": "/package/getPackage",
-    "getEventsInPackage": "/package/getEventsInPackage",
-    "getBundlesInPackage": "/package/getBundlesInPackage",
-    "getProductsInPackage": "/package/getProductsInPackage",
-    "addBundleInPackage": "/package/addBundleInPackage",
-    "getBundleProductsInPackage": "/package/getBundleProductsInPackage",
-    "getEventPriceLevelInPackage": "/package/getEventPriceLevelInPackage",
-    "getAllEventsPriceLevelInPackage": "/package/getAllEventsPriceLevelInPackage",
-    "updateBundleInPackage": "/package/updateBundleInPackage",
-    "getAllProductsInPackage": "/package/getAllProductsInPackage",
-    "addEventProductInPackage": "/package/addEventProductInPackage",
-    "getEventProductsInPackage": "/package/getEventProductsInPackage",
-    "postSecondStepPackageData": "/package/postSecondStepPackageData",
-    "postThirdStepPackageData": "/package/postThirdStepPackageData",
-
-
-
-
+    "stepOneEventPackage"  :  "/event/stepOneEventPackage",
+    "getPackage" : "/package/getPackage",
+    "getEventsInPackage" : "/package/getEventsInPackage",
+    "getBundlesInPackage" : "/package/getBundlesInPackage",
+    "getProductsInPackage" : "/package/getProductsInPackage",
+    "addBundleInPackage" : "/package/addBundleInPackage",
+    "getBundleProductsInPackage" : "/package/getBundleProductsInPackage",
+    "getEventPriceLevelInPackage" : "/package/getEventPriceLevelInPackage",
+    "getAllEventsPriceLevelInPackage" : "/package/getAllEventsPriceLevelInPackage",
+    "updateBundleInPackage" : "/package/updateBundleInPackage",
+    "getAllProductsInPackage" : "/package/getAllProductsInPackage",
+    "addEventProductInPackage" : "/package/addEventProductInPackage",
+    "getEventProductsInPackage" : "/package/getEventProductsInPackage",
+    "postSecondStepPackageData" : "/package/postSecondStepPackageData" ,
+    "postThirdStepPackageData" : "/package/postThirdStepPackageData" ,
+    "getEventCategoriesList" : "/package/getEventCategoriesList" ,
+    "viewSelectedEvents" : "/package/viewSelectedEvents",
 
 
     /* Constants for the discount module */
@@ -125,6 +124,7 @@ var webservices = {
     "changeBundleStatus": "/event_setting/changeBundleStatus",
     "removeBundle": "/event_setting/removeBundle",
     "getBundleDetail": "/event_setting/getBundleDetail",
+    "updateSeriesBundle": "/event/updateSeriesBundle",
 
     /* Constants for the manage users */
     "addUser": "/user/addUser",

@@ -504,7 +504,7 @@ Module : Question
 /** 
 Angular Export Question Controller
 Created : 2016-05-26
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 Module : Export Question 
 */
         if ($scope.listQues == 1) {
