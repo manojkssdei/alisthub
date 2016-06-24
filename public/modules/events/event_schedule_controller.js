@@ -55,6 +55,14 @@ angular.module('alisthub').controller('EventScheduleController', function($scope
     if (!$localStorage.isuserloggedIn) {
       $state.go('login');
     }
+    
+    $scope.recurringHref = function(eventId,recurringOrNot) {
+      if(recurringOrNot==0){
+        $location.path("/create_event_step1/" + eventId);  
+      } else {
+        $location.path("/create_series_step1/" + eventId);
+      }
+    }
 
     $scope.animationsEnabled = true;
 
