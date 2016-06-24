@@ -257,10 +257,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load('modules/step_event/service.js')/*.then(function(){
-                    //var $serviceTest = $injector.get("CustomerFirstLoad");
-                           // return $serviceTest.testLoad(); // <-- CHANGED HERE
-                    })*/.then(function(){
+                return $ocLazyLoad.load('modules/step_event/service.js').then(function(){
                     return $ocLazyLoad.load(['modules/step_event/controller.js','javascripts/bootstrap-timepicker.js']);
                     })
                
