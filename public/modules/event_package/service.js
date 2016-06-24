@@ -119,6 +119,21 @@ url.postThirdStepPackageData = function(jsondata,callback){
   });
 };
 
+//get Event Categories
+url.getEventCategoriesList = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.getEventCategoriesList,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+    callback(res.data);
+  });
+};
+
+
+//get Event Categories
+url.viewSelectedEvents = function(jsondata,callback){
+  communicationService.resultViaPost(webservices.viewSelectedEvents,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+    callback(res.data);
+  });
+};
+
 
 
 /*url.saveSetting = function(jsondata,callback){

@@ -431,7 +431,7 @@ exports.getEventCategory=function(req,res) {
 Method: getAdvanceSetting
 Description:Function to get advance settings details of events
 Created : 2016-05-20
-Created By: Harpreet Kaur 
+Created By: Manoj Kumar 
 */
 var fs         = require('fs');
 var moment     = require('moment-timezone');
@@ -453,7 +453,7 @@ exports.getAdvanceSetting = function(req,res){
 Method: saveAdvanceSettings
 Description:Function to save advance settings of events
 Created : 2016-05-20
-Created By: Harpreet Kaur 
+Created By: Manoj Kumar 
 */
 
 exports.saveAdvanceSettings = function(req,res) {

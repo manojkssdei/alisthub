@@ -16,9 +16,24 @@ var $serviceTest = $injector.get("event_package");
 
   $scope.data = {};
   $scope.loader = false;
+  $scope.showBundleList = $rootScope.showBundleList=true;
+  $scope.showProductsList = $rootScope.showProductsList = true;
   
   $scope.error_message = $scope.error_time_message = true;
   $rootScope.success_message1 = false;
+
+
+    var packageId = '';
+    var userId = '';
+
+  if($stateParams.packageId!=undefined && $stateParams.packageId!='') {
+    packageId = $rootScope.packageId = $stateParams.packageId;
+  } 
+
+  if ($localStorage.userId != undefined) {
+    $scope.data.user_id = $localStorage.userId;
+    userId = $localStorage.userId;
+  }
 
 
   $scope.data = {
@@ -34,6 +49,7 @@ var $serviceTest = $injector.get("event_package");
 
   $scope.success_message = false;
   $scope.error_message = true;
+
 
   $scope.open1 = function() {
     $scope.popup1.opened = true;
@@ -60,18 +76,9 @@ var $serviceTest = $injector.get("event_package");
     opened: false
   };
 
-    var packageId = '';
-    var userId = '';
 
-    if($stateParams.packageId!=undefined && $stateParams.packageId!='') {
-      packageId = $stateParams.packageId;
-      $rootScope.packageId = packageId;
-    } 
 
-    if ($localStorage.userId != undefined) {
-      $scope.data.user_id = $localStorage.userId;
-      userId = $localStorage.userId;
-    }
+
 
     $serviceTest.getPackage({'package_id':packageId , 'user_id' : userId },function(response){
         $scope.data=response.results[0];
@@ -115,7 +122,7 @@ var $serviceTest = $injector.get("event_package");
       console.log('here in condition');
       $scope.loader_bundle = false;
       console.log ('$scope.loader_bundle' , $scope.loader_bundle);
-      $scope.bundleInPackageList = $rootScope.bundleInPackageList = response.results;
+      $rootScope.bundleInPackageList = response.results;
     }
   });
 
@@ -129,12 +136,12 @@ var $serviceTest = $injector.get("event_package");
   $serviceTest.getProductsInPackage($scope.product, function(response) {
     //$rootScope.eventProductList = response.result;
     $scope.loader_product = true;
-    console.log('response.result' , response.results);
     if(response.results) {
-      console.log('here in condition');
       $scope.loader_product = false;
-      console.log ('$scope.loader_product' , $scope.loader_product);
-      $scope.productInPackageList = $rootScope.productInPackageList = response.results;
+      $rootScope.productInPackageList = response.results;
+      console.log('$rootScope.productInPackageList');
+      console.log($rootScope.productInPackageList);
+
     }
   });
   
@@ -331,13 +338,23 @@ var $serviceTest = $injector.get("event_package");
   */
 
   $scope.click_menu = function(menu, data, valid) {
+    
     console.log('$stateParams.packageId ' , $stateParams.packageId);
-    console.log('menu.id ' , menu.id );
+    console.log('m here');
+    console.log('menu' , menu);
+    console.log('menu.id' , menu.id);
+
+
     var objectForm = this;
     $scope.selectedClass = 1;
     //To go to step1 event Details
     if (menu.id === 1) {
-      $location.path("/create_event_step1");
+
+      if($stateParams.packageId == $rootScope.packageId) {
+        $location.path("/edit_event_step1/"+$rootScope.packageId ); 
+
+      }
+      
       $scope.selectedClass = 1;
     }
 
@@ -507,12 +524,23 @@ var $serviceTest = $injector.get("event_package");
             $scope.success_bundle = '';
           }, 3000);
 
-          $scope.eventBundle.eventId = $localStorage.eventId;
-          $scope.eventBundle.userId = $localStorage.userId;
-          $serviceTest.getBundlesInPackage($scope.eventBundle, function(response) {
-            $rootScope.bundleInPackageList = response.result;
-          });
-          $scope.loader_bundle = false;
+         //To get bundles
+  $scope.eventBundle.user_id = $localStorage.userId;
+  $scope.eventBundle.package_id = $localStorage.packageId;
+  $rootScope.showBundleList=false;
+  console.log('hide showBundleList ');
+  $serviceTest.getBundlesInPackage($scope.eventBundle, function(response) {
+    console.log('response.result' , response.results);
+    if(response.results) {
+      $rootScope.showBundleList=true;
+       console.log('show showBundleList ');
+      $rootScope.bundleInPackageList = response.results;
+      console.log('$rootScope.bundleInPackageList' , $rootScope.bundleInPackageList);
+      
+    }
+  });
+
+
         } else {
           $scope.activation_message = global_message.ErrorInActivation;
           $scope.loader_bundle = false;
@@ -861,9 +889,9 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
   /* bundle tab stop */
   $scope.cancel = function() {
     $uibModalInstance.dismiss('cancel');
-    console.log('$rootScope.packageId' , $rootScope.packageId);
-    console.log('REdirect Path is :----- ' , "/event_package_step_2/"+$rootScope.packageId);
-    $location.path("/event_package_step_2/"+$rootScope.packageId);
+    //console.log('$rootScope.packageId' , $rootScope.packageId);
+    //console.log('REdirect Path is :----- ' , "/event_package_step_2/"+$rootScope.packageId);
+    //$location.path("/event_package_step_2/"+$rootScope.packageId);
   };
 
   function toBoolean(value) {
@@ -934,13 +962,21 @@ console.log('$scope.bundle' , $scope.bundle);
             $localStorage.bundleId = bundle.id;
             $scope.success = global_message.bundle_update;
 
-            $scope.eventBundle.eventId = $localStorage.eventId;
-            $scope.eventBundle.userId = $localStorage.userId;
-
-            //$serviceTest.getBundles($scope.eventBundle, function(response)
-            $serviceTest.getBundlesInPackage($scope.eventBundle, function(response) {
-              $rootScope.bundleInPackageList = response.result;
-            });
+  //To get bundles
+  $scope.eventBundle.user_id = $localStorage.userId;
+  $scope.eventBundle.package_id = $localStorage.packageId;
+  $rootScope.showBundleList=false;
+  console.log('hide showBundleList ');
+  $serviceTest.getBundlesInPackage($scope.eventBundle, function(response) {
+    console.log('response.result' , response.results);
+    if(response.results) {
+      $rootScope.showBundleList=true;
+       console.log('show showBundleList ');
+       $rootScope.bundleInPackageList = response.results;
+      console.log('$rootScope.bundleInPackageList' , $rootScope.bundleInPackageList);
+      
+    }
+  });
           }
 
           $scope.success_message = true;
@@ -1013,12 +1049,24 @@ console.log('$scope.bundle' , $scope.bundle) ;
     $serviceTest.updateBundleInPackage($scope.bundle, function(response) {
 
       if (response.code === 200) {
-        $scope.eventBundle.eventId = $localStorage.eventId;
-        $scope.eventBundle.userId = $localStorage.userId;
+       
+  //To get bundles
+  $scope.eventBundle.user_id = $localStorage.userId;
+  $scope.eventBundle.package_id = $localStorage.packageId;
+  $rootScope.showBundleList=false;
+  console.log('hide showBundleList ');
+  $serviceTest.getBundlesInPackage($scope.eventBundle, function(response) {
+    console.log('response.result' , response.results);
+    if(response.results) {
+      $rootScope.showBundleList=true;
+       $rootScope.bundleInPackageList = response.results;
+      console.log('$rootScope.bundleInPackageList' , $rootScope.bundleInPackageList);
+      
+    }
+  });
 
-        $serviceTest.getBundlesInPackage($scope.eventBundle, function(response) {
-          $rootScope.bundleInPackageList = response.result;
-        });
+
+
 
         if (status === 'submit') {
           $scope.cancel();
@@ -1217,10 +1265,14 @@ console.log('$localStorage.bundleId' , $localStorage.bundleId);
 
                     $scope.eventBundle.eventId = $localStorage.eventId;
                     $scope.eventBundle.userId = $localStorage.userId;
+  $scope.eventBundle.package_id = $localStorage.packageId;
+
+
+
 
                     $serviceTest.getBundlesInPackage($scope.eventBundle, function(res2) {
-                      $rootScope.bundleInPackageList = res2.result;
-                      $scope.selectedClass = 2;
+      $rootScope.bundleInPackageList = response.results;
+                            $scope.selectedClass = 2;
                       $scope.step_2 = true;
                       $scope.step_1 = $scope.step_3 = false;
 

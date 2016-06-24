@@ -1,7 +1,7 @@
 /** 
 Angular Controller for fetching common data from database
 Created : 2016-05-17
-Created By: Harpreet Kaur
+Created By: Manoj Kumar
 Module : Common Settings 
 */
 angular.module('alisthub')
