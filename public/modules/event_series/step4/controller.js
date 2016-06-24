@@ -239,6 +239,37 @@ $scope.selected2 = $scope.steps[3];
     minDate: new Date(),
     startingDay: 1
   };
+  
+  $scope.dateOptions6 = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+
+    minDate: new Date(),
+    startingDay: 1
+  };
+  $scope.dateOptions5 = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+
+    minDate: new Date(),
+    startingDay: 1
+  };
+  
+  $scope.dateOptions4 = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+
+    minDate: new Date(),
+    startingDay: 1
+  };
+  
+  $scope.dateOptions3 = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+
+    minDate: new Date(),
+    startingDay: 1
+  };
 
   // Disable weekend selection
   function disabled(data) {

@@ -914,6 +914,16 @@ $scope.rec_year_func = function() {
     startingDay: 1
   };
 
+   $scope.dateOptions3 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+  $scope.dateOptions4 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
   // Disable weekend selection
   function disabled(data) {
     var date = data.date,
