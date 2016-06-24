@@ -175,6 +175,20 @@ url.removePackageProduct = function(jsondata,callback){
     });
   };
 
+
+ url.getAdvanceSettingOfPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getAdvanceSettingOfPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+
+ url.saveAdvanceSettingsOfPackage = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.saveAdvanceSettingsOfPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
   
 
 

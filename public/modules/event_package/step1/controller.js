@@ -196,11 +196,17 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
         $localStorage.packageId = null;
     } 
 
-console.log('$state.params.packageId' , $state.params.packageId);
-    if ($state.params.packageId) {
-        console.log('edit called');
+    if ($state.params.packageId != '') {
+       $localStorage.packageId = $state.params.packageId;
+    } 
 
-        var packageId = $localStorage.packageId = $state.params.packageId;
+console.log('$state.params.packageId' , $state.params.packageId);
+
+
+    if ( $localStorage.packageId) {
+        console.log('edit called');
+alert($localStorage.packageId);
+        var packageId = $state.params.packageId;
         //$scope.data.package_id = $localStorage.packageId;
 
         $serviceTest.getPackage({ 'package_id': packageId, 'user_id': userId }, function(response) {
