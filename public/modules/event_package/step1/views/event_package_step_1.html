@@ -12,6 +12,11 @@
     <!-- //Step Form --> 
     <!-- Form COntainer -->
     <div class="form-section  wt-frame">
+
+        <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
+
+     <span ng-show="success_message"><p class="success-fld ng-binding">{{success}}</p></span>
+     
         <div ng-hide="eventdetail_div" class="eventseries">
             <form  name="myForm" class="event-form" novalidate>
                 <section class="gray-frame sub-fields">

@@ -47,8 +47,8 @@ exports.getEventsInPackage=function(req,res) {
    
     var package_id=req.body.package_id;
     if(package_id!=undefined){
-      //var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id where events.id="+event_id;
-      var sql="SELECT event_id from package_event_map where package_id = "+package_id;
+
+       var sql="SELECT pem.event_id,e.title from package_event_map pem join events e ON pem.event_id = e.id  where package_id = "+package_id;
      
       connection.query(sql,function(err,result){
         if (err) {
@@ -303,14 +303,40 @@ Created : 2016-04-25
 Created By: Manoj kumar  
 */
 exports.getAllProductsInPackage = function(req,res){
-  console.log('req '+req.body.req);
+console.log('-----------------');
 
-  connection.query('SELECT * from products where seller_id = '+req.body.userId+ ' ORDER BY created DESC', function(err, results) {
+  console.log('req.body' , req.body);
+  var excluded_product_id_query = 'SELECT GROUP_CONCAT( product_id ) AS excluded_product_id FROM event_products WHERE package_id = '+req.body.packageId ;
+  connection.query(excluded_product_id_query , function(err1, results1) {
+    if (err1) {
+      res.json({error:err1,code:101});
+     }
+var condition = '';
+
+
+     if(results1[0].excluded_product_id  !== '' ) {
+condition = ' AND id NOT IN (' + results1[0].excluded_product_id+')';
+     }
+
+
+//$scope.data.productId
+    if( req.body.productId != '' && req.body.productId != undefined) {
+condition = ' AND id = ' +req.body.productId ;
+     }
+
+
+var products = 'SELECT * from products where seller_id = '+req.body.userId + condition + ' ORDER BY created DESC';
+    console.log('products' , products) ;
+    connection.query(products, function(err, results) {
      if (err) {
       res.json({error:err,code:101});
      }
      res.json({result:results,code:200});
+     });
+
   });
+
+ 
 }
 
 
@@ -471,3 +497,142 @@ exports.viewSelectedEvents = function(req, res) {
 }
 
    
+
+   /** 
+Method: getPackageProductDetail
+Description:Function to fetch package product detail 
+Created : 2016-05-25
+Created By: Manoj 
+*/
+exports.getPackageProductDetail = function(req,res) {
+  if(req.body.id!=undefined){
+    //LEFT JOIN events AS E on E.id=QA.event_id where
+    var query = 'SELECT EP.*, p.product_name, p.retail_price from event_products as EP LEFT JOIN products AS p on p.id = EP.product_id where EP.id='+req.body.id+ ' ORDER BY EP.created DESC';
+    console.log(query);
+    connection.query(query, function(err, results) {
+       if (err) {
+        res.json({error:err,code:101});
+       }
+       res.json({result:results,code:200});
+    });  
+  } else {
+    res.json({result:{},code:200});
+  }
+}
+
+
+/** 
+Method: getPackageProducts
+Description:Function to fetch related products of package
+Created : 2016-05-25
+Created By: Manoj Singh 
+*/
+exports.getPackageProducts = function(req,res) {
+console.log('eq.body' , req.body);
+
+  if(req.body.userId!=undefined && req.body.packageId!=undefined){
+    //LEFT JOIN events AS E on E.id=QA.event_id where
+    var query = 'SELECT EP.*, p.product_name from event_products as EP LEFT JOIN products AS p on p.id = EP.product_id where EP.seller_id='+req.body.userId+ ' and EP.package_id='+ req.body.packageId +' ORDER BY EP.created DESC';
+   console.log('query' , query);
+    connection.query(query, function(err, results) {
+       if (err) {
+        res.json({error:err,code:101});
+       }
+       res.json({result:results,code:200});
+    });  
+  } else {
+    res.json({result:{},code:200});
+  }
+}
+
+
+
+
+/** 
+Method: getEventProducts
+Description:Function to fetch related products of event
+Created : 2016-05-25
+Created By: Deepak khokkar  
+*/
+exports.removePackageProduct = function(req,res) {
+console.log(req.body);
+//console.log(req.body.packageProductDeleteId);
+
+  if(req.body.userId!=undefined && req.body.packageProductDeleteId!=undefined){
+    //LEFT JOIN events AS E on E.id=QA.event_id where
+   // var query = 'SELECT EP.*, p.product_name from event_products as EP LEFT JOIN products AS p on p.id = EP.product_id where EP.seller_id='+req.body.userId+ ' and EP.package_id='+ req.body.packageProductDeleteId +' ORDER BY EP.created DESC';
+    var query = 'DELETE from  event_products where seller_id='+req.body.userId+ ' and id='+ req.body.packageProductDeleteId ;
+    console.log(query);
+    connection.query( query , function(err, results) {
+       if (err) {
+        res.json({error:err,code:101});
+       }
+       res.json({result:results,code:200});
+    });  
+  } else {
+    res.json({result:{},code:200});
+  }
+}
+
+
+
+
+/** 
+Method: changeBundleStatus
+Description:Function to change status of the bundle 
+Created : 2016-05-18
+Created By: Deepak khokkar
+*/
+exports.changePackageBundleStatus = function(req,res) { 
+  if(req.body.status=='true') {
+    var status = 'false';
+  } else {
+    var status = 'true';
+  }
+  console.log(status);
+  connection.query("UPDATE bundles SET status='"+status+"' where id="+req.body.id, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+     res.json({result:results,code:200});
+  });
+}
+
+/** 
+Method: removePackageBundle
+Description:Function to delete the package of bundle
+Created : 2016-05-18
+Created By: Deepak khokkar
+*/
+exports.removePackageBundle=function(req,res){
+    var bundleDeleteId=req.body.bundleDeleteId;
+    var sql="Delete FROM bundles where id="+bundleDeleteId;
+    
+    connection.query(sql,function(err,result){
+       
+        if (err) {
+           res.send({err:"error",code:101}); 
+        }
+           res.send({"message":"success",code:200});  
+        
+    });
+}
+
+
+
+
+/** 
+Method: getBundleDetailOfPackage
+Description: get bundle detail 
+Created : 2016-04-26
+Created By: Manoj kumar  
+*/
+exports.getBundleDetailOfPackage = function(req,res){
+  connection.query('SELECT * from bundles where seller_id='+req.body.userId+ ' and id='+ req.body.editBundleId +' ORDER BY created DESC', function(err, results) {
+    if (err) {
+      res.json({error:err,code:101});
+    }
+    res.json({result:results,code:200});
+  });
+  
+}

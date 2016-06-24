@@ -117,11 +117,8 @@ var $serviceTest = $injector.get("event_package");
   $serviceTest.getBundlesInPackage($scope.eventBundle, function(response) {
     //$rootScope.bundleList = response.results;
     $scope.loader_bundle = true;
-    console.log('response.result' , response.results);
     if(response.results) {
-      console.log('here in condition');
       $scope.loader_bundle = false;
-      console.log ('$scope.loader_bundle' , $scope.loader_bundle);
       $rootScope.bundleInPackageList = response.results;
     }
   });
@@ -132,16 +129,12 @@ var $serviceTest = $injector.get("event_package");
   $scope.product.eventsInPackage = $scope.eventsInPackage; 
   $scope.product.package_id = packageId;
   $scope.product.user_id = userId;
- 
   $serviceTest.getProductsInPackage($scope.product, function(response) {
     //$rootScope.eventProductList = response.result;
     $scope.loader_product = true;
     if(response.results) {
       $scope.loader_product = false;
       $rootScope.productInPackageList = response.results;
-      console.log('$rootScope.productInPackageList');
-      console.log($rootScope.productInPackageList);
-
     }
   });
   
@@ -291,7 +284,7 @@ var $serviceTest = $injector.get("event_package");
     console.log('data ' , data);
     $serviceTest.postSecondStepPackageData(data, function(response) {
       if (response.code == 200) {
-        $scope.success = global_message.event_step2;
+        $scope.success = global_message.save_package;
 
         $scope.error_message = false;
         $timeout(function() {
@@ -482,9 +475,10 @@ var $serviceTest = $injector.get("event_package");
   };
 
   //Add Product pop up
-  $scope.add_product = function(size, eventProductId) {
-    $rootScope.eventProductId = eventProductId;
-    console.log('$rootScope.eventProductId ' , $rootScope.eventProductId , ' eventProductId ' , eventProductId)
+  $scope.add_product = function(size, packageProductId, productId) {
+    $rootScope.packageProductId = packageProductId;
+    $rootScope.productId = productId;
+    console.log('$rootScope.productId' , productId ,'$rootScope.packageProductId ' , $rootScope.packageProductId , ' packageProductId ' , packageProductId)
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContentProduct.html',
@@ -507,13 +501,13 @@ var $serviceTest = $injector.get("event_package");
   $scope.success_message_bundle = false;
   $scope.loader_bundle = false;
   //change status of Bundle
-  $scope.changeBundleStatus = function(id, status) {
+  $scope.changePackageBundleStatus = function(id, status) {
     $scope.data = {};
     if ($localStorage.userId !== undefined) {
       $scope.data.id = id;
       $scope.data.status = status;
       $scope.loader_bundle = true;
-      $serviceTest.changeBundleStatus($scope.data, function(response) {
+      $serviceTest.changePackageBundleStatus($scope.data, function(response) {
         if (response.code === 200) {
 
           $scope.success_message_bundle = true;
@@ -568,7 +562,7 @@ var $serviceTest = $injector.get("event_package");
   };
 
   //delete event poduct
-  $scope.delete_event_product = function(size, index, eventproduct_id) {
+  $scope.delete_event_product = function(size, index, packageProductId) {
 
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
@@ -577,8 +571,8 @@ var $serviceTest = $injector.get("event_package");
       size: size,
       resolve: {
         items: function() {
-          $rootScope.eventProductIdDelete = index;
-          $rootScope.eventProductDeleteId = eventproduct_id;
+          $rootScope.packageProductIdDelete = index;
+          $rootScope.packageProductDeleteId = packageProductId;
           return $scope.items;
         }
       }
@@ -663,7 +657,7 @@ angular.module('alisthub').controller('deleteBundleCtrl', function($scope, $uibM
   //Remove Bundle data
   $scope.removeBundle = function() {
     var $serviceTest = $injector.get("event_package");
-    $serviceTest.removeBundle({
+    $serviceTest.removePackageBundle({
       'bundleDeleteId': $rootScope.bundleDeleteId
     }, function(response) {
       if (response.code === 200) {
@@ -908,8 +902,8 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     if ($localStorage.userId !== undefined) {
       $scope.editBundle.userId = $localStorage.userId;
       $scope.editBundle.editBundleId = $rootScope.editBundleId;
-
-      $serviceTest.getBundleDetail($scope.editBundle, function(response) {
+console.log('$scope.editBundle' , $scope.editBundle);
+      $serviceTest.getBundleDetailOfPackage($scope.editBundle, function(response) {
         $scope.loader = false;
         if (response.code === 200) {
           $scope.bundle = {};
@@ -1004,6 +998,9 @@ console.log('$scope.bundle' , $scope.bundle);
 
     for (var i = 0; i < $scope.price_level.length; i++) {
       var quantity = $scope.price_level[i].qty;
+      if(quantity == '' || quantity == undefined || quantity == 0) {
+        quantity = 0;
+      }
       totalQty += parseInt(quantity);
       totalOnline += parseFloat(quantity * $scope.price_level[i].online_price);
       totalBoxoffice += parseFloat(quantity * $scope.price_level[i].box_office_price);
@@ -1011,6 +1008,9 @@ console.log('$scope.bundle' , $scope.bundle);
 
     for (var i = 0; i < $scope.productList.length; i++) {
       var quantity = $scope.productList[i].qty;
+       if(quantity == '' || quantity == undefined || quantity == 0) {
+        quantity = 0;
+      }
       totalQty += parseInt(quantity);
       totalOnline += parseFloat(quantity * $scope.productList[i].retail_price);
       totalBoxoffice += parseFloat(quantity * $scope.productList[i].retail_price);
@@ -1069,20 +1069,16 @@ console.log('$scope.bundle' , $scope.bundle) ;
 
 
         if (status === 'submit') {
-          $scope.cancel();
 
-          /*  $serviceTest.getBundlesInPackage($scope.eventBundle, function(response) {
-    //$rootScope.bundleList = response.results;
-    $scope.loader_bundle = true;
-    console.log('response.result' , response.results);
-    if(response.results) {
-      console.log('here in condition');
-      $scope.loader_bundle = false;
-      console.log ('$scope.loader_bundle' , $scope.loader_bundle);
-      $scope.bundleInPackageList = $rootScope.bundleInPackageList = response.results;
-    }
-  }); */
-            
+          $scope.success_message_bundle = true;
+          $scope.success_bundle = global_message.bundle_save;
+          $timeout(function() {
+            $scope.error = '';
+            $scope.success_message_bundle = false;
+            $scope.success_bundle = '';
+          }, 3000);
+
+          $scope.cancel();   
             
         }
 
@@ -1092,6 +1088,11 @@ console.log('$scope.bundle' , $scope.bundle) ;
           $scope.success_message = false;
           $scope.success = '';
         }, 3000);
+
+
+
+          
+
       } else {
         $scope.activation_message = global_message.ErrorInActivation;
       }
@@ -1396,6 +1397,12 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
   $scope.getAllProduct = function() {
     if ($localStorage.userId != undefined) {
       $scope.data.userId = $localStorage.userId;
+      $scope.data.packageId = $localStorage.packageId;
+      if($rootScope.packageProductId != '') {
+      $scope.data.packageProductId = $rootScope.packageProductId;
+      $scope.data.productId = $rootScope.productId
+    }
+
       $serviceTest.getAllProductsInPackage($scope.data, function(response) {
 
         $scope.loader = false;
@@ -1405,6 +1412,7 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
           $scope.error_message = response.error;
         }
       });
+
     }
   };
 
@@ -1439,9 +1447,9 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
     return strValue === 'true' || strValue === '1' ? true : false
   };
 
-  $scope.getEventProductDetail = function() {
-    $scope.eventProduct.id = $rootScope.eventProductId;
-    $serviceTest.getEventProductDetail($scope.eventProduct, function(response) {
+  $scope.getPackageProductDetail = function() {
+    $scope.eventProduct.id = $rootScope.packageProductId;
+    $serviceTest.getPackageProductDetail($scope.eventProduct, function(response) {
       $scope.loader = false;
       if (response.code === 200) {
         $scope.product = response.result[0];
@@ -1452,9 +1460,10 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
         $scope.product.product_id = response.result[0].product_id;
 
         $scope.products = {};
-        $scope.products.eventId = $localStorage.eventId;
+        $scope.products.packageId = $localStorage.packageId;
         $scope.products.userId = $localStorage.userId;
-        $serviceTest.getEventProducts($scope.products, function(response) {
+
+        $serviceTest.getPackageProducts($scope.products, function(response) {
           $rootScope.productInPackageList = response.result;
         });
       } else {
@@ -1463,8 +1472,8 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
     });
   }
 
-  if ($rootScope.eventProductId !== undefined) {
-    $scope.getEventProductDetail();
+  if ($rootScope.packageProductId !== undefined) {
+    $scope.getPackageProductDetail();
   }
 
   $scope.addEventProduct = function(product) {
@@ -1490,17 +1499,37 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
               $rootScope.productInPackageList = response.result;
             });
 
+
+  $scope.product = {};
+  $scope.product.package_id = $localStorage.packageId;
+  $scope.product.user_id = $localStorage.userId;
+
+  $serviceTest.getProductsInPackage($scope.product, function(response) {
+    $scope.loader_product = true;
+    if(response.results) {
+      $scope.loader_product = false;
+      $rootScope.productInPackageList = response.results;
+    }
+  });
+
           } else {
             $localStorage.eventProductId = product.id;
             $rootScope.success_message_product = true;
             $rootScope.success_product = global_message.event_product_update;
 
-            $scope.product = {};
-            $scope.product.eventId = $localStorage.eventId;
-            $scope.product.userId = $localStorage.userId;
-            $serviceTest.getEventProducts($scope.product, function(response) {
-              $rootScope.productInPackageList = response.result;
-            });
+          
+  $scope.product = {};
+  $scope.product.package_id = $localStorage.packageId;
+  $scope.product.user_id = $localStorage.userId;
+
+  $serviceTest.getProductsInPackage($scope.product, function(response) {
+    $scope.loader_product = true;
+    if(response.results) {
+      $scope.loader_product = false;
+      $rootScope.productInPackageList = response.results;
+    }
+  });
+
           }
 
           $scope.cancel();
@@ -1534,8 +1563,11 @@ angular.module('alisthub').controller('deleteEventProductCtrl', function($scope,
   //Remove Bundle data
   $scope.removeEventProduct = function() {
     var $serviceTest = $injector.get("event_package");
-    $serviceTest.removeEventProduct({
-      'eventProductDeleteId': $rootScope.eventProductDeleteId
+    // $rootScope.packageProductIdDelete = index;
+    // $rootScope.packageProductDeleteId = packageProductId;
+    $serviceTest.removePackageProduct({
+      'packageProductDeleteId': $rootScope.packageProductDeleteId,
+      'userId' : $localStorage.userId
     }, function(response) {
       if (response.code === 200) {
 
@@ -1547,7 +1579,7 @@ angular.module('alisthub').controller('deleteEventProductCtrl', function($scope,
           $rootScope.success_product = "";
 
         }, 3000);
-        $rootScope.productInPackageList.splice($rootScope.eventProductIdDelete, 1);
+        $rootScope.productInPackageList.splice($rootScope.packageProductIdDelete, 1);
       }
       $uibModalInstance.close($scope.selected.item);
     });
