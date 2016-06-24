@@ -9,7 +9,7 @@ angular.module('alisthub').controller('EventScheduleController', function($scope
     
     $rootScope.class_status=false;
     var eventService = $injector.get("events");
-    
+    $scope.scheduleloader = false;
     if(window.innerWidth>767) { 
       $scope.navCollapsed = false;	  
     } else {
@@ -24,6 +24,7 @@ angular.module('alisthub').controller('EventScheduleController', function($scope
       if(allevent == undefined) {
         allevent = $rootScope.allevent;
       }
+      $scope.scheduleloader = true;
       
       if($rootScope.searchFromDate!=undefined && $rootScope.searchFromDate!='') {
         console.log($rootScope.searchFromDate);
@@ -32,7 +33,7 @@ angular.module('alisthub').controller('EventScheduleController', function($scope
       console.log($stateParams.eventId);
 
       eventService.getEventDates({ 'user_id' : $localStorage.userId, 'eventId' : $stateParams.eventId, 'allevent' : allevent },function(response) {
-        console.log(response);
+        $scope.scheduleloader = false;
         if (response!=null) {
           if (response.code == 200) {
             $scope.upcoming_event_data =response.results;

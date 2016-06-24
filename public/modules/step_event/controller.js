@@ -1327,25 +1327,30 @@ angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uib
   };
 });
 
-angular.module('alisthub').controller('advanceSetting', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad) { 
+angular.module('alisthub').controller('advanceSetting', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$stateParams) { 
 
   if (!$localStorage.isuserloggedIn) {
       $state.go('login');
   }
 
   var $serviceTest = $injector.get("venues");
+  $scope.data = {};
 
- $scope.data = {};
-
- $scope.getAdvanceSetting = function() {
-  console.log('calling getAdvanceSetting');
+  $scope.getAdvanceSetting = function() {
+  
             if ($localStorage.userId != undefined) {
                 $scope.data.seller_id = $localStorage.userId;
-                $scope.data.event_id = 10;
+                //$scope.data.event_id = 10;  
+
+                if($stateParams.event_id!=undefined && $stateParams.event_id!='') {
+                  $scope.data.event_id = $stateParams.event_id;
+                } else {
+                  $scope.data.event_id = $localStorage.event_id;
+                }
+
                 $serviceTest.getAdvanceSetting($scope.data, function(response) {
                     $scope.loader = false;
                     if (response.code == 200) {
-                        $scope.data = {};
                         $scope.data = response.result[0];
                     } else {
                         $scope.error_message = response.error;
@@ -1359,7 +1364,13 @@ angular.module('alisthub').controller('advanceSetting', function($scope,$localSt
 
   $scope.saveAdvanceSettings = function() {
       if ($localStorage.userId != undefined) {
-            $scope.data.event_id = 10;
+            //$scope.data.event_id = 10;
+            if($stateParams.event_id!=undefined && $stateParams.event_id!='') {
+              $scope.data.event_id = $stateParams.event_id;
+            } else {
+              $scope.data.event_id = $localStorage.event_id;
+            }
+
             $scope.data.seller_id = $localStorage.userId;
             $serviceTest.saveAdvanceSettings($scope.data, function(response) {
                 if (response.code == 200) {

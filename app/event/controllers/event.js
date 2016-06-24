@@ -693,6 +693,7 @@ var moment     = require('moment-timezone');
 var path_event = process.cwd()+'/public/images/events';
 
 exports.getAdvanceSetting = function(req,res){
+  console.log('SELECT * from event_advance_settings where seller_id='+req.body.seller_id+ ' && event_id = '+req.body.event_id);
   connection.query('SELECT * from event_advance_settings where seller_id='+req.body.seller_id+ ' && event_id = '+req.body.event_id, function(err, results) {
     if (err) {
       res.json({error:err,code:101});
@@ -789,7 +790,7 @@ exports.saveAdvanceSettings = function(req,res) {
 'access_code_instructions_text',
 'show_bundle_details_by_default' ];
 
-console.log('req.body' , req.body);
+//console.log('req.body' , req.body);
 for(var key in advance_settings_fields) {
   var field_name = advance_settings_fields[key];
   var checkboxkey = field_name+'_cbox';
@@ -804,15 +805,15 @@ var table_name = 'event_advance_settings';
 var created = " created = '"+curtime+"'"; 
 var modified = " modified = '"+curtime+"'";
 
-if(req.body.event_id) {
-var query1 = "UPDATE `"+table_name+"` SET "+ query_fields + modified +" where id = "+req.body.id+" && event_id = "+req.body.event_id+" && seller_id = "+req.body.seller_id;
-}
-else
-{
-var query1 = "INSERT INTO  `"+table_name+"` SET event_id = "+req.body.event_id+" , seller_id = "+req.body.seller_id +", "+ query_fields + created;
+//console.log("id: "+req.body.id);
+
+if(req.body.id!=undefined) {
+  var query1 = "UPDATE `"+table_name+"` SET "+ query_fields + modified +" where event_id = "+req.body.event_id+" && seller_id = "+req.body.seller_id;
+} else {
+  var query1 = "INSERT INTO  `"+table_name+"` SET event_id = "+req.body.event_id+" , seller_id = "+req.body.seller_id +", "+ query_fields + created;
 }
 
-console.log('query_value ' , query1);
+//console.log('query_value ' , query1);
 
   connection.query(query1, function(err, results) {
      if (err) {

@@ -47,6 +47,9 @@ module.exports = function(app, express) {
   /* To get data of the all past events */
   router.post('/getPastEvent',supportCrossOriginScript,Event.getPastEvent);
 
+  /* Export CSV events  */
+  router.get('/exportAllEventCSV', AllEvent.exportAllEventCSV);
+
   /* To get data of the all event series */
   router.post('/getEventSeries',supportCrossOriginScript,Event.getEventSeries);
 

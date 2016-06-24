@@ -105,3 +105,40 @@ exports.getEventDates=function(req,res) {
   });
 }
 
+/** 
+Method: exportAllEventCSV 
+Description:Function to export All Event CSV  
+Created : 2016-06-24
+Created By: Deepak khokkar
+*/
+
+exports.exportAllEventCSV = function(req, res) {
+    
+    var user_id = req.query.seller;
+    var curtime = moment().format('YYYY-MM-DD');
+   
+    var sql = "SELECT events.title as Event Title, Date(events.start_date), events.end_date, events.event_location, events.city, events.event_address, events.website_url FROM events where events.parent_id IS NULL and events.user_id=" + user_id;
+
+    /*var condition = "";
+    if (req.query.seller != "" && req.query.seller != "[]" && req.query.seller != "undefined") {
+        condition = " seller_id =" + req.query.seller;
+    }
+    if (req.query.ids != "" && req.query.ids != "[]" && req.query.ids != "undefined") {
+        var strold = req.query.ids;
+        var strnew = strold.substr(1, strold.length - 2);
+        condition += " AND id IN (" + strnew + ")";
+    }
+    console.log('select * from discounts where ' + condition);*/
+
+    query = connection.query(sql, function(err, rows, fields) {
+        if (err) {
+            res.send(err);
+        }
+        var headers = {};
+        for (key in rows[0]) {
+            headers[key] = key;
+        }
+        rows.unshift(headers);
+        res.csv(rows);
+    });
+}
