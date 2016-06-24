@@ -910,13 +910,14 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
         if (response.code === 200) {
           if (bundle.id === undefined) {
 
-            $localStorage.bundleId = response.result.insertId;
+            $localStorage.bundleId = response.parent_id;
             $scope.bundle.id = $localStorage.bundleId;
             $scope.success = global_message.bundle_add;
           } else {
             $localStorage.bundleId = bundle.id;
+	    $scope.bundle.id = $localStorage.bundleId;
             $scope.success = global_message.bundle_update;
-
+            $scope.bundle.id = bundle.id;    
             if ($scope.items.eventId) {
 	      $scope.eventBundle.eventId = $scope.items.eventId;
 	    }
@@ -1362,9 +1363,11 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
   $scope.addEventProduct = function(product) {
     if ($localStorage.userId !== undefined) {
       $scope.product.seller_id = $localStorage.userId;
-      $scope.product.event_id = $localStorage.eventId;
-
-      $serviceTest.addEventProduct($scope.product, function(response) {
+      if ($scope.items.eventId) {
+	 $scope.product.event_id = $scope.items.eventId;
+      }
+      
+      $serviceTest.addSeriesEventProduct($scope.product, function(response) {
 
         if (response.code === 200) {
           if (product.id === undefined) {
@@ -1374,7 +1377,7 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
             $rootScope.success_product = global_message.event_product_add;
 
             $scope.product = {};
-            $scope.product.eventId = $localStorage.eventId;
+            $scope.product.eventId = $scope.product.event_id;
             $scope.product.userId = $localStorage.userId;
             $serviceTest.getEventProducts($scope.product, function(response) {
               $rootScope.eventProductList = response.result;
@@ -1386,7 +1389,7 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
             $rootScope.success_product = global_message.event_product_update;
 
             $scope.product = {};
-            $scope.product.eventId = $localStorage.eventId;
+            $scope.product.eventId = $scope.product.event_id;
             $scope.product.userId = $localStorage.userId;
             $serviceTest.getEventProducts($scope.product, function(response) {
               $rootScope.eventProductList = response.result;

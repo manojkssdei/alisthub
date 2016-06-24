@@ -19,7 +19,7 @@
         
         <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
           <div class="form-group" ng-class="{ 'has-error' : myForm.eventname.$dirty && myForm.eventname.$invalid }"  >
-            <label for="eventname">Event Name<span class="req">*</span></label>
+            <label for="eventname">Series Name<span class="req">*</span></label>
             <input type="text" tooltips tooltip-template="This is the title of your event. Minimum 3 characters, maximum 50 characters." name="eventname" ng-model="data.eventname" class="form-control" placeholder="Title of your Event" minlength="3" maxlength="50" required>
             <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">Event Name is required (Minimum 3 characters , maximum 50 characters)</p>
           </div>
