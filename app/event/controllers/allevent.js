@@ -117,7 +117,9 @@ exports.exportAllEventCSV = function(req, res) {
     var user_id = req.query.seller;
     var curtime = moment().format('YYYY-MM-DD');
    
-    var sql = "SELECT events.title as 'Event Title', events.start_date as 'Start Date', events.end_date as 'End Date', events.event_location as 'Location', events.city as 'City', events.event_address as 'Address', events.website_url as 'URL' FROM events where events.parent_id IS NULL and events.user_id=" + user_id;
+    //var sql = "SELECT events.title as 'Event Title', events.start_date as 'Start Date', events.end_date as 'End Date', events.event_location as 'Location', events.city as 'City', events.event_address as 'Address', events.website_url as 'URL' FROM events where events.parent_id IS NULL and events.user_id=" + user_id;
+
+    var sql = "SELECT events.title, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url FROM events where events.parent_id IS NULL and events.user_id=" + user_id;
 
     /*var condition = "";
     if (req.query.seller != "" && req.query.seller != "[]" && req.query.seller != "undefined") {
