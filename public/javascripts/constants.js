@@ -231,6 +231,7 @@ var webservices = {
     "removeEventProduct": "/event_setting/removeEventProduct",
     "getEventPriceLevel": "/event_setting/getEventPriceLevel",
     "getAllProducts": "/event_setting/getAllProducts",
+    "removeSeriesEventProduct": "/event/removeSeriesEventProduct",
 
     //Event step 4 
     "getSettings": "/event/getSettings",

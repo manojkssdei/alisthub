@@ -159,7 +159,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /* Setting for view event screen */
         .state('view_all_event', {
-            url: '/view_all_event',
+            url: '/view_all_event/:type',
             views: {
                 "lazyLoadView": {
                   controller: 'allEventController', // This view will use AppCtrl loaded below in the resolve

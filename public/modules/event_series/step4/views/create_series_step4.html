@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
 
 <div class="container">
+  <div ng-show="pageloader"><img src="/images/icons/loader.gif"></div>
     <h1>Create an Event</h1>
     <!-- Step Form -->
     <div class="stage-container clearfix">
@@ -135,7 +136,7 @@
                         <section class="row">
                             <div class="col-sm-4">
                                     <div class="form-group datepicker" ng-class="{ 'has-error' : eventSettingForm.online_sales_open.$dirty && eventSettingForm.online_sales_open.$invalid }">
-                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="formdata.online_sales_open.date" is-open="popup3.opened" datepicker-options="dateOptions5" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" name="online_sales_open" required/>
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="formdata.online_sales_open.date" is-open="popup3.opened" datepicker-options="dateOptions5" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" ng-disabled="show_imm == 1" name="online_sales_open" required/>
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button>
                                         </span>
@@ -144,7 +145,7 @@
                             </div>
                             <div class="col-sm-4">
                               <div class="input-group bootstrap-timepicker timepicker">
-                                <input  ng-model="formdata.online_sales_open.time" ng-change=""  class="form-control input-small timepick" type="text" id="timepicker1"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                <input  ng-model="formdata.online_sales_open.time" ng-change=""  class="form-control input-small timepick" type="text" ng-disabled="show_imm == 1" id="timepicker1"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
                               </div>
                             </div>
                         </section>
@@ -152,7 +153,7 @@
                               <div class="col-sm-12">
                                 <section class="radio-sec custom-check">
                                     <p class="radio-inline">
-                                        <input type="checkbox" id="test2"  ng-model="formdata.sales_immediatly" ng-true-value="1" ng-false-value="0">
+                                        <input type="checkbox" id="test2"  ng-model="formdata.sales_immediatly" ng-true-value="1" ng-false-value="0" ng-click="immediate()">
                                         <label for="test2">Immediately</label>
                                     </p>
                                 </section>
@@ -484,7 +485,7 @@
                             <br>
                             <p>
                                 <a ui-sref="advance_setting">
-                                    <button class="pink-btn btn btn-small m-fw">Edit Event Advanced Setting</button>
+                                    <a href="#/edit_advance_setting/{{event_id_setting}}"><button class="pink-btn btn btn-small m-fw">Edit Event Advanced Setting</button></a>
                                 </a>
                             </p>
                         </section>
@@ -496,6 +497,7 @@
                     <div class="editor-btn">
                        
                         <button type="submit" ng-disabled="eventSettingForm.$invalid" class="gray-btn btn">Save</button>
+                        <button type="submit" ng-disabled="eventSettingForm.$invalid" ng-click="goto_list();" class="btn pink-btn">Submit</button>
                         
                     </div>
                 </div>

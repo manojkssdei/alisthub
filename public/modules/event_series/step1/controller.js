@@ -136,7 +136,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('series
   
   if($stateParams.eventId==='')
   {
-   $localStorage.eventId=null;
+   $stateParams.eventId = null;
   }
   else{
      
@@ -287,7 +287,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('series
     });
   }
  
-  $eventId = $localStorage.eventId;
+  $eventId = $stateParams.eventId;
   /** 
   Method: change_month
   Description:Function to be execute when a month change occures 
@@ -698,7 +698,9 @@ $scope.rec_year_func = function() {
             if (response.code == 200) {
               $scope.success=global_message.event_step1;
               $scope.data.event_id = response.parent_id;
-              $localStorage.eventId = response.parent_id
+              //$localStorage.eventId = response.parent_id
+              $scope.eventId = response.parent_id
+              
               //$scope.data={};
               $scope.error_message=false;
               $timeout(function() {
@@ -1127,8 +1129,8 @@ $scope.rec_year_func = function() {
     var objectForm = this;
     //To go to step1 event Details
     if (menu.id === 5) {
-      if ($localStorage.eventId != null && $localStorage.eventId != "") {
-         $location.path("/create_series_step1/"+$localStorage.eventId);
+      if ($stateParams.eventId != null && $stateParams.eventId != "") {
+         $location.path("/create_series_step1/"+$stateParams.eventId);
       }
       else{
           $location.path("/create_series_step1");
@@ -1140,7 +1142,7 @@ $scope.rec_year_func = function() {
     if (menu.id === 6) {
 
       if (objectForm.myForm.$valid === true) {
-          if ($localStorage.eventId == null) {
+          if ($stateParams.eventId == null) {
               if (data.eventtype=='single') {
                 if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
                   data.eventdate=$scope.single_start_date;
@@ -1152,13 +1154,14 @@ $scope.rec_year_func = function() {
                   $serviceTest.saveEvent(data,function(response){
                     if (response.code == 200) {
                        $scope.success=global_message.event_step1;
-                       $localStorage.eventId=response.result;
+                       //$localStorage.eventId=response.result;
+                       $scope.eventId=response.result;
                        $scope.error_message=false;
                        $timeout(function() {
                          $scope.success='';
                          $scope.error_message=true;
                        },3000);
-                        $location.path("/create_series_step2/"+$localStorage.eventId);
+                        $location.path("/create_series_step2/"+$stateParams.eventId);
                     }
                   });
 
@@ -1166,8 +1169,8 @@ $scope.rec_year_func = function() {
               } else {
                 data.userId=$localStorage.userId;
                 $scope.savedata(data);
-                if ($localStorage.eventId != null) {
-                  $location.path("/create_series_step2/"+$localStorage.eventId);
+                if ($scope.eventId != null) {
+                  $location.path("/create_series_step2/"+$stateParams.eventId);
                 }
                 else{
                   console.log("Not locat event id");
@@ -1178,7 +1181,7 @@ $scope.rec_year_func = function() {
           }
           else {
             
-            $location.path("/create_series_step2/"+$localStorage.eventId);
+            $location.path("/create_series_step2/"+$stateParams.eventId);
           }
       } else {
         $scope.error_message = false;
@@ -1193,13 +1196,13 @@ $scope.rec_year_func = function() {
 
     //look and feel div
     if (menu.id === 7) {
-        $location.path("/create_series_step3/"+$localStorage.eventId);
+        $location.path("/create_series_step3/"+$stateParams.eventId);
     }
     //Event Setting div
     if (menu.id === 8) {
 
       //if (objectForm.myForm.$valid === true) {
-          $location.path("/create_series_step4/"+$localStorage.eventId);
+          $location.path("/create_series_step4/"+$stateParams.eventId);
      /* } else {
 >>>>>>> upstream/master
         $scope.error_message = false;
