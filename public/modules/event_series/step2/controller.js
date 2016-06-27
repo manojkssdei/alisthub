@@ -56,7 +56,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
    
     $serviceTest.getEvent({'event_id':$scope.eventId},function(response){
         
-        $scope.data1=response.results[0];
+                $scope.data1=response.results[0];
 		$scope.data1.facebook=response.results[0].facebook_url;
 		$scope.data1.twitter=response.results[0].twitter_url;
 		$scope.data1.eventwebsite=response.results[0].website_url;
@@ -256,7 +256,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
   $scope.price_and_link_data = function(data1) {
     data1.eventId = $scope.eventId;
     $scope.saveloader = true;
-    $serviceTest.postSecondStepdata(data1, function(response) {
+    $serviceTest.postSeriesSecondStepdata(data1, function(response) {
       $scope.saveloader = false;
       if (response.code == 200) {
         $scope.success = global_message.event_step2;

@@ -35,42 +35,29 @@ angular.module('alisthub').controller('createpackageController', function($scope
     console.log('menu.id ' , menu.id );
     var objectForm = this;
     $scope.selectedClass = 1;
+    console.log('menu.id' , menu.id);
     //To go to step1 event Details
     if (menu.id === 1) {
-      $location.path("/create_event_step1");
-      $scope.selectedClass = 1;
+          console.log('------1----');
+      if($stateParams.packageId != null && $stateParams.packageId !=undefined && $stateParams.packageId !='') {
+            $location.path("/edit_event_step1/"+$stateParams.packageId);
+          } 
     }
 
     ///TO move to price and level
     if (menu.id === 2) {
       console.log('------2----');
-      if (objectForm.myForm.$valid === true) {
-          $scope.selectedClass = 2;
-          if($stateParams.packageId != null && $stateParams.packageId !=undefined && $stateParams.packageId !='') {
+     if($stateParams.packageId != null && $stateParams.packageId !=undefined && $stateParams.packageId !='') {
             $location.path("/event_package_step_3/"+$stateParams.packageId);
           } 
-          
-      } else {
-        $scope.selectedClass = 1;
-        $scope.error_message = false;
-        $scope.error = global_message.event_step1_msg;
-        $timeout(function() {
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.error = '';
-        }, 3000);
-      }
     }
 
     if (menu.id === 3) {
             console.log('-----3----');
-
-      $scope.selectedClass = 3;
-          if($stateParams.packageId!=undefined && $stateParams.packageId!='' && $stateParams.packageId!= null) {
+          if($stateParams.packageId != null && $stateParams.packageId !=undefined && $stateParams.packageId !='') {
             $location.path("/event_package_step_3/"+$stateParams.packageId);
           } 
     }
-    //$scope.selected2 = menu;
   }
   
 
@@ -84,7 +71,7 @@ angular.module('alisthub').controller('createpackageController', function($scope
   $scope.loader = false;
 
 
-  $scope.selected2 = $scope.steps[3];
+  $scope.selected2 = $scope.steps[2];
   $scope.isActive2 = function(step2) {
     return $scope.selected2 === step2;
   };
@@ -290,6 +277,7 @@ $scope.redirectToDashboard = function() {
     $scope.eventSetting.package_id = $localStorage.packageId;
   }
 
+$scope.advSettingPackageId = $scope.eventSetting.package_id;
   $scope.eventSetting.user_id = $localStorage.userId;
   //To get settings 
  // $serviceTest.getSettings($scope.eventSetting, function(response) {

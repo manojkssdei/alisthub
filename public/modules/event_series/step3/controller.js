@@ -56,9 +56,9 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
     //To go to step1 event Details
     if (menu.id === 5) {
       if($stateParams.eventId!=undefined){
-        $location.path("/create_event_step1/"+$stateParams.eventId);
+        $location.path("/create_series_step1/"+$stateParams.eventId);
       } else {
-        $location.path("/create_event_step1");
+        $location.path("/create_series_step1");
       }
       
       $scope.selectedClass = 1;
@@ -90,7 +90,7 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
                         },3000);
 
                         console.log(response.result);
-                        $location.path("/create_event_step2/"+$localStorage.eventId);
+                        $location.path("/create_series_step2/"+$localStorage.eventId);
                         
                       }
                     });
@@ -113,9 +113,9 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
               }
             } else {
               if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-                $location.path("/create_event_step2/"+$stateParams.eventId);
+                $location.path("/create_series_step2/"+$stateParams.eventId);
               } else {
-                $location.path("/create_event_step2/"+$localStorage.eventId);
+                $location.path("/create_series_step2/"+$localStorage.eventId);
               }
             }
         } else {
@@ -130,9 +130,9 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
         }
       } else {
         if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-          $location.path("/create_event_step2/"+$stateParams.eventId);
+          $location.path("/create_series_step2/"+$stateParams.eventId);
         } else {
-          $location.path("/create_event_step2/"+$localStorage.eventId);
+          $location.path("/create_series_step2/"+$localStorage.eventId);
         }
       }
     }
@@ -148,18 +148,18 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
             if (response.code == 200) {
               $scope.selectedClass = 3;
               if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-                $location.path("/create_event_step3/"+$stateParams.eventId);
+                $location.path("/create_series_step3/"+$stateParams.eventId);
               } else {
-                $location.path("/create_event_step3/"+$localStorage.eventId);
+                $location.path("/create_series_step3/"+$localStorage.eventId);
               }      
             }
           });
         } else {
           $scope.selectedClass = 3;
           if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-            $location.path("/create_event_step3/"+$stateParams.eventId);
+            $location.path("/create_series_step3/"+$stateParams.eventId);
           } else {
-            $location.path("/create_event_step3/"+$localStorage.eventId);
+            $location.path("/create_series_step3/"+$localStorage.eventId);
           } 
         }
       } else {
@@ -178,9 +178,9 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
        
         $scope.selectedClass = 3;
         if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-          $location.path("/create_event_step3/"+$stateParams.eventId);
+          $location.path("/create_series_step3/"+$stateParams.eventId);
         } else {
-          $location.path("/create_event_step3/"+$localStorage.eventId);
+          $location.path("/create_series_step3/"+$localStorage.eventId);
         } 
 
       }
@@ -191,9 +191,9 @@ angular.module('alisthub').controller('seriesStep3Controller', function($scope, 
       $scope.selectedClass = 4;
       //if (objectForm.myForm.$valid === true) {
           if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-            $location.path("/create_event_step4/"+$stateParams.eventId);
+            $location.path("/create_series_step4/"+$stateParams.eventId);
           } else {
-            $location.path("/create_event_step4/"+$localStorage.eventId);
+            $location.path("/create_series_step4/"+$localStorage.eventId);
           }
      /* } else {
 

@@ -822,6 +822,16 @@ $scope.rec_year_func = function() {
     initDate: current,
     showWeeks: true
   };
+  $scope.options3 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+  $scope.options4 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
 
   var tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);

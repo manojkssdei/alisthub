@@ -239,6 +239,38 @@ $scope.selected2 = $scope.steps[3];
     minDate: new Date(),
     startingDay: 1
   };
+  
+  $scope.dateOptions6 = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+    minDate: new Date(),
+    startingDay: 1,
+    showWeeks: false
+  };
+  
+  $scope.dateOptions5 = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+    minDate: new Date(),
+    startingDay: 1,
+    showWeeks: false
+  };
+  
+  $scope.dateOptions4 = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+    minDate: new Date(),
+    startingDay: 1,
+    showWeeks: false
+  };
+  
+  $scope.dateOptions3 = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+    minDate: new Date(),
+    startingDay: 1,
+    showWeeks: false
+  };
 
   // Disable weekend selection
   function disabled(data) {
@@ -294,7 +326,17 @@ $scope.selected2 = $scope.steps[3];
   $scope.popup6 = {
     opened: false
   };
-
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date(tomorrow);
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [{
+    date: tomorrow,
+    status: 'full'
+  }, {
+    date: afterTomorrow,
+    status: 'partially'
+  }];
   function getDayClass(data) {
       var date = data.date,
         mode = data.mode;
