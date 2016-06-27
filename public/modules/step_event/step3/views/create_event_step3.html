@@ -141,13 +141,13 @@
 			      <h4>{{title}}</h4>                                  
 			      <p>{{start_date| date:'dd MMM yyyy'}}  {{start_time}}-{{end_time}}</p>
 			      <p>{{eventwebsite_url}}</p>
-			      <p class="clearfix event-labels clearfix"><span class="event-price pull-left">Inventory:{{inventory}}</span><span class="event-label pull-right">{{ages}}</span></p>
+			      <p class="clearfix event-labels clearfix"   ng-style="{background: background_inner};"><span class="event-price pull-left" ng-style="{color:text_color}">Inventory:{{inventory}}</span><span class="event-label pull-right">{{ages}}</span></p>
 			  </div>
 			</div>
 		  </section>
           <section class="form-group field-group">
           	  <h4>Description</h4>
-              <section class="event-details">
+              <section class="event-details"   ng-style="{background: background_inner}">
                     <section class="content">
 		    			<div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
 		    </section>        
@@ -193,18 +193,18 @@
 		</li>
 		<li data-row="3" data-col="4" data-sizex="1" data-sizey="1" id="section8"  ng-style="{background: background_inner}">
 		  
-		      <section class="panel panel-primary">
+		      <section class="panel panel-primary"   ng-style="{background: background_inner}">
 		     <section class="panel-heading"><h5 class="m-b0">Venue</h5></section>                     
 		     <section class="panel-body">
-			  <p></p>
-			  <ul class="address-list">
-			      <li><p><strong>{{venue_name}}</strong></p>
+			  
+			  <div class="address-list">
+			      <p><strong>{{venue_name}}</strong></p>
 			      <p>{{city}}</p>
 			      <p>({{state}}) </p>
 			      <p>{{zipcode}}</p>
 			      <p>{{country}}</p>
-			      </li>
-			  </ul>
+			      
+			  </div>
 			  
 			</section>
 		   </section>
@@ -264,9 +264,11 @@
 		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
 		<input type="text" id="select_image" value="{{select_image_val}}">
                  </span>
-		<button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
+		
 		    </section>
+		<button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
                </section><!--Left-->
+	       
           </section>
       </section>
 
