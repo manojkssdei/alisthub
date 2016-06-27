@@ -8,7 +8,8 @@ Module : Step 3 Event step
 angular.module('alisthub').controller('stepevent3Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
 
      var $serviceTest = $injector.get("Lookservice");
-     $scope.ticket_image='./images/ticket.png';
+    
+     $scope.ticket_image=ticketImage;
      var href = window.location.href.split("/");
      $scope.preview_link="http://"+href[2]+"/preview_template/"+$localStorage.userId+"/"+$stateParams.eventId;
      var $serviceTestVenue = $injector.get("venues");
@@ -16,7 +17,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
     var event_id=$stateParams.eventId;
     $rootScope.sociallink={};
     $serviceTestVenue.getEvent({'event_id':event_id},function(response){
-        
+      ;
         $scope.data1=response.results[0];
         $scope.title=response.results[0].title;
         $scope.content2=response.results[0].description;
@@ -32,6 +33,20 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
         $rootScope.sociallink.twitter_url=response.results[0].twitter_url;
         $scope.eventwebsite_url=response.results[0].website_url;
         $scope.video_url=response.results[0].video;
+        $scope.inventory=response.results[0].inventory;
+        var ages;
+        if (response.results[0].custom_ages == null || response.results[0].custom_ages == 0) {
+            ages = "All Ages";
+        } else if (response.results[0].custom_ages == '18') {
+            ages = "18 and  over";
+        } else if (response.results[0].custom_ages == '19') {
+            ages = "19 and  over";
+        } else if (response.results[0].custom_ages == '21') {
+            ages = '21 and over';
+        } else {
+            ages = response.results[0].custom_ages;
+        }
+        $scope.ages = ages;
 		
     });  
 

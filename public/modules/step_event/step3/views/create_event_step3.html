@@ -131,18 +131,17 @@
 		    <div class="media">
 			  <section class="media-left m-fw">
 				<section class="date-media">
-				   <div class="date-view"><span class="date-m">Mar</span> <span class="date-d">12</span></div>
-				   -
-				   <div class="date-view"><span class="date-m">Mar</span> <span class="date-d">18</span></div>
+				   <div class="date-view"><span class="date-m">{{start_date| date:'MMM'}}</span> <span class="date-d">{{start_date| date:'dd'}}</span></div>
+				   
 			       </section>
 			       
 			       
 			  </section>
 			  <div class="media-body content m-fw">
 			      <h4>{{title}}</h4>                                  
-			      <p>{{start_date| date:'yyyy-MM-dd'}} {{start_time}} - {{start_date| date:'yyyy-MM-dd'}} {{end_time}}</p>
+			      <p>{{start_date| date:'dd MMM yyyy'}}  {{start_time}}-{{end_time}}</p>
 			      <p>{{eventwebsite_url}}</p>
-			      <p class="clearfix event-labels clearfix"><span class="event-price pull-left">$299.00</span><span class="event-label pull-right">All Ages</span></p>
+			      <p class="clearfix event-labels clearfix"><span class="event-price pull-left">Inventory:{{inventory}}</span><span class="event-label pull-right">{{ages}}</span></p>
 			  </div>
 			</div>
 		  </section>
