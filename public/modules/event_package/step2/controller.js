@@ -1190,8 +1190,41 @@ console.log('at line 1122 $scope.data ' , $scope.data) ;
                 $scope.error_message = response.error;
               }
             });
+        
+
+        /*
+         for( var i=0 ; i < allEventIdLength ; i++ )
+        {
+          console.log('eventId = ' , $scope.allEventId[i].event_id );
+          $scope.eventPrice.eventId = $scope.allEventId[i].event_id ;
+
+          $serviceTest.getEventPriceLevelInPackage($scope.eventPrice, function(response) {
+              $scope.loader = false;
+              if (response.code === 200) {
+
+                $scope.price_level = response.result;
+                $scope.allEventsPriceLevels.push(response.result);
+                console.log('$scope.allEventsPriceLevels' , $scope.allEventsPriceLevels );
+              } else {
+                $scope.error_message = response.error;
+              }
+            });
+        } 
+
+        */
+
     }
   };
+
+
+
+  $scope.click_menu({
+    id: 1
+  });
+
+
+
+});
 
 
 /*

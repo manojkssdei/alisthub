@@ -205,7 +205,7 @@ console.log('$state.params.packageId' , $state.params.packageId);
 
     if ( $localStorage.packageId) {
         console.log('edit called');
-alert($localStorage.packageId);
+
         var packageId = $state.params.packageId;
         //$scope.data.package_id = $localStorage.packageId;
 

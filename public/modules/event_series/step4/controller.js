@@ -390,8 +390,9 @@ $scope.selected2 = $scope.steps[3];
     }
     return newdate;
   }
-  
-  $scope.eventSetting = {};
+
+
+   $scope.eventSetting = {};
     
   if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
     $scope.eventSetting.eventId = $stateParams.eventId;
