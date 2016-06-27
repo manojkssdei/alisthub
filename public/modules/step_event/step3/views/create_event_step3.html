@@ -258,7 +258,11 @@
 			
 			
 		    </ul>
-		  
+		  <input type="hidden" id="outer_background" value="{{background_outer}}">
+		  <input type="hidden" id="inner_background" value="{{background_inner}}">
+		  <input type="hidden" id="text_color" value="{{text_color}}">
+		  <input type="hidden" id="outer_border" value="{{border_outer}}">
+		  <input type="hidden" id="inner_border" value="{{border_color}}">
       
                       </div>
 		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
@@ -336,11 +340,15 @@ function change_image3()
 	  });
 	   var href = window.location.href;
           var eventId=href.substr(href.lastIndexOf('/') + 1);
-	
+	  var background_outer=$("#outer_background").val();
+	  var inner_background=$("#inner_background").val();
+	  var text_color=$("#text_color").val();
+	  var outer_border=$("#outer_border").val();
+	  var inner_border=$("#inner_border").val();
 	   $.ajax({
 	    method: "POST",
 	    url: "/event/look_and_feel_save_html",
-	    data: {"html":arr,"eventId":eventId}
+	    data: {"html":arr,"eventId":eventId,"background_outer":background_outer,'inner_background':inner_background,'text_color':text_color,'outer_border':outer_border,'inner_border':inner_border}
 	  })
 	    .done(function( response ) {
 	      if (response.code==200) {
