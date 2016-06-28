@@ -20,7 +20,7 @@
     .social-media {  right: 12%;}
 </style>
 </head>
-<body  ng-app="myApp" ng-controller="GreetingController">
+<body  ng-app="myApp" ng-controller="GreetingController"  style="background: rgba(0, 0, 0, 0) url('http://localhost:5502//images/bg/bg.png') no-repeat scroll center top  ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">
 <section class="ev-header">
 	<a class="alist-logo" href="#"><img alt="" src="http://localhost:5502/preview_template/assets/images/img/logo-l.png"></a>
     <a class="navbar-toggle">
@@ -36,7 +36,7 @@
     </div>
 </section>
 <!-- Wrapper -->
-<div class="ev-container wtframe"> 
+<div class="ev-container wtframe" ng-style="{background: background_inner,border:border_color}"> 
     <section class="ev-image" id="section1"> <div ng-bind-html="section1"></div></section><!--Main Pic-->
   
     
@@ -109,7 +109,11 @@ myApp.controller('GreetingController', ['$scope','$http','$sce', function($scope
 	$scope.section3=$sce.trustAsHtml(section3);
 	$scope.section4=$sce.trustAsHtml(section4);
 	$scope.section5=$sce.trustAsHtml(section5);
-	
+	$scope.background_outer=response.data.results[0].outer_background;
+	$scope.background_inner=response.data.results[0].inner_background;
+	$scope.text_color=response.data.results[0].text_color;
+	$scope.border_outer=response.data.results[0].outer_border;
+	$scope.border_color=response.data.results[0].inner_border;
 	$scope.section6=$sce.trustAsHtml(section6);
 	$scope.section7=$sce.trustAsHtml(section7);
 	$scope.section8=$sce.trustAsHtml(section8);

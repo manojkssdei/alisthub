@@ -1,3 +1,8 @@
+<style type="text/css">.ev-header {
+    background: #0275d0 none repeat scroll 0 0;
+    
+    width: 100%;
+}</style>
 <div class="container">
   <h1>Create an Event</h1>
   <!-- Step Form -->
@@ -131,24 +136,23 @@
 		    <div class="media">
 			  <section class="media-left m-fw">
 				<section class="date-media">
-				   <div class="date-view"><span class="date-m">Mar</span> <span class="date-d">12</span></div>
-				   -
-				   <div class="date-view"><span class="date-m">Mar</span> <span class="date-d">18</span></div>
+				   <div class="date-view"><span class="date-m">{{start_date| date:'MMM'}}</span> <span class="date-d">{{start_date| date:'dd'}}</span></div>
+				   
 			       </section>
 			       
 			       
 			  </section>
 			  <div class="media-body content m-fw">
 			      <h4>{{title}}</h4>                                  
-			      <p>{{start_date| date:'yyyy-MM-dd'}} {{start_time}} - {{start_date| date:'yyyy-MM-dd'}} {{end_time}}</p>
+			      <p>{{start_date| date:'dd MMM yyyy'}}  {{start_time}}-{{end_time}}</p>
 			      <p>{{eventwebsite_url}}</p>
-			      <p class="clearfix event-labels clearfix"><span class="event-price pull-left">$299.00</span><span class="event-label pull-right">All Ages</span></p>
+			      <p class="clearfix event-labels clearfix"   ng-style="{background: background_inner};"><span class="event-price pull-left" ng-style="{color:text_color}">Inventory:{{inventory}}</span><span class="event-label pull-right">{{ages}}</span></p>
 			  </div>
 			</div>
 		  </section>
           <section class="form-group field-group">
           	  <h4>Description</h4>
-              <section class="event-details">
+              <section class="event-details"   ng-style="{background: background_inner}">
                     <section class="content">
 		    			<div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
 		    </section>        
@@ -194,18 +198,18 @@
 		</li>
 		<li data-row="3" data-col="4" data-sizex="1" data-sizey="1" id="section8"  ng-style="{background: background_inner}">
 		  
-		      <section class="panel panel-primary">
+		      <section class="panel panel-primary"   ng-style="{background: background_inner}">
 		     <section class="panel-heading"><h5 class="m-b0">Venue</h5></section>                     
 		     <section class="panel-body">
-			  <p></p>
-			  <ul class="address-list">
-			      <li><p><strong>{{venue_name}}</strong></p>
+			  
+			  <div class="address-list">
+			      <p><strong>{{venue_name}}</strong></p>
 			      <p>{{city}}</p>
 			      <p>({{state}}) </p>
 			      <p>{{zipcode}}</p>
 			      <p>{{country}}</p>
-			      </li>
-			  </ul>
+			      
+			  </div>
 			  
 			</section>
 		   </section>
@@ -259,20 +263,77 @@
 			
 			
 		    </ul>
-		  
+		  <input type="hidden" id="outer_background" value="{{background_outer}}">
+		  <input type="hidden" id="inner_background" value="{{background_inner}}">
+		  <input type="hidden" id="text_color" value="{{text_color}}">
+		  <input type="hidden" id="outer_border" value="{{border_outer}}">
+		  <input type="hidden" id="inner_border" value="{{border_color}}">
       
                       </div>
 		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
 		<input type="text" id="select_image" value="{{select_image_val}}">
                  </span>
-		<button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
+		
 		    </section>
+		<button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
                </section><!--Left-->
+	       
           </section>
       </section>
 
       <section ng-hide="preview_div">
-	<a href="{{preview_link}}" target="_blank">Preview Template</a>
+	
+	<section class="ev-header">
+	<a href="#" class="alist-logo"><img src="./preview_template/assets/images/logo-l.png" alt=""/></a>
+    <a class="navbar-toggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
+    <div class="topnav hidden-xs">    	
+        <ul class="ev-menu">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </div>
+</section><!--Header-->
+
+<!-- Wrapper -->
+<div class="ev-container wtframe m-t35"> 
+    <section class="ev-image"><img src="./preview_template/assets/images/img/mainpic.jpg" alt=""/></section><!--Main Pic-->
+    <section class="scial-medial">
+    	<section class="media-sc module-div">Share Icons</section>
+    </section><!--Media Icons-->
+    
+    <section class="row">
+    	<section class="col-sm-8">
+        	<section class="ev-details module-div">
+            	<div id="ev-details">Event Details</div>
+            </section><!--Event Details-->
+            
+            <section class="ev-details module-div">
+            	<div id="video-widget">Video</div>
+            </section><!--Video Block-->
+        </section><!--Left Panel-->
+        <section class="col-sm-4">
+        	<section class="venue-panel module-div">
+            	<div id="venue-panel">Venue panel</div>
+            </section><!--Venue Block-->
+            
+            <section class="ticket-panel module-div">
+            	<div id="ticket-panel">Ticket Widget</div>
+            </section><!--Venue Block-->
+            
+            <section class="fb-block module-div">
+            	<div id="fb-block">Facebook Block</div>
+            </section><!--Facebook Block-->
+            
+        </section><!--Right Panel-->
+    </section>
+    
+    <section class="footer-block">Footer content will be shown here.</section><!--Footer Block-->
+  
+</div>
       </section>
 </div>
 <script type="text/javascript">
@@ -335,11 +396,15 @@ function change_image3()
 	  });
 	   var href = window.location.href;
           var eventId=href.substr(href.lastIndexOf('/') + 1);
-	
+	  var background_outer=$("#outer_background").val();
+	  var inner_background=$("#inner_background").val();
+	  var text_color=$("#text_color").val();
+	  var outer_border=$("#outer_border").val();
+	  var inner_border=$("#inner_border").val();
 	   $.ajax({
 	    method: "POST",
 	    url: "/event/look_and_feel_save_html",
-	    data: {"html":arr,"eventId":eventId}
+	    data: {"html":arr,"eventId":eventId,"background_outer":background_outer,'inner_background':inner_background,'text_color':text_color,'outer_border':outer_border,'inner_border':inner_border}
 	  })
 	    .done(function( response ) {
 	      if (response.code==200) {
