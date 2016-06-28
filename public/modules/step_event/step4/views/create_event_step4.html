@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
 
 <div class="container">
+  <div ng-show="pageloader"><img src="/images/icons/loader.gif"></div>
     <h1>Create an Event</h1>
     <!-- Step Form -->
     <div class="stage-container clearfix">
@@ -154,7 +155,7 @@
                               <div class="col-sm-12">
                                 <section class="radio-sec custom-check">
                                     <p class="radio-inline">
-                                        <input type="checkbox" id="test2"  ng-model="formdata.sales_immediatly" ng-true-value="1" ng-false-value="0">
+                                        <input type="checkbox" id="test2"  ng-model="formdata.sales_immediatly" ng-true-value="1" ng-false-value="0" ng-click="immediate()">
                                         <label for="test2">Immediately</label>
                                     </p>
                                 </section>
@@ -486,7 +487,7 @@
                             <br>
                             <p>
                                 <a href = "/#/edit_advance_setting/{{RefEvnetId}}">
-                                    <button class="pink-btn btn btn-small m-fw">Edit Event Advanced Setting</button>
+                                    <a href="#/edit_advance_setting/{{RefEvnetId}}"><button class="pink-btn btn btn-small m-fw">Edit Event Advanced Setting</button></a>
                                 </a>
                             </p>
                         </section>
@@ -496,7 +497,8 @@
             
                 <div class="editr">
                     <div class="editor-btn">
-                        <button type="submit" ng-disabled="eventSettingForm.$invalid" class="gray-btn btn">Save &amp; Finish</button>
+                        <button type="submit" ng-disabled="eventSettingForm.$invalid" class="gray-btn btn">Save</button>
+                        <button type="submit" ng-disabled="eventSettingForm.$invalid" ng-click="goto_list();" class="btn pink-btn">Submit</button>
                     </div>
                 </div>
             </form>

@@ -4,8 +4,8 @@ angular.module('alisthub').factory('event_setting', ['$q', '$timeout','communica
    var url = {};
     //get Event Categories
 	
-	url.saveSetting = function(jsondata,callback){
-	    communicationService.resultViaPost(webservices.saveSetting,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+	url.saveSeriesSetting = function(jsondata,callback){
+	    communicationService.resultViaPost(webservices.saveSeriesSetting,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
 	      callback(res.data);
 	    });
 	};
