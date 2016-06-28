@@ -6,22 +6,12 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('eventp
     }
     var package_service = $injector.get("event_package");
 
-    //var $servicepackageVanue = $injector.get("venues");
     $scope.data = {};
     $scope.error_message = true;
     var package_id = $state.params.packageId;
     var user_id=$localStorage.userId;
     console.log(package_id);
-    //    package_service.getEventCategoriesList({
-    //     'var': 'event_category'
-    // }, function(response) {
-    //     if (response.code === 200) {
-    //         $scope.cat1 = response.result;
-    //         // $scope.data.category = ($scope.cat1[0].category_id).toString();
-    //         // $scope.data.category = response.result;
-    //         // console.log('$scope.data.category' , $scope.data.category);
-    //     }
-    // });
+    
 
      if ( $localStorage.packageId) {
         console.log('edit called');

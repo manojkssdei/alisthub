@@ -95,6 +95,9 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
       }
     }
 
+
+     
+
     //upcomming event list
     $scope.getUpcommingEvent = function(eventType) {
       type = 0;      

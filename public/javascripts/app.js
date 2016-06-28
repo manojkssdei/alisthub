@@ -214,7 +214,29 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load(['modules/events/service.js','modules/step_event/service.js']).then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/events/views/eventviewController.js']);
+                return $ocLazyLoad.load(['modules/events/eventviewController.js']);
+                })
+              }]
+            }
+        })
+
+
+ .state('view_series', {
+            url: '/view_series/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'eventseriesController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/events/views/view_series.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(['modules/events/service.js','modules/event_series/step1/service.js','modules/event_series/service.js','modules/step_event/service.js']).then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/events/seriesCtrl.js','modules/event_series/controller.js','modules/event_series/step1/controller.js','modules/step_event/controller.js']);
                 })
               }]
             }
