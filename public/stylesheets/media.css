@@ -28,6 +28,9 @@ footer h2{margin-bottom:10px;}	footer i{margin:0px 10px 20px 0px;}
 .form-section .tab-content .list-event-date{padding:5px; border:1px solid #ccc;}
 .lss-top{margin-top:-10px;}
 
+#wrapper{margin-bottom:0;}
+footer, #wrapper:after {height: auto; }
+
 .navbar .container{padding-left:0; padding-right:0;}
 #primary_nav_wrap > ul > li{width:100%;}
 #primary_nav_wrap ul ul{position:static;}
