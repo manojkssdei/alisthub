@@ -163,7 +163,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
         $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
     };
 
-    $scope.toggleMin();
+    //$scope.toggleMin();
 
     /************** calender ends ****************/
 
@@ -346,6 +346,8 @@ $scope.data.image_1 = $scope.data.image ;
 
     $scope.changedendtime = function() {
 
+console.log('$scope.data.online_sales_open_date' , $scope.data.online_sales_open_date);
+console.log('$scope.data.online_sales_open_time' , $scope.data.online_sales_open_time);
         if ($scope.data.immidiately != 1 && $scope.data.online_sales_open_date !== '' && $scope.data.online_sales_open_date != undefined && $scope.data.online_sales_close_date != '' && $scope.data.online_sales_close_date != undefined) {
 
             var od = $scope.data.online_sales_open_date;
@@ -382,6 +384,9 @@ $scope.data.image_1 = $scope.data.image ;
                     }
                 }
             }
+console.log(' ------------------------------ ' );
+console.log('$scope.data.online_sales_open_date' , $scope.data.online_sales_open_date);
+console.log('$scope.data.online_sales_open_time' , $scope.data.online_sales_open_time);
             //$scope.select_delect_event = false;
             //$rootScope.endevent_time = $filter('date')($scope.endtime, 'shortTime');
         }
@@ -774,7 +779,7 @@ console.log('$scope.eventcheckbox ' , $scope.eventcheckbox );
     };
 
     $scope.dateOptions = {
-        dateDisabled: disabled,
+        //dateDisabled: disabled,
         formatYear: 'yy',
         minDate: new Date(),
         startingDay: 1

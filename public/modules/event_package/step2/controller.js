@@ -1,4 +1,4 @@
-angular.module('alisthub').controller('createpackageController', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
+angular.module('alisthub').controller('createpackageControllerTwo', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
    
   //For Step 2
 var $serviceTest = $injector.get("event_package");
@@ -112,6 +112,8 @@ var $serviceTest = $injector.get("event_package");
   $scope.eventBundle.eventsInPackage = $scope.eventsInPackage; 
   $scope.eventBundle.user_id = userId;
   $scope.eventBundle.package_id = packageId;
+    console.log('$scope.eventBundle ' , $scope.eventBundle );
+
   //To get bundles
   $serviceTest.getBundlesInPackage($scope.eventBundle, function(response) {
     //$rootScope.bundleList = response.results;
@@ -128,6 +130,8 @@ var $serviceTest = $injector.get("event_package");
   $scope.product.eventsInPackage = $scope.eventsInPackage; 
   $scope.product.package_id = packageId;
   $scope.product.user_id = userId;
+  console.log('$scope.product ' , $scope.product );
+
   $serviceTest.getProductsInPackage($scope.product, function(response) {
     //$rootScope.eventProductList = response.result;
     $scope.loader_product = true;
@@ -345,9 +349,7 @@ console.log('$stateParams.packageId ' , $stateParams.packageId);
 console.log('$rootScope.packageId ' , $rootScope.packageId);
 
       if($stateParams.packageId == $rootScope.packageId) {
-        console.log('============1===========');
         $location.path("/edit_event_step1/"+$rootScope.packageId); 
-        console.log('lavlesh check');
         return false;
 
       }
@@ -1217,7 +1219,161 @@ console.log('at line 1122 $scope.data ' , $scope.data) ;
   };
 
 
+  $scope.click_menu = function(menu , bundle) {
+    console.log('i am here at line 1161')
+    var bundleForm = this;
 
+    $scope.selectedClass = 1;
+    if (menu.id === 1) {
+      $scope.selectedClass = 1;
+      $scope.step_1 = true;
+      $scope.step_2 = $scope.step_3 = false;
+    }
+    if (menu.id === 2) {
+      if (bundleForm.bundleForm.$valid === true) {
+console.log('$localStorage.bundleId' , $localStorage.bundleId);
+
+        if (!$localStorage.bundleId) {
+
+            if ($localStorage.userId !== undefined) {
+              $scope.bundle.seller_id = $localStorage.userId;
+              $scope.bundle.step = 1;
+              $scope.bundle.event_id = $localStorage.eventId;
+
+              $serviceTest.addBundle($scope.bundle, function(response) {
+                if (response.code === 200) {
+                  if (bundle.id === undefined) {
+                    $localStorage.bundleId = response.result.insertId;
+                    $scope.bundle.id = $localStorage.bundleId;
+                    $scope.success = global_message.bundle_add;
+                    $scope.selectedClass = 2;
+                    $scope.step_2 = true;
+                    $scope.step_1 = $scope.step_3 = false;
+
+                    // Get product list 
+                    $scope.getBundleProductsInPackage();
+                    
+                    //var getEventPriceLevelInPackage = $scope.getEventPriceLevelInPackage();
+                    //console.log('------------ getEventPriceLevelInPackage -------------');
+                    //console.log(getEventPriceLevelInPackage);
+
+
+                    var getAllEventsPriceLevelInPackage = $scope.getAllEventsPriceLevelInPackage();
+                    console.log('------------ getAllEventsPriceLevelInPackage -------------');
+                    console.log(getAllEventsPriceLevelInPackage);
+
+
+
+
+
+                  } else {
+                    $localStorage.bundleId = bundle.id;
+                    $scope.success = global_message.bundle_update;
+
+                    $scope.eventBundle.eventId = $localStorage.eventId;
+                    $scope.eventBundle.userId = $localStorage.userId;
+  $scope.eventBundle.package_id = $localStorage.packageId;
+
+
+
+
+                    $serviceTest.getBundlesInPackage($scope.eventBundle, function(res2) {
+      $rootScope.bundleInPackageList = response.results;
+                            $scope.selectedClass = 2;
+                      $scope.step_2 = true;
+                      $scope.step_1 = $scope.step_3 = false;
+
+                      // Get product list 
+                      $scope.getBundleProductsInPackage();
+                    //var getEventPriceLevelInPackage = $scope.getEventPriceLevelInPackage();
+                   // console.log('------------ getEventPriceLevelInPackage -------------');
+                    //console.log(getEventPriceLevelInPackage);
+
+                          var getAllEventsPriceLevelInPackage = $scope.getAllEventsPriceLevelInPackage();
+                    console.log('------------ getAllEventsPriceLevelInPackage -------------');
+                    console.log(getAllEventsPriceLevelInPackage);
+                    });
+                  }
+
+                  $scope.success_message = true;
+
+                  $timeout(function() {
+                    $scope.error = '';
+                    $scope.success_message = false;
+                    $scope.success = '';
+                  }, 3000);
+                } else {
+                  $scope.activation_message = global_message.ErrorInActivation;
+                  $scope.selectedClass = 2;
+                  $scope.step_2 = true;
+                  $scope.step_1 = $scope.step_3 = false;
+
+                  // Get product list 
+                  $scope.getBundleProductsInPackage();
+                  //$scope.getEventPriceLevelInPackage();
+
+                  // var getEventPriceLevelInPackage = $scope.getEventPriceLevelInPackage();
+                   // console.log('------------ getEventPriceLevelInPackage -------------');
+                    //console.log(getEventPriceLevelInPackage);
+
+                          var getAllEventsPriceLevelInPackage = $scope.getAllEventsPriceLevelInPackage();
+                    console.log('------------ getAllEventsPriceLevelInPackage -------------');
+                    console.log(getAllEventsPriceLevelInPackage);
+                }
+              });
+            }
+        }
+        else {
+          $scope.selectedClass = 2;
+          $scope.step_2 = true;
+          $scope.step_1 = $scope.step_3 = false;
+
+          // Get product list 
+          $scope.getBundleProductsInPackage();
+          //$scope.getEventPriceLevelInPackage();
+
+           //var getEventPriceLevelInPackage = $scope.getEventPriceLevelInPackage();
+              //      console.log('------------ getEventPriceLevelInPackage -------------');
+             //       console.log(getEventPriceLevelInPackage);
+
+                          var getAllEventsPriceLevelInPackage = $scope.getAllEventsPriceLevelInPackage();
+                    console.log('------------ getAllEventsPriceLevelInPackage -------------');
+                    console.log(getAllEventsPriceLevelInPackage);
+        }
+
+
+
+      } else {
+        $scope.error_message = false;
+        $scope.error = global_message.error_in_step1;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 5000);
+      }
+    }
+
+    if (menu.id === 3) {
+      if (bundleForm.bundleForm.$valid === true) {
+        $scope.getTotal();
+        $scope.selectedClass = 3;
+        $scope.step_3 = true;
+        $scope.step_2 = $scope.step_1 = false;
+      } else {
+        $scope.error_message = false;
+        $scope.error = global_message.error_in_step1;
+        $timeout(function() {
+          $scope.error = '';
+          $scope.error_message = true;
+          $scope.error = '';
+        }, 5000);
+      }
+
+
+    }
+
+  }
   $scope.click_menu({
     id: 1
   });

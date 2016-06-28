@@ -226,7 +226,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             
             views: {
                 "lazyLoadView": {
-                  controller: 'eventviewController', // This view will use AppCtrl loaded below in the resolve
+                  controller: 'singleEventViewController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/events/views/single_event_overview.html'
                 }
             },
@@ -236,7 +236,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load(['modules/events/service.js','modules/step_event/service.js']).then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/events/views/eventviewController.js']);
+                return $ocLazyLoad.load(['modules/events/single_event_overview_controller.js']);
                 })
               }]
             }
@@ -508,7 +508,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
             views: {
                 "lazyLoadView": {
-                  controller: 'createpackageController',
+                  controller: 'createpackageControllerTwo',
                   templateUrl: 'modules/event_package/step2/views/event_package_step_2.html'
                 }
             },
@@ -529,7 +529,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
             views: {
                 "lazyLoadView": {
-                  controller: 'createpackageController',
+                  controller: 'createpackageControllerThree',
                   templateUrl: 'modules/event_package/step3/views/event_package_step_3.html'
                 }
             },
