@@ -33,6 +33,8 @@ angular.module('alisthub').factory('events', ['$q', '$timeout','communicationSer
     });
   };
  
+
+
 //delete events
 
     //get event user

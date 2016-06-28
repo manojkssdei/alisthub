@@ -11,6 +11,7 @@ module.exports = function(app, express) {
 	EventSetting    = require('./../app/event/controllers/setting.js');
 	EventSeries    = require('./../app/event/controllers/series.js');
 	AllEvent    = require('./../app/event/controllers/allevent.js');
+   // Package   = require('./../app/event_package/controllers/package.js');
 
 	function supportCrossOriginScript(req, res, next) {
 	  res.header('Access-Control-Allow-Origin', '*');
