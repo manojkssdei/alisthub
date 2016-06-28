@@ -1264,8 +1264,6 @@ console.log('$localStorage.bundleId' , $localStorage.bundleId);
 
 
 
-
-
                   } else {
                     $localStorage.bundleId = bundle.id;
                     $scope.success = global_message.bundle_update;
@@ -1707,3 +1705,4 @@ angular.module('alisthub').controller('PricechangeCtrl', function($scope, $uibMo
     $uibModalInstance.dismiss('cancel');
   };
 });
+
