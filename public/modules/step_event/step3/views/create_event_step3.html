@@ -1,3 +1,8 @@
+<style type="text/css">
+.ev-header { background: #0275d0 none repeat scroll 0 0;  width: 100%;}
+.ev-image .social-media{right:17%;}
+.ev-container { margin: 0 auto;  max-width: 900px;}
+</style>
 <div class="container">
   <h1>Create an Event</h1>
   <!-- Step Form -->
@@ -121,10 +126,10 @@
                     </section>
 		 </li>   
 		<li data-row="2" data-col="1" data-sizex="3" data-sizey="2"  id="section2"   ng-style="{background: background_inner}">
-		  <div class="drag1" style="display:none;">
+		  <div class="drag" style="display:none;">
 		    
 		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		    <a onclick="remove_widget('section2')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		    <a onclick="remove_widget('section2')" style="display:none;"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		  </div>
 		  
 		  <section class="form-group">
@@ -192,7 +197,11 @@
 		    </div>
 		</li>
 		<li data-row="3" data-col="4" data-sizex="1" data-sizey="1" id="section8"  ng-style="{background: background_inner}">
-		  
+		  <div class="drag" style="display:none;">
+			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		
+		      
+		      </div>
 		      <section class="panel panel-primary"   ng-style="{background: background_inner}">
 		     <section class="panel-heading"><h5 class="m-b0">Venue</h5></section>                     
 		     <section class="panel-body">
@@ -210,11 +219,19 @@
 		   </section>
                  </li>
 		<li data-row="4" data-col="4" data-sizex="1" data-sizey="1" id="section9"  ng-style="{background: background_inner}">
-		 
+		 <div class="drag" style="display:none;">
+		    
+		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		    <a onclick="remove_widget('section9')" style="display:none;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		  </div>
 	     <img width="100%;" height="auto" src="{{ticket_image}}" alt="your image"/>
 		</li>
 		<li data-row="5" data-col="4" data-sizex="1" data-sizey="1" id="section10"  ng-style="{background: background_inner}">
-		
+		<div class="drag" style="display:none;">
+		    
+		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		    <a onclick="remove_widget('section10')" style="display:none;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		  </div>
 		 <div id="fb-root"></div>
 	      <script>(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
@@ -277,7 +294,64 @@
       </section>
 
       <section ng-hide="preview_div">
-	<a href="{{preview_link}}" target="_blank">Preview Template</a>
+	<section style="background: rgba(0, 0, 0, 0) url('./images/bg/bg.png') no-repeat scroll center top  ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">
+	<section class="ev-header">
+	<a href="#" class="alist-logo"><img src="./preview_template/assets/images/logo-l.png" alt=""/></a>
+    <a class="navbar-toggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
+    <div class="topnav hidden-xs">    	
+        <ul class="ev-menu">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </div>
+</section><!--Header-->
+
+<!-- Wrapper -->
+
+<div class="ev-container wtframe m-t35"  ng-style="{background: background_inner,border:border_color}"> 
+    <section class="ev-image"><div class="section1"></div></section><!--Main Pic-->
+    
+    
+    <section class="row">
+    	<section class="col-sm-8">
+        	<section class="ev-details module-div">
+            	<div id="ev-details"><div class="section2"></div></div>
+            </section><!--Event Details-->
+            
+            <section class="ev-details module-div">
+            	<div id="video-widget"><div class="section5"></div></div>
+            </section><!--Video Block-->
+	     <section class="ev-details module-div">
+            	<div id="video-widget"><div class="section6"></div></div>
+            </section><!--Video Block-->
+	    <section class="ev-details module-div">
+            	<div id="video-widget"><div class="section7"></div></div>
+            </section><!--Video Block-->
+        </section><!--Left Panel-->
+        <section class="col-sm-4">
+        	<section class="venue-panel module-div">
+            	<div id="venue-panel"><div class="section3"></div></div>
+            </section><!--Venue Block-->
+            
+            <section class="ticket-panel module-div">
+            	<div id="ticket-panel"><div class="section4"></div></div>
+            </section><!--Venue Block-->
+            
+            <section class="fb-block module-div">
+            	<div id="fb-block"><div class="section6"></div></div>
+            </section><!--Facebook Block-->
+            <section class="ev-details module-div">
+            	<div id="video-widget"><div class="section8"></div></div>
+            </section><!--Video Block-->
+        </section><!--Right Panel-->
+    </section>
+</div>
+	
+       </section>
       </section>
 </div>
 <script type="text/javascript">
@@ -317,7 +391,7 @@ function change_image3()
 			handle: '.header'
 		}
         }).data('gridster');
-         
+	
           $('.js-seralize').on('click', function() {
 	     var eventdata=new Array();
             var s = gridster.serialize();
@@ -327,6 +401,7 @@ function change_image3()
 	      })
 	   
 	   var events=eventdata.sort();
+	   
 	   var arr = {};
 	   var i=0;
 	   $.map(events, function(value, index) {
@@ -352,7 +427,26 @@ function change_image3()
 	  })
 	    .done(function( response ) {
 	      if (response.code==200) {
-		$('#lookstep4').click();
+		 var href = window.location.href;
+          var eventId=href.substr(href.lastIndexOf('/') + 1);
+         $.ajax({
+	    method: "POST",
+	    url: "/event/getEvent",
+	    data: {"event_id":eventId}
+	  })
+	    .done(function( response ) {
+	 
+	         $(".ev-image > div.section1").html(response.results[0].section1);
+	         $("#ev-details > div.section2").html(response.results[0].section2);
+	         $("#video-widget > div.section5").html(response.results[0].section5);
+	         $("#video-widget > div.section7").html(response.results[0].section7);
+	         $("#venue-panel > div.section3").html(response.results[0].section3);
+	         $("#ticket-panel > div.section4").html(response.results[0].section4);
+	         $("#fb-block > div.section6").html(response.results[0].section6);
+	         $("#video-widget > div.section8").html(response.results[0].section8);
+		$("#lookstep4").click();
+	      });
+		
 	      }
 	    });
 	  
@@ -360,6 +454,7 @@ function change_image3()
         // resize widgets on hover
         gridster.$el
           .on('mouseenter', '> li', function() {
+	          
 		   if($(this).attr('id')=='section1')
 		   {
 		    $('#section1 .drag').show();
@@ -384,6 +479,18 @@ function change_image3()
 		   if($(this).attr('id')=='section7')
 		   {
 		    $('#section7 .drag').show();
+		   }
+		   if($(this).attr('id')=='section9')
+		   {
+		    $('#section9 .drag').show();
+		   }
+		   if($(this).attr('id')=='section10')
+		   {
+		    $('#section10 .drag').show();
+		   }
+		   if($(this).attr('id')=='section8')
+		   {
+		    $('#section8 .drag').show();
 		   }
           }).on('mouseleave', '> li', function() {
 		  if($(this).attr('id')=='section1')
@@ -411,6 +518,18 @@ function change_image3()
 		   if($(this).attr('id')=='section7')
 		   {
 		    $('#section7 .drag').hide();
+		   }
+		   if($(this).attr('id')=='section9')
+		   {
+		    $('#section9 .drag').hide();
+		   }
+		   if($(this).attr('id')=='section10')
+		   {
+		    $('#section10 .drag').hide();
+		   }
+		   if($(this).attr('id')=='section8')
+		   {
+		    $('#section8 .drag').hide();
 		   }
           })
 	  
