@@ -1,7 +1,9 @@
 angular.module('alisthub').controller('seriesStep2Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
   $scope.loader = false;
   
-
+  if (!$stateParams.eventId){
+    $location.path("/create_series_step1");
+  }
   //For Step 1
   var $serviceTest = $injector.get("venues");
   
@@ -50,8 +52,6 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
   
   if ($stateParams.eventId) {
    $scope.eventId = $stateParams.eventId;
-  }else{
-    $localStorage.eventId = "";
   }
    $scope.pageloader = true;
     $serviceTest.getEvent({'event_id':$scope.eventId},function(response){
@@ -744,9 +744,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     if ($scope.items.eventId) {
       data1.eventId = $scope.items.eventId;
     }
-    else{
-      data1.eventId = $localStorage.eventId;
-    }
+   
     
     if (data1.eventId != null && data1.eventId !== undefined)
     {
@@ -901,9 +899,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
       if ($scope.items.eventId) {
 	$scope.bundle.event_id = $scope.items.eventId;
       }
-      else{
-	$scope.bundle.event_id = $localStorage.eventId;
-      }
+      
       
       $serviceTest.addseriesBundle($scope.bundle, function(response) {
 
@@ -921,9 +917,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
             if ($scope.items.eventId) {
 	      $scope.eventBundle.eventId = $scope.items.eventId;
 	    }
-	    else{
-	      $scope.eventBundle.eventId = $localStorage.eventId;
-	    }
+	    
             $scope.eventBundle.userId = $localStorage.userId;
 
             $serviceTest.getBundles($scope.eventBundle, function(response) {
@@ -1035,9 +1029,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
 	if ($scope.items.eventId) {
 	      $scope.eventBundle.eventId = $scope.items.eventId;
 	}
-	else{
-	      $scope.eventBundle.eventId = $localStorage.eventId;
-	}
+	
         $scope.eventBundle.userId = $localStorage.userId;
 
         $serviceTest.getBundles($scope.eventBundle, function(response) {
@@ -1111,9 +1103,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
       if ($scope.items.eventId) {
 	$scope.eventPrice.eventId = $scope.items.eventId;
       }
-      else{
-	$scope.eventPrice.eventId = $localStorage.eventId;
-      }
+      
       
       if ($rootScope.editBundleId === undefined) {
         $scope.eventPrice.bundleId = $localStorage.bundleId;
@@ -1154,9 +1144,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
 	      if ($scope.items.eventId) {
 		$scope.bundle.event_id = $scope.items.eventId;
 	      }
-	      else{
-		$scope.bundle.event_id = $localStorage.eventId;
-	      }
+	      
              
               $serviceTest.addseriesBundle($scope.bundle, function(response) {
                 if (response.code === 200) {
@@ -1178,9 +1166,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
                     if ($scope.items.eventId) {
 		      $scope.eventBundle.eventId = $scope.items.eventId;
 		    }
-		    else{
-		      $scope.eventBundle.eventId = $localStorage.eventId;
-		    }
+		    
 		    
                     $scope.eventBundle.userId = $localStorage.userId;
 

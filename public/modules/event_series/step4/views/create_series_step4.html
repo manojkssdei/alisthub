@@ -33,6 +33,7 @@
         }
         </style>
         <div ng-hide="setting_div">
+          <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success_setting_message}}</p></span>
             <form name="eventSettingForm" class="event-form"  ng-submit="save_setting(formdata)" novalidate>
                 <section class="form-group field-group">
                     <label>Delivery Methods</label>

@@ -5,7 +5,7 @@ Created By: Deepak khokkar
 Module : Event setting  
 */
 
-angular.module('alisthub').controller('seriesStep4Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad , $http, $stateParams,$state) {
+angular.module('alisthub').controller('seriesStep4Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad , $http, $stateParams,$state,$anchorScroll) {
 var $serviceTest = $injector.get("event_setting");
 $scope.error_message = true;
   
@@ -15,7 +15,9 @@ $scope.error_message = true;
   Created : 2016-06-23
   Created By:  Manoj Kumar Singh  
   */
+  
   if (!$stateParams.eventId){
+    
     $location.path("/create_series_step1");
   }
   else{
@@ -390,14 +392,56 @@ $scope.selected2 = $scope.steps[3];
     }
     return newdate;
   }
+  
 
+  $scope.save_setting = function(formdata) {
+    if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+      $scope.formdata.event_id = $stateParams.eventId;
+    } 
 
-   $scope.eventSetting = {};
+    $scope.formdata.online_sales_open = $scope.combine($scope.formdata.online_sales_open.date,$scope.formdata.online_sales_open.time);
+    $scope.formdata.online_sales_close = $scope.combine($scope.formdata.online_sales_close.date,$scope.formdata.online_sales_close.time);
+
+    if($scope.formdata.print_enable_date!=undefined && $scope.formdata.print_enable_date.date!=undefined && $scope.formdata.print_enable_date.time!=undefined && $scope.formdata.print_enable_date.date!='' && $scope.formdata.print_enable_date.time!=''){
+      $scope.formdata.print_enable_date = $scope.combine($scope.formdata.print_enable_date.date,$scope.formdata.print_enable_date.time);  
+    } 
+    if($scope.formdata.print_disable_date!=undefined && $scope.formdata.print_disable_date.date!=undefined && $scope.formdata.print_disable_date.time!=undefined && $scope.formdata.print_disable_date.date!='' && $scope.formdata.print_disable_date.time!=''){
+      $scope.formdata.print_disable_date = $scope.combine($scope.formdata.print_disable_date.date,$scope.formdata.print_disable_date.time);
+    }
+
+    if ($localStorage.userId !== undefined) {
+      $scope.formdata.user_id = $localStorage.userId;
+     
+      $serviceTest.saveSeriesSetting($scope.formdata, function(response) {
+
+          if (response.code === 200) {
+            $scope.getSetting();
+            $anchorScroll(); 
+            $scope.success_setting_message = "Settings has been saved successfuly";
+            $scope.success_message = true;
+
+            $timeout(function() {
+              $scope.error = '';
+              $scope.success_message = false;
+              $scope.success_setting_message = '';
+            }, 3000);
+
+          } else {
+            $scope.activation_message = global_message.ErrorInActivation;
+          }
+
+      });
+
+    }
+  }
     
-  if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+  
+  
+  $scope.getSetting = function() {
+   $scope.eventSetting = {};
+  if($stateParams.eventId!==undefined && $stateParams.eventId!='') {
     $scope.eventSetting.eventId = $stateParams.eventId;
   } 
-
   $scope.eventSetting.userId = $localStorage.userId;
   //To get settings
   $scope.pageloader = true;
@@ -440,54 +484,9 @@ $scope.selected2 = $scope.steps[3];
     }
 
   });
+}
+  $scope.getSetting();
   
-  
-  
-
-
-  $scope.save_setting = function(formdata) {
-    if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-      $scope.formdata.event_id = $stateParams.eventId;
-    } else {
-      $scope.formdata.event_id = $localStorage.eventId;
-    }
-
-    $scope.formdata.online_sales_open = $scope.combine($scope.formdata.online_sales_open.date,$scope.formdata.online_sales_open.time);
-    $scope.formdata.online_sales_close = $scope.combine($scope.formdata.online_sales_close.date,$scope.formdata.online_sales_close.time);
-
-    if($scope.formdata.print_enable_date!=undefined && $scope.formdata.print_enable_date.date!=undefined && $scope.formdata.print_enable_date.time!=undefined && $scope.formdata.print_enable_date.date!='' && $scope.formdata.print_enable_date.time!=''){
-      $scope.formdata.print_enable_date = $scope.combine($scope.formdata.print_enable_date.date,$scope.formdata.print_enable_date.time);  
-    } 
-    if($scope.formdata.print_disable_date!=undefined && $scope.formdata.print_disable_date.date!=undefined && $scope.formdata.print_disable_date.time!=undefined && $scope.formdata.print_disable_date.date!='' && $scope.formdata.print_disable_date.time!=''){
-      $scope.formdata.print_disable_date = $scope.combine($scope.formdata.print_disable_date.date,$scope.formdata.print_disable_date.time);
-    }
-
-    if ($localStorage.userId !== undefined) {
-      $scope.formdata.user_id = $localStorage.userId;
-
-      $serviceTest.saveSeriesSetting($scope.formdata, function(response) {
-
-          if (response.code === 200) {
-
-            $scope.success = global_message.bundle_add;
-            $scope.success_message = true;
-
-            $timeout(function() {
-              $scope.error = '';
-              $scope.success_message = false;
-              $scope.success = '';
-            }, 3000);
-
-          } else {
-            $scope.activation_message = global_message.ErrorInActivation;
-          }
-
-      });
-
-    }
-  }
-
-    
   $scope.immediate = function()
   {
     if($scope.formdata.sales_immediatly == 1)

@@ -1,4 +1,5 @@
 <div class="container">
+  <div ng-show="pageloader"><img src="/images/icons/loader.gif"></div>
   <h1>Create an Event</h1>
   <!-- Step Form -->
   
@@ -53,11 +54,11 @@
           </section>
    <!--Ticket Types Start -->
           <div class="module">
-              <section class="prof-hd">
+              <section class="prof-hd" ng-click="toggle_block(1,str_1)">
                    <i class="fa fa-ticket hdicon pos-l16"></i>
-                    <h2>Ticket Types <span class="rt-img"></span></h2>
+                    <h2>Ticket Types <span class="rt-img"><i class="fa {{enable_1}}"></i></span></h2>
             </section>
-                <section class="gray-frame sub-fields">
+                <section class="gray-frame sub-fields" ng-show="block_1">
                   <section class="grid-btn-top row">
                       <section class="col-sm-7">
                         <section class="radio-sec">
@@ -169,11 +170,11 @@
           <!-- Ticket Types Closed -->
           <!-- Bundles Start -->
           <section class="module">
-              <section class="prof-hd">
+              <section class="prof-hd" ng-click="toggle_block(2,str_2)">
                    <i class="fa fa-database hdicon pos-l16"></i>
-                    <h2>Bundles <span class="rt-img"></span></h2>
+                    <h2>Bundles <span class="rt-img"><i class="fa {{enable_2}}"></i></span></h2>
                  </section>
-                <section class="gray-frame sub-fields">
+                <section class="gray-frame sub-fields" ng-show="block_2">
                   <section class="grid-btn-top row">
                       
                       <section class="col-sm-5 pull-right text-right">
@@ -232,11 +233,11 @@
           <!-- Bundles Closed --> 
           <!--Product Start -->
           <div class="module">
-              <section class="prof-hd">
+              <section class="prof-hd" ng-click="toggle_block(3,str_3)">
                    <i class="fa fa-shopping-cart hdicon pos-l16"></i>
-                    <h2>Product <span class="rt-img"></span></h2>
+                    <h2>Product <span class="rt-img"><i class="fa {{enable_3}}"></i></span></h2>
               </section>
-              <section class="gray-frame sub-fields">
+              <section class="gray-frame sub-fields" ng-show="block_3">
                 <section class="grid-btn-top row">                      
                   <section class="col-sm-5 right-btns text-right">
                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_product('lg')">Add Product</button>
@@ -290,10 +291,11 @@
           <!-- Product Closed -->
           <!--Links Start -->
           <div class="module">
-  <section class="prof-hd"> <i class="fa fa-link hdicon pos-l16"></i>
-    <h2>Links <span class="rt-img"></span></h2>
+  <section class="prof-hd" ng-click="toggle_block(4,str_4)">
+    <i class="fa fa-link hdicon pos-l16"></i>
+    <h2>Links <span class="rt-img"><i class="fa {{enable_4}}"></i></span></h2>
   </section>
-  <section class="gray-frame">
+  <section class="gray-frame" ng-show="block_4">
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
@@ -342,11 +344,11 @@
           <!--Links Closed -->
           <!-- Search options Start -->
            <div class="form-group clearfix">
-              <section class="prof-hd">
+            <section class="prof-hd" ng-click="toggle_block(5,str_5)">
                    <i class="fa fa-search hdicon pos-l16"></i>
-                    <h2>Search options <span class="rt-img"></span></h2>
+                    <h2>Search options <span class="rt-img"><i class="fa {{enable_5}}"></i></span></h2>
             </section>
-                <section class="gray-frame">
+                <section class="gray-frame" ng-show="block_5">
                   <div class="row">
                       <div class="col-sm-6">
                           <div class="form-group">
@@ -359,7 +361,7 @@
                         </div>
                     </div>
                     <div class="row">
-                  <div class="col-sm-4">
+                    <div class="col-sm-4">
                           <div class="form-group">
                             <label for="EventName"> Categories<span class="req">*</span></label>
                             
@@ -367,8 +369,8 @@
                             <option ng-repeat="cat in cat1" value="{{cat.category_id}}" >{{cat.name}}</option>
                             </select>
                           </div>
-                        </div>
-                        <div class="col-sm-4 text-drop">
+                    </div>
+                    <div class="col-sm-4 text-drop">
                           <div class="form-group">
                             <select class="form-control" ng-model="data1.category2">
                              <option ng-repeat="cat in cat1" value="{{cat.category_id}}">{{cat.name}}</option>  
@@ -382,7 +384,7 @@
                             </select>
                           </div>
                         </div></div>
-
+                    
             </section>
           </div>
            <!-- Search options Closed -->
@@ -978,6 +980,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
 
 <script type="text/ng-template" id="myModalContentProduct.html">
     <div class="modal-header">
+      <div ng-show="pageloader"><img src="/images/icons/loader.gif"></div>
         <h3 class="modal-title">Add a Product</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
     </div>
     <form  name="productForm" ng-submit="productForm.$valid && addEventProduct(product)" novalidate>

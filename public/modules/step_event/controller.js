@@ -12,9 +12,9 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.loader = false;
    //For Step 1
   var $serviceTest = $injector.get("venues");
-  if($stateParams.eventId==='')
+  if($stateParams.eventId === '')
   {
-   $localStorage.eventId=null;
+   
   } else {
     var event_id=$stateParams.eventId;
     $serviceTest.getEvent({'event_id':event_id},function(response) {
@@ -35,13 +35,16 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       $scope.data.content=response.results[0].description;
       
       $scope.data.venueid = response.results[0].eventvenueId;
-      //console.log($scope.data.venueid);
+      
       $scope.data.venuetype = response.results[0].venue_type;
       $scope.data.place = response.results[0].address;
 
       $scope.data.venuename=response.results[0].venue_name;
-      $scope.location_event_div=true;$scope.venue_event_div=$scope.select_delect_event=false;
-      $scope.select_delect_event = false;
+      //$scope.location_event_div=true;$scope.venue_event_div=$scope.select_delect_event=false;
+      $scope.venue_info($scope.data,2);
+      
+      $scope.location_event_div=false;$scope.venue_event_div=$scope.select_delect_event=true;
+      
       var d = new Date(response.results[0].eventdate);
       var curr_date = d.getDate();
       var curr_month = d.getMonth();
@@ -101,6 +104,12 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
 
         if (response.code === 200) {
           $scope.total_venue = response.result;
+          if ($scope.total_venue != "") {
+            $scope.select_venue($scope.venues[0])
+          }
+          else{
+            $scope.select_venue($scope.venues[1]);
+          }
         }
 
       } else {
@@ -110,289 +119,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
     });
   }
  
-  $eventId = $localStorage.eventId;
-  $scope.between_date = [];
-/** 
-  Method: change_month
-  Description:Function to be execute when a month change occures 
-  Created : 2016-04-19
-  Created By:  Deepak khokkar  
-  */
-
-  $scope.change_month = function() {
-
-    if ($scope.monthly && $scope.monthly.type == "everythisday") {
-      if ($scope.data.monthly_option) {
-        $scope.monthly_error = '';
-        var monthly_start = new Date($scope.multiple_start_date);
-        var monthly_end = new Date($scope.multiple_end_date);
-        var dateArray = [];
-
-        while (monthly_start <= monthly_end) {
-          if (monthly_start.getDate() == $scope.data.monthly_option) {
-            dateArray.push(new Date(monthly_start));
-          }
-          monthly_start.setDate(monthly_start.getDate() + 1);
-        }
-        $scope.between_date = dateArray;
-      }
-      else {
-        $scope.monthly_error = 'Day is required'
-      }
-    }
-    else {
-      $scope.monthly_error = 'Must select option for it to work';
-    }
-
-  }
-
-  /* Variable initialized */
-  $scope.timeperiod = [{
-      id: 'daily',
-      name: 'Daily'
-    }, {
-      id: 'weekly',
-      name: 'Weekly'
-    }, {
-      id: 'monthly',
-      name: 'Monthly'
-    }, {
-      id: 'yearly',
-      name: 'Yearly'
-    }]
-
-  $scope.month_week_selection = [{
-    id: '1',
-    name: 'First'
-  }, {
-    id: '2',
-    name: 'Second'
-  }, {
-    id: '3',
-    name: 'Third'
-  }, {
-    id: '4',
-    name: 'Fourth'
-  } , {
-    id: '5',
-    name: 'Fifth'
-  }]
 
 
     /* Remove div from cloned object */
   $scope.removediv = function(index) {
     $scope.between_date.splice(index, 1);
-  }
-
-  /** 
-  Method: weekly_option_change
-  Description:Function to be execute when a week change occures 
-  Created : 2016-04-19
-  Created By:  Deepak khokkar  
-  */
-  $scope.weekly_div = true;
-  $scope.weekly_option_change = function() {
-
-    var weekly_start = new Date($scope.multiple_start_date);
-    var weekly_end = new Date($scope.multiple_end_date);
-    var dateArray = [];
-    $scope.between_date = [];
-
-    var currentDate = new Date(weekly_start);
-
-    while (currentDate <= weekly_end) {
-      if (currentDate.getDay() === $scope.data.weekly_option) {
-        dateArray.push(currentDate);
-      }
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-    $scope.between_date = dateArray;
-  }
-
-  /** 
-  Method: select_checkbox
-  Description:Function to be execute when a checkbox selected 
-  Created : 2016-04-19
-  Created By:  Deepak khokkar  
-  */
-  /*Added Sorted functionality - Ravnit Suri*/
-  $scope.select_checkbox=function($event){
-      var dateArray = new Array();
-      angular.forEach($scope.days, function(day){
-      if (day.selected)  {
-        dDate1=new Date($scope.multiple_start_date);
-        dDate2=new Date($scope.multiple_end_date);
-       
-        while (dDate1<=dDate2) {
-          var currentDate=JSON.parse(JSON.stringify(dDate1));
-          if (dDate1.getDay()==day.id) {
-            dateArray.push(currentDate);
-          }
-          dDate1.setDate(dDate1.getDate() + 1);
-        }
-      }
-    });
-
-
-    var date_sort_asc = function (date1, date2) {
-      if (date1 > date2) return 1;
-      if (date1 < date2) return -1;
-      return 0;
-    };
-    dateArray = dateArray.sort(date_sort_asc);
-
-
-
-    $scope.between_date=dateArray; 
-  }
-
-
-  /** 
-  Method: rec_days_func
-  Description:Function for Daily Recurring Events Date repeat
-  Created : 2016-06-01
-  Created By:  Deepak khokhar
-  */
-$scope.rec_days_func = function(value) {
-
-  if ( !value || value == "" || value == undefined || value == null || value == 0)  { var between = []; }
-  else {
-    currentDate = new Date($scope.multiple_start_date);
-    endDate = new Date($scope.multiple_end_date);
-
-    var between = [];
-    $scope.between_date = [];
-    while (currentDate <= endDate) {
-      between.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + parseInt(value));
-      // console.log(currentDate.getDate() + parseInt(value))
-    }
-  }
-
-  $scope.between_date = between;
-}
-
-
-  /** 
-  Method: rec_monthly_func
-  Description:Function for Monthly Recurring Events Date repeat
-  Created : 2016-06-01
-  Created By: Deepak khokhar
-  */
-$scope.rec_monthly_func = function() {
-    if ($scope.data.monthly_week_value && $scope.data.monthly_day_value){
-      $scope.monthly_error = null;
-      var monthly_start = new Date($scope.multiple_start_date);
-      var monthly_end = new Date($scope.multiple_end_date);
-      var dateArray = [];
-
-      var week_value = $scope.data.monthly_week_value ;
-      var day_value = $scope.data.monthly_day_value ;
-
-      var currentDate = new Date($scope.multiple_start_date);
-      while (currentDate <= monthly_end)
-      {
-        var weeknumber = parseInt(currentDate.getDate() / 7);
-        if ( currentDate.getDate() == 7 
-                  || currentDate.getDate() == 14 
-                  || currentDate.getDate() == 21 
-                  || currentDate.getDate() == 28    ) 
-           { weeknumber = weeknumber - 1; }
-
-        if ( (currentDate.getDay() == day_value) && (weeknumber == (week_value-1)) )
-        {
-          dateArray.push(new Date(currentDate));
-        }
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
-      $scope.between_date = dateArray;
-    }
-    else {
-      $scope.monthly_error = 'Week number and day is required';
-    }
-}
-
-  /** 
-  Method: rec_year_func
-  Description:Function for reccuring yearly process 
-  Created : 2016-04-19
-  Created By:  Deepak khokhar
-  */
-$scope.rec_year_func = function() {
-    var yearly_start = new Date($scope.multiple_start_date);
-    var yearly_end = new Date($scope.multiple_end_date);
-    var dateArray = [];
-    var currentDate = new Date(yearly_start);
-    while(currentDate <= yearly_end) {
-      dateArray.push(new Date(currentDate));
-      currentDate.setFullYear(currentDate.getFullYear() + 1);
-    }
-    $scope.between_date=dateArray; 
-}
-
-
-
-
-  /** 
-  Method: recurring_period
-  Description:Function for reccuring process 
-  Created : 2016-04-19
-  Created By:  Deepak khokhar  
-  */
-  $scope.recurring_period = function(action) {
-    var stt = new Date($scope.multiple_start_date);
-    stt = stt.getTime();
-    var endt = new Date($scope.multiple_end_date);
-    endt = endt.getTime();
-
-    if (stt >= endt) {
-      $scope.error_message = false;
-      $scope.multiple_end_date = '';
-      $scope.error = global_message.date_error;
-      $timeout(function() {
-        $scope.error = '';
-        $scope.error_message = true;
-      }, 3000);
-    }
-
-    if (($scope.multiple_start_date === undefined) || ($scope.multiple_end_date === undefined)) {
-      if ((action === 'start') || (action === 'end')) {} else {
-        $scope.error = "";
-        $scope.error_message = false;
-        $timeout(function() {
-
-          $scope.error = '';
-          $scope.error_message = true;
-          $scope.data.period = '';
-        }, 3000);
-      }
-    } else {
-      if ($scope.data.period === 'daily') {
-        $scope.dailyrecurring_div = true;
-        $scope.weekly_div = $scope.monthly_div = $scope.days_div = true;
-
-        $scope.rec_days_func();
-      } 
-
-      else if ($scope.data.period === 'weekly') {
-        $scope.days_div = $scope.dailyrecurring_div = false;
-        $scope.weekly_div = $scope.monthly_div = true;
-      }
-
-      else if ($scope.data.period === 'monthly') {
-        $scope.weekly_div = $scope.days_div = true;
-        $scope.monthly_div = $scope.dailyrecurring_div = false;
-      }
-
-      else if ($scope.data.period === 'yearly') {
-        $scope.dailyrecurring_div = false;
-        $scope.days_div = $scope.weekly_div = $scope.monthly_div = true;
-
-        $scope.rec_year_func();
-      }
-
-    }
-
   }
 
     /** 
@@ -409,7 +140,7 @@ $scope.rec_year_func = function() {
       } else {
         data.id = $stateParams.eventId;
       }
-      console.log(data);
+        data.eventtype=='single'
       if (data.eventtype=='single') {
         if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
           data.eventdate=$scope.single_start_date;
@@ -421,7 +152,7 @@ $scope.rec_year_func = function() {
           $serviceTest.saveEvent(data,function(response){
             if (response.code == 200) {
                $scope.success=global_message.event_step1;
-               $localStorage.eventId=response.result;
+               $stateParams.eventId=response.result;
                $scope.error_message=false;
                $timeout(function() {
                  $scope.success='';
@@ -430,21 +161,7 @@ $scope.rec_year_func = function() {
             }
           });
         }  
-      } else {
-        data.userId=$localStorage.userId;
-        $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-          if (response.code == 200) {
-            $scope.success=global_message.event_step1;
-            $scope.data={};
-            $scope.error_message=false;
-            $timeout(function() {
-             $scope.success='';
-             $scope.error_message=true;
-            },3000);
-            window.location.reload();
-          }
-        }); 
-      }
+      } 
     }
 
 
@@ -578,12 +295,17 @@ $scope.rec_year_func = function() {
   });
 
 
-  $scope.venue_info = function(venuedata) {
+  $scope.venue_info = function(venuedata,type) {
 
     $scope.data.venuename = venuedata.venue_name;
     $scope.data.place = venuedata.address;
     $scope.data.address = venuedata.address;
-    $scope.data.venueid = venuedata.id;
+    if (type == 2) {
+      $scope.data.venueid = venuedata.venueid;
+    }else{
+      $scope.data.venueid = venuedata.id;
+    }
+       
     $scope.data.city = venuedata.city;
     $scope.data.country = venuedata.country;
     $scope.data.latitude = venuedata.latitude;
@@ -852,13 +574,20 @@ $scope.rec_year_func = function() {
 
     ///TO move to price and level
     if (menu.id === 6) {
+      
       if(objectForm.myForm!=undefined) {
+        
         if (objectForm.myForm.$valid === true) {
+            
             $scope.selectedClass = 2;
-            if ($localStorage.eventId == null) {
+            console.log($stateParams.eventId);
+            if ($stateParams.eventId == null || $stateParams.eventId == "") {
+              
               if(data != undefined) {
                 if (data.eventtype=='single') {
+                  
                   if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+                    console.log(6);
                     data.eventdate=$scope.single_start_date;
                     
                     data.startevent_time=$scope.startevent_time;
@@ -868,7 +597,7 @@ $scope.rec_year_func = function() {
                     $serviceTest.saveEvent(data,function(response){
                       if (response.code == 200) {
                         $scope.success=global_message.event_step1;
-                        $localStorage.eventId = response.result;
+                        $stateParams.eventId = response.result;
                         $scope.error_message=false;
                         $timeout(function() {
                           $scope.success='';
@@ -876,33 +605,44 @@ $scope.rec_year_func = function() {
                         },3000);
 
                         console.log(response.result);
-                        $location.path("/create_event_step2/"+$localStorage.eventId);
+                        $location.path("/create_event_step2/"+$stateParams.eventId);
                         
                       }
                     });
                   }  
-                } else {
-                  data.userId=$localStorage.userId;
-                  $serviceTest.saverecurringEvent({'data':data,'date':$scope.between_date},function(response){
-                    if (response.code == 200) {
-                      $scope.success=global_message.event_step1;
-                      $scope.data={};
-                      $scope.error_message=false;
-                      $timeout(function() {
-                       $scope.success='';
-                       $scope.error_message=true;
-                      },3000);
-                      window.location.reload();
-                    }
-                  }); 
-                }
+                } 
               }
             } else {
               if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-                $location.path("/create_event_step2/"+$stateParams.eventId);
-              } else {
-                $location.path("/create_event_step2/"+$localStorage.eventId);
+                
+                if(data != undefined) {
+                if (data.eventtype=='single') {
+                 
+                  if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
+                    data.eventdate=$scope.single_start_date;
+                    data.startevent_time=$scope.startevent_time;
+                    data.endevent_time=$scope.endevent_time;
+                    data.userId=$localStorage.userId;
+                    data.id    = $stateParams.eventId;
+                    $serviceTest.saveEvent(data,function(response){
+                      if (response.code == 200) {
+                        $scope.success=global_message.event_step1;
+                        $scope.error_message=false;
+                        $timeout(function() {
+                          $scope.success='';
+                          $scope.error_message=true;
+                        },3000);
+                        
+                        $location.path("/create_event_step2/"+$stateParams.eventId);
+                        
+                      }
+                    });
+                  }  
+                } 
               }
+                
+                
+              } 
             }
         } else {
           $scope.selectedClass = 1;
@@ -917,9 +657,7 @@ $scope.rec_year_func = function() {
       } else {
         if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
           $location.path("/create_event_step2/"+$stateParams.eventId);
-        } else {
-          $location.path("/create_event_step2/"+$localStorage.eventId);
-        }
+        } 
       }
     }
 
@@ -929,14 +667,12 @@ $scope.rec_year_func = function() {
       if (objectForm.myForm1.$valid === true) {
 
         if(data != undefined) {
-          data.eventId = $localStorage.eventId;
+          data.eventId = $stateParams.eventId;
           $serviceTest.postSecondStepdata(data, function(response) {
             if (response.code == 200) {
               $scope.selectedClass = 3;
               if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
                 $location.path("/create_event_step3/"+$stateParams.eventId);
-              } else {
-                $location.path("/create_event_step3/"+$localStorage.eventId);
               }      
             }
           });
@@ -944,8 +680,6 @@ $scope.rec_year_func = function() {
           $scope.selectedClass = 3;
           if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
             $location.path("/create_event_step3/"+$stateParams.eventId);
-          } else {
-            $location.path("/create_event_step3/"+$localStorage.eventId);
           } 
         }
       } else {
@@ -965,9 +699,7 @@ $scope.rec_year_func = function() {
         $scope.selectedClass = 3;
         if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
           $location.path("/create_event_step3/"+$stateParams.eventId);
-        } else {
-          $location.path("/create_event_step3/"+$localStorage.eventId);
-        } 
+        }
 
       }
     }
@@ -978,8 +710,6 @@ $scope.rec_year_func = function() {
       //if (objectForm.myForm.$valid === true) {
           if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
             $location.path("/create_event_step4/"+$stateParams.eventId);
-          } else {
-            $location.path("/create_event_step4/"+$localStorage.eventId);
           }
      /* } else {
 
@@ -1271,9 +1001,7 @@ angular.module('alisthub').controller('advanceSetting', function($scope,$localSt
 
                 if($stateParams.event_id!=undefined && $stateParams.event_id!='') {
                   $scope.data.event_id = $stateParams.event_id;
-                } else {
-                  $scope.data.event_id = $localStorage.event_id;
-                }
+                } 
 
                 $serviceTest.getAdvanceSetting($scope.data, function(response) {
                     $scope.loader = false;

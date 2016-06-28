@@ -59,7 +59,9 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
     
 
     if ($stateParams.type) {
+	$scope.allevent = {};
 	$scope.getAllEvent({eventType:$stateParams.type});
+	$scope.allevent.eventType = $stateParams.type;
     }
     else{
 	$scope.getAllEvent();

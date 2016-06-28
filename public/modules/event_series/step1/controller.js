@@ -698,6 +698,7 @@ $scope.rec_year_func = function() {
             if (response.code == 200) {
               $scope.success=global_message.event_step1;
               $scope.data.event_id = response.parent_id;
+              $stateParams.eventId = response.parent_id;
               //$localStorage.eventId = response.parent_id
               $scope.eventId = response.parent_id
               
