@@ -65,6 +65,10 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
 		$scope.data1.eventwebsite=response.results[0].website_url != null?response.results[0].website_url:"";
     		$scope.data1.eventinventory=response.results[0].inventory;
         $scope.data1.price = response.results[0].price_type;
+        $scope.ageDropdown = 0;
+        if(response.results[0].define_custom_age == 1) {
+          $scope.ageDropdown = 1;
+        }
     });
 	$serviceTest.getEventCat({'event_id':event_id},function(response){
 	 
