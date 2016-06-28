@@ -5,7 +5,7 @@ Created By: Deepak khokkar
 Module : Event setting  
 */
 
-angular.module('alisthub').controller('createpackageController', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad , $http,$stateParams) {
+angular.module('alisthub').controller('createpackageControllerThree', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad , $http,$stateParams) {
   //var $serviceTest = $injector.get("event_setting");
   var $serviceTest = $injector.get("event_package");
 
@@ -284,6 +284,8 @@ $scope.advSettingPackageId = $scope.eventSetting.package_id;
   $serviceTest.getPackage($scope.eventSetting, function(response) {
     $scope.data = response.results[0];
     if($scope.data!=undefined){
+
+      console.log('$scope.data' , $scope.data) ;
       $scope.data.will_call = parseInt($scope.data.will_call);
       $scope.data.sales_immediatly = parseInt($scope.data.sales_immediatly);
       $scope.data.donation = parseInt($scope.data.donation);
@@ -315,6 +317,8 @@ $scope.advSettingPackageId = $scope.eventSetting.package_id;
       $scope.data.print_disable_date = {};
       $scope.data.print_disable_date.date = disableDateTime.date;
       $scope.data.print_disable_date.time = disableDateTime.time;
+
+       console.log('after $scope.data' , $scope.data) ;
     }
 
   });

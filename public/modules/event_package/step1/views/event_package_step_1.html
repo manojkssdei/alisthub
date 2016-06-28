@@ -76,7 +76,7 @@
                                 <div class="form-group">
                                     <label >Online Sales Open <span class="req">*</span></label>
                                     <div class="form-group datepicker">
-                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.online_sales_open_date" is-open="popup3.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" min-date="mindate" ng-disabled="data.immidiately" ng-required="!data.immidiately"  ng-change="changedendtime()"  />
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.online_sales_open_date" is-open="popup3.opened" close-text="Close" alt-input-formats="altInputFormats" ng-disabled="data.immidiately" ng-required="!data.immidiately"  ng-change="changedendtime()"  />
                                         <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                                     </div>
@@ -85,10 +85,11 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="StartTime">Start Time </label>
+                                    <label for="StartTime">Start Time <span class="req">*</span></label>
                                     <div class="input-group bootstrap-timepicker timepicker">
                                         <input type="text"  id="online_sales_open_time" name="online_sales_open_time"  ng-model="data.online_sales_open_time"  class="form-control input-small timepick" ng-disabled="data.immidiately" ng-change="changedendtime()" /><span class="input-group-addon timepick1" ><i class="glyphicon glyphicon-time"></i></span>
                                     </div>
+                                     <p ng-show="myForm.online_sales_open_time.$invalid && !myForm.online_sales_open_time.$pristine" class="error-fld ng-binding">Online sales open time is required.</p>
                                 </div>
                             </div>
                         </section>
@@ -101,7 +102,7 @@
                         <section class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Online Sales Close<span class="req">*</span></label>
+                                    <label>Online Sales Close <span class="req">*</span></label>
                                     <div class="form-group datepicker">
                                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.online_sales_close_date"  min-date="mindate" is-open="popup4.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" required  ng-change="changedendtime()"  />
                                         <span class="input-group-btn">
@@ -112,7 +113,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="EndTime">End Time</label>
+                                    <label for="EndTime">End Time <span class="req">*</span></label>
                                     <div class="input-group bootstrap-timepicker timepicker">
                                         <input type="text" id="online_sales_close_time" name="online_sales_close_time" ng-model="data.online_sales_close_time" class="form-control input-small timepick" ng-change="changedendtime()" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
                                     </div>

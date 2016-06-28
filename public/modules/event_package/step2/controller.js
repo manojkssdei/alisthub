@@ -1,4 +1,4 @@
-angular.module('alisthub').controller('createpackageController', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
+angular.module('alisthub').controller('createpackageControllerTwo', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
    
   //For Step 2
 var $serviceTest = $injector.get("event_package");
@@ -112,6 +112,8 @@ var $serviceTest = $injector.get("event_package");
   $scope.eventBundle.eventsInPackage = $scope.eventsInPackage; 
   $scope.eventBundle.user_id = userId;
   $scope.eventBundle.package_id = packageId;
+    console.log('$scope.eventBundle ' , $scope.eventBundle );
+
   //To get bundles
   $serviceTest.getBundlesInPackage($scope.eventBundle, function(response) {
     //$rootScope.bundleList = response.results;
@@ -128,6 +130,8 @@ var $serviceTest = $injector.get("event_package");
   $scope.product.eventsInPackage = $scope.eventsInPackage; 
   $scope.product.package_id = packageId;
   $scope.product.user_id = userId;
+  console.log('$scope.product ' , $scope.product );
+
   $serviceTest.getProductsInPackage($scope.product, function(response) {
     //$rootScope.eventProductList = response.result;
     $scope.loader_product = true;
@@ -1257,8 +1261,6 @@ console.log('$localStorage.bundleId' , $localStorage.bundleId);
                     var getAllEventsPriceLevelInPackage = $scope.getAllEventsPriceLevelInPackage();
                     console.log('------------ getAllEventsPriceLevelInPackage -------------');
                     console.log(getAllEventsPriceLevelInPackage);
-
-
 
 
 
