@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>View all Events</h1>
+    <h1>View package event</h1>
     <!-- Form COntainer -->
     <div class="wt-frame form-section">
         <form class="event-form">
@@ -18,25 +18,15 @@
                     <section class="grid-btn-top row">
                         <section class="col-sm-6">
                             <section class="top-buttons">
-                                <a class="btn pink-btn btn-small" ui-sref="create_an_event" href="#/create_an_event"><i class="fa fa-plus-square"></i>&nbsp;Create an Event</a>
-                                <!-- <a href="/event/exportAllEventCSV?ids={{common_ids}}&seller={{seller_id}}"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button></a> -->
+                                <a class="btn pink-btn btn-small" ui-sref="event_package_step_1" href="#/event_package_step_1"><i class="fa fa-plus-square"></i>&nbsp;Create Package</a>
 
-                                <a href="/event/exportAllEventCSV?seller={{seller_id}}"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button></a>
-
+                                <a href="/package/exportPackageCSV?seller={{seller_id}}"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button></a>
                             </section>
                         </section>
                         <section class="col-sm-6 right-btns text-right">
                             <section class="inline-section">
-                                <select class="form-control select30" name="eventType" ng-model="allevent.eventType" ng-change="getAllEvent(allevent)">
-                                    <option value="">Event Type</option>
-                                    <option value="single">Single Event</option>
-                                    <option value="series">Series Event</option>
-                                </select>
-                            </section>
-                            
-                            <section class="inline-section">
-                                <select class="form-control select30" name="eventFilter" ng-model="allevent.eventFilter" ng-change="getAllEvent(allevent)">
-                                    <option  value="">No Filter</option>
+                                <select class="form-control select30" name="eventFilter" ng-model="allevent.eventFilter" ng-change="getAllPackageEvent(allevent)">
+                                    <option disabled="" value="">No Filter</option>
                                     <option value="upcoming">Upcoming</option>
                                     <option value="past">Past</option>
                                     <option value="approval">For Approval</option>
@@ -52,27 +42,26 @@
                                
                             <tbody>
                                 <tr  ng-repeat="pdata in $data | filter:filter">
-                                    <td theader-class="'header-text-align'" title="'Id'" header-class="'header-text-align'" filter="{ id: 'number'}" sortable="'id'" width="20%"><a href="#"><strong>{{pdata.id}}</strong></a></td>
-                                    <td title="'Name'" header-class="'header-text-align'" filter="{ title: 'text'}" sortable="'title'" width="40%">
-                                        <p><a href="#"><strong>{{pdata.title}}</strong></a></p>
-                                    </td>
-                                    <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.recurring_or_not == 0 ? (pdata.start_date | date:"dd MMMM yyyy") : 'Event Series'}}</td>
+                                    <td header-class="'header-text-align'"  title="'Id'" header-class="'header-text-align'" filter="{ id: 'number'}" sortable="'id'" width="20%"><a href="#"><strong>{{pdata.id}}</strong></a></td>
                                     
-                                    <!--  <td class="numbers">{{upcoming.sold}}</td>-->
+                                    <td title="'Name'" header-class="'header-text-align'" filter="{ title: 'text'}" sortable="'package_name'" width="40%">
+                                        <p><a href="#"><strong>{{pdata.package_name}}</strong></a></p>
+                                    </td>
+                                    
+                                    <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'online_sales_open_date'}" sortable="'online_sales_open_date'" width="20%">{{pdata.online_sales_open_date | date:"dd MMMM yyyy"}}</td>
+                                    
                                     <td title="'Action'" class="action" width="20%">
                                         <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
-                                        <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
-                                        <a title="Guest List" ng-if="pdata.recurring_or_not == 0" href="/#/guest_list/{{pdata.id}}"><i class="fa fa-list-ul"></i></a>
+                                        <a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>
+                                        <a  title="edit" href="/#/edit_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
                                         <a title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
-                                        <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
-                                        <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 <tr ng-show="loader">
                                     <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
 
                                 </tr>
-			        <tr ng-if="$data == ''">
+			                    <tr ng-if="$data == ''">
                                     <td colspan="4" align="center">No Record found!</td>
                                 </tr>
                                 <tr ng-show="eventloader">

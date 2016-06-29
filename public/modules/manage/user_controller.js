@@ -169,3 +169,25 @@ angular.module('alisthub')
         }
     };
  });
+
+/** 
+Angular User Controller
+Created : 2016-04-2
+Created By: Deepak Khokkar
+Module : User 
+*/
+angular.module('alisthub')
+    .controller('userPermissionController', function($scope, $localStorage,$http, $state, $location,ngTableParams, $timeout,$window,$rootScope,$injector) {
+        $scope.user = {};
+        //event_count=[];
+        if (!$localStorage.isuserloggedIn) {
+            $state.go('login');
+        }
+        var $serviceTest = $injector.get("users");
+
+
+       
+
+        
+       
+ });
