@@ -255,7 +255,8 @@
                                     <label class="label-padding">Fee Type</label>
                                   </div>
                                   <div class="col-sm-9">
-                                    <select class="form-control" name="custom_fee_type" ng-model="data.custom_fee_type" tooltips tooltip-template="Select whether the fee is a fixed amount or a percentage of the order total.">
+                                  <!--  ng-model="data.custom_fee_type" tooltips tooltip-template="Select whether the fee is a fixed amount or a percentage of the order total." -->
+                                    <select class="form-control" name="custom_fee_type" >
                                         <option value="1">Fixed Amount</option>
                                     </select>
                                   </div>
@@ -279,7 +280,8 @@
                                     <label class="label-padding">When to Apply Fee</label>
                                   </div>
                                   <div class="col-sm-9">
-                                    <select class="form-control" name="custom_when" ng-model="data.custom_when" tooltips tooltip-template="Select whether to apply this fee to the order before or after a discount coupon has adjusted the order total. If no discount coupons are in effect, this option will not affect the order.">
+                                  <!-- tooltips tooltip-template="Select whether to apply this fee to the order before or after a discount coupon has adjusted the order total. If no discount coupons are in effect, this option will not affect the order." -->
+                                    <select class="form-control" name="custom_when" ng-model="data.custom_when" >
                                         <option value="1">Before Discount</option>
                                     </select>
                                   </div>

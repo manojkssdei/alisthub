@@ -771,3 +771,32 @@ color-picker{float: right !important;}
 } 
 .content .wrap-word > p{ padding: 3%;}
 .gray-frame1 {   background: rgba(0, 0, 0, 0) url("./images/bg/bg.jpg") no-repeat scroll center top / cover ;}
+
+.event-status-container {
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.event-status {
+    font-size: 1em;
+    font-weight: 700;
+    line-height: normal;
+    padding: 20px;
+    text-align: center;
+}
+.analytics-enabled-status, .status-onsale {
+    background-color: #e2f8e4;
+    border: 1px solid #a1dda8;
+    border-radius: 2px;
+    color: #6fc076;
+}
+
+.event-status-type {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0.25em 0;
+}
+.event-status-detail {
+    color: #555;
+    font-size: 0.75em;
+}

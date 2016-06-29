@@ -1,499 +1,496 @@
+<div class="container">
+   <h1>Event Overview</h1>
+   <!-- Form COntainer -->
+   <div class="wt-frame form-section">
+      <section class="top-buttons bb-1 text-right">
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-edit"> </i>  Edit</button>
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-trash"> </i>  Delete</button>
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-pause"> </i>  Pause Sales</button>
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  Duplicate</button>
+         <button type="button" class="btn pink-btn btn-small pull-right"> View Event</button>
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  View Listing</button>
 
-
- <div class="container">
-    <h1>Event Overview</h1>
-    <!-- Form COntainer -->
-  
-
-    <div class="wt-frame form-section">
-        <section class="top-buttons bb-1 text-right">
-        
-                <button type="button" class="btn pink-btn btn-small"><i class="fa fa-edit"> </i>  Edit</button>
-
-                <button type="button" class="btn pink-btn btn-small"><i class="fa fa-trash"> </i>  Delete</button>
-
-                 <button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  Duplicate</button>
-
-                  <button type="button" class="btn pink-btn btn-small pull-right"> View Event</button>
-
-            </section><!--/Top Buttons-->
-  
-
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-mail"> </i>  Send Invitation</button>
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-group"> </i>  Admissions</button>
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-list"> </i>  Guest List</button>
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-star"> </i>  Add Favorite</button>
+      </section>
+      <!--/Top Buttons-->
       <form class="event-form">
+         <!-- Event Detail Form -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Event Information <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               <section class="grid-widget" >
+               
+                  <h3> {{title}}</h3>
+                  <hr/>
+                  <h5> <i class="fa fa-calendar"> </i> {{event_date}}</h5>
+                  <h5><i class="fa fa-home"> </i>  {{event_address}} , {{country}}</h5>
+                  <h5><i class="fa fa-link"> </i><a href="#"> https://192.155.246.146:5502/{{user_id}}/{{event_id}}</a></h5>
+                  <!--<h5><i class="fa fa-qrcode"> </i>  </h5>-->
+                 
+<br/><br/>
+                  <hr/>
+                  
+                     <div class="event-status-container">
+                     <!-- Recurring Event (Prime) -->
+                     <div class="event-status status-onsale">
+                     <div class="event-status-type">
+                     Ticket sales are currently {{sales_status}} <i  class="fa fa-checkmark"></i>
+                     </div>
+                     <div class="event-status-detail">
+                     Sales will close on <strong>{{sales_close_date}}</strong>.
+                     </div>
+                     </div>
+
+                     </div>
+
+                  
+
+
+
+               </section>
+            </section>
+         </section>
+         <!-- Event Detail Form -->
+
+
+          <!-- Select Tickets Form -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Select Tickets <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               <section class="grid-widget">
+                  <h5>Event Inventory: {{inventory}}</h5>
+                  <h5> Total Tickets Issues: 900 </h5>
+                  <h5> Remaining Tickets: 100 </h5>
+               </section>
+            </section>
+         </section>
+         <!-- Select Tickets Form -->
+
+
+
+
+
+<section class="form-group field-group row">
+          <section class="col-sm-8">
+
+
+
+
+         <!-- price level details Starts -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Price Levels <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               
+               <section class="grid-widget" >
+                  
+                  <div class="table-responsive">
+                     <table ng-table="tableParams" class="table table-striped table-ng-style">
+                        <tbody>
+                           
+                           <tr ng-repeat="data in $data | filter:filter">
+                              
+
+                              <td width="15%" header-class="'header-text-align'" title="'Level'" filter="{ coupon_name: 'text'}" sortable="'level'"><strong>{{data.level}}</strong></td>
+
+                              <td width="12%" header-class="'header-text-align'" title="'Inventory'" filter="{ coupon_type: 'number'}" sortable="'inventory'">{{data.inventory}}</td>
+
+                              <td width="12%" header-class="'header-text-align'" title="'Issued'" filter="{ coupon_code: 'number'}" sortable="'issued'" >
+                                 <p ng-if="data.issued">{{data.issued}}</p>
+                                 <p ng-if="data.issued == '' || data.issued == null || data.issued == undefined"></p>
+                              </td>
+
+                              <td width="12%" header-class="'header-text-align'" title="'Held'" filter="{ amount: 'number'}" sortable="'held'" class="numbers">
+                                 <p ng-if="data.held">{{data.held}}</p>
+                                 <p ng-if="data.held == '' || data.held == null || data.held == undefined || data.held == 0"></p>
+                              </td>
+
+                              <td width="16%" header-class="'header-text-align'" title="'Remaining'" filter="{ amount_type: 'text'}" sortable="'Remaining'" >{{data.Remaining}}</td>
+
+                           </tr>
+                           <tr ng-if="$data == ''">
+                              <td colspan="5" align="center">No Price Level!</td>
+                           </tr>
+
+                           <tr ng-show="loader">
+                              <td colspan="5" align="center"><img src="/images/icons/loader.gif"></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </section>
+            </section>
+         </section>
+         <!-- price level details Ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+         
+         <section class="panel panel-grey">
+            <section class="prof-hd">
+               <h5 class="m-b0">Questions</h5>
+            </section>
+            <section class="panel-body">
+               <section class="grid-btn-top row">
+                  <section class="col-sm-5 pull-right text-right">
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="download_answers('lg')">Download Answers</button>
+                  </section>
+               </section>
+               <span ng-show="success_message_bundle" class="ng-hide">
+                  <p class="success-fld ng-binding">{{success_bundle}}</p>
+               </span>
+               <!--------- price level---------->
+               <section class="module">
+                  <section class="prof-hd">
+                     <i class="fa fa-database hdicon pos-l16"></i>
+                     <h2> ABC Price Level Questions <span class="rt-img"></span></h2>
+                  </section>
+                  <section class="gray-frame sub-fields">
+                     <section class="grid-btn-top row">
+                        <section class="col-sm-5 pull-right text-right">
+                           <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assign_price_level_questions('lg')">Assign</button>
+                        </section>
+                     </section>
+                     <section class="grid-widget" ng-show="showPriceLevelQuestionList">
+                        <div class="table-responsive">
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr>
+                                    <th width="15%">Question</th>
+                                    <th width="10%" class="numbers">Ask Once Per</th>
+                                    <th width="23%">&nbsp;</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr ng-repeat="question in priceLevelQuestionList track by $index">
+                                    <td><strong>{{question.question_name}}</strong></td>
+                                    <td >
+                                       <select name="" ng-model="" />
+                                          <option>Sale</option>
+                                          <option>Ticket</option>
+                                          <option>Event</option>
+                                       </select>
+                                    </td>
+                                    <td class="action">
+                                       <a ng-click="edit_question('lg',question.id)" tooltips tooltip-template="Edit Question" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                                       <a ng-click="change_question_status(question.id,question.status)" ng-confirm-click="Would you like to change bundle status ?" tooltips tooltip-template="Activate/Deactivate" >
+                                       <i class="fa fa-check-circle" ng-if="question.status == 'true'"></i>
+                                       <i class="fa fa-times" ng-if="question.status == 'false'"></i>
+                                       </a>
+                                       <a ng-click="unassign_question('',$index,question.id)" style="cursor: pointer;"><i class="fa fa-trash" tooltips tooltip-template="Unassign" ></i></a>
+                                    </td>
+                                 </tr>
+                                 <tr ng-if="questionList == '' ">
+                                    <td colspan="3" align="left">No Questions have been assigned to this price level.  </td>
+                                 </tr>
+                                 <tr ng-show="loader_bundle">
+                                    <td colspan="3" align="center"><img src="/images/icons/loader.gif"></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </section>
+                  </section>
+               </section>
+               <!-------------price level -->
+
+
+               <!--------- event level level---------->
+               <section class="module">
+                  <section class="prof-hd">
+                     <i class="fa fa-database hdicon pos-l16"></i>
+                     <h2> Event Questions <span class="rt-img"></span></h2>
+                  </section>
+                  <section class="gray-frame sub-fields">
+                     <section class="grid-btn-top row">
+                        <section class="col-sm-5 pull-right text-right">
+                           <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assign_event_questions('lg')">Assign</button>
+                        </section>
+                     </section>
+                     <section class="grid-widget" ng-show="showEventQuestionList">
+                        <div class="table-responsive">
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr>
+                                    <th width="15%">Question</th>
+                                    <th width="10%" class="numbers">Ask Once Per</th>
+                                    <th width="23%">&nbsp;</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr ng-repeat="question in eventQuestionList track by $index">
+                                    <td><strong>{{question.question_name}}</strong></td>
+                                    <td >
+                                       <select name="" ng-model="" />
+                                          <option>Sale</option>
+                                          <option>Ticket</option>
+                                          <option>Event</option>
+                                       </select>
+                                    </td>
+                                    <td class="action">
+                                       <a ng-click="edit_question('lg',question.id)" tooltips tooltip-template="Edit Question" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                                       <a ng-click="change_question_status(question.id,question.status)" ng-confirm-click="Would you like to change bundle status ?" tooltips tooltip-template="Activate/Deactivate" >
+                                       <i class="fa fa-check-circle" ng-if="question.status == 'true'"></i>
+                                       <i class="fa fa-times" ng-if="question.status == 'false'"></i>
+                                       </a>
+                                       <a ng-click="unassign_question('',$index,question.id)" style="cursor: pointer;"><i class="fa fa-trash" tooltips tooltip-template="Unassign" ></i></a>
+                                    </td>
+                                 </tr>
+                                 <tr ng-if="questionList == '' ">
+                                    <td colspan="3" align="left">No Questions have been assigned to this price level.  </td>
+                                 </tr>
+                                 <tr ng-show="loader_bundle">
+                                    <td colspan="3" align="center"><img src="/images/icons/loader.gif"></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </section>
+                  </section>
+               </section>
+               <!-------------event level questions -->
+               <!--------- global level---------->
+               <section class="module">
+                  <section class="prof-hd">
+                     <i class="fa fa-database hdicon pos-l16"></i>
+                     <h2> Global Questions <span class="rt-img"></span></h2>
+                  </section>
+                  <section class="gray-frame sub-fields">
+                     <section class="grid-widget" ng-show="showGlobalQuestionList">
+                        <div class="table-responsive">
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr>
+                                    <th width="15%">Question</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr ng-repeat="question in globalQuestionList track by $index">
+                                    <td><strong>{{question.question_name}}</strong></td>
+                                 </tr>
+                                 <tr ng-if="globalQuestionList == '' ">
+                                    <td colspan="3" align="left">No Global Questions exists.</td>
+                                 </tr>
+                                 <tr ng-show="loader_globalQuestions">
+                                    <td colspan="3" align="center"><img src="/images/icons/loader.gif"></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </section>
+                  </section>
+               </section>
+               <!-------------global level -->
+            </section>
+         </section>
+
+
+
+
+
+
+
+
+
+         <!-- Discount Starts -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Coupons <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               <section class="grid-btn-top row">
+                  <section class="col-sm-5 pull-right text-right">
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_bundle('lg')">Assign Coupons</button>
+                  </section>
+               </section>
+               <section class="grid-widget" ng-show="showBundleList">
+                  <span ng-show="success_message_bundle" class="ng-hide">
+                     <p class="success-fld ng-binding">{{success_bundle}}</p>
+                  </span>
+                  <div class="table-responsive">
+                     <table ng-table="tableParams" class="table table-striped table-ng-style">
+                        <tbody>
+                           <tr ng-if="$data != ''">
+                              <td colspan="5" align="center"> 4 Assignments to this coupon</td>
+                           </tr>
+                           <tr ng-repeat="data in $data | filter:filter">
+                              <td  width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox3.html'"><input type="checkbox" name="checkall" ng-model="data.selected"  ng-click="optionToggled(data.id);" ></td>
+                              <td width="15%" header-class="'header-text-align'" title="'Name'" filter="{ coupon_name: 'text'}" sortable="'coupon_name'"><strong>{{data.coupon_name}}</strong></td>
+                              <td width="12%" header-class="'header-text-align'" title="'Type'" filter="{ coupon_type: 'text'}" sortable="'coupon_type'">{{data.coupon_type}}</td>
+                              <td width="12%" header-class="'header-text-align'" title="'Code'" filter="{ coupon_code: 'text'}" sortable="'coupon_code'" >
+                                 <p ng-if="data.coupon_code">{{data.coupon_code}}</p>
+                                 <p ng-if="data.coupon_code == '' || data.coupon_code == null || data.coupon_code == undefined"></p>
+                              </td>
+                              <td width="12%" header-class="'header-text-align'" title="'Discount'" filter="{ amount: 'text'}" sortable="'amount'" class="numbers">
+                                 <p ng-if="data.amount">{{data.amount}}</p>
+                                 <p ng-if="data.amount == '' || data.amount == null || data.amount == undefined || data.amount == 0"></p>
+                              </td>
+                              <td width="16%" header-class="'header-text-align'" title="'Amount Type'" filter="{ amount_type: 'text'}" sortable="'amount_type'" >{{data.amount_type}}</td>
+                              <td width="14%" header-class="'header-text-align'" title="'Assigned To'"  class="">
+                                 <a href="#/discount_assignment_overview/{{data.id}}">
+                                    <strong>
+                                       <p ng-if="event_count[data.id] > 0">{{event_count[data.id]}} Assignments</p>
+                                    </strong>
+                                 </a>
+                                 <p ng-if="event_count[data.id] == '' || event_count[data.id] == null">0 Assignments</p>
+                              </td>
+                              <td width="23%" title="'Action'"  class="action">
+                                 <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
+                                 <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
+                                 <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?" ng-if="event_count[data.id] == '' || event_count[data.id] == null"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                           <tr ng-if="$data == ''">
+                              <td colspan="5" align="center">No Record found!</td>
+                           </tr>
+                           <tr ng-show="loader">
+                              <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </section>
+               <section class="grid-bottm clearfix">
+                  <section class="gr-right pull-right">
+                     <ul class="legends">
+                        <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+                        <li><i class="fa fa-check-circle"></i><span>active</span></li>
+                        <li><i class="fa fa-trash"></i><span>delete</span></li>
+                     </ul>
+                  </section>
+               </section>
+            </section>
+         </section>
+         <!-- Discount Ends -->
         
 
-
-<!-- Event Detail Form -->
-                 <section class="module">
-              <section class="prof-hd">
-                   <i class="fa fa-database hdicon pos-l16"></i>
-                    <h2>Select Tickets <span class="rt-img"></span></h2>
-                 </section>
-                <section class="gray-frame sub-fields">
-                  <section class="grid-widget" ng-show="showEmailReportList">
-              
-            
-                   <h5>Event Inventory: 1000 </h5>
-                   <h5> Total Tickets Issues: 900 </h5>
-                   <h5> Remaining Tickets: 100 </h5>
-                    
-                  
-                  </section>
+         <!-- Email Report Start -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Email Reports <span class="rt-img"></span></h2>
             </section>
-          </section>
-
-
-<!-- Event Detail Form -->
-
-
-
-<!-- Templates -->
-
-                 <section class="module">
-              <section class="prof-hd">
-                   <i class="fa fa-database hdicon pos-l16"></i>
-                    <h2>Templates <span class="rt-img"></span></h2>
-                 </section>
-                <section class="gray-frame sub-fields">
-                  <section class="grid-btn-top row">
-                      
-                      <section class="col-sm-5 pull-right text-right">
-                        <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReport('lg')">Assign a template</button>
-                      </section>
-                    </section>
-                  <section class="grid-widget" ng-show="showEmailReportList">
-                  <span ng-show="success_message_template" class="ng-hide"><p class="success-fld ng-binding">{{success_template}}</p></span>
-
-                  <div class="table-responsive">
-                    You are currently using the template: <a href="">ALISTIXS DEFAULT TEMPLATE</a>
-<br/><br/><br/>
-                    <img src="#" class="center" height="100" width="200" />
-                  </div>
+            <section class="gray-frame sub-fields">
+               <section class="grid-btn-top row">
+                  <section class="col-sm-5 pull-right text-right">
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReport('lg')">Add an Email Report</button>
                   </section>
-            </section>
-          </section>
-
-<!-- Templates -->
-
-
-
-<section class="panel panel-grey">
-             <section class="prof-hd"><h5 class="m-b0">Questions</h5></section> 
-             
-
-<section class="panel-body">
-
-
-  <section class="grid-btn-top row">
-                      <section class="col-sm-5 pull-right text-right">
-                        <button class="pink-btn btn btn-small m-fw" type="button" ng-click="download_answers('lg')">Download Answers</button>
-                      </section>
-                    </section>
-
-<span ng-show="success_message_bundle" class="ng-hide"><p class="success-fld ng-binding">{{success_bundle}}</p></span>
-
-<!--------- price level---------->
-            <section class="module">
-              <section class="prof-hd">
-                   <i class="fa fa-database hdicon pos-l16"></i>
-                    <h2> ABC Price Level Questions <span class="rt-img"></span></h2>
-                 </section>
-                <section class="gray-frame sub-fields">
-
-
-                  <section class="grid-btn-top row">
-                      <section class="col-sm-5 pull-right text-right">
-                        <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assign_price_level_questions('lg')">Assign</button>
-                      </section>
-                    </section>
-                  <section class="grid-widget" ng-show="showPriceLevelQuestionList">
-                  
-
+               </section>
+               <section class="grid-widget" ng-show="showEmailReportList">
+                  <span ng-show="success_message_emailReport" class="ng-hide">
+                     <p class="success-fld ng-binding">{{success_emailReport}}</p>
+                  </span>
                   <div class="table-responsive">
-                    <table class="table table-striped">
+                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th width="15%">Question</th>
-                                <th width="10%" class="numbers">Ask Once Per</th>
-                                <th width="23%">&nbsp;</th>
-                            </tr>
+                           <tr>
+                              <th width="15%">Email Address</th>
+                              <th width="10%" class="numbers">Send Time</th>
+                              <th width="14%" class="numbers">Timezone Name</th>
+                              <th width="13%" class="numbers">Format</th>
+                              <th width="23%">&nbsp;</th>
+                           </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="question in priceLevelQuestionList track by $index">
-                                <td><strong>{{question.question_name}}</strong></td>
-                                <td >
-                                        <select name="" ng-model="" />
-                                          <option>Sale</option>
-                                          <option>Ticket</option>
-                                          <option>Event</option>
-                                        </select>
-                                </td>
-                            
-                                <td class="action">
-                                  <a ng-click="edit_question('lg',question.id)" tooltips tooltip-template="Edit Question" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-
-                                  <a ng-click="change_question_status(question.id,question.status)" ng-confirm-click="Would you like to change bundle status ?" tooltips tooltip-template="Activate/Deactivate" >
-                                    <i class="fa fa-check-circle" ng-if="question.status == 'true'"></i>
-                                    <i class="fa fa-times" ng-if="question.status == 'false'"></i>
-                                  </a>
-
-                                  <a ng-click="unassign_question('',$index,question.id)" style="cursor: pointer;"><i class="fa fa-trash" tooltips tooltip-template="Unassign" ></i></a>
-
-                                </td>
-                            </tr>
-                            <tr ng-if="questionList == '' ">
-                                  <td colspan="3" align="left">No Questions have been assigned to this price level.  </td>
-                            </tr>
-
-                            <tr ng-show="loader_bundle">
-                                  <td colspan="3" align="center"><img src="/images/icons/loader.gif"></td>
-                            </tr>
+                           <tr ng-repeat="email in EmailReportsList track by $index">
+                              <td><strong>{{email.email_address}}</strong></td>
+                              <td class="numbers">${{email.send_time}}</td>
+                              <td class="numbers">${{email.timezone_name}}</td>
+                              <td class="numbers">${{email.format}}</td>
+                              <td class="action">
+                                 <a ng-click="add_emailReport('lg',email.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                                 <a ng-click="delete_emailReport('',$index,email.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                           <tr ng-if="EmailReportsList == '' ">
+                              <td colspan="5" align="left">No email reports assigned to this event. </td>
+                           </tr>
+                           <tr ng-show="loader_emailReport">
+                              <td colspan="5" align="center"><img src="/images/icons/loader.gif"></td>
+                           </tr>
                         </tbody>
-                    </table>
+                     </table>
                   </div>
-                  </section>
-                
-            </section>
-
-          </section>
-
-
-          <!-------------price level -->
-
-
-
-
-
-
-
-
-
-
-
-          <!--------- event level level---------->
-            <section class="module">
-              <section class="prof-hd">
-                   <i class="fa fa-database hdicon pos-l16"></i>
-                    <h2> Event Questions <span class="rt-img"></span></h2>
-                 </section>
-                <section class="gray-frame sub-fields">
-
-
-                  <section class="grid-btn-top row">
-                      <section class="col-sm-5 pull-right text-right">
-                        <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assign_event_questions('lg')">Assign</button>
-                      </section>
-                    </section>
-                  <section class="grid-widget" ng-show="showEventQuestionList">
-                  
-
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th width="15%">Question</th>
-                                <th width="10%" class="numbers">Ask Once Per</th>
-                                <th width="23%">&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="question in eventQuestionList track by $index">
-                                <td><strong>{{question.question_name}}</strong></td>
-                                <td >
-                                        <select name="" ng-model="" />
-                                          <option>Sale</option>
-                                          <option>Ticket</option>
-                                          <option>Event</option>
-                                        </select>
-                                </td>
-                            
-                                <td class="action">
-                                  <a ng-click="edit_question('lg',question.id)" tooltips tooltip-template="Edit Question" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-
-                                  <a ng-click="change_question_status(question.id,question.status)" ng-confirm-click="Would you like to change bundle status ?" tooltips tooltip-template="Activate/Deactivate" >
-                                    <i class="fa fa-check-circle" ng-if="question.status == 'true'"></i>
-                                    <i class="fa fa-times" ng-if="question.status == 'false'"></i>
-                                  </a>
-
-                                  <a ng-click="unassign_question('',$index,question.id)" style="cursor: pointer;"><i class="fa fa-trash" tooltips tooltip-template="Unassign" ></i></a>
-
-                                </td>
-                            </tr>
-                            <tr ng-if="questionList == '' ">
-                                  <td colspan="3" align="left">No Questions have been assigned to this price level.  </td>
-                            </tr>
-
-                            <tr ng-show="loader_bundle">
-                                  <td colspan="3" align="center"><img src="/images/icons/loader.gif"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                  </section>
-                
-            </section>
-
-          </section>
-
-
-          <!-------------event level questions -->
-
-
-
-
-
-
-
-
-
-
-
-
-          <!--------- global level---------->
-                        <section class="module">
-              <section class="prof-hd">
-                   <i class="fa fa-database hdicon pos-l16"></i>
-                    <h2> Global Questions <span class="rt-img"></span></h2>
-                 </section>
-                <section class="gray-frame sub-fields">
-                  <section class="grid-widget" ng-show="showGlobalQuestionList">
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th width="15%">Question</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="question in globalQuestionList track by $index">
-                                <td><strong>{{question.question_name}}</strong></td>
-                            </tr>
-                            
-                            <tr ng-if="globalQuestionList == '' ">
-                                  <td colspan="3" align="left">No Global Questions exists.</td>
-                            </tr>
-                            <tr ng-show="loader_globalQuestions">
-                                  <td colspan="3" align="center"><img src="/images/icons/loader.gif"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                  </section>
-                
-            </section>
-
-          </section>
-
-
-          <!-------------global level -->
-
-
-
-          </section>
-                               
-        </section>
-
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Discount Starts -->
-
-                    <section class="module">
-              <section class="prof-hd">
-                   <i class="fa fa-database hdicon pos-l16"></i>
-                    <h2>Coupons <span class="rt-img"></span></h2>
-                 </section>
-                <section class="gray-frame sub-fields">
-                  <section class="grid-btn-top row">
-                      
-                      <section class="col-sm-5 pull-right text-right">
-                        <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_bundle('lg')">Assign Coupons</button>
-                      </section>
-                    </section>
-                  <section class="grid-widget" ng-show="showBundleList">
-                  <span ng-show="success_message_bundle" class="ng-hide"><p class="success-fld ng-binding">{{success_bundle}}</p></span>
-
-                  <div class="table-responsive">
-<table ng-table="tableParams" class="table table-striped table-ng-style">
-<tbody>
-
-<tr ng-if="$data != ''">
-  <td colspan="5" align="center"> 4 Assignments to this coupon</td>
-</tr>
-
-
-<tr ng-repeat="data in $data | filter:filter">
-  <td  width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox3.html'"><input type="checkbox" name="checkall" ng-model="data.selected"  ng-click="optionToggled(data.id);" >
-</td>
-  <td width="15%" header-class="'header-text-align'" title="'Name'" filter="{ coupon_name: 'text'}" sortable="'coupon_name'"><strong>{{data.coupon_name}}</strong>
-</td>
-  <td width="12%" header-class="'header-text-align'" title="'Type'" filter="{ coupon_type: 'text'}" sortable="'coupon_type'">{{data.coupon_type}}
-</td>
-  <td width="12%" header-class="'header-text-align'" title="'Code'" filter="{ coupon_code: 'text'}" sortable="'coupon_code'" >
-      <p ng-if="data.coupon_code">{{data.coupon_code}}</p>
-      <p ng-if="data.coupon_code == '' || data.coupon_code == null || data.coupon_code == undefined"></p>
-  </td>
-  <td width="12%" header-class="'header-text-align'" title="'Discount'" filter="{ amount: 'text'}" sortable="'amount'" class="numbers">
-      <p ng-if="data.amount">{{data.amount}}</p>
-      <p ng-if="data.amount == '' || data.amount == null || data.amount == undefined || data.amount == 0"></p>
-  </td>
-  <td width="16%" header-class="'header-text-align'" title="'Amount Type'" filter="{ amount_type: 'text'}" sortable="'amount_type'" >{{data.amount_type}}
-</td>
-  <td width="14%" header-class="'header-text-align'" title="'Assigned To'"  class="">
-      <a href="#/discount_assignment_overview/{{data.id}}"><strong><p ng-if="event_count[data.id] > 0">{{event_count[data.id]}} Assignments</p></strong></a>
-
-      <p ng-if="event_count[data.id] == '' || event_count[data.id] == null">0 Assignments</p>
-        </td>
-
-  <td width="23%" title="'Action'"  class="action">
-      <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
-      <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
-      <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?" ng-if="event_count[data.id] == '' || event_count[data.id] == null"><i class="fa fa-trash"></i></a>
-  </td>
-</tr>
-
-<tr ng-if="$data == ''">
-  <td colspan="5" align="center">No Record found!</td>
-</tr>
-
-
-<tr ng-show="loader">
-  <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
-</tr>
-</tbody>
-</table>
-
-                  </div>
-                  </section>
-                  
-                  <section class="grid-bottm clearfix">
-                    <section class="gr-right pull-right">
-                      <ul class="legends">
+               </section>
+               <section class="grid-bottm clearfix">
+                  <section class="gr-right pull-right">
+                     <ul class="legends">
                         <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
                         <li><i class="fa fa-check-circle"></i><span>active</span></li>
                         <li><i class="fa fa-trash"></i><span>delete</span></li>
-                      </ul>
-                    </section>
+                     </ul>
                   </section>
+               </section>
             </section>
+         </section>
+         <!-- Email Report Ends -->
+
+         
+
+
+
+
+
+
+
+
+
           </section>
 
-<!-- Discount Ends -->
+          <section class="col-sm-4">
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Email Report Start -->
-
-                    <section class="module">
-              <section class="prof-hd">
-                   <i class="fa fa-database hdicon pos-l16"></i>
-                    <h2>Email Reports <span class="rt-img"></span></h2>
-                 </section>
-                <section class="gray-frame sub-fields">
-                  <section class="grid-btn-top row">
-                      
-                      <section class="col-sm-5 pull-right text-right">
-                        <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReport('lg')">Add an Email Report</button>
-                      </section>
-                    </section>
-                  <section class="grid-widget" ng-show="showEmailReportList">
-                  <span ng-show="success_message_emailReport" class="ng-hide"><p class="success-fld ng-binding">{{success_emailReport}}</p></span>
-
+<!-- Templates -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Templates <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               <section class="grid-btn-top row">
+                  <section class="col-sm-12 pull-right text-right">
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReport('lg')">Assign a template</button>
+                  </section>
+               </section>
+               <section class="grid-widget" ng-show="showEmailReportList">
+                  <span ng-show="success_message_template" class="ng-hide">
+                     <p class="success-fld ng-binding">{{success_template}}</p>
+                  </span>
                   <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th width="15%">Email Address</th>
-                                <th width="10%" class="numbers">Send Time</th>
-                                <th width="14%" class="numbers">Timezone Name</th>
-                                <th width="13%" class="numbers">Format</th>
-                                <th width="23%">&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="email in EmailReportsList track by $index">
-                                <td><strong>{{email.email_address}}</strong></td>
-                                <td class="numbers">${{email.send_time}}</td>
-                                <td class="numbers">${{email.timezone_name}}</td>
-                                <td class="numbers">${{email.format}}</td>
-                                <td class="action">
-
-                                  <a ng-click="add_emailReport('lg',email.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-                                 
-                                  <a ng-click="delete_emailReport('',$index,email.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            <tr ng-if="EmailReportsList == '' ">
-                                  <td colspan="5" align="left">No email reports assigned to this event. </td>
-                            </tr>
-
-                            <tr ng-show="loader_emailReport">
-                                  <td colspan="5" align="center"><img src="/images/icons/loader.gif"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                     You are currently using the template: <a href="">ALISTIXS DEFAULT TEMPLATE</a>
+                     <br/><br/><br/>
+                     <img src="#" class="center" height="100" width="200" />
                   </div>
-                  </section>
-                  
-                  <section class="grid-bottm clearfix">
-                    <section class="gr-right pull-right">
-                      <ul class="legends">
-                        <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                        <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                        <li><i class="fa fa-trash"></i><span>delete</span></li>
-                      </ul>
-                    </section>
-                  </section>
+               </section>
             </section>
+         </section>
+         <!-- Templates -->
+
           </section>
+</section>
 
-<!-- Email Report Ends -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </form>
-
-    </div>
-    <!-- //Form COntainer --> 
+      </form>
+   </div>
+   <!-- //Form COntainer --> 
 </div>
