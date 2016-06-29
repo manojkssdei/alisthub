@@ -199,6 +199,27 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
 
+        /* Setting for view guest list */
+        .state('guest_list', {
+            url: '/guest_list/:eventId',
+            views: {
+              "lazyLoadView": {
+                controller: 'guestListController', // This view will use AppCtrl loaded below in the resolve
+                templateUrl: 'modules/events/views/guest_list.html'
+              },
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/events/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/events/guest_list_controller.js']);
+                })
+              }]
+            }
+        })
+
          /* Setting for event schedule listing */
         .state('event_schedule', {
             url: '/event_schedule/:eventId',
@@ -1157,6 +1178,30 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               }]
             }
         })
+
+    /* Setting for view user screen */   
+    .state('user_permission', {
+            url: '/user_permission/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'userPermissionController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/manage/views/user/user_permission.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+               authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/manage/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/manage/user_controller.js']);
+                })
+              }]
+            }
+        })
+
+    
 
         /* Setting for add user screen */
         .state('add_user', {

@@ -60,12 +60,12 @@
                                     
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>-->
                                     <td title="'Action'" class="action" width="20%">
-                                    <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
-                                    <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
-                                    <a title="Guest List" ng-if="pdata.recurring_or_not == 0" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>
-                                    <a title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
-                                    <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
-                                    <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
+                                        <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
+                                        <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
+                                        <a title="Guest List" ng-if="pdata.recurring_or_not == 0" href="/#/guest_list/{{pdata.id}}"><i class="fa fa-list-ul"></i></a>
+                                        <a title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
+                                        <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
+                                        <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 <tr ng-show="loader">

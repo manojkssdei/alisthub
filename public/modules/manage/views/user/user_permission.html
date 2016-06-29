@@ -1,0 +1,40 @@
+<div class="container">
+    <h1>User Permission</h1>
+    <div class="form-section  wt-frame">
+        <form class="event-form" name="addUserForm" novalidate>
+            <section class="gray-frame">
+                
+                <section class="grid-widget">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <tbody>
+                              <tr ng-repeat="data1 in $data">
+                                    <td title="'Email'" filter="{ name: 'text'}" sortable="'email'">{{data1.email}}</td>
+                                    <td  title="'MANAGE'" class="action">
+                                        <a title="Edit User" href="#/edit_user/{{data1.id}}"><i class="fa fa-edit"></i></a>
+                                        <a title="User Status"  ng-click="changeStatus(data1.id,data1.status)" ng-confirm-click="Would you like to change Venue status ?">
+                                         <i class="fa fa-check-circle" ng-if="data1.status == 1"></i>
+                                         <i class="fa fa-times" ng-if="data1.status == 0"></i>
+                                        </a>
+                                        <a title="Delete User" ng-click="deleteUser(data1.id)" ng-confirm-clicks="Would you like to delete this User?"  style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                                        <a title="Change permission" href="#/user_permission/{{data1.id}}" style="cursor: pointer;"><i class="glyphicon glyphicon-check"></i></a>
+                                    </td>
+                                </tr>
+                                <tr ng-show="loader">
+                                            <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                                        </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+
+
+            </section>
+        </form>
+        <div class="editor-btn">
+            <button class="pink-btn btn" ng-click="submitCreateUserForm()" ng-disabled="addUserForm.$invalid">SUBMIT</button>
+            <button class="pink-btn btn" ui-sref="view_user">CANCEL</button>         
+        </div>
+    </div>
+</div>
