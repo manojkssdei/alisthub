@@ -247,7 +247,7 @@ Created By: Deepak khokkar
 */
 exports.getEvents=function(req,res) {
   var user_id=req.body.user_id;
-  var sql="SELECT events.id, events.title, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id="+user_id;
+  var sql = "SELECT events.id, events.title, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id="+user_id;
 
   //console.log(req.body);
   connection.query(sql,function(err,result){
@@ -336,8 +336,9 @@ exports.getEvent=function(req,res) {
   // console.log(req.body);
     var event_id=req.body.event_id;
     if(event_id!=undefined){
-      var sql="SELECT *,events.venue_id as eventvenueId,events.custom_ages,events.define_custom_age,event_dates.date as eventdate FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id where events.id="+event_id;
-     
+      var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate,es.online_sales_close FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id  LEFT JOIN event_settings es ON events.id = es.event_id where events.id="+event_id;
+     console.log('sql ' , sql );
+
       connection.query(sql,function(err,result){
         if (err) {
           res.send({err:"error",code:101}); 
@@ -450,6 +451,7 @@ exports.getPricelevel=function(req,res){
     var eventId=req.body.eventId;
     if(eventId!=undefined){
       var sql="SELECT * FROM price_levels where event_id="+eventId;
+      console.log('sql ' , sql);
       connection.query(sql,function(err,result){
          
           if (err) {

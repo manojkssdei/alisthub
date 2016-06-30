@@ -78,6 +78,9 @@ exports.getBundlesInPackage=function(req,res) {
 
 exports.getProductsInPackage=function(req,res) {
 
+console.log('req.body' ,  req.body ); 
+console.log('req.body.eventsInPackage , ' , req.body.eventsInPackage );
+
 	var condition = "";
     if (req.body.user_id != "" && req.body.user_id != "[]" && req.body.user_id != "undefined") {
         condition = " ep.seller_id =" + req.body.user_id;
@@ -87,11 +90,15 @@ exports.getProductsInPackage=function(req,res) {
         condition+= " AND ep.package_id =" + req.body.package_id;
     }
 
- 	if(req.body.eventsInPackage!= '' && req.body.eventsInPackage != undefined && req.body.eventsInPackage != "[]") {
+ 	if(req.body.eventsInPackage != '' && req.body.eventsInPackage != undefined && req.body.eventsInPackage != "[]") {
 		var strold = req.body.eventsInPackage;
-        var strnew = strold.substr(1, strold.length - 2);
-        condition += " OR ep.event_id IN (" + strnew + ")";
-	}
+        var strnew = '';
+        if(strold != '') {
+          strnew = strold.substr(1, strold.length - 2);
+           condition += " OR ep.event_id IN (" + strnew + ")";
+  }
+        }
+       
 
     if(req.body.package_id!=undefined){
 

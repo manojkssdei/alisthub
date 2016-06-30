@@ -255,7 +255,8 @@
                                     <label class="label-padding">Fee Type</label>
                                   </div>
                                   <div class="col-sm-9">
-                                    <select class="form-control" name="custom_fee_type" ng-model="data.custom_fee_type" tooltips tooltip-template="Select whether the fee is a fixed amount or a percentage of the order total.">
+                                  <!--  ng-model="data.custom_fee_type" tooltips tooltip-template="Select whether the fee is a fixed amount or a percentage of the order total." -->
+                                    <select class="form-control" name="custom_fee_type" >
                                         <option value="1">Fixed Amount</option>
                                     </select>
                                   </div>
@@ -279,7 +280,8 @@
                                     <label class="label-padding">When to Apply Fee</label>
                                   </div>
                                   <div class="col-sm-9">
-                                    <select class="form-control" name="custom_when" ng-model="data.custom_when" tooltips tooltip-template="Select whether to apply this fee to the order before or after a discount coupon has adjusted the order total. If no discount coupons are in effect, this option will not affect the order.">
+                                  <!-- tooltips tooltip-template="Select whether to apply this fee to the order before or after a discount coupon has adjusted the order total. If no discount coupons are in effect, this option will not affect the order." -->
+                                    <select class="form-control" name="custom_when" ng-model="data.custom_when" >
                                         <option value="1">Before Discount</option>
                                     </select>
                                   </div>
@@ -342,7 +344,7 @@
                                         <label class="label-padding">Ticket Transaction Limit</label>
                                       </div>
                                       <div class="col-sm-7">
-                                        <input type="text" placeholder="Ticket Transaction Limit" class="form-control" value="" name="StartTime"  ng-model="data.ticket_transaction_limit" tooltips tooltip-template="The maximum number of tickets that can be purchased in one transaction. Must be a number between 1 – 100.">
+                                        <input type="number" placeholder="Ticket Transaction Limit" class="form-control" value="" name="StartTime"  ng-model="data.ticket_transaction_limit" min="0" max="100" tooltips tooltip-template="The maximum number of tickets that can be purchased in one transaction. Must be a number between 1 – 100.">
                                       </div>
                                       <div class="col-sm-2 info-padding">
 
@@ -356,7 +358,7 @@
                                         <label class="label-padding">Checkout Time Limit</label>
                                       </div>
                                       <div class="col-sm-7">
-                                        <input type="text" placeholder="Checkout Time Limit" class="form-control" value="" name="StartTime"  ng-model="data.checkout_time_limit" tooltips tooltip-template="The amount of time given to a customer to complete the checkout process.">
+                                        <input type="number" placeholder="Checkout Time Limit" class="form-control" value="" name="StartTime" min="0" max="100" ng-model="data.checkout_time_limit" tooltips tooltip-template="The amount of time given to a customer to complete the checkout process. Must be a number between 1 – 100.">
                                       </div>
                                       <div class="col-sm-2 info-padding">
 

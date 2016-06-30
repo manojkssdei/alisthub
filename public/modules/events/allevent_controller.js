@@ -5,7 +5,7 @@ Created By: Deepak Khokkar
 Module : Events Home 
 */
 
-angular.module('alisthub').controller('allEventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams) { 
+angular.module('alisthub').controller('allEventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams,$stateParams) { 
     
     $rootScope.class_status=false;
     var eventService = $injector.get("events");
@@ -18,6 +18,9 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
         $scope.navCollapsed = $scope.navCollapsed === false ? true: false;
       };	  
     }
+    console.log($stateParams);
+    
+    
     $scope.seller_id = $localStorage.userId;
     //upcomming event list
     $rootScope.getAllEvent = function(allevent) {
@@ -52,9 +55,19 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
         }
       });
     }
+    
+    
 
-    $scope.getAllEvent();
-
+    if ($stateParams.type) {
+	$scope.allevent = {};
+	$scope.getAllEvent({eventType:$stateParams.type});
+	$scope.allevent.eventType = $stateParams.type;
+    }
+    else{
+	$scope.getAllEvent();
+    }
+    
+    
     $scope.recurringHref = function(eventId,recurringOrNot) {
       console.log(eventId+"__"+recurringOrNot); //return false;
       if(recurringOrNot==0){

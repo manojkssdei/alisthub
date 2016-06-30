@@ -2,7 +2,7 @@
 Method: saveEvent
 Description:Function to save event data for user 
 Created : 2016-04-19
-Created By: Deepak khokkar  
+Created By: Manoj Kumar Singh 
 */
 var moment       = require('moment-timezone');
 var showClix   = require('./../../showclix/service.js');
@@ -10,8 +10,8 @@ var showClix   = require('./../../showclix/service.js');
 /** 
 Method: saverecurringEvent
 Description:Function to save event recurring data  
-Created : 2016-04-19
-Created By: Deepak khokkar  
+Created : 2016-06-16
+Created By: Manoj Kumar Singh
 */
 exports.saverecurringEvent=function(req,res){
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -71,13 +71,13 @@ exports.saverecurringEvent=function(req,res){
        else // For Insert parent event
        {
         var save_query = "INSERT INTO `events` (`id`, `user_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `repeat_every`, `monthly_option`, `monthly_week_value`, `monthly_day_value`, `event_domain`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+data.content+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+data.repeat_every+"', '"+data.monthly_option+"', '"+data.monthly_week_value+"', '"+data.monthly_day_value+"', '"+data.eventurl+"', '"+curtime+"')";
-        var showClix2 = new showClix();
+        /*var showClix2 = new showClix();
                   showClix2.add_series_event(data,res,function(data){
                     if (data.status == 1) {
                       //res.json({result:results,showclix:data.location,code:200});
                     } else {                     
                     }
-        });
+        });*/
        }
         // Save Parent Event
         connection.query(save_query,function(perr,presult){
@@ -140,7 +140,7 @@ exports.saverecurringEvent=function(req,res){
    // server side validation
    if(data.eventname !== undefined && data.eventurl !== undefined && data.eventtype !== undefined && data.date_time_series !== undefined && data.userId !== undefined){
     var query = "";
-    
+    console.log("000000");
     // Venue if add new venue  
     // server side validation
     if (data.venue_event_div == true && data.venue_id !== undefined) {
@@ -351,7 +351,7 @@ exports.getEventsdetail=function(req,res)
 Method: updatePriceChange
 Description:Function to change Price level data status 
 Created : 2016-05-18
-Created By: Deepak khokhar  
+Created By: Manoj Kumar Singh
 */
 exports.postseriesPriceChange = function(req,res) {
     
@@ -991,21 +991,27 @@ exports.addSeriesEventProduct = function(req,res){
         
     }
     
-    function saveChildProduct(req,parent)
+    function saveChildProduct(req,parent,product_parent)
     {
         var eventsquery = "select id from events where parent_id="+parent;
         connection.query(eventsquery,function(verr,vresult){
         var ids = vresult;
-        remove_level(ids);
+        remove_level(product_parent);
         if (ids != null && ids !== undefined)
         {
           ids.forEach(function(childs){
                     ////////////////////////////////////////////////
             var child_bundle_id = childs.id;
-            var query = "INSERT INTO `event_products` (`id`,`event_id`, `seller_id`, `product_id`, `price`, `hide_in_box_office`, `placement_listing`, `placement_confirmation`,`created`,`status`) VALUES (NULL, '"+child_bundle_id+"' , '"+req.body.seller_id+"', '"+req.body.product_id+"', '"+req.body.price+"', '"+hide_in_box_office+"', '"+placement_listing+"', '"+placement_confirmation+"', '"+curtime+"',1 )";
             
+            var query = "INSERT INTO `event_products` (`id`, `event_id`, `parent_id`, `seller_id`, `product_id`, `price`, `hide_in_box_office`, `placement_listing`, `placement_confirmation`, `status`, `created`) VALUES (NULL, '"+child_bundle_id+"', '"+product_parent+"', '"+req.body.seller_id+"', '"+req.body.product_id+"', '"+req.body.price+"', '"+req.body.hide_in_box_office+"', '"+req.body.placement_listing+"', '"+req.body.placement_confirmation+"', '"+curtime+"', 1)";
+            
+          //  var query = "INSERT INTO `event_products` ('id', 'event_id', 'parent_id', 'seller_id', 'product_id', 'price', 'hide_in_box_office', 'placement_listing', 'placement_confirmation','created','status') VALUES (NULL, '"+child_bundle_id+"', '"+product_parent+"' , '"+req.body.seller_id+"', '"+req.body.product_id+"', '"+req.body.price+"', '"+hide_in_box_office+"', '"+placement_listing+"', '"+placement_confirmation+"', '"+curtime+"',1)";
+            
+            console.log(query);
+            console.log("==============================");
             connection.query(query, function(err, results) {
             
+            console.log(results);
              
             });
         });
@@ -1046,16 +1052,17 @@ exports.addSeriesEventProduct = function(req,res){
         if (err7) {
           res.json({error:err7,code:101});
         }
+         var parent_id = req.body.event_id;
          
-         if (req.body.id !== undefined && req.body.id != '') {
-            var parent_id = req.body.id;
+        if (req.body.id !== undefined && req.body.id != '') {
+            
+            saveChildProduct(req,parent_id,req.body.id);
         }
         else{
-            var parent_id = results.insertId;
+            var product_parent = results.insertId;
+            saveChildProduct(req,parent_id,product_parent);
         }
-         
-        saveChildProduct(req,parent_id);
-        
+                
         res.json({result:results,code:200 });
       });
     }
@@ -1162,6 +1169,7 @@ exports.saveSeriesSetting = function(req,res) {
     {
         var eventsquery = "select id from events where parent_id="+parent;
         connection.query(eventsquery,function(verr,vresult){
+           
         var ids = vresult;
         if (ids != null && ids !== undefined)
         {
@@ -1170,18 +1178,19 @@ exports.saveSeriesSetting = function(req,res) {
             var child_id = childs.id;
             
             var squery = "Select COUNT(*) AS exist from `event_settings` where event_id = "+ child_id;
-     
+            
             connection.query(squery, function(err8, selectResponse) {
               
               console.log(selectResponse[0].exist);
         
               if(selectResponse[0].exist > 0) {
-                var uquery = "UPDATE `event_settings` SET "+ fieldsData +"  `event_id` = '" + child_id + "',`modified` = '" + curtime + "' WHERE event_id= " + child_id;
+                var uquery = "UPDATE `event_settings` SET "+ fieldsData +"  `event_id` = '" + child_id + "' ,`parent_id` = '" + parent + "',`modified` = '" + curtime + "' WHERE event_id= " + child_id;
                 connection.query(uquery, function(err, results) {
                   
                 });
               } else {
-                var query = "INSERT INTO `event_settings` SET "+ fieldsData + "  `event_id` = '" + child_id + "' ,`created` = '" + curtime +"' , `modified` = '" + curtime +"'";
+                var query = "INSERT INTO `event_settings` SET "+ fieldsData + "  `event_id` = '" + child_id + "' ,`parent_id` = '" + parent + "',`created` = '" + curtime +"' , `modified` = '" + curtime +"'";
+               
                 connection.query(query, function(err7, responce) {
                                  
                 });
@@ -1228,3 +1237,36 @@ exports.saveSeriesSetting = function(req,res) {
     });
     
 }
+
+/** 
+Method: removeSeriesEventProduct
+Description:Function to remove the event product entry 
+Created : 2016-06-27
+Created By: Manoj Kumar Singh
+*/
+exports.removeSeriesEventProduct=function(req,res){
+    
+    function remove_level(id)
+    {
+        var qu = "Delete from event_products where parent_id="+id;
+        console.log(qu);
+        connection.query(qu,function(err,result){
+        });
+        
+    }
+    
+    var eventProductDeleteId=req.body.eventProductDeleteId;
+    var sql="Delete FROM event_products where id="+eventProductDeleteId;
+    
+    connection.query(sql,function(err,result){
+       
+        if (err) {
+           res.send({err:"error",code:101}); 
+        }
+        remove_level(eventProductDeleteId);
+        res.send({"message":"success",code:200});  
+        
+    });
+}
+
+

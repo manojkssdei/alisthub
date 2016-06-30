@@ -28,7 +28,7 @@
                         <section class="col-sm-6 right-btns text-right">
                             <section class="inline-section">
                                 <select class="form-control select30" name="eventType" ng-model="allevent.eventType" ng-change="getAllEvent(allevent)">
-                                    <option disabled value="">Event Type</option>
+                                    <option value="">Event Type</option>
                                     <option value="single">Single Event</option>
                                     <option value="series">Series Event</option>
                                 </select>
@@ -36,7 +36,7 @@
                             
                             <section class="inline-section">
                                 <select class="form-control select30" name="eventFilter" ng-model="allevent.eventFilter" ng-change="getAllEvent(allevent)">
-                                    <option disabled="" value="">No Filter</option>
+                                    <option  value="">No Filter</option>
                                     <option value="upcoming">Upcoming</option>
                                     <option value="past">Past</option>
                                     <option value="approval">For Approval</option>
@@ -60,19 +60,19 @@
                                     
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>-->
                                     <td title="'Action'" class="action" width="20%">
-                                    <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
-                                    <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
-                                    <!--<a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>-->
-                                    <a title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
-                                    <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
-                                    <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
+                                        <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
+                                        <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
+                                        <a title="Guest List" ng-if="pdata.recurring_or_not == 0" href="/#/guest_list/{{pdata.id}}"><i class="fa fa-list-ul"></i></a>
+                                        <a title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
+                                        <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
+                                        <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 <tr ng-show="loader">
                                     <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
 
                                 </tr>
-			                    <tr ng-if="$data == ''">
+			        <tr ng-if="$data == ''">
                                     <td colspan="4" align="center">No Record found!</td>
                                 </tr>
                                 <tr ng-show="eventloader">

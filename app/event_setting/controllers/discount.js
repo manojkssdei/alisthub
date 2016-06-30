@@ -877,3 +877,69 @@ var query_value = " UPDATE `discount_assignments` SET `discount_id` =" + discoun
             }
         }
 }
+
+
+/*
+exports.getDiscountsOfEvent = function(req,res){
+console.log('getDiscountsOfEvent')
+  var query = "SELECT * FROM discount_assignments da JOIN discounts d ON da.seller_id = d.seller_id AND da.discount_id = d.id WHERE da.seller_id ="+req.body.userId+ "  AND da.event_id =  "+req.body.eventId;
+
+  console.log('-------------------------');
+  console.log(query);
+  
+  connection.query(query, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+    console.log('results' , results);
+      res.json({result:results,code:200});
+  });
+}
+*/
+
+
+exports.getCountDiscountsOfEvent = function(req,res){
+console.log('getDiscountsOfEvent')
+  var query = "SELECT count(*) as count FROM discount_assignments da JOIN discounts d ON da.seller_id = d.seller_id AND da.discount_id = d.id WHERE da.seller_id ="+req.body.userId+ "  AND da.event_id =  "+req.body.eventId;
+
+  console.log('-------------------------');
+  console.log(query);
+  
+  connection.query(query, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+    console.log('results' , results);
+      res.json({result:results,code:200});
+  });
+}
+
+
+
+
+
+exports.getDiscountsOfEvent = function(req, res) {
+req.body.seller_id = req.body.userId;
+ 
+var query_discount_assignments_individual = 'SELECT da . * , e.title, pl.price_level_name,dis.coupon_name , dis.coupon_code, dis.coupon_type FROM discount_assignments da INNER JOIN events e ON e.id = da.event_id LEFT JOIN discounts dis ON dis.id = da.discount_id LEFT JOIN price_levels pl ON da.price_level = pl.id WHERE da.seller_id =' + req.body.seller_id + ' AND da.event_id =' + req.body.eventId;
+
+ var query_discount_assignments_global = 'SELECT * from discount_assignments where seller_id=' + req.body.seller_id + ' and event_id = ' + req.body.eventId +' and event_type = 1 and event_id IS NULL AND price_level_type = 1 and price_level IS NULL'; 
+
+console.log('query_discount_assignments_individual' , query_discount_assignments_individual );
+console.log('query_discount_assignments_global' , query_discount_assignments_global );
+
+    connection.query(query_discount_assignments_individual, function(error_individual, discountAssignments) {
+        if (error_individual) {
+            res.json({ error: error_individual, code: 101 });
+        }
+
+        connection.query(query_discount_assignments_global, function(error_global, globalDiscountAssignments) {
+            if (error_global) {
+                res.json({ error: error_global, code: 101 });
+            }
+
+            res.json({ discount:discountAssignments , discountAssignments: discountAssignments, globalDiscountAssignments:globalDiscountAssignments, code: 200 });
+        });
+      });
+  
+}

@@ -159,7 +159,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
         
         /* Setting for view event screen */
         .state('view_all_event', {
-            url: '/view_all_event',
+            url: '/view_all_event/:type',
             views: {
                 "lazyLoadView": {
                   controller: 'allEventController', // This view will use AppCtrl loaded below in the resolve
@@ -173,6 +173,48 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 return $ocLazyLoad.load('modules/events/service.js').then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/events/allevent_controller.js']);
+                })
+              }]
+            }
+        })
+
+        /* Setting for view all package events */
+        .state('view_package_event', {
+            url: '/view_package_event',
+            views: {
+              "lazyLoadView": {
+                controller: 'allpackageController', // This view will use AppCtrl loaded below in the resolve
+                templateUrl: 'modules/event_package/views/view_package_event.html'
+              },
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_package/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_package/allpackage_controller.js']);
+                })
+              }]
+            }
+        })
+
+        /* Setting for view guest list */
+        .state('guest_list', {
+            url: '/guest_list/:eventId',
+            views: {
+              "lazyLoadView": {
+                controller: 'guestListController', // This view will use AppCtrl loaded below in the resolve
+                templateUrl: 'modules/events/views/guest_list.html'
+              },
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/events/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/events/guest_list_controller.js']);
                 })
               }]
             }
@@ -226,7 +268,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             
             views: {
                 "lazyLoadView": {
-                  controller: 'eventviewController', // This view will use AppCtrl loaded below in the resolve
+                  controller: 'singleEventViewController', // This view will use AppCtrl loaded below in the resolve
                   templateUrl: 'modules/events/views/single_event_overview.html'
                 }
             },
@@ -234,9 +276,9 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load(['modules/events/service.js','modules/step_event/service.js']).then(function(){
+                return $ocLazyLoad.load(['modules/events/service.js','modules/step_event/service.js' , 'modules/event_setting/services/question_service.js' , 'modules/event_setting/services/discount_service.js' ]).then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/events/views/eventviewController.js']);
+                return $ocLazyLoad.load(['modules/events/single_event_overview_controller.js']);
                 })
               }]
             }
@@ -508,7 +550,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
             views: {
                 "lazyLoadView": {
-                  controller: 'createpackageController',
+                  controller: 'createpackageControllerTwo',
                   templateUrl: 'modules/event_package/step2/views/event_package_step_2.html'
                 }
             },
@@ -529,7 +571,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
             views: {
                 "lazyLoadView": {
-                  controller: 'createpackageController',
+                  controller: 'createpackageControllerThree',
                   templateUrl: 'modules/event_package/step3/views/event_package_step_3.html'
                 }
             },
@@ -936,6 +978,28 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
 
+
+      .state('view_event_discounts', {
+            url: '/view_event_discounts/:eventOverviewId',
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageDiscountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/discount/view_event_discounts.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/services/discount_service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                })
+              }]
+            }
+        })
+
+
         /* Setting for assign discount screen */
         .state('assign_discount', {
             url: '/assign_discount/:assign',
@@ -1136,6 +1200,30 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               }]
             }
         })
+
+    /* Setting for view user screen */   
+    .state('user_permission', {
+            url: '/user_permission/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'userPermissionController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/manage/views/user/user_permission.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+               authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/manage/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/manage/user_controller.js']);
+                })
+              }]
+            }
+        })
+
+    
 
         /* Setting for add user screen */
         .state('add_user', {

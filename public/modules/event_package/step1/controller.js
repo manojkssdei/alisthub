@@ -163,7 +163,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
         $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
     };
 
-    $scope.toggleMin();
+    //$scope.toggleMin();
 
     /************** calender ends ****************/
 
@@ -285,6 +285,9 @@ $scope.data.image_1 = $scope.data.image ;
         console.log('menu', menu);
         console.log('menu.id', menu.id);
 
+console.log('$localStorage.packageId' , $localStorage.packageId);
+
+
         if (menu.id == 1) {
            // do nothing stay on step 1
         }
@@ -293,19 +296,34 @@ $scope.data.image_1 = $scope.data.image ;
             console.log('$localStorage.packageId', $localStorage.packageId);
             console.log('$rootScope.packageId', $rootScope.packageId);
 
-            if ($localStorage.packageId !== '' && $rootScope.packageId  == "" && $state.params.packageId != '') {
+            if ($localStorage.packageId != undefined && $localStorage.packageId !== '' && $rootScope.packageId  == "" && $state.params.packageId != '') {
                 console.log(' edit case......... go ..............');
+
                 $location.path("/event_package_step_2/" + $localStorage.packageId);
             }
 
-            if ($localStorage.packageId !== '' && $rootScope.packageId  !== "" && $rootScope.packageId === $localStorage.packageId ) {
-                console.log(' edit case......... go ..............');
+            if ($localStorage.packageId != undefined && $localStorage.packageId != '' && $rootScope.packageId  !== "" && $rootScope.packageId === $localStorage.packageId ) {
+                console.log(' edit case......... goooooooooo ..............');
                 $location.path("/event_package_step_2/" + $localStorage.packageId);
             }
 
-            if ($localStorage.packageId == '' && $rootScope.packageId === $localStorage.packageId) {
+            if ($localStorage.packageId == undefined && $rootScope.packageId == '' ) {
                 console.log('save & go in case of direct edit');
-                $scope.stepOne();
+
+                           if($localStorage.packageId == undefined || $localStorage.packageId =='' || $localStorage.packageId == 'undefined') {
+    console.log('empty package id, break the code here');
+
+      $scope.error_message = false;
+                $scope.error = global_message.error_in_step1;
+                $timeout(function() {
+                    $scope.error = '';
+                    $scope.error_message = true;
+                }, 3000);
+
+    return false;
+}
+
+               // $scope.stepOne();
                 $location.path("/event_package_step_2/" + $localStorage.packageId);
             }
 
@@ -318,6 +336,19 @@ $scope.data.image_1 = $scope.data.image ;
             console.log('in cond 2');
             console.log('$localStorage.packageId', $localStorage.packageId);
             console.log('$rootScope.packageId', $rootScope.packageId);
+
+            if($localStorage.packageId == undefined || $localStorage.packageId =='' || $localStorage.packageId == 'undefined') {
+    console.log('empty package id, break the code here');
+
+      $scope.error_message = false;
+                $scope.error = global_message.error_in_step1;
+                $timeout(function() {
+                    $scope.error = '';
+                    $scope.error_message = true;
+                }, 3000);
+
+    return false;
+}
 
             if ($localStorage.packageId !== '' && $rootScope.packageId  == "" && $state.params.packageId != '') {
                 console.log(' edit case......... go ..............');
@@ -346,6 +377,8 @@ $scope.data.image_1 = $scope.data.image ;
 
     $scope.changedendtime = function() {
 
+console.log('$scope.data.online_sales_open_date' , $scope.data.online_sales_open_date);
+console.log('$scope.data.online_sales_open_time' , $scope.data.online_sales_open_time);
         if ($scope.data.immidiately != 1 && $scope.data.online_sales_open_date !== '' && $scope.data.online_sales_open_date != undefined && $scope.data.online_sales_close_date != '' && $scope.data.online_sales_close_date != undefined) {
 
             var od = $scope.data.online_sales_open_date;
@@ -382,6 +415,9 @@ $scope.data.image_1 = $scope.data.image ;
                     }
                 }
             }
+console.log(' ------------------------------ ' );
+console.log('$scope.data.online_sales_open_date' , $scope.data.online_sales_open_date);
+console.log('$scope.data.online_sales_open_time' , $scope.data.online_sales_open_time);
             //$scope.select_delect_event = false;
             //$rootScope.endevent_time = $filter('date')($scope.endtime, 'shortTime');
         }
@@ -774,7 +810,7 @@ console.log('$scope.eventcheckbox ' , $scope.eventcheckbox );
     };
 
     $scope.dateOptions = {
-        dateDisabled: disabled,
+        //dateDisabled: disabled,
         formatYear: 'yy',
         minDate: new Date(),
         startingDay: 1
