@@ -921,7 +921,7 @@ console.log('getDiscountsOfEvent')
 exports.getDiscountsOfEvent = function(req, res) {
 req.body.seller_id = req.body.userId;
  
-var query_discount_assignments_individual = 'SELECT da . * , e.title, pl.price_level_name,dis.coupon_name , dis.coupon_code, dis.coupon_type FROM discount_assignments da INNER JOIN events e ON e.id = da.event_id LEFT JOIN discounts dis ON dis.id = da.event_id LEFT JOIN price_levels pl ON da.price_level = pl.id WHERE da.seller_id =' + req.body.seller_id + ' AND da.event_id =' + req.body.eventId;
+var query_discount_assignments_individual = 'SELECT da . * , e.title, pl.price_level_name,dis.coupon_name , dis.coupon_code, dis.coupon_type FROM discount_assignments da INNER JOIN events e ON e.id = da.event_id LEFT JOIN discounts dis ON dis.id = da.discount_id LEFT JOIN price_levels pl ON da.price_level = pl.id WHERE da.seller_id =' + req.body.seller_id + ' AND da.event_id =' + req.body.eventId;
 
  var query_discount_assignments_global = 'SELECT * from discount_assignments where seller_id=' + req.body.seller_id + ' and event_id = ' + req.body.eventId +' and event_type = 1 and event_id IS NULL AND price_level_type = 1 and price_level IS NULL'; 
 

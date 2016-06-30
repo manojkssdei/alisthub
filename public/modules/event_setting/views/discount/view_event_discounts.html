@@ -1,20 +1,11 @@
 <div class="container">
-    <h1 >Coupons for {{event_title}} </h1> 
+    <h1 >Coupons for {{event_title}} Event name </h1> 
     <!--<a href="1"  tooltips tooltip-template="tooltip" > hello </a>-->
     <!-- Form COntainer -->
     <div class="wt-frame form-section">
         <form class="event-form">
             <!-- Event Detail Form -->
-            <div class="form-group row">
-                <section class="col-sm-6">
-                    <section class="search-event">
-                        <input type="text" name="filter" class="form-control search-field" placeholder="Enter your keyword" ng-model="filter">
-                        <i class="fa fa-search"></i>
-                    </section>
-                </section>
-            </div>
-
-
+          
  <div class="form-group row">
                 <section class="col-sm-12">
                     <section class="search-event">
@@ -25,7 +16,6 @@
             </div>
 
            
-
 
             <!--Ticket Types Start -->
             <div class="module">
@@ -88,7 +78,7 @@
                            
                               <tr ng-if="data1 == data.common_id" ng-repeat="data in discountAssignments | filter:filter">
 
-                                 <td  header-class="'header-text-align'" title="'Discount Name'" filter="{ coupon_name: 'text'}" sortable="'coupon_name'"  ><strong>hi........{{data.coupon_name}}</strong>
+                                 <td  header-class="'header-text-align'" title="'Discount Name'" filter="{ coupon_name: 'text'}" sortable="'coupon_name'"  ><strong>{{data.coupon_name}}</strong>
                                  </td>
 
 
@@ -99,28 +89,22 @@
  <td header-class="'header-text-align'" title="'Discount Name'" filter="{ coupon_type: 'text'}" sortable="'coupon_type'"  ><strong>{{data.coupon_type}}</strong>
                                  </td>
 
+ Total Used     Uses on This Event  Held
 
-                                 <td  header-class="'header-text-align'" title="'Event Name'" filter="{ coupon_name: 'text'}" sortable="'title'"  ><strong>{{data.title}}</strong>
-                                 </td>
                                  <td   header-class="'header-text-align'" title="'Price Level'" filter="{ coupon_type: 'text'}" sortable="'price_level_name'" ><span ng-if="data.price_level_name != NULL" >{{data.price_level_name}}</span>
+
                                  <span ng-if="data.price_level_name == NULL" >All Price Levels</span>
 
                                  </td>
 
-                                 <td   header-class="'header-text-align'" title="'Start Date'" filter="{ start_date: 'text'}" sortable="'start_date'" >{{data.start_date | date:"dd MMMM yyyy"}}
+                                 <td   header-class="'header-text-align'" title="'Start Date'" filter="{ start_date: 'text'}" sortable="'start_date'" >{{data.start_date | date:"dd MMMM yyyy"}}<span ng-if="data.start_time != 'undefined' && data.start_time != '' ">{{data.start_time}}</span>
                                  </td>
 
-                                 <td  width="15%" header-class="'header-text-align'" title="'End Date'" filter="{ end_date: 'text'}" sortable="'end_date'" >{{data.end_date | date:"dd MMMM yyyy"}}
+                                 <td  width="15%" header-class="'header-text-align'" title="'End Date'" filter="{ end_date: 'text'}" sortable="'end_date'" >{{data.end_date | date:"dd MMMM yyyy"}}<span ng-if="data.end_time != 'undefined' && data.end_time != '' ">{{data.end_time}}</span>
                                  </td>
 
-                                 <td  width="10%" header-class="'header-text-align'" title="'Start Time'" filter="{ start_time: 'text'}" sortable="'start_time'" ><span ng-if="data.start_time != 'undefined' && data.start_time != '' ">{{data.start_time}}</span>
-                                 </td>
 
-                                 <td  width="10%" header-class="'header-text-align'" title="'End Time'" filter="{ end_time: 'text'}" sortable="'end_time'" ><span ng-if="data.end_time != 'undefined' && data.end_time != '' ">{{data.end_time}}</span>
-                                 </td>
-
-                                
-                                 <td  width="10%" title="'Action'"  class="action unassign">
+                                 <td  width="10%" title="'Manage'"  class="action unassign">
                                     
                                     <a ng-click="delDiscountAssignment(data.id)" ng-confirm-clicks="Would you like to delete this Discount?"  ><i class="fa fa-trash"></i></a>
                                  </td>
@@ -140,11 +124,7 @@
 
 <section class="grid-bottm clearfix">
 
-                        <section class="gr-right pull-right">
-                            <ul class="legends">
-                                <li><i class="fa fa-trash"></i><span>Unassign</span></li>
-                            </ul>
-                        </section>
+                        
                 </section>
 
                </section>
@@ -159,9 +139,7 @@
                         </section>
                         <section class="gr-right pull-right">
                             <ul class="legends">
-                                <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                                <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                                <li><i class="fa fa-trash"></i><span>delete</span></li>
+                                <li><i class="fa fa-trash"></i><span>Unassign</span></li>
                             </ul>
                         </section>
                     </section>
