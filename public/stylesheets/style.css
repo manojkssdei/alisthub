@@ -6,6 +6,7 @@
 
 /* Reset CSS
    ========================================================================== */
+   html, body {height: 100%;}
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
 margin: 0; padding: 0; border: 0; /*font-size: 100%; font: inherit;*/ vertical-align: baseline;}
 
@@ -113,12 +114,13 @@ nav.navbar-default  a.navbar-brand{ display: none;}
 
 /* Content CSS
    ========================================================================== */
-h1{ color: #333333; font-size: 40px; font-weight: 700; text-transform: uppercase; text-align: center; padding-top: 60px; padding-bottom: 35px;}
+h1{ color: #333333; font-size: 30px; font-weight: 600; text-transform: uppercase; text-align: center; padding-top: 30px; padding-bottom: 30px; margin-bottom:0;}
+
 
 
 /* Step Form CSS
    ========================================================================== */
-.stage-container {padding: 15px 0px 30px;   margin: auto; max-width: 650px; }
+.stage-container {padding: 0 0px 30px;   margin: auto; max-width: 650px; }
 .stage-container-product {padding: 15px 0px 30px;   margin: auto; max-width: 494px; }
 .btn-date {width:170px;}
 .stage-container .stage { cursor:pointer; display: inline-block; position: relative; text-align: center; width:161px; padding: 0 15px; float:left;	}
@@ -143,7 +145,7 @@ h1{ color: #333333; font-size: 40px; font-weight: 700; text-transform: uppercase
 .stage-container .stage.current .stage-title, .stage-container .stage:hover .stage-title  { color: #c129b9;}
 
 /** Form Css **/
-.wt-frame{ background-color: #ffffff; padding: 40px 68px; margin-top: 30px;}
+.wt-frame{ background-color: #ffffff; padding: 40px 68px; /*margin-top: 30px;*/}
 .form-section fieldset {display: none;}
 .form-section .form-group { margin-bottom: 20px;}
 .form-section .field-group { padding-top: 20px;}
@@ -195,8 +197,13 @@ select.form-control{padding:6px 12px; font-style:normal; font-style:italic; colo
 
 .gray-btn{background:#969696;}
 
-footer{background:#0275d0;padding:50px 0px; color:#fff; font-size:13px; line-height:20px;}
-footer h2{color:#fff;font-size:18px;font-weight:bold; margin-bottom:25px;}
+#wrapper{min-height:100%; margin-bottom:-370px;}
+#wrapper:after {content: ""; display: block;}
+footer, #wrapper:after {height: 370px; }
+
+footer{background:#0275d0; color:#fff; font-size:13px; line-height:20px;}
+footer .container{padding-top:50px; padding-bottom:50px;}
+footer h2{color:#fff;font-size:18px;font-weight:bold; margin-bottom:25px; text-transform:capitalize;}
 .f-links li{font-size:13px; margin-bottom:12px; background:url(./images/arrow-wt.png) no-repeat left 7px; padding-left:16px;}
 .f-links li a{color:#fff; text-decoration:none;}
 .f-links li a:hover{color:#fff; text-decoration:underline;}
@@ -218,6 +225,10 @@ footer i{color:#fff;}
 .socialmedia > li a:hover{background:rgba(255,255,255,1);}
 .socialmedia > li a:hover .fa{color:#333;}
 .socialmedia > li a .fa{display:table-cell; vertical-align:middle;}
+
+.footer_nav {color: #fff; padding: 20px 0 0;}
+.footer_nav a {color: #fff; display: inline-block; font-size: 14px; font-weight: 700; margin: 0 13px; text-transform: capitalize;}
+.footer_nav a:first-child {margin-left: 0;}
 
 #venue-event .bootstrap-select.btn-group .dropdown-toggle .caret{border-left:10px solid transparent;border-right:10px solid transparent;border-top:10px dashed; color:#b3b3b3;}/*Select*/
 .btn{border-radius:0px;}
@@ -618,7 +629,7 @@ table:focus {
      display:block;
 }
 /*-------20160523--------*/
-.temp-image{padding:3px; border:1px #ccc solid; margin-bottom:10px; text-align:center;}
+.temp-image{padding:3px; border:1px #ccc solid; margin-bottom:10px; text-align:center; height:270px; overflow:hidden;}
 .temp-image img{max-width:100%;}
 .head{font-size:18px; margin-bottom:15px; border-bottom:1px #ccc solid; padding-bottom:15px;}
 .temp-view:hover .temp-image{border-color:#0275d0;}
@@ -689,7 +700,10 @@ color-picker{float: right !important;}
 .instagram-net .network-icon{background:#517fa4;}
 .youtube-net .network-icon{background:#e2302f;}
 
-.f-links a{color:#fff; margin:0 10px 10px; display:inline-block;}
+/*.f-links a{color:#fff; margin:0 10px 10px; display:inline-block;}*/
+.f-links li{font-size:13px; margin-bottom:12px; background:url(../images/arrow-wt.png) no-repeat left 7px; padding-left:16px;}
+.f-links li a{color:#fff; text-decoration:none;}
+.f-links li a:hover{color:#fff; text-decoration:underline;}
 .copy{font-size:11px;}
 
 .event-module{margin-bottom:20px;}
@@ -757,3 +771,32 @@ color-picker{float: right !important;}
 } 
 .content .wrap-word > p{ padding: 3%;}
 .gray-frame1 {   background: rgba(0, 0, 0, 0) url("./images/bg/bg.jpg") no-repeat scroll center top / cover ;}
+
+.event-status-container {
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.event-status {
+    font-size: 1em;
+    font-weight: 700;
+    line-height: normal;
+    padding: 20px;
+    text-align: center;
+}
+.analytics-enabled-status, .status-onsale {
+    background-color: #e2f8e4;
+    border: 1px solid #a1dda8;
+    border-radius: 2px;
+    color: #6fc076;
+}
+
+.event-status-type {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0.25em 0;
+}
+.event-status-detail {
+    color: #555;
+    font-size: 0.75em;
+}

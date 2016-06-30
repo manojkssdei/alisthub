@@ -1,7 +1,9 @@
 angular.module('alisthub').controller('seriesStep2Controller', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
   $scope.loader = false;
   
-
+  if (!$stateParams.eventId){
+    $location.path("/create_series_step1");
+  }
   //For Step 1
   var $serviceTest = $injector.get("venues");
   
@@ -50,16 +52,14 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
   
   if ($stateParams.eventId) {
    $scope.eventId = $stateParams.eventId;
-  }else{
-    $localStorage.eventId = "";
   }
-   
+   $scope.pageloader = true;
     $serviceTest.getEvent({'event_id':$scope.eventId},function(response){
-        
+                $scope.pageloader = false;   
                 $scope.data1=response.results[0];
-		$scope.data1.facebook=response.results[0].facebook_url;
-		$scope.data1.twitter=response.results[0].twitter_url;
-		$scope.data1.eventwebsite=response.results[0].website_url;
+		$scope.data1.facebook=response.results[0].facebook_url != null?response.results[0].facebook_url:"";
+		$scope.data1.twitter=response.results[0].twitter_url != null?response.results[0].twitter_url:"";
+		$scope.data1.eventwebsite=response.results[0].website_url != null?response.results[0].website_url:"";
 		$scope.data1.eventinventory=response.results[0].inventory;
 		$scope.data1.price=response.results[0].price_type;
     });
@@ -91,7 +91,7 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
 
   /* To fetch the product data related to specific event*/ 
   $scope.product = {};
-  $scope.product.eventId = $scope.eventId;
+  $scope.product.eventId = $stateParams.eventId;
   $scope.product.userId = $localStorage.userId;
   $serviceTest.getEventProducts($scope.product, function(response) {
     $rootScope.eventProductList = response.result;
@@ -744,9 +744,7 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
     if ($scope.items.eventId) {
       data1.eventId = $scope.items.eventId;
     }
-    else{
-      data1.eventId = $localStorage.eventId;
-    }
+   
     
     if (data1.eventId != null && data1.eventId !== undefined)
     {
@@ -901,9 +899,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
       if ($scope.items.eventId) {
 	$scope.bundle.event_id = $scope.items.eventId;
       }
-      else{
-	$scope.bundle.event_id = $localStorage.eventId;
-      }
+      
       
       $serviceTest.addseriesBundle($scope.bundle, function(response) {
 
@@ -921,9 +917,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
             if ($scope.items.eventId) {
 	      $scope.eventBundle.eventId = $scope.items.eventId;
 	    }
-	    else{
-	      $scope.eventBundle.eventId = $localStorage.eventId;
-	    }
+	    
             $scope.eventBundle.userId = $localStorage.userId;
 
             $serviceTest.getBundles($scope.eventBundle, function(response) {
@@ -1035,9 +1029,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
 	if ($scope.items.eventId) {
 	      $scope.eventBundle.eventId = $scope.items.eventId;
 	}
-	else{
-	      $scope.eventBundle.eventId = $localStorage.eventId;
-	}
+	
         $scope.eventBundle.userId = $localStorage.userId;
 
         $serviceTest.getBundles($scope.eventBundle, function(response) {
@@ -1111,9 +1103,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
       if ($scope.items.eventId) {
 	$scope.eventPrice.eventId = $scope.items.eventId;
       }
-      else{
-	$scope.eventPrice.eventId = $localStorage.eventId;
-      }
+      
       
       if ($rootScope.editBundleId === undefined) {
         $scope.eventPrice.bundleId = $localStorage.bundleId;
@@ -1154,9 +1144,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
 	      if ($scope.items.eventId) {
 		$scope.bundle.event_id = $scope.items.eventId;
 	      }
-	      else{
-		$scope.bundle.event_id = $localStorage.eventId;
-	      }
+	      
              
               $serviceTest.addseriesBundle($scope.bundle, function(response) {
                 if (response.code === 200) {
@@ -1178,9 +1166,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
                     if ($scope.items.eventId) {
 		      $scope.eventBundle.eventId = $scope.items.eventId;
 		    }
-		    else{
-		      $scope.eventBundle.eventId = $localStorage.eventId;
-		    }
+		    
 		    
                     $scope.eventBundle.userId = $localStorage.userId;
 
@@ -1284,13 +1270,15 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
   $scope.cancel = function() {
     $uibModalInstance.dismiss('cancel');
   };
-
+   
+  $scope.event_id = $scope.items.eventId; 
 
   $scope.getAllProduct = function() {
     if ($localStorage.userId != undefined) {
       $scope.data.userId = $localStorage.userId;
+      $scope.pageloader = true;
       $serviceTest.getAllProducts($scope.data, function(response) {
-
+        $scope.pageloader = false;
         $scope.loader = false;
         if (response.code === 200) {
           $scope.productList = response.result;
@@ -1345,9 +1333,10 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
         $scope.product.product_id = response.result[0].product_id;
 
         $scope.products = {};
-        $scope.products.eventId = $localStorage.eventId;
+        $scope.products.eventId = $scope.event_id;
         $scope.products.userId = $localStorage.userId;
-        $serviceTest.getEventProducts($scope.products, function(response) {
+	console.log($scope.products);
+	$serviceTest.getEventProducts($scope.products, function(response) {
           $rootScope.eventProductList = response.result;
         });
       } else {
@@ -1364,9 +1353,8 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
     if ($localStorage.userId !== undefined) {
       $scope.product.seller_id = $localStorage.userId;
       if ($scope.items.eventId) {
-	 $scope.product.event_id = $scope.items.eventId;
-      }
-      
+      $scope.product.event_id = $scope.items.eventId;
+            
       $serviceTest.addSeriesEventProduct($scope.product, function(response) {
 
         if (response.code === 200) {
@@ -1377,9 +1365,10 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
             $rootScope.success_product = global_message.event_product_add;
 
             $scope.product = {};
-            $scope.product.eventId = $scope.product.event_id;
+            $scope.product.eventId = $scope.event_id;
             $scope.product.userId = $localStorage.userId;
-            $serviceTest.getEventProducts($scope.product, function(response) {
+	    console.log($scope.product);
+	    $serviceTest.getEventProducts($scope.product, function(response) {
               $rootScope.eventProductList = response.result;
             });
 
@@ -1389,9 +1378,10 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
             $rootScope.success_product = global_message.event_product_update;
 
             $scope.product = {};
-            $scope.product.eventId = $scope.product.event_id;
+	    $scope.product.eventId = $scope.event_id;
             $scope.product.userId = $localStorage.userId;
-            $serviceTest.getEventProducts($scope.product, function(response) {
+	    console.log($scope.product);
+	    $serviceTest.getEventProducts($scope.product, function(response) {
               $rootScope.eventProductList = response.result;
             });
           }
@@ -1408,6 +1398,10 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
           $scope.activation_message = global_message.ErrorInActivation;
         }
       });
+      }
+      else{
+	console.log("No event Id found!");
+      }
     }
   };
 
@@ -1427,7 +1421,7 @@ angular.module('alisthub').controller('deleteEventProductCtrl', function($scope,
   //Remove Bundle data
   $scope.removeEventProduct = function() {
     var $serviceTest = $injector.get("venues");
-    $serviceTest.removeEventProduct({
+    $serviceTest.removeSeriesEventProduct({
       'eventProductDeleteId': $rootScope.eventProductDeleteId
     }, function(response) {
       if (response.code === 200) {

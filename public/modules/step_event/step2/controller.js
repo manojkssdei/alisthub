@@ -4,6 +4,46 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
 
   //For Step 1
   var $serviceTest = $injector.get("venues");
+  
+   // To done toggle block
+  $scope.enable_1 = $scope.enable_2 = $scope.enable_3 = $scope.enable_4 = $scope.enable_5 = "fa-caret-down";
+  $scope.block_1  = $scope.block_2  = $scope.block_3  = $scope.block_4  = $scope.block_5  = true;
+  $scope.str_1    = $scope.str_2    = $scope.str_3    = $scope.str_4    = $scope.str_5 = 1;
+  $scope.toggle_block = function(id,str)
+  {
+    if (id == 1) {
+      str == 1?$scope.block_1=false:true;
+      str == 2?$scope.block_1=true:false;
+      if (str == 1) { $scope.str_1 = 2;$scope.enable_1 = "fa-caret-up"; }
+      else{
+	$scope.str_1 = 1;$scope.enable_1 = "fa-caret-down"; }
+    }
+    if (id == 2) {
+      
+      str == 1?$scope.block_2=false:true;
+      str == 2?$scope.block_2=true:false;
+      if (str == 1) { $scope.str_2 = 2;$scope.enable_2 = "fa-caret-up"; }
+      else{ $scope.str_2 = 1;$scope.enable_2 = "fa-caret-down"; }
+    }
+    if (id == 3) {
+      str == 1?$scope.block_3=false:true;
+      str == 2?$scope.block_3=true:false;
+      if (str == 1) { $scope.str_3 = 2;$scope.enable_3 = "fa-caret-up"; }else{ $scope.str_3 = 1;$scope.enable_3 = "fa-caret-down"; }
+    }
+    if (id == 4) {
+      $scope.enable_4 = "fa-caret-up";
+      str == 1?$scope.block_4=false:true;
+      str == 2?$scope.block_4=true:false;
+      if (str == 1) { $scope.str_4 = 2;$scope.enable_4 = "fa-caret-up"; }else{ $scope.str_4 = 1;$scope.enable_4 = "fa-caret-down"; }
+    }
+    if (id == 5) {
+      str == 1?$scope.block_5=false:true;
+      str == 2?$scope.block_5=true:false;
+      if (str == 1) { $scope.str_5 = 2;$scope.enable_5 = "fa-caret-up"; }
+      else{ $scope.str_5 = 1;$scope.enable_5 = "fa-caret-down"; }
+    }
+  }
+  
   //To show or hide divs
   $scope.select_delect_event = $scope.monthly_div = $scope.days_div = $scope.error_message = $scope.error_time_message = true;
   $rootScope.success_message1 = false;
@@ -16,14 +56,19 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
     } else {
       event_id = $localStorage.eventId;
     }
-
+    $scope.pageloader = true; 
     $serviceTest.getEvent({'event_id':event_id},function(response){
+      $scope.pageloader = false;
         $scope.data1=response.results[0];
-    		$scope.data1.facebook=response.results[0].facebook_url;
-    		$scope.data1.twitter=response.results[0].twitter_url;
-    		$scope.data1.eventwebsite=response.results[0].website_url;
+    		$scope.data1.facebook=response.results[0].facebook_url != null?response.results[0].facebook_url:"";
+		$scope.data1.twitter=response.results[0].twitter_url != null?response.results[0].twitter_url:"";
+		$scope.data1.eventwebsite=response.results[0].website_url != null?response.results[0].website_url:"";
     		$scope.data1.eventinventory=response.results[0].inventory;
         $scope.data1.price = response.results[0].price_type;
+        $scope.ageDropdown = 0;
+        if(response.results[0].define_custom_age == 1) {
+          $scope.ageDropdown = 1;
+        }
     });
 	$serviceTest.getEventCat({'event_id':event_id},function(response){
 	 
@@ -44,8 +89,6 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
   
   if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
     $scope.eventBundle.eventId = $stateParams.eventId;
-  } else {
-    $scope.eventBundle.eventId = $localStorage.eventId;
   }
   $scope.eventBundle.userId = $localStorage.userId;
   //To get bundles
@@ -59,9 +102,7 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
   $scope.product = {};
   if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
     $scope.product.eventId = $stateParams.eventId;
-  } else {
-    $scope.product.eventId = $localStorage.eventId;
-  }
+  } 
   
   $scope.product.userId = $localStorage.userId;
   $serviceTest.getEventProducts($scope.product, function(response) {
@@ -98,8 +139,6 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
 
       if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
         var pricelevelEventId = $stateParams.eventId;
-      } else {
-        var pricelevelEventId = $localStorage.eventId;
       }
 
       var eventInventory = null;
@@ -145,9 +184,7 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
       $scope.formdata.eventinventory = eventInventory;
       if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
         $scope.formdata.event_id = $stateParams.eventId;
-      } else {
-        $scope.formdata.event_id = $localStorage.eventId;
-      }
+      } 
 
       $serviceTest.saveInventory($scope.formdata,function(response) {
         if (response.code == 200) { }
@@ -355,7 +392,7 @@ $scope.success_message = false;
       if(objectForm.myForm!=undefined) {
         if (objectForm.myForm.$valid === true) {
             $scope.selectedClass = 2;
-            if ($localStorage.eventId == null) {
+            if ($stateParams.eventId == null) {
               if(data != undefined) {
                 if (data.eventtype=='single') {
                   if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
@@ -368,7 +405,7 @@ $scope.success_message = false;
                     $serviceTest.saveEvent(data,function(response){
                       if (response.code == 200) {
                         $scope.success=global_message.event_step1;
-                        $localStorage.eventId = response.result;
+                        $stateParams.eventId = response.result;
                         $scope.error_message=false;
                         $timeout(function() {
                           $scope.success='';
@@ -376,7 +413,7 @@ $scope.success_message = false;
                         },3000);
 
                         console.log(response.result);
-                        $location.path("/create_event_step2/"+$localStorage.eventId);
+                        $location.path("/create_event_step2/"+$stateParams.eventId);
                         
                       }
                     });
@@ -400,9 +437,7 @@ $scope.success_message = false;
             } else {
               if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
                 $location.path("/create_event_step2/"+$stateParams.eventId);
-              } else {
-                $location.path("/create_event_step2/"+$localStorage.eventId);
-              }
+              } 
             }
         } else {
           $scope.selectedClass = 1;
@@ -417,9 +452,7 @@ $scope.success_message = false;
       } else {
         if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
           $location.path("/create_event_step2/"+$stateParams.eventId);
-        } else {
-          $location.path("/create_event_step2/"+$localStorage.eventId);
-        }
+        } 
       }
     }
 
@@ -431,8 +464,6 @@ $scope.success_message = false;
         if(data != undefined) {
           if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
             data.eventId = $stateParams.eventId;
-          } else {
-            data.eventId = $localStorage.eventId;
           }
           //console.log(data); return false;
           $serviceTest.postSecondStepdata(data, function(response) {
@@ -440,17 +471,13 @@ $scope.success_message = false;
               $scope.selectedClass = 3;
               if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
                 $location.path("/create_event_step3/"+$stateParams.eventId);
-              } else {
-                $location.path("/create_event_step3/"+$localStorage.eventId);
-              }      
+              }     
             }
           });
         } else {
           $scope.selectedClass = 3;
           if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
             $location.path("/create_event_step3/"+$stateParams.eventId);
-          } else {
-            $location.path("/create_event_step3/"+$localStorage.eventId);
           } 
         }
       } else {
@@ -470,10 +497,7 @@ $scope.success_message = false;
         $scope.selectedClass = 3;
         if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
           $location.path("/create_event_step3/"+$stateParams.eventId);
-        } else {
-          $location.path("/create_event_step3/"+$localStorage.eventId);
         } 
-
       }
     }
 
@@ -483,9 +507,7 @@ $scope.success_message = false;
       //if (objectForm.myForm.$valid === true) {
           if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
             $location.path("/create_event_step4/"+$stateParams.eventId);
-          } else {
-            $location.path("/create_event_step4/"+$localStorage.eventId);
-          }
+          } 
      /* } else {
 
         $scope.error_message = false;
@@ -521,9 +543,7 @@ $scope.success_message = false;
   $scope.items = {};
   if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
     $scope.items.eventId = $stateParams.eventId;
-  } else {
-    $scope.items.eventId = $localStorage.eventId;
-  }
+  } 
 
   $scope.animationsEnabled = true;
 
@@ -641,7 +661,7 @@ $scope.success_message = false;
             $scope.success_bundle = '';
           }, 3000);
 
-          $scope.eventBundle.eventId = $localStorage.eventId;
+          $scope.eventBundle.eventId = $stateParams.eventId;
           $scope.eventBundle.userId = $localStorage.userId;
           $serviceTest.getBundles($scope.eventBundle, function(response) {
             $rootScope.bundleList = response.result;
@@ -695,7 +715,7 @@ $scope.success_message = false;
 });
 
 
-angular.module('alisthub').controller('advanceSetting', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad) {
+angular.module('alisthub').controller('advanceSetting', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams) {
 
   if (!$localStorage.isuserloggedIn) {
     $state.go('login');
@@ -727,7 +747,7 @@ angular.module('alisthub').controller('advanceSetting', function($scope, $localS
 
   $scope.saveAdvanceSettings = function() {
     if ($localStorage.userId !== undefined) {
-      $scope.data.event_id = 10;
+      $scope.data.event_id = $stateParams.eventId;
       $scope.data.seller_id = $localStorage.userId;
       $serviceTest.saveAdvanceSettings($scope.data, function(response) {
         if (response.code === 200) {
@@ -969,7 +989,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
   $localStorage.bundleId = '';
   $scope.error = '';
   $scope.error_message = true;
-
+  
   $scope.bundleList = $rootScope.bundleList;
   //Bundle Steps
   $scope.steps = [{
@@ -1011,9 +1031,9 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     if ($localStorage.userId !== undefined) {
       $scope.editBundle.userId = $localStorage.userId;
       $scope.editBundle.editBundleId = $rootScope.editBundleId;
-
+      $scope.pageloader = false;
       $serviceTest.getBundleDetail($scope.editBundle, function(response) {
-        $scope.loader = false;
+        $scope.pageloader = true;
         if (response.code === 200) {
           $scope.bundle = {};
           $scope.bundle.id = response.result[0].id;
@@ -1048,7 +1068,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     if ($localStorage.userId !== undefined) {
       $scope.bundle.seller_id = $localStorage.userId;
       $scope.bundle.step = 1;
-      $scope.bundle.event_id = $localStorage.eventId;
+      $scope.bundle.event_id = $scope.items.eventId;
 
 
       $serviceTest.addBundle($scope.bundle, function(response) {
@@ -1063,7 +1083,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
             $localStorage.bundleId = bundle.id;
             $scope.success = global_message.bundle_update;
 
-            $scope.eventBundle.eventId = $localStorage.eventId;
+            $scope.eventBundle.eventId = $scope.items.eventId;
             $scope.eventBundle.userId = $localStorage.userId;
 
             $serviceTest.getBundles($scope.eventBundle, function(response) {
@@ -1174,7 +1194,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
     $serviceTest.updateBundle($scope.bundle, function(response) {
 
       if (response.code === 200) {
-        $scope.eventBundle.eventId = $localStorage.eventId;
+        $scope.eventBundle.eventId = $scope.items.eventId;
         $scope.eventBundle.userId = $localStorage.userId;
 
         $serviceTest.getBundles($scope.eventBundle, function(response) {
@@ -1245,7 +1265,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
   $scope.getEventPriceLevel = function() {
     if ($localStorage.userId !== undefined) {
       $scope.eventPrice.userId = $localStorage.userId;
-      $scope.eventPrice.eventId = $localStorage.eventId;
+      $scope.eventPrice.eventId = $scope.items.eventId;
 
       if ($rootScope.editBundleId === undefined) {
         $scope.eventPrice.bundleId = $localStorage.bundleId;
@@ -1283,7 +1303,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
             if ($localStorage.userId !== undefined) {
               $scope.bundle.seller_id = $localStorage.userId;
               $scope.bundle.step = 1;
-              $scope.bundle.event_id = $localStorage.eventId;
+              $scope.bundle.event_id = $scope.items.eventId;
 
               $serviceTest.addBundle($scope.bundle, function(response) {
                 if (response.code === 200) {
@@ -1302,7 +1322,7 @@ angular.module('alisthub').controller('ModalInstanceBundleCtrl', function($scope
                     $localStorage.bundleId = bundle.id;
                     $scope.success = global_message.bundle_update;
 
-                    $scope.eventBundle.eventId = $localStorage.eventId;
+                    $scope.eventBundle.eventId = $scope.items.eventId;
                     $scope.eventBundle.userId = $localStorage.userId;
 
                     $serviceTest.getBundles($scope.eventBundle, function(res2) {
@@ -1465,7 +1485,7 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
         $scope.product.product_id = response.result[0].product_id;
 
         $scope.products = {};
-        $scope.products.eventId = $localStorage.eventId;
+        $scope.products.eventId = $scope.items.eventId;
         $scope.products.userId = $localStorage.userId;
         $serviceTest.getEventProducts($scope.products, function(response) {
           $rootScope.eventProductList = response.result;
@@ -1483,7 +1503,7 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
   $scope.addEventProduct = function(product) {
     if ($localStorage.userId !== undefined) {
       $scope.product.seller_id = $localStorage.userId;
-      $scope.product.event_id = $localStorage.eventId;
+      $scope.product.event_id = $scope.items.eventId;
 
       $serviceTest.addEventProduct($scope.product, function(response) {
 
@@ -1495,7 +1515,7 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
             $rootScope.success_product = global_message.event_product_add;
 
             $scope.product = {};
-            $scope.product.eventId = $localStorage.eventId;
+            $scope.product.eventId = $scope.items.eventId;
             $scope.product.userId = $localStorage.userId;
             $serviceTest.getEventProducts($scope.product, function(response) {
               $rootScope.eventProductList = response.result;
@@ -1507,7 +1527,7 @@ angular.module('alisthub').controller('ModalInstanceProductCtrl', function($scop
             $rootScope.success_product = global_message.event_product_update;
 
             $scope.product = {};
-            $scope.product.eventId = $localStorage.eventId;
+            $scope.product.eventId = $scope.items.eventId;
             $scope.product.userId = $localStorage.userId;
             $serviceTest.getEventProducts($scope.product, function(response) {
               $rootScope.eventProductList = response.result;

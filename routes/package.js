@@ -2,6 +2,7 @@ module.exports = function(app, express) {
 	var router = express.Router();
 
         Package   = require('./../app/event_package/controllers/package.js');
+        AllPackage   = require('./../app/event_package/controllers/all_package.js');
          
          function supportCrossOriginScript(req, res, next) {
           res.header('Access-Control-Allow-Origin', '*');
@@ -84,7 +85,12 @@ module.exports = function(app, express) {
       router.post('/saveAdvanceSettingsOfPackage',supportCrossOriginScript, Package.saveAdvanceSettingsOfPackage);
       
       router.post('/getAdvanceSettingOfPackage',supportCrossOriginScript, Package.getAdvanceSettingOfPackage);
+
+      router.post('/getAllPackageEvent',supportCrossOriginScript, AllPackage.getAllPackageEvent);
+
+      /* Export CSV events  */
+      router.get('/exportPackageCSV', AllPackage.exportPackageCSV);
     
       
-       app.use('/package', router);
+      app.use('/package', router);
 }  

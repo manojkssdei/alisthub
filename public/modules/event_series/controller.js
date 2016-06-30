@@ -50,94 +50,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.select_delect_event = $scope.monthly_div = $scope.days_div = $scope.error_message = $scope.error_time_message = true;
   $rootScope.success_message1 = false;
   //For recurring days
-  $scope.days = [{
-    id: '0',
-    name: 'Sun'
-  }, {
-    id: '1',
-    name: 'Mon'
-  }, {
-    id: '2',
-    name: 'Tues'
-  }, {
-    id: '3',
-    name: 'Wed'
-  }, {
-    id: '4',
-    name: 'Thurs'
-  }, {
-    id: '5',
-    name: 'Fri'
-  }, {
-    id: '6',
-    name: 'Sat'
-  }]
+  $scope.days = day;
 
 
   //for dates selection
-  $scope.dates = [{
-    id: 1
-  }, {
-    id: 2
-  }, {
-    id: 3
-  }, {
-    id: 4
-  }, {
-    id: 5
-  }, {
-    id: 6
-  }, {
-    id: 7
-  }, {
-    id: 8
-  }, {
-    id: 9
-  }, {
-    id: 10
-  }, {
-    id: 11
-  }, {
-    id: 12
-  }, {
-    id: 13
-  }, {
-    id: 14
-  }, {
-    id: 15
-  }, {
-    id: 16
-  }, {
-    id: 17
-  }, {
-    id: 18
-  }, {
-    id: 19
-  }, {
-    id: 20
-  }, {
-    id: 21
-  }, {
-    id: 22
-  }, {
-    id: 23
-  }, {
-    id: 24
-  }, {
-    id: 25
-  }, {
-    id: 26
-  }, {
-    id: 27
-  }, {
-    id: 28
-  }, {
-    id: 29
-  }, {
-    id: 30
-  }, {
-    id: 31
-  }];
+  $scope.dates = dates;
 
 
   if ($localStorage.userId !== undefined) {
@@ -942,7 +859,7 @@ $scope.rec_year_func = function() {
       //if (objectForm.myForm.$valid === true) {
           $location.path("/create_event_step4/"+$localStorage.eventId);
      /* } else {
->>>>>>> upstream/master
+
         $scope.error_message = false;
         $scope.error = global_message.event_step1_msg;
         $timeout(function() {
@@ -1026,8 +943,7 @@ $scope.rec_year_func = function() {
       }
     });
   };
- var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-  var weekday = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+
 
   /** 
   Method: single_eventstart

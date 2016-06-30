@@ -224,6 +224,13 @@ url.getEventProductDetail = function(jsondata,callback){
       callback(res.data);
     });
   };
+  
+  //remove event product 
+  url.removeSeriesEventProduct = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.removeSeriesEventProduct,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
 
   //get price level
   url.getEventPriceLevel = function(jsondata,callback) {

@@ -137,6 +137,9 @@ module.exports = function(app, express) {
 	/* For series add product */
 	router.post('/addSeriesEventProduct', EventSeries.addSeriesEventProduct);
 	
+	/* Delete series products */
+	router.post('/removeSeriesEventProduct', EventSeries.removeSeriesEventProduct);
+	
 	/* Save price level*/
 	router.post('/saveseriespricelevel', EventSeries.saveseriespricelevel);
 	
