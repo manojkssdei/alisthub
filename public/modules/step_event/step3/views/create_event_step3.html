@@ -2,6 +2,7 @@
 .ev-header { background: #0275d0 none repeat scroll 0 0;  width: 100%;}
 .ev-image .social-media{right:17%;}
 .ev-container { margin: 0 auto;  max-width: 900px;}
+.gray-frame1 li{ border:solid 1px black;}
 </style>
 <div class="container">
   <h1>Create an Event</h1>
@@ -125,7 +126,7 @@
                                     
                     </section>
 		 </li>   
-		<li data-row="2" data-col="1" data-sizex="3" data-sizey="2"  id="section2"   ng-style="{background: background_inner}">
+		<li data-row="2" data-col="1" data-sizex="3" data-sizey="1"  id="section2"   ng-style="{background: background_inner}">
 		  <div class="drag" style="display:none;">
 		    
 		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
@@ -150,7 +151,16 @@
 			  </div>
 			</div>
 		  </section>
-          <section class="form-group field-group">
+          
+		  
+		</li>
+		<li data-row="3" data-col="1" data-sizex="3" data-sizey="1"  id="section3"  ng-style="{background: background_inner}">
+		  <div class="drag" style="display:none;">
+		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		      <a onclick="remove_widget('section3')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		      
+		    </div>
+		  <section class="form-group field-group">
           	  <h4>Description</h4>
               <section class="event-details"   ng-style="{background: background_inner}">
                     <section class="content">
@@ -158,18 +168,7 @@
 		    </section>        
               </section>
           </section>
-		  
 		</li>
-		<!--<li data-row="3" data-col="1" data-sizex="3" data-sizey="1"  id="section3"  ng-style="{background: background_inner}">
-		  <div class="drag" style="display:none;">
-		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		      <a onclick="remove_widget('section3')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		      
-		    </div>
-		    <section>
-		    
-		    </section>
-		</li>-->
 		<li data-row="4" data-col="1" data-sizex="3" data-sizey="1"  id="section4"  ng-style="{background: background_inner}">
 		  <div class="drag" style="display:none;">
 		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
@@ -312,43 +311,8 @@
 
 <!-- Wrapper -->
 
-<div class="ev-container wtframe m-t35"  ng-style="{background: background_inner,border:border_color}"> 
-    <section class="ev-image"><div class="section1"></div></section><!--Main Pic-->
+<div class="ev-container wtframe m-t35 preview_div_insert" id="preview_div"  ng-style="{background: background_inner,border:border_color}"> 
     
-    
-    <section class="row">
-    	<section class="col-sm-8">
-        	<section class="ev-details module-div">
-            	<div id="ev-details"><div class="section2"></div></div>
-            </section><!--Event Details-->
-            
-            <section class="ev-details module-div">
-            	<div id="video-widget"><div class="section5"></div></div>
-            </section><!--Video Block-->
-	     <section class="ev-details module-div">
-            	<div id="video-widget"><div class="section6"></div></div>
-            </section><!--Video Block-->
-	    <section class="ev-details module-div">
-            	<div id="video-widget"><div class="section7"></div></div>
-            </section><!--Video Block-->
-        </section><!--Left Panel-->
-        <section class="col-sm-4">
-        	<section class="venue-panel module-div">
-            	<div id="venue-panel"><div class="section3"></div></div>
-            </section><!--Venue Block-->
-            
-            <section class="ticket-panel module-div">
-            	<div id="ticket-panel"><div class="section4"></div></div>
-            </section><!--Venue Block-->
-            
-            <section class="fb-block module-div">
-            	<div id="fb-block"><div class="section6"></div></div>
-            </section><!--Facebook Block-->
-            <section class="ev-details module-div">
-            	<div id="video-widget"><div class="section8"></div></div>
-            </section><!--Video Block-->
-        </section><!--Right Panel-->
-    </section>
 </div>
 	
        </section>
@@ -394,17 +358,19 @@ function change_image3()
 	
           $('.js-seralize').on('click', function() {
 	     var eventdata=new Array();
+	     var event_info=new Array();
             var s = gridster.serialize();
 	    
            s.forEach(function(item,index){
 	      eventdata.push(item.row+""+item.col);
+	      event_info.push({"row":item.row+""+item.col,"size":item.size_x,"size-y":item.size_y});
 	      })
 	   
-	   var events=eventdata.sort();
+	   var event_order=eventdata.sort();
 	   
 	   var arr = {};
 	   var i=0;
-	   $.map(events, function(value, index) {
+	   $.map(event_order, function(value, index) {
 	     
 	      var column=value.slice(-1);
 	      var row=value.slice(0,1);
@@ -423,7 +389,7 @@ function change_image3()
 	   $.ajax({
 	    method: "POST",
 	    url: "/event/look_and_feel_save_html",
-	    data: {"html":arr,"eventId":eventId,"background_outer":background_outer,'inner_background':inner_background,'text_color':text_color,'outer_border':outer_border,'inner_border':inner_border}
+	    data: {"html":arr,"eventId":eventId,"background_outer":background_outer,'inner_background':inner_background,'text_color':text_color,'outer_border':outer_border,'inner_border':inner_border,'event_order':event_info}
 	  })
 	    .done(function( response ) {
 	      if (response.code==200) {
@@ -435,16 +401,110 @@ function change_image3()
 	    data: {"event_id":eventId}
 	  })
 	    .done(function( response ) {
-	 
-	         $(".ev-image > div.section1").html(response.results[0].section1);
-	         $("#ev-details > div.section2").html(response.results[0].section2);
-	         $("#video-widget > div.section5").html(response.results[0].section5);
-	         $("#video-widget > div.section7").html(response.results[0].section7);
-	         $("#venue-panel > div.section3").html(response.results[0].section3);
-	         $("#ticket-panel > div.section4").html(response.results[0].section4);
-	         $("#fb-block > div.section6").html(response.results[0].section6);
-	         $("#video-widget > div.section8").html(response.results[0].section8);
+	       var order=JSON.parse(response.results[0].event_order);
+	        
+		order.sort(function(a, b){
+                                            
+		    return ((a.row == b.row) ? 0 : ((a.row > b.row) ? 1 : -1 ));
+		});
+		
+	        var row=order[order.length-1].row.slice(0,1);
+		row=parseInt(row)+1;
+		var j,l=0;
+		for(i=2;i<=row;i++)
+		{
+		   j=i-1;
+		   
+		   var res=order.filter(function(val) {
+		    
+		    return (val.row <=Number(i+"0") && val.row >=Number(j+"0"));
+		}); 
+		  // console.log(res.length);
+		 
+		
+		   if (res.length>0) {
+		   var html='';
+		   console.log(res);
+		    for (var k = 0; k <res.length; k++) {
+		      
+		    
+		      var size=res[k].size*3;
+		      if (res.length==1) {
+			l++;
+		      
+			if (res[k].size==4) {
+			 
+			  $(".preview_div_insert").append("<div class='col-sm-12'><div class='section"+l+"'></div></div>");
+			}else{
+			 
+			 if(res[k].row.slice(-1)==4)
+			  {
+			   $(".preview_div_insert").append("<div class='col-sm-12'><div class='col-sm-9'></div><div class='col-sm-3 section"+l+"'><div></div>"); 
+			  }
+			  else if(res[k].row.slice(-1)==1)
+			  {
+			   var siz=res[k].size*3;
+			  var remaining=12-siz;
+			  
+			   $(".preview_div_insert").append("<div class='col-sm-12'><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div>"); 
+			  }
+			   else if(res[k].row.slice(-1)==2)
+			  {
+			   var siz=res[k].size*3;
+			  var remaining=12-siz-3;
+			  
+			   $(".preview_div_insert").append("<div class='col-sm-12'><div class='col-sm-3'></div><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div>"); 
+			  }
+			   else if(res[k].row.slice(-1)==3)
+			  {
+			   var siz=res[k].size*3;
+			  var remaining=12-siz-6;
+			  
+			   $(".preview_div_insert").append("<div class='col-sm-12'><div class='col-sm-6'></div><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div>"); 
+			  }
+			 
+			}
+			 
+			
+		      }else{
+			
+			var row_data=Number(res.length)-Number(1);
+			
+			
+		    if (k==0) { 
+			l++;
+			 html +="<div class='col-sm-12'><div class='col-sm-"+size+"'><div class='section"+l+"'></div></div>";
+			 
+		      }
+		      else if (k==row_data) {
+			l++;
+			html +="<div class='col-sm-"+size+"'><div class='section"+l+"'></div></div></div>";
+			$(".preview_div_insert").append(html);
+			
+			
+		      }else{
+			l++;
+			html +="<div class='col-sm-"+size+"'><div class='section"+l+"'></div></div>";
+		      }
+		      }
+		     
+		     
+		  }
+		
+		  }
+		    
+		
+		}
+		$(".section1").html(response.results[0].section1);
+	         $(".section2").html(response.results[0].section2);
+	         $(".section5").html(response.results[0].section5);
+	         $(".section7").html(response.results[0].section7);
+	         $(".section3").html(response.results[0].section3);
+	         $(".section4").html(response.results[0].section4);
+	         $(".section6").html(response.results[0].section6);
+	         $(".section8").html(response.results[0].section8);
 		$("#lookstep4").click();
+		
 	      });
 		
 	      }
