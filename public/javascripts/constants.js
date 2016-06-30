@@ -190,7 +190,7 @@ var webservices = {
     "getBundleDetailOfPackage" : "/package/getBundleDetailOfPackage" ,
     "saveAdvanceSettingsOfPackage" : "/package/saveAdvanceSettingsOfPackage" ,
     "getAdvanceSettingOfPackage" : "/package/getAdvanceSettingOfPackage",
-
+    "getAllPackageEvent": "/package/getAllPackageEvent",
 
 
     /* Constants for the discount module */

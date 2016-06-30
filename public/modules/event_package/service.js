@@ -189,6 +189,13 @@ url.removePackageProduct = function(jsondata,callback){
     });
   };
 
+  //get event user
+  url.getAllPackageEvent = function(jsondata,callback) {
+    communicationService.resultViaPost(webservices.getAllPackageEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
   
 
 
