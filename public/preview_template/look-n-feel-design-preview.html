@@ -92,33 +92,33 @@
 		      
 			if (res[k].size==4) {
 			 
-			  $(".preview_div_insert").append("<div class='col-sm-12'><div class='section"+l+"'></div></div>");
+			  $(".preview_div_insert").append("<div class='row'><div class='col-sm-12'><div class='section"+l+"'></div></div></div>");
 			}else{
 			 
 			 if(res[k].row.slice(-1)==4)
 			  {
-			   $(".preview_div_insert").append("<div class='col-sm-12'><div class='col-sm-9'></div><div class='col-sm-3 section"+l+"'><div></div>"); 
+			   $(".preview_div_insert").append("<div class='row'><div class='col-sm-12'><div class='col-sm-9'></div><div class='col-sm-3 section"+l+"'><div></div></div>"); 
 			  }
 			  else if(res[k].row.slice(-1)==1)
 			  {
 			   var siz=res[k].size*3;
 			  var remaining=12-siz;
 			  
-			   $(".preview_div_insert").append("<div class='col-sm-12'><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div>"); 
+			   $(".preview_div_insert").append("<div class='row'><div class='col-sm-12'><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div></div>"); 
 			  }
 			   else if(res[k].row.slice(-1)==2)
 			  {
 			   var siz=res[k].size*3;
 			  var remaining=12-siz-3;
 			  
-			   $(".preview_div_insert").append("<div class='col-sm-12'><div class='col-sm-3'></div><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div>"); 
+			   $(".preview_div_insert").append("<div class='row'><div class='col-sm-12'><div class='col-sm-3'></div><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div></div>"); 
 			  }
 			   else if(res[k].row.slice(-1)==3)
 			  {
 			   var siz=res[k].size*3;
 			  var remaining=12-siz-6;
 			  
-			   $(".preview_div_insert").append("<div class='col-sm-12'><div class='col-sm-6'></div><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div>"); 
+			   $(".preview_div_insert").append("<div class='row'><div class='col-sm-12'><div class='col-sm-6'></div><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div></div>"); 
 			  }
 			 
 			}
@@ -131,12 +131,12 @@
 			
 		    if (k==0) { 
 			l++;
-			 html +="<div class='col-sm-12'><div class='col-sm-"+size+"'><div class='section"+l+"'></div></div>";
+			 html +="<div class='row'><div class='col-sm-12'><div class='col-sm-"+size+"'><div class='section"+l+"'></div></div>";
 			 
 		      }
 		      else if (k==row_data) {
 			l++;
-			html +="<div class='col-sm-"+size+"'><div class='section"+l+"'></div></div></div>";
+			html +="<div class='col-sm-"+size+"'><div class='section"+l+"'></div></div></div></div>";
 			$(".preview_div_insert").append(html);
 			
 			
