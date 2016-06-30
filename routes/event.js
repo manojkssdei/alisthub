@@ -150,10 +150,14 @@ module.exports = function(app, express) {
 	
 	
 	/** Save Series event step -4 **/
-	router.post('/saveSeriesSetting' , supportCrossOriginScript , EventSeries.saveSeriesSetting);
+  router.post('/saveSeriesSetting' , supportCrossOriginScript , EventSeries.saveSeriesSetting);
 	
+  router.post('/addEmailReport' , supportCrossOriginScript , Event.addEmailReport);
 
+  router.post('/getEmailReport' , supportCrossOriginScript , Event.getEmailReport);
 
+  router.post('/editEmailReport' , supportCrossOriginScript , Event.editEmailReport);
+  
 	app.use('/event', router);
 
 }

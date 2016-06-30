@@ -1,3 +1,5 @@
+    <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
+<script src="javascripts/timepicker.js" type="text/javascript"></script>
 <div class="container">
    <h1>Event Overview</h1>
    <!-- Form COntainer -->
@@ -495,18 +497,10 @@
                                     </tr>
 
                         </tbody>
-                     </table>-->
-                  </div>
+                     </table>
+                  </div> -->
                </section>
-               <section class="grid-bottm clearfix">
-                  <section class="gr-right pull-right">
-                     <ul class="legends">
-                        <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                        <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                        <li><i class="fa fa-trash"></i><span>delete</span></li>
-                     </ul>
-                  </section>
-               </section>
+              
             </section>
          </section>
          <!-- Discount Ends -->
@@ -518,14 +512,25 @@
                <i class="fa fa-database hdicon pos-l16"></i>
                <h2>Email Reports <span class="rt-img"></span></h2>
             </section>
+
+         
+
             <section class="gray-frame sub-fields">
+               
                <section class="grid-btn-top row">
-                  <section class="col-sm-5 pull-right text-right">
-                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReport('lg')">Add an Email Report</button>
+                  <section class="col-sm-12 ">
+                       <p class="success-fld" ng-show="success_message_email_report">{{successEmailReport}}</p>
                   </section>
                </section>
-               <section class="grid-widget" ng-show="showEmailReportList">
-                  <span ng-show="success_message_emailReport" class="ng-hide">
+
+
+               <section class="grid-btn-top row">
+                  <section class="col-sm-5 pull-right text-right">
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReport('lg')" >Add an Email Report</button>
+                  </section>
+               </section>
+               <section class="grid-widget" >
+                  <span ng-show="success_message_emailReport" >
                      <p class="success-fld ng-binding">{{success_emailReport}}</p>
                   </span>
                   <div class="table-responsive">
@@ -540,11 +545,11 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr ng-repeat="email in EmailReportsList track by $index">
+                           <tr ng-repeat="email in EmailReportsList">
                               <td><strong>{{email.email_address}}</strong></td>
-                              <td class="numbers">${{email.send_time}}</td>
-                              <td class="numbers">${{email.timezone_name}}</td>
-                              <td class="numbers">${{email.format}}</td>
+                              <td class="numbers">{{email.send_time}}</td>
+                              <td class="numbers">{{email.timezone_name}}</td>
+                              <td class="numbers">{{email.export_format}}</td>
                               <td class="action">
                                  <a ng-click="add_emailReport('lg',email.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
                                  <a ng-click="delete_emailReport('',$index,email.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
@@ -556,19 +561,13 @@
                            <tr ng-show="loader_emailReport">
                               <td colspan="5" align="center"><img src="/images/icons/loader.gif"></td>
                            </tr>
+
+                           
                         </tbody>
                      </table>
                   </div>
                </section>
-               <section class="grid-bottm clearfix">
-                  <section class="gr-right pull-right">
-                     <ul class="legends">
-                        <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                        <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                        <li><i class="fa fa-trash"></i><span>delete</span></li>
-                     </ul>
-                  </section>
-               </section>
+           
             </section>
          </section>
          <!-- Email Report Ends -->
@@ -621,3 +620,76 @@
    </div>
    <!-- //Form COntainer --> 
 </div>
+
+
+<!-- *************************************************************************************** -->
+
+<script type="text/ng-template" id="myModalEmailReport.html">
+
+    <div class="modal-header">
+
+        <h3 class="modal-title">Add a Email Report</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+    </div>
+    <form  name="reportForm" ng-submit="reportForm.$valid && addEmailReport(report)" novalidate>
+    <div class="modal-body">
+        
+        <fieldset class="form-group">
+           <div class="col-sm-4">Email Address<span class="req">*</span></div>
+           <div class="col-sm-8">
+           <input type="email" ng-model="report.email_address" name="email_address" class="form-control"  placeholder="Email Address" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+
+            <p ng-show="reportForm.email_address.$invalid && !reportForm.email_address.$pristine || reportForm.email_address.$error.pattern" class="error-fld ng-binding">Email address is required.</p>
+            </div>
+
+           </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+           <div class="col-sm-4">Timezone<span class="req">*</span></div>
+           <div class="col-sm-8"><select class="form-control " id="timezone_name" name="timezone_name" ng-model="report.timezone_name" required >
+            <option value="America/New_York">Eastern Time</option><option value="America/Chicago">Central Time</option><option value="America/Denver">Mountain Time</option><option value="America/Phoenix">Mountain Time (Arizona)</option><option value="America/Los_Angeles">Pacific Time</option><option value="America/Juneau">Alaskan Time</option><option value="Pacific/Honolulu">Hawaiian Time</option><option value="Pacific/Samoa">Samoa Standard Time</option>
+        </select><p ng-show="reportForm.timezone_name.$invalid && !reportForm.timezone_name.$pristine" class="error-fld ng-binding">Timezone name is required.</p></div> 
+        
+        </fieldset>
+
+         <fieldset class="form-group">
+           <div class="col-sm-4"> Send Time<span class="req">*</span></div>
+           <div class="col-sm-8">
+               <!--<div class="input-group bootstrap-timepicker timepicker">
+                <input type="time"  id="send_time" name="send_time"  ng-model="report.send_time"  class="form-control input-small timepick" required /><span class="input-group-addon timepick1" ><i class="glyphicon glyphicon-time"></i></span>
+            </div>-->
+
+ <input type="time" id="send_time" name="send_time" ng-model="report.send_time" placeholder="HH:mm:ss" min="01:00:00" max="24:00:00" required />
+
+                <p ng-show="reportForm.send_time.$invalid && !reportForm.send_time.$pristine" class="error-fld ng-binding">Send time is required.</p>
+
+                 <p ng-show="reportForm.input.$error.time" class="error-fld ng-binding">Not a valid time</p>
+
+           </div>
+           
+          
+           </div>
+        </fieldset>
+        
+        <fieldset class="form-group">
+           <div class="col-sm-4">Export Format<span class="req">*</span></div>
+           <div class="col-sm-8">
+           <select id="export_format" class="form-control"  name="export_format" ng-model="report.export_format" required>
+            <option value="PDF">PDF</option>
+            <option value="CSV">CSV</option>
+            <option value="Embedded HTML">Embedded HTML</option>
+        </select>
+        <p ng-show="reportForm.export_format.$invalid && !reportForm.export_format.$pristine" class="error-fld ng-binding">Export format is required.</p>
+        </div> </div>
+        </fieldset>
+         
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" ng-disabled="reportForm.$invalid"  >Submit</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+    </form>
+</script>
+
+<!-- *************************************************************************************** -->
+

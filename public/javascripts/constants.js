@@ -330,9 +330,10 @@ var webservices = {
     "saveSeriesSetting": "/event/saveSeriesSetting",
     "saveInventory": "/event/saveInventory",
 
-
-
-
+//event overview
+    "addEmailReport" : "/event/addEmailReport",
+    "getEmailReport" : "/event/getEmailReport",
+    "editEmailReport" : "/event/editEmailReport",
 
 }
 
@@ -446,7 +447,9 @@ var global_message = {
     "event_product_delete": "Product has been deleted successfully.",
 
     /* My account section **/
-    "fetchError": "There is some problem on Sever side , Please try after some time ."
+    "fetchError": "There is some problem on Sever side , Please try after some time .",
+
+    "saveEmailReport" : "Email report saved successfully.",
 }
 
 var appConstants = {

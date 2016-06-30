@@ -93,6 +93,28 @@ angular.module('alisthub').factory('events', ['$q', '$timeout','communicationSer
       callback(res.data);
     });
   };
+
+  url.addEmailReport = function(jsondata,callback){
+      communicationService.resultViaPost(webservices.addEmailReport,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
+
+    url.getEmailReport = function(jsondata,callback){
+      communicationService.resultViaPost(webservices.getEmailReport,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
+
+    url.editEmailReport = function(jsondata,callback){
+      communicationService.resultViaPost(webservices.editEmailReport,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
+
+
+
+
 return url;
 
 }]);

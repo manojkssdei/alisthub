@@ -404,6 +404,17 @@ Module : Discount
                                 } 
                             }); 
 
+                             $scope.tableParams = new ngTableParams(
+                        {
+                            page: 1,            // show first page
+                            count: 5,           // count per page
+                            sorting: {name:'asc'},
+                                            
+                        },
+                        {
+                            data:$scope.eventdata
+                        });
+
                             console.log('value.commonAssignIds' , $scope.commonAssignIds);
 
                         if(response.globalDiscountAssignments[0]) {
@@ -423,6 +434,7 @@ Module : Discount
 
        /*View listing of all discount coupons */
         if ($state.params.eventOverviewId) {
+            $scope.eventId = $state.params.eventOverviewId;
             $scope.getDiscountsOfEvent();
         }
         
@@ -1383,6 +1395,7 @@ console.log('$scope.discountAssignments[value1]' , $scope.discountAssignments[va
 
          /*Delete discount coupon */
         $scope.delDiscountAssignment = function(id) {
+            console.log('delDiscountAssignment');
             $scope.data = {};
             if ($localStorage.userId != undefined) {
                     if(typeof(id) == "object") {

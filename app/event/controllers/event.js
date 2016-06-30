@@ -1193,3 +1193,56 @@ exports.checkeventurl=function(req,res){
     
 }
 
+
+exports.addEmailReport = function(req,res){
+    
+    console.log(req.body);
+
+    var sql = "INSERT INTO email_reports ( event_id, user_id, email_address, timezone_name, send_time, export_format) VALUES ( "+req.body.eventId+", "+req.body.user_id+" , '"+req.body.email_address+"', '"+req.body.timezone_name+"', '"+req.body.send_time+"', '"+req.body.export_format+"')";
+
+    console.log('sql ' , sql );
+    
+    connection.query(sql, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        if (results) {
+            res.json({ result: results, code: 200 });
+        }
+    });    
+}
+
+exports.getEmailReport = function(req,res){
+    
+    var sql = 'SELECT * from email_reports where event_id = ' + req.body.eventId + ' and user_id = '+ req.body.user_id ;
+
+     console.log('sql ' , sql );
+
+    connection.query(sql, function(err, results) {
+        if (err) {
+          res.json({ error: err, code: 101 });
+        }
+        if (results) {
+          res.json({ result: results, code: 200 });
+        }
+    });
+    
+}
+
+exports.editEmailReport = function(req,res){
+    
+    console.log(req.body);
+
+    var sql = "UPDATE email_reports SET email_address = '"+req.body.email_address+"' , timezone_name = '"+req.body.timezone_name+"' , send_time = '"+req.body.send_time+"' , export_format = '"+req.body.export_format+"' WHERE id = "+req.body.id+" and  user_id = "+req.body.user_id;
+
+    console.log('sql ' , sql );
+    
+    connection.query(sql, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        if (results) {
+            res.json({ result: results, code: 200 });
+        }
+    });    
+}

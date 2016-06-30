@@ -207,7 +207,12 @@ $scope.getFormattedDate = function(today1) {
     }); 
 
 
-    
+  $eventService.getEmailReport({ 'user_id': userId , 'eventId' : eventId }, function(response) {
+       
+        $rootScope.EmailReportsList = response.result;
+         console.log('  $rootScope.EmailReportsList  ' , $rootScope.EmailReportsList  ) ;
+    }); 
+
 
 
 
@@ -217,12 +222,107 @@ $scope.getFormattedDate = function(today1) {
     $scope.array = [];
 
 
+     //Add Product pop up
 
-    //add the comments 
+  $scope.items = {};
+  if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
+    $scope.items.eventId = $stateParams.eventId;
+  } 
 
-   
+  $scope.animationsEnabled = true;
+  $scope.add_emailReport = function(size, eventId) {
+    $rootScope.eventId = eventId;
+    console.log('eventId' , eventId , '$rootScope.eventId ' ,$rootScope.eventId );
+
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalEmailReport.html',
+      controller: 'ModalInstanceEmailReportCtrl',
+      size: size,
+      resolve: {
+        items: function() {
+          return $scope.items;
+        }
+      }
+    });
+  };
 
 
+
+
+
+
+});
+
+
+
+/*
+Code for product popup
+*/
+angular.module('alisthub').controller('ModalInstanceEmailReportCtrl', function($scope, $uibModalInstance, $rootScope, $localStorage, $injector, $timeout,items) {
+  
+  $scope.data = {};
+
+ // var eventId = $stateParams.eventId;
+  //  $scope.eventId = eventId;
+
+
+  var $serviceTest = $injector.get("events");
+  
+  $scope.items = items;
+
+  $scope.cancel = function() {
+    $uibModalInstance.dismiss('cancel');
+  };
+
+
+$scope.addEmailReport =  function (report) {
+
+    console.log('in add email report ' , report);
+
+    if ($localStorage.userId != undefined) {
+        $scope.data = report;
+        $scope.data.user_id = $localStorage.userId;
+        $scope.data.eventId = $scope.items.eventId;
+        console.log('$scope.data');
+        console.log($scope.data);
+
+        $scope.loader = true;
+        $serviceTest.addEmailReport($scope.data, function(response) {
+            console.log('response', response);
+            $scope.loader = false;
+            if (response.code == 200) {
+                $rootScope.packageId = $scope.data.id = response.result;
+                $localStorage.packageId = $scope.data.id;
+
+
+                $scope.successEmailReport = global_message.saveEmailReport;
+
+                $scope.success_message_email_report = true;
+                $timeout(function() {
+                  $scope.successEmailReport = '';
+                  $scope.success_message_email_report = false;
+                }, 3000);
+
+                 $serviceTest.getEmailReport({ 'user_id': $scope.data.user_id  , 'eventId' : $scope.data.eventId }, function(response) {
+         $rootScope.EmailReportsList = response.result;
+         console.log('EmailReportsList ' , $rootScope.EmailReportsList ) ;
+    }); 
+                // window.location.reload();
+
+
+                // $location.path("/event_package_step_2/"+$scope.data.package_id);
+            } else {
+                $scope.error_message = response.error;
+            }
+
+        });
+
+    }
+
+}
+
+ 
 
 
 
