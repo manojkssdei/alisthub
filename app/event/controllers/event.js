@@ -451,6 +451,7 @@ exports.getPricelevel=function(req,res){
     var eventId=req.body.eventId;
     if(eventId!=undefined){
       var sql="SELECT * FROM price_levels where event_id="+eventId;
+      console.log('sql ' , sql);
       connection.query(sql,function(err,result){
          
           if (err) {

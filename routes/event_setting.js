@@ -27,6 +27,9 @@ module.exports = function(app, express) {
     /* Module : Venue Management
     * Service : Add Venue to Seller
     * */
+
+    
+
     router.post('/addVenue', Event_setting.addVenue);
    
     /* Service : Venue Overview to Seller
@@ -90,6 +93,11 @@ module.exports = function(app, express) {
     /* exportQuestionCSV Question Asssignment Event Seller   */
     
     router.get('/exportQuestionCSV', question_setting.exportQuestionCSV);
+   
+
+    router.post('/getQuestionsOfEvent', question_setting.getQuestionsOfEvent);
+
+    
     
 
 
@@ -195,6 +203,12 @@ module.exports = function(app, express) {
         /*delete assign discounts by common id */
     
     router.post('/delPriceLevelDiscAssignment', discount_setting.delPriceLevelDiscAssignment);
+
+
+    router.post('/getDiscountsOfEvent', discount_setting.getDiscountsOfEvent);
+
+    
+    router.post('/getCountDiscountsOfEvent', discount_setting.getCountDiscountsOfEvent);
 
 
 

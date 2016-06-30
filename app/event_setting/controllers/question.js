@@ -338,3 +338,20 @@ exports.getSelectedQuestion = function(req,res)
           res.json({error:"error",code:101});
      }
 }
+
+
+
+
+exports.getQuestionsOfEvent = function(req,res){
+  var query = "SELECT * FROM question_assignments qa JOIN questions q ON qa.seller_id = q.seller_id AND qa.question_id = q.id WHERE qa.seller_id = "+req.body.userId+ " AND qa.event_id =  "+req.body.eventId;
+  console.log('-------------------------');
+  console.log(query);
+  
+  connection.query(query, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+    
+      res.json({result:results,code:200});
+  });
+}
