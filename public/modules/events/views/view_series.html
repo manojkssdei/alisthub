@@ -1,4 +1,21 @@
+
 <div class="container">
+
+
+<style>
+  .full button span {
+    background-color: #c129b9;
+    border-radius: 32px;
+    color: white;
+    padding:5px;
+  }
+  .partially button span {
+    background-color: #c129b9;
+    border-radius: 32px;
+    color: white;
+     padding:5px;
+  }
+</style>
     <h1>view series</h1>
     <!-- Form COntainer -->
           <script>(function(d, s, id) {
@@ -8,14 +25,14 @@
     js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
     fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
-    <div class="wt-frame form-section">
+ <div class="wt-frame form-section">
         <form class="event-form">
             <section class="top-buttons bb-1 text-right">
                 <button type="button" class="btn pink-btn btn-small"><i class="fa fa-twitter"></i> Tweet </button>
            <!--      <button type="button" class="btn pink-btn btn-small"><i class="fa fa-facebook"></i> Facebook </button> -->
                  <div class="fb-like"
       data-href="https://developers.facebook.com/docs/plugins/"
-      data-layout="standard" data-action="like">
+      data-layout="button" data-action="like">
     </div>
             </section>
             <section class="form-group field-group row">
@@ -48,43 +65,7 @@
                         </section>
                     </section>
                     <!--/Package Details-->
-                    <section class="form-group field-group">
-                        <section class="row form-group">
-                            <h4 class="col-sm-8"><span></span> Comments</h4>
-                            <section class="col-sm-4 right-btns text-right">
-                                <section class="inline-section">
-                                    <select class="form-control select30">
-                                        <option value="Ticket">Sort by</option>
-                                    </select>
-                                </section>
-                            </section>
-                        </section>
-                        <section class="sub-fields">
-                            <div class="media">
-                                <a class="media-left" href="#">
-                                    <img class="media-object img-circle" src="assets/images/user.jpg" alt="Generic placeholder image">
-                                </a>
-                                <div class="media-body">
-                                    <section class="form-group">
-                                        <textarea name="textarea" row="6" cols="" class="form-control" ng-model="data.comment"></textarea>
-                                    </section>
-                                    <section class="row">
-                                        <section class="col-sm-6">
-                                            <section class="radio-sec custom-check">
-                                                <p class="radio-inline">
-                                                    <input type="checkbox" id="test1">
-                                                    <label for="test1">Also post on Facebook</label>
-                                                </p>
-                                            </section>
-                                        </section>
-                                        <section class="col-sm-6 text-right">
-                                            <button class="pink-btn btn btn-small m-fw" ng-click="addComment()">Log in to post</button>
-                                        </section>
-                                    </section>
-                                </div>
-                            </div>
-                        </section>
-                    </section>
+             
                 
                  
                 </section>
@@ -93,12 +74,20 @@
                     <section class="panel panel-primary">
                         <section class="panel-heading">
                             <h5 class="m-b0">Select Tickets</h5></section>
-                        <section class="panel-body">  
-                        <uib-datepicker ng-model="start_date" class="well well-sm" datepicker-options="options1"  multi-select="timing"></uib-datepicker></section>
+                        <section class="panel-body"> 
+
+                        <!-- <div> -->
+ <!--    <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre> -->
+
+   <!--  <div style="display:inline-block; min-height:290px;"> -->
+      <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options" ></uib-datepicker>
+ <!--    </div> -->
+        
+    <!--    <uib-datepicker ng-model="all_dates" class="well well-sm" datepicker-options="options1"  multi-select="all_dates[0]"></uib-datepicker></section>  -->
                        <!--  ng-change="single_eventstart(this)" -->
                    <!--     {{start_date}}<br>{{thisDate}}
                        <section ng-if="start_date == thisDate">Potatoes</section> -->
-                      
+                      </section>
                       <select class="form-control">
                        <option>-please slect the timing-</option>
                           <option value="{{timings}}">{{timings}}</option>

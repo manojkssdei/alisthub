@@ -8,7 +8,7 @@ angular.module("communicationModule", []);
 // Declare app level module which depends on filters, and services
 
 
-var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','ngTable','color.picker','reCAPTCHA','720kb.tooltips'])
+var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','ngTable','color.picker','reCAPTCHA','720kb.tooltips','gm.datepickerMultiSelect'])
 
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ocLazyLoadProvider) {
@@ -234,9 +234,9 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load(['modules/events/service.js','modules/event_series/step1/service.js','modules/event_series/service.js','modules/step_event/service.js']).then(function(){
+                return $ocLazyLoad.load(['modules/events/service.js','modules/event_series/service.js','modules/step_event/service.js']).then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/events/seriesCtrl.js','modules/event_series/controller.js','modules/event_series/step1/controller.js','modules/step_event/controller.js']);
+                return $ocLazyLoad.load(['modules/events/seriesCtrl.js']);
                 })
               }]
             }
