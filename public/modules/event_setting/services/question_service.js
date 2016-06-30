@@ -58,6 +58,13 @@ angular.module('alisthub')
       callback(res.data);
     });
   };
+
+  
+  url.getQuestionsOfEvent = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getQuestionsOfEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
   
 return url;
 }])

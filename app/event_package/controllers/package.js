@@ -92,9 +92,13 @@ console.log('req.body.eventsInPackage , ' , req.body.eventsInPackage );
 
  	if(req.body.eventsInPackage != '' && req.body.eventsInPackage != undefined && req.body.eventsInPackage != "[]") {
 		var strold = req.body.eventsInPackage;
-        var strnew = strold.substr(1, strold.length - 2);
-        condition += " OR ep.event_id IN (" + strnew + ")";
-	}
+        var strnew = '';
+        if(strold != '') {
+          strnew = strold.substr(1, strold.length - 2);
+           condition += " OR ep.event_id IN (" + strnew + ")";
+  }
+        }
+       
 
     if(req.body.package_id!=undefined){
 

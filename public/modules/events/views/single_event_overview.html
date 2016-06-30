@@ -97,29 +97,35 @@
                   
                   <div class="table-responsive">
                      <table ng-table="tableParams" class="table table-striped table-ng-style">
-                        <tbody>
-                           
+                        
+
+                        <tbody>                           
                            <tr ng-repeat="data in $data | filter:filter">
                               
 
-                              <td width="15%" header-class="'header-text-align'" title="'Level'" filter="{ coupon_name: 'text'}" sortable="'level'"><strong>{{data.level}}</strong></td>
+                              <td width="15%" header-class="'header-text-align'" title="'Level'" filter="{ price_level_name: 'text'}" sortable="'price_level_name'"><strong>{{data.price_level_name}}</strong></td>
 
-                              <td width="12%" header-class="'header-text-align'" title="'Inventory'" filter="{ coupon_type: 'number'}" sortable="'inventory'">{{data.inventory}}</td>
+                              <td width="12%" header-class="'header-text-align'" title="'Inventory'" filter="{ quantity_available: 'number'}" sortable="'quantity_available'">{{data.quantity_available}}</td>
 
-                              <td width="12%" header-class="'header-text-align'" title="'Issued'" filter="{ coupon_code: 'number'}" sortable="'issued'" >
-                                 <p ng-if="data.issued">{{data.issued}}</p>
-                                 <p ng-if="data.issued == '' || data.issued == null || data.issued == undefined"></p>
-                              </td>
+                              <!--<td width="12%" header-class="'header-text-align'" title="'Issued'" filter="{ coupon_code: 'number'}" sortable="'issued'" >
+                                 <p ng-if="data.issued">GET FROM API</p>
+                                 <p ng-if="data.issued == '' || data.issued == null || data.issued == undefined">0</p>
+                              </td>-->
 
-                              <td width="12%" header-class="'header-text-align'" title="'Held'" filter="{ amount: 'number'}" sortable="'held'" class="numbers">
-                                 <p ng-if="data.held">{{data.held}}</p>
-                                 <p ng-if="data.held == '' || data.held == null || data.held == undefined || data.held == 0"></p>
-                              </td>
+                              <td width="12%" header-class="'header-text-align'" title="'Issued'" >0</td>
 
-                              <td width="16%" header-class="'header-text-align'" title="'Remaining'" filter="{ amount_type: 'text'}" sortable="'Remaining'" >{{data.Remaining}}</td>
+                              <!--<td width="12%" header-class="'header-text-align'" title="'Held'" filter="{ amount: 'number'}" sortable="'held'" class="numbers">
+                                 <p ng-if="data.held">GET FROM API</p>
+                                 <p ng-if="data.held == '' || data.held == null || data.held == undefined || data.held == 0">0</p>
+                              </td>-->
+
+                              <td width="12%" header-class="'header-text-align'" title="'Held'">0</td>
+
+                             
+                              <td width="16%" header-class="'header-text-align'" title="'Remaining'" filter="{ quantity_available: 'number'}"  >{{data.quantity_available}}</td>
 
                            </tr>
-                           <tr ng-if="$data == ''">
+                           <tr ng-if="$getPricelevel == ''">
                               <td colspan="5" align="center">No Price Level!</td>
                            </tr>
 
@@ -146,7 +152,7 @@
 
 
          
-         <section class="panel panel-grey">
+        <!--  <section class="panel panel-grey">
             <section class="prof-hd">
                <h5 class="m-b0">Questions</h5>
             </section>
@@ -159,7 +165,23 @@
                <span ng-show="success_message_bundle" class="ng-hide">
                   <p class="success-fld ng-binding">{{success_bundle}}</p>
                </span>
-               <!--------- price level---------->
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                <section class="module">
                   <section class="prof-hd">
                      <i class="fa fa-database hdicon pos-l16"></i>
@@ -212,10 +234,22 @@
                      </section>
                   </section>
                </section>
-               <!-------------price level -->
+           
 
 
-               <!--------- event level level---------->
+
+
+
+
+
+
+
+
+
+
+
+
+
                <section class="module">
                   <section class="prof-hd">
                      <i class="fa fa-database hdicon pos-l16"></i>
@@ -268,8 +302,32 @@
                      </section>
                   </section>
                </section>
-               <!-------------event level questions -->
-               <!--------- global level---------->
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                <section class="module">
                   <section class="prof-hd">
                      <i class="fa fa-database hdicon pos-l16"></i>
@@ -300,9 +358,73 @@
                      </section>
                   </section>
                </section>
-               <!-------------global level -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </section>
+         </section> -->
+
+
+
+           <!-- event level question start -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Questions <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+
+            <section class="grid-btn-top row">
+                  <section class="col-sm-5 pull-right text-right">
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_bundle('lg')">Assign Questions</button>
+                  </section>
+               </section>
+               
+               <section class="grid-widget" >
+                  
+                  <div class="table-responsive">
+                     <table ng-table="tableParamsQuestions" class="table table-striped table-ng-style">
+                        <tbody>
+                           
+                             <tr  ng-repeat="pdata in $data | filter:filter">
+                                        <td width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox.html'"><input type="checkbox" name="checkall" ng-model="pdata.selected"  ng-click="optionToggled(pdata.id);" ></td>
+                                        <td width="44%" header-class="'header-text-align'" title="'Name'" filter="{ question_name: 'text'}" sortable="'question_name'"><strong>{{pdata.question_name}}</strong></td>
+                                        <td width="18%" header-class="'header-text-align'" title="'Type'" filter="{ question_type: 'text'}" sortable="'question_type'" >{{pdata.question_type}}</td>
+                                        <td width="18%" header-class="'header-text-align'" title="'Assigned To'" >
+                                            <p ng-if="event_count[pdata.id] > 0">{{event_count[pdata.id]}}  Events</p>
+                                            <p ng-if="event_count[pdata.id] == '' || event_count[pdata.id] == null">0  Event</p>
+                                        </td>
+                                        <td width="15%" header-class="'action-text-align'" title="'Actions'" align="center" class="action">
+                                            <a href="#/edit_question/{{pdata.id}}"><i class="fa fa-edit"></i></a>
+                                            <a ng-click="changeStatus(pdata.id,pdata.status)" ng-confirm-click="Would you like to change Question status ?"><i class="fa fa-check-circle" ng-if="pdata.status == 1"></i><i class="fa fa-times" ng-if="pdata.status == 0"></i></a>
+                                            <a ng-click="delQuestion(pdata.id)" ng-confirm-clicks="Would you like to delete this Question?" ng-if="event_count[pdata.id] == '' || event_count[pdata.id] == null"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="loader">
+                                        <td colspan="5" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+                <tr ng-if="$getQuestions == ''">
+                                        <td colspan="5" align="center">No Record found!</td>
+                                    </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </section>
             </section>
          </section>
+         <!-- event level questions end -->
+
+
 
 
 
@@ -324,51 +446,56 @@
                      <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_bundle('lg')">Assign Coupons</button>
                   </section>
                </section>
-               <section class="grid-widget" ng-show="showBundleList">
+               <section class="grid-widget" >
                   <span ng-show="success_message_bundle" class="ng-hide">
-                     <p class="success-fld ng-binding">{{success_bundle}}</p>
+                     <p class="success-fld ng-binding">{{success_discount}}</p>
                   </span>
-                  <div class="table-responsive">
-                     <table ng-table="tableParams" class="table table-striped table-ng-style">
+
+               <a href="#/view_event_discounts/{{eventId}}"><strong><p>{{getCountDiscountsOfEvent}} assignments for this event</p></strong></a>
+                  <!--<div class="table-responsive">
+  
+
+                     <table ng-table="tableParamsDiscounts" class="table table-striped table-ng-style">
                         <tbody>
-                           <tr ng-if="$data != ''">
-                              <td colspan="5" align="center"> 4 Assignments to this coupon</td>
-                           </tr>
-                           <tr ng-repeat="data in $data | filter:filter">
-                              <td  width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox3.html'"><input type="checkbox" name="checkall" ng-model="data.selected"  ng-click="optionToggled(data.id);" ></td>
-                              <td width="15%" header-class="'header-text-align'" title="'Name'" filter="{ coupon_name: 'text'}" sortable="'coupon_name'"><strong>{{data.coupon_name}}</strong></td>
-                              <td width="12%" header-class="'header-text-align'" title="'Type'" filter="{ coupon_type: 'text'}" sortable="'coupon_type'">{{data.coupon_type}}</td>
-                              <td width="12%" header-class="'header-text-align'" title="'Code'" filter="{ coupon_code: 'text'}" sortable="'coupon_code'" >
-                                 <p ng-if="data.coupon_code">{{data.coupon_code}}</p>
-                                 <p ng-if="data.coupon_code == '' || data.coupon_code == null || data.coupon_code == undefined"></p>
-                              </td>
-                              <td width="12%" header-class="'header-text-align'" title="'Discount'" filter="{ amount: 'text'}" sortable="'amount'" class="numbers">
-                                 <p ng-if="data.amount">{{data.amount}}</p>
-                                 <p ng-if="data.amount == '' || data.amount == null || data.amount == undefined || data.amount == 0"></p>
-                              </td>
-                              <td width="16%" header-class="'header-text-align'" title="'Amount Type'" filter="{ amount_type: 'text'}" sortable="'amount_type'" >{{data.amount_type}}</td>
-                              <td width="14%" header-class="'header-text-align'" title="'Assigned To'"  class="">
-                                 <a href="#/discount_assignment_overview/{{data.id}}">
-                                    <strong>
-                                       <p ng-if="event_count[data.id] > 0">{{event_count[data.id]}} Assignments</p>
-                                    </strong>
-                                 </a>
-                                 <p ng-if="event_count[data.id] == '' || event_count[data.id] == null">0 Assignments</p>
-                              </td>
-                              <td width="23%" title="'Action'"  class="action">
-                                 <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
-                                 <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
-                                 <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?" ng-if="event_count[data.id] == '' || event_count[data.id] == null"><i class="fa fa-trash"></i></a>
-                              </td>
-                           </tr>
-                           <tr ng-if="$data == ''">
-                              <td colspan="5" align="center">No Record found!</td>
-                           </tr>
-                           <tr ng-show="loader">
-                              <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
-                           </tr>
+                             <tr ng-repeat="data in $data | filter:filter">
+                                        <td  width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox3.html'"><input type="checkbox" name="checkall" ng-model="data.selected"  ng-click="optionToggled(data.id);" >
+               </td>
+                                        <td width="15%" header-class="'header-text-align'" title="'Name'" filter="{ coupon_name: 'text'}" sortable="'coupon_name'"><strong>{{data.coupon_name}}</strong>
+               </td>
+                                        <td width="12%" header-class="'header-text-align'" title="'Type'" filter="{ coupon_type: 'text'}" sortable="'coupon_type'">{{data.coupon_type}}
+               </td>
+                                        <td width="12%" header-class="'header-text-align'" title="'Code'" filter="{ coupon_code: 'text'}" sortable="'coupon_code'" >
+                                            <p ng-if="data.coupon_code">{{data.coupon_code}}</p>
+                                            <p ng-if="data.coupon_code == '' || data.coupon_code == null || data.coupon_code == undefined"></p>
+                                        </td>
+                                        <td width="12%" header-class="'header-text-align'" title="'Discount'" filter="{ amount: 'text'}" sortable="'amount'" class="numbers">
+                                            <p ng-if="data.amount">{{data.amount}}</p>
+                                            <p ng-if="data.amount == '' || data.amount == null || data.amount == undefined || data.amount == 0"></p>
+                                        </td>
+                                        <td width="16%" header-class="'header-text-align'" title="'Amount Type'" filter="{ amount_type: 'text'}" sortable="'amount_type'" >{{data.amount_type}}
+               </td>
+                                        <td width="14%" header-class="'header-text-align'" title="'Assigned To'"  class="">
+                                            <a href="#/discount_assignment_overview/{{data.id}}"><strong><p ng-if="event_count[data.id] > 0">{{event_count[data.id]}} Assignments</p></strong></a>
+
+                                            <p ng-if="event_count[data.id] == '' || event_count[data.id] == null">0 Assignments</p>
+                                             </td>
+
+                                        <td width="23%" title="'Action'"  class="action">
+                                            <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
+                                            <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
+                                            <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?" ng-if="event_count[data.id] == '' || event_count[data.id] == null"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+
+                <tr ng-if="$data == ''">
+                                        <td colspan="5" align="center">No coupons have been assigned to this event. </td>
+                                    </tr>
+                                    <tr ng-show="loader">
+                                        <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+
                         </tbody>
-                     </table>
+                     </table>-->
                   </div>
                </section>
                <section class="grid-bottm clearfix">

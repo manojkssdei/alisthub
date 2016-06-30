@@ -206,7 +206,7 @@
                 <!-- ng-disabled="myForm.$invalid || eventsChoosedFlag == false" -->
                 <div class="editor-btn">
                     <button type="submit"  ng-disabled="myForm.$invalid || eventsChoosedFlag == false"  ng-click="stepOne()" class="gray-btn btn">Save</button> 
-                    <button type="button" ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
+                    <button type="button" ng-disabled="myForm.$invalid || eventsChoosedFlag == false"  ng-click="click_menu(steps[1])" class="pink-btn btn">Next</button>
                 </div>
             </form>
             

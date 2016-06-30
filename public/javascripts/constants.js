@@ -118,6 +118,7 @@ var webservices = {
     "deleteQuestion": "/event_setting/deleteQuestion",
     "exportQuestionCSV": "/event_setting/exportQuestionCSV",
     "getSelectedQuestion": "/event_setting/getSelectedQuestion",
+    "getQuestionsOfEvent" : "/event_setting/getQuestionsOfEvent",
 
     /* Constants for the product */
     "getSettingCount": "/event_setting/getSettingCount",
@@ -210,6 +211,9 @@ var webservices = {
     "getAssignDiscountDetails": "/event_setting/getAssignDiscountDetails",
     "updateFinalAssignment": "/event_setting/updateFinalAssignment",
     "delPriceLevelDiscAssignment": "/event_setting/delPriceLevelDiscAssignment",
+    "getDiscountsOfEvent": "/event_setting/getDiscountsOfEvent",
+    "getCountDiscountsOfEvent" : "/event_setting/getCountDiscountsOfEvent",
+    
 
     /* Constants for the bundle module */
     "getBundles": "/event_setting/getBundles",

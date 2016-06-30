@@ -379,6 +379,55 @@ Module : Discount
             $scope.getDiscount();
         }
 
+/*Get discount coupons using seller id*/
+        $scope.getDiscountsOfEvent = function() {
+            if ($localStorage.userId != undefined) {
+                $scope.data.userId = $localStorage.userId;
+                $scope.data.eventId = $state.params.eventOverviewId;
+                $scope.loader = true;
+                 
+                 $serviceTest.getDiscountsOfEvent($scope.data, function(response) {
+                    if (response.code == 200) {
+                        $scope.loader = false;
+                        $scope.discount = response.discount[0];
+                        $scope.discountAssignments = response.discountAssignments;
+                            $scope.discountAssignIds = [];
+                            $scope.commonAssignIds = [];
+                            //$scope.assignmentByCommonIds = [];
+
+
+                            $scope.discountAssignments.forEach(function(value) {
+                                $scope.discountAssignIds.push(value.id);
+
+                                if ($scope.commonAssignIds.indexOf(value.common_id) == -1) {
+                                 $scope.commonAssignIds.push(value.common_id);
+                                } 
+                            }); 
+
+                            console.log('value.commonAssignIds' , $scope.commonAssignIds);
+
+                        if(response.globalDiscountAssignments[0]) {
+                             $scope.globalAssignments = response.globalDiscountAssignments[0];
+                        }
+                        else{
+                            $scope.globalAssignments = "undefined";
+                        }
+                    } 
+
+                });  
+            } else {
+                $scope.eventdata = "";
+            }
+
+        }
+
+       /*View listing of all discount coupons */
+        if ($state.params.eventOverviewId) {
+            $scope.getDiscountsOfEvent();
+        }
+        
+
+
         /*Enable the status of discount coupon */
         $scope.changeStatus = function(id, status) {
             $scope.data = {};

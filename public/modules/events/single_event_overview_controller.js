@@ -17,11 +17,18 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('single
 
     var $eventService = $injector.get("events");
     var $venueService = $injector.get("venues");
+    var $questionService = $injector.get("questions");
+    var $discountService = $injector.get("discounts");
     
     $scope.data = {};
     $scope.error_message = true;
-    var event_id = $stateParams.eventId;
-    console.log('event_id ' , event_id) ;
+    var userId =  $localStorage.userId;
+    var eventId = $stateParams.eventId;
+
+    $scope.userId = userId;
+    $scope.eventId = eventId;
+    
+    console.log('eventId ' , eventId) ;
 
 
 
@@ -92,7 +99,7 @@ $scope.getFormattedDate = function(today1) {
 
     //service created to get event detail
 
-    $eventService.getEvent({ 'event_id': event_id }, function(response) {
+    $eventService.getEvent({ 'event_id': eventId }, function(response) {
 
         console.log('response ' , response) ;
      
@@ -137,10 +144,70 @@ $scope.getFormattedDate = function(today1) {
       });
 
 
-    $venueService.getPricelevel({ 'event_id': event_id }, function(response) {
-        console.log('response ' , response) ;
-        $scope.data = response.results[0];
+    $venueService.getPricelevel({ 'eventId': eventId }, function(response) {
+        console.log('response getPricelevel ' , response) ;
+        $scope.getPricelevel = response.results;
+
+        $scope.tableParams = new ngTableParams(
+        {
+                    page: 1,            // show first page
+                    count: 5,           // count per page
+                    sorting: {price_level_name:'asc'},
+                    
+            },
+            {
+                   // data:$scope.get_price_level
+                    data:$scope.getPricelevel
+        });
+
     });
+
+
+    $questionService.getQuestionsOfEvent({ 'userId': userId , 'eventId' : eventId  }, function(response) {
+        console.log('response ' , response) ;
+        $scope.getQuestions = response.result;
+
+       $scope.tableParamsQuestions = new ngTableParams(
+        {
+                    page: 1,            // show first page
+                    count: 5,           // count per page
+                    sorting: {id:'asc'},
+                    
+            },
+            {
+                   // data:$scope.get_price_level
+                    data:$scope.getQuestions
+        }); 
+
+        
+
+    });  
+
+
+    $discountService.getDiscountsOfEvent({ 'userId': userId , 'eventId' : eventId }, function(response) {
+        console.log('response.result ' , response.result) ;
+        $scope.getDiscounts = response.result;
+
+       $scope.tableParamsDiscounts = new ngTableParams(
+        {
+                    page: 1,            // show first page
+                    count: 5,           // count per page
+                    sorting: {id:'asc'},
+                    
+            },
+            {
+                    data:$scope.getDiscounts
+        }); 
+    }); 
+
+     $discountService.getCountDiscountsOfEvent({ 'userId': userId , 'eventId' : eventId }, function(response) {
+       
+        $scope.getCountDiscountsOfEvent = response.result.count;
+         console.log('response.result[0].count ' , response.result[0].count ) ;
+    }); 
+
+
+    
 
 
 

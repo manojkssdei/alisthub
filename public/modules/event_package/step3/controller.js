@@ -48,7 +48,7 @@ angular.module('alisthub').controller('createpackageControllerThree', function($
     if (menu.id === 2) {
       console.log('------2----');
      if($stateParams.packageId != null && $stateParams.packageId !=undefined && $stateParams.packageId !='') {
-            $location.path("/event_package_step_3/"+$stateParams.packageId);
+            $location.path("/event_package_step_2/"+$stateParams.packageId);
           } 
     }
 
