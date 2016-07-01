@@ -46,7 +46,7 @@ module.exports = function()
                });
     
   }
-  this.add_event = function(req,res,next)
+  this.add_event = function(data,res,next)
   {
     // required : event_name , address ,city , status (1, 2, 3, 4, 5, 7, 8),
   //0.event_type :   int. 3 for General Admission Event, 2 for an Assigned Seating Event 
@@ -59,22 +59,105 @@ module.exports = function()
 //5.description : string. description of the event. santized to allow limited html supported. no javascript.
 //6.event : string. the title of the event.
 //7.event_id :  int. Primary Key. Id of an event. (not required) 
-    
+    var input = {
+                 "event":data.eventname,
+                 "description":data.content,
+                 "short_name":data.eventurl,
+                 "event_start":data.event_startdatetime,
+                 "sales_open":data.event_startdatetime,
+                 "user_id":data.showclix_user_id,
+                 "seller_id":data.showclix_seller_id,
+                 "venue_id":"34657",
+                 "event_type":"3",
+                 "status":data.step
+                };
+      if(data.showclix_id){
+        input.event_id = data.showclix_id;
+        request.put({
+                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
+                url:     "http://api.showclix.com/Event/"+data.showclix_id,
+                form:    input }, function(error, response, body){
+                  var str = JSON.parse(response.body);
+                  console.log(response.body.event_id);
+                                  
+                  if (response.body.event_id) {
+                    return next({status:1,location:response.body.event_id});
+                  }
+                  else
+                  {
+                    return next({status:0,location:"","error":str});
+                  }
+                   
+          });
+      }
+      else{
     request.post({
-                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':'c09f282dfd94767749fd2c2d7cca4f36b0c590fe56ace77dd18bb254130e5fd1'},
+                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/Event",
-                form:    {"user_id":"28676","seller_id":"22876","venue_id":"34657","event":req.body.eventname,"description":req.body.content,"inventory":"600","private_event":"0","price":"18.00","price_label":"General Admission","price_limit":"1","ticket_purchase_timelimit":null,"ticket_purchase_limit":null,"will_call_ticketing":null,"ages":"0","image":"20091252630916.jpg","url":null,"event_type":"3","ticket_note":null,"status":"1","keywords":null,"sales_open":req.body.eventdate,"event_start":req.body.eventdate,"short_name":"ninth_dance_event","display_image":"1"} }, function(error, response, body){
+                form:    input }, function(error, response, body){
+                  var str = response.body;
+                  console.log(response.body);
+                                  
                   if (response.headers.location) {
                     return next({status:1,location:response.headers.location});
                   }
                   else
                   {
-                   return next({status:0,location:""});
-                                      
+                    var percent  = str.split("<p>");
+                    var percent2 = percent[1].split("</p>");
+                    var percent3 = percent2[0].replace("<h2>", "");
+                    var percent3 = percent3.replace("<h3>", "");
+                    var percent3 = percent3.replace("</h2>", "");
+                    var percent3 =percent3.replace("</h3>", "");
+                    return next({status:0,location:"","error":percent3});
                   }
                    
                });
+      }
     
+  }
+  
+  this.add_price_level = function(data,res,next)
+  {
+      var input = {
+                 "event_id":data.showclix_id,
+                 "level":data.price_level,
+                 "active":1
+                  };
+      //{"event_id":"4194781","min_price":"2","bos_price":"8","price":"10","level":"Term","limit":70,"active":"1","description":"This is test description"}
+      if(data.showclix_price_id) {  input.level_id = data.showclix_price_id;  }
+      if(data.online_price)    {    input.price = data.online_price; }
+      if(data.minimum_price)   {    input.min_price = data.minimum_price; }
+      if(data.box_office_price){    input.bos_price = data.box_office_price; }
+      if(data.quantity_available){  input.limit = data.quantity_available; }
+      if(data.description)     {    input.description = data.description; }
+      if(data.minimum_per_order){   input.increment_by = data.minimum_per_order; }
+      if(data.maximum_per_order){   input.transaction_limit = data.maximum_per_order; }
+      if(data.suggested_price){     input.upsell_price = data.suggested_price; }
+      if(data.hide_in_box_office){  input.box_office_hide = data.hide_in_box_office; }
+      
+      request.post({
+                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
+                url:     "http://api.showclix.com/PriceLevel",
+                form:    input }, function(error, response, body){
+                  var str = response.body;
+                  console.log(response.body);
+                                  
+                  if (response.headers.location) {
+                    return next({status:1,location:response.headers.location});
+                  }
+                  else
+                  {
+                    var percent  = str.split("<p>");
+                    var percent2 = percent[1].split("</p>");
+                    var percent3 = percent2[0].replace("<h2>", "");
+                    var percent3 = percent3.replace("<h3>", "");
+                    var percent3 = percent3.replace("</h2>", "");
+                    var percent3 =percent3.replace("</h3>", "");
+                    return next({status:0,location:"","error":percent3});
+                  }
+                   
+               });
   }
   
   this.add_series_event = function(req,res,next)
@@ -92,7 +175,7 @@ module.exports = function()
 //7.event_id :  int. Primary Key. Id of an event. (not required) 
     
     request.post({
-                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':'e4fe17d8b0e3648ca40807bdb511e5582de018d265c36dbd0ec1a6499e69f356'},
+                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':req.showclix_token},
                 url:     "http://api.showclix.com/Event",
                 form:    {"user_id":"28676","seller_id":"22876","venue_id":"34657","event":req.eventname,"description":req.content,"inventory":"600","private_event":"0","price":"18.00","price_label":"General Admission","price_limit":"1","ticket_purchase_timelimit":null,"ticket_purchase_limit":null,"will_call_ticketing":null,"ages":"0","image":"20091252630916.jpg","url":null,"event_type":"3","ticket_note":null,"status":"1","keywords":null,"sales_open":req.eventdate,"event_start":req.eventdate,"short_name":req.short_name,"display_image":"1","behavior_set":"3","position":"3"} }, function(error, response, body){
                   console.log(response);
@@ -111,38 +194,14 @@ module.exports = function()
   }
   
   
-  this.add_price_level = function(req,res,next)
+  this.delete_event = function(req,res,next)
   {
-    // required : venue_name , address ,city , status
+    // required : 
     
-    request.post({
-                headers: {'X-API-Token':'c09f282dfd94767749fd2c2d7cca4f36b0c590fe56ace77dd18bb254130e5fd1'},
-                url:     showClix.addVenue,
-                form:    { "venue_name": req.body.venue_name,
-              "seating_chart_name": "",
-              "capacity": req.body.capacity,
-              "description": "test description",
-              "booking_info": null,
-              "image": null,
-              "seating_chart": null,
-              "seating_chart_type": "2",
-              "url": req.body.url,
-              "contact_name": req.body.contact_name,
-              "contact_title": null,
-              "address": "test Elante address",
-              "city": req.body.city,
-              "state": req.body.state,
-              "zip": req.body.zipcode,
-              "country": req.body.country,
-              "phone": req.body.phone,
-              "fax": req.body.fax,
-              "email": req.body.email,
-              "timezone": null,
-              "status": "2",
-              "lat": req.body.phone,
-              "lng": req.body.phone,
-              "timezone_name": req.body.timezone
-            } }, function(error, response, body){
+    request.delete({
+                headers: {'X-API-Token':req.showclix_token},
+                url:     "https://api.showclix.com/Event/"+req.showclix_id,
+                form:    {} }, function(error, response, body){
                    if (response.headers.location) {
                     return next({status:1,location:response.headers.location});
                    }
@@ -155,28 +214,8 @@ module.exports = function()
                });
     
   }
-  this.delete_event = function(req,res,next)
-  {
-    // required : venue_name , address ,city , status
-    
-    request.delete({
-              headers: {'X-API-Token':'c09f282dfd94767749fd2c2d7cca4f36b0c590fe56ace77dd18bb254130e5fd1'},
-              url:     showClix.deleteEvent,
-              form:    { } }, function(error, response, body){
-                 
-                 console.log(response);
-                 console.log(body);
-                 /*  if (response.headers.location) {
-                    return next({status:1,location:response.headers.location});
-                   }
-                   else
-                   {
-                   return next({status:0,location:""});
-                   }
-                  */ 
-               });
-    
-  }
+  
+ 
   
   
 }

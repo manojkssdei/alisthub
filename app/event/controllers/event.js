@@ -1,36 +1,30 @@
 /** 
 Method: saveEvent
 Description:Function to save event data for user 
-Created : 2016-04-19
-Created By: Deepak khokkar  
+Created : 2016-06-30
+Created By: Manoj Kumar Singh
 */
 var moment       = require('moment-timezone');
 var showClix   = require('./../../showclix/service.js');
 
 exports.saveEvent = function(req,res) {
-  
-    var data=req.body;
-    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
-    //console.log(data); return false;
-    //var zip = parseInt(data.zipcode);
-    if(data.id=='' || data.id==undefined) {
-     
-     var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"')";
-     
-      connection.query(query, function(err7, responce) {
-         
-          var venue_id = responce.insertId;
-          var eventId = null;
-          data.created = new Date();
-          
-          //console.log("INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"')");
-          //return false;
-
-          var query1 = "INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`,`event_domain`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"','"+data.eventurl+"')";
-         
-          connection.query(query1,function(err,result) {
-              eventId = result.insertId;
-               var __dir = './public/preview_template/'+data.userId;
+   
+    function rollback_event(id) {
+        var query = "Delete from events where id="+id;
+        connection.query(query, function(err7, responce) {
+        })
+    }
+    function update_showclix_data(event_url,eventId,data)
+    {
+        var showclix_event_id = event_url.split("/");
+        var query = "UPDATE events SET showclix_id="+showclix_event_id[4]+", showclix_url='"+event_url+"', showclix_seller='"+data.showclix_seller_id+"' where id="+eventId;
+        connection.query(query, function(err7, responce) {
+        })
+    }
+    
+    function create_folder(data,eventId) {
+        
+        var __dir = './public/preview_template/'+data.userId;
             if (!fs.existsSync(__dir)){
                 fs.mkdirSync(__dir);
             }
@@ -40,18 +34,64 @@ exports.saveEvent = function(req,res) {
             }
             fs.openSync(__dir1 + "/index.html", 'w');
              fs.createReadStream("./public/preview_template/look-n-feel-design-preview.html").pipe(fs.createWriteStream(__dir1 + "/index.html"));
-              var query2 = "INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`,`created`,`modified`) VALUES(NULL,'"+eventId+"','"+data.eventdate+"','"+data.startevent_time+"','"+data.endevent_time+"','"+curtime+"','"+curtime+"')";
+             
+    }
+  
+    var data=req.body;
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    
+    //console.log(data); return false;
+    //var zip = parseInt(data.zipcode);
+        
+    if(data.id=='' || data.id==undefined) {
+     
+     var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"')";
+     
+        connection.query(query, function(err7, responce) {
+         
+          var venue_id = responce.insertId;
+          var eventId = null;
+          data.created = new Date();
+          var query1 = "INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`,`event_domain`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"','"+data.eventurl+"')";
+         
+            connection.query(query1,function(err,result) {
+            
+            eventId = result.insertId;
+              
+            create_folder(data,eventId)           
+             
+            var query2 = "INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`,`created`,`modified`) VALUES(NULL,'"+eventId+"','"+data.eventdate+"','"+data.startevent_time+"','"+data.endevent_time+"','"+curtime+"','"+curtime+"')";
+              
               connection.query(query2,function(error,res1){
                 if (error) {
                   res.json({error:error,code:101});
                 } else {
-               
-                  res.json({result:eventId,code:200}); 
+                   
+                   // showclix start 
+                    var showClix2 = new showClix();
+                        showClix2.add_event(data,res,function(sdata){
+                        if (sdata.status == 1) {
+                            var event_url = sdata.location;
+                            var showclix_event_id = event_url.split("/");
+                            update_showclix_data(event_url,eventId,data);
+                            res.json({result:eventId,showclix:sdata.location,code:200});
+                        } else {
+                            rollback_event(eventId);
+                            res.json({result:"",error:sdata.error,code:101});  
+                        }
+                    });
+                    //showclix end
+                   
+                   //res.json({result:eventId,code:200});
+                 
                 }
               });
-          });
-      });
-    } else {
+              
+            });
+        });
+    }
+    else
+    {
       //Update the event 
       var venueid = '';
       if(data.venueid!=undefined && data.venueid!='') {
@@ -70,27 +110,47 @@ exports.saveEvent = function(req,res) {
             } 
             venueid = vresponce.insertId;
           })
-      }
+     }
       //console.log('venueID:'+venueid);
 
       connection.query("UPDATE events SET `user_id`='"+data.userId+"',`title`='"+data.eventname+"',`description`='"+data.content+"',`venue_id`='"+venueid+"'  where id="+data.id, function(err, results) {
          if (err) {
           res.json({error:err,code:101});
          }
+         
+         //res.json({result:data.id,code:200});
+         
+         // showclix start 
+                    var showClix2 = new showClix();
+                        showClix2.add_event(data,res,function(sdata){
+                        if (sdata.status == 1) {
+                            var event_url = sdata.location;
+                            var showclix_event_id = event_url.split("/");
+                            update_showclix_data(event_url,data.id,data);
+                            res.json({result:data.id,showclix:sdata.location,code:200});
+                        } else {
+                            rollback_event(data.id);
+                            res.json({result:"",error:sdata.error,code:101});  
+                        }
+                    });
+        //showclix end
+         
+         
       });
       
-      res.json({result:data.id,code:200}); 
-         
-      //console.log("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id);
+       
+    }   
+    
+    //console.log("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id);
       
-      /*connection.query("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id, function(err, results) {
+    /*connection.query("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id, function(err, results) {
          if (err) {
           res.json({error:err,code:101});
          } else {
           res.json({result:results,code:200});
          }
-      });*/
-    }
+      });
+    }*/
 }
 
 /** 
@@ -421,6 +481,19 @@ exports.addComment=function(req,res)
 
 exports.savepricelevel=function(req,res){
     
+    function rollback_level(id) {
+        var query = "Delete from price_levels where id="+id;
+        connection.query(query, function(err7, responce) {
+        })
+    }
+    function update_showclix_pricedata(event_url,eventId,data)
+    {
+        var showclix_event_id = event_url.split("/");
+        var query = "UPDATE price_levels SET showclix_price_id="+showclix_event_id[4]+"  where id="+eventId;
+        connection.query(query, function(err7, responce) {
+        })
+    }
+    
     var data=req.body;
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
     // Case : For single event
@@ -437,7 +510,31 @@ exports.savepricelevel=function(req,res){
         if (err) {
            res.send({err:"error",code:101}); 
         }
-           res.send({"results":result,code:200});  
+           if (data.id!=undefined) {
+            var parne_id = data.id;
+           }
+           else{
+            var parne_id = result.insertId; 
+           }
+           res.send({"results":result,code:200});
+            // showclix start 
+              /*  var showClix2 = new showClix();
+                    showClix2.add_price_level(data,res,function(sdata){
+                        if (sdata.status == 1) {
+                            var event_url = sdata.location;
+                            update_showclix_pricedata(event_url,parne_id,data);
+                            res.json({result:result,showclix:sdata.location,code:200});
+                        } else {
+                            rollback_level(eventId);
+                            res.json({result:"",error:sdata.error,code:101});  
+                        }
+                    });*/
+            //showclix end
+        
+        
+          // res.send({"results":result,code:200});
+           
+           
         
         });
     }

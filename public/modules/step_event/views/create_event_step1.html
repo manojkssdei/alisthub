@@ -11,7 +11,9 @@
     </div>
     <!-- //Step Form -->
     <!-- Form COntainer -->
-    <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
+   
+    <span ng-show="show_error_message"><p class="error-fld">{{show_error}}</p></span>
+    <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
     <div class="form-section  wt-frame">
 
       <div ng-hide="eventdetail_div">
@@ -235,10 +237,9 @@
         <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
       </div>
     </form>
-    
-    <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
-  
-  
+    <div ng-show="saveloader" align="center">
+          <img src="/images/icons/loader.gif">
+    </div>
   
 </div>
 </div>

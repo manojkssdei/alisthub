@@ -56,11 +56,16 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
     } else {
       event_id = $localStorage.eventId;
     }
+    
     $scope.pageloader = true; 
     $serviceTest.getEvent({'event_id':event_id},function(response){
       $scope.pageloader = false;
         $scope.data1=response.results[0];
-    		$scope.data1.facebook=response.results[0].facebook_url != null?response.results[0].facebook_url:"";
+	$localStorage.showclix_event_id = $scope.data1.showclix_id;
+	console.log("+++++++++++++++1++++++++++++++++++++++++"); 
+	console.log($scope.showclix_event_id);
+	console.log("+++++++++++++++++++++++++++++++++++++++");
+	 	$scope.data1.facebook=response.results[0].facebook_url != null?response.results[0].facebook_url:"";
 		$scope.data1.twitter=response.results[0].twitter_url != null?response.results[0].twitter_url:"";
 		$scope.data1.eventwebsite=response.results[0].website_url != null?response.results[0].website_url:"";
     		$scope.data1.eventinventory=response.results[0].inventory;
@@ -70,6 +75,11 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
           $scope.ageDropdown = 1;
         }
     });
+    
+    
+  console.log("++++++++++++++++++++7+++++++++++++++++++"); 
+  console.log($localStorage.showclix_event_id);
+  console.log("+++++++++++++++++++++++++++++++++++++++");
 	$serviceTest.getEventCat({'event_id':event_id},function(response){
 	 
 	 angular.forEach(response.result,function(value, key){
@@ -126,7 +136,9 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
         }); 
     }
     
-
+console.log("++++++++++++++++++++2+++++++++++++++++++"); 
+  console.log($scope.showclix_event_id);
+  console.log("+++++++++++++++++++++++++++++++++++++++");
     // To get Price level.
     $scope.availQuantity=0;
     $scope.totalRemainings=0;
@@ -362,7 +374,7 @@ $scope.success_message = false;
 
   $scope.selected2 = $scope.steps[1];
 
-
+  
   /** 
   Method: click_menu
   Description:Function for changing the tab 
@@ -538,11 +550,14 @@ $scope.success_message = false;
 
   //For Step 2
   //$scope.items = ['item1'];
-
-
+  console.log("++++++++++++++++++4+++++++++++++++++++++"); 
+  console.log($scope.showclix_event_id);
+  console.log("+++++++++++++++++++++++++++++++++++++++");
+  
   $scope.items = {};
   if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
-    $scope.items.eventId = $stateParams.eventId;
+    $scope.items.eventId     = $stateParams.eventId;
+    $scope.items.showclix_id = $localStorage.showclix_event_id;
   } 
 
   $scope.animationsEnabled = true;
@@ -920,7 +935,10 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
   $scope.savepriceleveldata = function(data1) {
     data1.userId = $localStorage.userId;
     data1.eventId = items.eventId;
-    
+    data1.showclix_token     = $localStorage.showclix_token;
+    data1.showclix_user_id   = $localStorage.showclix_user_id;
+    data1.showclix_seller_id = $localStorage.showclix_seller_id;
+    data1.showclix_id        = items.showclix_id;
     $serviceTest.savepriceleveldata(data1, function(response) {
 
       if (response !== null) {

@@ -1705,7 +1705,30 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
 routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state,$timeout,$window)
 {
-
+      /* var showclix_data = {"email":$localStorage.email,"password":$localStorage.password};
+      
+      function regenerate_token()
+      {
+         $http({
+                     url: showclix_webservices.generateToken,
+                     method: 'POST',
+                     data: $scope.showclix_data,
+                     headers: {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                            "Accept": "application/json",
+                     }
+                    }).success(function(datas, status, headers, config) {
+                    var response = JSON.parse(datas.body);
+                    if (response != null && response != "" && response.token) {
+                     /// Showclix storage start
+                    $rootScope.showclix_token     = $localStorage.showclix_token     = response.token;
+                    $rootScope.showclix_user_id   = $localStorage.showclix_user_id   = response.user_id;
+                    $rootScope.showclix_seller_id = $localStorage.showclix_seller_id = response.seller_id;
+                    /// Showclix storage end
+                    }
+         });
+      }*/
+      
     /*$timeout(callAtTimeout, 20*20*3000);
 
     function callAtTimeout()

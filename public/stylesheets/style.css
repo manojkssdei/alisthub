@@ -494,8 +494,8 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 
 .u-text{text-decoration:underline;}
 .u-text:hover{text-decoration:none;}
-.ng-binding.error-fld { background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;color: #fff;margin: 0 0 15px;
-    padding: 10px;}
+.ng-binding.error-fld { background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;color: #000;margin: 0 0 15px;
+    padding: 10px;line-height: 20px;}
 
   .datepicker{ display: table; }
   .datepicker input, .datepicker .input-group-btn{ display: table-cell; }
