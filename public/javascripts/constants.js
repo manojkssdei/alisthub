@@ -326,7 +326,8 @@ var webservices = {
     "saveSeriesSetting": "/event/saveSeriesSetting",
     "saveInventory": "/event/saveInventory",
 
-
+    //Permisssion module routes
+    "getPerModules": "/user/getPerModules",
 
 
 

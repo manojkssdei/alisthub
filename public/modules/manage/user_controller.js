@@ -177,17 +177,32 @@ Created By: Deepak Khokkar
 Module : User 
 */
 angular.module('alisthub')
-    .controller('userPermissionController', function($scope, $localStorage,$http, $state, $location,ngTableParams, $timeout,$window,$rootScope,$injector) {
-        $scope.user = {};
-        //event_count=[];
-        if (!$localStorage.isuserloggedIn) {
-            $state.go('login');
-        }
-        var $serviceTest = $injector.get("users");
+.controller('userPermissionController', function($scope, $localStorage,$http, $state, $location,ngTableParams, $timeout,$window,$rootScope,$injector) {
+    $scope.user = {};
+    //event_count=[];
+    if (!$localStorage.isuserloggedIn) {
+        $state.go('login');
+    }
+    var $serviceTest = $injector.get("users");
 
+    /*get user details*/
+    $scope.data = {};
+    $scope.data.userId = 128;
+    $scope.getPerModules = function() {
+        $scope.loader = true;
+        $serviceTest.getPerModules($scope.data, function(response) {
+            $scope.loader = false;
+            if (response.code == 200) {
+                console.log(response.result);
+                $scope.modules = response.result;
+            }   
+        });
+    };
 
-       
+    $scope.submitCreateUserForm = function(){
+        console.log($scope.data);
+        console.log($scope.modules);
+    }
 
-        
-       
- });
+    $scope.getPerModules();
+});

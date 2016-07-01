@@ -7,22 +7,25 @@
                 <section class="grid-widget">
                     <div class="table-responsive">
                         <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="15%">Module Name</th>
+                                    <th width="85%">&nbsp;</th>
+                                </tr>
+                            </thead>
                             <tbody>
-                              <tr ng-repeat="data1 in $data">
-                                    <td title="'Email'" filter="{ name: 'text'}" sortable="'email'">{{data1.email}}</td>
-                                    <td  title="'MANAGE'" class="action">
-                                        <a title="Edit User" href="#/edit_user/{{data1.id}}"><i class="fa fa-edit"></i></a>
-                                        <a title="User Status"  ng-click="changeStatus(data1.id,data1.status)" ng-confirm-click="Would you like to change Venue status ?">
-                                         <i class="fa fa-check-circle" ng-if="data1.status == 1"></i>
-                                         <i class="fa fa-times" ng-if="data1.status == 0"></i>
-                                        </a>
-                                        <a title="Delete User" ng-click="deleteUser(data1.id)" ng-confirm-clicks="Would you like to delete this User?"  style="cursor: pointer;"><i class="fa fa-trash"></i></a>
-                                        <a title="Change permission" href="#/user_permission/{{data1.id}}" style="cursor: pointer;"><i class="glyphicon glyphicon-check"></i></a>
+                                <tr ng-repeat="module in modules track by $index">
+                                    <td><strong>{{module.module_name}}</strong></td>
+                                    <td class="action">
+                                      <input type="checkbox" ng-model="module.add" ng-true-value = "1" ng-false-value="0">
+                                      <input type="checkbox" ng-model="module.edit" ng-true-value = "1" ng-false-value="0">
+                                      <input type="checkbox" ng-model="module.delete" ng-true-value = "1" ng-false-value="0">
+                                      <input type="checkbox" ng-model="module.view" ng-true-value = "1" ng-false-value="0">
                                     </td>
                                 </tr>
-                                <tr ng-show="loader">
-                                            <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
-                                        </tr>
+                                <tr ng-show="loader_bundle">
+                                      <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -31,10 +34,12 @@
 
 
             </section>
+            <div class="editor-btn">
+                <button class="pink-btn btn" ng-click="submitCreateUserForm()" ng-disabled="addUserForm.$invalid">SUBMIT</button>
+                <button class="pink-btn btn" ui-sref="view_user">CANCEL</button>         
+            </div>
+
         </form>
-        <div class="editor-btn">
-            <button class="pink-btn btn" ng-click="submitCreateUserForm()" ng-disabled="addUserForm.$invalid">SUBMIT</button>
-            <button class="pink-btn btn" ui-sref="view_user">CANCEL</button>         
-        </div>
+        
     </div>
 </div>
