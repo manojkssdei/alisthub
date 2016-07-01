@@ -37,6 +37,9 @@ module.exports = function(app, express) {
     /* Service : get permission modules */
     router.post('/getPerModules',supportCrossOriginScript, user.getPerModules);
 
+    /* Service : save permission for users */
+    router.post('/savePerModules',supportCrossOriginScript, user.savePerModules);
+
 	/* default route */
 	app.use('/user', router);
 }

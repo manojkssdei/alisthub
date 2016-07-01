@@ -54,6 +54,15 @@ angular.module('alisthub')
     });
   };
 
+  url.savePerModules = function(jsondata,callback) {
+    communicationService.resultViaPost(webservices.savePerModules,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+  
+
+
 return url;
 }])
 ;

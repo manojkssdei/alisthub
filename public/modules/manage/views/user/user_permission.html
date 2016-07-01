@@ -9,18 +9,27 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th width="15%">Module Name</th>
-                                    <th width="85%">&nbsp;</th>
+                                    <th width="60%">Module Name</th>
+                                    <th width="10%"></th>
+                                    <th width="10%"></th>
+                                    <th width="10%"></th>
+                                    <th width="10%"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="module in modules track by $index">
                                     <td><strong>{{module.module_name}}</strong></td>
                                     <td class="action">
-                                      <input type="checkbox" ng-model="module.add" ng-true-value = "1" ng-false-value="0">
-                                      <input type="checkbox" ng-model="module.edit" ng-true-value = "1" ng-false-value="0">
-                                      <input type="checkbox" ng-model="module.delete" ng-true-value = "1" ng-false-value="0">
-                                      <input type="checkbox" ng-model="module.view" ng-true-value = "1" ng-false-value="0">
+                                      <input type="checkbox" ng-model="module.add" ng-true-value = "1" ng-false-value="0"> &nbsp; Add
+                                    </td>
+                                    <td class="action">
+                                      <input type="checkbox" ng-model="module.edit" ng-true-value = "1" ng-false-value="0"> &nbsp; Edit
+                                    </td>
+                                    <td class="action">
+                                      <input type="checkbox" ng-model="module.delete" ng-true-value = "1" ng-false-value="0"> &nbsp; Delete
+                                    </td>
+                                    <td class="action">
+                                      <input type="checkbox" ng-model="module.view" ng-true-value = "1" ng-false-value="0"> &nbsp; View
                                     </td>
                                 </tr>
                                 <tr ng-show="loader_bundle">

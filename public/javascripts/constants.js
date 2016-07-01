@@ -332,8 +332,7 @@ var webservices = {
 
     //Permisssion module routes
     "getPerModules": "/user/getPerModules",
-
-
+    "savePerModules": "/user/savePerModules",
 
 }
 
