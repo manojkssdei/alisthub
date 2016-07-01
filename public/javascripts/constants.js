@@ -334,6 +334,8 @@ var webservices = {
     "addEmailReport" : "/event/addEmailReport",
     "getEmailReport" : "/event/getEmailReport",
     "editEmailReport" : "/event/editEmailReport",
+    "getEmailReportById" : "/event/getEmailReportById",
+    
 
 }
 

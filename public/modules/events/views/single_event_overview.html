@@ -551,8 +551,8 @@
                               <td class="numbers">{{email.timezone_name}}</td>
                               <td class="numbers">{{email.export_format}}</td>
                               <td class="action">
-                                 <a ng-click="add_emailReport('lg',email.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-                                 <a ng-click="delete_emailReport('',$index,email.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                                 <a ng-click="add_emailReport('lg' , email.id )" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                                 <a ng-click="delete_emailReport('lg' , email.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
                               </td>
                            </tr>
                            <tr ng-if="EmailReportsList == '' ">
@@ -596,7 +596,7 @@
             <section class="gray-frame sub-fields">
                <section class="grid-btn-top row">
                   <section class="col-sm-12 pull-right text-right">
-                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReport('lg')">Assign a template</button>
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assignTemplate('lg')">Assign a template</button>
                   </section>
                </section>
                <section class="grid-widget" ng-show="showEmailReportList">
@@ -604,11 +604,23 @@
                      <p class="success-fld ng-binding">{{success_template}}</p>
                   </span>
                   <div class="table-responsive">
-                     You are currently using the template: <a href="">ALISTIXS DEFAULT TEMPLATE</a>
+                     You are currently using the template: <a href="">{{template_name}}</a>
                      <br/><br/><br/>
                      <img src="#" class="center" height="100" width="200" />
                   </div>
                </section>
+
+
+                <section class="module row">
+            <section class="col-sm-12 temp-view" ng-repeat="template in templates track by $index">
+               <section class="form-group" ng-if="template.id == template_id">
+                    <p class="temp-image"><img src="{{template.image}}" alt=""/></p>   
+                </section>
+            </section>
+            
+       </section>
+
+
             </section>
          </section>
          <!-- Templates -->
@@ -659,7 +671,7 @@
                 <input type="time"  id="send_time" name="send_time"  ng-model="report.send_time"  class="form-control input-small timepick" required /><span class="input-group-addon timepick1" ><i class="glyphicon glyphicon-time"></i></span>
             </div>-->
 
- <input type="time" id="send_time" name="send_time" ng-model="report.send_time" placeholder="HH:mm:ss" min="01:00:00" max="24:00:00" required />
+ <input type="time" id="send_time" name="send_time" ng-model="report.send_time" placeholder="HH:mm:ss" min="01:00:00" max="24:00:00" required  class="form-control"/>
 
                 <p ng-show="reportForm.send_time.$invalid && !reportForm.send_time.$pristine" class="error-fld ng-binding">Send time is required.</p>
 
@@ -686,6 +698,76 @@
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="submit" ng-disabled="reportForm.$invalid"  >Submit</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+    </form>
+</script>
+
+<!-- *************************************************************************************** -->
+
+
+
+
+
+<!-- *************************************************************************************** -->
+
+
+
+
+
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Templates <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               <section class="grid-btn-top row">
+                  <section class="col-sm-12 pull-right text-right">
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assignTemplate('lg')">Assign a template</button>
+                  </section>
+               </section>
+              
+
+
+                <section class="module row">
+            <section class="col-sm-12 temp-view" ng-repeat="template in templates track by $index">
+               <section class="form-group" ng-if="template.id == template_id">
+                    <p class="temp-image"><img src="{{template.image}}" alt=""/></p>   
+                </section>
+            </section>
+            
+       </section>
+
+
+            </section>
+         </section>
+
+
+
+<script type="text/ng-template" id="myModalAssignTemplate.html">
+
+   <div class="modal-header">
+   <h3 class="modal-title">Email Template</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+   </div>
+
+   <span ng-show="success_message_template" class="ng-hide">
+      <p class="success-fld ng-binding">{{success_template}}</p>
+   </span>
+
+    <form  name="templateForm" ng-submit="templateForm.$valid && assignEmailTemplate(template)" novalidate>
+    <div class="modal-body">
+        <section class="module row">
+            <section class="col-sm-12 temp-view" ng-repeat="template in templates">
+               <section class="form-group">
+               <section class="col-sm-6"><input type="radio" ng-true-value="{{template.id}}" ng-model="{{template.template_name}}"></input>{{template.template_name}} </section>
+               <section class="col-sm-6"><p class="temp-image"><img src="{{template.image}}" class="center" height="100" width="200" /> {{template.image}}</p></section>
+                </section>
+            </section>
+       </section>   
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" ng-disabled="templateForm.$invalid"  >Submit</button>
         <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
     </form>

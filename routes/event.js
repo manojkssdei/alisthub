@@ -158,6 +158,10 @@ module.exports = function(app, express) {
 
   router.post('/editEmailReport' , supportCrossOriginScript , Event.editEmailReport);
   
+  router.post('/getEmailReportById' , supportCrossOriginScript , Event.getEmailReportById);
+
+  
+  
 	app.use('/event', router);
 
 }

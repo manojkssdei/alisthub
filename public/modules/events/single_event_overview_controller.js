@@ -19,6 +19,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('single
     var $venueService = $injector.get("venues");
     var $questionService = $injector.get("questions");
     var $discountService = $injector.get("discounts");
+    var $lookAndFeelService = $injector.get("Lookservice");
     
     $scope.data = {};
     $scope.error_message = true;
@@ -30,6 +31,15 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('single
     
     console.log('eventId ' , eventId) ;
 
+
+$lookAndFeelService.getlookAndFeel({},function(response){
+            if (response!=null && response.code == 200) {
+                $scope.templates=response.result;
+            }
+            else{
+                $scope.templates=[];   
+            }
+        });
 
 
 $scope.hours_am_pm = function(time) {
@@ -115,6 +125,8 @@ $scope.getFormattedDate = function(today1) {
 
         $scope.user_id = response.results[0].user_id;
         $scope.event_id = response.results[0].event_id;
+        $rootScope.template_name = response.results[0].template_name;
+        $rootScope.template_id = response.results[0].template_id;
 
 
       $scope.event_url_for_share = response.results[0].event_url_for_share;
@@ -230,9 +242,9 @@ $scope.getFormattedDate = function(today1) {
   } 
 
   $scope.animationsEnabled = true;
-  $scope.add_emailReport = function(size, eventId) {
-    $rootScope.eventId = eventId;
-    console.log('eventId' , eventId , '$rootScope.eventId ' ,$rootScope.eventId );
+  $scope.add_emailReport = function(size,  emailReportId) {
+    $rootScope.emailReportId = emailReportId;
+    console.log('emailReportId' , emailReportId , '$rootScope.emailReportId ' ,$rootScope.emailReportId );
 
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
@@ -247,10 +259,20 @@ $scope.getFormattedDate = function(today1) {
     });
   };
 
-
-
-
-
+  $scope.assignTemplateAnimationsEnabled = true;
+  $scope.assignTemplate = function(size,  emailReportId) {
+    var modalInstance = $uibModal.open({
+      animation: $scope.assignTemplateAnimationsEnabled,
+      templateUrl: 'myModalAssignTemplate.html',
+      controller: 'ModalInstanceAssignTemplateCtrl',
+      size: size,
+      resolve: {
+        items: function() {
+          return $scope.items;
+        }
+      }
+    });
+  };
 
 });
 
@@ -261,7 +283,7 @@ Code for product popup
 */
 angular.module('alisthub').controller('ModalInstanceEmailReportCtrl', function($scope, $uibModalInstance, $rootScope, $localStorage, $injector, $timeout,items) {
   
-  $scope.data = {};
+  $scope.report = {};
 
  // var eventId = $stateParams.eventId;
   //  $scope.eventId = eventId;
@@ -276,42 +298,114 @@ angular.module('alisthub').controller('ModalInstanceEmailReportCtrl', function($
   };
 
 
+$scope.hours_am_pm = function(time) {
+    console.log('time ' , time);
+    var hours = time[0] + time[1];
+    var min = time[2] + time[3];
+    var sec = 00;
+    
+    /*
+    if (hours < 12) {
+      return hours + ':' + min + ' AM';
+    } else {
+      hours=hours - 12;
+      hours=(hours.length < 10) ? '0'+hours:hours;
+      return hours+ ':' + min + ' PM';
+    }
+    */
+
+    return hours + ':' + min + ':' + sec;
+  }
+
+$scope.getDateTime = function(openDate) {
+    var date1 = new Date(openDate);
+    
+    if(date1!="Invalid Date" && openDate!=null) {
+      console.log(openDate);
+      var date = ('0' + (date1.getUTCDate())).slice(-2);
+      var year = date1.getUTCFullYear();
+      var month = ('0' + (date1.getUTCMonth()+1)).slice(-2);
+      
+      var hours = ('0' + (date1.getUTCHours())).slice(-2);
+      var minutes = ('0' + (date1.getUTCMinutes())).slice(-2);
+      var seconds = date1.getUTCSeconds();
+
+      //var convertedDate = {};
+     // convertedDate.date = new Date(year+"-"+month+"-"+date);
+
+      //convertedDate.time = $scope.hours_am_pm(hours+""+minutes);
+      //return convertedDate ;  
+      return $scope.hours_am_pm(hours+""+minutes); ; 
+    } else {
+      //var convertedDate = {};
+      //convertedDate.date = null;
+      convertedDate.time = null;
+      //return convertedDate ;
+      return convertedDate.time;
+    }
+  };
+
+if($rootScope.emailReportId != undefined) {
+    console.log('getEmailReportById');
+
+        $scope.report.id = $rootScope.emailReportId ;
+        $scope.report.user_id = $localStorage.userId;
+        $scope.report.eventId = $scope.items.eventId;
+
+        console.log('$scope.report');
+        console.log($scope.report);
+
+        $scope.loader = true;
+        $serviceTest.getEmailReportById($scope.report, function(response) {
+            $scope.loader = false;
+            if (response.code == 200) {
+               console.log('response', response);
+               $scope.report = response.result[0];
+
+               $scope.report.send_time = $scope.getDateTime($scope.report.send_time);
+               console.log('$scope.report.send_time  ' , $scope.report.send_time ) ;
+
+            } else {
+                $scope.error_message = response.error;
+            }
+
+        });
+
+
+        }
+
 $scope.addEmailReport =  function (report) {
 
     console.log('in add email report ' , report);
 
     if ($localStorage.userId != undefined) {
-        $scope.data = report;
-        $scope.data.user_id = $localStorage.userId;
-        $scope.data.eventId = $scope.items.eventId;
-        console.log('$scope.data');
-        console.log($scope.data);
+        $scope.report = report;
+        $scope.report.user_id = $localStorage.userId;
+        $scope.report.eventId = $scope.items.eventId;
+
+        
+
+        console.log('$scope.report');
+        console.log($scope.report);
 
         $scope.loader = true;
-        $serviceTest.addEmailReport($scope.data, function(response) {
+        $serviceTest.addEmailReport($scope.report, function(response) {
             console.log('response', response);
             $scope.loader = false;
             if (response.code == 200) {
-                $rootScope.packageId = $scope.data.id = response.result;
-                $localStorage.packageId = $scope.data.id;
-
-
+      
                 $scope.successEmailReport = global_message.saveEmailReport;
-
                 $scope.success_message_email_report = true;
                 $timeout(function() {
                   $scope.successEmailReport = '';
                   $scope.success_message_email_report = false;
                 }, 3000);
 
-                 $serviceTest.getEmailReport({ 'user_id': $scope.data.user_id  , 'eventId' : $scope.data.eventId }, function(response) {
+                 $serviceTest.getEmailReport({ 'user_id': $scope.report.user_id  , 'eventId' : $scope.report.eventId }, function(response) {
          $rootScope.EmailReportsList = response.result;
          console.log('EmailReportsList ' , $rootScope.EmailReportsList ) ;
     }); 
-                // window.location.reload();
-
-
-                // $location.path("/event_package_step_2/"+$scope.data.package_id);
+$scope.cancel();
             } else {
                 $scope.error_message = response.error;
             }
@@ -323,7 +417,88 @@ $scope.addEmailReport =  function (report) {
 }
 
  
+ 
+
+ $scope.edit_emailReport =  function (report) {
+
+    console.log('edit_emailReport ' , report );
+
+}
 
 
 
 });
+
+
+
+angular.module('alisthub').controller('ModalInstanceAssignTemplateCtrl', function($scope, $uibModalInstance, $rootScope, $localStorage, $injector, $timeout,items) {
+  
+  $scope.report = {};
+
+ // var eventId = $stateParams.eventId;
+  //  $scope.eventId = eventId;
+
+  var $lookAndFeelService = $injector.get("Lookservice");
+
+  $scope.items = items;
+
+  $scope.cancel = function() {
+    $uibModalInstance.dismiss('cancel');
+  };
+
+
+
+
+
+if( $scope.items.eventId != undefined) {
+    console.log('getEmailReportById');
+        //$scope.template.eventId = $scope.items.eventId;
+        $lookAndFeelService.getlookAndFeel( {} , function(response) {
+            if (response!=null && response.code == 200) {
+                $scope.templates=response.result;
+            }
+            else{
+                $scope.templates=[];   
+            }
+
+        });
+}
+
+$scope.assignEmailTemplate =  function (template) {
+
+    console.log('in assignEmailTemplate ' , template);
+
+        $scope.template = template;
+        $scope.template.eventId = $scope.items.eventId;
+
+           $lookAndFeelService.assignEmailTemplate($scope.template, function(response) {
+           
+            if (response.code == 200) {
+      
+                $scope.successEmailReport = global_message.saveEmailReport;
+                $scope.success_message_email_report = true;
+                $timeout(function() {
+                  $scope.successEmailReport = '';
+                  $scope.success_message_email_report = false;
+                }, 3000);
+
+                 $lookAndFeelService.getEmailTemplateOfEvent({ 'eventId' :  $scope.items.eventId }, function(response) {
+                        $rootScope.template_name = response.results[0].template_name;
+                        $rootScope.template_id = response.results[0].template_id;
+
+                 }); 
+                $scope.cancel();
+            } else {
+                $scope.error_message = response.error;
+            }
+
+        });
+
+
+
+}
+
+ 
+
+});
+

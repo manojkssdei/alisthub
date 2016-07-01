@@ -112,6 +112,14 @@ angular.module('alisthub').factory('events', ['$q', '$timeout','communicationSer
     });
   }
 
+    url.getEmailReportById = function(jsondata,callback){
+      communicationService.resultViaPost(webservices.getEmailReportById,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
+
+
+
 
 
 
