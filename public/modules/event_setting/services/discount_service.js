@@ -131,6 +131,18 @@ angular.module('alisthub')
 
 
 
+   url.getDiscountsOfEvent = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getDiscountsOfEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }; 
+
+  url.getCountDiscountsOfEvent = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getCountDiscountsOfEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }; 
+
   
 
   

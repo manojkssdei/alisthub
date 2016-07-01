@@ -276,7 +276,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               authentication:routerApp.logauthentication,  
               resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
                 // you can lazy load files for an existing module
-                return $ocLazyLoad.load(['modules/events/service.js','modules/step_event/service.js']).then(function(){
+                return $ocLazyLoad.load(['modules/events/service.js','modules/step_event/service.js' , 'modules/event_setting/services/question_service.js' , 'modules/event_setting/services/discount_service.js' ]).then(function(){
                 }).then(function(){
                 return $ocLazyLoad.load(['modules/events/single_event_overview_controller.js']);
                 })
@@ -977,6 +977,28 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
               }]
             }
         })
+
+
+      .state('view_event_discounts', {
+            url: '/view_event_discounts/:eventOverviewId',
+            views: {
+                "lazyLoadView": {
+                  controller: 'manageDiscountController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/event_setting/views/discount/view_event_discounts.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/event_setting/services/discount_service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/event_setting/discount_controller.js']);
+                })
+              }]
+            }
+        })
+
 
         /* Setting for assign discount screen */
         .state('assign_discount', {

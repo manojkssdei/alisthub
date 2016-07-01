@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="myApp" ng-controller="GreetingController">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,7 +20,7 @@
     .social-media {  right: 12%;}
 </style>
 </head>
-<body ng-app="myApp" ng-controller="GreetingController" style="background: rgba(0, 0, 0, 0) url('./images/bg/bg.png') no-repeat scroll center top  ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">
+<body  style="background: rgba(0, 0, 0, 0) url('http://192.155.246.146:5502/images/bg/bg.png') no-repeat scroll center top  ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}};">
 <section class="ev-header">
 	<a href="#" class="alist-logo"><img src="http://192.155.246.146:5502/preview_template/assets/images/logo-l.png" alt=""/></a>
     <a class="navbar-toggle">
@@ -177,7 +177,7 @@ myApp.controller('GreetingController', ['$scope','$http','$sce', function($scope
         url : "http://"+href[2]+"/event/getEvent",
 	data:{'event_id':eventId}
     }).then(function(response) {
-        console.log(response.data.results[0].inner_background);
+        
 	$scope.background_outer=response.data.results[0].outer_background;
 	$scope.background_inner=response.data.results[0].inner_background;
 	$scope.text_color=response.data.results[0].text_color;

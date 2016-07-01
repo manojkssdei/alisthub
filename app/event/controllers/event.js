@@ -451,6 +451,7 @@ exports.getPricelevel=function(req,res){
     var eventId=req.body.eventId;
     if(eventId!=undefined){
       var sql="SELECT * FROM price_levels where event_id="+eventId;
+      console.log('sql ' , sql);
       connection.query(sql,function(err,result){
          
           if (err) {
@@ -1147,15 +1148,16 @@ exports.look_and_feel_save_html = function(req,res) {
    var html6=req.body.html[5].replace(/'/g, "\\'");
    var html7=req.body.html[6].replace(/'/g, "\\'");
    var html8=req.body.html[7].replace(/'/g, "\\'");
+   var html9=req.body.html[8].replace(/'/g, "\\'");
    var background_outer=req.body.background_outer;
    var inner_background=req.body.inner_background;
    var text_color=req.body.text_color;
    var outer_border=req.body.outer_border;
    var inner_border=req.body.inner_border;
-   
+   var event_order=req.body.event_order;
      var eventId=req.body.eventId;
-    
-    connection.query("UPDATE events SET section1='"+html1+"',section2='"+html2+"',section3='"+html3+"',section4='"+html4+"',section5='"+html5+"',section6='"+html6+"',section7='"+html7+"',section8='"+html8+"',outer_background='"+background_outer+"',inner_background='"+inner_background+"',text_color='"+text_color+"',outer_border='"+outer_border+"',inner_border='"+inner_border+"' where id="+eventId, function(err, results)
+    var event_order=JSON.stringify(req.body.event_order);
+    connection.query("UPDATE events SET section1='"+html1+"',section2='"+html2+"',section3='"+html3+"',section4='"+html4+"',section5='"+html5+"',section6='"+html6+"',section7='"+html7+"',section8='"+html8+"',section9='"+html9+"',outer_background='"+background_outer+"',inner_background='"+inner_background+"',text_color='"+text_color+"',outer_border='"+outer_border+"',inner_border='"+inner_border+"',event_order='"+event_order+"' where id="+eventId, function(err, results)
     {  
      if (err) {
       res.json({error:err,code:101});

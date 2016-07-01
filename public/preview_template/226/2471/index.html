@@ -180,9 +180,9 @@ myApp.controller('GreetingController', ['$scope','$http','$sce', function($scope
         console.log(response.data.results[0].inner_background);
 	$scope.background_outer=response.data.results[0].outer_background;
 	$scope.background_inner=response.data.results[0].inner_background;
-	$scope.text_color=response.data.results[0].text_color;
-	$scope.border_color=response.data.results[0].inner_border;
-	$scope.border_outer=response.data.results[0].outer_border;
+	$scope.text_color=$scope.text_color;
+	$scope.border_color=$scope.inner_border;
+	$scope.border_outer=$scope.outer_border;
 	});
     
 	
