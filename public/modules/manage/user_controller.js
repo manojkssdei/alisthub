@@ -5,7 +5,7 @@ Created By: Deepak Khokkar
 Module : User 
 */
 angular.module('alisthub')
-    .controller('userController', function($scope, $localStorage,$http, $state, $location,ngTableParams, $timeout,$window,$rootScope,$injector) {
+    .controller('userController', function($scope, $localStorage,$http, $state, $location,ngTableParams, $timeout,$window,$rootScope,$injector,$stateParams) {
         $scope.user = {};
         //event_count=[];
         if (!$localStorage.isuserloggedIn) {
@@ -177,17 +177,36 @@ Created By: Deepak Khokkar
 Module : User 
 */
 angular.module('alisthub')
-    .controller('userPermissionController', function($scope, $localStorage,$http, $state, $location,ngTableParams, $timeout,$window,$rootScope,$injector) {
-        $scope.user = {};
-        //event_count=[];
-        if (!$localStorage.isuserloggedIn) {
-            $state.go('login');
-        }
-        var $serviceTest = $injector.get("users");
+.controller('userPermissionController', function($scope, $localStorage,$http, $state, $location,ngTableParams, $timeout,$window,$rootScope,$injector,$stateParams) {
+    $scope.user = {};
+    //event_count=[];
+    if (!$localStorage.isuserloggedIn) {
+        $state.go('login');
+    }
+    var $serviceTest = $injector.get("users");
 
+    /*get user details*/
+    $scope.data = {};
+    $scope.data.userId = $stateParams.id;
+    $scope.getPerModules = function() {
+        $scope.loader = true;
+        $serviceTest.getPerModules($scope.data, function(response) {
+            $scope.loader = false;
+            if (response.code == 200) {
+                $scope.modules = response.result;
+            }   
+        });
+    };
 
-       
+    $scope.submitCreateUserForm = function() {
+        $scope.loader = true;
+        $serviceTest.savePerModules({'modules':$scope.modules,'user':$scope.data.userId}, function(response) {
+            $scope.loader = false;
+            if (response.code == 200) {
+                console.log(response.result);
+            }   
+        });
+    }
 
-        
-       
- });
+    $scope.getPerModules();
+});

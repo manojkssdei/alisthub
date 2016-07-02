@@ -336,6 +336,9 @@ var webservices = {
     "editEmailReport" : "/event/editEmailReport",
     "getEmailReportById" : "/event/getEmailReportById",
     
+    //Permisssion module routes
+    "getPerModules": "/user/getPerModules",
+    "savePerModules": "/user/savePerModules",
 
 }
 
