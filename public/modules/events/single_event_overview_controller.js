@@ -259,6 +259,28 @@ $scope.getFormattedDate = function(today1) {
     });
   };
 
+
+ $scope.delete_emailReport = function(size,  emailReportId) {
+    $rootScope.deleteEmailReportId = emailReportId;
+    console.log('deleteEmailReportId' , emailReportId , '$rootScope.deleteEmailReportId ' ,$rootScope.deleteEmailReportId );
+
+    var modalInstance = $uibModal.open({
+      animation: false,
+      templateUrl: 'myModalEmailReport.html',
+      controller: 'ModalInstanceEmailReportCtrl',
+      size: size,
+      resolve: {
+        items: function() {
+          return $scope.items;
+        }
+      }
+    });
+  };
+
+
+
+
+
   $scope.assignTemplateAnimationsEnabled = true;
   $scope.assignTemplate = function(size,  emailReportId) {
     var modalInstance = $uibModal.open({
@@ -288,6 +310,9 @@ angular.module('alisthub').controller('ModalInstanceEmailReportCtrl', function($
  // var eventId = $stateParams.eventId;
   //  $scope.eventId = eventId;
 
+$scope.hours = hours;
+$scope.minutes = minutes;
+$scope.seconds = seconds;
 
   var $serviceTest = $injector.get("events");
   
@@ -298,72 +323,23 @@ angular.module('alisthub').controller('ModalInstanceEmailReportCtrl', function($
   };
 
 
-$scope.hours_am_pm = function(time) {
-    console.log('time ' , time);
-    var hours = time[0] + time[1];
-    var min = time[2] + time[3];
-    var sec = 00;
-    
-    /*
-    if (hours < 12) {
-      return hours + ':' + min + ' AM';
-    } else {
-      hours=hours - 12;
-      hours=(hours.length < 10) ? '0'+hours:hours;
-      return hours+ ':' + min + ' PM';
-    }
-    */
-
-    return hours + ':' + min + ':' + sec;
-  }
-
-$scope.getDateTime = function(openDate) {
-    var date1 = new Date(openDate);
-    
-    if(date1!="Invalid Date" && openDate!=null) {
-      console.log(openDate);
-      var date = ('0' + (date1.getUTCDate())).slice(-2);
-      var year = date1.getUTCFullYear();
-      var month = ('0' + (date1.getUTCMonth()+1)).slice(-2);
-      
-      var hours = ('0' + (date1.getUTCHours())).slice(-2);
-      var minutes = ('0' + (date1.getUTCMinutes())).slice(-2);
-      var seconds = date1.getUTCSeconds();
-
-      //var convertedDate = {};
-     // convertedDate.date = new Date(year+"-"+month+"-"+date);
-
-      //convertedDate.time = $scope.hours_am_pm(hours+""+minutes);
-      //return convertedDate ;  
-      return $scope.hours_am_pm(hours+""+minutes); ; 
-    } else {
-      //var convertedDate = {};
-      //convertedDate.date = null;
-      convertedDate.time = null;
-      //return convertedDate ;
-      return convertedDate.time;
-    }
-  };
-
-if($rootScope.emailReportId != undefined) {
+if($rootScope.deleteEmailReportId != undefined) {
     console.log('getEmailReportById');
 
-        $scope.report.id = $rootScope.emailReportId ;
+        $scope.report.id = $rootScope.deleteEmailReportId ;
         $scope.report.user_id = $localStorage.userId;
         $scope.report.eventId = $scope.items.eventId;
 
-        console.log('$scope.report');
-        console.log($scope.report);
-
         $scope.loader = true;
-        $serviceTest.getEmailReportById($scope.report, function(response) {
+        $serviceTest.deleteEmailReportById($scope.report, function(response) {
             $scope.loader = false;
             if (response.code == 200) {
-               console.log('response', response);
-               $scope.report = response.result[0];
-
-               $scope.report.send_time = $scope.getDateTime($scope.report.send_time);
-               console.log('$scope.report.send_time  ' , $scope.report.send_time ) ;
+              
+            $serviceTest.getEmailReport({ 'user_id': $scope.report.user_id  , 'eventId' : $scope.report.eventId }, function(response) {
+            $rootScope.EmailReportsList = response.result;
+            console.log('EmailReportsList ' , $rootScope.EmailReportsList ) ;
+            }); 
+            $scope.cancel();
 
             } else {
                 $scope.error_message = response.error;
@@ -374,6 +350,45 @@ if($rootScope.emailReportId != undefined) {
 
         }
 
+
+
+        if($rootScope.emailReportId != undefined) {
+    console.log('getEmailReportById');
+
+        $scope.report.id = $rootScope.emailReportId ;
+        $scope.report.user_id = $localStorage.userId;
+        $scope.report.eventId = $scope.items.eventId;
+
+        $scope.loader = true;
+        $serviceTest.getEmailReportById($scope.report, function(response) {
+            $scope.loader = false;
+            if (response.code == 200) {
+               $scope.report = response.result[0];
+               var time = $scope.report.send_time ;
+               var timeArray = time.split(':');
+
+                $scope.report.send_time = {};
+
+                $scope.report.send_time.hours =  timeArray[0];
+                $scope.report.send_time.minutes=  timeArray[1];
+                $scope.report.send_time.seconds =  timeArray[2];
+
+if(timeArray[0].substring(0,1) == 0 ) { $scope.report.send_time.hours  = timeArray[0].substring(1,2); }
+if(timeArray[1].substring(0,1) == 0 ) { $scope.report.send_time.minutes  = timeArray[1].substring(1,2); }
+if(timeArray[2].substring(0,1) == 0 ) { $scope.report.send_time.seconds  = timeArray[2].substring(1,2); }
+
+            } else {
+                $scope.error_message = response.error;
+            }
+
+        });
+
+
+        }
+
+
+
+
 $scope.addEmailReport =  function (report) {
 
     console.log('in add email report ' , report);
@@ -383,8 +398,20 @@ $scope.addEmailReport =  function (report) {
         $scope.report.user_id = $localStorage.userId;
         $scope.report.eventId = $scope.items.eventId;
 
-        
+        var hh = $scope.report.send_time.hours;
+        var mm = $scope.report.send_time.minutes;
+        var ss = $scope.report.send_time.seconds;
 
+        if(hh.length == 1 ) { hh = '0'+hh;}
+        if(mm.length == 1 ) { mm = '0'+mm;}
+        if(ss.length == 1 ) { ss = '0'+ss;}
+
+        $scope.report.send_time.hours =  hh;
+        $scope.report.send_time.minutes=  mm;
+        $scope.report.send_time.seconds =  ss;
+
+        $scope.report.send_time = hh+":"+mm+":"+ss ;
+        
         console.log('$scope.report');
         console.log($scope.report);
 
@@ -418,10 +445,9 @@ $scope.cancel();
 
  
  
-
  $scope.edit_emailReport =  function (report) {
 
-    console.log('edit_emailReport ' , report );
+console.log('edit_emailReport ' , report );
 
 }
 
@@ -433,10 +459,14 @@ $scope.cancel();
 
 angular.module('alisthub').controller('ModalInstanceAssignTemplateCtrl', function($scope, $uibModalInstance, $rootScope, $localStorage, $injector, $timeout,items) {
   
-  $scope.report = {};
+  $scope.templateData = {};
 
  // var eventId = $stateParams.eventId;
   //  $scope.eventId = eventId;
+console.log('hours ' , hours );
+
+
+
 
   var $lookAndFeelService = $injector.get("Lookservice");
 
@@ -456,6 +486,8 @@ if( $scope.items.eventId != undefined) {
         $lookAndFeelService.getlookAndFeel( {} , function(response) {
             if (response!=null && response.code == 200) {
                 $scope.templates=response.result;
+                console.log('$rootScope.template_id ' , $rootScope.template_id );
+                $scope.choosen_template_id = $scope.templateData.template_id  = $rootScope.template_id; 
             }
             else{
                 $scope.templates=[];   
@@ -464,23 +496,30 @@ if( $scope.items.eventId != undefined) {
         });
 }
 
-$scope.assignEmailTemplate =  function (template) {
 
-    console.log('in assignEmailTemplate ' , template);
 
-        $scope.template = template;
-        $scope.template.eventId = $scope.items.eventId;
+$scope.assignEmailTemplate =  function (templateData) {
 
-           $lookAndFeelService.assignEmailTemplate($scope.template, function(response) {
+    console.log('in assignEmailTemplate ' , templateData);
+
+        $scope.templateData.template_id = templateData.template_id;
+        $scope.templateData.eventId = $scope.items.eventId;
+
+        console.log(' $scope.templateData ' ,  $scope.templateData);
+
+           $lookAndFeelService.assignEmailTemplate($scope.templateData, function(response) {
            
             if (response.code == 200) {
       
+                /*
                 $scope.successEmailReport = global_message.saveEmailReport;
                 $scope.success_message_email_report = true;
                 $timeout(function() {
                   $scope.successEmailReport = '';
                   $scope.success_message_email_report = false;
                 }, 3000);
+
+                */
 
                  $lookAndFeelService.getEmailTemplateOfEvent({ 'eventId' :  $scope.items.eventId }, function(response) {
                         $rootScope.template_name = response.results[0].template_name;

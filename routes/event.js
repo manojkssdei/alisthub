@@ -159,8 +159,12 @@ module.exports = function(app, express) {
   router.post('/editEmailReport' , supportCrossOriginScript , Event.editEmailReport);
   
   router.post('/getEmailReportById' , supportCrossOriginScript , Event.getEmailReportById);
-
   
+  router.post('/getEmailTemplateOfEvent' , supportCrossOriginScript , Event.getEmailTemplateOfEvent);
+  
+  router.post('/assignEmailTemplate' , supportCrossOriginScript , Event.assignEmailTemplate);
+
+  router.post('/deleteEmailReportById' , supportCrossOriginScript , Event.deleteEmailReportById);
   
 	app.use('/event', router);
 

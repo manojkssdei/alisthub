@@ -1296,3 +1296,36 @@ exports.deleteEmailReportById = function(req,res) {
     });
     
 }
+
+
+exports.assignEmailTemplate=function(req,res) {
+  var eventId = req.body.eventId;
+  var template_id = req.body.template_id;
+
+  var sql = "UPDATE events SET template_id = "+template_id+ " where id = "+eventId ;
+  
+    console.log('sql ' , sql );
+    
+  connection.query(sql,function(err,result) {
+    if (err) {
+      res.send({err:"error",code:101}); 
+    }
+    res.send({"results":result,code:200});  
+  });
+}
+
+
+exports.getEmailTemplateOfEvent=function(req,res) {
+   var eventId = req.body.eventId;
+  
+ var sql = "select events.template_id , look_and_feel_template.template_name from events left join look_and_feel_template ON  events.template_id = look_and_feel_template.id where events.id = "+eventId ;
+  
+  console.log('sql ' , sql );
+
+  connection.query(sql,function(err,result) {
+    if (err) {
+      res.send({err:"error",code:101}); 
+    }
+    res.send({"results":result,code:200});  
+  });
+}

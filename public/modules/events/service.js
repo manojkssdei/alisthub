@@ -119,6 +119,12 @@ angular.module('alisthub').factory('events', ['$q', '$timeout','communicationSer
   }
 
 
+    url.deleteEmailReportById = function(jsondata,callback){
+     console.log('in service');
+       communicationService.resultViaPost(webservices.deleteEmailReportById,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
 
 
 

@@ -6,6 +6,8 @@ angular.module('alisthub').factory('Lookservice', ['$q', '$timeout','communicati
     var url = {};
 //get look and feel templates
     url.getlookAndFeel = function(jsondata,callback){
+
+      console.log('control is here');
        communicationService.resultViaPost(webservices.getlookAndFeeltemplate,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
 			callback(res.data);
 		});
@@ -51,9 +53,27 @@ angular.module('alisthub').factory('Lookservice', ['$q', '$timeout','communicati
        communicationService.resultViaPost(webservices.getlookandFeelTemplatehtml,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
 			callback(res.data);
 		});
-       
-      
   };
+
+   url.assignEmailTemplate = function(jsondata,callback){
+  console.log('in service');
+       communicationService.resultViaPost(webservices.assignEmailTemplate,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    }); 
+  };
+  
+
+  url.getEmailTemplateOfEvent = function(jsondata,callback){
+     console.log('in service');
+       communicationService.resultViaPost(webservices.getEmailTemplateOfEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+
+
+
+
   
   return url;
 }]);

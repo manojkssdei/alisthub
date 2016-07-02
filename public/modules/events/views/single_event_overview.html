@@ -664,14 +664,47 @@
         
         </fieldset>
 
-         <fieldset class="form-group">
+        <!-- <fieldset class="form-group">
            <div class="col-sm-4"> Send Time<span class="req">*</span></div>
            <div class="col-sm-8">
+             
+
+ <input type="time" id="send_time" name="send_time" ng-model="report.send_time" placeholder="HH:mm:ss" min="01:00:00" max="24:00:00" required  class="form-control"/>
+                <p ng-show="reportForm.send_time.$invalid && !reportForm.send_time.$pristine" class="error-fld ng-binding">Send time is required.</p>
+
+                 <p ng-show="reportForm.input.$error.time" class="error-fld ng-binding">Not a valid time</p>
+
+           </div>
+           
+          
+           </div>
+        </fieldset>-->
+
+
+
+
+
+               <fieldset class="form-group">
+           <div class="col-sm-4"> Send Time<span class="req">*</span></div>
+           <div class="col-sm-2">
                <!--<div class="input-group bootstrap-timepicker timepicker">
                 <input type="time"  id="send_time" name="send_time"  ng-model="report.send_time"  class="form-control input-small timepick" required /><span class="input-group-addon timepick1" ><i class="glyphicon glyphicon-time"></i></span>
             </div>-->
 
- <input type="time" id="send_time" name="send_time" ng-model="report.send_time" placeholder="HH:mm:ss" min="01:00:00" max="24:00:00" required  class="form-control"/>
+<select class="form-control" name="category" ng-model="report.send_time.hours" required>
+<option ng-repeat="hour in hours" value="{{hour.id}}" >{{hour.id}}</option>
+</select>
+</div>
+  <div class="col-sm-2">
+<select class="form-control" name="category" ng-model="report.send_time.minutes" required>
+<option ng-repeat="minute in minutes" value="{{minute.id}}" >{{minute.id}}</option>
+</select> </div>
+  <div class="col-sm-2">
+<select class="form-control" name="category" ng-model="report.send_time.seconds" required>
+<option ng-repeat="second in seconds" value="{{second.id}}" >{{second.id}}</option>
+</select>
+
+ 
 
                 <p ng-show="reportForm.send_time.$invalid && !reportForm.send_time.$pristine" class="error-fld ng-binding">Send time is required.</p>
 
@@ -682,6 +715,7 @@
           
            </div>
         </fieldset>
+
         
         <fieldset class="form-group">
            <div class="col-sm-4">Export Format<span class="req">*</span></div>
@@ -712,38 +746,6 @@
 <!-- *************************************************************************************** -->
 
 
-
-
-
-         <section class="module">
-            <section class="prof-hd">
-               <i class="fa fa-database hdicon pos-l16"></i>
-               <h2>Templates <span class="rt-img"></span></h2>
-            </section>
-            <section class="gray-frame sub-fields">
-               <section class="grid-btn-top row">
-                  <section class="col-sm-12 pull-right text-right">
-                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assignTemplate('lg')">Assign a template</button>
-                  </section>
-               </section>
-              
-
-
-                <section class="module row">
-            <section class="col-sm-12 temp-view" ng-repeat="template in templates track by $index">
-               <section class="form-group" ng-if="template.id == template_id">
-                    <p class="temp-image"><img src="{{template.image}}" alt=""/></p>   
-                </section>
-            </section>
-            
-       </section>
-
-
-            </section>
-         </section>
-
-
-
 <script type="text/ng-template" id="myModalAssignTemplate.html">
 
    <div class="modal-header">
@@ -754,13 +756,39 @@
       <p class="success-fld ng-binding">{{success_template}}</p>
    </span>
 
-    <form  name="templateForm" ng-submit="templateForm.$valid && assignEmailTemplate(template)" novalidate>
+    <form  name="templateForm" ng-submit="templateForm.$valid && assignEmailTemplate(templateData)" novalidate>
     <div class="modal-body">
         <section class="module row">
+       
+       
+
+
             <section class="col-sm-12 temp-view" ng-repeat="template in templates">
                <section class="form-group">
-               <section class="col-sm-6"><input type="radio" ng-true-value="{{template.id}}" ng-model="{{template.template_name}}"></input>{{template.template_name}} </section>
-               <section class="col-sm-6"><p class="temp-image"><img src="{{template.image}}" class="center" height="100" width="200" /> {{template.image}}</p></section>
+               <section class="col-sm-6">
+                  
+                    <div class="form-group">
+                    <section class="radio-sec with-ftext">
+                          <section class="radio-inline">
+                              <input id="radio111" type="radio" id="{{template.id}}" name="template_id"  value="{{template.id}}" ng-model="templateData.template_id"> 
+                              <label for="radio111"><span></span>{{template.template_name}}</label>
+                          </section>
+                           
+                   </section>
+                  </div>
+               </section>
+
+
+
+
+
+
+               <section class="col-sm-6"><p class="temp-image"><img src="{{template.image}}" class="center" height="250" width="200" /></p>
+
+
+
+
+
                 </section>
             </section>
        </section>   
