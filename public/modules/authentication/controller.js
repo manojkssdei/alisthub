@@ -142,7 +142,10 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                             "Accept": "application/json",
                         }
                     }).success(function(datas, status, headers, config) {
-                    var response = JSON.parse(datas.body);
+                     var datads = {};   
+                         datads.body = {"token":"637f62488e5e8379f3ba6731bb165cf7ab3345e47b17b8f2c5b2a2ca94b1e4fc","user_id":"28676","seller_id":"22876","name":{"first":"Manoj","last":"Singh"},"org":"smartdata","avatar":"https:\/\/secure.gravatar.com\/avatar.php?gravatar_id=efe820a7ab2e9aec06481c3bcd3bb97e&default=https%3A%2F%2Fwww.showclix.com%2Fcss%2Fimages%2Fno_avatar_60.png&size=75","locale":"en_US"};   
+                    //var response = JSON.parse(datads.body);
+                    var response = datads.body;
                     
                     if (response != null && response != "" && response.token) {
                      
