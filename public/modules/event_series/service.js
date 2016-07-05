@@ -270,12 +270,63 @@ url.getEventProductDetail = function(jsondata,callback){
 url.checkeventurl = function(jsondata,callback){
        communicationService.resultViaPost(webservices.checkeventurl,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
       callback(res.data);
-    });
-      
+    });    
+  };
+
+url.pauseSalesSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.pauseSalesSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });    
   };
 
 
+url.addFavouriteEventSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.addFavouriteEventSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });    
+  };
+
+
+url.delEventSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.delEventSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });    
+  };
  
+ url.getEmailReportSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getEmailReportSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });    
+  };
+ 
+
+ url.addEmailReportSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.addEmailReportSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });    
+  };
+ 
+
+ url.deleteEmailReportByIdSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.deleteEmailReportByIdSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });    
+  };
+ 
+  url.editEmailReportSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.editEmailReportSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });    
+  };
+
+   url.getEmailReportByIdSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getEmailReportByIdSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });    
+  };
+
+
+
 return url;
 
 }]);

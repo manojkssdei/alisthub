@@ -28,10 +28,10 @@
                                  <a  href="#"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button></a>
 
 
-                             <a href="#/single_event_overview/{{eventId}}">
+                             <a href="#/single_event_overview/{{eventType}}/{{eventId}}">
                     <button class="btn pink-btn btn-small" type="button">
                     <i class="glyphicon glyphicon-arrow-left" >
-                    </i> Back to Event Overview
+                    </i> Back to Event Overview {{eventType}}
                     </button>
                     </a> 
 
@@ -109,7 +109,7 @@
 
                                  <td  width="10%" title="'Manage'"  class="action unassign">
                                     
-                                    <a ng-click="delDiscountAssignment(data.id)" ng-confirm-clicks="Would you like to delete this Discount?"  ><i class="fa fa-trash"></i></a>
+                                    <a ng-click="delDiscountAssignment(data.id , data.discount_id )" ng-confirm-clicks="Would you like to delete this Discount?"  ><i class="fa fa-trash"></i></a>
                                  </td>
 
                               </tr>

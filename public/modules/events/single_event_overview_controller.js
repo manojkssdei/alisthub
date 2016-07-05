@@ -28,6 +28,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('single
 
     $scope.userId = userId;
     $scope.eventId = eventId;
+     $scope.sales_pause_status = 'Pause Sales';
+      $scope.favorite_status = 'Add To Favorite';
     
     console.log('eventId ' , eventId) ;
 
@@ -53,6 +55,38 @@ $scope.hours_am_pm = function(time) {
       return hours+ ':' + min + ' PM';
     }
   }
+
+
+$scope.delEvent = function(event_id) {
+    console.log('delEvent called' , event_id);
+
+  $eventService.deleteEvent({'event_id':event_id},function(response) {
+    if(response.code==200) {
+      $location.path("/view_all_event");
+    }
+  }); 
+}
+
+
+$scope.pauseSales = function(event_id) {
+    console.log('pauseSales called' , event_id);
+  $eventService.pauseSales({'event_id':event_id},function(response) {
+    if(response.code==200) {
+        $rootScope.sales_status = 'offline';
+     // $location.path("/view_all_event);
+     $scope.sales_pause_status = 'Sales Paused' ;
+    }
+  }); 
+}
+
+$scope.addFavouriteEvent = function(event_id) {
+    console.log('addFavouriteEvent called' , event_id);
+  $eventService.addFavouriteEvent({'event_id':event_id},function(response) {
+    if(response.code==200) {
+        $scope.favorite_status = 'Added as Favorite' ;
+    }
+  }); 
+}
 
 $scope.getDateTime = function(openDate) {
     var date1 = new Date(openDate);
@@ -118,26 +152,47 @@ $scope.getFormattedDate = function(today1) {
         $scope.title = response.results[0].title;
         $scope.event_date = $scope.getFormattedDate(response.results[0].eventdate);
         $scope.venue_name = response.results[0].venue_name;
-        $scope.event_address = response.results[0].event_address;
+        //$scope.event_address = response.results[0].event_address;
+        $scope.event_address = response.results[0].address;
         $scope.city = response.results[0].city;
         $scope.state = response.results[0].state;
         $scope.country = response.results[0].country;
 
-        $scope.user_id = response.results[0].user_id;
-        $scope.event_id = response.results[0].event_id;
+        $scope.user_id = response.results[0].seller_id;
+        $scope.event_id = eventId;
         $rootScope.template_name = response.results[0].template_name;
         $rootScope.template_id = response.results[0].template_id;
 
 
       $scope.event_url_for_share = response.results[0].event_url_for_share;
 
-       $scope.sales_status = 'offline';
-       $scope.sales_close_date = $scope.getFormattedDate(response.results[0].sales_close_date);
+       $rootScope.sales_status = 'live';
+       // online_sales_close
+       // 
+
+if(response.results[0].pause_sales  == 1) {
+    $scope.sales_pause_status = 'Sales Paused';
+}
+else {
+    $scope.sales_pause_status = 'Pause Sales';
+    }
+
+
+    if(response.results[0].favorite_event  == 1) {
+    $scope.favorite_status = 'Added as Favorite';
+}
+else {
+    $scope.favorite_status = 'Add To Favorite';
+    }
+
+
+       console.log('online_sales_close ' ,response.results[0].online_sales_close );
+        console.log('sales_close_date ' ,response.results[0].sales_close_date );
+       $scope.online_sales_close = $scope.getFormattedDate(response.results[0].online_sales_close);
 
        $scope.inventory = response.results[0].inventory;
 
-
-/*
+       /*
         var eventdate = $scope.getDateTime(response.results[0].eventdate);
         $scope.event_date = eventdate.date;
         $scope.event_time = eventdate.time;
@@ -153,6 +208,8 @@ $scope.getFormattedDate = function(today1) {
         $scope.start_time = response.results[0].start_time;
         $scope.end_time = response.results[0].end_time;
         $scope.zipcode = response.results[0].zipcode;
+
+
       });
 
 
@@ -226,7 +283,62 @@ $scope.getFormattedDate = function(today1) {
     }); 
 
 
+// Checkbox to assign question
+    $scope.enableAssign = false;
+    $scope.listQues = 0;
+    $scope.checkbox = [];
 
+    $scope.getcheckedbox = function(id) {
+        $scope.checkbox.push(id);
+        if (id != "" && id != null && id != "undefined") {
+            $scope.enableAssign = true;
+        } else {
+            $scope.enableAssign = false;
+        }
+    }
+
+    /*Select all the questions checkbox*/
+
+    $scope.all_check_point = 1;
+    $scope.toggleAll = function(id) {
+        console.log('toggleAll ' , toggleAll);
+        console.log('id ' , id);
+       
+       if (id == 1) {
+        $scope.all_check_point = 2;
+        var toggleStatus = true;
+        $scope.enableAssign = true;
+        $scope.listQues = 1;
+       }
+        if (id == 2) {
+        $scope.all_check_point = 1;
+        var toggleStatus = false;
+        $scope.enableAssign = false;
+       }
+      
+       angular.forEach($scope.getQuestions, function(itm) { itm.selected = toggleStatus; });
+
+    }
+    
+    $scope.pdata = {};
+
+    /*Push/pop the checked questions to/from array*/
+    $scope.optionToggled = function(idn) {
+           
+            if ($scope.checkbox.indexOf(idn) !== -1) {
+                $scope.checkbox.pop(idn);
+            } else {
+                $scope.checkbox.push(idn);
+            }
+            if ($scope.checkbox.length > 0) {
+                $scope.enableAssign = true;
+            } else {
+                $scope.enableAssign = false;
+            }
+
+            $scope.isAllSelected = $scope.getQuestions.every(function(itm) {
+                return itm.selected; })
+        }
 
 
 
@@ -234,7 +346,7 @@ $scope.getFormattedDate = function(today1) {
     $scope.array = [];
 
 
-     //Add Product pop up
+     //Add email Report pop up
 
   $scope.items = {};
   if($stateParams.eventId!=undefined && $stateParams.eventId!='') {

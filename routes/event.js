@@ -165,7 +165,35 @@ module.exports = function(app, express) {
   router.post('/assignEmailTemplate' , supportCrossOriginScript , Event.assignEmailTemplate);
 
   router.post('/deleteEmailReportById' , supportCrossOriginScript , Event.deleteEmailReportById);
+
+  router.post('/pauseSales' , supportCrossOriginScript , Event.pauseSales);
   
+  router.post('/addFavouriteEvent' , supportCrossOriginScript , Event.addFavouriteEvent);
+
+  router.post('/pauseSalesSeries',  supportCrossOriginScript , EventSeries.pauseSalesSeries);
+
+  router.post('/addFavouriteEventSeries',  supportCrossOriginScript , EventSeries.addFavouriteEventSeries);
+
+  router.post('/delEventSeries', supportCrossOriginScript , EventSeries.delEventSeries);
+
+  router.post('/getEmailReportSeries', supportCrossOriginScript , EventSeries.getEmailReportSeries);
+
+  router.post('/addEmailReportSeries', supportCrossOriginScript , EventSeries.addEmailReportSeries);
+
+  router.post('/deleteEmailReportByIdSeries', supportCrossOriginScript , EventSeries.deleteEmailReportByIdSeries);
+
+  router.post('/editEmailReportSeries', supportCrossOriginScript , EventSeries.editEmailReportSeries);
+
+  router.post('/getEmailReportByIdSeries', supportCrossOriginScript , EventSeries.getEmailReportByIdSeries);
+
+  //router.post('/getlookAndFeelSeries', supportCrossOriginScript , EventSeries.getlookAndFeelSeries);
+
+  router.post('/assignEmailTemplateSeries', supportCrossOriginScript , EventSeries.assignEmailTemplateSeries);
+
+  router.post('/getEmailTemplateOfEventSeries', supportCrossOriginScript , EventSeries.getEmailTemplateOfEventSeries);
+
+
+
 	app.use('/event', router);
 
 }

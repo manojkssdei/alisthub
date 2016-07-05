@@ -126,6 +126,22 @@ angular.module('alisthub').factory('events', ['$q', '$timeout','communicationSer
     });
   };
 
+ url.pauseSales = function(jsondata,callback){
+     console.log('in service');
+       communicationService.resultViaPost(webservices.pauseSales,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+
+ url.addFavouriteEvent = function(jsondata,callback){
+     console.log('in service');
+       communicationService.resultViaPost(webservices.addFavouriteEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+
 
 
 

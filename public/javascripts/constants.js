@@ -510,10 +510,29 @@ var webservices = {
     "getEmailTemplateOfEvent" : "/event/getEmailTemplateOfEvent",
     "assignEmailTemplate" : "/event/assignEmailTemplate",
     "deleteEmailReportById" : "/event/deleteEmailReportById" ,
-    
+    "pauseSales" : "/event/pauseSales" ,
+    "addFavouriteEvent" : "/event/addFavouriteEvent",
+
+    //event series overview
+
+    "pauseSalesSeries" : "/event/pauseSalesSeries" ,
+    "addFavouriteEventSeries" : "/event/addFavouriteEventSeries",
+    "delEventSeries" : "/event/delEventSeries",
+    "getEmailReportSeries" : "/event/getEmailReportSeries" ,
+    "addEmailReportSeries" : "/event/addEmailReportSeries" ,
+    "deleteEmailReportByIdSeries" : "/event/deleteEmailReportByIdSeries" ,
+    "editEmailReportSeries" : "/event/editEmailReportSeries" ,
+    "getEmailReportByIdSeries" : "/event/getEmailReportByIdSeries" ,
+    "getEmailTemplateOfEventSeries" : "/event/getEmailTemplateOfEventSeries" ,
+    "assignEmailTemplateSeries" : "/event/assignEmailTemplateSeries" ,
+   
     //Permisssion module routes
     "getPerModules": "/user/getPerModules",
     "savePerModules": "/user/savePerModules",
+
+    //assign question postition
+
+    "saveQuestionLocationPosition" : "/event_setting/saveQuestionLocationPosition" ,
 
 }
 

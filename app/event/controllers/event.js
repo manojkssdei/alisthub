@@ -339,7 +339,7 @@ exports.getEvent=function(req,res) {
    //   var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate,es.online_sales_close FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id  LEFT JOIN event_settings es ON events.id = es.event_id where events.id="+event_id;
     // console.log('sql ' , sql );
 
-     var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate,es.online_sales_close  , lft.template_name FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id  LEFT JOIN event_settings es ON events.id = es.event_id LEFT JOIN  look_and_feel_template lft ON lft.id = events.template_id where events.id="+event_id;
+     var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate,es.online_sales_close  , lft.template_name , lft.image , lft.preview_image  FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id  LEFT JOIN event_settings es ON events.id = es.event_id LEFT JOIN  look_and_feel_template lft ON lft.id = events.template_id where events.id="+event_id;
 
 console.log('----------*************************------------');
 console.log('sql1' , sql );
@@ -368,7 +368,11 @@ exports.getSeriesEvent=function(req,res) {
    
     var event_id=req.body.event_id;
     if(event_id!=undefined){
-      var sql="SELECT E.*,V.id as venue_id,V.venue_name,V.address,V.city,V.zipcode,V.state,V.country,V.latitude,V.longitude FROM events as E LEFT JOIN venues as V on E.venue_id=V.id where E.id="+event_id;
+      var sql="SELECT E.*,V.id as venue_id,V.venue_name,V.address,V.city,V.zipcode,V.state,V.country,V.latitude,V.longitude, lft.template_name , lft.image , lft.preview_image   FROM events as E LEFT JOIN venues as V on E.venue_id=V.id  LEFT JOIN  look_and_feel_template lft ON lft.id = E.template_id where E.id="+event_id;
+
+      console.log('-------------********---------------************------------');
+      console.log('sql -- ', sql);
+
      
       var sqltime="SELECT * FROM event_dates where parent_id="+event_id+" ORDER BY start_date_time ASC";
       
@@ -1329,3 +1333,31 @@ exports.getEmailTemplateOfEvent=function(req,res) {
     res.send({"results":result,code:200});  
   });
 }
+
+
+exports.pauseSales= function(req, res) {
+// add query to pause sales here ................
+var sales_query = "UPDATE events SET pause_sales = 1 where id = " + req.body.event_id ;
+console.log('sales_query ' , sales_query) ;
+ connection.query( sales_query , function(err, result) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: result, code: 200 });
+    });
+}
+
+
+exports.addFavouriteEvent= function(req, res) {
+// add query to pause sales here ................
+var sales_query = "UPDATE events SET favorite_event = 1 where id = " + req.body.event_id ;
+console.log('sales_query ' , sales_query) ;
+ connection.query( sales_query , function(err, result) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: result, code: 200 });
+    });
+}
+
+
