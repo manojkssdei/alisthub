@@ -1,0 +1,131 @@
+<div class="container">
+    <h1>tracking tag</h1>
+    <!-- Form COntainer -->
+    <div class="wt-frame form-section">
+        <form class="event-form">
+            <!-- Event Detail Form -->
+            <div class="form-group row">
+                <section class="col-sm-6">
+                    <section class="search-event">
+                        <input type="text" name="trackingtag" ng-model="filter" class="form-control search-field" placeholder="Enter your keyword">
+                        <i class="fa fa-search"></i>
+                    </section>
+                </section>
+            </div>
+            <!--Ticket Types Start -->
+            <div class="module">
+                <section class="gray-frame sub-fields">
+                    <section class="grid-btn-top row">
+                        <section class="col-sm-6">
+                            <section class="top-buttons">
+                                <a class="btn pink-btn btn-small" ng-click="open('lg')"><i class="fa fa-plus-square"></i>&nbsp;Create Tracking Tag</a>
+                            </section>
+                        </section>
+                    </section>
+                    <section class="grid-widget">
+                        <div class="table-responsive">
+                            <table ng-table="tableParams" class="table table-striped table-ng-style">
+                                <tbody>
+                                    <tr ng-repeat="data1 in $data | filter:filter">
+                                        <td title="'Tag'" filter="{ name: 'text'}" sortable="'tag'">{{data1.tag}}</td>
+                                        <td title="'description'" filter="{ name: 'text'}" sortable="'description'">{{data1.description}}</td>
+                                        <td title="'source'" filter="{ name: 'text'}" sortable="'source'">{{data1.source}}</td>
+                                        <td title="'USER'" filter="{ name: 'text'}" sortable="'user'">{{data1.username}}</td>
+                                        <td title="'sales'" filter="{ name: 'text'}" sortable="'sales'">{{data1.sales}}</td>
+                                         <td title="'ticket'" filter="{ name: 'text'}" sortable="'ticket'">{{data1.ticket}}</td>
+                                           <td title="'revenue'" filter="{ name: 'text'}" sortable="'revenue'">{{data1.revenue}}</td>
+                                        <td title="'MANAGE'" class="action">
+                                            <a title="Edit tag" ng-click="open('lg1',data1.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+
+                                            <a title="detail" ng-click="open1()" style="cursor: pointer;"><i class="fa fa-link"></i></a>
+                                            <a title="detail"  style="cursor: pointer;"><i class="fa fa-eye"></i></a>
+                                            <a title="Delete tag" ng-click="delete('lg2',data1.id)" ng-confirm-clicks="Would you like to delete this tag?" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                                           
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="loader">
+                                        <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+                                    <tr ng-if="$data == ''">
+                                        <td colspan="4" align="center">No Record found!</td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <section class="grid-bottm clearfix">
+                        <section class="paging">
+                            <label class="lt-label"></label>
+                        </section>
+                        <section class="gr-right pull-right">
+                            <ul class="legends">
+                                <li><i class="fa fa-pie-chart"></i><span>Overview</span></li>
+                                <li><i class="fa fa-calendar-o"></i> <span>Schedules</span></li>
+                                <li><i class="fa fa-list-ul"></i><span>Guest List</span></li>
+                                <li><i class="fa fa-eye"></i><span>View</span></li>
+                                <li><i class="fa fa-edit"></i><span>Edit</span></li>
+                                <li><i class="fa fa-trash"></i><span>delete</span></li>
+                            </ul>
+                        </section>
+                    </section>
+                </section>
+            </div>
+        </form>
+    </div>
+    <!-- //Form COntainer -->
+</div>
+<script type="text/ng-template" id="add_tracking_tag.html">
+    <div class="modal-header">
+        <h3 class="modal-title">NEW TAG</h3><a style="float:right;cursor: pointer;" ng-click="Cancel()">X</a>
+    </div>
+    <div class="modal-body">
+        <form>
+            <fieldset class="form-group">
+                <div class="col-sm-4">Tag<span>*</span></div>
+                <div class="col-sm-8 ">
+                    <input type="text" class="form-control" ng-model="data.tag" />
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="col-sm-4">Description</div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="data.description" />
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="col-sm-4">user</div>
+                <div class="col-sm-8">
+                    <select class= "form-control"  name="user" ng-model="data.user">
+                        <option value="">-Select-</option>
+                        <option  ng-repeat="ud in userData" value="{{ud.id}}">{{ud.first_name}} {{ud.last_name}}</option>
+                    </select>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" ng-click="saveTag()">Save tag</button>
+    </div>
+</script>
+
+
+<script type="text/ng-template" id="link.html">
+    <div class="modal-header">
+        <a style="float:right;cursor: pointer;" ng-click="Cancel()">X</a>
+    </div>
+    <div class="modal-body">
+
+    <h5> Example Link for 12345</h5>
+    <br>
+        <p>You can append /tag/12345 to any event listing url. For example:</p>
+        <br>
+        <br>
+        <p> /event/999999/tag/12345 </p>
+        <br>
+        <br>
+        <p>Make sure you replace 999999 with an event id or short name that belongs to you</p>
+    </div>
+    <div class="modal-footer">
+    </div>
+</script>

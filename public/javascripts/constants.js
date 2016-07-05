@@ -163,6 +163,24 @@ var webservices = {
     "getAllEvent": "/event/getAllEvent",
     "getEventDates": "/event/getEventDates",
 
+
+    /////widget //////////
+    "savewidget":"/widget/savewidget",
+
+    "getWidget":"/widget/getWidget",
+    "getWidgetDetail":"/widget/getWidgetDetail",
+
+
+
+//tracking tag
+
+
+ "saveTag":"/tracking/saveTag",
+
+ "getTag":"/tracking/getTag",
+
+ "getTagDetail":"/tracking/getTagDetail",
+ "deleteTag":"/tracking/deleteTag",
     // event package
 
     "stepOneEventPackage"  :  "/event/stepOneEventPackage",

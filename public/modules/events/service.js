@@ -12,6 +12,12 @@ angular.module('alisthub').factory('events', ['$q', '$timeout','communicationSer
       
   };
 
+
+  url.getSeriesEvent = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getSeriesEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
            url.addComment = function(jsondata,callback){
        communicationService.resultViaPost(webservices.addComment,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
       callback(res.data);
@@ -33,6 +39,8 @@ angular.module('alisthub').factory('events', ['$q', '$timeout','communicationSer
     });
   };
  
+
+
 //delete events
 
     //get event user

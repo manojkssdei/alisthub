@@ -1,13 +1,8 @@
-/** 
-Angular User Controller
-Created : 2016-04-2
-Created By: Deepak Khokkar
-Module : User 
-*/
+
 angular.module('alisthub')
     .controller('userController', function($scope, $localStorage,$http, $state, $location,ngTableParams, $timeout,$window,$rootScope,$injector,$stateParams) {
         $scope.user = {};
-        //event_count=[];
+      
         if (!$localStorage.isuserloggedIn) {
             $state.go('login');
         }
