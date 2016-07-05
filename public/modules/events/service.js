@@ -101,6 +101,58 @@ angular.module('alisthub').factory('events', ['$q', '$timeout','communicationSer
       callback(res.data);
     });
   };
+
+  url.addEmailReport = function(jsondata,callback){
+      communicationService.resultViaPost(webservices.addEmailReport,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
+
+    url.getEmailReport = function(jsondata,callback){
+      communicationService.resultViaPost(webservices.getEmailReport,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
+
+    url.editEmailReport = function(jsondata,callback){
+      communicationService.resultViaPost(webservices.editEmailReport,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
+
+    url.getEmailReportById = function(jsondata,callback){
+      communicationService.resultViaPost(webservices.getEmailReportById,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  }
+
+
+    url.deleteEmailReportById = function(jsondata,callback){
+     console.log('in service');
+       communicationService.resultViaPost(webservices.deleteEmailReportById,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+ url.pauseSales = function(jsondata,callback){
+     console.log('in service');
+       communicationService.resultViaPost(webservices.pauseSales,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+
+ url.addFavouriteEvent = function(jsondata,callback){
+     console.log('in service');
+       communicationService.resultViaPost(webservices.addFavouriteEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+
+
+
+
 return url;
 
 }]);
