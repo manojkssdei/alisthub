@@ -1596,7 +1596,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             
             views: {
                 "lazyLoadView": {
-                  controller: 'controller',
+                  controller: 'widgetcontroller',
                   templateUrl: 'modules/widgets/views/list_widget.html'
                 }
             },
@@ -1613,6 +1613,9 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
           
         })
 
+
+
+
        ///////////////////////////add checkout widget///////////////
 
 
@@ -1622,7 +1625,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             
             views: {
                 "lazyLoadView": {
-                  controller: 'controller',
+                  controller: 'widgetcontroller',
                   templateUrl: 'modules/widgets/views/checkout_widget.html'
                 }
             },
@@ -1646,7 +1649,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             
             views: {
                 "lazyLoadView": {
-                  controller: 'controller',
+                  controller: 'widgetcontroller',
                   templateUrl: 'modules/widgets/views/event_widget.html'
                 }
             },
@@ -1662,6 +1665,77 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
           
         })
+
+
+         .state('edit_widget', {
+            url: '/edit_widget/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'widgetcontroller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/widgets/views/checkout_widget.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/widgets/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/widgets/controller.js']);
+                })
+              }]
+            }
+        })
+
+
+
+
+
+///////////////////////////////////tracking_tag///////////////////////
+
+
+         .state('tracking', {
+            url: '/tracking',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'trackingController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/tracking_tag/views/tracking_tag_view.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(['modules/tracking_tag/service.js','modules/manage/service.js']).then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/tracking_tag/controller.js','modules/manage/user_controller.js']);
+                })
+              }]
+            }
+        })
+////////////////edit tracking tag///////////////////
+
+
+   .state('delete_tracking', {
+            url: '/delete_tracking/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'trackingController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/tracking_tag/views/tracking_tag_view.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/tracking_tag/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/tracking_tag/controller.js']);
+                })
+              }]
+            }
+        })
+
 
 
   }).run(['$rootScope', '$location','$state', '$localStorage', '$http', '$timeout','$window','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$timeout,$window,$stateParams) {

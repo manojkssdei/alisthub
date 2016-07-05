@@ -20,32 +20,6 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-// app.post('/upload', function(req, res) {
-// var storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, './public/images/customer/csv/');
-//     },
-//     filename: function (req, file, cb) {
-//         //var datetimestamp = Date.now();
-//        // +"."+file.originalname.split('.')[file.originalname.split('.').length -1])
-//         cb(null,file.originalname);
-//     }
-// });
-// var upload = multer({ 
-//                 storage: storage
-//             }).single('file');
-//     upload(req,res,function(err){
-//         if(err){
-//              res.json({error_code:1,err_desc:err});
-//              return;
-//         }
-//          res.json({error_code:0,err_desc:null});
-//     });
-// });
-
-
-
-
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -65,7 +39,11 @@ var account = require('./routes/account')(app, express);
 //For event managment 
 require('./routes/event')(app, express);
 
+require('./routes/widget')(app, express);
+
 require('./routes/package')(app, express);
+
+require('./routes/tracking')(app, express);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
