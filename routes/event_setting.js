@@ -249,6 +249,10 @@ module.exports = function(app, express) {
     
     router.post('/getEventPriceLevel', bundle_setting.getEventPriceLevel);
     
+    router.post('/saveQuestionLocationPosition', question_setting.saveQuestionLocationPosition);
+
+    
+    
     router.get('/testrequest', function(req, res, next) {
     
     var request = require('request');

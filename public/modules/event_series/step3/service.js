@@ -34,9 +34,31 @@ angular.module('alisthub').factory('Lookservice', ['$q', '$timeout','communicati
     url.addlookAndFeelImage = function(jsondata,callback){
        communicationService.resultViaPost(webservices.addlookAndFeelImage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
 			callback(res.data);
-		});
-       
-      
+		});   
   };
+
+
+
+      url.getlookAndFeelSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getlookAndFeelSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });   
+  };
+
+
+      url.assignEmailTemplateSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.assignEmailTemplateSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });   
+  };
+
+     url.getEmailTemplateOfEventSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.getEmailTemplateOfEventSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });   
+  };
+
+
+
   return url;
 }]);

@@ -1270,3 +1270,214 @@ exports.removeSeriesEventProduct=function(req,res){
 }
 
 
+exports.pauseSalesSeries= function(req, res) {
+var sales_query = "UPDATE events SET pause_sales = 1 where id = " + req.body.event_id ;
+var sales_query_child = "UPDATE events SET pause_sales = 1 where parent_id = " + req.body.event_id ;
+
+console.log('sales_query -----------' , sales_query) ;
+console.log('sales_query_child ----------' , sales_query_child) ;
+
+ connection.query(sales_query, function(err1, result1) {
+   if (err1) {
+            res.json({ error: err1, code: 101 });
+        }
+   connection.query( sales_query_child , function(err, result) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: result, code: 200 });
+    });
+ });
+}
+
+
+exports.addFavouriteEventSeries= function(req, res) {
+
+var sales_query = "UPDATE events SET favorite_event = 1 where id = " + req.body.event_id ;
+var sales_query_child = "UPDATE events SET favorite_event = 1 where parent_id = " + req.body.event_id ;
+
+console.log('sales_query -----------' , sales_query) ;
+console.log('sales_query_child ----------' , sales_query_child) ;
+
+ connection.query(sales_query, function(err1, result1) {
+   if (err1) {
+            res.json({ error: err1, code: 101 });
+        }
+   connection.query( sales_query_child , function(err, result) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: result, code: 200 });
+    });
+ });
+
+}
+
+
+
+exports.delEventSeries= function(req, res) {
+
+
+var sales_query1 = "Delete from events where id=" + req.body.event_id;
+var sales_query2 = "Delete from event_dates where event_id=" + req.body.event_id;
+var sales_query3 = "Delete from event_categories where event_id=" + req.body.event_id;
+
+
+//var sales_query_child = "UPDATE events SET favorite_event = 1 where parent_id = " + req.body.event_id ;
+
+console.log('sales_query1 -----------' , sales_query1) ;
+console.log('sales_query2 -----------' , sales_query1) ;
+console.log('sales_query3 -----------' , sales_query1) ;
+
+console.log('*********************** IMPORTANT : TAKE CARE TO REMOVE THE CHILD OF PARENT TOO **********************')
+//console.log('sales_query_child ----------' , sales_query_child) ;
+
+ connection.query( sales_query1 , function(err, result1) {
+ connection.query( sales_query2 , function(err, result2) {
+ connection.query( sales_query3 , function(err, result3) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: result3, code: 200 });
+    });
+  });
+  });
+}
+
+
+
+exports.addEmailReportSeries = function(req,res){
+    
+    console.log(req.body);
+
+    if(req.body.id != '' && req.body.id != undefined) {
+      console.log('------------EDIT  addEmailReportSeries ------------');
+      var sql = "UPDATE email_reports SET email_address = '"+req.body.email_address+"' , timezone_name = '"+req.body.timezone_name+"' , send_time = '"+req.body.send_time+"' , export_format = '"+req.body.export_format+"' WHERE id = "+req.body.id+" and  user_id = "+req.body.user_id+" and event_id=" +req.body.eventId ;
+    }
+    else {
+      console.log('----------add addEmailReportSeries ----------------');
+        var sql = "INSERT INTO email_reports ( event_id, user_id, email_address, timezone_name, send_time, export_format) VALUES ( "+req.body.eventId+", "+req.body.user_id+" , '"+req.body.email_address+"', '"+req.body.timezone_name+"', '"+req.body.send_time+"', '"+req.body.export_format+"')";
+    }
+
+    console.log('sql ' , sql );
+    
+    connection.query(sql, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        if (results) {
+            res.json({ result: results, code: 200 });
+        }
+    });    
+}
+
+exports.getEmailReportSeries = function(req,res) {
+    
+    var sql = 'SELECT * from email_reports where event_id = ' + req.body.eventId + ' and user_id = '+ req.body.user_id  ;
+
+     console.log('sql ' , sql );
+
+    connection.query(sql, function(err, results) {
+        if (err) {
+          res.json({ error: err, code: 101 });
+        }
+        if (results) {
+          res.json({ result: results, code: 200 });
+        }
+    });
+    
+}
+
+exports.getEmailReportByIdSeries = function(req,res) {
+    
+    var sql = 'SELECT * from email_reports where event_id = ' + req.body.eventId + ' and user_id = '+ req.body.user_id + ' and id = '+ req.body.id  ;
+
+     console.log('sql ' , sql );
+
+    connection.query(sql, function(err, results) {
+        if (err) {
+          res.json({ error: err, code: 101 });
+        }
+        if (results) {
+          res.json({ result: results, code: 200 });
+        }
+    });
+    
+}
+
+
+exports.editEmailReportSeries = function(req,res){
+    
+    console.log(req.body);
+
+    var sql = "UPDATE email_reports SET email_address = '"+req.body.email_address+"' , timezone_name = '"+req.body.timezone_name+"' , send_time = '"+req.body.send_time+"' , export_format = '"+req.body.export_format+"' WHERE id = "+req.body.id+" and  user_id = "+req.body.user_id;
+
+    console.log('sql ' , sql );
+    
+    connection.query(sql, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        if (results) {
+            res.json({ result: results, code: 200 });
+        }
+    });    
+}
+
+
+exports.deleteEmailReportByIdSeries = function(req,res) {
+    
+    var sql = 'DELETE from email_reports where event_id = ' + req.body.eventId + ' and user_id = '+ req.body.user_id + ' and id = '+ req.body.id  ;
+
+     console.log('sql ' , sql );
+
+    connection.query(sql, function(err, results) {
+        if (err) {
+          res.json({ error: err, code: 101 });
+        }
+        if (results) {
+          res.json({ result: results, code: 200 });
+        }
+    });
+    
+}
+
+exports.assignEmailTemplateSeries=function(req,res) {
+  var eventId = req.body.eventId;
+  var template_id = req.body.template_id;
+
+  var sql = "UPDATE events SET template_id = "+template_id+ " where id = "+eventId ;
+  var sql_child = "UPDATE events SET template_id = "+template_id+ " where parent_id = "+eventId ;
+  
+    console.log('sql ' , sql );
+    
+  connection.query(sql,function(err1,result1) {
+      if (err1) {
+        res.send({err:err1,code:101}); 
+      }
+    connection.query(sql_child,function(err2,result2) {
+        if (err2) {
+          res.send({err:err2,code:101}); 
+        }
+        res.send({"results":result2,code:200});  
+      });
+  });
+}
+
+
+exports.getEmailTemplateOfEventSeries=function(req,res) {
+   var eventId = req.body.eventId;
+  
+ var sql = "select events.template_id , look_and_feel_template.template_name from events left join look_and_feel_template ON  events.template_id = look_and_feel_template.id where events.id = "+eventId ;
+  
+  console.log('sql ' , sql );
+
+  connection.query(sql,function(err,result) {
+    if (err) {
+      res.send({err:"error",code:101}); 
+    }
+    res.send({"results":result,code:200});  
+  });
+}
+
+

@@ -6,12 +6,12 @@
    <div class="wt-frame form-section">
       <section class="top-buttons bb-1 text-right">
 
-         <a href="/#/create_event_step1/{{event_id}}" ><button type="button" class="btn pink-btn btn-small" ><i class="fa fa-edit"> </i>  Edit</button></a>
-         <button type="button" class="btn pink-btn btn-small" ng-click="delEvent(event_id)"><i class="fa fa-trash"> </i>  Delete</button>
-         <button type="button" class="btn pink-btn btn-small" ng-click="pauseSales(event_id)"><i class="fa fa-pause"> </i>  {{sales_pause_status}}</button>
+         <a href="/#/create_series_step1/{{eventId}}" ><button type="button" class="btn pink-btn btn-small" ><i class="fa fa-edit"> </i>  Edit</button></a>
+         <button type="button" class="btn pink-btn btn-small" ng-click="delEventSeries(eventId)"><i class="fa fa-trash"> </i>  Delete</button>
+         <button type="button" class="btn pink-btn btn-small" ng-click="pauseSalesSeries(eventId)"><i class="fa fa-pause"> </i>  {{data.sales_pause_status}}</button>
          <!--<button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  Duplicate</button>-->
-         <a href="/#/view_event/{{event_id}}" > <button type="button" class="btn pink-btn btn-small"> View Event</button></a>
-          <button type="button" class="btn pink-btn btn-small" ng-click="addFavouriteEvent(event_id)"><i class="fa fa-star"> </i> {{favorite_status}}</button> 
+         <a href="/#/view_event/{{eventId}}" > <button type="button" class="btn pink-btn btn-small"> View Event</button></a>
+          <button type="button" class="btn pink-btn btn-small" ng-click="addFavouriteEventSeries(eventId)"><i class="fa fa-star"> </i> {{data.favorite_status}}</button> 
          <!--<button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  View Listing</button>
 
          <button type="button" class="btn pink-btn btn-small"><i class="fa fa-mail"> </i>  Send Invitation</button>
@@ -30,11 +30,11 @@
             <section class="gray-frame sub-fields">
                <section class="grid-widget" >
                
-                  <h3> {{title}}</h3>
+                  <h3> {{data.title}}</h3>
                   <hr/>
-                  <h5> <i class="fa fa-calendar"> </i> {{event_date}}</h5>
-                  <h5><i class="fa fa-home"> </i>  {{event_address}} </h5>
-                  <h5><i class="fa fa-link"> </i><a href="#"> http://alistixs.com/{{user_id}}/{{event_id}}</a></h5>
+                  <h5> <i class="fa fa-calendar"> </i> <strong>Event Series</strong></h5>
+                  <h5><i class="fa fa-home"> </i>  {{data.address}} </h5>
+                  <h5><i class="fa fa-link"> </i><a href="#"> http://alistixs.com/{{data.user_id}}/{{eventId}}</a></h5>
                   <!--<h5><i class="fa fa-qrcode"> </i>  </h5>-->
                  
 <br/><br/>
@@ -47,7 +47,7 @@
                      Ticket sales are currently {{sales_status}} <i  class="fa fa-checkmark"></i>
                      </div>
                      <div class="event-status-detail">
-                     Sales will close on <strong>{{online_sales_close}}</strong>.
+                    Please <a href="#" >view individual events</a> to see sale open and close dates.
                      </div>
                      </div>
 
@@ -71,9 +71,9 @@
             </section>
             <section class="gray-frame sub-fields">
                <section class="grid-widget">
-                  <h5>Event Inventory: {{inventory}}</h5>
+                  <h5>Event Inventory: {{data.inventory}}</h5>
                   <h5> Total Tickets Issues: 0 </h5>
-                  <h5> Remaining Tickets: {{inventory}} </h5>
+                  <h5> Remaining Tickets: {{data.inventory}} </h5>
                </section>
             </section>
          </section>
@@ -100,7 +100,7 @@
                <section class="grid-widget" >
                   
                   <div class="table-responsive">
-                     <table ng-table="tableParams" class="table table-striped table-ng-style">
+                     <!--<table ng-table="tableParams" class="table table-striped table-ng-style">
                         
 
                         <tbody>                           
@@ -111,17 +111,7 @@
 
                               <td width="12%" header-class="'header-text-align'" title="'Inventory'" filter="{ quantity_available: 'number'}" sortable="'quantity_available'">{{data.quantity_available}}</td>
 
-                              <!--<td width="12%" header-class="'header-text-align'" title="'Issued'" filter="{ coupon_code: 'number'}" sortable="'issued'" >
-                                 <p ng-if="data.issued">GET FROM API</p>
-                                 <p ng-if="data.issued == '' || data.issued == null || data.issued == undefined">0</p>
-                              </td>-->
-
                               <td width="12%" header-class="'header-text-align'" title="'Issued'" >0</td>
-
-                              <!--<td width="12%" header-class="'header-text-align'" title="'Held'" filter="{ amount: 'number'}" sortable="'held'" class="numbers">
-                                 <p ng-if="data.held">GET FROM API</p>
-                                 <p ng-if="data.held == '' || data.held == null || data.held == undefined || data.held == 0">0</p>
-                              </td>-->
 
                               <td width="12%" header-class="'header-text-align'" title="'Held'">0</td>
 
@@ -137,7 +127,42 @@
                               <td colspan="5" align="center"><img src="/images/icons/loader.gif"></td>
                            </tr>
                         </tbody>
-                     </table>
+                     </table>-->
+
+
+
+                         <table class="table table-striped">
+        <thead>
+            <tr>
+                <th width="15%">Name</th>
+                <th width="10%" class="numbers">Sold/Remaining</th>
+                <th width="13%" class="numbers">Price</th>
+                <th width="14%" class="numbers">Box office <span class="l-b">Price</span></th>
+                <th width="12%" class="numbers">Limit</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+          
+            <tr ng-repeat="price in price_level track by $index">
+                <td><strong>{{price.price_level_name}}</strong></td>
+                <td class="numbers">0/{{price.quantity_available}}</td>
+                <td class="numbers">${{price.online_price}}</td>
+                <td class="numbers">${{price.box_office_price}}</td>
+                <td class="numbers">{{price.max_per_order}}</td>
+               
+            </tr>
+            <tr ng-show="loader">
+          <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+     </tr>
+           
+           
+
+        </tbody>
+
+    </table>
+
+
                   </div>
                </section>
             </section>
@@ -397,6 +422,7 @@
                <section class="grid-widget" >
                   
                   <div class="table-responsive">
+                  <form>
                      <table ng-table="tableParamsQuestions" class="table table-striped table-ng-style">
                         <tbody>
                            
@@ -410,9 +436,14 @@
                                             <p ng-if="event_count[pdata.id] == '' || event_count[pdata.id] == null">0  Event</p>
                                         </td>
 
+<!--<td width="5%" header-class="'header-text-align'" title="Position"><select ng-model="questionLocation.ques[pdata.id]"  ng-change="saveQuestionLocation(questionLocation , pdata.id)" ><option value="1">Ticket</option><option value="2">Event</option><option value="3">Sale</option></select></td> -->
+
+
+<td width="5%" header-class="'header-text-align'" title="Position"><select ng-model="ques[pdata.id]"  ng-change="saveQuestionLocation(ques , pdata.id)" ><option value="1">Ticket</option><option value="2">Event</option><option value="3">Sale</option></select></td> 
 
                                         <td width="15%" header-class="'action-text-align'" title="'Actions'" align="center" class="action">
                                             
+                                            <a ng-click="changeStatus(pdata.id,pdata.status)" ng-confirm-click="Would you like to change Question status ?"><i class="fa fa-check-circle" ng-if="pdata.status == 1"></i><i class="fa fa-times" ng-if="pdata.status == 0"></i></a>
                                             <a ng-click="delQuestion(pdata.id)" ng-confirm-clicks="Would you like to delete this Question?" ng-if="event_count[pdata.id] == '' || event_count[pdata.id] == null"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -424,6 +455,7 @@
                                     </tr>
                         </tbody>
                      </table>
+                     </form>
                   </div>
                </section>
             </section>
@@ -462,7 +494,7 @@
                      <p class="success-fld ng-binding">{{success_discount}}</p>
                   </span>
 
-               <a href="#/view_event_discounts/singleEvent/{{eventId}}"><strong><p>{{getCountDiscountsOfEvent}} assignments for this event</p></strong></a>
+               <a href="#/view_event_discounts/seriesEvent/{{eventId}}"><strong><p>{{getCountDiscountsOfEvent}} assignments for this event</p></strong></a>
                   <!--<div class="table-responsive">
   
 
@@ -535,7 +567,7 @@
 
                <section class="grid-btn-top row">
                   <section class="col-sm-5 pull-right text-right">
-                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReport('lg')" >Add an Email Report</button>
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReportSeries('lg')" >Add an Email Report</button>
                   </section>
                </section>
                <section class="grid-widget" >
@@ -554,18 +586,18 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr ng-repeat="email in EmailReportsList">
+                           <tr ng-repeat="email in EmailReportsListSeries">
                               <td><strong>{{email.email_address}}</strong></td>
                               <td class="numbers">{{email.send_time}}</td>
                               <td class="numbers">{{email.timezone_name}}</td>
                               <td class="numbers">{{email.export_format}}</td>
                               <td class="action">
-                                 <a ng-click="add_emailReport('lg' , email.id )" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-                                 <a ng-click="delete_emailReport('lg' , email.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                                 <a ng-click="add_emailReportSeries('lg' , email.id )" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                                 <a ng-click="delete_emailReportSeries('lg' , email.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
                               </td>
                            </tr>
-                           <tr ng-if="EmailReportsList == '' ">
-                              <td colspan="5" align="left">No email reports assigned to this event. </td>
+                           <tr ng-if="EmailReportsListSeries == '' ">
+                              <td colspan="5" align="left">No email reports assigned to this event series. </td>
                            </tr>
                            <tr ng-show="loader_emailReport">
                               <td colspan="5" align="center"><img src="/images/icons/loader.gif"></td>
@@ -608,12 +640,12 @@
                      <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assignTemplate('lg')">Assign a template</button>
                   </section>
                </section>
-               <section class="grid-widget" ng-show="showEmailReportList">
+               <section class="grid-widget" >
                   <span ng-show="success_message_template" class="ng-hide">
                      <p class="success-fld ng-binding">{{success_template}}</p>
                   </span>
                   <div class="table-responsive">
-                     You are currently using the template: <a href="">{{template_name}}</a>
+                     You are currently using the template: <a href="">{{data.template_name}}</a>
                      <br/><br/><br/>
                      <img height="400" width="250" class="center" src="{{data.preview_image}}">
                   </div>
@@ -651,7 +683,7 @@
 
         <h3 class="modal-title">Add a Email Report</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
     </div>
-    <form  name="reportForm" ng-submit="reportForm.$valid && addEmailReport(report)" novalidate>
+    <form  name="reportForm" ng-submit="reportForm.$valid && addEmailReportSeries(report)" novalidate>
     <div class="modal-body">
         
         <fieldset class="form-group">
@@ -746,7 +778,7 @@
       <p class="success-fld ng-binding">{{success_template}}</p>
    </span>
 
-    <form  name="templateForm" ng-submit="templateForm.$valid && assignEmailTemplate(templateData)" novalidate>
+    <form  name="templateForm" ng-submit="templateForm.$valid && assignEmailTemplateSeries(templateData)" novalidate>
     <div class="modal-body">
         <section class="module row">
        
