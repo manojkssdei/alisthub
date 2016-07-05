@@ -8,7 +8,7 @@ angular.module("communicationModule", []);
 // Declare app level module which depends on filters, and services
 
 
-var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','ngTable','color.picker','reCAPTCHA','720kb.tooltips'])
+var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLoad','communicationModule', 'ui.bootstrap','ckeditor','google.places', 'angucomplete','ngTable','color.picker','reCAPTCHA','720kb.tooltips','gm.datepickerMultiSelect'])
 
 
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ocLazyLoadProvider) {
@@ -256,12 +256,56 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                 // you can lazy load files for an existing module
                 return $ocLazyLoad.load(['modules/events/service.js','modules/step_event/service.js']).then(function(){
                 }).then(function(){
-                return $ocLazyLoad.load(['modules/events/views/eventviewController.js']);
+                return $ocLazyLoad.load(['modules/events/eventviewController.js']);
                 })
               }]
             }
         })
 
+
+ .state('view_series', {
+            url: '/view_series/:eventId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'eventseriesController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/events/views/view_series.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(['modules/events/service.js','modules/event_series/service.js','modules/step_event/service.js']).then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/events/seriesCtrl.js']);
+                })
+              }]
+            }
+        })
+
+
+  .state('view_package', {
+            url: '/view_package/:packageId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'eventpackageController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/events/views/view_package.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(['modules/events/service.js','modules/event_package/service.js']).then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/events/event_packagectrl.js','modules/event_package/step1/controller.js',
+                  'modules/event_package/step2/controller.js','modules/event_package/step3/controller.js',]);
+                })
+              }]
+            }
+        })
 
           .state('single_event_overview', {
             url: '/single_event_overview/:eventId',
@@ -1596,7 +1640,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             
             views: {
                 "lazyLoadView": {
-                  controller: 'controller',
+                  controller: 'widgetcontroller',
                   templateUrl: 'modules/widgets/views/list_widget.html'
                 }
             },
@@ -1613,6 +1657,9 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
           
         })
 
+
+
+
        ///////////////////////////add checkout widget///////////////
 
 
@@ -1622,7 +1669,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             
             views: {
                 "lazyLoadView": {
-                  controller: 'controller',
+                  controller: 'widgetcontroller',
                   templateUrl: 'modules/widgets/views/checkout_widget.html'
                 }
             },
@@ -1646,7 +1693,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             
             views: {
                 "lazyLoadView": {
-                  controller: 'controller',
+                  controller: 'widgetcontroller',
                   templateUrl: 'modules/widgets/views/event_widget.html'
                 }
             },
@@ -1662,6 +1709,77 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
           
         })
+
+
+         .state('edit_widget', {
+            url: '/edit_widget/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'widgetcontroller', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/widgets/views/checkout_widget.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/widgets/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/widgets/controller.js']);
+                })
+              }]
+            }
+        })
+
+
+
+
+
+///////////////////////////////////tracking_tag///////////////////////
+
+
+         .state('tracking', {
+            url: '/tracking',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'trackingController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/tracking_tag/views/tracking_tag_view.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load(['modules/tracking_tag/service.js','modules/manage/service.js']).then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/tracking_tag/controller.js','modules/manage/user_controller.js']);
+                })
+              }]
+            }
+        })
+////////////////edit tracking tag///////////////////
+
+
+   .state('delete_tracking', {
+            url: '/delete_tracking/:id',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'trackingController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/tracking_tag/views/tracking_tag_view.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/tracking_tag/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/tracking_tag/controller.js']);
+                })
+              }]
+            }
+        })
+
 
 
   }).run(['$rootScope', '$location','$state', '$localStorage', '$http', '$timeout','$window','$stateParams',function($rootScope,$location, $state,$localStorage, $http,$timeout,$window,$stateParams) {

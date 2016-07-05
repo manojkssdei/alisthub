@@ -77,6 +77,15 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
       }
     }
 
+
+$scope.viewHref = function(eventId,recurringOrNot) {
+      if(recurringOrNot==0){
+        $location.path("/view_event/" + eventId);  
+      } else {
+        $location.path("/view_series/" + eventId);
+      }
+    }
+
     $scope.delEvent=function(event_id) {
       eventService.deleteEvent({'event_id':event_id},function(response) {
         if(response.code==200) {
