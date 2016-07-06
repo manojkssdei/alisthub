@@ -56,7 +56,16 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     width:100%;
     padding: 0 15px;
 }
-
+.event_name_wd{
+  width:490px;
+}
+.event_short_url{
+  width:340px;
+}
+.event_time_wd{
+  width:150px;
+}
+.d1name{position:absolute; left:350px; top:12px;}
 /* Common CSS
    ========================================================================== */
 ol, ul {list-style: none;}
