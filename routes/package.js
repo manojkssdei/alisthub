@@ -91,6 +91,11 @@ module.exports = function(app, express) {
       /* Export CSV events  */
       router.get('/exportPackageCSV', AllPackage.exportPackageCSV);
     
-      
+     router.post('/getQuestionsOfEventOfPackage',supportCrossOriginScript, Package.getQuestionsOfEventOfPackage);
+
+     router.post('/delPackage',supportCrossOriginScript, Package.delPackage);
+
+     router.post('/addFavouritePackage',supportCrossOriginScript, Package.addFavouritePackage);
+
       app.use('/package', router);
 }  
