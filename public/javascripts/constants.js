@@ -551,6 +551,12 @@ var webservices = {
     //assign question postition
 
     "saveQuestionLocationPosition" : "/event_setting/saveQuestionLocationPosition" ,
+    "getQuestionsOfEventOfPackage" : "/package/getQuestionsOfEventOfPackage" ,
+    "delPackage" : "/package/delPackage" ,
+    "addFavouritePackage" : "/package/addFavouritePackage" ,
+    
+
+
 
 }
 
@@ -667,6 +673,10 @@ var global_message = {
     "fetchError": "There is some problem on Sever side , Please try after some time .",
 
     "saveEmailReport" : "Email report saved successfully.",
+
+    // package overview
+
+
 }
 
 var appConstants = {
