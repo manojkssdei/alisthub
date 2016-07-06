@@ -401,6 +401,7 @@ function change_image3()
 	    data: {"event_id":eventId}
 	  })
 	    .done(function( response ) {
+               $(".preview_div_insert").html("");
 	       var order=JSON.parse(response.results[0].event_order);
 	        
 		order.sort(function(a, b){

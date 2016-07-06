@@ -7,7 +7,7 @@ Module : Event step
 
 
 angular.module("google.places", []);
-angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
+angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepeventController', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state,$anchorScroll) {
 
   $scope.loader = false;
    //For Step 1
@@ -147,8 +147,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
           
           data.startevent_time=$scope.startevent_time;
           data.endevent_time=$scope.endevent_time;
-          
+          data.event_startdatetime  = $scope.formatDate($scope.combine($scope.start_date,data.startevent_time));
+          data.event_enddatetime    = $scope.formatDate($scope.combine($scope.start_date,data.endevent_time));
           data.userId=$localStorage.userId;
+          data.showclix_token     = $localStorage.showclix_token;
+          data.showclix_user_id   = $localStorage.showclix_user_id;
+          data.showclix_seller_id = $localStorage.showclix_seller_id;
+          data.step               = 1;
           $serviceTest.saveEvent(data,function(response){
             if (response.code == 200) {
                $scope.success=global_message.event_step1;
@@ -159,6 +164,16 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                  $scope.error_message=true;
                },3000);
             }
+            else{
+              console.log("test007");
+              $anchorScroll();
+              $scope.show_error=response.error;
+              $scope.show_error_message = true;
+              $timeout(function() {
+                $scope.show_error_message=false;
+              },10000);          
+            }
+            
           });
         }  
       } 
@@ -545,8 +560,55 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   $scope.selected = $scope.events[0];
   $scope.selected1 = $scope.venues[0];
   $scope.selected2 = $scope.steps[0];
-
-
+  
+  $scope.formatDate = function(d){
+        var d2 = new Date();
+        var n2 = d2.getTimezoneOffset(); 
+        if (n2 > 0) {
+          var newdate = new Date(d .getTime() + n2*60000);
+        } else {
+          var newdate = new Date(d .getTime() - n2*60000);
+        }
+        
+        d = newdate;
+        console.log(d);
+        
+        function addZero(n){
+           return n < 10 ? '0' + n : '' + n;
+        }
+        console.log(d.getFullYear()+"-"+ addZero(d.getMonth()+1) + "-" + addZero(d.getDate()) + " " + 
+                 addZero(d.getHours()) + ":" + addZero(d.getMinutes()) + ":" + addZero(d.getMinutes()));
+      
+          return d.getFullYear()+"-"+ addZero(d.getMonth()+1) + "-" + addZero(d.getDate()) + " " + 
+                 addZero(d.getHours()) + ":" + addZero(d.getMinutes()) + ":" + addZero(d.getMinutes());
+  }
+  
+  $scope.combine = function(dt, timeString) {
+    var startDateTime = '';
+    var parts = /^(\d+):(\d+) (AM|PM)$/.exec(timeString);
+    if (parts) {
+      hours = parseInt(parts[1], 10);
+      minutes = parseInt(parts[2], 10);
+      if (parts[3] === "PM" && hours !== 12) {
+        hours += 12;
+      } else if (parts[3] === "AM" && hours === 12) {
+        hours = 0;
+      }
+      if (!isNaN(hours) && !isNaN(minutes)) {
+        startDateTime = new Date(dt.getTime());
+        startDateTime.setHours(hours);
+        startDateTime.setMinutes(minutes);
+      }
+    }
+    var d = new Date();
+    var n = d.getTimezoneOffset(); 
+    if (n > 0) {
+      var newdate = new Date(startDateTime .getTime() + n*60000);
+    } else {
+      var newdate = new Date(startDateTime .getTime() - n*60000);
+    }
+    return newdate;
+  }
 
   /** 
   Method: click_menu
@@ -587,14 +649,24 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                 if (data.eventtype=='single') {
                   
                   if (($scope.selectevent_date!=undefined) &&($scope.startevent_time!=undefined)&&($scope.endevent_time!=undefined)) {
-                    console.log(6);
+                    $scope.saveloader = true;
                     data.eventdate=$scope.single_start_date;
                     
                     data.startevent_time=$scope.startevent_time;
                     data.endevent_time=$scope.endevent_time;
+                    console.log($scope.start_date);
+                    console.log(data);
+                    data.event_startdatetime  = $scope.formatDate($scope.combine($scope.start_date,data.startevent_time));
+                    data.event_enddatetime    = $scope.formatDate($scope.combine($scope.start_date,data.endevent_time));
                     
                     data.userId=$localStorage.userId;
+                    data.showclix_token     = $localStorage.showclix_token;
+                    data.showclix_user_id   = $localStorage.showclix_user_id;
+                    data.showclix_seller_id = $localStorage.showclix_seller_id;
+                    data.step               = 1;
+                    console.log(data);
                     $serviceTest.saveEvent(data,function(response){
+                      $scope.saveloader = false;
                       if (response.code == 200) {
                         $scope.success=global_message.event_step1;
                         $stateParams.eventId = response.result;
@@ -602,11 +674,19 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                         $timeout(function() {
                           $scope.success='';
                           $scope.error_message=true;
-                        },3000);
-
+                        },5000);
                         console.log(response.result);
                         $location.path("/create_event_step2/"+$stateParams.eventId);
                         
+                      }
+                      else{
+                        console.log("test007");
+                        $anchorScroll();
+                        $scope.show_error=response.error;
+                        $scope.show_error_message = true;
+                        $timeout(function() {
+                            $scope.show_error_message=false;
+                        },10000);
                       }
                     });
                   }  
@@ -624,6 +704,14 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                     data.endevent_time=$scope.endevent_time;
                     data.userId=$localStorage.userId;
                     data.id    = $stateParams.eventId;
+                    
+                    data.event_startdatetime  = $scope.formatDate($scope.combine($scope.start_date,data.startevent_time));
+                    data.event_enddatetime    = $scope.formatDate($scope.combine($scope.start_date,data.endevent_time));
+                    
+                    data.showclix_token     = $localStorage.showclix_token;
+                    data.showclix_user_id   = $localStorage.showclix_user_id;
+                    data.showclix_seller_id = $localStorage.showclix_seller_id;
+                    data.step               = 1;
                     $serviceTest.saveEvent(data,function(response){
                       if (response.code == 200) {
                         $scope.success=global_message.event_step1;
@@ -635,6 +723,14 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
                         
                         $location.path("/create_event_step2/"+$stateParams.eventId);
                         
+                      }
+                      else{
+                        $anchorScroll();
+                        $scope.show_error=response.error;
+                        $scope.show_error_message = true;
+                        $timeout(function() {
+                            $scope.show_error_message=false;
+                        },10000);
                       }
                     });
                   }  

@@ -36,8 +36,15 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
       if($rootScope.searchToDate!=undefined) {
         dateRange.searchToDate = $rootScope.searchToDate;
       }
-      
-      eventService.getAllEvent({ 'user_id' : $localStorage.userId , 'allevent' : allevent, 'dateRange': dateRange },function(response) {
+
+      var userModuleInfo = {};
+      userModuleInfo.userType = 'user';
+      userModuleInfo.sellerUserId = '39';
+      userModuleInfo.moduleName = 'Events';
+      userModuleInfo.moduleId = '1';
+      userModuleInfo.action = 'add';
+
+      eventService.getAllEvent({ 'user_id' : $localStorage.userId, 'userModuleInfo' : userModuleInfo, 'allevent' : allevent, 'dateRange': dateRange },function(response) {
         $scope.eventloader = false;
         if (response!=null) {
           if (response.code == 200) {
@@ -74,6 +81,15 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
         $location.path("/create_event_step1/" + eventId);  
       } else {
         $location.path("/create_series_step1/" + eventId);
+      }
+    }
+
+
+$scope.viewHref = function(eventId,recurringOrNot) {
+      if(recurringOrNot==0){
+        $location.path("/view_event/" + eventId);  
+      } else {
+        $location.path("/view_series/" + eventId);
       }
     }
 

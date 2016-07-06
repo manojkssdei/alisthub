@@ -13,13 +13,13 @@ Please note: Since we do not control your web properties (and we want to respect
 	<div class="row">
 	  <div class=col-sm-12>
 	   <div class=col-sm-9>
-	   <label for="widgetname">Widget Description</label>
-<input type="text" name="widgetname" ng-model="data.widgetname" class="form-control" placeholder="" required>
+	   <label for="widget_description">Widget Description</label>
+      <input type="text" name="widget_description" ng-model="data.widget_description" class="form-control" placeholder="" required />
+    
 </div>
       <div class=col-sm-3>
              <label for="template">Tamplate</label>
-              <button type="button" ng-click=temlate() class="gray-btn btn">Choose a Template</button>
-
+            <button type="button"  ng-model="data.template_id"  class="gray-btn btn">Choose a Template</button>
      </div>
  </div>
 </div>
@@ -47,19 +47,19 @@ Please note: Since we do not control your web properties (and we want to respect
                                 <section class="col-sm-4">
                                      <section class="form-group">
                                         <label>Widget width</label>
-                                        <input type="text" placeholder="100%" class="form-control" value="">
+                                        <input type="text"  ng-model="data.width" placeholder="100%" class="form-control" value="">
                             </section>
                                 </section>
                                 <section class="col-sm-4">
                                      <section class="form-group">
                                         <label>Min Height</label>
-                                        <input type="text" class="form-control" value="" name="StartTime">
+                                        <input type="text" ng-model="data.min_height"class="form-control" value="" name="StartTime">
                                        </section>
                                     </section>
                                   <section class="col-sm-4">
                           <section class="form-group">
                                 <label>Max Height</label>
-                                <input type="text" name="" value="" class="form-control">
+                                <input type="text" ng-model="data.max_height" name="" value="" class="form-control">
                             </section>
                         </section>
                         </section>
@@ -74,7 +74,7 @@ Please note: Since we do not control your web properties (and we want to respect
                      <section class="form-group">
                         <label>Show Template Header</label>
                           <div class="onoffswitch mt-3">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" checked>
+                            <input type="checkbox" name="onoffswitch" ng-model="data.show_template_header" class="onoffswitch-checkbox" id="myonoffswitch2" checked>
                            <label class="onoffswitch-label" for="myonoffswitch2"></label>
                           </div>
                      </section>
@@ -83,7 +83,7 @@ Please note: Since we do not control your web properties (and we want to respect
                             <section class="form-group">
                               <label>Show Vanue Name</label>
                              <div class="onoffswitch mt-3">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" checked>
+                            <input type="checkbox" name="onoffswitch" ng-model="data.show_vanue_name" class="onoffswitch-checkbox" id="myonoffswitch3" checked>
                            <label class="onoffswitch-label" for="myonoffswitch3"></label>
                           </div>
                          </section>
@@ -92,7 +92,7 @@ Please note: Since we do not control your web properties (and we want to respect
                              <section class="form-group">
                                 <label>Override Event Temlates</label>
                                 <div class="onoffswitch mt-3">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" checked>
+                            <input type="checkbox" name="onoffswitch" ng-model="data.override_event_temlates" class="onoffswitch-checkbox" id="myonoffswitch4" checked>
                            <label class="onoffswitch-label" for="myonoffswitch4"></label>
                           </div>
                             </section>
@@ -110,7 +110,7 @@ Please note: Since we do not control your web properties (and we want to respect
                      <section class="form-group">
                         <label>Begin on Calendar View</label>
                           <div class="onoffswitch mt-3">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" checked>
+                            <input type="checkbox" name="onoffswitch" ng-model="data.begin_calendar_view" class="onoffswitch-checkbox" id="myonoffswitch5" checked>
                            <label class="onoffswitch-label" for="myonoffswitch5"></label>
                           </div>
                      </section>
@@ -120,7 +120,7 @@ Please note: Since we do not control your web properties (and we want to respect
                             <section class="form-group">
                               <label>Show Event List</label>
                              <div class="onoffswitch mt-3">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch6" checked>
+                            <input type="checkbox" name="onoffswitch" ng-model="data.show_event_list" class="onoffswitch-checkbox" id="myonoffswitch6" checked>
                            <label class="onoffswitch-label" for="myonoffswitch6"></label>
                           </div>
                                        
@@ -130,7 +130,7 @@ Please note: Since we do not control your web properties (and we want to respect
                              <section class="form-group">
                                 <label>Use Category Colors</label>
                                 <div class="onoffswitch mt-3">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch7" checked>
+                            <input type="checkbox" name="onoffswitch" ng-model="data.use_category_colors" class="onoffswitch-checkbox" id="myonoffswitch7" checked>
                            <label class="onoffswitch-label" for="myonoffswitch7"></label>
                           </div>
                             </section>
@@ -142,7 +142,7 @@ Please note: Since we do not control your web properties (and we want to respect
   <div class="row">
     <div class=col-sm-12>
       <label for="tag">Tracking Tag</label>
-      <input type="text" name="tage" ng-model="data.tag" class="form-control" placeholder="" required>
+      <input type="text" name="tage" ng-model="data.tracking_tag" class="form-control" placeholder="" required>
    </div>
 </div>
  </div> 
@@ -159,7 +159,7 @@ Please note: Since we do not control your web properties (and we want to respect
  </form>
  <div class="editr">        
         <div class="editor-btn">
-         <button class="gray-btn btn">Save</button>
+         <button class="gray-btn btn" ng-click="savewidget()">Save</button>
       
         </div>
       </div>

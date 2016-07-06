@@ -384,6 +384,7 @@ Module : Discount
             if ($localStorage.userId != undefined) {
                 $scope.data.userId = $localStorage.userId;
                 $scope.data.eventId = $state.params.eventOverviewId;
+
                 $scope.loader = true;
                  
                  $serviceTest.getDiscountsOfEvent($scope.data, function(response) {
@@ -404,6 +405,17 @@ Module : Discount
                                 } 
                             }); 
 
+                             $scope.tableParams = new ngTableParams(
+                        {
+                            page: 1,            // show first page
+                            count: 5,           // count per page
+                            sorting: {name:'asc'},
+                                            
+                        },
+                        {
+                            data:$scope.eventdata
+                        });
+
                             console.log('value.commonAssignIds' , $scope.commonAssignIds);
 
                         if(response.globalDiscountAssignments[0]) {
@@ -421,8 +433,39 @@ Module : Discount
 
         }
 
+
+                 /*Delete discount coupon */
+        $scope.delDiscountAssignment = function(id , discount_id) {
+            console.log('delDiscountAssignment');
+            $scope.data = {};
+            if ($localStorage.userId != undefined) {
+                    if(typeof(id) == "object") {
+                        $scope.data.id = id;
+                    }
+                    if(typeof(id) == "number") {
+                       $scope.data.id = [];
+                       $scope.data.id.push(id); 
+                    }
+                    
+
+                $scope.data.seller_id = $localStorage.userId;
+                $scope.data.discount_id = discount_id;
+                console.log('$scope.data ' , $scope.data);
+                $serviceTest.delDiscountAssignment($scope.data, function(response) {
+                    if (response.code == 200) {
+                         //$scope.activation_message = global_message.ErrorInActivation;
+                         $scope.getDiscountsOfEvent();
+                    } 
+                });
+                
+            }
+        };
+
+
        /*View listing of all discount coupons */
-        if ($state.params.eventOverviewId) {
+        if ($state.params.eventOverviewId && $state.params.eventType) {
+            $scope.eventId = $state.params.eventOverviewId;
+            $scope.eventType = $state.params.eventType;
             $scope.getDiscountsOfEvent();
         }
         
@@ -1383,6 +1426,7 @@ console.log('$scope.discountAssignments[value1]' , $scope.discountAssignments[va
 
          /*Delete discount coupon */
         $scope.delDiscountAssignment = function(id) {
+            console.log('delDiscountAssignment');
             $scope.data = {};
             if ($localStorage.userId != undefined) {
                     if(typeof(id) == "object") {

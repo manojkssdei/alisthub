@@ -1,10 +1,14 @@
 <style type="text/css">
 .ev-header { background: #0275d0 none repeat scroll 0 0;  width: 100%;}
 .ev-image .social-media{right:17%;}
+<<<<<<< HEAD
 .ev-container { margin: 0 auto;  max-width: 800px;}
 .gray-frame1 li{ border:solid 1px black;}
 .form-section.wt-frame {   padding: 40px 10px;}
 .col-sm-2.design-left { padding-left: 5px;}
+=======
+.ev-container { margin: 0 auto;  max-width: 900px;}
+>>>>>>> 2d427001b4bc640b4d0308f52553f27e0c9e3c14
 
 </style>
  <script>
@@ -123,6 +127,7 @@
                <section class="col-sm-10 design-right">
 		<section class="gray-frame1" style="background: rgba(0, 0, 0, 0) url('./images/bg/bg.png') no-repeat scroll center top  ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">               		
 		<div class="module  gridster">
+<<<<<<< HEAD
 		  <div class="ev-container wtframe m-t35" ng-style="{background: background_inner,border:border_color}"> 
     <section class="ev-image col2" id="section1"><div class="portlet">
     <div class="drag" style="display: none;">
@@ -147,6 +152,20 @@
 		  </div>
 		  <section class="media-sc module-div">
 		    <section class="social-med" ng-click="socialLink('')">                          	  
+=======
+		  <ul ng-style="{background: background_inner,border:border_color}"> 
+                 <li data-row="1" data-col="1" data-sizex="4" data-sizey="1"  id="section1" ng-style="{background: background_inner}">
+		  <div class="drag" style="display:none;">
+		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		    <a onclick="remove_widget('section1')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		    <a onclick="crop_image('banner_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
+		    </div>
+		    <div class="main-image">
+		      <img src="{{banner_image}}" id="banner_image" alt="banner image" height="190px;" width="100%"  onclick="change_image()">
+			<input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
+		    </div>
+		    <section class="social-media" ng-click="socialLink('')">                          	  
+>>>>>>> 2d427001b4bc640b4d0308f52553f27e0c9e3c14
 		      <a class="facebook-net" href="{{sociallink.facebook_url}}"><span class="network-icon"><i class="fa fa-facebook"></i></span></a>
 		      <a class="google-net" href="#"><span class="network-icon"><i class="fa fa-google"></i></span></a>                      
 		      <a class="twitter-net" href="{{sociallink.twitter_url}}"><span class="network-icon"><i class="fa fa-twitter"></i></span></a>                    
@@ -292,6 +311,7 @@
 			data-layout="standard" 
 			data-action="like" 
 			data-show-faces="true">
+<<<<<<< HEAD
 		</div></div>
                 </div>
             </section><!--Facebook Block-->
@@ -301,6 +321,36 @@
 
   
 </div>
+=======
+		</div>
+		</li>
+		
+		
+		<li data-row="5" data-col="1" data-sizex="3" data-sizey="1"   id="section7"  ng-style="{background: background_inner}">
+		  <div class="drag" style="display:none;">
+			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+			<a onclick="remove_widget('section7')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		      
+		      </div>
+		     <div><iframe  width="100%" height=200" src="https://www.youtube.com/embed/vIXCpsrqw6c" frameborder="1" allowfullscreen></iframe></div> 
+		  
+		</li>
+		
+		<!--<li data-row="6" data-col="1" data-sizex="4" data-sizey="1"    id="section6"  ng-style="{background: background_inner}">
+		  <div class="drag" style="display:none;">
+			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+			<a onclick="remove_widget('section6')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		      
+		      </div>
+		      <div contenteditable="true" ckeditor="option_ckeditor1" name="content4"  required ng-model="content4" ready="onReady()" value='' class="wrap-word">
+		      </div>
+		</li>-->
+		
+       
+			
+			
+		    </ul>
+>>>>>>> 2d427001b4bc640b4d0308f52553f27e0c9e3c14
 		  <input type="hidden" id="outer_background" value="{{background_outer}}">
 		  <input type="hidden" id="inner_background" value="{{background_inner}}">
 		  <input type="hidden" id="text_color" value="{{text_color}}">
@@ -343,10 +393,58 @@ function remove_widget(remove_widget_id)
  function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
+<<<<<<< HEAD
  $(function(){
         // resize widgets on hover
         $('.js-seralize').on('click', function() {
 	  var arr=$(".gridster").html();
+=======
+      var gridster;
+    function test(){
+     gridster.add_widget('<li class="new"><img src="http://www.sparity.com/images/facebookIcon.jpg" alt="facebook"  ></li>', 1, 1);
+  }
+      $(function(){
+      
+        gridster = $(".gridster ul").gridster({
+	  widget_base_dimensions: [140, 225],
+          widget_margins: [10, 10],
+		  helper: 'clone',
+		  resize: {
+            enabled: true,
+			handles: ['n', 'e', 's', 'w', 'se', 'sw']
+          },
+		  pushing: true,
+		floating: true,
+		draggable: {
+			handle: '.header'
+		}
+        }).data('gridster');
+	
+          $('.js-seralize').on('click', function() {
+	     var eventdata=new Array();
+	     var event_info=new Array();
+            var s = gridster.serialize();
+	    
+           s.forEach(function(item,index){
+	      eventdata.push(item.row+""+item.col);
+	      event_info.push({"row":item.row+""+item.col,"size":item.size_x,"size-y":item.size_y});
+	      })
+	   
+	   var event_order=eventdata.sort();
+	   
+	   var arr = {};
+	   var i=0;
+	   $.map(event_order, function(value, index) {
+	     
+	      var column=value.slice(-1);
+	      var row=value.slice(0,1);
+	      var section=$('.module.gridster.ready > ul > li[data-col='+column+'][data-row='+row+']').attr('id');
+		
+	       arr[i]=$("#"+section).html();
+	       i++;
+	  });
+           console.log(arr);
+>>>>>>> 2d427001b4bc640b4d0308f52553f27e0c9e3c14
 	   var href = window.location.href;
           var eventId=href.substr(href.lastIndexOf('/') + 1);
 	  var background_outer=$("#outer_background").val();
@@ -361,8 +459,123 @@ function remove_widget(remove_widget_id)
 	  })
 	    .done(function( response ) {
 	      if (response.code==200) {
+<<<<<<< HEAD
 
 	       $("#preview_div").show().html(arr);
+=======
+		 var href = window.location.href;
+          var eventId=href.substr(href.lastIndexOf('/') + 1);
+         $.ajax({
+	    method: "POST",
+	    url: "/event/getEvent",
+	    data: {"event_id":eventId}
+	  })
+	    .done(function( response ) {
+               $(".preview_div_insert").html("");
+	       var order=JSON.parse(response.results[0].event_order);
+	        
+		order.sort(function(a, b){
+                                            
+		    return ((a.row == b.row) ? 0 : ((a.row > b.row) ? 1 : -1 ));
+		});
+		
+	        var row=order[order.length-1].row.slice(0,1);
+		row=parseInt(row)+1;
+		var j,l=0;
+		for(i=2;i<=row;i++)
+		{
+		   j=i-1;
+		   
+		   var res=order.filter(function(val) {
+		    
+		    return (val.row <=Number(i+"0") && val.row >=Number(j+"0"));
+		}); 
+		  // console.log(res.length);
+		 
+		
+		   if (res.length>0) {
+		   var html='';
+		   console.log(res);
+                    
+		    for (var k = 0; k <res.length; k++) {
+		      
+		    
+		      var size=res[k].size*3;
+		      if (res.length==1) {
+			l++;
+		      
+			if (res[k].size==4) {
+			 
+			  $(".preview_div_insert").append("<div class='row'><div class='col-sm-12'><div class='section"+l+"'></div></div></div>");
+			}else{
+			 
+			 if(res[k].row.slice(-1)==4)
+			  {
+			   $(".preview_div_insert").append("<div class='row'><div class='col-sm-12'><div class='col-sm-9'></div><div class='col-sm-3 section"+l+"'><div></div></div>"); 
+			  }
+			  else if(res[k].row.slice(-1)==1)
+			  {
+			   var siz=res[k].size*3;
+			  var remaining=12-siz;
+			  
+			   $(".preview_div_insert").append("<div class='row'><div class='col-sm-12'><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div></div>"); 
+			  }
+			   else if(res[k].row.slice(-1)==2)
+			  {
+			   var siz=res[k].size*3;
+			  var remaining=12-siz-3;
+			  
+			   $(".preview_div_insert").append("<div class='row'><div class='col-sm-12'><div class='col-sm-3'></div><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div></div>"); 
+			  }
+			   else if(res[k].row.slice(-1)==3)
+			  {
+			   var siz=res[k].size*3;
+			  var remaining=12-siz-6;
+			  
+			   $(".preview_div_insert").append("<div class='row'><div class='col-sm-12'><div class='col-sm-6'></div><div class='col-sm-"+siz+" section"+l+"'></div><div class='col-sm-"+remaining+"'></div></div></div>"); 
+			  }
+			 
+			}
+			 
+			
+		      }else{
+			
+			var row_data=Number(res.length)-Number(1);
+			
+			
+		    if (k==0) { 
+			l++;
+			 html +="<div class='row'><div class='col-sm-12'><div class='col-sm-"+size+"'><div class='section"+l+"'></div></div>";
+			 
+		      }
+		      else if (k==row_data) {
+			l++;
+			html +="<div class='col-sm-"+size+"'><div class='section"+l+"'></div></div></div></div>";
+			$(".preview_div_insert").append(html);
+			
+			
+		      }else{
+			l++;
+			html +="<div class='col-sm-"+size+"'><div class='section"+l+"'></div></div>";
+		      }
+		      }
+		     
+		     
+		  }
+		
+		  }
+		    
+		
+		}
+		$(".section1").html(response.results[0].section1);
+	         $(".section2").html(response.results[0].section2);
+	         $(".section5").html(response.results[0].section5);
+	         $(".section7").html(response.results[0].section7);
+	         $(".section3").html(response.results[0].section3);
+	         $(".section4").html(response.results[0].section4);
+	         $(".section6").html(response.results[0].section6);
+	         $(".section8").html(response.results[0].section8);
+>>>>>>> 2d427001b4bc640b4d0308f52553f27e0c9e3c14
 		$("#lookstep4").click();
 	      }
 	    });

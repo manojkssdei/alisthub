@@ -1,19 +1,23 @@
+    <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
+<script src="javascripts/timepicker.js" type="text/javascript"></script>
 <div class="container">
    <h1>Event Overview</h1>
    <!-- Form COntainer -->
    <div class="wt-frame form-section">
       <section class="top-buttons bb-1 text-right">
-         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-edit"> </i>  Edit</button>
-         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-trash"> </i>  Delete</button>
-         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-pause"> </i>  Pause Sales</button>
-         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  Duplicate</button>
-         <button type="button" class="btn pink-btn btn-small pull-right"> View Event</button>
-         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  View Listing</button>
+
+         <a href="/#/create_event_step1/{{event_id}}" ><button type="button" class="btn pink-btn btn-small" ><i class="fa fa-edit"> </i>  Edit</button></a>
+         <button type="button" class="btn pink-btn btn-small" ng-click="delEvent(event_id)"><i class="fa fa-trash"> </i>  Delete</button>
+         <button type="button" class="btn pink-btn btn-small" ng-click="pauseSales(event_id)"><i class="fa fa-pause"> </i>  {{sales_pause_status}}</button>
+         <!--<button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  Duplicate</button>-->
+         <a href="/#/view_event/{{event_id}}" > <button type="button" class="btn pink-btn btn-small"> View Event</button></a>
+          <button type="button" class="btn pink-btn btn-small" ng-click="addFavouriteEvent(event_id)"><i class="fa fa-star"> </i> {{favorite_status}}</button> 
+         <!--<button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  View Listing</button>
 
          <button type="button" class="btn pink-btn btn-small"><i class="fa fa-mail"> </i>  Send Invitation</button>
          <button type="button" class="btn pink-btn btn-small"><i class="fa fa-group"> </i>  Admissions</button>
-         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-list"> </i>  Guest List</button>
-         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-star"> </i>  Add Favorite</button>
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-list"> </i>  Guest List</button> -->
+        
       </section>
       <!--/Top Buttons-->
       <form class="event-form">
@@ -29,8 +33,8 @@
                   <h3> {{title}}</h3>
                   <hr/>
                   <h5> <i class="fa fa-calendar"> </i> {{event_date}}</h5>
-                  <h5><i class="fa fa-home"> </i>  {{event_address}} , {{country}}</h5>
-                  <h5><i class="fa fa-link"> </i><a href="#"> https://192.155.246.146:5502/{{user_id}}/{{event_id}}</a></h5>
+                  <h5><i class="fa fa-home"> </i>  {{event_address}} </h5>
+                  <h5><i class="fa fa-link"> </i><a href="#"> http://alistixs.com/{{user_id}}/{{event_id}}</a></h5>
                   <!--<h5><i class="fa fa-qrcode"> </i>  </h5>-->
                  
 <br/><br/>
@@ -43,7 +47,7 @@
                      Ticket sales are currently {{sales_status}} <i  class="fa fa-checkmark"></i>
                      </div>
                      <div class="event-status-detail">
-                     Sales will close on <strong>{{sales_close_date}}</strong>.
+                     Sales will close on <strong>{{online_sales_close}}</strong>.
                      </div>
                      </div>
 
@@ -68,8 +72,8 @@
             <section class="gray-frame sub-fields">
                <section class="grid-widget">
                   <h5>Event Inventory: {{inventory}}</h5>
-                  <h5> Total Tickets Issues: 900 </h5>
-                  <h5> Remaining Tickets: 100 </h5>
+                  <h5> Total Tickets Issues: 0 </h5>
+                  <h5> Remaining Tickets: {{inventory}} </h5>
                </section>
             </section>
          </section>
@@ -398,15 +402,17 @@
                            
                              <tr  ng-repeat="pdata in $data | filter:filter">
                                         <td width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox.html'"><input type="checkbox" name="checkall" ng-model="pdata.selected"  ng-click="optionToggled(pdata.id);" ></td>
+
                                         <td width="44%" header-class="'header-text-align'" title="'Name'" filter="{ question_name: 'text'}" sortable="'question_name'"><strong>{{pdata.question_name}}</strong></td>
                                         <td width="18%" header-class="'header-text-align'" title="'Type'" filter="{ question_type: 'text'}" sortable="'question_type'" >{{pdata.question_type}}</td>
                                         <td width="18%" header-class="'header-text-align'" title="'Assigned To'" >
                                             <p ng-if="event_count[pdata.id] > 0">{{event_count[pdata.id]}}  Events</p>
                                             <p ng-if="event_count[pdata.id] == '' || event_count[pdata.id] == null">0  Event</p>
                                         </td>
+
+
                                         <td width="15%" header-class="'action-text-align'" title="'Actions'" align="center" class="action">
-                                            <a href="#/edit_question/{{pdata.id}}"><i class="fa fa-edit"></i></a>
-                                            <a ng-click="changeStatus(pdata.id,pdata.status)" ng-confirm-click="Would you like to change Question status ?"><i class="fa fa-check-circle" ng-if="pdata.status == 1"></i><i class="fa fa-times" ng-if="pdata.status == 0"></i></a>
+                                            
                                             <a ng-click="delQuestion(pdata.id)" ng-confirm-clicks="Would you like to delete this Question?" ng-if="event_count[pdata.id] == '' || event_count[pdata.id] == null"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -422,6 +428,11 @@
                </section>
             </section>
          </section>
+
+         <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+        <input type="checkbox" name="checkall" class="listing-check" ng-model="check.isAllSelected" ng-click="toggleAll(all_check_point)">
+        </script>
+
          <!-- event level questions end -->
 
 
@@ -451,7 +462,7 @@
                      <p class="success-fld ng-binding">{{success_discount}}</p>
                   </span>
 
-               <a href="#/view_event_discounts/{{eventId}}"><strong><p>{{getCountDiscountsOfEvent}} assignments for this event</p></strong></a>
+               <a href="#/view_event_discounts/singleEvent/{{eventId}}"><strong><p>{{getCountDiscountsOfEvent}} assignments for this event</p></strong></a>
                   <!--<div class="table-responsive">
   
 
@@ -495,18 +506,10 @@
                                     </tr>
 
                         </tbody>
-                     </table>-->
-                  </div>
+                     </table>
+                  </div> -->
                </section>
-               <section class="grid-bottm clearfix">
-                  <section class="gr-right pull-right">
-                     <ul class="legends">
-                        <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                        <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                        <li><i class="fa fa-trash"></i><span>delete</span></li>
-                     </ul>
-                  </section>
-               </section>
+              
             </section>
          </section>
          <!-- Discount Ends -->
@@ -518,14 +521,25 @@
                <i class="fa fa-database hdicon pos-l16"></i>
                <h2>Email Reports <span class="rt-img"></span></h2>
             </section>
+
+         
+
             <section class="gray-frame sub-fields">
+               
                <section class="grid-btn-top row">
-                  <section class="col-sm-5 pull-right text-right">
-                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReport('lg')">Add an Email Report</button>
+                  <section class="col-sm-12 ">
+                       <p class="success-fld" ng-show="success_message_email_report">{{successEmailReport}}</p>
                   </section>
                </section>
-               <section class="grid-widget" ng-show="showEmailReportList">
-                  <span ng-show="success_message_emailReport" class="ng-hide">
+
+
+               <section class="grid-btn-top row">
+                  <section class="col-sm-5 pull-right text-right">
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReport('lg')" >Add an Email Report</button>
+                  </section>
+               </section>
+               <section class="grid-widget" >
+                  <span ng-show="success_message_emailReport" >
                      <p class="success-fld ng-binding">{{success_emailReport}}</p>
                   </span>
                   <div class="table-responsive">
@@ -540,14 +554,14 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr ng-repeat="email in EmailReportsList track by $index">
+                           <tr ng-repeat="email in EmailReportsList">
                               <td><strong>{{email.email_address}}</strong></td>
-                              <td class="numbers">${{email.send_time}}</td>
-                              <td class="numbers">${{email.timezone_name}}</td>
-                              <td class="numbers">${{email.format}}</td>
+                              <td class="numbers">{{email.send_time}}</td>
+                              <td class="numbers">{{email.timezone_name}}</td>
+                              <td class="numbers">{{email.export_format}}</td>
                               <td class="action">
-                                 <a ng-click="add_emailReport('lg',email.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-                                 <a ng-click="delete_emailReport('',$index,email.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                                 <a ng-click="add_emailReport('lg' , email.id )" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                                 <a ng-click="delete_emailReport('lg' , email.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
                               </td>
                            </tr>
                            <tr ng-if="EmailReportsList == '' ">
@@ -556,19 +570,13 @@
                            <tr ng-show="loader_emailReport">
                               <td colspan="5" align="center"><img src="/images/icons/loader.gif"></td>
                            </tr>
+
+                           
                         </tbody>
                      </table>
                   </div>
                </section>
-               <section class="grid-bottm clearfix">
-                  <section class="gr-right pull-right">
-                     <ul class="legends">
-                        <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
-                        <li><i class="fa fa-check-circle"></i><span>active</span></li>
-                        <li><i class="fa fa-trash"></i><span>delete</span></li>
-                     </ul>
-                  </section>
-               </section>
+           
             </section>
          </section>
          <!-- Email Report Ends -->
@@ -597,7 +605,7 @@
             <section class="gray-frame sub-fields">
                <section class="grid-btn-top row">
                   <section class="col-sm-12 pull-right text-right">
-                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_emailReport('lg')">Assign a template</button>
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assignTemplate('lg')">Assign a template</button>
                   </section>
                </section>
                <section class="grid-widget" ng-show="showEmailReportList">
@@ -605,11 +613,23 @@
                      <p class="success-fld ng-binding">{{success_template}}</p>
                   </span>
                   <div class="table-responsive">
-                     You are currently using the template: <a href="">ALISTIXS DEFAULT TEMPLATE</a>
+                     You are currently using the template: <a href="">{{template_name}}</a>
                      <br/><br/><br/>
-                     <img src="#" class="center" height="100" width="200" />
+                     <img height="400" width="250" class="center" src="{{data.preview_image}}">
                   </div>
                </section>
+
+
+                <section class="module row">
+            <section class="col-sm-12 temp-view" ng-repeat="template in templates track by $index">
+               <section class="form-group" ng-if="template.id == template_id">
+                    <p class="temp-image"><img src="{{template.image}}" alt=""/></p>   
+                </section>
+            </section>
+            
+       </section>
+
+
             </section>
          </section>
          <!-- Templates -->
@@ -621,3 +641,155 @@
    </div>
    <!-- //Form COntainer --> 
 </div>
+
+
+<!-- *************************************************************************************** -->
+
+<script type="text/ng-template" id="myModalEmailReport.html">
+
+    <div class="modal-header">
+
+        <h3 class="modal-title">Add a Email Report</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+    </div>
+    <form  name="reportForm" ng-submit="reportForm.$valid && addEmailReport(report)" novalidate>
+    <div class="modal-body">
+        
+        <fieldset class="form-group">
+           <div class="col-sm-4">Email Address<span class="req">*</span></div>
+           <div class="col-sm-8">
+           <input type="email" ng-model="report.email_address" name="email_address" class="form-control"  placeholder="Email Address" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+
+            <p ng-show="reportForm.email_address.$invalid && !reportForm.email_address.$pristine || reportForm.email_address.$error.pattern" class="error-fld ng-binding">Email address is required.</p>
+            </div>
+
+           </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+           <div class="col-sm-4">Timezone<span class="req">*</span></div>
+           <div class="col-sm-8"><select class="form-control " id="timezone_name" name="timezone_name" ng-model="report.timezone_name" required >
+            <option value="America/New_York">Eastern Time</option><option value="America/Chicago">Central Time</option><option value="America/Denver">Mountain Time</option><option value="America/Phoenix">Mountain Time (Arizona)</option><option value="America/Los_Angeles">Pacific Time</option><option value="America/Juneau">Alaskan Time</option><option value="Pacific/Honolulu">Hawaiian Time</option><option value="Pacific/Samoa">Samoa Standard Time</option>
+        </select><p ng-show="reportForm.timezone_name.$invalid && !reportForm.timezone_name.$pristine" class="error-fld ng-binding">Timezone name is required.</p></div> 
+        
+        </fieldset>
+
+
+
+
+
+               <fieldset class="form-group">
+           <div class="col-sm-4"> Send Time<span class="req">*</span></div>
+           <div class="col-sm-2">
+           
+<select class="form-control" name="category" ng-model="report.send_time.hours" required>
+<option ng-repeat="hour in hours" value="{{hour.id}}" >{{hour.id}}</option>
+</select>
+</div>
+  <div class="col-sm-2">
+<select class="form-control" name="category" ng-model="report.send_time.minutes" required>
+<option ng-repeat="minute in minutes" value="{{minute.id}}" >{{minute.id}}</option>
+</select> </div>
+  <div class="col-sm-2">
+<select class="form-control" name="category" ng-model="report.send_time.seconds" required>
+<option ng-repeat="second in seconds" value="{{second.id}}" >{{second.id}}</option>
+</select>
+
+ 
+
+                <p ng-show="reportForm.send_time.$invalid && !reportForm.send_time.$pristine" class="error-fld ng-binding">Send time is required.</p>
+
+                 <p ng-show="reportForm.input.$error.time" class="error-fld ng-binding">Not a valid time</p>
+
+           </div>
+           
+          
+           </div>
+        </fieldset>
+
+        
+        <fieldset class="form-group">
+           <div class="col-sm-4">Export Format<span class="req">*</span></div>
+           <div class="col-sm-8">
+           <select id="export_format" class="form-control"  name="export_format" ng-model="report.export_format" required>
+            <option value="PDF">PDF</option>
+            <option value="CSV">CSV</option>
+            <option value="Embedded HTML">Embedded HTML</option>
+        </select>
+        <p ng-show="reportForm.export_format.$invalid && !reportForm.export_format.$pristine" class="error-fld ng-binding">Export format is required.</p>
+        </div> </div>
+        </fieldset>
+         
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" ng-disabled="reportForm.$invalid"  >Submit</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+    </form>
+</script>
+
+<!-- *************************************************************************************** -->
+
+
+
+
+
+<!-- *************************************************************************************** -->
+
+
+<script type="text/ng-template" id="myModalAssignTemplate.html">
+
+   <div class="modal-header">
+   <h3 class="modal-title">Email Template</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+   </div>
+
+   <span ng-show="success_message_template" class="ng-hide">
+      <p class="success-fld ng-binding">{{success_template}}</p>
+   </span>
+
+    <form  name="templateForm" ng-submit="templateForm.$valid && assignEmailTemplate(templateData)" novalidate>
+    <div class="modal-body">
+        <section class="module row">
+       
+       
+
+
+            <section class="col-sm-12 temp-view" ng-repeat="template in templates">
+               <section class="form-group">
+               <section class="col-sm-6">
+                  
+                    <div class="form-group">
+                    <section class="radio-sec with-ftext">
+                          <section class="radio-inline">
+                              <input id="radio111" type="radio" id="{{template.id}}" name="template_id"  value="{{template.id}}" ng-model="templateData.template_id"> 
+                              <label for="radio111"><span></span>{{template.template_name}}</label>
+                          </section>
+                           
+                   </section>
+                  </div>
+               </section>
+
+
+
+
+
+
+               <section class="col-sm-6"><p class="temp-image"><img src="{{template.image}}" class="center" height="250" width="200" /></p>
+
+
+
+
+
+                </section>
+            </section>
+       </section>   
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" ng-disabled="templateForm.$invalid"  >Submit</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+    </form>
+</script>
+
+<!-- *************************************************************************************** -->
+

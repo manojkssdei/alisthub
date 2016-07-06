@@ -1,36 +1,30 @@
 /** 
 Method: saveEvent
 Description:Function to save event data for user 
-Created : 2016-04-19
-Created By: Deepak khokkar  
+Created : 2016-06-30
+Created By: Manoj Kumar Singh
 */
 var moment       = require('moment-timezone');
 var showClix   = require('./../../showclix/service.js');
 
 exports.saveEvent = function(req,res) {
-  
-    var data=req.body;
-    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
-    //console.log(data); return false;
-    //var zip = parseInt(data.zipcode);
-    if(data.id=='' || data.id==undefined) {
-     
-     var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"')";
-     
-      connection.query(query, function(err7, responce) {
-         
-          var venue_id = responce.insertId;
-          var eventId = null;
-          data.created = new Date();
-          
-          //console.log("INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"')");
-          //return false;
-
-          var query1 = "INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`,`event_domain`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"','"+data.eventurl+"')";
-         
-          connection.query(query1,function(err,result) {
-              eventId = result.insertId;
-               var __dir = './public/preview_template/'+data.userId;
+   
+    function rollback_event(id) {
+        var query = "Delete from events where id="+id;
+        connection.query(query, function(err7, responce) {
+        })
+    }
+    function update_showclix_data(event_url,eventId,data)
+    {
+        var showclix_event_id = event_url.split("/");
+        var query = "UPDATE events SET showclix_id="+showclix_event_id[4]+", showclix_url='"+event_url+"', showclix_seller='"+data.showclix_seller_id+"' where id="+eventId;
+        connection.query(query, function(err7, responce) {
+        })
+    }
+    
+    function create_folder(data,eventId) {
+        
+        var __dir = './public/preview_template/'+data.userId;
             if (!fs.existsSync(__dir)){
                 fs.mkdirSync(__dir);
             }
@@ -40,18 +34,64 @@ exports.saveEvent = function(req,res) {
             }
             fs.openSync(__dir1 + "/index.html", 'w');
              fs.createReadStream("./public/preview_template/look-n-feel-design-preview.html").pipe(fs.createWriteStream(__dir1 + "/index.html"));
-              var query2 = "INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`,`created`,`modified`) VALUES(NULL,'"+eventId+"','"+data.eventdate+"','"+data.startevent_time+"','"+data.endevent_time+"','"+curtime+"','"+curtime+"')";
+             
+    }
+  
+    var data=req.body;
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    
+    //console.log(data); return false;
+    //var zip = parseInt(data.zipcode);
+        
+    if(data.id=='' || data.id==undefined) {
+     
+     var query = "INSERT INTO `venues` (`id`, `seller_id`, `venue_type`, `venue_name`, `address`, `city`, `zipcode`, `state`, `country`, `status`, `latitude`, `longitude`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.venuetype+"', '"+data.venuename+"', '"+data.address+"', '"+data.city+"', '"+parseInt(data.zipcode)+"', '"+data.state+"', '"+data.country+"', '1', '"+data.latitude+"', '"+data.longitude+"', '"+curtime+"')";
+     
+        connection.query(query, function(err7, responce) {
+         
+          var venue_id = responce.insertId;
+          var eventId = null;
+          data.created = new Date();
+          var query1 = "INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`,`event_domain`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"','"+data.eventurl+"')";
+         
+            connection.query(query1,function(err,result) {
+            
+            eventId = result.insertId;
+              
+            create_folder(data,eventId)           
+             
+            var query2 = "INSERT INTO `event_dates`(`id`,`event_id`,`date`,`start_time`,`end_time`,`created`,`modified`) VALUES(NULL,'"+eventId+"','"+data.eventdate+"','"+data.startevent_time+"','"+data.endevent_time+"','"+curtime+"','"+curtime+"')";
+              
               connection.query(query2,function(error,res1){
                 if (error) {
                   res.json({error:error,code:101});
                 } else {
-               
-                  res.json({result:eventId,code:200}); 
+                   
+                   // showclix start 
+                    var showClix2 = new showClix();
+                        showClix2.add_event(data,res,function(sdata){
+                        if (sdata.status == 1) {
+                            var event_url = sdata.location;
+                            var showclix_event_id = event_url.split("/");
+                            update_showclix_data(event_url,eventId,data);
+                            res.json({result:eventId,showclix:sdata.location,code:200});
+                        } else {
+                            rollback_event(eventId);
+                            res.json({result:"",error:sdata.error,code:101});  
+                        }
+                    });
+                    //showclix end
+                   
+                   //res.json({result:eventId,code:200});
+                 
                 }
               });
-          });
-      });
-    } else {
+              
+            });
+        });
+    }
+    else
+    {
       //Update the event 
       var venueid = '';
       if(data.venueid!=undefined && data.venueid!='') {
@@ -70,27 +110,29 @@ exports.saveEvent = function(req,res) {
             } 
             venueid = vresponce.insertId;
           })
-      }
+     }
       //console.log('venueID:'+venueid);
 
       connection.query("UPDATE events SET `user_id`='"+data.userId+"',`title`='"+data.eventname+"',`description`='"+data.content+"',`venue_id`='"+venueid+"'  where id="+data.id, function(err, results) {
          if (err) {
           res.json({error:err,code:101});
          }
+         res.json({result:data.id,code:200});
       });
       
-      res.json({result:data.id,code:200}); 
-         
-      //console.log("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id);
+       
+    }   
+    
+    //console.log("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id);
       
-      /*connection.query("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id, function(err, results) {
+    /*connection.query("UPDATE event_dates SET `date`='"+data.eventdate+"',`start_time`='"+data.startevent_time+"',`end_time`='"+data.endevent_time+"'  where event_id = "+data.id, function(err, results) {
          if (err) {
           res.json({error:err,code:101});
          } else {
           res.json({result:results,code:200});
          }
-      });*/
-    }
+      });
+    }*/
 }
 
 /** 
@@ -247,7 +289,7 @@ Created By: Deepak khokkar
 */
 exports.getEvents=function(req,res) {
   var user_id=req.body.user_id;
-  var sql = "SELECT events.id, events.title, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id="+user_id;
+  var sql="SELECT events.id, events.title, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.user_id="+user_id;
 
   //console.log(req.body);
   connection.query(sql,function(err,result){
@@ -336,8 +378,12 @@ exports.getEvent=function(req,res) {
   // console.log(req.body);
     var event_id=req.body.event_id;
     if(event_id!=undefined){
-      var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate,es.online_sales_close FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id  LEFT JOIN event_settings es ON events.id = es.event_id where events.id="+event_id;
-     console.log('sql ' , sql );
+
+   //   var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate,es.online_sales_close FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id  LEFT JOIN event_settings es ON events.id = es.event_id where events.id="+event_id;
+    // console.log('sql ' , sql );
+
+     var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate,es.online_sales_close  , lft.template_name , lft.image , lft.preview_image  FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id  LEFT JOIN event_settings es ON events.id = es.event_id LEFT JOIN  look_and_feel_template lft ON lft.id = events.template_id where events.id="+event_id;
+
 
       connection.query(sql,function(err,result){
         if (err) {
@@ -362,7 +408,11 @@ exports.getSeriesEvent=function(req,res) {
    
     var event_id=req.body.event_id;
     if(event_id!=undefined){
-      var sql="SELECT E.*,V.id as venue_id,V.venue_name,V.address,V.city,V.zipcode,V.state,V.country,V.latitude,V.longitude FROM events as E LEFT JOIN venues as V on E.venue_id=V.id where E.id="+event_id;
+      var sql="SELECT E.*,V.id as venue_id,V.venue_name,V.address,V.city,V.zipcode,V.state,V.country,V.latitude,V.longitude, lft.template_name , lft.image , lft.preview_image   FROM events as E LEFT JOIN venues as V on E.venue_id=V.id  LEFT JOIN  look_and_feel_template lft ON lft.id = E.template_id where E.id="+event_id;
+
+      console.log('-------------********---------------************------------');
+      console.log('sql -- ', sql);
+
      
       var sqltime="SELECT * FROM event_dates where parent_id="+event_id+" ORDER BY start_date_time ASC";
       
@@ -422,6 +472,19 @@ exports.addComment=function(req,res)
 
 exports.savepricelevel=function(req,res){
     
+    function rollback_level(id) {
+        var query = "Delete from price_levels where id="+id;
+        connection.query(query, function(err7, responce) {
+        })
+    }
+    function update_showclix_pricedata(event_url,eventId,data)
+    {
+        var showclix_event_id = event_url.split("/");
+        var query = "UPDATE price_levels SET showclix_price_id="+showclix_event_id[4]+"  where id="+eventId;
+        connection.query(query, function(err7, responce) {
+        })
+    }
+    
     var data=req.body;
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
     // Case : For single event
@@ -438,7 +501,31 @@ exports.savepricelevel=function(req,res){
         if (err) {
            res.send({err:"error",code:101}); 
         }
-           res.send({"results":result,code:200});  
+           if (data.id!=undefined) {
+            var parne_id = data.id;
+           }
+           else{
+            var parne_id = result.insertId; 
+           }
+           res.send({"results":result,code:200});
+            // showclix start 
+              /*  var showClix2 = new showClix();
+                    showClix2.add_price_level(data,res,function(sdata){
+                        if (sdata.status == 1) {
+                            var event_url = sdata.location;
+                            update_showclix_pricedata(event_url,parne_id,data);
+                            res.json({result:result,showclix:sdata.location,code:200});
+                        } else {
+                            rollback_level(eventId);
+                            res.json({result:"",error:sdata.error,code:101});  
+                        }
+                    });*/
+            //showclix end
+        
+        
+          // res.send({"results":result,code:200});
+           
+           
         
         });
     }
@@ -451,7 +538,6 @@ exports.getPricelevel=function(req,res){
     var eventId=req.body.eventId;
     if(eventId!=undefined){
       var sql="SELECT * FROM price_levels where event_id="+eventId;
-      console.log('sql ' , sql);
       connection.query(sql,function(err,result){
          
           if (err) {
@@ -1139,15 +1225,18 @@ Created : 2016-06-21
 Created By: Deepak khokhar  
 */
 
+
 exports.look_and_feel_save_html = function(req,res) { 
  
    sql = 'SELECT count(*) as count from eventstep3 where eventId = "' + req.body.eventId + '"';
     var html1=req.body.html.replace(/'/g, "\\'");
+
    var background_outer=req.body.background_outer;
    var inner_background=req.body.inner_background;
    var text_color=req.body.text_color;
    var outer_border=req.body.outer_border;
    var inner_border=req.body.inner_border;
+
    var eventId=req.body.eventId;
     connection.query(sql, function(err, results) {
         if (err) {
@@ -1181,6 +1270,7 @@ exports.look_and_feel_save_html = function(req,res) {
         }
     }); 
    
+
     
     
 }
@@ -1211,6 +1301,7 @@ exports.checkeventurl=function(req,res){
     
 }
 
+
 /** 
 Method: event step3
 Description:Function to get event step3
@@ -1232,4 +1323,162 @@ exports.getEventStep3=function(req,res){
             });
     
 }
+
+
+
+exports.addEmailReport = function(req,res){
+    
+    console.log(req.body);
+
+    if(req.body.id != '' && req.body.id != undefined) {
+      console.log('------------EDIT ------------');
+      var sql = "UPDATE email_reports SET email_address = '"+req.body.email_address+"' , timezone_name = '"+req.body.timezone_name+"' , send_time = '"+req.body.send_time+"' , export_format = '"+req.body.export_format+"' WHERE id = "+req.body.id+" and  user_id = "+req.body.user_id+" and event_id=" +req.body.eventId ;
+    }
+    else {
+      console.log('----------add ----------------');
+        var sql = "INSERT INTO email_reports ( event_id, user_id, email_address, timezone_name, send_time, export_format) VALUES ( "+req.body.eventId+", "+req.body.user_id+" , '"+req.body.email_address+"', '"+req.body.timezone_name+"', '"+req.body.send_time+"', '"+req.body.export_format+"')";
+    }
+
+    console.log('sql ' , sql );
+    
+    connection.query(sql, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        if (results) {
+            res.json({ result: results, code: 200 });
+        }
+    });    
+}
+
+exports.getEmailReport = function(req,res) {
+    
+    var sql = 'SELECT * from email_reports where event_id = ' + req.body.eventId + ' and user_id = '+ req.body.user_id  ;
+
+     console.log('sql ' , sql );
+
+    connection.query(sql, function(err, results) {
+        if (err) {
+          res.json({ error: err, code: 101 });
+        }
+        if (results) {
+          res.json({ result: results, code: 200 });
+        }
+    });
+    
+}
+
+exports.getEmailReportById = function(req,res) {
+    
+    var sql = 'SELECT * from email_reports where event_id = ' + req.body.eventId + ' and user_id = '+ req.body.user_id + ' and id = '+ req.body.id  ;
+
+     console.log('sql ' , sql );
+
+    connection.query(sql, function(err, results) {
+        if (err) {
+          res.json({ error: err, code: 101 });
+        }
+        if (results) {
+          res.json({ result: results, code: 200 });
+        }
+    });
+    
+}
+
+
+exports.editEmailReport = function(req,res){
+    
+    console.log(req.body);
+
+    var sql = "UPDATE email_reports SET email_address = '"+req.body.email_address+"' , timezone_name = '"+req.body.timezone_name+"' , send_time = '"+req.body.send_time+"' , export_format = '"+req.body.export_format+"' WHERE id = "+req.body.id+" and  user_id = "+req.body.user_id;
+
+    console.log('sql ' , sql );
+    
+    connection.query(sql, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        if (results) {
+            res.json({ result: results, code: 200 });
+        }
+    });    
+}
+
+
+exports.deleteEmailReportById = function(req,res) {
+    
+    var sql = 'DELETE from email_reports where event_id = ' + req.body.eventId + ' and user_id = '+ req.body.user_id + ' and id = '+ req.body.id  ;
+
+     console.log('sql ' , sql );
+
+    connection.query(sql, function(err, results) {
+        if (err) {
+          res.json({ error: err, code: 101 });
+        }
+        if (results) {
+          res.json({ result: results, code: 200 });
+        }
+    });
+    
+}
+
+
+exports.assignEmailTemplate=function(req,res) {
+  var eventId = req.body.eventId;
+  var template_id = req.body.template_id;
+
+  var sql = "UPDATE events SET template_id = "+template_id+ " where id = "+eventId ;
+  
+    console.log('sql ' , sql );
+    
+  connection.query(sql,function(err,result) {
+    if (err) {
+      res.send({err:"error",code:101}); 
+    }
+    res.send({"results":result,code:200});  
+  });
+}
+
+
+exports.getEmailTemplateOfEvent=function(req,res) {
+   var eventId = req.body.eventId;
+  
+ var sql = "select events.template_id , look_and_feel_template.template_name from events left join look_and_feel_template ON  events.template_id = look_and_feel_template.id where events.id = "+eventId ;
+  
+  console.log('sql ' , sql );
+
+  connection.query(sql,function(err,result) {
+    if (err) {
+      res.send({err:"error",code:101}); 
+    }
+    res.send({"results":result,code:200});  
+  });
+}
+
+
+exports.pauseSales= function(req, res) {
+// add query to pause sales here ................
+var sales_query = "UPDATE events SET pause_sales = 1 where id = " + req.body.event_id ;
+console.log('sales_query ' , sales_query) ;
+ connection.query( sales_query , function(err, result) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: result, code: 200 });
+    });
+}
+
+
+exports.addFavouriteEvent= function(req, res) {
+// add query to pause sales here ................
+var sales_query = "UPDATE events SET favorite_event = 1 where id = " + req.body.event_id ;
+console.log('sales_query ' , sales_query) ;
+ connection.query( sales_query , function(err, result) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        res.json({ result: result, code: 200 });
+    });
+}
+
 

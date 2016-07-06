@@ -355,3 +355,22 @@ exports.getQuestionsOfEvent = function(req,res){
       res.json({result:results,code:200});
   });
 }
+
+
+
+exports.saveQuestionLocationPosition = function(req,res){
+
+  console.log('req.body' , req.body);
+
+  var query = "update question_assignments SET view_question_location="+ req.body.view_question_location+" WHERE id = "+req.body.id ;
+  console.log('-------------------------');
+  console.log(query);
+  
+  connection.query(query, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+    
+      res.json({result:results,code:200});
+  });
+}
