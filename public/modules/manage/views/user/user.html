@@ -40,8 +40,11 @@
                                     <a title="Change permission" href="#/user_permission/{{data1.id}}" style="cursor: pointer;"><i class="glyphicon glyphicon-check"></i></a>
                                 </td>
                             </tr>
-                            <tr ng-show="loader">
-                                        <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                              <tr ng-show="loader">
+                                        <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+                                    <tr ng-if="$data == ''">
+                                        <td colspan="4" align="center">No Record found!</td>
                                     </tr>
                         </tbody>
                     </table>

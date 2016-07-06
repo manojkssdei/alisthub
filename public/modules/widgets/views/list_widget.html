@@ -19,6 +19,14 @@ tr:nth-child(even){background-color: #f2f2f2}
      <h1> Widgets</h1>
      <div class="form-section wt-frame">
            <section class="gray-frame sub-fields">
+            <div class="form-group row">
+                <section class="col-sm-6">
+                    <section class="search-event">
+                        <input type="text" name="filter" class="form-control search-field" placeholder="Enter your keyword" ng-model="filter">
+                        <i class="fa fa-search"></i>
+                    </section>
+                </section>
+            </div>
                         <div class="form-group">
                         <div class="col-sm-12">
                           <div class="col-sm-9">
@@ -27,7 +35,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                             </div>
                                 <div class="col-sm-3">
                                  <a href='/#/widgets/add'>
-                                 <button type="button"  class="gray-btn btn">Create Checkout Widget</button></a>
+                                 <button type="button"  class="pink-btn btn">Create Checkout Widget</button></a>
                                </div>
                               
                             </div>
@@ -38,7 +46,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 <section class="gray-frame sub-fields">
                  <section class="grid-widget">
                     <div class="table-responsive">
-                        <table class="customized-table table-striped clearfix">
+                        <table  ng-table="tableParams" class="table table-striped">
                            <thead>
                                 <tr>
                                     <th>NAME</th>
@@ -47,34 +55,38 @@ tr:nth-child(even){background-color: #f2f2f2}
                                 </tr>
                            </thead>
                             <tbody>
-                               <tr pagination-id="paginate1" dir-paginate="upcoming in upcoming_event_data | itemsPerPage: 2">
+                               <tr ng-repeat="data1 in $data | filter:filter">
                                
-                                     <td> <strong>Test</strong>
+                                     <td> <strong>{{data1.widget_description}}</strong>
                                     </td>
                                     <td><p>
-                                        <a href="#"><button type="button" ng-click="template()" class="btn btn-default active">Show Embed Code</button></a>
+                                        <button class="pink-btn btn btn-small m-fw" ng-click="open('')"><i class="fa fa-plus-square"></i> Show Embed Code</button></a>
                                         </p>
                                         </td>
-				                        <td class="action pull-left"><a href="#"><i class="fa fa-edit"></i>
+				                        <td class="action pull-left"><a title="Edit" href="#/edit_widget/{{data1.id}}"><i class="fa fa-edit"></i>
 				                        </a>
 				                        <a href="#"><i class="fa fa-eye"></i>
 				                        </a></td>
                                 </tr>
-                                <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                              
+                                   <tr ng-show="loader">
+                                        <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+                                    <tr ng-if="$data == ''">
+                                        <td colspan="4" align="center">No Record found!</td>
+                                    </tr>
                            </tbody>
                         </table>
                     </div>
-                  <dir-pagination-controls pagination-id="paginate1" ></dir-pagination-controls>
-                    <section class="grid-bottm gr-right pull-right">
-                    <br><br>
-                          <ul class="legends">
-                                <li><i class="fa fa-edit"></i><span>Edit</span></li>
-                                <li><i class="fa fa-eye"></i><span>Preview</span></li>
+                   <section class="grid-bottm clearfix">
+<!--                    
+ -->                        <section class="gr-right pull-right">
+                            <ul class="legends">
+                                <li><i class="fa fa-pencil-square-o"></i> <span>Edit</span></li>
+                                <li><i class="fa fa-check-circle"></i><span>active</span></li>
+                                <li><i class="fa fa-trash"></i><span>delete</span></li>
                             </ul>
-                      <!--   </section> -->
+                        </section>
                     </section>
                 </section>
               </section>
@@ -116,7 +128,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                                      <td> <strong>Test</strong>
                                     </td>
                                     <td><p>
-                                        <a href="#"><button type="button" ng-click="template()" class="btn btn-default active">Show Embed Code</button></a>
+                                        <a href="#"><button type="button" ng-click="template()" class="btn btn-gray active">Show Embed Code</button></a>
                                         </p>
                                         </td>
                                 <td class="action pull-left"><a href="#"><i class="fa fa-edit"></i>
@@ -144,3 +156,22 @@ tr:nth-child(even){background-color: #f2f2f2}
               </section>
      </div>
      </div>
+
+     <script type="text/ng-template" id="checkout_widgets.html">
+    <div class="modal-header">
+      
+
+        <a style="float:right;cursor: pointer;" ng-click="Cancel()">X</a>
+        <p>Copy this code and paste it into your own site's HTML to display your checkout widget.</p>
+    </div>
+    <div class="modal-body">
+    <textarea style="width: 100%; background: #002B36; color: #FFF; padding-top: 24px; font-size:12px" readonly="readonly">
+    <script src="//embed.alistixs.com/event/embed-widget/1dba3025b1.js"></script>
+    </textarea>    
+    </div>
+    <div class="modal-footer">
+        
+        </div>
+        
+        
+</script>

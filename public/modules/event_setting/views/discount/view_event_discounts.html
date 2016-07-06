@@ -23,16 +23,15 @@
                     <section class="grid-btn-top row">
                         <section class="col-sm-12">
                             <section class="top-buttons">
-                                <a href="#/add_discount" ><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> All Uses for this Event</button></a>
+                                <a href="#" ><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> All Uses for this Event</button></a>
 
-                                 <a  href="/event_setting/exportDiscountCSV?ids={{common_ids}}&seller={{seller_id}}"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button></a>
+                                 <a  href="#"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button></a>
 
-                                   <a ng-click="goPath();" ng-show="enableAssign"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Assign Discount</button></a> 
 
-                             <a href="#/single_event_overview/{{eventId}}">
+                             <a href="#/single_event_overview/{{eventType}}/{{eventId}}">
                     <button class="btn pink-btn btn-small" type="button">
                     <i class="glyphicon glyphicon-arrow-left" >
-                    </i> Back to Event Overview
+                    </i> Back to Event Overview {{eventType}}
                     </button>
                     </a> 
 
@@ -52,13 +51,15 @@
                           
                         </div>
 
-                        <div class="col-sm-7">
+                        <!--<div class="col-sm-7">
                              <a ng-click="delPriceLevelDiscAssignment(data1)"  ng-confirm-clicks="Would you like to delete this Discount Assignment?"><button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Delete Assignment</button></a>
 
                      <button type="button" class="btn pink-btn btn-small">Edit</button>
 
                      <button type="button" class="btn pink-btn btn-small">Uses for this offer</button>
                         </div>
+
+                        -->
                      </div>
                 
 <div class="row">
@@ -86,10 +87,12 @@
                                  </td>
 
 
- <td header-class="'header-text-align'" title="'Discount Name'" filter="{ coupon_type: 'text'}" sortable="'coupon_type'"  ><strong>{{data.coupon_type}}</strong>
+ <td header-class="'header-text-align'" title="'Discount Type'" filter="{ coupon_type: 'text'}" sortable="'coupon_type'"  ><strong>{{data.coupon_type}}</strong>
                                  </td>
 
- Total Used     Uses on This Event  Held
+                                  <td header-class="'header-text-align'" title="'Total Used'">0</td>
+                                  <td header-class="'header-text-align'" title="'Uses on This Event'">0</td>
+                                  <td header-class="'header-text-align'" title="'Held'">0</td>
 
                                  <td   header-class="'header-text-align'" title="'Price Level'" filter="{ coupon_type: 'text'}" sortable="'price_level_name'" ><span ng-if="data.price_level_name != NULL" >{{data.price_level_name}}</span>
 
@@ -97,21 +100,21 @@
 
                                  </td>
 
-                                 <td   header-class="'header-text-align'" title="'Start Date'" filter="{ start_date: 'text'}" sortable="'start_date'" >{{data.start_date | date:"dd MMMM yyyy"}}<span ng-if="data.start_time != 'undefined' && data.start_time != '' ">{{data.start_time}}</span>
+                                 <td   header-class="'header-text-align'" title="'Start Date'" filter="{ start_date: 'text'}" sortable="'start_date'" >{{data.start_date | date:"dd MMMM yyyy"}}<span ng-if="data.start_time != 'undefined' && data.start_time != '' ">  {{data.start_time}}</span>
                                  </td>
 
-                                 <td  width="15%" header-class="'header-text-align'" title="'End Date'" filter="{ end_date: 'text'}" sortable="'end_date'" >{{data.end_date | date:"dd MMMM yyyy"}}<span ng-if="data.end_time != 'undefined' && data.end_time != '' ">{{data.end_time}}</span>
+                                 <td  width="15%" header-class="'header-text-align'" title="'End Date'" filter="{ end_date: 'text'}" sortable="'end_date'" >{{data.end_date | date:"dd MMMM yyyy"}}<span ng-if="data.end_time != 'undefined' && data.end_time != '' "> {{data.end_time}}</span>
                                  </td>
 
 
                                  <td  width="10%" title="'Manage'"  class="action unassign">
                                     
-                                    <a ng-click="delDiscountAssignment(data.id)" ng-confirm-clicks="Would you like to delete this Discount?"  ><i class="fa fa-trash"></i></a>
+                                    <a ng-click="delDiscountAssignment(data.id , data.discount_id )" ng-confirm-clicks="Would you like to delete this Discount?"  ><i class="fa fa-trash"></i></a>
                                  </td>
 
                               </tr>
                               
-                              <tr ng-if="$data == ''">
+                              <tr ng-if="discountAssignments == ''">
                                  <td colspan="10" align="center">No Record found!</td>
                               </tr>
                               <tr ng-show="loader">

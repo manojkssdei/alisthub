@@ -65,6 +65,14 @@ angular.module('alisthub')
       callback(res.data);
     });
   };
+
+    url.saveQuestionLocationPosition = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.saveQuestionLocationPosition,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  
   
 return url;
 }])
