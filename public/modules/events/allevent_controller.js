@@ -36,8 +36,15 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
       if($rootScope.searchToDate!=undefined) {
         dateRange.searchToDate = $rootScope.searchToDate;
       }
-      
-      eventService.getAllEvent({ 'user_id' : $localStorage.userId , 'allevent' : allevent, 'dateRange': dateRange },function(response) {
+
+      var userModuleInfo = {};
+      userModuleInfo.userType = 'user';
+      userModuleInfo.sellerUserId = '39';
+      userModuleInfo.moduleName = 'Events';
+      userModuleInfo.moduleId = '1';
+      userModuleInfo.action = 'add';
+
+      eventService.getAllEvent({ 'user_id' : $localStorage.userId, 'userModuleInfo' : userModuleInfo, 'allevent' : allevent, 'dateRange': dateRange },function(response) {
         $scope.eventloader = false;
         if (response!=null) {
           if (response.code == 200) {

@@ -145,3 +145,8 @@ exports.exportAllEventCSV = function(req, res) {
         res.csv(rows);
     });
 }
+
+
+exports.test = function(req, res) {
+  console.log('test');
+}
