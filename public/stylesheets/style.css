@@ -698,7 +698,9 @@ color-picker{float: right !important;}
 .background-frame{background:#f3f3f3; background:url(../images/bg/bg.jpg) no-repeat center top; background-size:cover; position:relative; top:0; right:0;}
 
 .social-media{background:rgba(243,243,243,0.8); padding:0 10px; text-align:center; position:absolute; z-index:9999; margin-top:-55px;  right:10px; border-radius:4px;}
-.social-media a{margin:5px 3px; display:inline-block; color:#fff;opacity:0.8;}
+.social-med{background:rgba(243,243,243,0.8); padding:0 10px; border-radius:4px;}
+
+.social-media a,.social-med a{margin:5px 3px; display:inline-block; color:#fff;opacity:0.8;}
 .social-media a:hover{opacity:1; text-decoration:none;}
 .network-icon{height:32px; width:32px; border-radius:50%; display:table; text-align:center; }
 .network-icon .fa{display:table-cell; vertical-align:middle;}
@@ -723,6 +725,18 @@ color-picker{float: right !important;}
 .event-price{text-align:center; color:#333; font-weight:700;}
 .event-details{padding:15px;}
 .buyticket{width:100%; font-weight:700; font-size:16px; margin-bottom:15px;}
+
+/*----------------*/
+.portlet {
+    margin: 0 0 1em 0;
+    padding: 0.3em;
+  }
+  .portlet-header {
+    padding: 0.2em 0.3em;
+    margin-bottom: 0.5em;
+    position: relative;
+  }
+  .ui-widget-content{position:relative;}
 
 /*--------Always at Bottom---------*/
 .m-t35 {margin-top: 35px;}

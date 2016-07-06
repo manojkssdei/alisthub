@@ -795,3 +795,64 @@ console.log('query_value ' , query1);
 
 }
 
+ 
+
+
+exports.getQuestionsOfEventOfPackage = function(req,res){
+
+var packageEventIds = '' ; 
+if(req.body.choosenEventsIds != undefined && req.body.choosenEventsIds != "") {
+ var choosenEventsIds = req.body.choosenEventsIds ;
+    packageEventIds = choosenEventsIds.substr(0, choosenEventsIds.length-1);
+
+    }
+      var query = "SELECT * FROM question_assignments qa JOIN questions q ON qa.seller_id = q.seller_id AND qa.question_id = q.id WHERE qa.seller_id = "+req.body.userId+ " AND qa.event_id IN  ("+ packageEventIds + ") group by qa.question_id";
+    console.log('-------------------------');
+  console.log(query);
+  
+  connection.query(query, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+    
+      res.json({result:results,code:200});
+  });
+}
+
+exports.delPackage = function(req,res) {
+   
+    var package_id=req.body.package_id;
+    var user_id=req.body.user_id;
+
+    if(package_id!=undefined){
+      var sql="delete from event_package where id="+package_id+" and user_id ="+user_id;
+
+      connection.query(sql,function(err,result){
+        if (err) {
+          res.send({err:err , code:101}); 
+        }
+        res.send({"results":result, code:200});  
+      });
+    } else {
+      res.send({"results":{},code:200});
+    }
+}
+
+exports.addFavouritePackage = function(req,res) {
+   
+    var package_id=req.body.package_id;
+    var user_id=req.body.user_id;
+
+    if(package_id!=undefined){
+      var sql="UPDATE event_package set favorite_package = 1 where id="+package_id+" and user_id ="+user_id;
+
+      connection.query(sql,function(err,result){
+        if (err) {
+          res.send({err:err , code:101}); 
+        }
+        res.send({"results":result, code:200});  
+      });
+    } else {
+      res.send({"results":{},code:200});
+    }
+}

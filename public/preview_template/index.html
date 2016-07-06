@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>ALISTixs</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="assets/images/favicon.png.png">
+
+<!-- Latest compiled and minified Fontawesome CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<!-- Website Main CSS -->
+<!--<link rel="stylesheet" href="assets/css/bootstrap-responsive-tabs.css" type="text/css" />
+<link rel="stylesheet" href="assets/css/bootstrap-select.min.css" type="text/css" />-->
+<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+<link rel="stylesheet" href="assets/css/event.css" type="text/css" />
+<link rel="stylesheet" href="assets/css/media.css" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+  $(function() {
+    $( ".col2" ).sortable({
+      connectWith: ".col2",
+      handle: ".portlet-header"
+    
+    });
+     $( ".portlet" )
+      .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+      .find( ".portlet-header" )
+        .addClass( "ui-widget-header ui-corner-all" )
+        .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+  
+  });
+  </script>
+      <style>
+  
+  .portlet {
+    margin: 0 1em 1em 0;
+    padding: 0.3em;
+  }
+  .portlet-header {
+    padding: 0.2em 0.3em;
+    margin-bottom: 0.5em;
+    position: relative;
+  }
+
+  </style>
+</head>
+<body ng-app="alistApp">
+
+<section class="ev-header">
+	<a href="#" class="alist-logo"><img src="assets/images/logo-l.png" alt=""/></a>
+    <a class="navbar-toggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
+    <div class="topnav hidden-xs">    	
+        <ul class="ev-menu">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </div>
+</section><!--Header-->
+
+<!-- Wrapper -->
+<div class="ev-container wtframe m-t35"> 
+    <section class="ev-image col2"><div class="portlet"><div class="portlet-header"></div>
+    <img src="assets/images/img/mainpic.jpg" alt=""/></div></section><!--Main Pic-->
+    <section class="scial-medial col2">
+        <div class="portlet">
+        <div class="portlet-header"></div>
+    	<section class="media-sc module-div">Share Icons</section>
+        </div>
+    </section><!--Media Icons-->
+    
+    <section class="row">
+    	<section class="col-sm-8">
+        	<section class="ev-details module-div  col2">
+                <div class="portlet">
+                <div class="portlet-header"></div>
+            	 <div id="ev-details">Event Details</div>
+                </div>
+            </section><!--Event Details-->
+            
+            <section class="ev-details module-div col2">
+                <div class="portlet">
+                 <div class="portlet-header"></div>
+            	<div id="video-widget">Video</div>
+                </div>
+            </section><!--Video Block-->
+        </section><!--Left Panel-->
+        <section class="col-sm-4">
+        	<section class="venue-panel module-div col2">
+                <div class="portlet">
+                <div class="portlet-header"></div>
+            	<div id="venue-panel">Venue panel</div>
+                </div>
+            </section><!--Venue Block-->
+            
+            <section class="ticket-panel module-div col2">
+                <div class="portlet">
+                <div class="portlet-header"></div>
+            	<div id="ticket-panel">Ticket Widget</div>
+                </div>
+            </section><!--Venue Block-->
+            
+            <section class="fb-block module-div col2">
+                <div class="portlet">
+                <div class="portlet-header"></div>
+            	<div id="fb-block">Facebook Block</div>
+                </div>
+            </section><!--Facebook Block-->
+            
+        </section><!--Right Panel-->
+    </section>
+   
+    <section class="footer-block">Footer content will be shown here.</section><!--Footer Block-->
+  
+</div>
+<!-- /Wrapper --> 
+
+<!-- Scripts --> 
+<script src="assets/js/angular-min.js"></script> 
+<script src="assets/js/angular-ui-router.js"></script> 
+<script src="assets/js/ui-bootstrap-tpls-0.12.0.min.js"></script> 
+<script type="text/javascript" src="assets/js/custom.js"></script>
+</body>
+</html>
