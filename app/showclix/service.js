@@ -232,17 +232,13 @@ module.exports = function()
                 headers: {'X-API-Token':req.showclix_token},
                 url:     "https://api.showclix.com/Event/"+req.showclix_id,
                 form:    {} }, function(error, response, body){
+                  console.log("====================");
                   console.log(response.headers);
-                   if (response.headers.location) {
-                   // return next({status:1,location:response.headers.location});
-                   }
-                   else
-                   {
-                   //return next({status:0,location:""});
-                                      
-                   }
-                   
-               });
+                  console.log("====================");
+                  console.log(response.body);
+                  console.log("====================");
+                  return next({status:1,location:""});
+                });
     
   }
  

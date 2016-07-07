@@ -93,8 +93,8 @@ $scope.viewHref = function(eventId,recurringOrNot) {
       }
     }
 
-    $scope.delEvent=function(event_id) {
-      eventService.deleteEvent({'event_id':event_id},function(response) {
+    $scope.delEvent=function(event_id,showclix_id) {
+      eventService.deleteEvent({'event_id':event_id,showclix_id:showclix_id,showclix_token:$localStorage.showclix_token},function(response) {
         if(response.code==200) {
           $scope.getAllEvent();
     	  }
