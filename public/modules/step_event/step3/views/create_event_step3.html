@@ -8,7 +8,10 @@
 .col-sm-2.design-left { padding-left: 5px;}
 </style>
  <script>
-  $(function() {
+  $("document").ready(function() {
+    sort();
+    });
+    function  sort(){
     $( ".col2" ).sortable({
       connectWith: ".col2",
       handle: ".header"
@@ -19,8 +22,9 @@
       .find( ".portlet-header" )
         .addClass( "ui-widget-header ui-corner-all" )
         .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+    }
   
-  });
+  
   </script>
 <div class="container">
   <h1>Create an Event</h1>
@@ -110,32 +114,38 @@
 			    <section class="tab-con" ng-hide="block_div">
                             	
                             	<ul class="blocks-widget clearfix">
-                                	<li><a href="#"><i aria-hidden="true" class="fa fa-file-video-o"></i></a><span>Video</span></li>
+                                	<li><a onClick="add_block()" href="javascript:void(0)"><i aria-hidden="true" class="fa fa-file-video-o"></i></a><span>Add Block</span></li>
                                     
-                                    <li><a href="#"><i aria-hidden="true" class="fa fa-share-alt-square"></i></a><span>Social</span></li>
-                                    <li><a href="#"><i aria-hidden="true" class="fa fa-facebook-square"></i></a><span>Facebook</span></li>
+                                   
                                 </ul>
-                           
+                                 <div id="add_block_div">
+				  
+				 </div>
                             </section>
                         </section>
                     </section>
                </section><!--Left-->
                <section class="col-sm-10 design-right">
 		<section class="gray-frame1" style="background: rgba(0, 0, 0, 0) url('./images/bg/bg.png') no-repeat scroll center top  ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">               		
-		<div class="module  gridster">
+      <div class="module  gridster">
 
-		  <div class="ev-container wtframe m-t35" ng-style="{background: background_inner,border:border_color}"> 
-    <section class="ev-image col2" id="section1"><div class="portlet">
-    <div class="drag" style="display: none;">
-      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-      <a onclick="remove_widget('section1')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-      <a onclick="crop_image('banner_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
-      </div>
-      <div class="main-image">
-	<img src="{{banner_image}}" id="banner_image" alt="banner image" height="200px" width="100%"  onclick="change_image()">
-	  <input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
-      </div>
-    </div></section><!--Main Pic-->
+	<div class="ev-container wtframe m-t35" ng-style="{background: background_inner,border:border_color}"> 
+            <section id="repeatsection1">
+	      <section class="ev-image col2" id="section1"><div class="portlet">
+	      <div class="drag" style="display: none;">
+		<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
+		<a onclick="remove_widget('section1')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+		<a onclick="crop_image('banner_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
+		<a onclick="copy_create('section1')"><i class="fa fa-clone" aria-hidden="true"></i></a>
+		</div>
+		<div class="main-image">
+		  <img src="{{banner_image}}" id="banner_image" alt="banner image" height="200px" width="100%"  onclick="change_image()">
+		    <input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
+		</div>
+	      </div>
+	      </section>
+           </section>
+    <!--Main Pic-->
     
     
     <section class="row">
@@ -310,6 +320,7 @@
 		  <input type="hidden" id="text_color" value="{{text_color}}">
 		  <input type="hidden" id="outer_border" value="{{border_outer}}">
 		  <input type="hidden" id="inner_border" value="{{border_color}}">
+		  <input type="hidden" id="currentSection" value="11">
       
                       </div>
 		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
@@ -342,7 +353,39 @@ function change_image3()
 }
 function remove_widget(remove_widget_id)
 {
+ 
  $("#"+remove_widget_id).html("");
+}
+function copy_create(sectionId)
+{
+  var currentsection=$("#currentSection").val();
+  currentsection++;
+ var section=$("#"+sectionId).html().replace(sectionId,"section"+currentsection);
+
+ 
+ $("#repeatsection1").append("<section  onmouseover='sectionin(this.id)' onmouseout='sectionout(this.id)' id='section"+currentsection+"' class='col2' >"+section+"</section>");
+ sort();
+   $("#currentSection").val(currentsection);
+}
+function add_block()
+{
+  var currentsection=$("#currentSection").val();
+  currentsection++;
+  
+  $('#add_block_div').append('<section onmouseover="sectionin(this.id)" onmouseout="sectionout(this.id)" class="col2" id="section'+currentsection+'"><div class="portlet"><div class="drag" style="display:none;"><span><i class="header fa fa-arrows" aria-hidden="true"></i></span><a onclick="remove_widget_dynamic('+currentsection+')"><i aria-hidden="true" class="fa fa-trash"></i></a></div><section class="form-group">Enter your description</section></div></section>');
+   sort();
+   $("#currentSection").val(currentsection);
+}
+
+function sectionin(sectionId){
+  $("#"+sectionId+" .drag").show();
+}
+function sectionout(sectionId){
+   $("#"+sectionId+" .drag").hide();
+}
+function remove_widget_dynamic(widgetId)
+{
+  $("#section"+widgetId).html('');
 }
  function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
