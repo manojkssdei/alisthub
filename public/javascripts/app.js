@@ -350,6 +350,28 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             }
         })
 
+
+          .state('package_event_overview', {
+            url: '/package_event_overview/:packageId',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'packageOverviewController', // This view will use AppCtrl loaded below in the resolve
+                  templateUrl: 'modules/events/views/package_event_overview.html'
+                }
+            },
+            resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,  
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load([ 'modules/event_package/service.js' , 'modules/event_setting/services/question_service.js' , 'modules/event_setting/services/discount_service.js' ]).then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/events/package_event_overview_controller.js']);
+                })
+              }]
+            }
+        })
+
         /* Setting for Create Event step1 screen */
         .state('create_event_step1', {
             url: '/create_event_step1/:eventId',

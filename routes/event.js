@@ -114,6 +114,8 @@ module.exports = function(app, express) {
   router.post('/saveInventory',supportCrossOriginScript, Event.saveInventory);
   /* check event domain*/
   router.post('/checkeventurl' , supportCrossOriginScript , Event.checkeventurl);
+  //Get Event Step3 data.
+  router.post('/getEventStep3' , supportCrossOriginScript , Event.getEventStep3);
 
   /* To get the event Category */
   router.post('/getEventCategory',supportCrossOriginScript, Event.getEventCategory);

@@ -608,7 +608,7 @@
                      <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assignTemplate('lg')">Assign a template</button>
                   </section>
                </section>
-               <section class="grid-widget" ng-show="showEmailReportList">
+               <section class="grid-widget">
                   <span ng-show="success_message_template" class="ng-hide">
                      <p class="success-fld ng-binding">{{success_template}}</p>
                   </span>
@@ -739,7 +739,7 @@
 <script type="text/ng-template" id="myModalAssignTemplate.html">
 
    <div class="modal-header">
-   <h3 class="modal-title">Email Template</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+   <h3 class="modal-title">Choose Template</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
    </div>
 
    <span ng-show="success_message_template" class="ng-hide">

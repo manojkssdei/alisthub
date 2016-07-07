@@ -52,10 +52,14 @@
                                
                             <tbody>
                                 <tr  ng-repeat="pdata in $data | filter:filter">
-                                    <td theader-class="'header-text-align'" title="'Id'" header-class="'header-text-align'" filter="{ id: 'number'}" sortable="'id'" width="20%"><a href="#"><strong>{{pdata.id}}</strong></a></td>
-                                    <td title="'Name'" header-class="'header-text-align'" filter="{ title: 'text'}" sortable="'title'" width="40%">
+                                    <td theader-class="'header-text-align'" title="'Id'" header-class="'header-text-align'" filter="{ id: 'number'}" sortable="'id'" width="10%"><a href="#"><strong>{{pdata.id}}</strong></a></td>
+				    <td title="'Alistixs Id'" header-class="'header-text-align'" filter="{ showclix_id: 'number'}" sortable="'showclix_id'" width="15%">
+                                        <p><a href="#"><strong>{{pdata.showclix_id}}</strong></a></p>
+                                    </td>
+                                    <td title="'Name'" header-class="'header-text-align'" filter="{ title: 'text'}" sortable="'title'" width="30%">
                                         <p><a href="#"><strong>{{pdata.title}}</strong></a></p>
                                     </td>
+				    
                                     <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.recurring_or_not == 0 ? (pdata.start_date | date:"dd MMMM yyyy") : 'Event Series'}}</td>
                                     
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>-->
@@ -66,7 +70,7 @@
                                     <!--<a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>-->
                                     <a title="View" href="javascript:void(0)" ng-click="viewHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-eye"></i></a>
                                     <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
-                                    <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
+                                    <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id,pdata.showclix_id)"><i class="fa fa-trash"></i></a>
 
                                     </td>
                                 </tr>
