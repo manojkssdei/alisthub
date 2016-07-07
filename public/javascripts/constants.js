@@ -424,6 +424,8 @@ var webservices = {
     "deleteUser": "/user/deleteUser",
     "checksellerUser": "/user/checksellerUser",
     "changeUserStatus": "user/changeUserStatus",
+    "checkSellerSubUser": "/user/checkSellerSubUser",
+
     /*  CREATE BY DK   */
     /*Constants for the Customers Management*/
     "addCustomer": "/customers/addCustomer",
