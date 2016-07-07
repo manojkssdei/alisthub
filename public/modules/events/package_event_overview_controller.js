@@ -15,6 +15,45 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('packag
     }
 
 
+  function hours_am_pm(time) {
+    var hours = time[0] + time[1];
+    var min = time[2] + time[3];
+    if (hours < 12) {
+      return hours + ':' + min + ' AM';
+    } else {
+      hours=hours - 12;
+      hours=(hours.length < 10) ? '0'+hours:hours;
+      return hours+ ':' + min + ' PM';
+    }
+  }
+
+
+  function getDateTime(openDate) {
+    var date1 = new Date(openDate);
+    
+    if(date1!="Invalid Date" && openDate!=null) {
+      console.log(openDate);
+      var date = ('0' + (date1.getUTCDate())).slice(-2);
+      var year = date1.getUTCFullYear();
+      var month = ('0' + (date1.getUTCMonth()+1)).slice(-2);
+      
+      var hours = ('0' + (date1.getUTCHours())).slice(-2);
+      var minutes = ('0' + (date1.getUTCMinutes())).slice(-2);
+      var seconds = date1.getUTCSeconds();
+
+      var convertedDate = {};
+      convertedDate.date = new Date(year+"-"+month+"-"+date);
+
+      convertedDate.time = hours_am_pm(hours+""+minutes);
+      return convertedDate ;  
+    } else {
+      var convertedDate = {};
+      convertedDate.date = null;
+      convertedDate.time = null;
+      return convertedDate ;
+    }
+  };
+
     //var $eventService = $injector.get("events");
     //var $venueService = $injector.get("venues");
     var $questionService = $injector.get("questions");
@@ -31,72 +70,13 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('packag
 
     $scope.userId = userId;
     $scope.packageId = packageId;
-    $scope.data.sales_pause_status = 'Pause Sales';
-    $rootScope.data.favorite_status = 'Add To Favorite';
-    
-$scope.hours_am_pm = function(time) {
-    var hours = time[0] + time[1];
-    var min = time[2] + time[3];
-    if (hours < 12) {
-      return hours + ':' + min + ' AM';
-    } else {
-      hours=hours - 12;
-      hours=(hours.length < 10) ? '0'+hours:hours;
-      return hours+ ':' + min + ' PM';
-    }
-  }
 
-$scope.getDateTime = function(openDate) {
-    var date1 = new Date(openDate);
-    
-    if(date1!="Invalid Date" && openDate!=null) {
-      console.log(openDate);
-      var date = ('0' + (date1.getUTCDate())).slice(-2);
-      var year = date1.getUTCFullYear();
-      var month = ('0' + (date1.getUTCMonth()+1)).slice(-2);
-      
-      var hours = ('0' + (date1.getUTCHours())).slice(-2);
-      var minutes = ('0' + (date1.getUTCMinutes())).slice(-2);
-      var seconds = date1.getUTCSeconds();
+    $rootScope.favorite_status_flag =  true;
+    $rootScope.favorite_status = 'Add To Favorite';
 
-      var convertedDate = {};
-      convertedDate.date = new Date(year+"-"+month+"-"+date);
+    $rootScope.sales_status_flag = true;
+    $rootScope.sales_status = 'Event is no longer on sale. ';
 
-      convertedDate.time = $scope.hours_am_pm(hours+""+minutes);
-      return convertedDate ;  
-    } else {
-      var convertedDate = {};
-      convertedDate.date = null;
-      convertedDate.time = null;
-      return convertedDate ;
-    }
-  };
-
-$scope.getFormattedDate = function(today1) {
-    console.log('today1' , today1 );
-    var today = new Date(today1);
-    console.log('today' , today );
-    var weekdayFullNames = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-    var weekdayShortNames = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
-    var monthsFullName = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July' , 'August' , 'September' ,'October' , 'November' , 'December');
-    var monthsShortName = new Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul' , 'Aug' , 'Sep' ,'Oct' , 'Nov' , 'Dec');
-    var shortDay  = weekdayShortNames[today.getDay()];
-    var fullDay  = weekdayFullNames[today.getDay()];
-    var dd   = today.getDate();
-    var mm   = today.getMonth()+1; //January is 0!
-    var mon   = monthsShortName[today.getMonth()];
-    var month   = monthsFullName[today.getMonth()];
-    var yyyy = today.getFullYear();
-    var hour = today.getHours();
-    var minu = today.getMinutes();
-
-    if(dd<10)  { dd='0'+dd } 
-    if(mm<10)  { mm='0'+mm } 
-    if(minu<10){ minu='0'+minu } 
-
-    return shortDay+'.  '+mon+' '+dd+', '+yyyy+'  at '+hour+':'+minu;
-// Fri. Jul 1, 2016 at 12:00pm 
-}
 
 
     $packageService.getPackage({ 'package_id': packageId, 'user_id': userId }, function(response) {
@@ -105,8 +85,30 @@ $scope.getFormattedDate = function(today1) {
 
             $scope.data.package_name = response.results[0].package_name;
             $scope.package_events = response.package_events;
-            $scope.data.sales_pause_status = 'Pause Sales';
-            $rootScope.data.favorite_status = 'Add To Favorite';
+
+            var favorite_package = $scope.data.favorite_package; 
+            console.log('$scope.data.favorite_package ' , $scope.data.favorite_package );
+
+            $rootScope.favorite_status_flag =  false;
+            $rootScope.favorite_status_flag =  true;
+            if(favorite_package == 0 ) {
+             $rootScope.favorite_status = 'Add To Favorite';
+            }
+            else {  $rootScope.favorite_status = 'Added To Favorites';}
+
+            console.log('$rootScope.favorite_status ' , $rootScope.favorite_status) ;
+
+            var online_sales_close_date_time = response.results[0].online_sales_close_date_time;
+
+
+
+             var closeDateTime = getDateTime(online_sales_close_date_time);
+        $scope.data.online_sales_close = {};
+        $scope.data.online_sales_close.date = closeDateTime.date;
+        $scope.data.online_sales_close.time = closeDateTime.time;
+
+        console.log($scope.data);
+
 
            
             $scope.data.image_1 = $scope.data.image ;
@@ -119,13 +121,17 @@ $scope.getFormattedDate = function(today1) {
             }
 
             $rootScope.choosenSelectedEventsIds = $scope.event_ids;
-            console.log('$rootScope.choosenSelectedEventsIds' , $rootScope.choosenSelectedEventsIds) ;
-            console.log('$scope.data.event_ids', $scope.event_ids);
-            console.log('$scope.data.event_idsStr', $scope.event_idsStr);
+            // console.log('$rootScope.choosenSelectedEventsIds' , $rootScope.choosenSelectedEventsIds) ;
+            // console.log('$scope.data.event_ids', $scope.event_ids);
+            // console.log('$scope.data.event_idsStr', $scope.event_idsStr);
 
             $scope.viewEvents();
             $scope.getQuestionsOfEventOfPackage();
+            $scope.getAdvanceSettingOfPackage();
+            
         });
+
+
 
         $scope.viewEvents = function() {
             $scope.eventPostData = {};
@@ -207,16 +213,106 @@ $scope.delPackage = function(package_id) {
 }
 
 
-$scope.addFavouritePackage = function(package_id) {
-    console.log('addFavouritePackage called' , package_id);
-  $packageService.addFavouritePackage({'package_id':package_id  , 'user_id' : userId },function(response) {
+
+$scope.getAdvanceSettingOfPackage = function() {
+  $packageService.getAdvanceSettingOfPackage({'package_id':packageId , 'seller_id' : userId },function(response) {
     if(response.code==200) {
-        $rootScope.data.favorite_status = 'Added as Favorite' ;
+       $scope.advSetting = {};
+       $scope.advSetting =  response.result[0];
+
+ $scope.advSetting.hide_event_time = ( $scope.advSetting.hide_event_time  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_event_date_time = ( $scope.advSetting.hide_event_date_time  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_venue_info = ( $scope.advSetting.hide_venue_info  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_x_days_away = ( $scope.advSetting.hide_x_days_away  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_calender_link = ( $scope.advSetting.hide_calender_link  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_calender_icon = ( $scope.advSetting.hide_calender_icon  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_age_limit = ( $scope.advSetting.hide_age_limit  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_price_range = ( $scope.advSetting.hide_price_range  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_best_available = ( $scope.advSetting.hide_best_available  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_presale_date = ( $scope.advSetting.hide_presale_date  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_presale_event_in_series = ( $scope.advSetting.hide_presale_event_in_series  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_from_search_engine = ( $scope.advSetting.hide_from_search_engine  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_social_media = ( $scope.advSetting.hide_social_media  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_invite_friends = ( $scope.advSetting.hide_invite_friends  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_ticket_holder_name = ( $scope.advSetting.hide_ticket_holder_name  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.donot_send_reminder_email = ( $scope.advSetting.donot_send_reminder_email  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_event_date_time_in_event_reminder = ( $scope.advSetting.hide_event_date_time_in_event_reminder  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_venue_in_event_reminder = ( $scope.advSetting.hide_venue_in_event_reminder  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_ticket_info_in_event_reminder = ( $scope.advSetting.hide_ticket_info_in_event_reminder  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_event_date_on_ticket = ( $scope.advSetting.hide_event_date_on_ticket  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.use_lat_long_coords = ( $scope.advSetting.use_lat_long_coords  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_premiere_price_level_discount = ( $scope.advSetting.hide_premiere_price_level_discount  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.disable_autocomplete_in_the_box_office = ( $scope.advSetting.disable_autocomplete_in_the_box_office  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.dropdown_for_reccuring_events = ( $scope.advSetting.dropdown_for_reccuring_events  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.embed_show_navbar_seller_name = ( $scope.advSetting.embed_show_navbar_seller_name  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.embed_show_header_banner = ( $scope.advSetting.embed_show_header_banner  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.embed_hide_venue_names_on_events_list = ( $scope.advSetting.embed_hide_venue_names_on_events_list  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.force_show_on_seller_homepage = ( $scope.advSetting.force_show_on_seller_homepage  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_stage_front = ( $scope.advSetting.hide_stage_front  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.lock_question_answer = ( $scope.advSetting.lock_question_answer  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.lock_ticket_names = ( $scope.advSetting.lock_ticket_names  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.lock_order_names = ( $scope.advSetting.lock_order_names  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_back_to_event_button = ( $scope.advSetting.hide_back_to_event_button  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.upsell_matching_items = ( $scope.advSetting.upsell_matching_items  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.ignore_cart_limit_when_upselling = ( $scope.advSetting.ignore_cart_limit_when_upselling  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.hide_look_for_different_seats_option = ( $scope.advSetting.hide_look_for_different_seats_option  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.analytics_facebook_audiance_new_pixel = ( $scope.advSetting.analytics_facebook_audiance_new_pixel  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.analytics_facebook_custom_audiance_pixel_id = ( $scope.advSetting.analytics_facebook_custom_audiance_pixel_id  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.allow_extended_event_names = ( $scope.advSetting.allow_extended_event_names  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.enable_sidekick_for_thermal_printing = ( $scope.advSetting.enable_sidekick_for_thermal_printing  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.show_support_link_in_email = ( $scope.advSetting.show_support_link_in_email  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.collect_addresses_on_free_orders = ( $scope.advSetting.collect_addresses_on_free_orders  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.ask_questions_on_checkout = ( $scope.advSetting.ask_questions_on_checkout  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.cancel_ticket_button_on_receipt = ( $scope.advSetting.cancel_ticket_button_on_receipt  == 1 ) ? 'Yes' : 'No' ;
+ $scope.advSetting.show_bundle_details_by_default = ( $scope.advSetting.show_bundle_details_by_default  == 1 ) ? 'Yes' : 'No' ;
+
+ console.log(' $scope.advSetting ' ,  $scope.advSetting) ;
+
+
     }
   }); 
 }
 
 
+
+$scope.addFavouritePackage = function(package_id) {
+    console.log('addFavouritePackage called' , package_id);
+  $packageService.addFavouritePackage({'package_id':package_id  , 'user_id' : userId },function(response) {
+    if(response.code==200) {
+      $rootScope.favorite_status_flag = false;
+      $rootScope.favorite_status_flag = true;
+      $rootScope.favorite_status = 'Added as Favorite' ;
+    }
+  }); 
+}
+
+
+
+$scope.getFormattedDate = function(today1) {
+    console.log('today1' , today1 );
+    var today = new Date(today1);
+    console.log('today' , today );
+    var weekdayFullNames = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+    var weekdayShortNames = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
+    var monthsFullName = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July' , 'August' , 'September' ,'October' , 'November' , 'December');
+    var monthsShortName = new Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul' , 'Aug' , 'Sep' ,'Oct' , 'Nov' , 'Dec');
+    var shortDay  = weekdayShortNames[today.getDay()];
+    var fullDay  = weekdayFullNames[today.getDay()];
+    var dd   = today.getDate();
+    var mm   = today.getMonth()+1; //January is 0!
+    var mon   = monthsShortName[today.getMonth()];
+    var month   = monthsFullName[today.getMonth()];
+    var yyyy = today.getFullYear();
+    var hour = today.getHours();
+    var minu = today.getMinutes();
+
+    if(dd<10)  { dd='0'+dd } 
+    if(mm<10)  { mm='0'+mm } 
+    if(minu<10){ minu='0'+minu } 
+
+    return shortDay+'.  '+mon+' '+dd+', '+yyyy+'  at '+hour+':'+minu;
+// Fri. Jul 1, 2016 at 12:00pm 
+}
 
 });
 
