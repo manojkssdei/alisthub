@@ -355,7 +355,7 @@ exports.getEventSeries=function(req,res) {
 
   var curtime = moment().format('YYYY-MM-DD');
 
-  var sql = "SELECT  event_package.id,  event_package.package_name, event_package.online_sales_open_date FROM event_package where event_package.user_id = " + user_id + " ORDER BY event_package.online_sales_open_date ASC LIMIT 5";
+  var sql = "SELECT  event_package.id,  event_package.package_name, event_package.online_sales_open_date_time FROM event_package where event_package.user_id = " + user_id + " ORDER BY event_package.id ASC LIMIT 5";
   
   connection.query(sql,function(err,result) {
     if (err) {
@@ -1049,16 +1049,30 @@ exports.addlookAndFeelImage=function(req,res)
 
 exports.deleteEvent= function(req, res) {
 
-connection.query("Delete from events where id=" + req.body.event_id, function(err, result1) {
- connection.query("Delete from event_dates where event_id=" + req.body.event_id, function(err, result2) {
- connection.query("Delete from event_categories where event_id=" + req.body.event_id, function(err, result3) {
-        if (err) {
-            res.json({ error: err, code: 101 });
-        }
-        res.json({ result: result3, code: 200 });
-    });
-	});
-	});
+// showclix start
+
+        var showClix2 = new showClix();
+        req.body.showclix_id = 4211747;
+        showClix2.delete_event(req.body,res,function(sdata){
+            if (sdata.status == 1) {
+                                
+                    connection.query("Delete from events where id=" + req.body.event_id, function(err, result1) {
+                    connection.query("Delete from event_dates where event_id=" + req.body.event_id, function(err, result2) {
+                    connection.query("Delete from event_categories where event_id=" + req.body.event_id, function(err, result3) {
+                           if (err) {
+                               res.json({ error: err, code: 101 });
+                           }
+                           res.json({ result: result3, code: 200 });
+                       });
+                           });
+                           });
+                    
+                    
+                } else {
+                    res.json({result:"",error:sdata.error,code:101});  
+                }
+        });
+//showclix end
 }
 
 exports.postCreateEventStepFour = function(req, res) {
@@ -1264,30 +1278,52 @@ Created : 2016-06-21
 Created By: Deepak khokhar  
 */
 
-exports.look_and_feel_save_html = function(req,res) {
-   var html1=req.body.html[0].replace(/'/g, "\\'");
-   var html2=req.body.html[1].replace(/'/g, "\\'");
-   var html3=req.body.html[2].replace(/'/g, "\\'");
-   var html4=req.body.html[3].replace(/'/g, "\\'");
-   var html5=req.body.html[4].replace(/'/g, "\\'");
-   var html6=req.body.html[5].replace(/'/g, "\\'");
-   var html7=req.body.html[6].replace(/'/g, "\\'");
-   var html8=req.body.html[7].replace(/'/g, "\\'");
+
+exports.look_and_feel_save_html = function(req,res) { 
+ 
+   sql = 'SELECT count(*) as count from eventstep3 where eventId = "' + req.body.eventId + '"';
+    var html1=req.body.html.replace(/'/g, "\\'");
+
    var background_outer=req.body.background_outer;
    var inner_background=req.body.inner_background;
    var text_color=req.body.text_color;
    var outer_border=req.body.outer_border;
    var inner_border=req.body.inner_border;
+
+   var eventId=req.body.eventId;
+    connection.query(sql, function(err, results) {
+        if (err) {
+            res.json({ error: err, code: 101 });
+        }
+        if (results) {
+            count = results[0].count;
+            if (count > 0){
+                var query = "UPDATE eventstep3 SET html='"+html1+"',outer_background='"+background_outer+"',inner_background='"+inner_background+"',text_color='"+text_color+"',outer_border='"+outer_border+"',inner_border='"+inner_border+"' where eventId="+eventId;
+           
+            connection.query(query, function(err, results)
+              {  
+               if (err) {
+                res.json({error:err,code:101});
+               }
+               res.json({result:results,code:200});
+            });
+        }
+            else{
+               var query = "INSERT INTO  `eventstep3` (`html`, `eventId`, `outer_background`, `inner_background`, `text_color`, `outer_border`, `inner_border`) VALUES ('"+html1+"','"+eventId+"', '"+background_outer+"', '"+inner_background+"', '"+text_color+"', '"+outer_border+"', '"+inner_border+"')";
+            
    
-     var eventId=req.body.eventId;
-    
-    connection.query("UPDATE events SET section1='"+html1+"',section2='"+html2+"',section3='"+html3+"',section4='"+html4+"',section5='"+html5+"',section6='"+html6+"',section7='"+html7+"',section8='"+html8+"',outer_background='"+background_outer+"',inner_background='"+inner_background+"',text_color='"+text_color+"',outer_border='"+outer_border+"',inner_border='"+inner_border+"' where id="+eventId, function(err, results)
-    {  
-     if (err) {
-      res.json({error:err,code:101});
-     }
-     res.json({result:results,code:200});
-  });
+            connection.query(query, function(err, results)
+              {  
+               if (err) {
+                res.json({error:err,code:101});
+               }
+               res.json({result:results,code:200});
+            });
+            }
+        }
+    }); 
+   
+
     
     
 }
@@ -1317,6 +1353,30 @@ exports.checkeventurl=function(req,res){
     });
     
 }
+
+
+/** 
+Method: event step3
+Description:Function to get event step3
+Created : 2016-07-06
+Created By: Deepak khokhar  
+*/
+
+exports.getEventStep3=function(req,res){
+    
+    
+        query = 'SELECT * from eventstep3 where eventId = "' + req.body.event_id + '"';
+    
+    connection.query(query, function(err, results)
+              {  
+               if (err) {
+                res.json({error:err,code:101});
+               }
+               res.json({result:results,code:200});
+            });
+    
+}
+
 
 
 exports.addEmailReport = function(req,res){
