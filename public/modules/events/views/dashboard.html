@@ -96,7 +96,7 @@
 
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>-->
                                     <td title="'Action'" class="action" width="20%">
-                                        <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
+                                        <a title="Overview" href="javascript:void(0)"  ng-click="viewOverviewHref(pdata.id,pdata.recurring_or_not.toString())" ><i class="fa fa-pie-chart"></i></a>
                                         <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
                                         <a title="Guest List" ng-if="pdata.recurring_or_not == 0" href="/#/guest_list/{{pdata.id}}"><i class="fa fa-list-ul"></i></a>
                                         <a ng-if = checkPermission(permission[0],'edit') title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
@@ -156,8 +156,9 @@
                                     <td class="numbers">{{upcoming.inventory}}</td>-->
 
                                     <td title="'Action'" class="action" width="20%">
-                                        <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
-                                        <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
+                                        <a title="Overview" href="javascript:void(0)"  ng-click="viewOverviewHref(pdata.id,pdata.recurring_or_not.toString())" ><i class="fa fa-pie-chart"></i></a>
+                                        <a title="Schedules"  ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
+
                                         <a title="Guest List" ng-if="pdata.recurring_or_not == 0" href="/#/guest_list/{{pdata.id}}"><i class="fa fa-list-ul"></i></a>
                                         <a ng-if = checkPermission(permission[0],'edit') title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
                                         <a ng-if = checkPermission(permission[0],'view') title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
@@ -215,7 +216,7 @@
 
                                     
                                     <td title="'Action'" class="action" width="20%">
-                                        <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
+                                        <a title="Overview" href="/#/package_event_overview/{{pdata.id}}"  ><i class="fa fa-pie-chart"></i></a>
                                         <a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>
                                         <a ng-if = checkPermission(permission[0],'edit') title="edit" href="/#/edit_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
                                         <a ng-if = checkPermission(permission[0],'view') title="View" href="/#/view_package/{{pdata.id}}"><i class="fa fa-eye"></i></a>

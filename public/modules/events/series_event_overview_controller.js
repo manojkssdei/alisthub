@@ -22,7 +22,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('series
     var $lookAndFeelService = $injector.get("Lookservice");
     var $eventSettingService = $injector.get("event_setting");
 
-    
+    var holdval = []; 
+    var child_series_event = [];
     $scope.data = {};
     $rootScope.data = {};
     $scope.error_message = true;
@@ -31,6 +32,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('series
 
     $scope.userId = userId;
     $scope.eventId = eventId;
+    $rootScope.eventId = eventId;
 
     $scope.data.user_id = userId;
     $scope.data.event_id = eventId;
@@ -43,8 +45,11 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('series
     
     console.log('eventId ' , eventId) ;
 
-
-
+    $scope.questionLocations = [
+        { "name": "Ticket", 'id': 1 },
+        { "name": "Event", 'id': 2 },
+        { "name": "Sale", 'id': 3 },
+    ];
 
 $scope.hours_am_pm = function(time) {
     var hours = time[0] + time[1];
@@ -205,6 +210,33 @@ $scope.getFormattedDate = function(today1) {
 
     $scope.questionLocationData = {};
     $scope.questionLocationData.id = id;
+    //$scope.questionLocationData.view_question_location =  parseInt(data[id]);
+    $scope.questionLocationData.view_question_location =  parseInt(data);
+
+    console.log('$scope.questionLocationData ' , $scope.questionLocationData) ;
+     $questionService.saveQuestionLocationPosition($scope.questionLocationData, function(response) {
+            if (response.code == 200) {
+              
+            console.log('data saved');
+
+            } else {
+                $scope.error_message = response.error;
+            }
+
+        });
+         
+        }
+
+
+        /* --------------- BACKUP-------------
+
+$scope.saveQuestionLocation = function(data ,id ) {
+  console.log('saveQuestionLocation');
+   console.log('id' , id);
+    console.log('data' , data);
+
+    $scope.questionLocationData = {};
+    $scope.questionLocationData.id = id;
     $scope.questionLocationData.view_question_location =  parseInt(data[id]);
     console.log('$scope.questionLocationData ' , $scope.questionLocationData) ;
 
@@ -221,6 +253,8 @@ $scope.getFormattedDate = function(today1) {
         });
          
         }
+
+        */
 
 
   $scope.rec_days_func = function(value) {
@@ -362,6 +396,7 @@ $scope.getFormattedDate = function(today1) {
       $rootScope.single_start_date = curr_year + "-" + cur_mon + "-" + curr_date;
       $rootScope.selectevent_date = weekday[day] + " " + m_names[curr_month] + " " + curr_date + "," + curr_year;
       
+   
       var timing  = response.timing;
       var tlength = timing.length;
       $scope.multiple_starttime = timing[0].start_time;
@@ -382,9 +417,10 @@ $scope.getFormattedDate = function(today1) {
       timing.forEach(function(arr){
          $scope.data.starttimeloop1.push(arr.start_time);
          $scope.data.endtimeloop1.push(arr.end_time);
+        child_series_event.push(arr.event_id);
       });
 
-
+$rootScope.child_series_event = child_series_event;
 
 
 
@@ -397,7 +433,57 @@ console.log( $scope.data);
 
 
 
+$rootScope.getQuestionsOfEvent = function() {
+ $questionService.getQuestionsOfEvent({ 'userId': userId , 'eventId' : eventId  }, function(response) {
+       
+     $scope.getQuestions = response.result;
+        $scope.pdata = {};
+        var ques = [];
+        for (var key in response.result ) {
+          var id = response.result[key].id;
+          var view_question_location = response.result[key].view_question_location;
+          var obj = {};
+           obj[id] = view_question_location;
 
+          ques.push(obj);
+          response.result[key].locDetails = obj;
+          $scope.pdata.view_question_location = {};
+          $scope.pdata.view_question_location[key] = {};
+          $scope.pdata.view_question_location[0] = 1; 
+        }
+
+        console.log('ques ' , ques);
+         console.log('response.result ---------  ' , response.result) ;
+
+   
+
+         for(i in response.result){
+          //holdval[i] = response.result[i].id;
+           holdval[i] = response.result[i].question_id;
+        }
+
+       $scope.tableParamsQuestions = new ngTableParams(
+        {
+                    page: 1,            // show first page
+                    count: 5,           // count per page
+                    sorting: {id:'asc'},
+                    
+            },
+            {
+                   // data:$scope.get_price_level
+                    data:$scope.getQuestions
+        }); 
+
+        
+
+    });  
+
+}
+
+
+
+
+  $rootScope.getQuestionsOfEvent();
 
   /** 
   Method: recurring_period
@@ -544,6 +630,28 @@ $scope.addFavouriteEventSeries = function(event_id) {
   }); 
 }
 
+
+
+
+
+$scope.unassignQuestionSeries = function(question_assignment_id , question_id , event_id) {
+    console.log('unassignQuestionSeries called' , question_assignment_id , question_id , event_id );
+
+console.log('child_series_event ' , child_series_event) ;
+  $questionService.unassignQuestionSeries({'id':question_assignment_id , 'question_id' : question_id ,  'event_id' : event_id , 'child_series_event' : child_series_event},function(response) {
+    if(response.code==200) {
+      $rootScope.getQuestionsOfEvent();
+      //http://localhost:4004/#/series_event_overview/2377
+      //$location.path("/view_all_event");
+    }
+  }); 
+
+  
+}
+
+/* ---------------------------BACKUP OF QUESTIONS 
+
+
  $questionService.getQuestionsOfEvent({ 'userId': userId , 'eventId' : eventId  }, function(response) {
        
 
@@ -562,6 +670,10 @@ $scope.addFavouriteEventSeries = function(event_id) {
          console.log('response.result ---------  ' , response.result) ;
 
         $scope.getQuestions = response.result;
+        
+         for(i in response.result){
+          holdval[i] = response.result[i].id;
+        }
 
        $scope.tableParamsQuestions = new ngTableParams(
         {
@@ -578,7 +690,7 @@ $scope.addFavouriteEventSeries = function(event_id) {
         
 
     });  
-
+*/
 
     $discountService.getDiscountsOfEvent({ 'userId': userId , 'eventId' : eventId }, function(response) {
         console.log('response.result ' , response.result) ;
@@ -611,6 +723,136 @@ $scope.addFavouriteEventSeries = function(event_id) {
     }); 
 
 
+
+    // popup creation to get all the questions//
+    $scope.open1 = function(size) {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'questions.html',
+            controller: function($scope, $uibModalInstance) {
+                
+                $scope.Cancel = function() {
+                    $uibModalInstance.dismiss('cancel');
+                };
+                console.log(holdval);
+
+                $scope.question_ids = []; 
+
+                $questionService.getQuestions({ 'userId': userId, exclude : holdval }, function(response) {
+                    $scope.getQuestionsList = response.result;
+
+                     $scope.getQuestionsList.forEach(function(value) {
+                        $scope.question_ids.push(value.id);
+                    });
+
+                    $scope.tableParams = new ngTableParams({
+                        page: 1, // show first page
+                        count: 5, // count per page
+                        sorting: { id: 'asc' },
+
+                    }, {
+                        data: $scope.getQuestionsList
+                    });
+                });
+
+
+
+
+              $scope.enableAssign = false;
+              $scope.listEvent = 0;
+              $scope.all_check_point = 1;
+
+    $scope.toggleAllQuestions = function(id) {
+      console.log('toggleAllQuestions called' , 'id' , id );
+        if (id == 1) {
+        $scope.all_check_point = 2;
+        var toggleStatus = true;
+        $scope.enableAssign = true;
+        $scope.listEvent = 1;
+        }
+        if (id == 2) {
+        $scope.all_check_point = 1;
+        var toggleStatus = false;
+        $scope.enableAssign = false;
+        $scope.listEvent = 0;
+        }
+
+        angular.forEach($scope.getQuestionsList , function(itm) { itm.selected = toggleStatus; });
+    }
+
+              $scope.checkbox = [];
+              $scope.optionToggled = function(idn) {
+                       console.log('optionToggled caleled ' , 'idn ' , idn );
+
+                        if ($scope.checkbox.indexOf(idn) !== -1) {
+                            $scope.checkbox.pop(idn);
+                        } else {
+                            $scope.checkbox.push(idn);
+                        }
+                        if ($scope.checkbox.length > 0) {
+                            $scope.enableAssign = true;
+                        } else {
+                            $scope.enableAssign = false;
+                        }
+               $scope.isAllSelected = $scope.getQuestionsList.every(function(itm) {
+            return itm.selected; })
+
+
+console.log('$scope.isAllSelected  ' , $scope.isAllSelected ) ;
+                    }
+
+
+
+
+    $scope.makeAssignment = function() {
+      console.log('makeAssignment called');
+
+        $scope.adata = {};
+        console.log('$localStorage.userId' , $localStorage.userId);
+        if ($localStorage.userId != undefined) { 
+
+            $scope.adata.seller_id = $localStorage.userId;
+
+            if ($scope.listEvent == 1) {
+                $scope.adata.question = $scope.question_ids;
+            } else {
+                $scope.adata.question = $scope.checkbox;
+            }
+
+            $scope.adata.event = $rootScope.eventId;
+            $scope.adata.child_series_event = $rootScope.child_series_event ;
+
+            console.log('$scope.adata' , $scope.adata)
+
+           $questionService.makeAssignmentOverview($scope.adata, function(response) {
+                if (response.code == 200) {
+                  //  $rootScope.question = $localStorage.question = "";
+              
+for(var key in $scope.adata.question) {
+  var q_id = $scope.adata.question[key];
+  holdval.push(q_id);
+}
+
+console.log('holdval' , holdval);
+$scope.Cancel();
+$rootScope.getQuestionsOfEvent();
+                   
+                } 
+            });
+
+            
+
+
+        } else {
+            $scope.eventdata = "";
+        }
+    };
+
+
+
+            }
+        });
+    };
 
  //Add email Report pop up
 

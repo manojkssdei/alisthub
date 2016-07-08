@@ -73,6 +73,28 @@ angular.module('alisthub')
   };
 
   
+   url.unassignQuestionSeries = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.unassignQuestionSeries,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });    
+  };
+
+   url.unassignQuestionEvent = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.unassignQuestionEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });    
+  };
+
+  
+
+     url.makeAssignmentOverview = function(jsondata,callback){
+       communicationService.resultViaPost(webservices.makeAssignmentOverview,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });    
+  };
+
+
+
   
 return url;
 }])

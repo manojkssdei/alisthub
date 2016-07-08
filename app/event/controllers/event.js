@@ -370,7 +370,6 @@ exports.getEventSeries=function(req,res) {
 
   var sql = "SELECT  event_package.id,  event_package.package_name, event_package.online_sales_open_date_time FROM event_package where event_package.user_id = " + user_id + " ORDER BY event_package.id ASC LIMIT 5";
 
-  
   connection.query(sql,function(err,result) {
     if (err) {
       res.send({err:"error",code:101}); 
