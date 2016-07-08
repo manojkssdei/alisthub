@@ -117,7 +117,19 @@ exports.saveEvent = function(req,res) {
          if (err) {
           res.json({error:err,code:101});
          }
-         res.json({result:data.id,code:200});
+         else{
+                // showclix start 
+                    var showClix2 = new showClix();
+                        showClix2.add_event(data,res,function(sdata){
+                        if (sdata.status == 1) {
+                            res.json({result:data.id,code:200});
+                        } else {
+                            res.json({result:"",error:"error",code:101});  
+                        }
+                    });
+                //showclix end
+         }
+         
       });
       
        
@@ -355,11 +367,9 @@ exports.getEventSeries=function(req,res) {
 
  // var curtime = moment().format('YYYY-MM-DD');
 
-<<<<<<< HEAD
-  var sql = "SELECT  event_package.id, event_package.package_name, event_package.online_sales_open_date FROM event_package where event_package.user_id = " + user_id + " ORDER BY event_package.online_sales_open_date ASC LIMIT 5";
-=======
+
   var sql = "SELECT  event_package.id,  event_package.package_name, event_package.online_sales_open_date_time FROM event_package where event_package.user_id = " + user_id + " ORDER BY event_package.id ASC LIMIT 5";
->>>>>>> a2294d969df0b9f41c50dec0593526c04dd98719
+
   
   connection.query(sql,function(err,result) {
     if (err) {
