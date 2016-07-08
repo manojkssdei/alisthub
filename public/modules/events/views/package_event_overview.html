@@ -1,5 +1,3 @@
-    <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
-<script src="javascripts/timepicker.js" type="text/javascript"></script>
 <div class="container">
    <h1>Package Overview</h1>
    <!-- Form COntainer -->
@@ -11,7 +9,7 @@
         
          <!--<button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  Duplicate</button>-->
          <a href="/#/view_package/{{packageId}}" > <button type="button" class="btn pink-btn btn-small"> View Listing</button></a>
-          <button type="button" class="btn pink-btn btn-small" ng-click="addFavouritePackage(packageId)"><i class="fa fa-star"> </i> {{data.favorite_status}}</button> 
+          <button type="button" class="btn pink-btn btn-small" ng-show="favorite_status_flag" ng-click="addFavouritePackage(packageId)"><i class="fa fa-star"> </i> {{favorite_status}}</button> 
         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-mail"> </i>  Send Invitation</button>
 
          <!--<button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  View Listing</button>
@@ -538,41 +536,188 @@
 
 <!-- Templates -->
          <section class="module">
+
             <section class="prof-hd">
                <i class="fa fa-database hdicon pos-l16"></i>
                <h2>Templates <span class="rt-img"></span></h2>
             </section>
-            <section class="gray-frame sub-fields">
-               <section class="grid-btn-top row">
-                  <section class="col-sm-12 pull-right text-right">
-                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assignTemplate('lg')">Assign a template</button>
-                  </section>
-               </section>
-               <section class="grid-widget">
-                  <span ng-show="success_message_template" class="ng-hide">
-                     <p class="success-fld ng-binding">{{success_template}}</p>
-                  </span>
-                  <div class="table-responsive">
-                     You are currently using the template: <a href="">{{template_name}}</a>
-                     <br/><br/><br/>
-                     <img height="400" width="250" class="center" src="{{data.preview_image}}">
-                  </div>
-               </section>
 
+            <section class="gray-frame sub-fields">
+                 <section class="grid-btn-top row">
+                    <section class="col-sm-12 pull-right text-right">
+                       <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assignTemplate('lg')">Assign a template</button>
+                    </section>
+                 </section>
+
+                 <section class="grid-widget">
+                    <span ng-show="success_message_template" class="ng-hide">
+                       <p class="success-fld ng-binding">{{success_template}}</p>
+                    </span>
+                    <div class="table-responsive">
+                       You are currently using the template: <a href="">{{template_name}}</a>
+                       <br/><br/><br/>
+                       <img height="400" width="250" class="center" src="{{data.preview_image}}">
+                    </div>
+                </section>
 
                 <section class="module row">
-            <section class="col-sm-12 temp-view" ng-repeat="template in templates track by $index">
-               <section class="form-group" ng-if="template.id == template_id">
-                    <p class="temp-image"><img src="{{template.image}}" alt=""/></p>   
+                    <section class="col-sm-12 temp-view" ng-repeat="template in templates track by $index">
+                       <section class="form-group" ng-if="template.id == template_id">
+                            <p class="temp-image"><img src="{{template.image}}" alt=""/></p>   
+                        </section>
+                    </section>
                 </section>
             </section>
-            
-       </section>
 
-
-            </section>
          </section>
          <!-- Templates -->
+
+
+
+
+         <!-- Templates -->
+         <section class="module">
+
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Templates <span class="rt-img"></span></h2>
+            </section>
+
+            <section class="gray-frame sub-fields">
+                 <section class="grid-btn-top row">
+                    <section class="col-sm-12 pull-right text-right">
+                       <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assignTemplate('lg')">Assign a template</button>
+                    </section>
+                 </section>
+
+                 <section class="grid-widget">
+<p class="advSetting" ng-show="advSetting.hide_event_time_cbox_cbox" > <strong> Hide Event time: </strong>{{ advSetting.hide_event_time }} </p>
+<p class="advSetting" ng-show="advSetting.hide_event_date_time_cbox_cbox" > <strong> Hide Event Date and Time: </strong>{{ advSetting.hide_event_date_time }} </p>
+<p class="advSetting" ng-show="advSetting.hide_venue_info_cbox" > <strong> Hide Venue Info: </strong>{{ advSetting.hide_venue_info }} </p>
+<p class="advSetting" ng-show="advSetting.hide_x_days_away_cbox" > <strong> Hide "x days away": </strong>{{ advSetting.hide_x_days_away }} </p>
+<p class="advSetting" ng-show="advSetting.hide_calender_link_cbox" > <strong> Hide Calender link: </strong>{{ advSetting.hide_calender_link }} </p>
+<p class="advSetting" ng-show="advSetting.hide_calender_icon_cbox" > <strong> Hide Calender Icon: </strong>{{ advSetting.hide_calender_icon }} </p>
+
+
+<p class="advSetting" ng-show="advSetting.hide_age_limit_cbox" > <strong> Hide Age limit: </strong>{{ advSetting.hide_age_limit }} </p>
+<p class="advSetting" ng-show="advSetting.hide_price_range_cbox" > <strong> Hide Price Range: </strong>{{ advSetting.hide_price_range }} </p>
+<p class="advSetting" ng-show="advSetting.hide_best_available_cbox" > <strong> Hide "Best Aviliable": </strong>{{ advSetting.hide_best_available }} </p>
+<p class="advSetting" ng-show="advSetting.hide_presale_date_cbox" > <strong> Hide Presale Date: </strong>{{ advSetting.hide_presale_date }} </p>
+<p class="advSetting" ng-show="advSetting.presale_instuction_text_cbox" > <strong> Presale Instruction Text: </strong>{{ advSetting.presale_instuction_text }} </p>
+<p class="advSetting" ng-show="advSetting.presale_placeholder_text_cbox" > <strong> Presale Placeholder Text: </strong>{{ advSetting.presale_placeholder_text }} </p>
+
+<p class="advSetting" ng-show="advSetting.hide_presale_event_in_series_cbox" > <strong> Hide Presale Event in Series: </strong>{{ advSetting.hide_presale_event_in_series }} </p>
+<p class="advSetting" ng-show="advSetting.hide_from_search_engine_cbox" > <strong> Hide From Search Engine: </strong>{{ advSetting.hide_from_search_engine }} </p>
+<p class="advSetting" ng-show="advSetting.hide_social_media_cbox" > <strong> Hide Social Media: </strong>{{ advSetting.hide_social_media }} </p>
+<p class="advSetting" ng-show="advSetting.hide_invite_friends_cbox" > <strong> Hide "Invite Friends": </strong>{{ advSetting.hide_invite_friends }} </p>
+
+<p class="advSetting" ng-show="advSetting.checkout_text_cbox" > <strong> Checkout Text: </strong>{{ advSetting.checkout_text }} </p>
+<p class="advSetting" ng-show="advSetting.confirmation_page_text_cbox" > <strong> Confirmation Page Text: </strong>{{ advSetting.confirmation_page_text }} </p>
+<p class="advSetting" ng-show="advSetting.receipt_reminder_text_cbox" > <strong> Receipt Reminder Text: </strong>{{ advSetting.receipt_reminder_text }} </p>
+<p class="advSetting" ng-show="advSetting.confirmation_email_text_cbox" > <strong> Confirmation Email Text: </strong>{{ advSetting.confirmation_email_text }} </p>
+<p class="advSetting" ng-show="advSetting.hide_ticket_holder_name_cbox" > <strong> Hide Ticket Holder Name: </strong>{{ advSetting.hide_ticket_holder_name }} </p>
+<p class="advSetting" ng-show="advSetting.donot_send_reminder_email_cbox" > <strong> Don't Send Reminder Email: </strong>{{ advSetting.donot_send_reminder_email }} </p>
+<p class="advSetting" ng-show="advSetting.hide_event_date_time_in_event_reminder_cbox" > <strong> Hide Event Date/Time in Event Reminder: </strong>{{ advSetting.hide_event_date_time_in_event_reminder }} </p>
+
+<p class="advSetting" ng-show="advSetting.hide_venue_in_event_reminder_cbox" > <strong> Hide Venue in Event Reminder: </strong>{{ advSetting.hide_venue_in_event_reminder }} </p>
+<p class="advSetting" ng-show="advSetting.hide_ticket_info_in_event_reminder_cbox" > <strong> Hide Ticket info in Event Reminder: </strong>{{ advSetting.hide_ticket_info_in_event_reminder }} </p>
+<p class="advSetting" ng-show="advSetting.custom_event_reminder_message_cbox" > <strong> Custom Event Reminder Message: </strong>{{ advSetting.custom_event_reminder_message }} </p>
+<p class="advSetting" ng-show="advSetting.hide_event_date_on_ticket_cbox" > <strong> Hide Event Date on Ticket: </strong>{{ advSetting.hide_event_date_on_ticket }} </p>
+<p class="advSetting" ng-show="advSetting.use_lat_long_coords_cbox" > <strong> Use Late/Long Coords: </strong>{{ advSetting.use_lat_long_coords }} </p>
+
+
+<p class="advSetting" ng-show="advSetting.hide_premiere_price_level_discount_cbox" > <strong> Hide Premiere Price Level Discount: </strong>{{ advSetting.hide_premiere_price_level_discount }} </p>
+<p class="advSetting" ng-show="advSetting.additional_receipt_text_cbox" > <strong> Additional Receipt Text: </strong>{{ advSetting.additional_receipt_text }} </p>
+<p class="advSetting" ng-show="advSetting.show_sale_barcode_in_text_cbox" > <strong> Show Sale Barcode in Text: </strong>{{ advSetting.show_sale_barcode_in_text }} </p>
+<p class="advSetting" ng-show="advSetting.disable_autocomplete_in_the_box_office_cbox" > <strong> Disable Autocomplete in The Box Office: </strong>{{ advSetting.disable_autocomplete_in_the_box_office }} </p>
+
+<p class="advSetting" ng-show="advSetting.dropdown_for_reccuring_events_cbox" > <strong> Dropdown For Reccuring Events: </strong>{{ advSetting.dropdown_for_reccuring_events }} </p>
+<p class="advSetting" ng-show="advSetting.suggested_donation_amount_cbox" > <strong> Suggested Donation Amount: </strong>{{ advSetting.suggested_donation_amount }} </p>
+<p class="advSetting" ng-show="advSetting.sales_closed_message_cbox" > <strong> Sales Closed Message: </strong>{{ advSetting.sales_closed_message }} </p>
+<p class="advSetting" ng-show="advSetting.custom_sold_out_message_cbox" > <strong> Custom Sold Out Message: </strong>{{ advSetting.custom_sold_out_message }} </p>
+<p class="advSetting" ng-show="advSetting.embed_show_navbar_seller_name_cbox" > <strong> Embed - Show Navbar Seller Name: </strong>{{ advSetting.embed_show_navbar_seller_name }} </p>
+<p class="advSetting" ng-show="advSetting.embed_show_header_banner_cbox" > <strong> Embed - Show Header Banner: </strong>{{ advSetting.embed_show_header_banner }} </p>
+<p class="advSetting" ng-show="advSetting.embed_hide_venue_names_on_events_list_cbox" > <strong> Embed - Hide Venue Names On Events List: </strong>{{ advSetting.embed_hide_venue_names_on_events_list }} </p>
+
+<p class="advSetting" ng-show="advSetting.footer_message_on_event_pages_cbox" > <strong> Footer Message On Event Pages: </strong>{{ advSetting.footer_message_on_event_pages }} </p>
+<p class="advSetting" ng-show="advSetting.force_show_on_seller_homepage_cbox" > <strong> Force Show On Seller Homepage: </strong>{{ advSetting.force_show_on_seller_homepage }} </p>
+<p class="advSetting" ng-show="advSetting.hide_stage_front_cbox" > <strong> Hide Stage Front: </strong>{{ advSetting.hide_stage_front }} </p>
+<p class="advSetting" ng-show="advSetting.stage_front_name_cbox" > <strong> Stage Front Name: </strong>{{ advSetting.stage_front_name }} </p>
+<p class="advSetting" ng-show="advSetting.lock_question_answer_cbox" > <strong> Lock Question Answer: </strong>{{ advSetting.lock_question_answer }} </p>
+
+<p class="advSetting" ng-show="advSetting.lock_ticket_names_cbox" > <strong> Lock Ticket Names: </strong>{{ advSetting.lock_ticket_names }} </p>
+<p class="advSetting" ng-show="advSetting.lock_order_names_cbox" > <strong> Lock Order Names: </strong>{{ advSetting.lock_order_names }} </p>
+<p class="advSetting" ng-show="advSetting.hide_back_to_event_button_cbox" > <strong> Hide 'Back To Event' Button: </strong>{{ advSetting.hide_back_to_event_button }} </p>
+<p class="advSetting" ng-show="advSetting.custom_shipping_text_instruction_cbox" > <strong> Custom Shipping Text Instruction: </strong>{{ advSetting.custom_shipping_text_instruction }} </p>
+
+<p class="advSetting" ng-show="advSetting.upsell_matching_items_cbox" > <strong> Upsell Matching Items: </strong>{{ advSetting.upsell_matching_items }} </p>
+<p class="advSetting" ng-show="advSetting.ignore_cart_limit_when_upselling_cbox" > <strong> Ignore Cart Limit When Upselling: </strong>{{ advSetting.ignore_cart_limit_when_upselling }} </p>
+<p class="advSetting" ng-show="advSetting.hide_look_for_different_seats_option_cbox" > <strong> Hide 'Look For Different Seats' Option: </strong>{{ advSetting.hide_look_for_different_seats_option }} </p>
+
+<p class="advSetting" ng-show="advSetting.analytics_facebook_conversion_pixel_id_cbox" > <strong> Analytics - Facebook Conversion Pixel ID: </strong>{{ advSetting.analytics_facebook_conversion_pixel_id }} </p>
+<p class="advSetting" ng-show="advSetting.analytics_facebook_audiance_new_pixel_cbox" > <strong> Analytics - Facebook Audiance New Pixel: </strong>{{ advSetting.analytics_facebook_audiance_new_pixel }} </p>
+<p class="advSetting" ng-show="advSetting.analytics_facebook_custom_audiance_pixel_id_cbox" > <strong> Analytics - Facebook Custom Audiance Pixel ID: </strong>{{ advSetting.analytics_facebook_custom_audiance_pixel_id }} </p>
+
+<p class="advSetting" ng-show="advSetting.allow_extended_event_names_cbox" > <strong> Allow Extended Event Names: </strong>{{ advSetting.allow_extended_event_names }} </p>
+<p class="advSetting" ng-show="advSetting.twitter_share_text_cbox" > <strong> Twitter Share Text: </strong>{{ advSetting.twitter_share_text }} </p>
+
+<p class="advSetting" ng-show="advSetting.name_change_fee_cbox" > <strong> Name Change Fee: </strong>{{ advSetting.name_change_fee }} </p>
+
+<p class="advSetting" ng-show="advSetting.name_change_cutoff_cbox" > <strong> Name Change Cutoff: </strong>{{ advSetting.name_change_cutoff }} </p>
+<p class="advSetting" ng-show="advSetting.email_reply_to_cbox" > <strong> Email Reply-To: </strong>{{ advSetting.email_reply_to }} </p>
+<p class="advSetting" ng-show="advSetting.email_reply_to_name_cbox" > <strong> Email Reply-To Name: </strong>{{ advSetting.email_reply_to_name }} </p>
+
+<p class="advSetting" ng-show="advSetting.enable_sidekick_for_thermal_printing_cbox" > <strong> Enable Sidekick for Thermal Printing: </strong>{{ advSetting.enable_sidekick_for_thermal_printing }} </p>
+<p class="advSetting" ng-show="advSetting.acceptable_locales_cbox" > <strong> Acceptable Locales: </strong>{{ advSetting.acceptable_locales }} </p>
+<p class="advSetting" ng-show="advSetting.custom_title_prefix_cbox" > <strong> Custom Title Prefix: </strong>{{ advSetting.custom_title_prefix }} </p>
+<p class="advSetting" ng-show="advSetting.show_support_link_in_email_cbox" > <strong> Show Support Link In Email: </strong>{{ advSetting.show_support_link_in_email }} </p>
+<p class="advSetting" ng-show="advSetting.collect_addresses_on_free_orders_cbox" > <strong> Collect Addresses on Free Orders: </strong>{{ advSetting.collect_addresses_on_free_orders }} </p>
+
+<p class="advSetting" ng-show="advSetting.ask_questions_on_checkout_cbox" > <strong> Ask Questions on Checkout: </strong>{{ advSetting.ask_questions_on_checkout }} </p>
+<p class="advSetting" ng-show="advSetting.cancel_ticket_button_on_receipt_cbox" > <strong> Cancel ticket button on receipt: </strong>{{ advSetting.cancel_ticket_button_on_receipt }} </p>
+<p class="advSetting" ng-show="advSetting.custom_ticket_cancelation_message_cbox" > <strong> Custom Ticket Cancelation Message: </strong>{{ advSetting.custom_ticket_cancelation_message }} </p>
+<p class="advSetting" ng-show="advSetting.additional_email_for_receipts_cbox" > <strong> Additional email for receipts: </strong>{{ advSetting.additional_email_for_receipts }} </p>
+<p class="advSetting" ng-show="advSetting.access_code_request_text_cbox" > <strong> Access Code Request Text: </strong>{{ advSetting.access_code_request_text }} </p>
+<p class="advSetting" ng-show="advSetting.access_code_instructions_text_cbox" > <strong> Access Code Instructions Text: </strong>{{ advSetting.access_code_instructions_text }} </p>
+<p class="advSetting" ng-show="advSetting.show_bundle_details_by_default_cbox" > <strong> Show Bundle Details by Default: </strong>{{ advSetting.show_bundle_details_by_default }} </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </section>
+
+              
+            </section>
+
+         </section>
+         <!-- Templates -->
+
+
+
 
           </section>
 </section>

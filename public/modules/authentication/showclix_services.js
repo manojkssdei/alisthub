@@ -14,8 +14,22 @@ angular.module('alisthub').factory('showclix', ['$q', '$timeout','communicationS
        communicationService.showclixResultViaPost(showclix_webservices.signUp,"undefined",showclix_headerConstants,jsondata, function(res,req){
 			callback(res);
 		});
-      
   };
+
+  //Check seller user existance 
+  url.checkSellerSubUser = function(jsondata,callback) {
+    communicationService.resultViaPost(webservices.checkSellerSubUser,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
+  //Check seller user existance 
+  url.getPerModules = function(jsondata,callback) {
+    communicationService.resultViaPost(webservices.getPerModules,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req){
+      callback(res.data);
+    });
+  };
+
   
 return url;
 

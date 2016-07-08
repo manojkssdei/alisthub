@@ -5,7 +5,7 @@ Created : 2016-04-19
 Created By: Manoj 
 */
 var moment       = require('moment-timezone');
-//var showClix   = require('./../../showclix/service.js');
+var showClix   = require('./../../showclix/service.js');
 
 
 /** 
@@ -738,6 +738,7 @@ exports.saveAdvanceSettingsOfPackage = function(req,res) {
 'allow_extended_event_names',
 'twitter_share_text',
 'name_change_cutoff',
+'name_change_fee',
 'email_reply_to',
 'email_reply_to_name',
 'enable_sidekick_for_thermal_printing',
@@ -760,6 +761,7 @@ for(var key in advance_settings_fields) {
   if(req.body[checkboxkey] != null && req.body[checkboxkey] != "undefined") {
     if (req.body[field_name] != null && req.body[field_name] != "undefined") {
         query_fields += " `"+field_name+"` = '"+req.body[field_name]+"' ,";
+        query_fields += " `"+checkboxkey+"` = '"+req.body[checkboxkey]+"' ,";
     }
   }
 }

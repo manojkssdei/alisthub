@@ -40,6 +40,9 @@ module.exports = function(app, express) {
     /* Service : save permission for users */
     router.post('/savePerModules',supportCrossOriginScript, user.savePerModules);
 
+    /* Service : save permission for users */
+    router.post('/checkSellerSubUser',supportCrossOriginScript, user.checkSellerSubUser);
+
 	/* default route */
 	app.use('/user', router);
 }
