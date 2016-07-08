@@ -173,3 +173,25 @@ exports.savePerModules =function(req,res) {
 
   });
 }
+
+
+/** 
+Method: checkSellerSubUser
+Description: Function for fetching sub user data 
+Created : 2016-07-22
+Created By: Deepak khokkar  
+*/
+exports.checkSellerSubUser = function(req,res) {
+  //console.log("body request: " + req.body.userData.email);
+  //console.log("body request: " + req.body.userData.password);
+  var sql = 'SELECT * from seller_users where email = "'+req.body.userData.email+ '" and password = '+req.body.userData.password ;
+  
+  //console.log(sql);  res.json({result:'results',code:200});
+
+  connection.query(sql, function(err, results) {
+    if (err) {
+      res.json({error:err,code:101});
+    }
+    res.json({result:results,code:200});
+  });
+}

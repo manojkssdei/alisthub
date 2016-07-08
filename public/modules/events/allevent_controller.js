@@ -7,6 +7,8 @@ Module : Events Home
 
 angular.module('alisthub').controller('allEventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams,$stateParams) { 
     
+    
+
     $rootScope.class_status=false;
     var eventService = $injector.get("events");
     $scope.eventloader = false;
@@ -19,7 +21,6 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
       };	  
     }
     console.log($stateParams);
-    
     
     $scope.seller_id = $localStorage.userId;
     //upcomming event list
@@ -93,8 +94,8 @@ $scope.viewHref = function(eventId,recurringOrNot) {
       }
     }
 
-    $scope.delEvent=function(event_id) {
-      eventService.deleteEvent({'event_id':event_id},function(response) {
+    $scope.delEvent=function(event_id,showclix_id) {
+      eventService.deleteEvent({'event_id':event_id,showclix_id:showclix_id,showclix_token:$localStorage.showclix_token},function(response) {
         if(response.code==200) {
           $scope.getAllEvent();
     	  }

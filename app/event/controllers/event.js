@@ -355,7 +355,7 @@ exports.getEventSeries=function(req,res) {
 
   var curtime = moment().format('YYYY-MM-DD');
 
-  var sql = "SELECT  event_package.id,  event_package.package_name, event_package.online_sales_open_date FROM event_package where event_package.user_id = " + user_id + " ORDER BY event_package.online_sales_open_date ASC LIMIT 5";
+  var sql = "SELECT  event_package.id,  event_package.package_name, event_package.online_sales_open_date_time FROM event_package where event_package.user_id = " + user_id + " ORDER BY event_package.id ASC LIMIT 5";
   
   connection.query(sql,function(err,result) {
     if (err) {
@@ -1049,16 +1049,30 @@ exports.addlookAndFeelImage=function(req,res)
 
 exports.deleteEvent= function(req, res) {
 
-connection.query("Delete from events where id=" + req.body.event_id, function(err, result1) {
- connection.query("Delete from event_dates where event_id=" + req.body.event_id, function(err, result2) {
- connection.query("Delete from event_categories where event_id=" + req.body.event_id, function(err, result3) {
-        if (err) {
-            res.json({ error: err, code: 101 });
-        }
-        res.json({ result: result3, code: 200 });
-    });
-	});
-	});
+// showclix start
+
+        var showClix2 = new showClix();
+        req.body.showclix_id = 4211747;
+        showClix2.delete_event(req.body,res,function(sdata){
+            if (sdata.status == 1) {
+                                
+                    connection.query("Delete from events where id=" + req.body.event_id, function(err, result1) {
+                    connection.query("Delete from event_dates where event_id=" + req.body.event_id, function(err, result2) {
+                    connection.query("Delete from event_categories where event_id=" + req.body.event_id, function(err, result3) {
+                           if (err) {
+                               res.json({ error: err, code: 101 });
+                           }
+                           res.json({ result: result3, code: 200 });
+                       });
+                           });
+                           });
+                    
+                    
+                } else {
+                    res.json({result:"",error:sdata.error,code:101});  
+                }
+        });
+//showclix end
 }
 
 exports.postCreateEventStepFour = function(req, res) {
@@ -1087,15 +1101,11 @@ exports.stepOneEventPackage = function(req,res) {
         });
     req.body.image = photoname ;
 }
- //console.log('stepOneEventPackage req.body before ' );
- //console.log( req.body );
 
- var fields = ['package_name', 'package_description', 'online_sales_open_date', 'online_sales_open_time','online_sales_open_date_time', 'immidiately', 'online_sales_close_date', 'online_sales_close_time', 'online_sales_close_date_time', 'event_type', 'category', 'ages', 'custom_age', 'website', 'image', 'display_image_in_listing' ];
-
-//console.log('fields ' , fields);
+// var fields = ['package_name', 'package_description', 'online_sales_open_date', 'online_sales_open_time','online_sales_open_date_time', 'immidiately', 'online_sales_close_date', 'online_sales_close_time', 'online_sales_close_date_time', 'event_type', 'category', 'ages', 'custom_age', 'website', 'image', 'display_image_in_listing' ];
+ var fields = ['package_name', 'package_description', 'online_sales_open_time','online_sales_open_date_time', 'immidiately', 'online_sales_close_time', 'online_sales_close_date_time', 'event_type', 'category', 'ages', 'custom_age', 'website', 'image', 'display_image_in_listing' ];
 
     var fieldsData = '';
-
     for (var index in fields) {
         fieldName = fields[index];
         if (req.body[fieldName] == undefined) {
@@ -1113,63 +1123,106 @@ exports.stepOneEventPackage = function(req,res) {
     req.body.created = curtime;
     req.body.modified = curtime;
 
-    if (req.body.id && req.body.id != "" && req.body.id != undefined) {
 
+
+    data = req.body;
+    var showClix2 = new showClix();
+          showClix2.add_package(data,res,function(sdata){
+          if (sdata.status == 1) {
+
+            console.log('sdata' , sdata );
+             var package_id_showclix = "4206298";
+              //var event_url = sdata.location;
+              //var showclix_event_id = event_url.split("/");
+             // update_showclix_data(event_url,eventId,data);
+             // res.json({result:eventId,showclix:sdata.location,code:200});
+
+
+
+    if (req.body.id && req.body.id != "" && req.body.id != undefined) {
     var query = "UPDATE `event_package` SET "+ fieldsData +" `modified` = '" + req.body.modified + "' WHERE user_id = '" + req.body.user_id + "' && id=" + req.body.id;
     } else {
-    var query = "INSERT INTO `event_package` SET "+ fieldsData +" user_id = "+req.body.user_id +" , `created` = '" + req.body.created +"'";
+    var query = "INSERT INTO `event_package` SET "+ fieldsData +" user_id = "+req.body.user_id +" ,  `package_id_showclix` = " + package_id_showclix + " ,  `created` = '" + req.body.created +"'";
          }
 
-
     if (query != "") {
-       // console.log('query', query)
         connection.query(query, function(err7, results) {
             if (err7) {
                 res.json({ error: err7,code: 101});
             }
-
-
-
-
-            // fetch last inserted id and then add event keys corresponding to this
-
-
-if(results) {
-  //console.log('results' );
- //console.log('results.insertId' ,results.insertId );
- var package_id = '';
-  if(results.insertId != 0 && results.insertId !='' ) {
-    console.log(' ---------1--------');
-    package_id = results.insertId;
-  }
-  if (req.body.id && req.body.id != "" && req.body.id != undefined) {
-    console.log(' ---------2--------');
-    package_id = req.body.id;
-  }
+          if(results) {
+           var package_id = '';
+            if(results.insertId != 0 && results.insertId !='' ) {
+              package_id = results.insertId;
+            }
+            if (req.body.id && req.body.id != "" && req.body.id != undefined) {
+              package_id = req.body.id;
+            }
             for (var index in  req.body.event_ids) {
-                
                 if (req.body.event_ids[index] != undefined) {
                     var event = req.body.event_ids[index];
-                    var query_event = "INSERT INTO package_event_map ( event_id , package_id) VALUES ( "+ event +" , "+ package_id +")";
 
 
-//console.log('------------------');
-//console.log(query_event);
+                      var events_of_packages = {};
+          events_of_packages.package_id = package_id_showclix;
+          events_of_packages.event_id = "4203183";
 
+
+               
+
+
+showClix2.add_events_of_package(events_of_packages,res,function(sdata1){
+          if (sdata1.status == 1) {
+            var package_event_map_id_showclix = 1 ;
+
+    var query_event = "INSERT INTO package_event_map ( event_id , package_id , package_event_map_id_showclix ) VALUES ( "+ event +" , "+ package_id +" , "+ package_event_map_id_showclix +")";
                     connection.query(query_event, function(subErr, subResults) {
                       if (subErr) {
                           res.json({ error: subErr,code: 101});
                       }
                       });
-                
+
+
+
+          }
+        });
+
+
+
             }
           }
           res.json({ result: package_id , code: 200 });
         }
-
-
         });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          } else {
+            console.log(' showclix error exist' );
+
+             // rollback_event(eventId);
+             // res.json({result:"",error:sdata.error,code:101});  
+          }
+      });
+
+
+
+
+
     
 }
 
