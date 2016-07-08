@@ -93,6 +93,14 @@ $scope.viewHref = function(eventId,recurringOrNot) {
       }
     }
 
+    $scope.viewOverviewHref = function(eventId,recurringOrNot) {
+      if(recurringOrNot==0){
+        $location.path("/single_event_overview/" + eventId);  
+      } else {
+        $location.path("/series_event_overview/" + eventId);
+      }
+    }
+
     $scope.delEvent=function(event_id,showclix_id) {
       eventService.deleteEvent({'event_id':event_id,showclix_id:showclix_id,showclix_token:$localStorage.showclix_token},function(response) {
         if(response.code==200) {
