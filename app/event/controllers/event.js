@@ -353,7 +353,7 @@ Created By: Deepak khokkar
 exports.getEventSeries=function(req,res) {
   var user_id = req.body.user_id;
 
-  var curtime = moment().format('YYYY-MM-DD');
+ // var curtime = moment().format('YYYY-MM-DD');
 
   var sql = "SELECT  event_package.id,  event_package.package_name, event_package.online_sales_open_date_time FROM event_package where event_package.user_id = " + user_id + " ORDER BY event_package.id ASC LIMIT 5";
   
@@ -361,7 +361,10 @@ exports.getEventSeries=function(req,res) {
     if (err) {
       res.send({err:"error",code:101}); 
     }
-    res.send({"results":result,code:200});  
+    else
+    {
+    res.send({"results":result,code:200});
+    }
   });
 }
 
@@ -486,6 +489,7 @@ exports.savepricelevel=function(req,res){
     }
     
     var data=req.body;
+    console.log(data);
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
     // Case : For single event
     if (data.id!=undefined) {
@@ -507,19 +511,19 @@ exports.savepricelevel=function(req,res){
            else{
             var parne_id = result.insertId; 
            }
-           res.send({"results":result,code:200});
+           
             // showclix start 
-              /*  var showClix2 = new showClix();
+                var showClix2 = new showClix();
                     showClix2.add_price_level(data,res,function(sdata){
                         if (sdata.status == 1) {
                             var event_url = sdata.location;
                             update_showclix_pricedata(event_url,parne_id,data);
                             res.json({result:result,showclix:sdata.location,code:200});
                         } else {
-                            rollback_level(eventId);
+                            rollback_level(data.eventId);
                             res.json({result:"",error:sdata.error,code:101});  
                         }
-                    });*/
+                    });
             //showclix end
         
         
@@ -545,6 +549,27 @@ exports.getPricelevel=function(req,res){
           }
              res.send({"results":result,code:200});  
       });  
+    } else {
+      res.send({"results":{},code:200});
+    }
+}
+
+/*get showclix price level*///
+
+exports.getShowclixPricelevel=function(req,res){
+    console.log(req.body);
+    var eventId=req.body.showclix_id;
+    if(eventId!=undefined){
+     // showclix start 
+                var showClix2 = new showClix();
+                    showClix2.get_price_level(eventId,res,function(sdata){
+                        if (sdata.status == 1) {
+                            res.json({result:"success",showclix:sdata.data,code:200});
+                        } else {
+                            res.json({result:"",error:sdata.error,code:101});  
+                        }
+                    });
+            //showclix end 
     } else {
       res.send({"results":{},code:200});
     }
@@ -735,14 +760,15 @@ exports.savesecondstepdata=function(req,res)
     customAge = req.body.dynamic_age;
   }
 
-  /*console.log("UPDATE events SET `website_url`='"+eventwebsite+"',`keyword`='"+keyword+"',`inventory`='"+eventinventory+"',`facebook_url`='"+facebook+"',`twitter_url`='"+twitter+"',`video`='"+video+"',`type_of_event`='"+req.body.type_of_event+"',`custom_ages`='"+req.body.custom_ages+"',`price_type`='"+req.body.price+"' where id="+req.body.eventId);*/
-  //res.json({error:err,code:101});
-
   connection.query("UPDATE events SET `website_url`='"+eventwebsite+"',`keyword`='"+keyword+"',`inventory`='"+eventinventory+"',`facebook_url`='"+facebook+"',`twitter_url`='"+twitter+"',`video`='"+video+"',`type_of_event`='"+req.body.type_of_event+"',`custom_ages`='"+customAge+"',`define_custom_age`='"+customAgeLimit+"',`price_type`='"+req.body.price+"' where id="+req.body.eventId, function(err, results) {
      if (err) {
       res.json({error:err,code:101});
      } else {
+       
+        
       res.json({result:results,code:200});
+      
+      
      }
   });
 }

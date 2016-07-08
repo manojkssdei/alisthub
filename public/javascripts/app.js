@@ -14,6 +14,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
   .config(function($stateProvider, $locationProvider, $urlRouterProvider, $ocLazyLoadProvider) {
      $urlRouterProvider.otherwise('/login');
 
+
  
     // You can also load via resolve
     $stateProvider.
@@ -1951,10 +1952,50 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
                   });
                }
             };
-         }]);
+         }])
 
-routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state,$timeout,$window)
-{
+ .run(function($rootScope,$localStorage) {
+      $rootScope.checkPermission = function(per,method) {
+          //console.log("Permissiondsad: " + per + "---" + method);
+          var permitted = true; 
+
+          if(per!=undefined && method!=undefined) {
+            if($localStorage.userType == 'sellerSubUser') {
+              var permitted = false; 
+              if(method == 'add') {
+                if(per.add == 1) {
+                  permitted = true;
+                }
+              }
+
+              if(method == 'edit') {
+                if(per.edit == 1) {
+                  permitted = true;
+                }
+              }
+
+              if(method == 'delete') {
+                if(per.delete == 1) {
+                  permitted = true;
+                }
+              }
+
+              if(method == 'view') {
+                if(per.view == 1) {
+                  permitted = true;
+                }
+              }
+            } 
+          }
+          return permitted;
+      };
+    });
+
+routerApp.logauthentication = function($rootScope,$localStorage,$location,$http,$state,$timeout,$window) {
+    //console.log($localStorage.permission); 
+    
+    $rootScope.permission = $localStorage.permission; 
+    $rootScope.userType = $localStorage.userType; 
 
     /*$timeout(callAtTimeout, 20*20*3000);
 

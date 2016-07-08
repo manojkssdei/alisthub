@@ -21,15 +21,6 @@
 <style type="text/css"> 
     .social-media {  right: 12%;}
     .social-med > a{ display:inline-block;}
-form#ticket-form {
-    background-color: #fff;
-    padding: 10px;
-}.custom_button {
-    background-color: black;
-    border-radius: 5px;
-    color: #fff;
-    padding: 10px;
-}
 </style>
 </head>
 <body>
@@ -50,7 +41,6 @@ form#ticket-form {
 <!-- Wrapper -->
 <div class="ev-container wtframe preview_div_insert"> 
 </div>
-
 <!-- /Wrapper --> 
 
 <!-- Scripts -->
@@ -65,62 +55,19 @@ form#ticket-form {
           /*var href = window.location.href;
           var eventId=href.substr(href.lastIndexOf('/') + 1);*/
 	   var href = window.location.href.split("/");
-          var ticket_html;
           var eventId=href[5];
-        $.ajax({
+         $.ajax({
 	    method: "POST",
-	    url: "/event/getEvent",
+	    url: "http://"+href[2]+"/event/getEventStep3",
 	    data: {"event_id":eventId}
 	  })
 	    .done(function( response ) {
-            if(response.code==200)
-            {
-             
-              if(response.results[0].showclix_id!='')
-              {
-                  var ticket_html;
-		      $.ajax({
-		    method: "POST",
-		    url: "/event/getShowclixPriceLevel",
-		    data: {"showclix_id":response.results[0].showclix_id}
-		  })
-		    .done(function( resp ) {
-                     if(resp.code==200)
-                     {
-                     
-                 
-                     ticket_html='<form class="mobile-tab" id="ticket-form" method="POST" action="https://tickets.alistixs.com/event/'+response.results[0].event_domain+'/"><div style="margin-top: 0px; display: none " id="select-tickets-fix" class="purchase_tickets  js-single-event"><div class="purchasetitle">Tickets</div></div><table cellspacing="0" cellpadding="0" border="0" id="ticket-selection-genad" class="formtab"><tr><td colspan="4" class="panel-heading" align="left"><strong>Reserve Tickets</strong></td></tr>';
-                     
-                      var obj=$.parseJSON(resp.showclix);
-                      $.each(obj, function(key, value) {
-			   console.log(value);
-                         ticket_html+='<tr data-level-id="'+key+'"><td class="qty-td"> <select class="ticket-select input form-control" name="level['+key+']" id="select_level_'+key+'">';
-                      for(var j=0;j<=value.transaction_limit;j++)
-                      {
-                      ticket_html+='<option value="'+j+'">'+j+'</option>'; 
-                      }
-                      ticket_html+='</select></td><td class="level-td" colspan="2"><label for="select_level_'+key+'" style="margin-bottom:0px;"><span class="product_name" style="padding:5px;">'+value.level+' <a title="Price Level Information" class="fe_price_level tb_level cboxElement" href="/level/'+key+'/description"></a><span></span></span></label></td><td class="price-td"><span>$'+value.price+'</span></td></tr>';
-			});
-                     ticket_html+='<tr><td colspan="4"><input type="submit" value="Get Tickets" class="custom_button " name="submit_ticket_request" id="submit_ticket_request"></td></tr></table></form>';
-                     }
-                    $.ajax({
-		    method: "POST",
-		    url: "http://"+href[2]+"/event/getEventStep3",
-		    data: {"event_id":eventId}
-		  })
-		    .done(function( response1 ) {
-		    var preview_html=response1.result[0].html.replace("./images","http://"+href[2]+"/images");
-		    
-		       $(".preview_div_insert").html(preview_html);
-		       
-		       $("#ticket-panel").html(ticket_html+'<script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js"/>');
+	    var preview_html=response.result[0].html.replace("./images","http://"+href[2]+"/images");
+	    
+	       $(".preview_div_insert").html(preview_html);
+	       $("#ticket-panel").html('<a class="btn" style="background-color:black;" href="https://tickets.alistixs.com/event/india_wi_1st/tag/widget">Buy Now</a><script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js"/>');
 		
-		      });
-                  });
-              }  
-            }
-          }); 
-         
+	      });
     })
 
 </script>

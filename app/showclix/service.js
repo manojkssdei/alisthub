@@ -243,6 +243,23 @@ module.exports = function()
   }
 
   
+  this.get_price_level = function(req,res,next)
+  {
+    request.get({
+                headers: {"content-type": "application/json"}, //{'X-API-Token':req.showclix_token},
+                url:     "https://api.showclix.com/Event/"+req+"/price_levels",
+                form:    {} }, function(error, response, body){
+                  console.log("====================");
+                  console.log(response.headers);
+                  console.log("====================");
+                  console.log(response.body);
+                  console.log("====================");
+                  return next({status:1,data:response.body});
+    });
+  }
+
+
+  
   this.add_package = function(data,res,next)
   {
      var input = {
@@ -317,7 +334,8 @@ var postData = {
                });
     
   }
-  
+   
+
  
    this.add_events_of_package = function(data,res,next)
   {

@@ -68,7 +68,7 @@
             </section>
         </section>
         <!--/Top Section-->
-        <section class="module">
+        <section class="module" ng-if = checkPermission(permission[0],'add') || ng-if = checkPermission(permission[0],'edit') || ng-if = checkPermission(permission[0],'delete') || ng-if = checkPermission(permission[0],'view') >
             <section class="prof-hd no-icon" ng-if='upcoming_event_data.length > 0 || past_event_data.length > 0 || event_package_data.length > 0' ng-click="openTabUPC(id1)">
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
                 <h2>Upcoming Events <span class="rt-img"><i class="fa {{UPCtabclass}}"></i></span></h2>
@@ -76,10 +76,10 @@
             <section class="gray-frame" ng-show="UPCtab">
                 <section class="top-buttons">
                     <a ui-sref="create_an_event">
-                        <button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Create Event</button>
+                        <button ng-if = checkPermission(permission[0],'add') type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Create Event</button>
                     </a>
-                    <button type="button" class="btn pink-btn btn-small" ng-click="getUpcommingEvent('event')">View All Upcoming Events</button>
-                    <button type="button" class="btn pink-btn btn-small" ng-click="getUpcommingEvent('series')">View All Upcoming Series</button>
+                    <button type="button" ng-if = checkPermission(permission[0],'view') class="btn pink-btn btn-small" ng-click="getUpcommingEvent('event')">View All Upcoming Events</button>
+                    <button type="button" class="btn pink-btn btn-small" ng-if = checkPermission(permission[0],'view') ng-click="getUpcommingEvent('series')">View All Upcoming Series</button>
                 </section>
                 <section class="grid-widget">
 		    
@@ -99,9 +99,9 @@
                                         <a title="Overview" href="javascript:void(0)"  ng-click="viewOverviewHref(pdata.id,pdata.recurring_or_not.toString())" ><i class="fa fa-pie-chart"></i></a>
                                         <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
                                         <a title="Guest List" ng-if="pdata.recurring_or_not == 0" href="/#/guest_list/{{pdata.id}}"><i class="fa fa-list-ul"></i></a>
-                                        <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
-    									<a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
-                                        <a title="view" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
+                                        <a ng-if = checkPermission(permission[0],'edit') title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
+    									<a ng-if = checkPermission(permission[0],'delete') style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id)"><i class="fa fa-trash"></i></a>
+                                        <a title="view" ng-if = checkPermission(permission[0],'view') href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
 									</td>
                                     <!--  <td><a title="view" href="/#/event/{{pdata.id}}"><i class="fa fa-clone"></i></a></td> --> 
                                 </tr>
@@ -122,9 +122,9 @@
                             <ul class="legends">
                                 <li><i class="fa fa-calendar-o"></i> <span>Schedules</span></li>
                                 <li><i class="fa fa-pie-chart"></i><span>Overview</span></li>
-                                <li><i class="fa fa-edit"></i><span>Edit</span></li>
-                                <li><i class="fa fa-eye"></i><span>View</span></li>
-                                <li><i class="fa fa-trash"></i><span>Delete</span></li>
+                                <li ng-if = checkPermission(permission[0],'edit')><i class="fa fa-edit"></i><span>Edit</span></li>
+                                <li ng-if = checkPermission(permission[0],'view')><i class="fa fa-eye"></i><span>View</span></li>
+                                <li ng-if = checkPermission(permission[0],'delete')><i class="fa fa-trash"></i><span>Delete</span></li>
                             </ul>
                         </section>
                     </section>
@@ -132,14 +132,15 @@
             </section>
         </section>
         <!--/Upcoming Events-->
-        <section class="module">
+        <section class="module" ng-if = checkPermission(permission[0],'add') || ng-if = checkPermission(permission[0],'edit') || ng-if = checkPermission(permission[0],'delete') || ng-if = checkPermission(permission[0],'view')>
             <section class="prof-hd no-icon" ng-click="openTabPAST(id2)" ng-if='upcoming_event_data.length > 0 || past_event_data.length > 0 || event_package_data.length > 0'>
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
                 <h2>Past Events <span class="rt-img"><i class="fa {{PASTtabclass}}"></i></span></h2>
             </section>
             <section class="gray-frame" ng-show="PASTtab">
                 <section class="top-buttons">
-                    <button type="button" class="btn pink-btn btn-small" ng-click="getPastEvent('event')">View All Past Events</button><button type="button" class="btn pink-btn btn-small" ng-click="getPastEvent('series')">View All Past Series</button>
+                    <button ng-if = checkPermission(permission[0],'view') type="button" class="btn pink-btn btn-small" ng-click="getPastEvent('event')">View All Past Events</button>
+                    <button ng-if = checkPermission(permission[0],'view') type="button" class="btn pink-btn btn-small" ng-click="getPastEvent('series')">View All Past Series</button>
                 </section>
                 <section class="grid-widget">
                     <div class="table-responsive">
@@ -157,9 +158,10 @@
                                     <td title="'Action'" class="action" width="20%">
                                         <a title="Overview" href="javascript:void(0)"  ng-click="viewOverviewHref(pdata.id,pdata.recurring_or_not.toString())" ><i class="fa fa-pie-chart"></i></a>
                                         <a title="Schedules"  ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
+
                                         <a title="Guest List" ng-if="pdata.recurring_or_not == 0" href="/#/guest_list/{{pdata.id}}"><i class="fa fa-list-ul"></i></a>
-                                        <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
-                                        <a title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
+                                        <a ng-if = checkPermission(permission[0],'edit') title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
+                                        <a ng-if = checkPermission(permission[0],'view') title="View" href="/#/view_event/{{pdata.id}}"><i class="fa fa-eye"></i></a>
                                     </td>
 
                                 </tr>
@@ -178,8 +180,8 @@
                             <ul class="legends">
                                 <li><i class="fa fa-calendar-o"></i> <span>Schedules</span></li>
                                 <li><i class="fa fa-pie-chart"></i><span>Overview</span></li>
-                                <li><i class="fa fa-edit"></i><span>Edit</span></li>
-                                <li><i class="fa fa-eye"></i><span>View</span></li>
+                                <li ng-if = checkPermission(permission[0],'edit')><i class="fa fa-edit"></i><span>Edit</span></li>
+                                <li ng-if = checkPermission(permission[0],'view')><i class="fa fa-eye"></i><span>View</span></li>
                             </ul>
                         </section>
                     </section>
@@ -187,20 +189,20 @@
             </section>
         </section>
         <!--/Past Events-->
-        <section class="module">
+        <section class="module" ng-if = checkPermission(permission[0],'add') || ng-if = checkPermission(permission[0],'edit') || ng-if = checkPermission(permission[0],'delete') || ng-if = checkPermission(permission[0],'view')>
             <section class="prof-hd no-icon" ng-click="openTabPAK(id3)" ng-if='upcoming_event_data.length > 0 || past_event_data.length > 0 || event_package_data.length > 0'>
                 <!--<i class="fa fa-ticket hdicon pos-l16"></i>-->
                 <h2>Event Packages <span class="rt-img"><i class="fa {{PAKtabclass}}"></i></span></h2>
             </section>
             <section class="gray-frame" ng-show="PAKtab">
                 <section class="top-buttons">
-                    <button type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Create Package</button>
+                    <button ng-if = checkPermission(permission[0],'add') type="button" class="btn pink-btn btn-small"><i class="fa fa-plus-square"></i> Create Package</button>
                 </section>
                 <section class="grid-widget">
                     <div class="table-responsive">
                         <table ng-table="tableParams2"  class="table table-striped table-ng-style">
                             <tbody>
-                                <tr  ng-repeat="pdata in $data | filter:filter">
+                                <tr ng-repeat="pdata in $data | filter:filter">
                                     <td header-class="'header-text-align'"  title="'Id'" header-class="'header-text-align'" filter="{ id: 'number'}" sortable="'id'" width="20%"><a href="#"><strong>{{pdata.id}}</strong></a></td>
                                     
                                     <td title="'Name'" header-class="'header-text-align'" filter="{ title: 'text'}" sortable="'package_name'" width="40%">
@@ -216,8 +218,8 @@
                                     <td title="'Action'" class="action" width="20%">
                                         <a title="Overview" href="/#/package_event_overview/{{pdata.id}}"  ><i class="fa fa-pie-chart"></i></a>
                                         <a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>
-                                        <a  title="edit" href="/#/edit_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
-                                        <a title="View" href="/#/view_package/{{pdata.id}}"><i class="fa fa-eye"></i></a>
+                                        <a ng-if = checkPermission(permission[0],'edit') title="edit" href="/#/edit_event_step1/{{pdata.id}}"><i class="fa fa-edit"></i></a>
+                                        <a ng-if = checkPermission(permission[0],'view') title="View" href="/#/view_package/{{pdata.id}}"><i class="fa fa-eye"></i></a>
                                     </td>
 
                                 </tr>
@@ -236,8 +238,8 @@
                             <ul class="legends">
                                 <li><i class="fa fa-calendar-o"></i> <span>Schedules</span></li>
                                 <li><i class="fa fa-list-ul"></i><span>Guest List</span></li>
-                                <li><i class="fa fa-edit"></i><span>Edit</span></li>
-                                <li><i class="fa fa-eye"></i><span>View</span></li>
+                                <li ng-if = checkPermission(permission[0],'edit')><i class="fa fa-edit"></i><span>Edit</span></li>
+                                <li ng-if = checkPermission(permission[0],'view')><i class="fa fa-eye"></i><span>View</span></li>
                             </ul>
                         </section>
                     </section>

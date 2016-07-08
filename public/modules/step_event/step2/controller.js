@@ -60,7 +60,8 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
     $serviceTest.getEvent({'event_id':event_id},function(response){
       $scope.pageloader = false;
         $scope.data1=response.results[0];
-    		$scope.data1.facebook=response.results[0].facebook_url != null?response.results[0].facebook_url:"";
+	$localStorage.showclix_id = response.results[0].showclix_id;
+		$scope.data1.facebook=response.results[0].facebook_url != null?response.results[0].facebook_url:"";
 		$scope.data1.twitter=response.results[0].twitter_url != null?response.results[0].twitter_url:"";
 		$scope.data1.eventwebsite=response.results[0].website_url != null?response.results[0].website_url:"";
     		$scope.data1.eventinventory=response.results[0].inventory;
@@ -539,10 +540,13 @@ $scope.success_message = false;
   //For Step 2
   //$scope.items = ['item1'];
 
-
+  
   $scope.items = {};
   if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
     $scope.items.eventId = $stateParams.eventId;
+    console.log("::::::::::::::::::::::::::::::::");
+    console.log($scope.items.eventId+"===="+$localStorage.showclix_id);
+    console.log("::::::::::::::::::::::::::::::::");
   } 
 
   $scope.animationsEnabled = true;
@@ -873,14 +877,11 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
       $scope.data1.description = '';
     }    
   }
-
+   
   $scope.QuanAvailClear = function() {
     $scope.data1.minimum_per_order = null;
     $scope.data1.maximum_per_order = null;
   }
-
-
-
 
   $scope.items = items;
   $scope.min_price = true;
@@ -918,8 +919,10 @@ angular.module('alisthub').controller('ModalInstancePriceCtrl', function($scope,
 
   //For step 2 Save Price level
   $scope.savepriceleveldata = function(data1) {
-    data1.userId = $localStorage.userId;
-    data1.eventId = items.eventId;
+    data1.userId         = $localStorage.userId;
+    data1.eventId        = items.eventId;
+    data1.showclix_id    = $localStorage.showclix_id;
+    data1.showclix_token = $localStorage.showclix_token;
     
     $serviceTest.savepriceleveldata(data1, function(response) {
 

@@ -156,7 +156,7 @@
 		  <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		  <a onclick="remove_widget('section2')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		  </div>
-		  <section class="media-sc module-div">
+		  <section>
 		    <section class="social-med" ng-click="socialLink('')">                          	  
 
 		      <a class="facebook-net" href="{{sociallink.facebook_url}}"><span class="network-icon"><i class="fa fa-facebook"></i></span></a>
@@ -206,13 +206,13 @@
             	<div id="video-widget"><div class="drag" style="display: none;">
 		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		      <a onclick="remove_widget('section4')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		      
+		      <a ng-click="open1()"><i class="fa fa-edit" aria-hidden="true"></i></a>
 		    </div>
 		  <section class="form-group field-group">
           	
               <section class="event-details"   ng-style="{background: background_inner}">
                     <section class="content">
-		    			<div contenteditable="true" ckeditor="option_ckeditor1" name="content2"  required ng-model="content2" ready="onReady()" value='' class="wrap-word"></div>
+		    	<div ng-bind-html="content2"></div>
 		    </section>        
               </section>
           </section></div>
@@ -623,5 +623,66 @@ function remove_widget_dynamic(widgetId)
             <button class="btn btn-warning" type="submit">save</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">cancel</button>
         </div>
-	</form>
+	</form> 
   </script>
+    
+  <script type="text/ng-template" id="ckedit.html">
+     <div class="modal-header">
+               <a style="float:right;cursor: pointer;" ng-click="Cancel()">X</a>
+
+        </div>
+     
+     <div class="modal-body">
+   
+
+
+
+ <div ckeditor="option_ckeditor"  required ng-model="content2" ready="onReady()" value=''></div>
+            
+
+             
+
+              </div>
+        <div class="modal-footer">
+        <button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
+               </section>
+           
+        </div>
+	
+  </script>
+
+
+ <script type="text/ng-template" id="imageEdit.html">
+    <div class="modal-header">
+        <a style="float:right;cursor: pointer;" ng-click="Cancel()">X</a>
+    </div>
+    <div class="modal-body">
+        <div class="main-image">
+            <img src="{{banner_image}}" id="banner_image" alt="banner image" height="200px" width="100%" onclick="change_image()">
+            <input type="file" id="my_file" onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
+        </section>
+    </div>
+</script>
+
+
+
+<script type="text/ng-template" id="EditDetail.html">
+    <div class="modal-header">
+        <a style="float:right;cursor: pointer;" ng-click="Cancel()">X</a>
+    </div>
+    <div class="modal-body">
+        <div class="media-body content m-fw">
+           
+
+            <input type="text" required ng-model="title"/>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
+        </section>
+    </div>
+</script>
