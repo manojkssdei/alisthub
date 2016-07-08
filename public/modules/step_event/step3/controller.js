@@ -20,7 +20,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
         
         $scope.data1=response.results[0];
         $scope.title=response.results[0].title;
-        $scope.content2=response.results[0].description;
+        $scope.content2=$sce.trustAsHtml(response.results[0].description);
         $scope.venue_name=response.results[0].venue_name;
         $scope.city=response.results[0].city;
         $scope.state=response.results[0].state;
@@ -360,17 +360,39 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
             }
           });  
     }
+    $scope.open1 = function(size) {
+
+    var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'ckedit.html',
+        controller: function($scope, $uibModalInstance) {
+
+            $scope.Cancel = function() {
+                $uibModalInstance.dismiss('cancel');
+            };
+            $scope.option_ckeditor = {
+                language: 'en',
+                allowedContent: true,
+                entities: false
+            };
+
+    $serviceTestVenue.getEvent({'event_id':event_id},function(response){
+       $scope.content2=response.results[0].description;
+     
+     });
+
+     $scope.onReady = function() {
+            };
+        }
+    });
+};
     
   $scope.option_ckeditor1 = {
     language: 'en',
     allowedContent: true,
     entities: false
   };
-   
-  $scope.content1="<h3>Heading</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,Lorem ipsum dolor sit amet, consectetur </p>";
-  
-  $scope.content3='<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>';
-  $scope.content4='<p>Footer content will be shown here.</p>';
+ 
   // Called when the editor is completely ready.
   $scope.onReady = function () {
    
