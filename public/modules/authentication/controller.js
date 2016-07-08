@@ -115,7 +115,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                     if ((data.message == 'error') || (data.user == undefined)) {
 
                         showclix.checkSellerSubUser({ 'userData' : jsonData },function(seller_response) {
-                            if(seller_response.code==101) {
+                            if(seller_response.code==101 && seller_response.result[0]==undefined) {
                                 if (data.errorMsg == 'AccountNotActivated') {
                                     $scope.error = global_message.LoginAuthNotMatchingError;
                                     $scope.error_message = false;
@@ -166,9 +166,9 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                                         $rootScope.showclix_seller_id = $localStorage.showclix_seller_id = response.seller_id;
                                         /// Showclix storage end
 
-                                        /*showclix.getPerModules({ 'userId' : seller_response.result[0].id },function(perm_seller) {
-                                            console.log(perm_seller);
-                                        });*/
+                                        showclix.getPerModules({ 'userId' : seller_response.result[0].id },function(perm_seller) {
+                                            $localStorage.permission = perm_seller.result;
+                                        });
 
                                         $state.go('dashboard');
                                     } else { 
@@ -218,7 +218,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                         $rootScope.showclix_user_id   = $localStorage.showclix_user_id   = response.user_id;
                         $rootScope.showclix_seller_id = $localStorage.showclix_seller_id = response.seller_id;
                         /// Showclix storage end
-                        
+                        $localStorage.permission = {};
                         $state.go('dashboard');
                         
                         }
@@ -315,6 +315,53 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
         }
 
        };
+
+
+    /*  
+    Created By: Deepak Khokkar
+    Module : User Login
+    */
+    $scope.submitForm1 = function() {
+        // check to make sure the form is completely valid
+        if ($scope.userForm.$valid)
+        {
+            var serviceUrl = webservices.getUserlogin;
+            var jsonData = $scope.user;
+            
+            showclix.checkSellerSubUser({ 'userData' : jsonData },function(seller_response) {
+
+                if(seller_response.code==101) {
+                    console.log('data.message: ' + data.message + 'data.user: ' + data.user);
+                    $scope.error = global_message.LoginNotMatchingError;
+                    $scope.error_message = false;
+                    $timeout(function() {
+                        $scope.error = '';
+                        $scope.error_message = true;
+                    }, 3000);
+                } else {
+                    $rootScope.class_status = 0;
+                    $localStorage.isuserloggedIn = $rootScope.isuserloggedIn = $rootScope.footer_login_div = true;
+                    $localStorage.menu = $localStorage.after_login_footer_div = $rootScope.menu = $rootScope.after_login_footer_div = false;
+
+                    $rootScope.email = $localStorage.email = seller_response.result[0].email;
+                    $rootScope.name = $localStorage.name = seller_response.result[0].first_name + " " + seller_response.result[0].last_name;
+                    $rootScope.phone_no = $localStorage.phone_no = seller_response.result[0].phone;
+                    $rootScope.userId = $localStorage.userId = seller_response.result[0].seller_id;
+                    $rootScope.userType = $localStorage.userType = 'sellerSubUser';
+                    $rootScope.sellerSubUserId = $localStorage.sellerSubUserId = seller_response.result[0].id;
+                    
+                    showclix.getPerModules({ 'userId' : seller_response.result[0].id },function(perm_seller) {
+                        $localStorage.permission = perm_seller.result;
+                    });
+
+                    $state.go('dashboard');
+                }
+            });
+                
+        }
+
+       };
+
 }).controller('signupcontroller',function($http,$location,$timeout,$scope, $ocLazyLoad, $rootScope,$state,$localStorage,reCAPTCHA,$window){
 
     // function to submit the form after all validation has occurred            

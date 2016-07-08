@@ -18,7 +18,7 @@
                     <section class="grid-btn-top row">
                         <section class="col-sm-6">
                             <section class="top-buttons">
-                                <a class="btn pink-btn btn-small" ui-sref="create_an_event" href="#/create_an_event"><i class="fa fa-plus-square"></i>&nbsp;Create an Event</a>
+                                <a ng-if = checkPermission(permission[0],'add') class="btn pink-btn btn-small" ui-sref="create_an_event" href="#/create_an_event"><i class="fa fa-plus-square"></i>&nbsp;Create an Event</a>
                                 <!-- <a href="/event/exportAllEventCSV?ids={{common_ids}}&seller={{seller_id}}"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button></a> -->
 
                                 <a href="/event/exportAllEventCSV?seller={{seller_id}}"><button class="btn pink-btn btn-small" type="button"><i class="fa fa-plus-square"></i> Export CSV</button></a>
@@ -64,14 +64,12 @@
                                     
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>-->
                                     <td title="'Action'" class="action" width="20%">
-
-                                    <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
-                                    <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
-                                    <!--<a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>-->
-                                    <a title="View" href="javascript:void(0)" ng-click="viewHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-eye"></i></a>
-                                    <a  title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
-                                    <a style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id,pdata.showclix_id)"><i class="fa fa-trash"></i></a>
-
+                                        <a title="Overview" href="javascript:void(0)"><i class="fa fa-pie-chart"></i></a>
+                                        <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
+                                        <!--<a title="Guest List" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>-->
+                                        <a ng-if = checkPermission(permission[0],'view') title="View" href="javascript:void(0)" ng-click="viewHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-eye"></i></a>
+                                        <a ng-if = checkPermission(permission[0],'edit') title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
+                                        <a ng-if = checkPermission(permission[0],'delete') style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id,pdata.showclix_id)"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 <tr ng-show="loader">
@@ -98,9 +96,9 @@
                                 <li><i class="fa fa-pie-chart"></i><span>Overview</span></li>
                                 <li><i class="fa fa-calendar-o"></i> <span>Schedules</span></li>
                                 <li><i class="fa fa-list-ul"></i><span>Guest List</span></li>
-                                <li><i class="fa fa-eye"></i><span>View</span></li>
-                                <li><i class="fa fa-edit"></i><span>Edit</span></li>
-                                <li><i class="fa fa-trash"></i><span>delete</span></li>
+                                <li ng-if = checkPermission(permission[0],'view') ><i class="fa fa-eye"></i><span>View</span></li>
+                                <li ng-if = checkPermission(permission[0],'edit') ><i class="fa fa-edit"></i><span>Edit</span></li>
+                                <li ng-if = checkPermission(permission[0],'delete')><i class="fa fa-trash"></i><span>delete</span></li>
                             </ul>
                         </section>
                     </section>
