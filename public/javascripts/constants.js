@@ -545,6 +545,10 @@ var webservices = {
     "getEmailReportByIdSeries" : "/event/getEmailReportByIdSeries" ,
     "getEmailTemplateOfEventSeries" : "/event/getEmailTemplateOfEventSeries" ,
     "assignEmailTemplateSeries" : "/event/assignEmailTemplateSeries" ,
+    "unassignQuestionSeries" : "/event_setting/unassignQuestionSeries" ,
+    "unassignQuestionEvent" : "/event_setting/unassignQuestionEvent" ,
+    "makeAssignmentOverview" : "/event_setting/makeAssignmentOverview" ,
+    
    
     //Permisssion module routes
     "getPerModules": "/user/getPerModules",

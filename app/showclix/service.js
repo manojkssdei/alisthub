@@ -263,9 +263,9 @@ module.exports = function()
   this.add_package = function(data,res,next)
   {
      var input = {
-                  "event": "Static Package By SHOWCLIX API",
+                  "event": "Static Package By SHOWCLIX API 8",
                   "behavior_set": "5",
-                  "description": "Static Package description By SHOWCLIX API",
+                  "description": "Static Package description By SHOWCLIX API 8",
                   "private_event": "0",
                   "ages": "18",
                   "image": null,
@@ -275,7 +275,7 @@ module.exports = function()
                   "date_edited": null,
                   "event_start" : "2016-08-24 13:05:45",
                   "event_end": "2016-08-26 13:05:45",
-                  "short_name": "static_package_short_name",
+                  "short_name": "static_package_short_name_8",
                   "user_id": "28676",
                   "seller_id": "22876",
                   "venue_id":"34657",

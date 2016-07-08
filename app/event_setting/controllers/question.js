@@ -13,7 +13,19 @@ Created : 2016-05-02
 Created By: Manoj kumar  
 */
 exports.getQuestions = function(req,res){
-  connection.query('SELECT * from questions where seller_id='+req.body.userId+ ' ORDER BY created DESC', function(err, results) {
+
+    if(req.body.exclude != undefined){
+    var query = 'SELECT * from questions where seller_id='+req.body.userId+ ' AND id NOT IN ('+req.body.exclude+') ORDER BY created DESC' 
+  }
+  else{
+    var query = 'SELECT * from questions where seller_id='+req.body.userId+ ' ORDER BY created DESC';
+  }
+
+
+console.log(' ------------------------------ query -------------------------------------');
+console.log(query);
+
+  connection.query( query , function(err, results) {
      if (err) {
       res.json({error:err,code:101});
      }
@@ -343,7 +355,7 @@ exports.getSelectedQuestion = function(req,res)
 
 
 exports.getQuestionsOfEvent = function(req,res){
-  var query = "SELECT * FROM question_assignments qa JOIN questions q ON qa.seller_id = q.seller_id AND qa.question_id = q.id WHERE qa.seller_id = "+req.body.userId+ " AND qa.event_id =  "+req.body.eventId;
+  var query = "SELECT  qa.id, qa.seller_id, qa.event_id, qa.question_id, qa.created, qa.view_question_location, q.question_name, q.question_type, q.status, q.required FROM question_assignments qa JOIN questions q ON qa.seller_id = q.seller_id AND qa.question_id = q.id WHERE qa.seller_id = "+req.body.userId+ " AND qa.event_id =  "+req.body.eventId;
   console.log('-------------------------');
   console.log(query);
   
@@ -374,3 +386,89 @@ exports.saveQuestionLocationPosition = function(req,res){
       res.json({result:results,code:200});
   });
 }
+
+
+exports.unassignQuestionSeries = function(req,res){
+
+  console.log('req.body' , req.body);
+  var child_series_event = '';
+  for(var key in req.body.child_series_event) {
+    if (req.body.child_series_event[key] != null && req.body.child_series_event[key] != "" && req.body.child_series_event[key] != "undefined") {
+         child_series_event += req.body.child_series_event[key] + ",";
+      }
+
+  }
+
+   if (child_series_event != "") {
+   var child_series_event_str = child_series_event.substr(0, child_series_event.length-1);
+    }
+
+
+  var query = "delete from question_assignments where id="+ req.body.id+" and  question_id = "+req.body.question_id +" and  event_id = " + req.body.event_id;
+  var child_query = "delete from question_assignments where id="+ req.body.id+" and  question_id = "+req.body.question_id +" and  event_id IN (" + child_series_event_str + " ) ";
+
+  
+  connection.query(query, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+    
+    connection.query(child_query, function(err1, results1) {
+     if (err1) {
+      res.json({error:err1,code:101});
+     }
+
+   });
+      res.json({result:results,code:200});
+  });
+
+}
+
+
+exports.unassignQuestionEvent = function(req,res){
+  console.log('req.body' , req.body);
+   var query = "delete from question_assignments where id="+ req.body.id+" and  question_id = "+req.body.question_id +" and  event_id = " + req.body.event_id;
+  connection.query(query, function(err, results) {
+     if (err) {
+      res.json({error:err,code:101});
+     }
+      res.json({result:results,code:200});
+  });
+}
+
+
+
+
+exports.makeAssignmentOverview = function(req,res){
+
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+    var query_value = '';
+    req.body.created = curtime;
+    
+  //if (req.body.question != null && req.body.question != "" && req.body.question != "undefined") {
+      
+for(var qkey in req.body.question) {
+  var question_id = req.body.question[qkey];
+
+         query_value+="(NULL, '"+req.body.seller_id+"', '"+req.body.event+"', '"+ question_id +"', '"+req.body.created+"'),";
+           for(var ekey in req.body.child_series_event) {
+              if (req.body.child_series_event[ekey] != null && req.body.child_series_event[ekey] != "" && req.body.child_series_event[ekey] != "undefined") {
+                query_value+="(NULL, '"+req.body.seller_id+"', '"+req.body.child_series_event[ekey]+"', '"+question_id+"', '"+req.body.created+"'),";
+              }
+           }
+      }
+    
+    
+    if (query_value != "") {
+      query_value = query_value.substr(0, query_value.length-1);
+    }
+    var query_option = "INSERT INTO `question_assignments` (`id`, `seller_id`, `event_id`, `question_id`, `created`) VALUES "+query_value;
+    console.log(query_option); 
+    connection.query(query_option, function(err, results) {
+        if (err) {
+          res.json({error:err,code:101});
+        }
+        res.json({result:results,code:200});
+    });
+}
+
