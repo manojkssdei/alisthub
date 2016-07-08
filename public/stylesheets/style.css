@@ -823,3 +823,7 @@ color-picker{float: right !important;}
     color: #555;
     font-size: 0.75em;
 }
+
+.advSetting {
+  margin: 0px 5px 5px 0px;
+}

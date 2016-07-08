@@ -241,5 +241,122 @@ module.exports = function()
                 });
     
   }
+
+  
+  this.add_package = function(data,res,next)
+  {
+     var input = {
+                  "event": "Static Package By SHOWCLIX API",
+                  "behavior_set": "5",
+                  "description": "Static Package description By SHOWCLIX API",
+                  "private_event": "0",
+                  "ages": "18",
+                  "image": null,
+                  "event_category_id": "5",
+                  "genre": null,
+                  "date_added": "2016-06-21 05:18:02",
+                  "date_edited": null,
+                  "event_start" : "2016-08-24 13:05:45",
+                  "event_end": "2016-08-26 13:05:45",
+                  "short_name": "static_package_short_name",
+                  "user_id": "28676",
+                  "seller_id": "22876",
+                  "venue_id":"34657",
+                  "event_type":"3",
+                  "status": "1",
+                  "image_url": null,
+                  "thumbnail_url": null,
+                  "product_map": {
+                              "892707": {
+                                  "event_product_map_id": "892707",
+                                  "event_id": "4206298",
+                                  "product_id": "1878",
+                                  "price": "22.00",
+                                  "upsell_price": null,
+                                  "position": "3",
+                                  "sort_position": null,
+                                  "box_office_hide": "0"
+                              }
+
+                          },
+
+                };
+
+ //"event_id": "4206298",
+ //"event_category_id": "5",
+
+console.log('data : ' , data );
+console.log('data.showclix_token : ' , data.showclix_token );
+console.log('input : ' ,  input );
+
+var postData = {
+                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
+                url:     "http://api.showclix.com/Event",
+                form:    input };
+
+    request.post( postData, function(error, response, body){
+                  var str = response.body;
+                  console.log(response.body);
+                                  
+                 /* if (response.headers.location) {
+                    return next({status:1,location:response.headers.location});
+                  }
+                  else
+                  {
+                    var percent  = str.split("<p>");
+                    var percent2 = percent[1].split("</p>");
+                    var percent3 = percent2[0].replace("<h2>", "");
+                    var percent3 = percent3.replace("<h3>", "");
+                    var percent3 = percent3.replace("</h2>", "");
+                    var percent3 =percent3.replace("</h3>", "");
+                    return next({status:0,location:"","error":percent3});
+                  }
+
+                  */
+                   
+               });
+    
+  }
+  
  
+   this.add_events_of_package = function(data,res,next)
+  {
+     var input = {
+                    "package_id": "4206298",
+                    "event_id": "4203183"
+                  };
+
+console.log('data : ' , data );
+console.log('data.showclix_token : ' , data.showclix_token );
+console.log('input : ' ,  input );
+
+var postData = {
+                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
+                url:     "http://api.showclix.com/Event",
+                form:    input };
+
+    request.post( postData, function(error, response, body){
+                  var str = response.body;
+                  console.log(response.body);
+                                  
+                 /* if (response.headers.location) {
+                    return next({status:1,location:response.headers.location});
+                  }
+                  else
+                  {
+                    var percent  = str.split("<p>");
+                    var percent2 = percent[1].split("</p>");
+                    var percent3 = percent2[0].replace("<h2>", "");
+                    var percent3 = percent3.replace("<h3>", "");
+                    var percent3 = percent3.replace("</h2>", "");
+                    var percent3 =percent3.replace("</h3>", "");
+                    return next({status:0,location:"","error":percent3});
+                  }
+
+                  */
+                   
+               });
+    
+  } 
+
 }
