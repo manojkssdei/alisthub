@@ -71,11 +71,13 @@ module.exports = function()
                  "seller_id":data.showclix_seller_id,
                  "venue_id":"34657",
                  "event_type":"3",
-                 "status":data.step
+                 "status":"5"
                 };
       if(data.showclix_id != "" && data.showclix_id !== undefined){
         console.log("---------3-------");
         input.event_id = data.showclix_id;
+        input.status   = '5';
+        console.log(input);
         request.put({
                 headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/Event/"+data.showclix_id,
@@ -103,14 +105,13 @@ module.exports = function()
                   var dataw = response.body;
                   
                   if (isJson(response.body)) {
-                    str = (response.body);
+                    str = JSON.parse(response.body);
                   }
+                  console.log(str);
                   
-                 
-                                                   
-                  if (response.body.event_id && response.body.event_id !== undefined) {
+                  if (str.event_id && str.event_id !== undefined) {
                     console.log("---------6-------");
-                    return next({status:1,location:response.body.event_id});
+                    return next({status:1,location:str.event_id});
                   }
                   else
                   {
