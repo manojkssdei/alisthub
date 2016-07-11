@@ -1550,13 +1550,19 @@ console.log('sales_query ' , sales_query) ;
 
 exports.addFavouriteEvent= function(req, res) {
 // add query to pause sales here ................
-var sales_query = "UPDATE events SET favorite_event = 1 where id = " + req.body.event_id ;
+
+var favorite_event_status = req.body.favorite_event_status;
+var updated_favorite_event;
+if(favorite_event_status == 0 ) { updated_favorite_event = 1; }
+if(favorite_event_status == 1 ) { updated_favorite_event = 0; }
+
+var sales_query = "UPDATE events SET favorite_event = "+updated_favorite_event+" where id = " + req.body.event_id ;
 console.log('sales_query ' , sales_query) ;
  connection.query( sales_query , function(err, result) {
         if (err) {
             res.json({ error: err, code: 101 });
         }
-        res.json({ result: result, code: 200 });
+        res.json({ result: result, code: 200 , updated_favorite_event : updated_favorite_event });
     });
 }
 

@@ -88,11 +88,14 @@ $scope.pauseSales = function(event_id) {
   }); 
 }
 
-$scope.addFavouriteEvent = function(event_id) {
+$scope.addFavouriteEvent = function(event_id , favorite_event_status ) {
     console.log('addFavouriteEvent called' , event_id);
-  $eventService.addFavouriteEvent({'event_id':event_id},function(response) {
+    console.log('favorite_event_status called' , favorite_event_status);
+  $eventService.addFavouriteEvent({'event_id':event_id , favorite_event_status : favorite_event_status },function(response) {
     if(response.code==200) {
+        $rootScope.favorite_event = response.updated_favorite_event;
         $scope.favorite_status = 'Added as Favorite' ;
+
     }
   }); 
 }
@@ -213,6 +216,7 @@ $scope.getFormattedDate = function(today1) {
         $scope.event_id = eventId;
         $rootScope.template_name = response.results[0].template_name;
         $rootScope.template_id = response.results[0].template_id;
+        $rootScope.favorite_event = response.results[0].favorite_event;
 
 
       $scope.event_url_for_share = response.results[0].event_url_for_share;
