@@ -798,6 +798,8 @@ color-picker{float: right !important;}
 .event-status-container {
     padding-bottom: 20px;
     padding-top: 10px;
+    margin: 0px 5px 5px 0px;
+    height: 100px;
 }
 
 .event-status {
@@ -817,13 +819,15 @@ color-picker{float: right !important;}
 .event-status-type {
     font-size: 1em;
     font-weight: bold;
-    margin: 0.25em 0;
+    margin: 0px 5px 5px 0px;
 }
 .event-status-detail {
     color: #555;
     font-size: 0.75em;
+    margin: 0px 5px 5px 0px;
 }
 
 .advSetting {
   margin: 0px 5px 5px 0px;
 }
+

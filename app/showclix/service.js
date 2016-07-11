@@ -262,28 +262,30 @@ module.exports = function()
   
   this.add_package = function(data,res,next)
   {
-     var input = {
-                  "event": "Static Package By SHOWCLIX API 8",
-                  "behavior_set": "5",
-                  "description": "Static Package description By SHOWCLIX API 8",
-                  "private_event": "0",
-                  "ages": "18",
-                  "image": null,
-                  "event_category_id": "5",
-                  "genre": null,
-                  "date_added": "2016-06-21 05:18:02",
-                  "date_edited": null,
-                  "event_start" : "2016-08-24 13:05:45",
-                  "event_end": "2016-08-26 13:05:45",
-                  "short_name": "static_package_short_name_8",
-                  "user_id": "28676",
-                  "seller_id": "22876",
-                  "venue_id":"34657",
-                  "event_type":"3",
-                  "status": "1",
-                  "image_url": null,
-                  "thumbnail_url": null,
-                  "product_map": {
+
+    var input = {
+  "user_id": "28676",
+  "seller_id": "22876",
+  "event": "Tech Challenge",
+  "behavior_set": "5",
+  "description": "This is test",
+  "private_event": "0",
+  "ages": "0",
+  "image": null,
+  "event_category_id": "20",
+  "genre": null,
+  "date_added": "2016-06-21 05:18:02",
+  "date_edited": null,
+  "event_start": "2016-07-15 03:30:30",
+  "sales_open": "2016-07-10 03:30:30",
+  "event_end": "2016-07-21 21:00:00",
+  "short_name": "tech_challege",
+  "image_url": null,
+  "thumbnail_url": null,
+  "status":"1",
+  "event_type":"3",
+  "venue_id":"34657" ,
+   "product_map": {
                               "892707": {
                                   "event_product_map_id": "892707",
                                   "event_id": "4206298",
@@ -296,8 +298,7 @@ module.exports = function()
                               }
 
                           },
-
-                };
+}
 
  //"event_id": "4206298",
  //"event_category_id": "5",

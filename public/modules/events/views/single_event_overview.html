@@ -5,7 +5,7 @@
         <section class="top-buttons bb-1 text-right">
             <a href="/#/create_event_step1/{{event_id}}" ><button type="button" class="btn pink-btn btn-small" ><i class="fa fa-edit"> </i>  Edit</button></a>
             <button type="button" class="btn pink-btn btn-small" ng-click="delEvent(event_id)"><i class="fa fa-trash"> </i>  Delete</button>
-            <button type="button" class="btn pink-btn btn-small" ng-click="pauseSales(event_id)"><i class="fa fa-pause"> </i>  {{sales_pause_status}}</button>
+            <button type="button" class="btn pink-btn btn-small" ng-click="pauseSales(event_id , pause_sales )"><i class="fa fa-{{sales_pause_status_icon}}"> </i>  {{sales_pause_status}}</button>
             <!--<button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  Duplicate</button>-->
             <a href="/#/view_event/{{event_id}}" > <button type="button" class="btn pink-btn btn-small"> View Event</button></a>
             <button type="button" class="btn pink-btn btn-small" ng-click="addFavouriteEvent(event_id , favorite_event )"><i class="fa fa-star"> </i> {{favorite_status}}</button> 
@@ -30,11 +30,11 @@
                         <h5><i class="fa fa-home"> </i>  {{event_address}} </h5>
                         <h5><i class="fa fa-link"> </i><a href="#"> http://alistixs.com/{{user_id}}/{{event_id}}</a></h5>
                         <!--<h5><i class="fa fa-qrcode"> </i>  </h5>-->
-                        <br/><br/>
+                      
                         <hr/>
-                        <div class="event-status-container">
+                        <div class="event-status-container" >
                             <!-- Recurring Event (Prime) -->
-                            <div class="event-status status-onsale">
+                            <div class="event-status status-onsale" ng-if="pause_sales == 0">
                                 <div class="event-status-type">
                                     Ticket sales are currently {{sales_status}} <i  class="fa fa-checkmark"></i>
                                 </div>
@@ -42,6 +42,13 @@
                                     Sales will close on <strong>{{online_sales_close}}</strong>.
                                 </div>
                             </div>
+
+                             <div class="event-status status-offsale" ng-if="pause_sales==1">
+                             
+                                    Ticket Sales are paused.  <button type="button" class="btn pink-btn btn-small" ng-click="pauseSales(event_id , pause_sales )"><i class="fa fa-{{sales_pause_status_icon}}"> </i>  {{sales_pause_status}}</button>
+                                
+                            </div>
+
                         </div>
                     </section>
                 </section>

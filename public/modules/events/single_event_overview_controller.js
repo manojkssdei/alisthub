@@ -31,12 +31,10 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('single
 
     $scope.userId = userId;
     $scope.eventId = eventId;
-     $scope.sales_pause_status = 'Pause Sales';
-      $scope.favorite_status = 'Add To Favorite';
+    $scope.sales_pause_status_icon = 'pause';
+    $scope.sales_pause_status = 'Pause Sales';
+    $scope.favorite_status = 'Add To Favorite';
     
-    console.log('eventId ' , eventId) ;
-
-
     $scope.questionLocations = [
         { "name": "Ticket", 'id': 1 },
         { "name": "Event", 'id': 2 },
@@ -67,8 +65,6 @@ $scope.hours_am_pm = function(time) {
 
 
 $scope.delEvent = function(event_id) {
-    console.log('delEvent called' , event_id);
-
   $eventService.deleteEvent({'event_id':event_id},function(response) {
     if(response.code==200) {
       $location.path("/view_all_event");
@@ -77,32 +73,42 @@ $scope.delEvent = function(event_id) {
 }
 
 
-$scope.pauseSales = function(event_id) {
-    console.log('pauseSales called' , event_id);
-  $eventService.pauseSales({'event_id':event_id},function(response) {
+$scope.pauseSales = function(event_id , pause_sales ) {
+  $eventService.pauseSales({'event_id':event_id , 'pause_sales' : pause_sales },function(response) {
     if(response.code==200) {
-        $rootScope.sales_status = 'offline';
-     // $location.path("/view_all_event);
-     $scope.sales_pause_status = 'Sales Paused' ;
+        $rootScope.sales_status = 'Event is no longer on sale. ';
+
+        $rootScope.updated_pause_sales = response.updated_pause_sales;
+        if($rootScope.updated_pause_sales == 0 ) {
+          $scope.sales_pause_status_icon = 'pause';
+          $scope.sales_pause_status = 'Pause Sales' ;
+          $scope.pause_sales = 0;
+        } 
+         if($rootScope.updated_pause_sales == 1 ) {
+          $scope.sales_pause_status_icon = 'play';
+          $scope.sales_pause_status = 'Resume Sales' ;
+          $scope.pause_sales = 1;
+        } 
+
     }
   }); 
 }
 
 $scope.addFavouriteEvent = function(event_id , favorite_event_status ) {
-    console.log('addFavouriteEvent called' , event_id);
-    console.log('favorite_event_status called' , favorite_event_status);
   $eventService.addFavouriteEvent({'event_id':event_id , favorite_event_status : favorite_event_status },function(response) {
     if(response.code==200) {
         $rootScope.favorite_event = response.updated_favorite_event;
-        $scope.favorite_status = 'Added as Favorite' ;
-
+        if($rootScope.favorite_event == 0 ) {
+          $scope.favorite_status = 'Add as Favorite' ;
+        } 
+         if($rootScope.favorite_event == 1 ) {
+          $scope.favorite_status = 'Added as Favorite' ;
+        } 
     }
   }); 
 }
 
 $scope.unassignQuestionEvent = function(question_assignment_id , question_id , event_id) {
-    console.log('unassignQuestionEvent called' , question_assignment_id , question_id , event_id );
-
   $questionService.unassignQuestionEvent({'id':question_assignment_id , 'question_id' : question_id ,  'event_id' : event_id },function(response) {
     if(response.code==200) {
       $rootScope.getQuestionsOfEvent();
@@ -117,9 +123,7 @@ $scope.unassignQuestionEvent = function(question_assignment_id , question_id , e
 
 $scope.getDateTime = function(openDate) {
     var date1 = new Date(openDate);
-    
     if(date1!="Invalid Date" && openDate!=null) {
-      console.log(openDate);
       var date = ('0' + (date1.getUTCDate())).slice(-2);
       var year = date1.getUTCFullYear();
       var month = ('0' + (date1.getUTCMonth()+1)).slice(-2);
@@ -142,9 +146,7 @@ $scope.getDateTime = function(openDate) {
   };
 
 $scope.getFormattedDate = function(today1) {
-    console.log('today1' , today1 );
     var today = new Date(today1);
-    console.log('today' , today );
     var weekdayFullNames = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
     var weekdayShortNames = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
     var monthsFullName = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July' , 'August' , 'September' ,'October' , 'November' , 'December');
@@ -171,21 +173,14 @@ $scope.getFormattedDate = function(today1) {
 
 
  $scope.saveQuestionLocation = function(data ,id ) {
-  console.log('saveQuestionLocation');
-   console.log('id' , id);
-    console.log('data' , data);
-
     $scope.questionLocationData = {};
     $scope.questionLocationData.id = id;
     //$scope.questionLocationData.view_question_location =  parseInt(data[id]);
     $scope.questionLocationData.view_question_location =  parseInt(data);
 
-    console.log('$scope.questionLocationData ' , $scope.questionLocationData) ;
      $questionService.saveQuestionLocationPosition($scope.questionLocationData, function(response) {
             if (response.code == 200) {
-              
-            console.log('data saved');
-
+           // console.log('data saved');
             } else {
                 $scope.error_message = response.error;
             }
@@ -197,12 +192,8 @@ $scope.getFormattedDate = function(today1) {
 
     //service created to get event detail
 
-    $eventService.getEvent({ 'event_id': eventId }, function(response) {
-
-        console.log('response ' , response) ;
-     
+    $eventService.getEvent({ 'event_id': eventId }, function(response) {     
         $scope.data = response.results[0];
-        
         $scope.title = response.results[0].title;
         $scope.event_date = $scope.getFormattedDate(response.results[0].eventdate);
         $scope.venue_name = response.results[0].venue_name;
@@ -220,15 +211,17 @@ $scope.getFormattedDate = function(today1) {
 
 
       $scope.event_url_for_share = response.results[0].event_url_for_share;
+      $scope.pause_sales = response.results[0].pause_sales;
 
-       $rootScope.sales_status = 'live';
-       // online_sales_close
-       // 
+       
+      
 
 if(response.results[0].pause_sales  == 1) {
-    $scope.sales_pause_status = 'Sales Paused';
+    $scope.sales_pause_status_icon = 'play';
+    $scope.sales_pause_status = 'Resume Sales';
 }
 else {
+    $scope.sales_pause_status_icon = 'pause';
     $scope.sales_pause_status = 'Pause Sales';
     }
 
@@ -240,10 +233,18 @@ else {
     $scope.favorite_status = 'Add To Favorite';
     }
 
-
-       console.log('online_sales_close ' ,response.results[0].online_sales_close );
-        console.log('sales_close_date ' ,response.results[0].sales_close_date );
        $scope.online_sales_close = $scope.getFormattedDate(response.results[0].online_sales_close);
+       var js_online_sales_close = new Date(response.results[0].online_sales_close);
+       var js_today = new Date() ;
+
+if ( js_online_sales_close < js_today){
+  //sales open
+  $rootScope.sales_status = 'Ticket sales are currently live';
+}
+else {
+ // sales close
+ $rootScope.sales_status = 'Event is no longer on sale. ';
+}
 
        $scope.inventory = response.results[0].inventory;
 
@@ -269,7 +270,6 @@ else {
 
 
     $venueService.getPricelevel({ 'eventId': eventId }, function(response) {
-        console.log('response getPricelevel ' , response) ;
         $scope.getPricelevel = response.results;
 
         $scope.tableParams = new ngTableParams(

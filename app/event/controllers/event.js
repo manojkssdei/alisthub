@@ -1536,14 +1536,21 @@ exports.getEmailTemplateOfEvent=function(req,res) {
 
 
 exports.pauseSales= function(req, res) {
-// add query to pause sales here ................
-var sales_query = "UPDATE events SET pause_sales = 1 where id = " + req.body.event_id ;
+
+
+
+var pause_sales = req.body.pause_sales;
+var updated_pause_sales;
+if(pause_sales == 0 ) { updated_pause_sales = 1; }
+if(pause_sales == 1 ) { updated_pause_sales = 0; }
+
+var sales_query = "UPDATE events SET pause_sales = "+updated_pause_sales+" where id = " + req.body.event_id ;
 console.log('sales_query ' , sales_query) ;
  connection.query( sales_query , function(err, result) {
         if (err) {
             res.json({ error: err, code: 101 });
         }
-        res.json({ result: result, code: 200 });
+        res.json({ result: result, code: 200 , updated_pause_sales : updated_pause_sales });
     });
 }
 
