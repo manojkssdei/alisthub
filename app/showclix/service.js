@@ -49,8 +49,7 @@ module.exports = function()
     
   this.add_event = function(data,res,next)
   {
-    
-   // required : event_name , address ,city , status (1, 2, 3, 4, 5, 7, 8),
+  // required : event_name , address ,city , status (1, 2, 3, 4, 5, 7, 8),
   //0.event_type :   int. 3 for General Admission Event, 2 for an Assigned Seating Event 
   //1.status : { Description: int. Events can be setup in stages. A status of 5 means the even is completely setup. A status of 4 means the event is in Preview Mode - only the seller can view the listing on ShowClix. 3, 2, and 1 each mean that the event is not complete and can be used to represent different stages in an event process if desired. 6 = canceled, 7 = paused, 8 = suspended.
 //Required: Yes
@@ -63,7 +62,7 @@ module.exports = function()
 //7.event_id :  int. Primary Key. Id of an event. (not required) 
     var input = {
                  "event":data.eventname,
-                 "description":data.content,
+                 "description":JSON.stringify(data.content),
                  "short_name":data.eventurl,
                  "event_start":data.event_startdatetime,
                  "sales_open":data.event_startdatetime,
@@ -75,15 +74,19 @@ module.exports = function()
                 };
       if(data.showclix_id != "" && data.showclix_id !== undefined){
         console.log("---------3-------");
-        input.event_id = data.showclix_id;
+        input.event_id = data.showclix_id.toString();
         input.status   = '5';
-        console.log(input);
-        request.put({
-                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
+        delete input.description;
+        delete input.short_name;
+        delete input.sales_open;
+        
+        //////////////////////////////////////////////////////////////////////////////////////
+        request.post({
+                headers: {'Content-Type':'application/json','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/Event/"+data.showclix_id,
                 form:    input }, function(error, response, body){
                   console.log("---------4-------");
-                  //console.log(response.body);
+                  
                   var str = "There is some problem on server. Please try after some time.";
                   function isJson(item) {
                       item = typeof item !== "string"
@@ -120,6 +123,9 @@ module.exports = function()
                   }
                    
           });
+          //////////////////////////////////////////////////////////////////////////////// 
+        
+        
       }
       else{
     request.post({

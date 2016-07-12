@@ -47,6 +47,8 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
   //To show or hide divs
   $scope.select_delect_event = $scope.monthly_div = $scope.days_div = $scope.error_message = $scope.error_time_message = true;
   $rootScope.success_message1 = false;
+  $scope.data1 = {};
+    
 
   $eventId = $localStorage.eventId;
     
@@ -61,6 +63,9 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
       $scope.pageloader = false;
         $scope.data1=response.results[0];
 	$localStorage.showclix_id = response.results[0].showclix_id;
+	        $scope.data1.type_of_event = response.results[0].type_of_event == null?0:response.results[0].type_of_event;
+		$scope.data1.price = response.results[0].price == null || response.results[0].price == ""?0:response.results[0].price;
+		
 		$scope.data1.facebook=response.results[0].facebook_url != null?response.results[0].facebook_url:"";
 		$scope.data1.twitter=response.results[0].twitter_url != null?response.results[0].twitter_url:"";
 		$scope.data1.eventwebsite=response.results[0].website_url != null?response.results[0].website_url:"";
