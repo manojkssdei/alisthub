@@ -1161,7 +1161,8 @@ exports.stepOneEventPackage = function(req,res) {
 
     req.body.created = curtime;
     req.body.modified = curtime;
-
+    req.body.status = 1;
+   // req.body.short_name = req.body.package_name;
 
 
     data = req.body;
@@ -1189,7 +1190,7 @@ exports.stepOneEventPackage = function(req,res) {
             if (err7) {
                 res.json({ error: err7,code: 101});
             }
-          if(results) {
+         /* if(results) {
            var package_id = '';
             if(results.insertId != 0 && results.insertId !='' ) {
               package_id = results.insertId;
@@ -1232,26 +1233,17 @@ showClix2.add_events_of_package(events_of_packages,res,function(sdata1){
           }
           res.json({ result: package_id , code: 200 });
         }
+
+        */
         });
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
           } else {
+            console.log('---------------------------');
             console.log(' showclix error exist' );
+             res.json({result:"",error:sdata.error,code:101});  
 
              // rollback_event(eventId);
              // res.json({result:"",error:sdata.error,code:101});  

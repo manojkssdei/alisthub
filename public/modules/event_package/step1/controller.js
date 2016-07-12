@@ -151,6 +151,17 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
         startingDay: 1
     };
 
+    $scope.slugify = function(text) {
+        return text.toString().toLowerCase().trim()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '')            // Trim - from end of text
+        .replace(/&/g, '-and-');         // Replace & with 'and'
+    };
+
+
     // Disable weekend selection
     function disabled(data) {
         var date = data.date,
@@ -510,6 +521,8 @@ console.log('$scope.data.online_sales_open_time' , $scope.data.online_sales_open
 
     $scope.stepOne = function() {
             console.log('stepOne data', $scope.data);
+
+            $scope.data.short_name = $scope.slugify($scope.data.package_name);
 
             if ($scope.data.online_sales_open_date && $scope.data.online_sales_open_time) {
                 $scope.data.online_sales_open_date_time = $scope.combine($scope.data.online_sales_open_date, $scope.data.online_sales_open_time);
