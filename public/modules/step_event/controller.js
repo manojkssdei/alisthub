@@ -53,6 +53,9 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       var cur_mon = d.getMonth() + 1;
       $rootScope.single_start_date = curr_year + "-" + cur_mon + "-" + curr_date;
       $rootScope.selectevent_date = weekday[day] + " " + m_names[curr_month] + " " + curr_date + "," + curr_year;
+      $scope.start_date = d;
+      $scope.select_delect_event = false;
+      $scope.single_eventstart();
     });
   }
   
@@ -904,7 +907,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   Created By:  Deepak khokkar  
   */
   $scope.single_eventstart = function() {
-    if ($rootScope.selectevent_date === undefined) {
+    //if ($rootScope.selectevent_date === undefined) {
       $scope.select_delect_event = false;
       var d = new Date($scope.start_date);
       var curr_date = d.getDate();
@@ -914,8 +917,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       var cur_mon = d.getMonth() + 1;
       $rootScope.single_start_date = curr_year + "-" + cur_mon + "-" + curr_date;
       $rootScope.selectevent_date = weekday[day] + " " + m_names[curr_month] + " " + curr_date + "," + curr_year;
-    } else {
-      var modalInstance = $uibModal.open({
+    //} else {
+     /* var modalInstance = $uibModal.open({
         animation: $scope.animationsEnabled,
         templateUrl: 'myModalContent.html',
         controller: 'ModalInstanceCtrl',
@@ -925,8 +928,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
             return $scope.items;
           }
         }
-      });
-    }
+      });*/
+    //}
   }
 
 

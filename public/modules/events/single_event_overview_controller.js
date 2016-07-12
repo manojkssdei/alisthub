@@ -4,6 +4,8 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('single
     if (!$localStorage.isuserloggedIn) {
         $state.go('login');
     }
+
+     var holdval = [];
     
     if (window.innerWidth > 767) {
         $scope.navCollapsed = false;
@@ -25,6 +27,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('single
     $scope.error_message = true;
     var userId =  $localStorage.userId;
     var eventId = $stateParams.eventId;
+        $rootScope.eventId = eventId;
 
     $scope.userId = userId;
     $scope.eventId = eventId;
@@ -33,6 +36,12 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('single
     
     console.log('eventId ' , eventId) ;
 
+
+    $scope.questionLocations = [
+        { "name": "Ticket", 'id': 1 },
+        { "name": "Event", 'id': 2 },
+        { "name": "Sale", 'id': 3 },
+    ];
 
 $lookAndFeelService.getlookAndFeel({},function(response){
             if (response!=null && response.code == 200) {
@@ -88,6 +97,21 @@ $scope.addFavouriteEvent = function(event_id) {
   }); 
 }
 
+$scope.unassignQuestionEvent = function(question_assignment_id , question_id , event_id) {
+    console.log('unassignQuestionEvent called' , question_assignment_id , question_id , event_id );
+
+  $questionService.unassignQuestionEvent({'id':question_assignment_id , 'question_id' : question_id ,  'event_id' : event_id },function(response) {
+    if(response.code==200) {
+      $rootScope.getQuestionsOfEvent();
+      //http://localhost:4004/#/series_event_overview/2377
+      //$location.path("/view_all_event");
+    }
+  }); 
+
+  
+}
+
+
 $scope.getDateTime = function(openDate) {
     var date1 = new Date(openDate);
     
@@ -139,6 +163,33 @@ $scope.getFormattedDate = function(today1) {
     return shortDay+'.  '+mon+' '+dd+', '+yyyy+'  at '+hour+':'+minu;
 // Fri. Jul 1, 2016 at 12:00pm 
 }
+
+
+
+
+ $scope.saveQuestionLocation = function(data ,id ) {
+  console.log('saveQuestionLocation');
+   console.log('id' , id);
+    console.log('data' , data);
+
+    $scope.questionLocationData = {};
+    $scope.questionLocationData.id = id;
+    //$scope.questionLocationData.view_question_location =  parseInt(data[id]);
+    $scope.questionLocationData.view_question_location =  parseInt(data);
+
+    console.log('$scope.questionLocationData ' , $scope.questionLocationData) ;
+     $questionService.saveQuestionLocationPosition($scope.questionLocationData, function(response) {
+            if (response.code == 200) {
+              
+            console.log('data saved');
+
+            } else {
+                $scope.error_message = response.error;
+            }
+
+        });
+         
+        }
 
 
     //service created to get event detail
@@ -231,10 +282,15 @@ else {
 
     });
 
-
+$rootScope.getQuestionsOfEvent = function() {
     $questionService.getQuestionsOfEvent({ 'userId': userId , 'eventId' : eventId  }, function(response) {
         console.log('response ' , response) ;
         $scope.getQuestions = response.result;
+
+         for(i in response.result){
+          //holdval[i] = response.result[i].id;
+          holdval[i] = response.result[i].question_id;
+        }
 
        $scope.tableParamsQuestions = new ngTableParams(
         {
@@ -250,8 +306,11 @@ else {
 
         
 
-    });  
+    }); 
+}
 
+
+  $rootScope.getQuestionsOfEvent();
 
     $discountService.getDiscountsOfEvent({ 'userId': userId , 'eventId' : eventId }, function(response) {
         console.log('response.result ' , response.result) ;
@@ -344,6 +403,138 @@ else {
 
     //get comment  
     $scope.array = [];
+
+
+    // popup creation to get all the questions//
+ // popup creation to get all the questions//
+    $scope.open1 = function(size) {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'questions.html',
+            controller: function($scope, $uibModalInstance) {
+                
+                $scope.Cancel = function() {
+                    $uibModalInstance.dismiss('cancel');
+                };
+                console.log(holdval);
+
+                $scope.question_ids = []; 
+
+                $questionService.getQuestions({ 'userId': userId, exclude : holdval }, function(response) {
+                    $scope.getQuestionsList = response.result;
+
+                     $scope.getQuestionsList.forEach(function(value) {
+                        $scope.question_ids.push(value.id);
+                    });
+
+                    $scope.tableParams = new ngTableParams({
+                        page: 1, // show first page
+                        count: 5, // count per page
+                        sorting: { id: 'asc' },
+
+                    }, {
+                        data: $scope.getQuestionsList
+                    });
+                });
+
+
+
+
+              $scope.enableAssign = false;
+              $scope.listEvent = 0;
+              $scope.all_check_point = 1;
+
+    $scope.toggleAllQuestions = function(id) {
+      console.log('toggleAllQuestions called' , 'id' , id );
+        if (id == 1) {
+        $scope.all_check_point = 2;
+        var toggleStatus = true;
+        $scope.enableAssign = true;
+        $scope.listEvent = 1;
+        }
+        if (id == 2) {
+        $scope.all_check_point = 1;
+        var toggleStatus = false;
+        $scope.enableAssign = false;
+        $scope.listEvent = 0;
+        }
+
+        angular.forEach($scope.getQuestionsList , function(itm) { itm.selected = toggleStatus; });
+    }
+
+              $scope.checkbox = [];
+              $scope.optionToggled = function(idn) {
+                       console.log('optionToggled caleled ' , 'idn ' , idn );
+
+                        if ($scope.checkbox.indexOf(idn) !== -1) {
+                            $scope.checkbox.pop(idn);
+                        } else {
+                            $scope.checkbox.push(idn);
+                        }
+                        if ($scope.checkbox.length > 0) {
+                            $scope.enableAssign = true;
+                        } else {
+                            $scope.enableAssign = false;
+                        }
+               $scope.isAllSelected = $scope.getQuestionsList.every(function(itm) {
+            return itm.selected; })
+
+
+console.log('$scope.isAllSelected  ' , $scope.isAllSelected ) ;
+                    }
+
+
+
+
+    $scope.makeAssignment = function() {
+      console.log('makeAssignment called');
+
+        $scope.adata = {};
+        console.log('$localStorage.userId' , $localStorage.userId);
+        if ($localStorage.userId != undefined) { 
+
+            $scope.adata.seller_id = $localStorage.userId;
+
+            if ($scope.listEvent == 1) {
+                $scope.adata.question = $scope.question_ids;
+            } else {
+                $scope.adata.question = $scope.checkbox;
+            }
+
+            $scope.adata.event = $rootScope.eventId;
+            $scope.adata.child_series_event = $rootScope.child_series_event ;
+
+            console.log('$scope.adata' , $scope.adata)
+
+           $questionService.makeAssignmentOverview($scope.adata, function(response) {
+                if (response.code == 200) {
+                  //  $rootScope.question = $localStorage.question = "";
+              
+for(var key in $scope.adata.question) {
+  var q_id = $scope.adata.question[key];
+  holdval.push(q_id);
+}
+
+console.log('holdval' , holdval);
+$scope.Cancel();
+$rootScope.getQuestionsOfEvent();
+                   
+                } 
+            });
+
+            
+
+
+        } else {
+            $scope.eventdata = "";
+        }
+    };
+
+
+
+            }
+        });
+    };
 
 
      //Add email Report pop up

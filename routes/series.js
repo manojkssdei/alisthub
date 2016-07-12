@@ -67,6 +67,7 @@ module.exports = function(app, express) {
 
         // Save event setting data
         router.post('/saveSetting' , supportCrossOriginScript , EventSetting.saveSetting);
+        
 
         
          

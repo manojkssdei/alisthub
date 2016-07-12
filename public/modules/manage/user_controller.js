@@ -179,7 +179,8 @@ angular.module('alisthub')
         $state.go('login');
     }
     var $serviceTest = $injector.get("users");
-
+    $scope.success_message_bundle = false;
+    $scope.success_bundle = '';
     /*get user details*/
     $scope.data = {};
     $scope.data.userId = $stateParams.id;
@@ -198,7 +199,13 @@ angular.module('alisthub')
         $serviceTest.savePerModules({'modules':$scope.modules,'user':$scope.data.userId}, function(response) {
             $scope.loader = false;
             if (response.code == 200) {
-                console.log(response.result);
+                $scope.success_message_bundle = true;
+                  $scope.success_bundle = 'User permission saved successfully';
+                  $timeout(function() {
+                    $scope.error = '';
+                    $scope.success_message_bundle = false;
+                    $scope.success_bundle = '';
+                  }, 3000);
             }   
         });
     }

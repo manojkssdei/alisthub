@@ -192,6 +192,8 @@ exports.checkSellerSubUser = function(req,res) {
     if (err) {
       res.json({error:err,code:101});
     }
+    else{
     res.json({result:results,code:200});
+    }
   });
 }

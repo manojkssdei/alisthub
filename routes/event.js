@@ -75,6 +75,9 @@ module.exports = function(app, express) {
   router.post('/savepricelevel', Event.savepricelevel);
   /*get price level*///
   router.post('/getPricelevel', Event.getPricelevel);
+  /*get price level*///
+  router.post('/getShowclixPricelevel', Event.getShowclixPricelevel);
+  //router.get('/getShowclixPricelevel/:id', Event.getShowclixPricelevel);
   /*Remove Price level*///
   router.post('/removepricelevel', Event.removepricelevel);
   /*change price level status*///

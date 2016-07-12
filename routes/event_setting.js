@@ -98,6 +98,11 @@ module.exports = function(app, express) {
     router.post('/getQuestionsOfEvent', question_setting.getQuestionsOfEvent);
 
     
+    router.post('/unassignQuestionSeries' , question_setting.unassignQuestionSeries);
+
+    
+    router.post('/unassignQuestionEvent' , question_setting.unassignQuestionEvent);
+
     
 
 
@@ -250,6 +255,10 @@ module.exports = function(app, express) {
     router.post('/getEventPriceLevel', bundle_setting.getEventPriceLevel);
     
     router.post('/saveQuestionLocationPosition', question_setting.saveQuestionLocationPosition);
+    
+    router.post('/makeAssignmentOverview', question_setting.makeAssignmentOverview);
+
+
 
     
     

@@ -55,7 +55,7 @@ exports.getAllEvent=function(req,res) {
     }
   }
 
-  sql += " ORDER BY events.id ASC";
+  sql += " ORDER BY events.id DESC";
   console.log(sql);
   
   connection.query(sql,function(err,result) {

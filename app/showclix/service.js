@@ -71,11 +71,13 @@ module.exports = function()
                  "seller_id":data.showclix_seller_id,
                  "venue_id":"34657",
                  "event_type":"3",
-                 "status":data.step
+                 "status":"5"
                 };
       if(data.showclix_id != "" && data.showclix_id !== undefined){
         console.log("---------3-------");
         input.event_id = data.showclix_id;
+        input.status   = '5';
+        console.log(input);
         request.put({
                 headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/Event/"+data.showclix_id,
@@ -103,14 +105,13 @@ module.exports = function()
                   var dataw = response.body;
                   
                   if (isJson(response.body)) {
-                    str = (response.body);
+                    str = JSON.parse(response.body);
                   }
+                  console.log(str);
                   
-                 
-                                                   
-                  if (response.body.event_id && response.body.event_id !== undefined) {
+                  if (str.event_id && str.event_id !== undefined) {
                     console.log("---------6-------");
-                    return next({status:1,location:response.body.event_id});
+                    return next({status:1,location:str.event_id});
                   }
                   else
                   {
@@ -243,12 +244,29 @@ module.exports = function()
   }
 
   
+  this.get_price_level = function(req,res,next)
+  {
+    request.get({
+                headers: {"content-type": "application/json"}, //{'X-API-Token':req.showclix_token},
+                url:     "https://api.showclix.com/Event/"+req+"/price_levels",
+                form:    {} }, function(error, response, body){
+                  console.log("====================");
+                  console.log(response.headers);
+                  console.log("====================");
+                  console.log(response.body);
+                  console.log("====================");
+                  return next({status:1,data:response.body});
+    });
+  }
+
+
+  
   this.add_package = function(data,res,next)
   {
      var input = {
-                  "event": "Static Package By SHOWCLIX API",
+                  "event": "Static Package By SHOWCLIX API 8",
                   "behavior_set": "5",
-                  "description": "Static Package description By SHOWCLIX API",
+                  "description": "Static Package description By SHOWCLIX API 8",
                   "private_event": "0",
                   "ages": "18",
                   "image": null,
@@ -258,7 +276,7 @@ module.exports = function()
                   "date_edited": null,
                   "event_start" : "2016-08-24 13:05:45",
                   "event_end": "2016-08-26 13:05:45",
-                  "short_name": "static_package_short_name",
+                  "short_name": "static_package_short_name_8",
                   "user_id": "28676",
                   "seller_id": "22876",
                   "venue_id":"34657",
@@ -317,7 +335,8 @@ var postData = {
                });
     
   }
-  
+   
+
  
    this.add_events_of_package = function(data,res,next)
   {

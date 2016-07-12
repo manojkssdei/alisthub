@@ -174,9 +174,22 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
       });
     }
 
+
+ $scope.viewOverviewHref = function(eventId,recurringOrNot) {
+      if(recurringOrNot==0){
+        $location.path("/single_event_overview/" + eventId);  
+      } else {
+        $location.path("/series_event_overview/" + eventId);
+      }
+    }
+    
     $scope.getUpcommingEvent();
     $scope.getPastEvent();
     $scope.getEventSeries();
+
+
+   
+
 
     $scope.delEvent=function(event_id)
     {
