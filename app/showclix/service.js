@@ -1,3 +1,5 @@
+
+
 var showClix   = require('./../../constant.js');
 var request    = require('request');
 module.exports = function()
@@ -49,8 +51,7 @@ module.exports = function()
     
   this.add_event = function(data,res,next)
   {
-    
-   // required : event_name , address ,city , status (1, 2, 3, 4, 5, 7, 8),
+  // required : event_name , address ,city , status (1, 2, 3, 4, 5, 7, 8),
   //0.event_type :   int. 3 for General Admission Event, 2 for an Assigned Seating Event 
   //1.status : { Description: int. Events can be setup in stages. A status of 5 means the even is completely setup. A status of 4 means the event is in Preview Mode - only the seller can view the listing on ShowClix. 3, 2, and 1 each mean that the event is not complete and can be used to represent different stages in an event process if desired. 6 = canceled, 7 = paused, 8 = suspended.
 //Required: Yes
@@ -63,7 +64,7 @@ module.exports = function()
 //7.event_id :  int. Primary Key. Id of an event. (not required) 
     var input = {
                  "event":data.eventname,
-                 "description":data.content,
+                 "description":JSON.stringify(data.content),
                  "short_name":data.eventurl,
                  "event_start":data.event_startdatetime,
                  "sales_open":data.event_startdatetime,
@@ -71,17 +72,23 @@ module.exports = function()
                  "seller_id":data.showclix_seller_id,
                  "venue_id":"34657",
                  "event_type":"3",
-                 "status":data.step
+                 "status":"5"
                 };
       if(data.showclix_id != "" && data.showclix_id !== undefined){
         console.log("---------3-------");
-        input.event_id = data.showclix_id;
-        request.put({
-                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
+        input.event_id = data.showclix_id.toString();
+        input.status   = '5';
+        delete input.description;
+        delete input.short_name;
+        delete input.sales_open;
+        
+        //////////////////////////////////////////////////////////////////////////////////////
+        request.post({
+                headers: {'Content-Type':'application/json','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/Event/"+data.showclix_id,
                 form:    input }, function(error, response, body){
                   console.log("---------4-------");
-                  //console.log(response.body);
+                  
                   var str = "There is some problem on server. Please try after some time.";
                   function isJson(item) {
                       item = typeof item !== "string"
@@ -103,14 +110,13 @@ module.exports = function()
                   var dataw = response.body;
                   
                   if (isJson(response.body)) {
-                    str = (response.body);
+                    str = JSON.parse(response.body);
                   }
+                  console.log(str);
                   
-                 
-                                                   
-                  if (response.body.event_id && response.body.event_id !== undefined) {
+                  if (str.event_id && str.event_id !== undefined) {
                     console.log("---------6-------");
-                    return next({status:1,location:response.body.event_id});
+                    return next({status:1,location:str.event_id});
                   }
                   else
                   {
@@ -119,6 +125,9 @@ module.exports = function()
                   }
                    
           });
+          //////////////////////////////////////////////////////////////////////////////// 
+        
+        
       }
       else{
     request.post({
@@ -262,45 +271,102 @@ module.exports = function()
   
   this.add_package = function(data,res,next)
   {
-     var input = {
-                  "event": "Static Package By SHOWCLIX API 8",
-                  "behavior_set": "5",
-                  "description": "Static Package description By SHOWCLIX API 8",
-                  "private_event": "0",
-                  "ages": "18",
-                  "image": null,
-                  "event_category_id": "5",
-                  "genre": null,
-                  "date_added": "2016-06-21 05:18:02",
-                  "date_edited": null,
-                  "event_start" : "2016-08-24 13:05:45",
-                  "event_end": "2016-08-26 13:05:45",
-                  "short_name": "static_package_short_name_8",
-                  "user_id": "28676",
-                  "seller_id": "22876",
-                  "venue_id":"34657",
-                  "event_type":"3",
-                  "status": "1",
-                  "image_url": null,
-                  "thumbnail_url": null,
-                  "product_map": {
-                              "892707": {
-                                  "event_product_map_id": "892707",
-                                  "event_id": "4206298",
-                                  "product_id": "1878",
-                                  "price": "22.00",
-                                  "upsell_price": null,
-                                  "position": "3",
-                                  "sort_position": null,
-                                  "box_office_hide": "0"
-                              }
 
-                          },
+// var fields = ['package_name', '', 'online_sales_open_time','online_sales_open_date_time', 'immidiately', 'online_sales_close_time', 'online_sales_close_date_time', 'event_type', '', 'ages', 'custom_age', 'website', 'image', 'display_image_in_listing' ];
 
-                };
+/*
+data.user_id - (int) 
+data.seller_id - (int) 
+data.event - (string) 
+data.behavior_set - (int) 
+data.description - (string) 
+data.private_event - (int) 1- don't show up in searches and public listings
+                           0- show up in searches and public listings
+data.ages - (int) 0,18,19,21
+data.genre -  (string) Genre of the event. Open Field. e.g. Pop, Classical, Rock, Raffle, etc.
+data.event_type - (int) 3 for General Admission Event, 2 for an Assigned Seating Event
 
- //"event_id": "4206298",
- //"event_category_id": "5",
+*/
+   var input_1 = {
+  "user_id": "28676",
+  "seller_id": "22876",
+  "event": data.package_name ,
+  "behavior_set": "5",
+  "description": data.package_description ,
+  "private_event": "0",
+  "ages": data.ages ,
+  "image": data.image,
+  "event_category_id": data.category,
+  "genre": null,
+  "date_added": data.created ,
+  "date_edited": data.modified ,
+  "event_start": "2016-07-15 03:30:30",
+  "sales_open": "2016-07-10 03:30:30",
+  "event_end": "2016-07-21 21:00:00",
+  "short_name": data.short_name ,
+  "image_url": data.image,
+  "thumbnail_url": data.image,
+  "status":data.status,
+  "event_type":"3",
+  "venue_id":"34657" ,
+  "product_map": {
+            "892707": {
+                "event_product_map_id": "892707",
+                "event_id": "4206298",
+                "product_id": "1878",
+                "price": "22.00",
+                "upsell_price": null,
+                "position": "3",
+                "sort_position": null,
+                "box_office_hide": "0"
+            }
+        },
+};
+
+
+console.log('--------------------input_1---------------------');
+console.log(input_1 );
+
+    var input = {
+  "user_id": "28676",
+  "seller_id": "22876",
+  "event": "Technical Challenge",
+  "behavior_set": "5",
+  "description": "This is Technical Challenge package",
+  "private_event": "0",
+  "ages": "0",
+  "image": null,
+  "event_category_id": "20",
+  "genre": null,
+  "date_added": "2016-06-21 05:18:02",
+  "date_edited": null,
+  "event_start": "2016-07-15 03:30:30",
+  "sales_open": "2016-07-10 03:30:30",
+  "event_end": "2016-07-21 21:00:00",
+  "short_name": "technical_challege",
+  "image_url": null,
+  "thumbnail_url": null,
+  "status":"1",
+  "event_type":"3",
+  "venue_id":"34657" ,
+  "product_map": {
+            "892707": {
+                "event_product_map_id": "892707",
+                "event_id": "4206298",
+                "product_id": "1878",
+                "price": "22.00",
+                "upsell_price": null,
+                "position": "3",
+                "sort_position": null,
+                "box_office_hide": "0"
+            }
+        },
+}
+
+/*
+if(event_id) {
+ input.event_id = "4206298";
+} */
 
 console.log('data : ' , data );
 console.log('data.showclix_token : ' , data.showclix_token );
@@ -313,9 +379,8 @@ var postData = {
 
     request.post( postData, function(error, response, body){
                   var str = response.body;
-                  console.log(response.body);
-                                  
-                 /* if (response.headers.location) {
+                  //console.log(response.body);
+                  if (response.headers.location) {
                     return next({status:1,location:response.headers.location});
                   }
                   else
@@ -327,10 +392,7 @@ var postData = {
                     var percent3 = percent3.replace("</h2>", "");
                     var percent3 =percent3.replace("</h3>", "");
                     return next({status:0,location:"","error":percent3});
-                  }
-
-                  */
-                   
+                  }                   
                });
     
   }

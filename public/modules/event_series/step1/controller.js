@@ -700,8 +700,9 @@ $scope.rec_year_func = function() {
               $scope.data.event_id = response.parent_id;
               $stateParams.eventId = response.parent_id;
               //$localStorage.eventId = response.parent_id
-              $scope.eventId = response.parent_id
-              
+              $scope.eventId = response.parent_id;
+              $stateParams.eventId = $scope.eventId;
+              $location.path("/create_series_step2/"+$stateParams.eventId);
               //$scope.data={};
               $scope.error_message=false;
               $timeout(function() {

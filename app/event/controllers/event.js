@@ -117,7 +117,19 @@ exports.saveEvent = function(req,res) {
          if (err) {
           res.json({error:err,code:101});
          }
-         res.json({result:data.id,code:200});
+         else{
+                // showclix start 
+                    var showClix2 = new showClix();
+                        showClix2.add_event(data,res,function(sdata){
+                        if (sdata.status == 1) {
+                            res.json({result:data.id,code:200});
+                        } else {
+                            res.json({result:"",error:"error",code:101});  
+                        }
+                    });
+                //showclix end
+         }
+         
       });
       
        
@@ -355,8 +367,9 @@ exports.getEventSeries=function(req,res) {
 
  // var curtime = moment().format('YYYY-MM-DD');
 
+
   var sql = "SELECT  event_package.id,  event_package.package_name, event_package.online_sales_open_date_time FROM event_package where event_package.user_id = " + user_id + " ORDER BY event_package.id ASC LIMIT 5";
-  
+
   connection.query(sql,function(err,result) {
     if (err) {
       res.send({err:"error",code:101}); 
@@ -1148,7 +1161,8 @@ exports.stepOneEventPackage = function(req,res) {
 
     req.body.created = curtime;
     req.body.modified = curtime;
-
+    req.body.status = 1;
+   // req.body.short_name = req.body.package_name;
 
 
     data = req.body;
@@ -1176,7 +1190,7 @@ exports.stepOneEventPackage = function(req,res) {
             if (err7) {
                 res.json({ error: err7,code: 101});
             }
-          if(results) {
+         /* if(results) {
            var package_id = '';
             if(results.insertId != 0 && results.insertId !='' ) {
               package_id = results.insertId;
@@ -1219,26 +1233,17 @@ showClix2.add_events_of_package(events_of_packages,res,function(sdata1){
           }
           res.json({ result: package_id , code: 200 });
         }
+
+        */
         });
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
           } else {
+            console.log('---------------------------');
             console.log(' showclix error exist' );
+             res.json({result:"",error:sdata.error,code:101});  
 
              // rollback_event(eventId);
              // res.json({result:"",error:sdata.error,code:101});  
@@ -1536,27 +1541,40 @@ exports.getEmailTemplateOfEvent=function(req,res) {
 
 
 exports.pauseSales= function(req, res) {
-// add query to pause sales here ................
-var sales_query = "UPDATE events SET pause_sales = 1 where id = " + req.body.event_id ;
+
+
+
+var pause_sales = req.body.pause_sales;
+var updated_pause_sales;
+if(pause_sales == 0 ) { updated_pause_sales = 1; }
+if(pause_sales == 1 ) { updated_pause_sales = 0; }
+
+var sales_query = "UPDATE events SET pause_sales = "+updated_pause_sales+" where id = " + req.body.event_id ;
 console.log('sales_query ' , sales_query) ;
  connection.query( sales_query , function(err, result) {
         if (err) {
             res.json({ error: err, code: 101 });
         }
-        res.json({ result: result, code: 200 });
+        res.json({ result: result, code: 200 , updated_pause_sales : updated_pause_sales });
     });
 }
 
 
 exports.addFavouriteEvent= function(req, res) {
 // add query to pause sales here ................
-var sales_query = "UPDATE events SET favorite_event = 1 where id = " + req.body.event_id ;
+
+var favorite_event_status = req.body.favorite_event_status;
+var updated_favorite_event;
+if(favorite_event_status == 0 ) { updated_favorite_event = 1; }
+if(favorite_event_status == 1 ) { updated_favorite_event = 0; }
+
+var sales_query = "UPDATE events SET favorite_event = "+updated_favorite_event+" where id = " + req.body.event_id ;
 console.log('sales_query ' , sales_query) ;
  connection.query( sales_query , function(err, result) {
         if (err) {
             res.json({ error: err, code: 101 });
         }
-        res.json({ result: result, code: 200 });
+        res.json({ result: result, code: 200 , updated_favorite_event : updated_favorite_event });
     });
 }
 

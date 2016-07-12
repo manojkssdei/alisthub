@@ -57,6 +57,8 @@ angular.module('alisthub').controller('seriesStep2Controller', function($scope, 
     $serviceTest.getEvent({'event_id':$scope.eventId},function(response){
                 $scope.pageloader = false;   
                 $scope.data1=response.results[0];
+		$scope.data1.type_of_event = response.results[0].type_of_event == null?0:response.results[0].type_of_event;
+		$scope.data1.price = response.results[0].price == null || response.results[0].price == ""?0:response.results[0].price;
 		$scope.data1.facebook=response.results[0].facebook_url != null?response.results[0].facebook_url:"";
 		$scope.data1.twitter=response.results[0].twitter_url != null?response.results[0].twitter_url:"";
 		$scope.data1.eventwebsite=response.results[0].website_url != null?response.results[0].website_url:"";
