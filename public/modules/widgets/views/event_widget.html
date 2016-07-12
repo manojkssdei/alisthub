@@ -39,7 +39,7 @@ Simply customize your settings below and copy/paste the code where you'd like yo
 	  <div class=col-sm-6>
        <section class="form-group">
             <label for="title">Title Text</label>
-<input type="text" name="title" ng-model="data.title" class="form-control" placeholder="upcoming event" required>
+<input type="text" name="title" ng-model="data.title" ng-blur="title_text()" class="form-control" placeholder="upcoming event" required>
          </section>
         </div>
 	 <div class=col-sm-6>
@@ -103,7 +103,7 @@ Simply customize your settings below and copy/paste the code where you'd like yo
 	<div class=col-sm-12>
 	  <div class=col-sm-6>
        <section class="form-group">
-            <label>Display Vanue?</label>
+            <label>Display Venue?</label>
               <div class="onoffswitch mt-3">
               <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch8" checked>
               <label class="onoffswitch-label" for="myonoffswitch8"></label>
@@ -167,6 +167,72 @@ Simply customize your settings below and copy/paste the code where you'd like yo
 
 </div> -->
   </div>
+
+
+<br>
+<br>
+<h3>style</h3>
+<div class="gray-frame sub-fields">
+
+            <!-- Date Event Group -->
+      <div class="event-date fieldSection">
+              <div class="row">
+
+              <div class="form-group">
+               <section class="row">
+               <div class="col-sm-2">preview</div>
+         <section class="col-sm-8">
+            <section class="form-group">
+              <textarea name="textarea" class="form-control" cols="150" rows="5"></textarea>
+             </section>
+          </section>  
+      </section>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2">shell background</div>
+                <div class="col-sm-8 ">
+                    <input type="text" class="form-control" ng-model="background" />
+                </div>
+            </div>
+            <br>
+            <br></br>
+            <div class="form-group">
+                <div class="col-sm-2">shell text</div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="text" />
+                </div>
+            </div>
+            <br><br><br>
+            <div class="form-group">
+                <div class="col-sm-2">row background </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="row_background" />
+                </div>
+            </div>
+            <br><br><br>
+             <div class="form-group">
+                <div class="col-sm-2">row text</div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="row_text" />
+                </div>
+            </div>
+            <br><br><br>
+             <div class="form-group">
+                <div class="col-sm-2">links</div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="links" />
+                </div>
+            </div>
+           
+     
+</div>
+</div>
+</div>
+
+
+
 <br>
 <br>
 <h3>Size</h3>
@@ -220,7 +286,9 @@ Simply customize your settings below and copy/paste the code where you'd like yo
       <section class="row">
          <section class="col-sm-8">
             <section class="form-group">
-              <textarea name="textarea" class="form-control" cols="150" rows="5"></textarea>
+              <textarea ng-model="embed_code" name="textarea" class="form-control" cols="150" rows="5">
+                
+              </textarea>
              </section>
           </section>  
       </section>

@@ -25,7 +25,7 @@
               <section class="col-sm-4">
                   <div class="form-group" ng-class="{ 'has-error' : myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid }"  >
                     <label class="form-label">Event Inventory<span class="req">*</span></label>
-                    <input  type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" ng-blur="eventInventoryCalc()" required >
+                    <input  type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" class="event_number_wd form-control" placeholder="Event Inventory" ng-blur="eventInventoryCalc()" required >
 
                     <p class="help-inline error-fld ng-binding"  ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">Enter valid event inventory.</p>
 
@@ -435,7 +435,7 @@
             </fieldset>
             <fieldset class="form-group" ng-hide="online_price">
                <div class="col-sm-4">Online Price(USD $)</div>
-               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.online_price" name="online_price" class="form-control" ng-blur="onlinePricefunc()" >
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.online_price" name="online_price" class="event_number_wd form-control" ng-blur="onlinePricefunc()" >
                <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.online_price.$invalid && !pricelevelForm.online_price.$pristine">Please enter valid online price</p>
                </div>
 
@@ -445,7 +445,7 @@
             
             <fieldset class="form-group" ng-hide="min_price">
                <div class="col-sm-4">Minimum Price(USD $)</div>
-               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.minimum_price" name="minimum_price" class="form-control">
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.minimum_price" name="minimum_price" class="event_number_wd form-control">
                <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_price.$invalid && !pricelevelForm.minimum_price.$pristine">Please enter valid minimum price</p>
                </div>
 
@@ -454,7 +454,7 @@
             </fieldset>
             <fieldset class="form-group" ng-hide="min_price">
                <div class="col-sm-4">Suggested Price(USD $)</div>
-               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.suggested_price" name="suggested_price" class="form-control" ng-blur="suggestedPricefunc()" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.suggested_price.$invalid && !pricelevelForm.suggested_price.$pristine">Please enter valid suggested price</p>
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.suggested_price" name="suggested_price" class="event_number_wd form-control" ng-blur="suggestedPricefunc()" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.suggested_price.$invalid && !pricelevelForm.suggested_price.$pristine">Please enter valid suggested price</p>
                </div>
 
                
@@ -463,7 +463,7 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Box Office Price(USD $)</div>
-               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.box_office_price" name="box_office_price" class="form-control"><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.box_office_price.$invalid && !pricelevelForm.box_office_price.$pristine">Please enter valid box office price</p>
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.box_office_price" name="box_office_price" class="event_number_wd form-control"><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.box_office_price.$invalid && !pricelevelForm.box_office_price.$pristine">Please enter valid box office price</p>
                </div>
 
 
@@ -473,7 +473,7 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Quantity Available</div>
-               <div class="col-sm-8"><input  type="number" min="0" max={{eventInventory}} ng-model="data1.quantity_available" name="quantity_available" ng-change="QuanAvailClear()" class="form-control" >
+               <div class="col-sm-8"><input  type="number" min="0" max={{eventInventory}} ng-model="data1.quantity_available" name="quantity_available" ng-change="QuanAvailClear()" class="event_number_wd form-control" >
                <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.quantity_available.$invalid && !pricelevelForm.quantity_available.$pristine">Please enter valid available quantity or less than inventory remaining</p>
                </div>
             </fieldset>
@@ -516,7 +516,7 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Minimum Per Order</div>
-               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_per_order.$invalid && !pricelevelForm.minimum_per_order.$pristine">Please enter valid number or less than available quanity</p>
+               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.minimum_per_order" name="minimum_per_order" class="event_number_wd form-control" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_per_order.$invalid && !pricelevelForm.minimum_per_order.$pristine">Please enter valid number or less than available quanity</p>
                </div>
                
                
@@ -525,7 +525,7 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Maximum Per Order</div>
-               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control" >
+               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.maximum_per_order" name="maximum_per_order" class="event_number_wd form-control" >
                <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.maximum_per_order.$invalid && !pricelevelForm.maximum_per_order.$pristine">Please enter valid number or less than available quanity</p>
                </div>
 
@@ -649,7 +649,9 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                                             <p class="help-inline error-fld ng-binding" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter bundle name</p>
                                           </div>
                                         </div>
-                                        <div class="col-sm-8">
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-sm-12">
                                           <div class="form-group">
                                             <label for="EventName"> Description</label>
                                             <div class="bundle-editr" >
@@ -662,7 +664,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                                         <div class="col-sm-4" >
                                           <div class="form-group">
                                             <label for="EventName"> Limit<span class="req-limit">*</span></label>
-                                            <input  type="number" min="0" class="form-control" placeholder="Limit" ng-model="bundle.bundle_limit" name="bundle_limit"/>
+                                            <input  type="number" min="0" class="event_number_wd form-control" placeholder="Limit" ng-model="bundle.bundle_limit" name="bundle_limit"/>
                                             <p class="help-inline error-fld ng-binding"  ng-show="bundleForm.bundle_limit.$invalid && !bundleForm.bundle_limit.$pristine">Please enter valid limit</p>
                                             
                                           </div>
@@ -671,7 +673,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                                         <div class="col-sm-4">
                                           <div class="form-group">
                                             <label for="EventName"> Minimum Purchase</label>
-                                            <input type="number" min="0"  class="form-control" placeholder="Minimum Purchase" ng-model="bundle.bundle_minimum_purchase" name="bundle_minimum_purchase"/>
+                                            <input type="number" min="0"  class="event_number_wd form-control" placeholder="Minimum Purchase" ng-model="bundle.bundle_minimum_purchase" name="bundle_minimum_purchase"/>
 
                                             <p class="help-inline error-fld ng-binding"  ng-show="bundleForm.bundle_minimum_purchase.$invalid && !bundleForm.bundle_minimum_purchase.$pristine">Please enter valid minimum purchase limit</p>
                                            
@@ -711,7 +713,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                                         <div class="col-sm-4">
                                           <div class="form-group">
                                             <label for="EventName"> Inventory</label>
-                                            <input type="number" min="0" class="form-control" ng-disabled="!bundle.assign_inventory" placeholder="Inventory" ng-model="bundle.bundle_inventory" name="bundle_inventory"/>
+                                            <input type="number" min="0" class="event_number_wd form-control" ng-disabled="!bundle.assign_inventory" placeholder="Inventory" ng-model="bundle.bundle_inventory" name="bundle_inventory"/>
                                             <p class="help-inline error-fld ng-binding"  ng-show="bundleForm.bundle_inventory.$invalid && !bundleForm.bundle_inventory.$pristine">Please enter valid value</p>
                                           </div>
                                         </div>
@@ -988,7 +990,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
         <fieldset class="form-group">
            <div class="col-sm-4">Available Products</div>
            <div class="col-sm-8">
-           <select ng-model="product.product_id" name="product_id" class="form-control" ng-change="showPrice()" required>
+           <select ng-model="product.product_id" name="product_id" class="event_number_wd form-control" ng-change="showPrice()" required>
               <option ng-selected="product.product_id == productVal.id"
  ng-repeat="productVal in productList" value="{{productVal.id}}">{{productVal.product_name}}</option>
            </select>
@@ -997,12 +999,12 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
         </fieldset>
         <fieldset class="form-group">
            <div class="col-sm-4">Retail Price</div>
-           <div class="col-sm-8"><span class="form-control">{{product_retail_price}}</span></div> 
+           <div class="col-sm-8"><span class="event_number_wd form-control">{{product_retail_price}}</span></div> 
         </fieldset>
         
         <fieldset class="form-group" ng-hide="min_price">
            <div class="col-sm-4">Price(USD $)</div>
-           <div class="col-sm-8"><input type="text" ng-model="product.price" name="minimum_price" class="form-control"></div>
+           <div class="col-sm-8"><input type="text" ng-model="product.price" name="minimum_price" class="event_number_wd form-control"></div>
         </fieldset>
         
         <fieldset class="form-group">

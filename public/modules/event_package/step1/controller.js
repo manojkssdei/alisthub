@@ -487,7 +487,28 @@ console.log('$scope.data.online_sales_open_time' , $scope.data.online_sales_open
     /************** Date Time Merge ends **************/
 
     /************** Function to check form errors starts **************/
-
+    $scope.formatDate = function(d){
+        var d2 = new Date();
+        var n2 = d2.getTimezoneOffset(); 
+        if (n2 > 0) {
+          var newdate = new Date(d .getTime() + n2*60000);
+        } else {
+          var newdate = new Date(d .getTime() - n2*60000);
+        }
+        
+        d = newdate;
+        console.log(d);
+        
+        function addZero(n){
+           return n < 10 ? '0' + n : '' + n;
+        }
+        console.log(d.getFullYear()+"-"+ addZero(d.getMonth()+1) + "-" + addZero(d.getDate()) + " " + 
+                 addZero(d.getHours()) + ":" + addZero(d.getMinutes()) + ":" + addZero(d.getMinutes()));
+      
+          return d.getFullYear()+"-"+ addZero(d.getMonth()+1) + "-" + addZero(d.getDate()) + " " + 
+                 addZero(d.getHours()) + ":" + addZero(d.getMinutes()) + ":" + addZero(d.getMinutes());
+  }
+    
     $scope.checkErrors = function() {
         var error = $scope.myForm.$error;
         angular.forEach(error.required, function(field) {
@@ -540,6 +561,8 @@ console.log('$scope.data.online_sales_open_time' , $scope.data.online_sales_open
             if ($localStorage.userId != undefined) {
                 $scope.data.user_id = $localStorage.userId;
                 //$scope.loader = true;
+                $scope.data.showclix_token = $localStorage.showclix_token;
+                $scope.data.showclix_seller_id = $localStorage.showclix_seller_id;
                 $serviceTest.stepOneEventPackage($scope.data, function(response) {
                     console.log('response', response);
                     //$scope.loader = false;
