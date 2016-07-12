@@ -222,10 +222,18 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
 
 
   $scope.data1 = {};
-  $scope.data1 = {
-    type_of_event: 0,
-    price: 0
-  };
+
+$scope.data1.type_of_event=0;
+$scope.data1.price=0;
+
+
+  // $scope.data1 = {
+  //   type_of_event: 0,
+  //   price: 0
+  // };
+
+
+ 
 
 
   //To get ages

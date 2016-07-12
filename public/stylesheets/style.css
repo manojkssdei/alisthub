@@ -25,6 +25,25 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   text-align: left !important;
 }
 
+
+
+/*set the width of event step1*/
+/*.success-fld.ng-binding
+
+{
+  width:33.9%;
+}*/
+.event_name_wd.form-control.ng-pristine.ng-untouched.ng-valid.ng-scope
+{
+  width:33.9%;
+}
+
+
+
+
+
+
+
 /* custom error messages for assign discount*/
 .custom_error {
     background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
