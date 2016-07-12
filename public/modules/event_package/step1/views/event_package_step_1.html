@@ -76,7 +76,7 @@
                                 <div class="form-group">
                                     <label >Online Sales Open <span class="req">*</span></label>
                                     <div class="form-group datepicker">
-                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.online_sales_open_date" is-open="popup3.opened" close-text="Close" alt-input-formats="altInputFormats" ng-disabled="data.immidiately" ng-required="!data.immidiately"  ng-change="changedendtime()"  />
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.online_sales_open_date" is-open="popup3.opened" datepicker-options="options"  close-text="Close" alt-input-formats="altInputFormats" ng-disabled="data.immidiately" ng-required="!data.immidiately"  ng-change="changedendtime()"  />
                                         <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                                     </div>
@@ -104,7 +104,7 @@
                                 <div class="form-group">
                                     <label>Online Sales Close <span class="req">*</span></label>
                                     <div class="form-group datepicker">
-                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.online_sales_close_date"  min-date="mindate" is-open="popup4.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" required  ng-change="changedendtime()"  />
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.online_sales_close_date"  min-date="mindate" is-open="popup4.opened" datepicker-options="options1"  close-text="Close" alt-input-formats="altInputFormats" required  ng-change="changedendtime()"  />
                                         <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                                     </div>
@@ -225,7 +225,7 @@
 <!-- {{data1}}-->
 <fieldset  class="table table-striped" style="padding-top:10px">
 <div class="col-sm-5 form-group datepicker">
-<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="viewEvents()"/>
+<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="options" close-text="Close" alt-input-formats="altInputFormats" ng-change="viewEvents()"/>
 <span class="input-group-btn assign-discount">
 <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
 </div>

@@ -1655,7 +1655,28 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
 
          
-
+//////////////////// downloads/////////////////
+.state('downloads', {
+            url: '/downloads',
+            
+            views: {
+                "lazyLoadView": {
+                  controller: 'downloadController',
+                  templateUrl: 'modules/downloads/views/downloads.html'
+                }
+            },
+             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+              authentication:routerApp.logauthentication,
+              resources: ['$ocLazyLoad', '$injector',function($ocLazyLoad, $injector) {
+                // you can lazy load files for an existing module
+                return $ocLazyLoad.load('modules/downloads/service.js').then(function(){
+                }).then(function(){
+                return $ocLazyLoad.load(['modules/downloads/controller.js']);
+                })
+              }]
+            }
+          
+        })
 
 /////////////////// Widgets setting///////////////////////
        .state('widgets', {

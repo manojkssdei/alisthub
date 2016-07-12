@@ -185,9 +185,63 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
         allowedContent: true,
         entities: false
     };
-    $scope.onReady = function() {
-        // ...
-    };
+
+
+
+    //////////////////////////////
+   // Called when the editor is completely ready.
+  $scope.onReady = function() {
+  
+  };
+ 
+  $scope.options = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+
+  $scope.options1 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+  $scope.options2 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+  // $scope.options4 = {
+  //   customClass: getDayClass,
+  //   minDate: new Date(),
+  //   showWeeks: false
+  // };
+
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date(tomorrow);
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [{
+    date: tomorrow,
+    status: 'full'
+  }, {
+    date: afterTomorrow,
+    status: 'partially'
+  }];
+
+  function getDayClass(data) {
+    var date = data.date,
+      mode = data.mode;
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+      for (var i = 0; i < $scope.events.length; i++) {
+        var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+        if (dayToCheck === currentDay) {
+          return $scope.events[i].status;
+        }
+      }
+    }
+    return '';
+  }
     /************** ck editor ends ****************/
 
     //To get Event Category
@@ -885,14 +939,14 @@ console.log('$scope.eventcheckbox ' , $scope.eventcheckbox );
     $scope.options = {
         customClass: getDayClass,
         minDate: new Date(),
-        showWeeks: true
+        showWeeks: false
     };
 
-    $scope.options1 = {
-        customClass: getDayClass,
-        initDate: current,
-        showWeeks: true
-    };
+    // $scope.options1 = {
+    //     customClass: getDayClass,
+    //     initDate: new Date(),
+    //     showWeeks: false
+    // };
 
     var tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
