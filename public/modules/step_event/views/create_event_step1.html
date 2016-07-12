@@ -20,26 +20,56 @@
         
         <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
           <div class="form-group" ng-class="{ 'has-error' : myForm.eventname.$dirty && myForm.eventname.$invalid }"  >
+          <div class="row">
+           <div class="col-sm-10">
+           <div class="form-group">
+
             <label for="eventname">Event Name<span class="req">*</span></label>
             <input tooltips tooltip-template="This is the title of your event. Minimum 3 characters, maximum 50 characters."  type="text" name="eventname" ng-model="data.eventname" minlength="3" maxlength="50" class="event_name_wd form-control" placeholder="Title of your Event" required >
             <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">Event Name is required</p>
-          </div>
-          <div class="form-group"  >
+
+        
+            </div>
+
+         <!--  <div class="form-group"> -->
+         <div class="col-sm-2"
             <label for="eventname">Event Url<span class="req">*</span></label>
            
-            <section class="form-group"  ng-class="{ 'has-error' : myForm.eventurl.$dirty && myForm.eventurl.$invalid }">
-                        <div class="domain-name"><input  type="text" name="eventurl" ng-model="data.eventurl" class="event_short_url form-control" tooltips tooltip-template="A ticketing page's unique URL. By default, the Event Name is plugged in as the last part of the URL. Must be 5 - 30 characters in length." placeholder="Url of your Event" ng-blur="checkeventurl();"  minlength="5" maxlength="30" required><span class="d1name">.alistixs.com</span></div>
+            <!-- <section class="form-group"  ng-class="{ 'has-error' : myForm.eventurl.$dirty && myForm.eventurl.$invalid }"> -->
+                        <div class="domain-name"><input  type="text" name="eventurl" ng-model="data.eventurl" class="event_short_url form-control" tooltips tooltip-template="A ticketing page's unique URL. By default, the Event Name is plugged in as the last part of the URL. Must be 5 - 30 characters in length." 
+                        ng-pattern="/^\S{3,}$/" ng-blur="checkeventurl();"  minlength="5" maxlength="30" required><span class="d1name">.alistixs.com</span></div>
                          <input type="hidden"  ng-model="data.domain_url_availability" class="form-control" required> 
                         <span ng-hide="successuniquemessage">
-                            <p class="success-fld" style=" width:33.9%;">{{unique}}</p>
+                            <p class="success-fld">{{unique}}</p>
                         </span>
                         <span ng-hide="erroruniquemessage">
                             <p class="error-fld">{{unique}}</p>
                         </span>
-                        <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventurl.$dirty && myForm.eventurl.$invalid">Event Url is required</p>
+                        <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventurl.$dirty && myForm.eventurl.$invalid.pattern">Event Url is required</p>
+                     <!--  </section> -->
+            </div>
+            </div>
+            </div>
+       <!--    </div> -->
+
+          </div>
+         <!--  <div class="form-group">
+            <label for="eventname">Event Url<span class="req">*</span></label>
+           
+            <section class="form-group"  ng-class="{ 'has-error' : myForm.eventurl.$dirty && myForm.eventurl.$invalid }">
+                        <div class="domain-name"><input  type="text" name="eventurl" ng-model="data.eventurl" class="event_short_url form-control" tooltips tooltip-template="A ticketing page's unique URL. By default, the Event Name is plugged in as the last part of the URL. Must be 5 - 30 characters in length." 
+                        ng-pattern="/^\S{3,}$/" ng-blur="checkeventurl();"  minlength="5" maxlength="30" required><span class="d1name">.alistixs.com</span></div>
+                         <input type="hidden"  ng-model="data.domain_url_availability" class="form-control" required> 
+                        <span ng-hide="successuniquemessage">
+                            <p class="success-fld">{{unique}}</p>
+                        </span>
+                        <span ng-hide="erroruniquemessage">
+                            <p class="error-fld">{{unique}}</p>
+                        </span>
+                        <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventurl.$dirty && myForm.eventurl.$invalid.pattern">Event Url is required</p>
                       </section>
             
-          </div>
+          </div> -->
           <div class="form-group field-group">
             <label>Date and Time<span class="req">*</span></label>
             <div class="event-date fieldSection">
@@ -145,30 +175,38 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="City">City<span class="req">*</span></label>
                                                     <input type="text" class="form-control" name="city" ng-model="data.city" ng-required='!venue_event_div'>
                                                     <span style="color:red" ng-show="myForm.city.$dirty && myForm.city.$invalid">  <span  ng-show="myForm.city.$error.required">City is required</span></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="Zipcode">Zipcode<span class="req">*</span></label>
                                                     <input type="text" class="form-control" ng-model="data.zipcode" name="zipcode" ng-required='!venue_event_div'>
                                                     <span style="color:red" ng-show="myForm.zipcode.$dirty && myForm.zipcode.$invalid">  <span  ng-show="myForm.zipcode.$error.required">Zipcode is required</span></span>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
+
+                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="City">State<span class="req">*</span></label>
                                                     <input type="text" class="form-control" ng-model="data.state" name="state" ng-required='!venue_event_div'>
                                                     <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
                                                 </div>
                                             </div>
-                                           <!--  <div class="col-sm-6">
+                                        </div>
+                                       <!--  <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="City">State<span class="req">*</span></label>
+                                                    <input type="text" class="form-control" ng-model="data.state" name="state" ng-required='!venue_event_div'>
+                                                    <span style="color:red" ng-show="myForm.state.$dirty && myForm.state.$invalid">  <span  ng-show="myForm.state.$error.required">State is required</span></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="Zipcode">Country<span class="req">*</span></label>
                                                     <input type="text" class="form-control" ng-model="data.country" name="country" ng-required='!venue_event_div'>
@@ -176,8 +214,8 @@
                                                     <input type="hidden" class="form-control" ng-model="data.latitude">
                                                     <input type="hidden" class="form-control" ng-model="data.longitude">
                                                 </div>
-                                            </div> -->
-                                        </div>
+                                            </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div role="tabpanel" id="location-event" ng-hide="location_event_div">
