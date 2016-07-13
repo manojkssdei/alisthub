@@ -51,15 +51,15 @@
                             <table class="table table-striped" >
                                 <thead>
                                     <tr>
-                                        <th width="22%">ID</th>
-                                        <th width="36%">Event</th>
+                                        <th width="20%">ID</th>
+                                        <th width="80%">Event</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="event in FinalEvents" >
                                         <td><a href="#"><strong>{{event.id}}</strong></a></td>
                                         <td>
-                                            <p> <b>{{event.title}}</b><span ng-if="event.event_address != '' " > @ {{event.event_address}} {{event.city}}</span></p>
+                                            <p> <b>{{event.title}}</b><span ng-if="event.event_address != '' || event.event_address != NULL || event.event_address != null || event.event_address != 'null' ||  event.event_address != undefined " > @ {{event.event_address}} </span></p>
                                         </td>
                                     </tr>
                                 </tbody>
