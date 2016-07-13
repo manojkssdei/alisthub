@@ -86,6 +86,15 @@ module.exports = function()
         
         //////////////////////////////////////////////////////////////////////////////////////
         console.log(input);
+        var input = {
+ "event": "Sports Days ene11",
+  "event_start": "2016-07-14 07:15:15",
+  "seller_id": "22876",
+  "venue_id": "34657",
+  "event_type": "3",
+  "status": "5",
+  "event_id": "4214812"
+ }
       //  request({ url: 'http://api.showclix.com/Event/"+data.showclix_id', method: 'PUT', json: input}, function(error, response, body){
        // });
         //return false;
@@ -93,7 +102,8 @@ module.exports = function()
                 method:'PUT',
                 headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/Event/"+data.showclix_id,
-                form:    input }, function(error, response, body){
+                body:    input,
+                json: true}, function(error, response, body){
                   console.log("---------error-------", error);
                   //console.log("---------response-------", response);
                   //console.log("---------body-------", body);

@@ -346,57 +346,8 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
           });
     }
     
-    $scope.socialLink=function(size)
-    {
-      $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: 'socialLinktemplate.html',
-            controller: 'socialLinkCtrl',
-            size: size,
-            resolve: {
-              items: function () {
-                return $scope.items;
-              }
-            }
-          });  
-    }
-    $scope.open1 = function(size) {
-
-    var modalInstance = $uibModal.open({
-        animation: true,
-        templateUrl: 'ckedit.html',
-        controller: function($scope, $uibModalInstance) {
-
-            $scope.Cancel = function() {
-                $uibModalInstance.dismiss('cancel');
-            };
-            $scope.option_ckeditor = {
-                language: 'en',
-                allowedContent: true,
-                entities: false
-            };
-
-    $serviceTestVenue.getEvent({'event_id':event_id},function(response){
-       $scope.content2=response.results[0].description;
-     
-     });
-
-     $scope.onReady = function() {
-            };
-        }
-    });
-};
-    
-  $scope.option_ckeditor1 = {
-    language: 'en',
-    allowedContent: true,
-    entities: false
-  };
- 
-  // Called when the editor is completely ready.
-  $scope.onReady = function () {
    
-  };
+  
     
     $scope.select_btn=function(index)
     {
@@ -621,32 +572,6 @@ angular.module('alisthub').controller('PreviewTemplateCtrl', function($scope, $u
       $uibModalInstance.dismiss('cancel');
     };
 });
-
-
-angular.module('alisthub').controller('socialLinkCtrl', function($scope, $uibModalInstance, items,$rootScope,$localStorage,$injector,$timeout,$stateParams, $state) {
-    var $serviceTest = $injector.get("Lookservice");
-    var event_id=$stateParams.eventId;
-     $scope.items = items;
-     $scope.selected = {
-      item: $scope.items[0]
-     };
-    $scope.updatesociallink=function(sociallink)
-    {
-         
-        $serviceTest.updatesociallink({'eventId':event_id,'social_link':sociallink},function(response){
-           if (response.code=='200') {
-            $rootScope.sociallink=sociallink;
-           }
-        });
-      $uibModalInstance.close($scope.selected.item);  
-    }
-   
-     $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-});
-
-
 
 angular.module('alisthub').filter("sanitize", ['$sce', function($sce) {
   return function(htmlCode){	
