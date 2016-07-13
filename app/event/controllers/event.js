@@ -400,7 +400,7 @@ exports.getEvent=function(req,res) {
    //   var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate,es.online_sales_close FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id  LEFT JOIN event_settings es ON events.id = es.event_id where events.id="+event_id;
     // console.log('sql ' , sql );
 
-     var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate,es.online_sales_close  , lft.template_name , lft.image , lft.preview_image  FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id  LEFT JOIN event_settings es ON events.id = es.event_id LEFT JOIN  look_and_feel_template lft ON lft.id = events.template_id where events.id="+event_id;
+     var sql="SELECT *,events.venue_id as eventvenueId,event_dates.date as eventdate,es.online_sales_close  , lft.template_name , lft.image , lft.preview_image,events.description as description  FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id  LEFT JOIN venues ON events.venue_id = venues.id  LEFT JOIN event_settings es ON events.id = es.event_id LEFT JOIN  look_and_feel_template lft ON lft.id = events.template_id where events.id="+event_id;
 
 
       connection.query(sql,function(err,result){
