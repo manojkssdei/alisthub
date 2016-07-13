@@ -10,7 +10,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
      var $serviceTest = $injector.get("Lookservice");
     
      $scope.ticket_image=ticketImage;
-     var href = window.location.href.split("/");
+     var href = window.location.href.split("/"); 
      $scope.preview_link="http://"+href[2]+"/preview_template/"+$localStorage.userId+"/"+$stateParams.eventId;
      var $serviceTestVenue = $injector.get("venues");
      $scope.error_message = true;
@@ -433,9 +433,9 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
             }
         }
         
-        $scope.banner_image='./images/img/f-img-o.jpg';
-        $scope.section2_image='./images/img/s-img-o.jpg';
-        $scope.section3_image='./images/img/s-img-o.jpg';
+        $scope.banner_image='http://'+href[2]+'/images/img/f-img-o.jpg';
+        $scope.section2_image='http://'+href[2]+'/images/img/s-img-o.jpg';
+        $scope.section3_image='http://'+href[2]+'/images/img/s-img-o.jpg';
          $scope.encodeImageFileAsURL1 = function() {
             var filesSelected = document.getElementById("my_file").files;
             if (filesSelected.length > 0) {
