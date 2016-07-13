@@ -2,6 +2,7 @@
 
 var showClix   = require('./../../constant.js');
 var request    = require('request');
+var http       = require('http');
 module.exports = function()
 {
   this.add_venue = function(req,res,next)
@@ -81,14 +82,23 @@ module.exports = function()
         delete input.description;
         delete input.short_name;
         delete input.sales_open;
+        delete input.user_id;
         
         //////////////////////////////////////////////////////////////////////////////////////
-        request.post({
-                headers: {'Content-Type':'application/json','X-API-Token':data.showclix_token},
+        console.log(input);
+      //  request({ url: 'http://api.showclix.com/Event/"+data.showclix_id', method: 'PUT', json: input}, function(error, response, body){
+       // });
+        //return false;
+        request({
+                method:'PUT',
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/Event/"+data.showclix_id,
                 form:    input }, function(error, response, body){
-                  console.log("---------4-------");
+                  console.log("---------error-------", error);
+                  //console.log("---------response-------", response);
+                  //console.log("---------body-------", body);
                   
+                   
                   var str = "There is some problem on server. Please try after some time.";
                   function isJson(item) {
                       item = typeof item !== "string"

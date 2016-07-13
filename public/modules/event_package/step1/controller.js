@@ -563,6 +563,22 @@ console.log('$scope.data.online_sales_open_time' , $scope.data.online_sales_open
                 //$scope.loader = true;
                 $scope.data.showclix_token = $localStorage.showclix_token;
                 $scope.data.showclix_seller_id = $localStorage.showclix_seller_id;
+
+
+        var showclix_event_ids = [];
+        for (var key in $rootScope.FinalEvents) {
+            // make changes here.................... put showclix id in array
+            var id = $rootScope.FinalEvents[key].id;
+            var showclix_event_id = $rootScope.FinalEvents[key].showclix_id;
+            if( id != null && showclix_event_id != null)
+            showclix_event_ids[id] = showclix_event_id;
+            //showclix_event_ids.push($rootScope.allEvents[eventId]);
+        }
+
+$scope.data.showclix_event_ids = showclix_event_ids;
+console.log("-==================-");
+console.log($scope.data.showclix_event_ids);
+
                 $serviceTest.stepOneEventPackage($scope.data, function(response) {
                     console.log('response', response);
                     //$scope.loader = false;
