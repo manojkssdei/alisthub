@@ -1,125 +1,13 @@
+<link rel="stylesheet" href="stylesheets/style_downloads.css" type="text/css" />
 <div class="container">
     <h1>downloads</h1>
     <div class="form-section  wt-frame">
-    
-
-<style>
-h3{
-	color:#0275D0;
-    font-size: 20px;
-    font-weight: 400;
-    padding-bottom: 10px;
-    width: 100%;
-    font-family: "Open Sans","Helvetica","Arial",sans-serif;
-}
-p, li {
-    color: #555;
-    font-size: 12px;
-    line-height: 19px;
-    margin: 0 0 3px;
-}
-.sub-fields
-{
-border:solid 1px #ccc;
-}
-
-.sidekick-downloads {
-    width: 100%;
-}
-
-.sidekick-downloads ul::before, .sidekick-downloads ul::after {
-    content: "";
-    display: table;
-    line-height: 0;
-}
-.sidekick-downloads ul::after {
-    clear: both;
-}
-.sidekick-downloads ul::before, .sidekick-downloads ul::after {
-    content: "";
-    display: table;
-    line-height: 0;
-}
-.sidekick-downloads ul {
-    margin-left: -15px;
-}
-.sidekick-content ul, .sidekick-content ol {
-    color: #555;
-    font-size: 12px;
-    line-height: 19px;
-    margin-bottom: 15px;
-}
-.sidekick-downloads ul li {
-    box-sizing: border-box;
-    float: left;
-    padding-bottom: 15px;
-    padding-left: 15px;
-    position: relative;
-    width: 25%;
-}
-
-.sidekick-downloads ul li > div::before {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    content: "";
-    display: block;
-    height: 40px;
-    position: absolute;
-    right: 10px;
-    top: 6px;
-    width: 40px;
-}
-.sidekick-downloads ul li > div::before, .sidekick-downloads ul li > div::after {
-    content: "";
-    display: table;
-    line-height: 0;
-}
-.sidekick-downloads ul li > div::after {
-    clear: both;
-}
-.sidekick-downloads ul li > div::before, .sidekick-downloads ul li > div::after {
-    content: "";
-    display: table;
-    line-height: 0;
-}
-.sidekick-downloads ul li > div {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 15px 0 15px 15px;
-}
-
-
-div#admin-body .sidekick-downloads ul li h4 {
-    margin-right: 40px;
-}
-div#legacy h3, div#admin-body h4 {
-    display: block !important;
-    font-size: 15px;
-    margin: 0;
-}
-.sidekick-downloads ul li h4 {
-    margin-right: 35px;
-    text-align: left;
-}
-
-.sidekick-downloads ul li .inactive-arch {
-    background-color: #d5d5d5 !important;
-}
-h4{
-color: #555;
-    padding: 0;
-    font-family: "Open Sans","Helvetica","Arial",sans-serif;
-    font-size: 15px;
-}
-</style>
-
         <section class="form-group">
             <h3>Sidekick</h3>
             <ul>
-            <li>Sidekick is a native utility that connects to our ticketing system to smoothly run your hardware peripherals. Run Sidekick when using our website to:</li>
-            <li>Print thermal tickets or receipts from your connected Boca printer.</li>
-            <li>Trigger the opening of an APG NetPRO cash drawer after a cash sale in the box office.</li>
+                <li>Sidekick is a native utility that connects to our ticketing system to smoothly run your hardware peripherals. Run Sidekick when using our website to:</li>
+                <li>Print thermal tickets or receipts from your connected Boca printer.</li>
+                <li>Trigger the opening of an APG NetPRO cash drawer after a cash sale in the box office.</li>
             </ul>
         </section>
         <section class="form-group">
@@ -129,63 +17,71 @@ color: #555;
         </section>
         <section class="form-group">
             <h3>Instructions</h3>
-        	<div class="gray-frame sub-fields">
-        	<ol style="list-style: decimal;">
-        	<li>Choose the appropriate installer for your computer below. The installer option in blue is compatible with your machine and should be selected.</li>
-        	<li>Run the installer and use the defaults.</li>
-        	<li>The final steps may take several minutes depending on your version of Windows.</li>
-        	<li>Choose to restart your computer when prompted.</li>
-        	</ol>
-           </div>
+            <div class="gray-frame sub-fields">
+                <ol style="list-style: decimal;">
+                    <li>Choose the appropriate installer for your computer below. The installer option in blue is compatible with your machine and should be selected.</li>
+                    <li>Run the installer and use the defaults.</li>
+                    <li>The final steps may take several minutes depending on your version of Windows.</li>
+                    <li>Choose to restart your computer when prompted.</li>
+                </ol>
+            </div>
         </section>
-        
-
-
-
         <div class="sidekick-downloads">
-        <h3>Downloads</h3>
-        <ul>
-            <li>
-                <div class="sk-windows" ng-click="opentab1(id1)">
-                    <a href="#" style="background:none !important;" class="more_info "><h4><i class="fa fa-caret-down" ></i> Windows <span>Vista+</span></h4></a>
-                    <div style="" class="info js-windows-info" ng-show="windowTab">
-                        <p>To install, simply download the installer (suggested version highlighted), run it as an Administrator, and follow the steps. Sidekick will be installed and configured to run on start-up.</p>
-                        <a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_i386.exe" class="32_bit">32 bit</a><a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_amd64.exe" class="64_bit">64 bit</a>
+            <h3>Downloads</h3>
+            <ul>
+                <li>
+                    <div class="sk-windows">
+                        <a href="javascript:void(0)" style="background:none !important;" class="more_info " ng-click="openTab1()" style="cursor:pointer;">
+                            <h4><i class="fa fa-caret-down"></i>  Windows <i>Vista+</i></h4>
+                        </a>
+                        <div style="" id="div1" class="info js-windows-info" ng-show="windowTab">
+                            <p>To install, simply download the installer (suggested version highlighted), run it as an Administrator, and follow the steps. Sidekick will be installed and configured to run on start-up.</p>
+                            <a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_i386.exe" class="32_bit">32 bit</a><a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_amd64.exe" class="64_bit">64 bit</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <li>
-                <div class="osx" ng-click="opentab2()">
-                    <a href="#" style="background:none !important;" class="more_info"><h4><i class="fa fa-caret-down" ></i> Mac</h4></a>
-                    <div style="" class="info js-osx-info" ng-show="macTab">
-                        <p>To install, simply download the DMG (suggested version highlighted), double-click it, and drag the Sidekick app to the Applications folder.</p>
-                        <a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_i386.dmg" class="32_bit">32 bit</a><a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_amd64.dmg" class="64_bit">64 bit</a>
+                </li>
+                <li>
+                    <div class="osx">
+                        <a href="javascript:void(0)" style="background:none !important;" class="more_info" ng-click="openTab2()" style="cursor:pointer;">
+                            <h4>
+                    <i class="fa fa-caret-down">
+                    	
+                    </i>  Mac</h4>
+                        </a>
+                        <div style=""  id="div2" class="info js-osx-info" ng-show="macTab">
+                            <p>To install, simply download the DMG (suggested version highlighted), double-click it, and drag the Sidekick app to the Applications folder.</p>
+                            <a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_i386.dmg" class="32_bit">32 bit</a><a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_amd64.dmg" class="64_bit">64 bit</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <li>
-                <div class="linux ubuntu">
-                    <a href="#" style="background:none !important;" class="more_info"><h4><i class="fa fa-caret-down" ng-click="opentab3()"></i> Ubuntu</h4></a>
-                    <div style="" class="info js-linux-info" ng-show="ubuntuTab">
-                        <p>To install, simply download the debian package (suggested version highlighted) and double-click to install.</p>
-                        <a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_i386.deb" class="32_bit inactive-arch">32 bit</a><a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_amd64.deb" class="64_bit">64 bit</a>
+                </li>
+                <li>
+                    <div class="linux ubuntu">
+                        <a  href="javascript:void(0)" style="background:none !important;" class="more_info" ng-click="openTab3()" style="cursor:pointer;">
+                        <h4>
+                    <i class="fa fa-caret-down">
+                    	
+                    </i>  Ubuntu</h4>
+                     </a>
+                        <div style="" id="div3" class="info js-linux-info" ng-show="ubuntuTab">
+                            <p>To install, simply download the debian package (suggested version highlighted) and double-click to install.</p>
+                            <a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_i386.deb" class="32_bit inactive-arch">32 bit</a><a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_amd64.deb" class="64_bit">64 bit</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <li>
-                <div class="linux">
-                    <a href="#" style="background:none !important;" class="more_info"><h4><i class="fa fa-caret-down" ng-click="opentab4()"></i> Linux Binaries</h4></a>
-                    <div style="" class="info js-linux-info" ng-show="linuxTab">
-                        <p>To run, unzip to a directory on your filesystem and launch the sidekick binary from within that directory.</p>
-                        <a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_i386.tar.gz" class="32_bit inactive-arch">32 bit</a><a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_amd64.tar.gz" class="64_bit">64 bit</a>
+                </li>
+                <li>
+                    <div class="linux">
+                        <a  href="javascript:void(0)" style="background:none !important;" class="more_info" ng-click="openTab4()" style="cursor:pointer;">
+                        <h4><i class="fa fa-caret-down" >
+                        	
+                        </i>  Linux Binaries</h4>
+                        </a>
+                        <div style="" id="div4" class="info js-linux-info" ng-show="linuxTab">
+                            <p>To run, unzip to a directory on your filesystem and launch the sidekick binary from within that directory.</p>
+                            <a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_i386.tar.gz" class="32_bit inactive-arch">32 bit</a><a href="https://sc-dls.s3.amazonaws.com/sidekick_latest_amd64.tar.gz" class="64_bit">64 bit</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-
-
-
-        
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

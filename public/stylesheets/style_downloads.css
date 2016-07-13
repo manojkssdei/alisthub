@@ -1,0 +1,171 @@
+
+h3{
+	color:#0275D0;
+    font-size: 20px;
+    font-weight: 400;
+    padding-bottom: 10px;
+    width: 100%;
+    font-family: "Open Sans","Helvetica","Arial",sans-serif;
+}
+p, li {
+    color: #555;
+    font-size: 12px;
+    line-height: 19px;
+    margin: 0 0 3px;
+}
+
+
+
+.sub-fields
+{
+border:solid 1px #ccc;
+}
+
+.sidekick-downloads {
+    width: 100%;
+}
+
+.sidekick-downloads ul::before, .sidekick-downloads ul::after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.sidekick-downloads ul::after {
+    clear: both;
+}
+.sidekick-downloads ul::before, .sidekick-downloads ul::after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.sidekick-downloads ul {
+    margin-left: -15px;
+}
+.sidekick-content ul, .sidekick-content ol {
+    color: #555;
+    font-size: 12px;
+    line-height: 19px;
+    margin-bottom: 15px;
+}
+.sidekick-downloads ul li {
+    box-sizing: border-box;
+    float: left;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    position: relative;
+    width: 25%;
+}
+
+.sidekick-downloads ul li > div::before {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    display: block;
+    height: 40px;
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    width: 40px;
+}
+.sidekick-downloads ul li > div::before, .sidekick-downloads ul li > div::after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.sidekick-downloads ul li > div::after {
+    clear: both;
+}
+.sidekick-downloads ul li > div::before, .sidekick-downloads ul li > div::after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.sidekick-downloads ul li > div {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 15px 0 10px 15px;
+}
+
+
+div#admin-body .sidekick-downloads ul li h4 {
+    margin-right: 40px;
+}
+div#legacy h3, div#admin-body h4 {
+    display: block !important;
+    font-size: 15px;
+    margin: 0;
+}
+.sidekick-downloads ul li h4 {
+    margin-right: 35px;
+    text-align: left;
+}
+
+.sidekick-downloads ul li .inactive-arch {
+    background-color: #d5d5d5 !important;
+}
+
+element.style {
+    display: block;
+}
+.info {
+    padding: 0 14px 0 0;
+}
+
+.sidekick-downloads ul li a {
+    background-color: #55ade1 !important;
+    border-left: 5px solid white;
+    border-right: 5px solid white;
+    box-sizing: border-box;
+    color: white !important;
+    display: block;
+    float: left;
+    font-size: 12px;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 50%;
+}
+a.more_info {
+    padding: 0 !important;
+    width: 100% !important;
+}
+h4{
+color: #555;
+    padding: 0;
+    font-family: "Open Sans","Helvetica","Arial",sans-serif;
+    font-size: 13px;
+    font-weight:normal;
+}
+
+.sidekick-downloads ul li p {
+    margin-top: 35px !important;
+    line-height: 15px;
+    margin-bottom:10px;
+}
+
+
+
+.sidekick-downloads ul li > div.sk-windows::before {
+    background-image: url("../images/window.png");
+}
+
+
+.sidekick-downloads ul li > div.linux::before {
+    background-image: url("../images/linux.png");
+}
+
+
+.sidekick-downloads ul li > div.osx::before {
+    background-image: url("../images/mac.png");
+}
+
+
+.sidekick-downloads ul li > div.ubuntu::before {
+    background-image: url("../images/ubuntu.png");
+}
+.more_info i
+{
+    font-size:10px;
+}
