@@ -16,6 +16,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
      $scope.error_message = true;
     var event_id=$stateParams.eventId;
     $rootScope.sociallink={};
+   
     $serviceTestVenue.getEvent({'event_id':event_id},function(response){
         
         $scope.data1=response.results[0];
