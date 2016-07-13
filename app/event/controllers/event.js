@@ -1125,8 +1125,6 @@ exports.postCreateEventStepFour = function(req, res) {
 
 exports.stepOneEventPackage = function(req,res) {
 
-
-
    if (req.body.imageData && req.body.imageData != "" && req.body.imageData != undefined) {
 
         var path_event = process.cwd()+'/public/images/events';
@@ -1156,6 +1154,18 @@ exports.stepOneEventPackage = function(req,res) {
     }
 
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    console.log('online_sales_open_date_time' , req.body.online_sales_open_date_time);
+    console.log('online_sales_close_date_time' , req.body.online_sales_close_date_time);
+
+
+req.body.online_sales_open_date_time_moment = moment(online_sales_open_date_time).format('YYYY-MM-DD HH:mm:ss');
+req.body.online_sales_close_date_time_moment = moment(online_sales_close_date_time).format('YYYY-MM-DD HH:mm:ss');
+
+console.log(' online_sales_open_date_time_moment : ', req.body.online_sales_open_date_time_moment);
+console.log(' online_sales_close_date_time_moment : ', req.body.online_sales_close_date_time_moment);
+
+
     req.body.online_sales_open_date = moment(req.body.online_sales_open_date).format('YYYY-MM-DD');
     req.body.online_sales_close_date = moment(req.body.online_sales_close_date).format('YYYY-MM-DD');
 

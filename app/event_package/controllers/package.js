@@ -6,6 +6,7 @@ Created By: Manoj
 */
 var moment       = require('moment-timezone');
 var showClix   = require('./../../showclix/service.js');
+var showClixPackage   = require('./../../showclix/showclix_package.js');
 
 
 /** 
@@ -456,15 +457,28 @@ for (var index in fields) {
 
     }
 
+
     console.log('fieldsData ' , fieldsData);
 
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
-    req.body.created = curtime;
     req.body.modified = curtime;
 
-  var query = "UPDATE `event_package` SET "+ fieldsData +" `modified` = '" + req.body.modified + "' WHERE id=" + req.body.id ; 
-  console.log('query', query)
+    data = req.body;
+    
+    var showClixPackage2 = new showClixPackage();
+          showClixPackage2.postThirdStepPackageData(data,res,function(sdata){
+          if (sdata.status == 1) {
 
+            var showclix_url = sdata.location;
+            var showclix_url_array = showclix_url.split("/");
+            showclix_package_id = showclix_url_array.slice(-1).pop(); 
+            console.log('-----------------------');
+            console.log('Response from showclix api , ' , sdata );
+            console.log(' ---------------------------- ');
+            console.log('showclix_package_id ' , showclix_package_id );
+
+    var query = "UPDATE `event_package` SET "+ fieldsData +" `modified` = '" + req.body.modified + "' WHERE id=" + req.body.id ; 
+    console.log('query', query)
 
    connection.query( query , function(err, results) {
      if (err) {
@@ -473,6 +487,10 @@ for (var index in fields) {
      res.json({result:results,code:200});
      }
   });
+
+          }
+        });
+
    
 }
 

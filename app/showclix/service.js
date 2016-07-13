@@ -85,30 +85,12 @@ module.exports = function()
         delete input.user_id;
         
         //////////////////////////////////////////////////////////////////////////////////////
-        console.log(input);
-        var input = {
- "event": "Sports Days ene11",
-  "event_start": "2016-07-14 07:15:15",
-  "seller_id": "22876",
-  "venue_id": "34657",
-  "event_type": "3",
-  "status": "5",
-  "event_id": "4214812"
- }
-      //  request({ url: 'http://api.showclix.com/Event/"+data.showclix_id', method: 'PUT', json: input}, function(error, response, body){
-       // });
-        //return false;
         request({
                 method:'PUT',
                 headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/Event/"+data.showclix_id,
                 body:    input,
                 json: true}, function(error, response, body){
-                  console.log("---------error-------", error);
-                  //console.log("---------response-------", response);
-                  //console.log("---------body-------", body);
-                  
-                   
                   var str = "There is some problem on server. Please try after some time.";
                   function isJson(item) {
                       item = typeof item !== "string"
@@ -130,9 +112,8 @@ module.exports = function()
                   var dataw = response.body;
                   
                   if (isJson(response.body)) {
-                    str = JSON.parse(response.body);
+                    str = response.body;
                   }
-                  console.log(str);
                   
                   if (str.event_id && str.event_id !== undefined) {
                     console.log("---------6-------");
@@ -175,6 +156,67 @@ module.exports = function()
       }
     
   }
+  
+  this.single_2nd_step = function(data,res,next)
+  {
+       var input = {};
+      if(data.showclix_id != "" && data.showclix_id !== undefined){
+        console.log("---------3-------");
+        input.event_id = data.showclix_id.toString();
+        input.status   = '5';
+        input.inventory = data.eventinventory;
+        
+        //////////////////////////////////////////////////////////////////////////////////////
+        request({
+                method:'PUT',
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
+                url:     "http://api.showclix.com/Event/"+data.showclix_id,
+                body:    input,
+                json: true}, function(error, response, body){
+                  var str = "There is some problem on server. Please try after some time.";
+                  function isJson(item) {
+                      item = typeof item !== "string"
+                          ? JSON.stringify(item)
+                          : item;
+                  
+                      try {
+                          item = JSON.parse(item);
+                      } catch (e) {
+                          return false;
+                      }
+                  
+                      if (typeof item === "object" && item !== null) {
+                          return true;
+                      }
+                  
+                      return false;
+                  }
+                  var dataw = response.body;
+                  
+                  if (isJson(response.body)) {
+                    str = response.body;
+                  }
+                  
+                  if (str.event_id && str.event_id !== undefined) {
+                    console.log("---------6-------");
+                    return next({status:1,location:str.event_id});
+                  }
+                  else
+                  {
+                    console.log("---------5-------");
+                    return next({status:0,location:"","error":str});
+                  }
+                   
+          });
+          //////////////////////////////////////////////////////////////////////////////// 
+        
+        
+      }
+      else{
+          return next({status:0,location:"","error":"Server error"}); 
+      }
+  }
+  
   
   this.add_price_level = function(data,res,next)
   {
