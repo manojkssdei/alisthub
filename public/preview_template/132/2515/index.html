@@ -133,7 +133,7 @@ form#ticket-form {
 		    data: {"event_id":eventId}
 		  })
 		    .done(function( response1 ) {
-		    var preview_html=response1.result[0].html.replace("./images","http://"+href[2]+"/images");
+		    var preview_html=response1.result[0].html;
 		    
 		       $(".preview_div_insert").html(preview_html);
 		       
@@ -147,9 +147,9 @@ form#ticket-form {
 		    data: {"event_id":eventId}
 		  })
 		    .done(function( response1 ) {
-		    var preview_html=response1.result[0].html.replace('./images','jhjh');
+		    var preview_html=response1.result[0].html;
 		    
-		       $(".preview_div_insert").html(response1.result[0].html);
+		       $(".preview_div_insert").html(preview_html);
 		       
 		       $("#ticket-panel").html(ticket_html+'<script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js"/>');
 		
