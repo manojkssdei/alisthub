@@ -133,6 +133,7 @@
                     </section>
                </section><!--Left-->
                <section class="col-sm-10 design-right">
+		<section id="preview_div_contain_html">
 		<section class="gray-frame1" style="background: rgba(0, 0, 0, 0) url('./images/bg/bg.png') no-repeat scroll center top  ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">               		
       <div class="module  gridster">
 
@@ -336,14 +337,16 @@
                  </span>
 		
 		    </section>
+		</section>
 		<button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
                </section><!--Left-->
 	       
           </section>
       </section>
 
-      <section ng-hide="preview_div" id="preview_div">
-	
+      <section ng-hide="preview_div" >
+       <section id="preview_div"></section>
+       <a class="btn pink-btn" style="margin-top:4%" href="/#/create_event_step4/{{eventId}}">Continue</a>
       </section>
 </div>
 <script type="text/javascript">
@@ -410,7 +413,7 @@ function remove_widget_dynamic(widgetId)
  $(function(){
         // resize widgets on hover
         $('.js-seralize').on('click', function() {
-	  var arr=$(".design-right").html();
+	  var arr=$("#preview_div_contain_html").html();
 
 	   var href = window.location.href;
           var eventId=href.substr(href.lastIndexOf('/') + 1);
