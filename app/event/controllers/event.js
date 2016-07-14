@@ -1155,12 +1155,12 @@ exports.stepOneEventPackage = function(req,res) {
 
     var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
 
-    console.log('online_sales_open_date_time' , req.body.online_sales_open_date_time);
-    console.log('online_sales_close_date_time' , req.body.online_sales_close_date_time);
+    console.log('online_sales_open_date_time' , req.body.online_sales_open_date);
+    console.log('online_sales_close_date_time' , req.body.online_sales_close_date);
 
 
-req.body.online_sales_open_date_time_moment = moment(online_sales_open_date_time).format('YYYY-MM-DD HH:mm:ss');
-req.body.online_sales_close_date_time_moment = moment(online_sales_close_date_time).format('YYYY-MM-DD HH:mm:ss');
+req.body.online_sales_open_date_time_moment = moment(req.body.online_sales_open_date_time).format('YYYY-MM-DD HH:mm:ss');
+req.body.online_sales_close_date_time_moment = moment(req.body.online_sales_close_date_time).format('YYYY-MM-DD HH:mm:ss');
 
 console.log(' online_sales_open_date_time_moment : ', req.body.online_sales_open_date_time_moment);
 console.log(' online_sales_close_date_time_moment : ', req.body.online_sales_close_date_time_moment);
@@ -1177,6 +1177,14 @@ console.log(' online_sales_close_date_time_moment : ', req.body.online_sales_clo
 
     data = req.body;
     var showClixPackage2 = new showClixPackage();
+
+    showClixPackage2.test_function(data,res,function(sdata){ 
+
+
+    });
+
+
+
           showClixPackage2.add_package(data,res,function(sdata){
           if (sdata.status == 1) {
 

@@ -9886,3 +9886,8 @@ npm ERR! There is likely additional logging output above.
 
 npm ERR! Please include the following file with any support request:
 npm ERR!     /home/bigdata/public_html/alisthub/npm-debug.log
+
+> alist@0.0.0 start /home/alistticx/alisthub
+> node ./bin/www
+
+connected as id 54413

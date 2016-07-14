@@ -300,6 +300,9 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
   $scope.price_and_link_data = function(data1) {
     data1.eventId = $localStorage.eventId;
     console.log("data:258");
+    data.showclix_token     = $localStorage.showclix_token;
+    data.showclix_user_id   = $localStorage.showclix_user_id;
+    data.showclix_seller_id = $localStorage.showclix_seller_id;
     $serviceTest.postSecondStepdata(data1, function(response) {
       if (response.code == 200) {
         $scope.success = global_message.event_step2;
@@ -471,6 +474,9 @@ $scope.success_message = false;
           if($stateParams.eventId!=undefined && $stateParams.eventId!='') {
             data.eventId = $stateParams.eventId;
           }
+	  data.showclix_token     = $localStorage.showclix_token;
+          data.showclix_user_id   = $localStorage.showclix_user_id;
+          data.showclix_seller_id = $localStorage.showclix_seller_id;
           //console.log(data); return false;
           $serviceTest.postSecondStepdata(data, function(response) {
             if (response.code == 200) {

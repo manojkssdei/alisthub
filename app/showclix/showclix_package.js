@@ -4,6 +4,12 @@ var showClix   = require('./../../constant.js');
 var request    = require('request');
 module.exports = function()
 {
+
+  this.test_function = function(data,res,next) {
+    console.log(' ------------- hello showclix -------------');
+    return true;
+  }
+
   this.add_package = function(data,res,next)
   {
 
