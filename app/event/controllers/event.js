@@ -6,6 +6,7 @@ Created By: Manoj Kumar Singh
 */
 var moment       = require('moment-timezone');
 var showClix   = require('./../../showclix/service.js');
+var showClixPackage   = require('./../../showclix/showclix_package.js');
 
 exports.saveEvent = function(req,res) {
    
@@ -1166,8 +1167,8 @@ exports.stepOneEventPackage = function(req,res) {
 
 
     data = req.body;
-    var showClix2 = new showClix();
-          showClix2.add_package(data,res,function(sdata){
+    var showClixPackage2 = new showClix();
+          showClixPackage2.add_package(data,res,function(sdata){
           if (sdata.status == 1) {
 
             console.log('sdata' , sdata );
