@@ -112,6 +112,9 @@ module.exports = function(app, express) {
   
   /* To get the event series data */
   router.post('/getSeriesEvent',supportCrossOriginScript, Event.getSeriesEvent);
+  
+  /* To get the event series data */
+  router.post('/getSeriesDates',supportCrossOriginScript, Event.getSeriesDates);
 
   /* To save the event Inventory */
   router.post('/saveInventory',supportCrossOriginScript, Event.saveInventory);

@@ -538,7 +538,7 @@ $scope.data1.price=0;
 
    //Default Event
   if (!$stateParams.eventId) {
-      var href = 'create_event_step1';
+      var href = 'create_series_step1';
   } else {
       var href = 'javascript:void(0)'; 
   }
@@ -546,11 +546,11 @@ $scope.data1.price=0;
    $scope.events = [{
       "name": "Single Event",
       'id': 1,
-      'href':href
+      'href':'javascript:void(0)'
     }, {
       "name": "Multiple Event",
       'id': 2,
-      'href':'javascript:void(0)'
+      'href':href
     }]
 
     //To show default venues 

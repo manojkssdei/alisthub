@@ -55,8 +55,10 @@ module.exports = function() {
             },
         };
 
+
         if (data.showclix_package_id) {
             input.event_id = data.showclix_package_id;
+
 
             console.log('------------------******** UPDATE *******--------------------');
 
@@ -339,7 +341,6 @@ console.log(' i m here');
                     return next({ status: 0, operation: 'error_in_edit_package', location: "", "error": str });
                 }
             });
-
 
     }
 
