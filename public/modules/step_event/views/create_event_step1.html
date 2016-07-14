@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="stylesheets/timepicker.css" type="text/css" />
 <script src="javascripts/timepicker.js" type="text/javascript"></script>
 <div class="container">
+    <div ng-show="pageloader"><img src="/images/icons/loader.gif"></div>
     <h1>Create an Event</h1>
     <!-- Step Form -->
     <div class="stage-container clearfix">
@@ -49,9 +50,9 @@
                 <ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
                     <li ng-repeat="event in events" ng-class="{active: isActive(event)}" >
                     <a class="pointer" ui-sref="{{event.href}}">{{event.name}}</a>
-                    <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype" >
                     </li>
                 </ul>
+                <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype" >
             </div>
             
             <!-- Tab panes -->
