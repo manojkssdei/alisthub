@@ -450,6 +450,32 @@ exports.getSeriesEvent=function(req,res) {
     }
 }
 
+/** 
+Method: getEvent for series event
+Description:Function to get event data for series event 
+Created : 2016-07-14
+Created By: Manoj Singh  
+*/
+
+
+exports.getSeriesDates=function(req,res) {
+   
+    var event_id=req.body.event_id;
+    if(event_id!==undefined){
+         
+      var sqltime="SELECT * FROM event_dates where parent_id="+event_id+" ORDER BY start_date_time ASC";
+          
+        connection.query(sqltime,function(err5,result5){
+            
+        res.send({"results":result,timing:result5,code:200});
+        
+        });
+        
+      
+    } else {
+      res.send({"results":{},code:200});
+    }
+}
 
 
 exports.getComment = function(req,res){
@@ -1180,6 +1206,10 @@ console.log(' online_sales_close_date_time_moment : ', req.body.online_sales_clo
 
           showClixPackage2.add_package(data,res,function(sdata){
           if (sdata.status == 1) {
+
+
+if(sdata.operation == 'add_package' ) {
+
             var showclix_url = sdata.location;
             var showclix_url_array = showclix_url.split("/");
             showclix_package_id = showclix_url_array.slice(-1).pop(); 
@@ -1187,6 +1217,12 @@ console.log(' online_sales_close_date_time_moment : ', req.body.online_sales_clo
             console.log('Response from showclix api , ' , sdata );
             console.log(' ---------------------------- ');
             console.log('showclix_package_id ' , showclix_package_id );
+
+}
+    
+if(sdata.operation == 'edit_package' ) {
+    showclix_package_id = sdata.location ;
+}       
 
               //var event_url = sdata.location;
               //var showclix_event_id = event_url.split("/");
