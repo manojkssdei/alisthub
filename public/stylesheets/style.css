@@ -25,6 +25,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   text-align: left !important;
 }
 
+
 /* custom error messages for assign discount*/
 .custom_error {
     background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;

@@ -22,4 +22,53 @@ angular.module('alisthub').controller('widgetcontroller', function($scope, $stat
     }
 
 
+
+    $scope.picCol = function(els){
+            var ele = document.querySelector("#i_"+els).getElementsByClassName('color-picker-grid-inner')[0];
+            ele.onclick = function(){
+                setColor(els, $scope);
+            }
+    }
+
+   
+
+
 });
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex:hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function setColor(els, $scope){
+    setTimeout(function(){
+        var ele1 = document.querySelector("#i_"+els).getElementsByClassName('color-picker-swatch');
+        var col = ele1[0].style.backgroundColor.replace('rgb(','');
+        col = col.replace(')','');
+        var re = col.split(',');
+        document.querySelector("#d_"+els).style.backgroundColor = ele1[0].style.backgroundColor;
+        if(els == 1){
+            $scope.data.background_color = rgbToHex(parseInt(re[0]), parseInt(re[1]), parseInt(re[2]));
+
+        }
+        else if(els == 2){
+            $scope.data.header_color = rgbToHex(parseInt(re[0]), parseInt(re[1]), parseInt(re[2]));
+        }
+        else if(els == 3)
+        {
+          $scope.data.row_background_color = rgbToHex(parseInt(re[0]), parseInt(re[1]), parseInt(re[2]));
+        }
+         else if(els == 4)
+        {
+          $scope.data.text_color = rgbToHex(parseInt(re[0]), parseInt(re[1]), parseInt(re[2]));
+        }
+         else if(els == 5)
+        {
+          $scope.data.link_color = rgbToHex(parseInt(re[0]), parseInt(re[1]), parseInt(re[2]));
+        }    
+    },10);
+}
