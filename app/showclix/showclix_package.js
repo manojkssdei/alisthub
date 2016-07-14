@@ -5,12 +5,7 @@ var request    = require('request');
 module.exports = function()
 {
 
-  this.test_function = function(data,res,next) {
-    console.log(' ------------- hello showclix -------------');
-    return true;
-  }
-
-  this.add_package = function(data,res,next)
+ this.add_package = function(data,res,next)
   {
 
 // var fields = ['package_name', '', 'online_sales_open_time','online_sales_open_date_time', 'immidiately', 'online_sales_close_time', 'online_sales_close_date_time', 'event_type', '', 'ages', 'custom_age', 'website', 'image', 'display_image_in_listing' ];
@@ -64,11 +59,18 @@ data.event_type - (int) 3 for General Admission Event, 2 for an Assigned Seating
         },
 };
 
-/*
-if(event_id) {
- input.event_id = "4206298";
-} */
 
+if(data.id) {
+ input.event_id = "4206298";
+} 
+
+
+console.log('------------------***************--------------------');
+console.log(input);
+
+return true;
+
+/*
 var postData = {
                 headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/Event",
@@ -90,6 +92,9 @@ var postData = {
                     return next({status:0,location:"","error":percent3});
                   }                   
                });
+*/
+
+
     
   }
    
