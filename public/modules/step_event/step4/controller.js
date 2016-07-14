@@ -285,6 +285,46 @@ $scope.click_menu = function(menu, data, valid) {
     opened: false
   };
 
+
+  // Called when the editor is completely ready.
+  $scope.onReady = function() {
+  
+  };
+ 
+  $scope.options = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+
+  $scope.options1 = {
+    customClass: getDayClass,
+    initDate: new Date(),
+    showWeeks: false
+  };
+  $scope.options3 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+  $scope.options4 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date(tomorrow);
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [{
+    date: tomorrow,
+    status: 'full'
+  }, {
+    date: afterTomorrow,
+    status: 'partially'
+  }];
+
   function getDayClass(data) {
       var date = data.date,
         mode = data.mode;

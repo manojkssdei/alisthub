@@ -375,6 +375,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
     
     $scope.$watch('backgroundColor', function(newValue, oldValue) {
              $scope.background_outer=newValue;
+             console.log("********",$scope.background_outer);
         });
     $scope.$watch('InnerbackgroundColor', function(newValue, oldValue) {
             
