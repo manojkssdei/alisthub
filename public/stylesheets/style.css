@@ -25,6 +25,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   text-align: left !important;
 }
 
+
 /* custom error messages for assign discount*/
 .custom_error {
     background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;
@@ -506,6 +507,7 @@ select.select30{height:30px; padding:0 8px; font-size:14px;}
 
 .u-text{text-decoration:underline;}
 .u-text:hover{text-decoration:none;}
+
 .ng-binding.error-fld { background: rgba(200, 0, 0, 0.2) none repeat scroll 0 0;color: #fff;margin: 0 0 15px;
     padding: 10px; clear: both;}
 input[type="number"] {

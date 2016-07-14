@@ -14,7 +14,8 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
      $scope.preview_link="http://"+href[2]+"/preview_template/"+$localStorage.userId+"/"+$stateParams.eventId;
      var $serviceTestVenue = $injector.get("venues");
      $scope.error_message = true;
-    var event_id=$stateParams.eventId;
+     $scope.site_url="http://"+href[2];
+    var event_id=$scope.eventId=$stateParams.eventId;
     $rootScope.sociallink={};
    
     $serviceTestVenue.getEvent({'event_id':event_id},function(response){
@@ -63,9 +64,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
 
   
  $scope.click_menu = function(menu, data, valid) {
-    console.log($stateParams.eventId+':3');
-    console.log(menu.id);
-    console.log(data);
+   
     var objectForm = this;
     $scope.selectedClass = 1;
     //To go to step1 event Details
@@ -376,6 +375,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
     
     $scope.$watch('backgroundColor', function(newValue, oldValue) {
              $scope.background_outer=newValue;
+             console.log("********",$scope.background_outer);
         });
     $scope.$watch('InnerbackgroundColor', function(newValue, oldValue) {
             

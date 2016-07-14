@@ -15,6 +15,12 @@ angular.module('alisthub').factory('event_setting', ['$q', '$timeout','communica
 	      callback(res.data);
 	    });
 	};
+	
+	url.getEvent = function(jsondata,callback){
+	communicationService.resultViaPost(webservices.getEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+	  callback(res.data);
+	});
+      };
 
 	return url;
 

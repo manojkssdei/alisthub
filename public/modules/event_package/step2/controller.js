@@ -78,6 +78,10 @@ var $serviceTest = $injector.get("event_package");
 
 
 
+  
+
+
+
 
     $serviceTest.getPackage({'package_id':packageId , 'user_id' : userId },function(response){
         $scope.data=response.results[0];
@@ -1603,6 +1607,46 @@ angular.module('alisthub').controller('PricechangeCtrl', function($scope, $uibMo
   $scope.popup1 = {
     opened: false
   };
+
+  $scope.onReady = function() {
+  
+  };
+ 
+  $scope.options = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+
+ 
+ 
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date(tomorrow);
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [{
+    date: tomorrow,
+    status: 'full'
+  }, {
+    date: afterTomorrow,
+    status: 'partially'
+  }];
+
+  function getDayClass(data) {
+    var date = data.date,
+      mode = data.mode;
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+      for (var i = 0; i < $scope.events.length; i++) {
+        var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+        if (dayToCheck === currentDay) {
+          return $scope.events[i].status;
+        }
+      }
+    }
+    return '';
+  }
+
   //To get Months
   $scope.months = [{
       id: '01',

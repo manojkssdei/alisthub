@@ -1150,7 +1150,6 @@ exports.postCreateEventStepFour = function(req, res) {
 }
 
 
-
 /** 
 Method: updatesocialLink
 Description:Function to changesocial link 

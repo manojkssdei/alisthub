@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="stylesheets/angularjs-color-picker.min.css"/>
         <link rel="stylesheet" href="preview_template/assets/css/event.css" type="text/css" />
         <link rel="stylesheet" href="stylesheets/angular-tooltips.css"/>
+         
+        
         <!-- Website Main CSS -->
         <!--[if lte IE 8]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script><![endif]-->
 
@@ -44,7 +46,7 @@
                                 <li role="menuitem"> <a style="cursor:pointer;" ng-click="logout()">Sign Out</a></li>
                             </ul>
                         </div>
-                        <a href="javascript:void(0)">Help</a>
+                        <a href="#/help">Help</a>
                     </div>
                     <a  ng-click="toggleMenu()" class="navbar-toggle">
                     <span class="icon-bar"></span>
@@ -76,7 +78,7 @@
                                             <li><a ng-if="userType=='seller'" ui-sref="view_user">Users</a></li>
                                             <li><a href="#/widgets">Widgets</a></li>
                                             <li><a href="javascript:void(0)">Website Manager</a></li>
-                                            <li><a href="javascript:void(0)">Downloads</a></li>
+                                            <li><a href="#/downloads">Downloads</a></li>
                                         </ul>
                                     </li>
                                     <li>
@@ -196,7 +198,7 @@
         
         <!-- /Wrapper --> 
        
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
         <script type="text/javascript" src="javascripts/jquery.min.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script src="javascripts/angular-min.js"></script>

@@ -40,7 +40,19 @@ exports.saveSetting = function(req,res) {
           if (err) {
             res.json({error:err,code:101});
           }
-          res.json({result:results,code:200});
+          
+          // showclix start 
+                var showClix2 = new showClix();
+                    showClix2.single_4th_step(req.body,res,function(sdata){
+                        if (sdata.status == 1) {
+                         res.json({result:results,code:200}); 
+                        } else {
+                            res.json({result:"",error:"Server error",code:101});  
+                        }
+                    });
+          //showclix end 
+          
+          
         });
       } else {
         var query = "INSERT INTO `event_settings` SET "+ fieldsData + "  `created` = '" + curtime +"' , `modified` = '" + curtime +"'";
@@ -48,7 +60,19 @@ exports.saveSetting = function(req,res) {
           if (err7) {
             res.json({error:err7,code:101});
           }
-          res.json({result:responce,code:200});
+          
+          // showclix start 
+                var showClix2 = new showClix();
+                    showClix2.single_4th_step(req.body,res,function(sdata){
+                        if (sdata.status == 1) {
+                         res.json({result:responce,code:200});  
+                        } else {
+                            res.json({result:"",error:"Server error",code:101});  
+                        }
+                    });
+          //showclix end  
+          
+          
         });
       }
     });

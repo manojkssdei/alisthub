@@ -21,10 +21,15 @@
 <style type="text/css"> 
     .social-media {  right: 12%;}
     .social-med > a{ display:inline-block;}
-form#ticket-form {  background-color: #fff; padding: 10px;}
-.custom_button {  background-color: black; border-radius: 5px; color: #fff;  padding: 10px;}
-.ev-container.wtframe.m-t35{ max-width: 1024px;}
-.ev-container{ max-width: 100%;}
+form#ticket-form {
+    background-color: #fff;
+    padding: 10px;
+}.custom_button {
+    background-color: black;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px;
+}
 </style>
 </head>
 <body>
@@ -114,7 +119,7 @@ form#ticket-form {  background-color: #fff; padding: 10px;}
                       $.each(obj, function(key, value) {
 			   console.log(value);
                          ticket_html+='<tr data-level-id="'+key+'"><td class="qty-td"> <select class="ticket-select input form-control" name="level['+key+']" id="select_level_'+key+'">';
-                      for(var j=value.increment_by;j<=value.transaction_limit;j++)
+                      for(var j=0;j<=value.transaction_limit;j++)
                       {
                       ticket_html+='<option value="'+j+'">'+j+'</option>'; 
                       }
