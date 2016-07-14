@@ -355,7 +355,8 @@ var webservices = {
  "deleteTag":"/tracking/deleteTag",
     // event package
 
-    "stepOneEventPackage"  :  "/event/stepOneEventPackage",
+    //"stepOneEventPackage"  :  "/event/stepOneEventPackage",
+    "stepOneEventPackage" : "/package/stepOneEventPackage",
     "getPackage" : "/package/getPackage",
     "getEventsInPackage" : "/package/getEventsInPackage",
     "getBundlesInPackage" : "/package/getBundlesInPackage",

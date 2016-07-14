@@ -9,6 +9,173 @@ var showClix   = require('./../../showclix/service.js');
 var showClixPackage   = require('./../../showclix/showclix_package.js');
 
 
+exports.stepOneEventPackage = function(req,res) {
+
+   if (req.body.imageData && req.body.imageData != "" && req.body.imageData != undefined) {
+
+        var path_event = process.cwd()+'/public/images/events';
+        var user_id = req.body.user_id;
+        var photoname = user_id+'_image_'+Date.now() + '.jpg';
+        var imagename = path_event+'/'+photoname;
+        var base64Data = req.body.imageData.replace(/^data:image\/jpeg;base64,/, "");
+        
+        fs.writeFile(imagename, base64Data, 'base64', function(err) {
+        if (err) {
+         console.log("Image Failure Upload");
+        }
+        });
+    req.body.image = photoname ;
+}
+
+// var fields = ['package_name', 'package_description', 'online_sales_open_date', 'online_sales_open_time','online_sales_open_date_time', 'immidiately', 'online_sales_close_date', 'online_sales_close_time', 'online_sales_close_date_time', 'event_type', 'category', 'ages', 'custom_age', 'website', 'image', 'display_image_in_listing' ];
+ var fields = ['package_name', 'package_description', 'online_sales_open_time','online_sales_open_date_time', 'immidiately', 'online_sales_close_time', 'online_sales_close_date_time', 'event_type', 'category', 'ages', 'custom_age', 'website', 'image', 'display_image_in_listing' ];
+
+    var fieldsData = '';
+    for (var index in fields) {
+        fieldName = fields[index];
+        if (req.body[fieldName] == undefined) {
+            req.body[fieldName] = '';
+        }
+        fieldsData+= " `"+fieldName+"` = '" + req.body[fieldName]+ "', ";
+    }
+
+    var curtime = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    console.log('online_sales_open_date_time' , req.body.online_sales_open_date);
+    console.log('online_sales_close_date_time' , req.body.online_sales_close_date);
+
+
+req.body.online_sales_open_date_time_moment = moment(req.body.online_sales_open_date_time).format('YYYY-MM-DD HH:mm:ss');
+req.body.online_sales_close_date_time_moment = moment(req.body.online_sales_close_date_time).format('YYYY-MM-DD HH:mm:ss');
+
+console.log(' online_sales_open_date_time_moment : ', req.body.online_sales_open_date_time_moment);
+console.log(' online_sales_close_date_time_moment : ', req.body.online_sales_close_date_time_moment);
+
+
+    req.body.online_sales_open_date = moment(req.body.online_sales_open_date).format('YYYY-MM-DD');
+    req.body.online_sales_close_date = moment(req.body.online_sales_close_date).format('YYYY-MM-DD');
+
+    req.body.created = curtime;
+    req.body.modified = curtime;
+    req.body.status = 1;
+    req.body.showclix_user = '28676';
+    req.body.showclix_seller = '22876';
+
+    data = req.body;
+    var showClixPackage2 = new showClixPackage();
+
+          showClixPackage2.add_package(data,res,function(sdata){
+          if (sdata.status == 1) {
+
+
+if(sdata.operation == 'add_package' ) {
+
+            var showclix_url = sdata.location;
+            var showclix_url_array = showclix_url.split("/");
+            showclix_package_id = showclix_url_array.slice(-1).pop(); 
+            console.log('-----------------------');
+            console.log('Response from showclix api , ' , sdata );
+            console.log(' ---------------------------- ');
+            console.log('showclix_package_id ' , showclix_package_id );
+
+}
+    
+if(sdata.operation == 'edit_package' ) {
+    showclix_package_id = sdata.location ;
+}       
+
+              //var event_url = sdata.location;
+              //var showclix_event_id = event_url.split("/");
+             // update_showclix_data(event_url,eventId,data);
+             // res.json({result:eventId,showclix:sdata.location,code:200});
+
+    if (req.body.id && req.body.id != "" && req.body.id != undefined) {
+    var query = "UPDATE `event_package` SET "+ fieldsData +" `modified` = '" + req.body.modified+"'  WHERE user_id = '" + req.body.user_id + "' && id=" + req.body.id;
+    } else {
+    var query = "INSERT INTO `event_package` SET "+ fieldsData +" user_id = "+req.body.user_id +" ,  `showclix_package_id` = " + showclix_package_id + "  ,  `showclix_user` = " + req.body.showclix_user + " ,  `showclix_seller` = " + req.body.showclix_seller + "  ,  `showclix_url` = '" + showclix_url + "' ,  `created` = '" + req.body.created +"' , `url_short_name` = '" + req.body.short_name + "'";
+         }
+
+console.log('-------------------------');
+console.log('query');
+console.log(query);
+
+    if (query != "") {
+        connection.query(query, function(err7, results) {
+            if (err7) {
+                res.json({ error: err7,code: 101});
+            }
+          if(results) {
+           var package_id = '';
+            if(results.insertId != 0 && results.insertId !='' ) {
+              package_id = results.insertId;
+            }
+            if (req.body.id && req.body.id != "" && req.body.id != undefined) {
+              package_id = req.body.id;
+            }
+
+console.log('-------------------------');
+console.log('last added package_id for our local database : ' , package_id);
+
+console.log('-------------------------');
+console.log('req.body.event_ids' , req.body.event_ids);
+
+            for (var index in  req.body.event_ids) {
+                if (req.body.event_ids[index] != undefined) {
+                    var event = req.body.event_ids[index];
+                    var showclix_event_id = req.body.showclix_event_ids[event];
+
+console.log(" -------------------------");
+console.log('chhosen showclix id of event :', showclix_event_id );
+
+          var events_of_packages = {};
+          events_of_packages.package_id = showclix_package_id;
+          events_of_packages.event_id = showclix_event_id;
+
+showClixPackage2.add_events_of_package(events_of_packages,res,function(sdata1){
+  console.log(' ------------******* sdata1******------------------');
+  console.log(sdata1);
+
+          if (sdata1.status == 1) {
+           // var package_event_map_id_showclix = 1 ;
+
+    var query_event = "INSERT INTO package_event_map ( event_id , package_id ) VALUES ( "+ event +" , "+ package_id +")";
+                  console.log('--------------------');
+                  console.log(query_event); 
+                    connection.query(query_event, function(subErr, subResults) {
+                      if (subErr) {
+                          res.json({ error: subErr,code: 101});
+                      }
+                    });
+                  }
+                });
+            }
+          }
+          res.json({ result: package_id , code: 200 });
+        }
+
+        
+        });
+    }
+
+
+
+          } else {
+            console.log('---------------------------');
+            console.log(' showclix error exist' );
+             //res.json({result:"",error:sdata.error,code:101});  
+             res.json({result:"",code:101});  
+
+             // rollback_event(eventId);
+             // res.json({result:"",error:sdata.error,code:101});  
+          }
+      });
+
+
+
+
+
+    
+}
 /** 
 Method: getPackage
 Description:Function to get event Package  
@@ -467,15 +634,11 @@ for (var index in fields) {
     
     var showClixPackage2 = new showClixPackage();
           showClixPackage2.postThirdStepPackageData(data,res,function(sdata){
-          if (sdata.status == 1) {
+          if (sdata.status == 1 && sdata.operation == 'edit_package' ) {
 
-            var showclix_url = sdata.location;
-            var showclix_url_array = showclix_url.split("/");
-            showclix_package_id = showclix_url_array.slice(-1).pop(); 
-            console.log('-----------------------');
-            console.log('Response from showclix api , ' , sdata );
-            console.log(' ---------------------------- ');
-            console.log('showclix_package_id ' , showclix_package_id );
+    var showclix_package_id = sdata.location ;
+    console.log('-----------------------');
+    console.log('showclix_package_id ' , showclix_package_id );
 
     var query = "UPDATE `event_package` SET "+ fieldsData +" `modified` = '" + req.body.modified + "' WHERE id=" + req.body.id ; 
     console.log('query', query)
