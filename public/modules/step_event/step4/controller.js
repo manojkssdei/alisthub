@@ -16,8 +16,12 @@ angular.module('alisthub').controller('stepevent4Controller', function($scope, $
   Created By:  Deepak khokkar  
   */
 
-if($stateParams.eventId!=undefined){
+if($stateParams.eventId!==undefined){
   $scope.RefEvnetId = $stateParams.eventId;
+  var event_id=$stateParams.eventId;
+    $serviceTest.getEvent({'event_id':event_id},function(response) {
+      $scope.data=response.results[0];
+    })
 }
 
 
@@ -404,7 +408,10 @@ $scope.click_menu = function(menu, data, valid) {
 
     if ($localStorage.userId !== undefined) {
       $scope.formdata.user_id = $localStorage.userId;
-
+      $scope.formdata.showclix_token     = $localStorage.showclix_token;
+      $scope.formdata.showclix_user_id   = $localStorage.showclix_user_id;
+      $scope.formdata.showclix_seller_id = $localStorage.showclix_seller_id;
+      $scope.formdata.showclix_id        = $scope.data.showclix_id;
       $serviceTest.saveSetting($scope.formdata, function(response) {
 
           if (response.code === 200) {

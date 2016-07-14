@@ -60,15 +60,17 @@
                                         <p><a href="#"><strong>{{pdata.title}}</strong></a></p>
                                     </td>
 				    
-                                    <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="20%">{{pdata.recurring_or_not == 0 ? (pdata.start_date | date:"dd MMMM yyyy") : 'Event Series'}}</td>
+                                    <td title="'Start date'" header-class="'header-text-align'" filter="{ title: 'start_date'}" sortable="'start_date'" width="16%">{{pdata.recurring_or_not == 0 ? (pdata.start_date | date:"dd MMMM yyyy") : 'Event Series'}}</td>
                                     
                                     <!--  <td class="numbers">{{upcoming.sold}}</td>-->
-                                    <td title="'Action'" class="action" width="20%">
+                                    <td title="'Action'" class="action" width="24%">
 
 
                                         <a title="Overview" href="javascript:void(0)"  ng-click="viewOverviewHref(pdata.id,pdata.recurring_or_not.toString())" ><i class="fa fa-pie-chart"></i></a>
                                         <a title="Schedules" ng-if="pdata.recurring_or_not == 1" href="/#/event_schedule/{{pdata.id}}"><i class="fa fa-calendar-o"></i></a>
                                         <a title="Guest List" ng-if="pdata.recurring_or_not != 1" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>
+					<a  title="Preview" href="preview_template/{{seller_id}}/{{pdata.id}}"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+
                                         <a ng-if = checkPermission(permission[0],'view') title="View" href="javascript:void(0)" ng-click="viewHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-eye"></i></a>
                                         <a ng-if = checkPermission(permission[0],'edit') title="edit" href="javascript:void(0)" ng-click="recurringHref(pdata.id,pdata.recurring_or_not.toString())"><i class="fa fa-edit"></i></a>
                                         <a ng-if = checkPermission(permission[0],'delete') style="cursor:pointer;" title="delete" ng-confirm-clicks="Would you like to delete this Event?" ng-click="delEvent(pdata.id,pdata.showclix_id)"><i class="fa fa-trash"></i></a>
@@ -100,7 +102,8 @@
                                 <li><i class="fa fa-pie-chart"></i><span>Overview</span></li>
                                 <li><i class="fa fa-calendar-o"></i> <span>Schedules</span></li>
                                 <li><i class="fa fa-list-ul"></i><span>Guest List</span></li>
-                                <li ng-if = checkPermission(permission[0],'view') ><i class="fa fa-eye"></i><span>View</span></li>
+                                <li><i class="fa fa-eye-slash" aria-hidden="true"></i><span>Preview</span></li>
+				<li ng-if = checkPermission(permission[0],'view') ><i class="fa fa-eye"></i><span>View</span></li>
                                 <li ng-if = checkPermission(permission[0],'edit') ><i class="fa fa-edit"></i><span>Edit</span></li>
                                 <li ng-if = checkPermission(permission[0],'delete')><i class="fa fa-trash"></i><span>delete</span></li>
                             </ul>

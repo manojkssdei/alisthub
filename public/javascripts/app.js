@@ -2019,7 +2019,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 /********************CREATED BY DEEPAK K*******************************************/
 
     .config(function (reCAPTCHAProvider) {
-            reCAPTCHAProvider.setPublicKey('6LevjBMTAAAAAP6gdHNyBQ6NDbB8vyPwhFFQlv7x');
+            reCAPTCHAProvider.setPublicKey('6LdgDyUTAAAAAHlJqEPPfg59c9e14SUxn0mL3C5u');
             reCAPTCHAProvider.setOptions({
                 theme: 'white',
                 tabindex : 3

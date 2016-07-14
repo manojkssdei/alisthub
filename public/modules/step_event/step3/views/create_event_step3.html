@@ -1,3 +1,9 @@
+ 
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="../../../../javascripts/ckeditor.js"></script>
+  
+
+
 <style type="text/css">
 .ev-header { background: #0275d0 none repeat scroll 0 0;  width: 100%;}
 .ev-image .social-media{right:17%;}
@@ -6,6 +12,7 @@
 .gray-frame1 li{ border:solid 1px black;}
 .form-section.wt-frame {   padding: 40px 10px;}
 .col-sm-2.design-left { padding-left: 5px;}
+.modal-dialog{ width:900px;}
 </style>
  <script>
   $("document").ready(function() {
@@ -126,12 +133,13 @@
                     </section>
                </section><!--Left-->
                <section class="col-sm-10 design-right">
-		<section class="gray-frame1" style="background: rgba(0, 0, 0, 0) url('./images/bg/bg.png') no-repeat scroll center top  ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">               		
+		<section id="preview_div_contain_html">
+		<section class="gray-frame1" style="background: rgba(0, 0, 0, 0) url('{{site_url}}/images/bg/bg.png') no-repeat scroll center top  ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">               		
       <div class="module  gridster">
 
 	<div class="ev-container wtframe m-t35" ng-style="{background: background_inner,border:border_color}"> 
             <section id="repeatsection1">
-	      <section class="ev-image col2" id="section1"><div class="portlet">
+	      <section class="ev-image col2" id="section1"><div class="portlet"  ng-style="{background: background_inner,color:text_color}">
 	      <div class="drag" style="display: none;">
 		<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		<a onclick="remove_widget('section1')"><i class="fa fa-trash" aria-hidden="true"></i></a>
@@ -151,7 +159,7 @@
     <section class="row">
     	<section class="col-sm-8">
 	        <section class="scial-medial col2" id="section2">
-		  <div class="portlet">
+		  <div class="portlet"  ng-style="{background: background_inner,color:text_color}">
 		  <div class="drag" style="display: none;">
 		  <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		  <a onclick="remove_widget('section2')"><i class="fa fa-trash" aria-hidden="true"></i></a>
@@ -171,7 +179,7 @@
 		  </div>
 	      </section><!--Media Icons-->
         	<section class="ev-details module-div  col2" id="section3">
-                <div class="portlet">
+                <div class="portlet"  ng-style="{background: background_inner,color:text_color}">
                 
             	 <div id="ev-details"> <div class="drag" style="display: none;">
 		    
@@ -201,25 +209,26 @@
             </section><!--Event Details-->
             
             <section class="ev-details module-div col2" id="section4">
-                <div class="portlet">
+                <div class="portlet"  ng-style="{background: background_inner,color:text_color}">
                 
             	<div id="video-widget"><div class="drag" style="display: none;">
 		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		      <a onclick="remove_widget('section4')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		      <a ng-click="open1()"><i class="fa fa-edit" aria-hidden="true"></i></a>
+		      <a onclick="open_popup_editor('content2')"><i class="fa fa-edit" aria-hidden="true"></i></a>
+		     
 		    </div>
 		  <section class="form-group field-group">
           	
-              <section class="event-details"   ng-style="{background: background_inner}">
+              <section class="event-details"   ng-style="{background: background_inner,color:text_color}">
                     <section class="content">
-		    	<div ng-bind-html="content2"></div>
+		    	<div id="content2" ng-bind-html="content2"></div>
 		    </section>        
               </section>
           </section></div>
                 </div>
             </section><!--Video Block-->
 	   <section class="ev-details module-div col2" id="section5">
-                <div class="portlet">
+                <div class="portlet" ng-style="{background: background_inner,color:text_color}">
                  
 		 <div class="drag" style="display: none;">
 			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
@@ -232,7 +241,7 @@
         </section><!--Left Panel-->
         <section class="col-sm-4">
         	<section class="venue-panel module-div col2" id="section6">
-		  <div class="portlet">
+		  <div class="portlet" ng-style="{background: background_inner,color:text_color}">
                  
                  <div class="drag" style="display: none;">
 			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
@@ -245,14 +254,14 @@
 		  </div>
             </section><!--Venue Block-->
             <section class="venue-panel module-div col2" id="section7">
-		  <div class="portlet">
+		  <div class="portlet" ng-style="{background: background_inner,color:text_color}">
                 
                   <div class="drag" style="display: none;">
 			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
 		       <a onclick="remove_widget('section7')"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		      
 		      </div>
-		      <section class="panel panel-primary"   ng-style="{background: background_inner}">
+		      <section class="panel panel-primary"   ng-style="{background: background_inner,color:text_color}">
 		     <section class="panel-heading"><h5 class="m-b0">Venue</h5></section>                     
 		     <section class="panel-body">
 			  
@@ -270,7 +279,7 @@
 		  </div>
             </section><!--Venue Block-->
             <section class="ticket-panel module-div col2" id="section8">
-                <div class="portlet">
+                <div class="portlet" ng-style="{background: background_inner,color:text_color}">
                
             	<div id="ticket-panel"><div class="drag" style="display: none;">
 		    
@@ -282,7 +291,7 @@
             </section><!--Venue Block-->
             
             <section class="fb-block module-div col2" id="section9">
-                <div class="portlet">
+                <div class="portlet" ng-style="{background: background_inner,color:text_color}">
                 
             	<div id="fb-block"><div class="drag" style="display: none;">
 		    
@@ -328,17 +337,20 @@
                  </span>
 		
 		    </section>
+		</section>
 		<button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
                </section><!--Left-->
 	       
           </section>
       </section>
 
-      <section ng-hide="preview_div" id="preview_div">
-	
+      <section ng-hide="preview_div" >
+       <section id="preview_div"></section>
+       <a class="btn pink-btn" style="margin-top:4%" href="/#/create_event_step4/{{eventId}}">Continue</a>
       </section>
 </div>
 <script type="text/javascript">
+
 function change_image()
 {
   $('#my_file').click();
@@ -371,12 +383,19 @@ function add_block()
 {
   var currentsection=$("#currentSection").val();
   currentsection++;
-  
-  $('#add_block_div').append('<section onmouseover="sectionin(this.id)" onmouseout="sectionout(this.id)" class="col2" id="section'+currentsection+'"><div class="portlet"><div class="drag" style="display:none;"><span><i class="header fa fa-arrows" aria-hidden="true"></i></span><a onclick="remove_widget_dynamic('+currentsection+')"><i aria-hidden="true" class="fa fa-trash"></i></a></div><section class="form-group">Enter your description</section></div></section>');
+  var size='lg';
+  var dynamic='dynamic';
+  var section="section'+currentsection+'_html";
+  $('#add_block_div').append('<section onmouseover="sectionin(this.id)" onmouseout="sectionout(this.id)" class="col2" id="section'+currentsection+'"><div class="portlet"  ng-style="{background: background_inner,color:text_color}"><div class="drag" style="display:none;"><span><i class="header fa fa-arrows" aria-hidden="true"></i></span><a onclick="remove_widget_dynamic('+currentsection+')"><i aria-hidden="true" class="fa fa-trash"></i></a><a onclick="open_popup_editor(\'section'+currentsection+'_html\')"><i class="fa fa-edit" aria-hidden="true"></i></a></div><section id="section'+currentsection+'_html" class="form-group word-wrap">Enter<br><br> your <br><br>description</section></div></section>'); 
    sort();
    $("#currentSection").val(currentsection);
 }
-
+function open_popup_editor(section) {
+  
+ CKEDITOR.instances['editor1'].setData($("#"+section).html());
+  $("#section_block").val(section);
+  $("#myModal").modal();
+}
 function sectionin(sectionId){
   $("#"+sectionId+" .drag").show();
 }
@@ -394,7 +413,7 @@ function remove_widget_dynamic(widgetId)
  $(function(){
         // resize widgets on hover
         $('.js-seralize').on('click', function() {
-	  var arr=$(".gridster").html();
+	  var arr=$("#preview_div_contain_html").html();
 
 	   var href = window.location.href;
           var eventId=href.substr(href.lastIndexOf('/') + 1);
@@ -570,7 +589,13 @@ function remove_widget_dynamic(widgetId)
       var url =$('#ImagePreview').attr("src");
       return launchEditor('ImagePreview',url);
     }
-      
+    function save_block()
+    {
+     var section_block=$("#section_block").val();
+     var block=CKEDITOR.instances['editor1'].getData();
+     $("#"+section_block).html(block);
+     $('.close').click();
+    }
     </script>
 <script type="text/ng-template" id="previewtemplate.html">
      <div class="modal-header">
@@ -686,3 +711,27 @@ function remove_widget_dynamic(widgetId)
         </section>
     </div>
 </script>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Description</h4>
+        </divCKEDITOR.instances['editor1'].setData(>
+        <div class="modal-body">
+          <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
+	  <script>
+             CKEDITOR.replace('editor1');
+             </script>
+	     <input type="hidden" id="section_block" value="">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn pink-btn btn-small" onclick="return save_block()">Save</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
