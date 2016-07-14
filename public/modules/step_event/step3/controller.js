@@ -14,6 +14,7 @@ angular.module('alisthub').controller('stepevent3Controller', function($scope, $
      $scope.preview_link="http://"+href[2]+"/preview_template/"+$localStorage.userId+"/"+$stateParams.eventId;
      var $serviceTestVenue = $injector.get("venues");
      $scope.error_message = true;
+     $scope.site_url="http://"+href[2];
     var event_id=$scope.eventId=$stateParams.eventId;
     $rootScope.sociallink={};
    
