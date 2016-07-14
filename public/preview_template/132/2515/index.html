@@ -73,6 +73,7 @@ form#ticket-form {
 	    data: {"event_id":eventId}
 	  })
 	    .done(function( response ) {
+	    
             if(response.code==200)
             {
              
@@ -85,7 +86,30 @@ form#ticket-form {
 		    data: {"showclix_id":response.results[0].showclix_id}
 		  })
 		    .done(function( resp ) {
-                     if(resp.code==200)
+		    
+		    ///////////////////////////////////////////////////////	
+		    var str = "There is some problem on server. Please try after some time.";
+                    function isJson(item) {
+                      item = typeof item !== "string"
+                          ? JSON.stringify(item)
+                          : item;
+                  
+                      try {
+                          item = JSON.parse(item);
+                      } catch (e) {
+                          return false;
+                      }
+                  
+                      if (typeof item === "object" && item !== null) {
+                          return true;
+                      }
+                  
+                      return false;
+                  }
+                
+                  
+                  if (isJson(resp.showclix)) {
+                    if(resp.code==200)
                      {
                      
                  
@@ -109,13 +133,29 @@ form#ticket-form {
 		    data: {"event_id":eventId}
 		  })
 		    .done(function( response1 ) {
-		    var preview_html=response1.result[0].html.replace("./images","http://"+href[2]+"/images");
+		    var preview_html=response1.result[0].html;
 		    
 		       $(".preview_div_insert").html(preview_html);
 		       
 		       $("#ticket-panel").html(ticket_html+'<script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js"/>');
 		
 		      });
+                  }else{
+		   $.ajax({
+		    method: "POST",
+		    url: "http://"+href[2]+"/event/getEventStep3",
+		    data: {"event_id":eventId}
+		  })
+		    .done(function( response1 ) {
+		    var preview_html=response1.result[0].html;
+		    
+		       $(".preview_div_insert").html(preview_html);
+		       
+		       $("#ticket-panel").html(ticket_html+'<script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js"/>');
+		
+		      });
+		  }
+		
                   });
               }  
             }
