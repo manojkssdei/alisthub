@@ -219,8 +219,7 @@ $scope.getBlacklist = function() {
                     $scope.user.seller_id = $localStorage.userId;
                     $serviceTest.addCustomer($scope.user, function(response) {
                         if (response.code == 200) {
-                     
-                             $location.path("/view_customer");
+                            $state.go('view_customer');
                         } else {
                             $scope.activation_message = global_message.ErrorInActivation;
                         }
@@ -270,7 +269,6 @@ $scope.getBlacklist = function() {
                     if (response.code == 200) {
                         //$scope.eventdata = response.result;
                         $rootScope.question = $localStorage.question = "";
-                        //$location.path("/view_discounts/list");
                     } else {
                         //console.log('error' );
                         //  $scope.eventdata = "";

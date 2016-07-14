@@ -274,6 +274,8 @@ $scope.redirectToDashboard = function() {
 
     if ($localStorage.userId !== undefined) {
       $scope.data.user_id = $localStorage.userId;
+      $scope.data.showclix_token = $localStorage.showclix_token;
+      $scope.data.showclix_seller_id = $localStorage.showclix_seller_id;
 
       $serviceTest.postThirdStepPackageData($scope.data, function(response) {
 
@@ -317,7 +319,8 @@ $scope.advSettingPackageId = $scope.eventSetting.package_id;
     if($scope.data!=undefined){
 
       console.log('$scope.data' , $scope.data) ;
-      $scope.data.will_call = parseInt($scope.data.will_call);
+
+      $scope.data.event_id = parseInt($scope.data.showclix_package_id);
       $scope.data.sales_immediatly = parseInt($scope.data.sales_immediatly);
       $scope.data.donation = parseInt($scope.data.donation);
       $scope.data.custom_fee = parseInt($scope.data.custom_fee);

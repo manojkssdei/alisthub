@@ -197,7 +197,7 @@
                         <div class="row">
                             <div class="col-sm-4" ng-class="{ 'has-error' : userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine }">
                                 <div class="form-group">
-                                    <label for="EventName"> Retail Price<span class="req">*</span></label>
+                                    <label for="EventName"> Retail Price ($)<span class="req">*</span></label>
                                     <input  type="number" min="0" class="form-control" name="retail_price" placeholder="Product Price" ng-model="data.retail_price" ng-blur="calculateBuyerPrice()" required/>
                                     <p ng-show="userForm2.retail_price.$invalid && !userForm2.retail_price.$pristine" class="error-fld ng-binding">Enter valid retail price.</p>
                                    
@@ -205,7 +205,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="EventName"> Shipping Cost</label>
+                                    <label for="EventName"> Shipping Cost ($)</label>
                                     <input  type="number" min="0" class="form-control" placeholder="Shipping Cost" ng-model="data.ship_cost" ng-blur="calculateBuyerPrice()" name="ship_cost"/>
                                     <p ng-show="userForm2.ship_cost.$invalid && !userForm2.ship_cost.$pristine" class="error-fld ng-binding">Enter valid shipping cost.</p>
                                    
@@ -213,7 +213,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="EventName"> Service Fee Covered</label>
+                                    <label for="EventName"> Service Fee Covered (%)</label>
                                     <input  type="number" min="0" class="form-control" placeholder="Service Fee Covered" ng-model="data.service_fee" name ="service_fee" tooltips tooltip-template="The percentage (0 – 100) of the per product service fee that you’re paying. If you’re passing the entire service fee on to the customer, set to 0%."/>
                                     <p ng-show="userForm2.service_fee.$invalid && !userForm2.service_fee.$pristine" class="error-fld ng-binding">Enter valid service fee.</p>
                                     
@@ -232,14 +232,14 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="EventName"> Buyer pays</label>
+                                    <label for="EventName"> Buyer pays ($)</label>
                                     <input type="number" min="0" class="form-control" placeholder="Buyer pays" ng-model="data.buyer_pays" name="buyer_pays"/>
                                      <p ng-show="userForm2.buyer_pays.$invalid && !userForm2.buyer_pays.$pristine" class="error-fld ng-binding">Enter valid amount that buyer will pay.</p>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="EventName"> Seller pays</label>
+                                    <label for="EventName"> Seller pays ($)</label>
                                     <input type="number" min="0" class="form-control" placeholder="Seller pays" ng-model="data.seller_pays" name="seller_pays"/>
                                      <p ng-show="userForm2.seller_pays.$invalid && !userForm2.seller_pays.$pristine" class="error-fld ng-binding">Enter valid amount that seller will pay.</p>
                                 </div>
@@ -305,10 +305,10 @@
                                 </div>
                             </div>
 			    
-			    <div class="col-sm-3" ng-show="!data_configuration">
+			    <div class="col-sm-2" ng-show="!data_configuration">
 			    <div class="form-group"  ng-class="{ 'has-error' : userForm3.inventory.$invalid && !userForm3.inventory.$pristine }">
                                     <label for="EventName"> Inventory <span class="req">*</span></label>
-                                    <input  type="number" min="0" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration" required name="inventory" tooltips tooltip-template="Current inventory" />
+                                    <input  type="number" min="0" maxlength="5" max="99999" class="form-control" placeholder="Inventory" ng-model="data.inventory" ng-required="!data_configuration" required name="inventory" tooltips tooltip-template="Current inventory" />
                                     <p ng-show="userForm3.inventory.$invalid && !userForm3.inventory.$pristine" class="error-fld ng-binding">Enter Inventory.</p>
 
                                 </div>

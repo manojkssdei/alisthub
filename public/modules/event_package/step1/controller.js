@@ -269,6 +269,7 @@ console.log('$state.params.packageId' , $state.params.packageId);
 
 
     if ( $localStorage.packageId) {
+        console.log($localStorage);
         console.log('edit called');
 
         var packageId = $state.params.packageId;

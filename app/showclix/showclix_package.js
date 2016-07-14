@@ -55,8 +55,10 @@ module.exports = function() {
             },
         };
 
-        if (data.id) {
-            input.event_id = data.id;
+
+        if (data.showclix_package_id) {
+            input.event_id = data.showclix_package_id;
+
 
             console.log('------------------******** UPDATE *******--------------------');
 
@@ -69,7 +71,7 @@ module.exports = function() {
 
             var postData = {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-API-Token': data.showclix_token },
-                url: "http://api.showclix.com/" + data.id,
+                url: "http://api.showclix.com/Event/" + data.showclix_package_id,
                 body: input,
                 json: true
             };
@@ -253,7 +255,7 @@ module.exports = function() {
         var input = {
             "user_id": data.showclix_user,
             "seller_id": data.showclix_seller,
-            "event_id": data.id,
+            "event_id": data.showclix_package_id,
             "will_call_ticketing": null,
             "delivery_type_2": delivery_type_2,
             "description_2": data.print_description,
@@ -262,36 +264,83 @@ module.exports = function() {
             "custom_buyer_fee": data.custom_fee,
             "ticket_note": data.ticket_note,
             "ticket_purchase_limit": data.ticket_transaction_limit,
-            "ticket_purchase_timelimit": data.checkout_time_limit_in_seconds,
+            "ticket_purchase_timelimit": checkout_time_limit_in_seconds,
             "private_event": data.private_event,
-            "short_name": data.url_short_name,
+            //"short_name": data.url_short_name,
             "date_edited": data.modified,
             "status": status,
         };
 
-        console.log('-------------********** input ********-------------------');
-        console.log(input);
+            console.log('------------------********postThirdStepPackageData  UPDATE *******--------------------');
 
-        var postData = {
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-API-Token': data.showclix_token },
-            url: "http://api.showclix.com/Event",
-            form: input
-        };
+            //delete input.status;
+            //delete input.short_name;
+            //delete input.sales_open;
+            //delete input.date_added;
 
-        request.put(postData, function(error, response, body) {
-            var str = response.body;
-            if (response.headers.location) {
-                return next({ status: 1, location: response.headers.location });
-            } else {
-                var percent = str.split("<p>");
-                var percent2 = percent[1].split("</p>");
-                var percent3 = percent2[0].replace("<h2>", "");
-                var percent3 = percent3.replace("<h3>", "");
-                var percent3 = percent3.replace("</h2>", "");
-                var percent3 = percent3.replace("</h3>", "");
-                return next({ status: 0, location: "", "error": percent3 });
-            }
-        });
+            console.log(input);
+
+            var postData = {
+                method:'PUT',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-API-Token': data.showclix_token },
+                url: "http://api.showclix.com/Event/" + data.showclix_package_id,
+                body: input,
+                json: true
+            };
+
+            console.log(postData);
+
+console.log(' i m here');
+
+
+            request({
+                method:'PUT',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-API-Token': data.showclix_token },
+                url: "http://api.showclix.com/Event/" + data.showclix_package_id,
+                body: input,
+                json: true
+            }, function(error, response, body) {
+
+          
+
+
+
+                console.log('---------------------------response comming here--------------');
+                console.log(response);
+
+                var str = "There is some problem on server. Please try after some time.";
+
+                function isJson(item) {
+                    item = typeof item !== "string" ?
+                        JSON.stringify(item) :
+                        item;
+
+                    try {
+                        item = JSON.parse(item);
+                    } catch (e) {
+                        return false;
+                    }
+
+                    if (typeof item === "object" && item !== null) {
+                        return true;
+                    }
+
+                    return false;
+                }
+                var dataw = response.body;
+
+                if (isJson(response.body)) {
+                    str = response.body;
+                }
+
+                if (str.event_id && str.event_id !== undefined) {
+                    console.log(" PACKAGE UPDATED AND PACKAGE ID SENT");
+                    return next({ status: 1, operation: 'edit_package', location: str.event_id });
+                } else {
+                    console.log(" SERVER ERROR  ");
+                    return next({ status: 0, operation: 'error_in_edit_package', location: "", "error": str });
+                }
+            });
 
     }
 

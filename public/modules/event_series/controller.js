@@ -773,7 +773,7 @@ $scope.rec_year_func = function() {
     var objectForm = this;
     //To go to step1 event Details
     if (menu.id === 5) {
-      $location.path("/create_event_step1");
+      $state.go("create_event_step1");
     }
 
     ///TO move to price and level

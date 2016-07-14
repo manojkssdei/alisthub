@@ -151,9 +151,7 @@ module.exports = function(app, express) {
   // post event data step 4
   router.post('/postCreateEventStepFour' , supportCrossOriginScript , Event.postCreateEventStepFour);
    
-   // post event package data step 1
-  router.post('/stepOneEventPackage' , supportCrossOriginScript , Event.stepOneEventPackage);
-  // To update social links from step 3
+ // To update social links from step 3
   router.post('/updatesociallink' , supportCrossOriginScript , Event.updatesociallink);
   router.post('/look_and_feel_save_html' , supportCrossOriginScript , Event.look_and_feel_save_html);
  

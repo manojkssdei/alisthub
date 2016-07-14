@@ -16,6 +16,9 @@ module.exports = function(app, express) {
        /* Save reoccuring event data */
        //router.post('/saverecurringPackage', Package.saverecurringPackage);
 
+  // post event package data step 1
+  router.post('/stepOneEventPackage' , supportCrossOriginScript , Package.stepOneEventPackage);
+  
       /* To get the package data */
       router.post('/getPackage',supportCrossOriginScript, Package.getPackage);
 

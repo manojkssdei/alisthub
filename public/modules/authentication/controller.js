@@ -415,7 +415,7 @@ angular.module('alisthub').controller('loginController', function($http,$locatio
                              $scope.message = global_message.SignupSuccess;
                            },3000);
                            
-                         $location.path("/login");
+                          $state.go('login');
                         }
                     
                     });
