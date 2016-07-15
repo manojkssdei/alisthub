@@ -128,6 +128,14 @@ angular.module('alisthub').controller('createpackageControllerThree', function($
   $scope.open6 = function() {
     $scope.popup6.opened = true;
   };
+
+  $scope.open7 = function() {
+    $scope.popup5.opened = true;
+  };
+  
+  $scope.open8 = function() {
+    $scope.popup6.opened = true;
+  };
   
   $scope.popup1 = {
     opened: false
@@ -150,6 +158,14 @@ angular.module('alisthub').controller('createpackageControllerThree', function($
   };
 
   $scope.popup6 = {
+    opened: false
+  };
+
+  $scope.popup7 = {
+    opened: false
+  };
+
+  $scope.popup8 = {
     opened: false
   };
 
@@ -208,6 +224,10 @@ angular.module('alisthub').controller('createpackageControllerThree', function($
   // timepicker end
 
   $scope.data = {};
+  $scope.data.print_home = 1;
+  $scope.data.will_call = 1;
+
+  $scope.timeout = timeout;
   $scope.enable_on = {};
   $scope.disable_on = {};
 
@@ -270,6 +290,15 @@ $scope.redirectToDashboard = function() {
       $scope.data.print_disable_date = $scope.combine($scope.data.print_disable_date.date,$scope.data.print_disable_date.time);
     }
 
+
+   if($scope.data.will_call_enable_date.date!=undefined && $scope.data.will_call_enable_date.time!=undefined && $scope.data.will_call_enable_date.date!='' && $scope.data.will_call_enable_date.time!=''){
+      $scope.data.will_call_enable_date = $scope.combine($scope.data.will_call_enable_date.date,$scope.data.will_call_enable_date.time);  
+    } 
+    if($scope.data.print_disable_date.date!=undefined && $scope.data.print_disable_date.time!=undefined && $scope.data.print_disable_date.date!='' && $scope.data.print_disable_date.time!=''){
+      $scope.data.print_disable_date = $scope.combine($scope.data.print_disable_date.date,$scope.data.print_disable_date.time);
+    }
+
+
     console.log($scope.data);
 
     if ($localStorage.userId !== undefined) {
@@ -322,10 +351,9 @@ $scope.advSettingPackageId = $scope.eventSetting.package_id;
 
       $scope.data.event_id = parseInt($scope.data.showclix_package_id);
       $scope.data.sales_immediatly = parseInt($scope.data.sales_immediatly);
-      $scope.data.donation = parseInt($scope.data.donation);
       $scope.data.custom_fee = parseInt($scope.data.custom_fee);
-      $scope.data.question_required = parseInt($scope.data.question_required);
       $scope.data.collect_name = parseInt($scope.data.collect_name);
+      $scope.data.url_short_name = parseInt($scope.data.url_short_name);
 
       var openDateTime = getDateTime($scope.data.online_sales_open);
       $scope.data.online_sales_open = {};
@@ -342,15 +370,43 @@ $scope.advSettingPackageId = $scope.eventSetting.package_id;
       $scope.data.print_enable_date.date = null;
       $scope.data.print_enable_date.time = null;
       
-      if(enableDateTime.date!='' && enableDateTime.time!=''){
-        $scope.data.print_enable_date.date = enableDateTime.date;
-        $scope.data.print_enable_date.time = enableDateTime.time;  
-      }
+        if(enableDateTime.date!='' && enableDateTime.time!=''){
+          $scope.data.print_enable_date.date = enableDateTime.date;
+          $scope.data.print_enable_date.time = enableDateTime.time;  
+        }
 
       var disableDateTime = getDateTime($scope.data.print_disable_date);
       $scope.data.print_disable_date = {};
-      $scope.data.print_disable_date.date = disableDateTime.date;
-      $scope.data.print_disable_date.time = disableDateTime.time;
+       $scope.data.print_disable_date.date = null;
+      $scope.data.print_disable_date.time = null;
+
+        if(disableDateTime.date!='' && disableDateTime.time!=''){
+        $scope.data.print_disable_date.date = disableDateTime.date;
+        $scope.data.print_disable_date.time = disableDateTime.time;
+        }
+
+
+
+       var willCallEnableDateTime = getDateTime($scope.data.will_call_enable_date);
+      $scope.data.will_call_enable_date = {};
+      $scope.data.will_call_enable_date.date = null;
+      $scope.data.will_call_enable_date.time = null;
+      
+        if(willCallEnableDateTime.date!='' && willCallEnableDateTime.time!=''){
+          $scope.data.will_call_enable_date.date = willCallEnableDateTime.date;
+          $scope.data.will_call_enable_date.time = willCallEnableDateTime.time;  
+        }
+
+      var willCallDisableDateTime = getDateTime($scope.data.will_call_disable_date);
+      $scope.data.will_call_disable_date = {};
+       $scope.data.will_call_disable_date.date = null;
+      $scope.data.will_call_disable_date.time = null;
+
+        if(willCallDisableDateTime.date!='' && willCallDisableDateTime.time!=''){
+        $scope.data.will_call_disable_date.date = willCallDisableDateTime.date;
+        $scope.data.will_call_disable_date.time = willCallDisableDateTime.time;
+        }
+      
 
        console.log('after $scope.data' , $scope.data) ;
     }

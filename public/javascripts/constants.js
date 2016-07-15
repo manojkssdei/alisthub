@@ -260,6 +260,117 @@ hours = [{
     id: 60
   }
   ];
+
+
+
+
+ timeout = [{
+    value: 300,
+    minutes : '5 minutes',
+  },
+{
+    value: 360,
+    minutes : '6 minutes',
+  },
+{
+    value: 420,
+    minutes : '7 minutes',
+  },
+{
+    value: 480,
+    minutes : '8 minutes',
+  },
+{
+    value: 540,
+    minutes : '9 minutes',
+  },
+{
+    value: 600,
+    minutes : '10 minutes',
+  },
+{
+    value: 660,
+    minutes : '11 minutes',
+  },
+{
+    value: 720,
+    minutes : '12 minutes',
+  },
+{
+    value: 780,
+    minutes : '13 minutes',
+  },
+{
+    value: 840,
+    minutes : '14 minutes',
+  },
+{
+    value: 900,
+    minutes : '15 minutes',
+  },
+{
+    value: 960,
+    minutes : '16 minutes',
+  },
+{
+    value: 1020,
+    minutes : '17 minutes',
+  },
+{
+    value: 1080,
+    minutes : '18 minutes',
+  },
+{
+    value: 1140,
+    minutes : '19 minutes',
+  },
+{
+    value: 1200,
+    minutes : '20 minutes',
+  },
+{
+    value: 1260,
+    minutes : '21 minutes',
+  },
+{
+    value: 1320,
+    minutes : '22 minutes',
+  },
+{
+    value: 1380,
+    minutes : '23 minutes',
+  },
+{
+    value: 1440,
+    minutes : '24 minutes',
+  },
+{
+    value: 1500,
+    minutes : '25 minutes',
+  },
+{
+    value: 1560,
+    minutes : '26 minutes',
+  },
+{
+    value: 1620,
+    minutes : '27 minutes',
+  },
+
+{
+    value: 1680,
+    minutes : '28 minutes',
+  },
+
+{
+    value: 1740,
+    minutes : '29 minutes',
+  },
+
+{
+    value: 1800,
+    minutes : '30 minutes',
+  }];
 var webservices = {
 
     "getUserregister": baseUrl + "/webservices/register",
