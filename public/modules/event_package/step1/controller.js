@@ -390,6 +390,9 @@ console.log('$localStorage.packageId' , $localStorage.packageId);
                     $scope.error_message = true;
                 }, 3000);
 
+
+           
+
     return false;
 }
 
@@ -658,7 +661,17 @@ console.log($scope.data.showclix_event_ids);
 
                         // $location.path("/event_package_step_2/"+$scope.data.package_id);
                     } else {
-                        $scope.error_message = response.error;
+                        //$scope.error_message = response.error;
+
+                         $scope.error = response.error;
+            $scope.error_message = false;
+
+            $timeout(function() {
+              $scope.success = '';
+              $scope.error_message = true;
+              $scope.error = '';
+            }, 5000);
+
                     }
 
                 });

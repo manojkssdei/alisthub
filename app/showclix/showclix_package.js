@@ -31,9 +31,10 @@ module.exports = function() {
             "event_category_id": data.category,
             "date_added": data.created,
             "date_edited": data.modified,
-            "event_start": "2016-07-15 03:30:30",
+            "event_start": "2016-09-30 03:30:30",
             "sales_open": data.sales_open ,
-            "event_end": "2016-07-21 21:00:00",
+            "sales_close": '02:00',
+            "event_end": "2016-10-31 21:00:00",
             "short_name": data.short_name,
             "image_url": data.image,
             "thumbnail_url": data.image,
@@ -92,6 +93,8 @@ module.exports = function() {
                 if (isJson(response.body)) {
                     str = response.body;
                 }
+console.log(' str ');
+console.log( str );
 
                 if (str.event_id && str.event_id !== undefined) {
                     console.log(" PACKAGE UPDATED AND PACKAGE ID SENT");

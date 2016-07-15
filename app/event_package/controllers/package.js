@@ -68,6 +68,7 @@ console.log(' online_sales_close_date_time_moment : ', req.body.online_sales_clo
     data = req.body;
 
 data.sales_open = req.body.online_sales_open_date_time_moment;
+data.sales_close = req.body.online_sales_close_date_time_moment;
 
     var showClixPackage2 = new showClixPackage();
 
@@ -170,7 +171,7 @@ showClixPackage2.add_events_of_package(events_of_packages,res,function(sdata1){
             console.log('---------------------------');
             console.log(' showclix error exist' );
              //res.json({result:"",error:sdata.error,code:101});  
-             res.json({result:"",code:101});  
+             res.json({result:"",error:sdata.error , code:101});  
 
              // rollback_event(eventId);
              // res.json({result:"",error:sdata.error,code:101});  
@@ -659,6 +660,11 @@ for (var index in fields) {
   });
 
           }
+
+          else{
+      res.json({error:sdata.error,code:101});
+     }
+
         });
 
    
