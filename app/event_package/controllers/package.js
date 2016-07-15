@@ -8,6 +8,9 @@ var moment       = require('moment-timezone');
 var showClix   = require('./../../showclix/service.js');
 var showClixPackage   = require('./../../showclix/showclix_package.js');
 
+var fs         = require('fs');
+var moment     = require('moment-timezone');
+var path_event = process.cwd()+'/public/images/events';
 
 exports.stepOneEventPackage = function(req,res) {
 
@@ -837,9 +840,6 @@ Description:Function to get advance settings details of events
 Created : 2016-05-20
 Created By: Manoj Kumar 
 */
-var fs         = require('fs');
-var moment     = require('moment-timezone');
-var path_event = process.cwd()+'/public/images/events';
 
 exports.getAdvanceSettingOfPackage = function(req,res){
   connection.query('SELECT * from event_advance_settings where seller_id='+req.body.seller_id+ ' && package_id = '+req.body.package_id, function(err, results) {

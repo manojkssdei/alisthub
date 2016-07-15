@@ -287,7 +287,11 @@ console.log('$state.params.packageId' , $state.params.packageId);
                 $scope.data.defined_age = 1;
             }
 
+console.log('$scope.data.defined_age' , $scope.data.defined_age) ;
+console.log('$scope.data.ages' , $scope.data.ages) ;
+
             if ($scope.data.defined_age === undefined || $scope.data.defined_age != 1) {
+                console.log('---------------------> $scope.data.ages e' , $scope.data.ages) ; 
                 $scope.data.ages = $scope.data.ages;
             }
 

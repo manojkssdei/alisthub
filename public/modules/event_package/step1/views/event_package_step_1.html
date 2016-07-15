@@ -161,7 +161,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <select class="form-control" name="ages" ng-model="data.ages" ng-show="!data.defined_age" ng-required="!data.defined_age">
-                                        <option ng-repeat="age in agesList" value="{{age.id}}">{{age.name}}</option>
+                                        <option ng-repeat="age in agesList" ng-selected="age.id==data.ages" value="{{age.id}}">{{age.name}}</option>
                                     </select>
                                     <input type="number" min="0"  ng-model="data.custom_age" id="custom_age" name="custom_age" class="form-control" placeholder="Custom Age" ng-show="data.defined_age ==1" ng-required="data.defined_age ==1">
                                     <p ng-show="myForm.ages.$invalid && !myForm.ages.$pristine" class="error-fld ng-binding">Age is required.</p>
@@ -193,7 +193,7 @@
                             Choose File
                             <input  id="inputFileToLoad_1" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this,1)" file-model="file.myFiles" accept="image/x-png, image/gif, image/jpeg" /> 
                             <div id="imgTest_1" ng-model="picDatatest1" width="100" height="100"></div>
-                            <img height="100" width="100" ng-src="/images/products/{{data.image_1}}" ng-show="data.image_1 && data.image_1 != 'undefined'">     
+                            <img height="100" width="100" src="/images/events/{{data.image_1}}" ng-show="data.image_1 && data.image_1 != 'undefined'">     
                         </span>
                     </div>
                     <div class="radio-sec custom-check col-sm-6">
