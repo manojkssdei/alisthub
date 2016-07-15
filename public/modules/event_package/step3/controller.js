@@ -322,6 +322,16 @@ $scope.redirectToDashboard = function() {
 
           } else {
             $scope.activation_message = global_message.ErrorInActivation;
+
+            $scope.error = response.error;
+            $scope.error_message = false;
+
+            $timeout(function() {
+              $scope.success = '';
+              $scope.error_message = true;
+              $scope.error = '';
+            }, 5000);
+
           }
 
       });

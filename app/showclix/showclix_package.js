@@ -31,9 +31,10 @@ module.exports = function() {
             "event_category_id": data.category,
             "date_added": data.created,
             "date_edited": data.modified,
-            "event_start": "2016-07-15 03:30:30",
+            "event_start": "2016-09-30 03:30:30",
             "sales_open": data.sales_open ,
-            "event_end": "2016-07-21 21:00:00",
+            "sales_close": '02:00',
+            "event_end": "2016-10-31 21:00:00",
             "short_name": data.short_name,
             "image_url": data.image,
             "thumbnail_url": data.image,
@@ -92,6 +93,8 @@ module.exports = function() {
                 if (isJson(response.body)) {
                     str = response.body;
                 }
+console.log(' str ');
+console.log( str );
 
                 if (str.event_id && str.event_id !== undefined) {
                     console.log(" PACKAGE UPDATED AND PACKAGE ID SENT");
@@ -248,7 +251,7 @@ module.exports = function() {
             "ticket_purchase_limit": data.ticket_transaction_limit,
             "ticket_purchase_timelimit": data.checkout_time_limit,
             "private_event": data.private_event,
-            "short_name": data.url_short_name,
+           // "short_name": data.url_short_name,
             "date_edited": data.modified,
             "status": status,
         };
@@ -268,7 +271,6 @@ module.exports = function() {
         request.put(postData, function(error, response, body) {
 
             console.log('---------------------------response comming here--------------');
-            console.log(response);
 
             var str = "There is some problem on server. Please try after some time.";
 
