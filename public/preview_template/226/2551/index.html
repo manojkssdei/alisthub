@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>ALISTixs</title> 
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="http://52.39.212.226:4004/preview_template/assets/images/favicon.png">
+
+<!-- Latest compiled and minified Fontawesome CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="http://52.39.212.226:4004/preview_template/assets/css/style.css" type="text/css" />
+
+<link rel="stylesheet" href="http://52.39.212.226:4004/preview_template/assets/css/event.css" type="text/css" />
+
+<link rel="stylesheet" href="http://52.39.212.226:4004/preview_template/assets/css/media.css" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+<style type="text/css"> 
+    .social-media {  right: 12%;}
+    .social-med > a{ display:inline-block;}
+form#ticket-form {  background-color: #fff; padding: 10px;}
+.custom_button {  background-color: black; border-radius: 5px; color: #fff;  padding: 10px;}
+.ev-container.wtframe.m-t35{ max-width: 1024px;}
+.ev-container{ max-width: 100%;padding-left: 0; padding-right: 0;padding-top:0px;}
+</style>
+</head>
+<body>
+<section class="ev-header">
+	<a href="#" class="alist-logo"><img src="http://52.39.212.226:4004/preview_template/assets/images/logo-l.png" alt=""/></a>
+    <a class="navbar-toggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
+    <div class="topnav hidden-xs">    	
+        <ul class="ev-menu">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </div>
+</section>
+<!-- Wrapper -->
+<div class="ev-container wtframe preview_div_insert"> 
+</div>
+
+<!-- /Wrapper --> 
+
+<!-- Scripts -->
+<script type="text/javascript" src="http://52.39.212.226:4004/javascripts/jquery.min.js"></script>
+<script src="http://52.39.212.226:4004/preview_template/assets/js/angular-min.js"></script> 
+
+<script src="http://52.39.212.226:4004/preview_template/assets/js/ui-bootstrap-tpls-0.12.0.min.js"></script> 
+<script type="text/javascript" src="http://52.39.212.226:4004/preview_template/assets/js/custom.js"></script>
+<script type="text/javascript">
+   var EventsWidgetDisplayPreferences = { seller_id: "22381",uri:"http://tickets.alistixs.com/events/22381",domain: "tickets.alistixs.com",white_label: "ALIST Solutions LLC",max_number_of_events: "4",group_series_events: "true",title_text: "Upcoming Events",height: "auto",width: "330px",background_color: "#2c344b",header_color: "#FFFFFF",row_background_color: "#FFFFFF",text_color: "#333",link_color: "#fe1e5a",include_scrollbar: "auto",display_title_bar: "true", display_date_block: "true", display_image: "none",display_full_date: "true",display_time: "true",display_venue: "true",display_tickets_link: "none"}
+   $(function(){
+          /*var href = window.location.href;
+          var eventId=href.substr(href.lastIndexOf('/') + 1);*/
+	   var href = window.location.href.split("/");
+          var ticket_html;
+          var eventId=href[5];
+        $.ajax({
+	    method: "POST",
+	    url: "/event/getEvent",
+	    data: {"event_id":eventId}
+	  })
+	    .done(function( response ) {
+	    
+            if(response.code==200)
+            {
+             
+              if(response.results[0].showclix_id!='')
+              {
+                  var ticket_html;
+		      $.ajax({
+		    method: "POST",
+		    url: "/event/getShowclixPriceLevel",
+		    data: {"showclix_id":response.results[0].showclix_id}
+		  })
+		    .done(function( resp ) {
+		    
+		    ///////////////////////////////////////////////////////	
+		    var str = "There is some problem on server. Please try after some time.";
+                    function isJson(item) {
+                      item = typeof item !== "string"
+                          ? JSON.stringify(item)
+                          : item;
+                  
+                      try {
+                          item = JSON.parse(item);
+                      } catch (e) {
+                          return false;
+                      }
+                  
+                      if (typeof item === "object" && item !== null) {
+                          return true;
+                      }
+                  
+                      return false;
+                  }
+                
+                  
+                  if (isJson(resp.showclix)) {
+                    if(resp.code==200)
+                     {
+                     
+                 
+                     ticket_html='<form class="mobile-tab" id="ticket-form" method="POST" action="https://tickets.alistixs.com/event/'+response.results[0].event_domain+'/"><div style="margin-top: 0px; display: none " id="select-tickets-fix" class="purchase_tickets  js-single-event"><div class="purchasetitle">Tickets</div></div><table cellspacing="0" cellpadding="0" border="0" id="ticket-selection-genad" class="formtab"><tr><td colspan="4" class="panel-heading" align="left"><strong>Reserve Tickets</strong></td></tr>';
+                     
+                      var obj=$.parseJSON(resp.showclix);
+                      $.each(obj, function(key, value) {
+			   console.log(value);
+                         ticket_html+='<tr data-level-id="'+key+'"><td class="qty-td"> <select class="ticket-select input form-control" name="level['+key+']" id="select_level_'+key+'">';
+                      for(var j=value.increment_by;j<=value.transaction_limit;j++)
+                      {
+                      ticket_html+='<option value="'+j+'">'+j+'</option>'; 
+                      }
+                      ticket_html+='</select></td><td class="level-td" colspan="2"><label for="select_level_'+key+'" style="margin-bottom:0px;"><span class="product_name" style="padding:5px;">'+value.level+' <a title="Price Level Information" class="fe_price_level tb_level cboxElement" href="/level/'+key+'/description"></a><span></span></span></label></td><td class="price-td"><span>$'+value.price+'</span></td></tr>';
+			});
+                     ticket_html+='<tr><td colspan="4"><input type="submit" value="Get Tickets" class="custom_button " name="submit_ticket_request" id="submit_ticket_request"></td></tr></table></form>';
+                     }
+                    $.ajax({
+		    method: "POST",
+		    url: "http://"+href[2]+"/event/getEventStep3",
+		    data: {"event_id":eventId}
+		  })
+		    .done(function( response1 ) {
+		    var preview_html=response1.result[0].html;
+		    
+		       $(".preview_div_insert").html(preview_html);
+		       
+		       $("#ticket-panel").html(ticket_html+'<script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js"/>');
+		
+		      });
+                  }else{
+		   $.ajax({
+		    method: "POST",
+		    url: "http://"+href[2]+"/event/getEventStep3",
+		    data: {"event_id":eventId}
+		  })
+		    .done(function( response1 ) {
+		    var preview_html=response1.result[0].html;
+		    
+		       $(".preview_div_insert").html(preview_html);
+		       
+		       $("#ticket-panel").html(ticket_html+'<script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js"/>');
+		
+		      });
+		  }
+		
+                  });
+              }  
+            } 
+          }); 
+         
+    })
+
+</script>
+</body>
+</html>

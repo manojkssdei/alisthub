@@ -119,9 +119,9 @@
             <td class="numbers">{{price.max_per_order}}</td>
             <td class="action">
               <a ng-click="getPrice(price.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-              <a ng-click="price_change('lg',price.id)" style="cursor: pointer;"><i class="fa fa-tags"></i></a>
-              <a ng-click="changeStatus(price.id,price.is_active)" ng-confirm-click="Would you like to change Price level status ?" style="cursor: pointer;"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a>
-              <a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+              <a ng-click="price_change('lg',price.id,price.showclix_price_id)" style="cursor: pointer;"><i class="fa fa-tags"></i></a>
+              <a ng-click="changeStatus(price.id,price.is_active,price.showclix_price_id)" ng-confirm-click="Would you like to change Price level status ?" style="cursor: pointer;"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a>
+              <a ng-click="delete_price_level('',$index,price.id,price.showclix_price_id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
             </td>
           </tr>
           <tr ng-show="loader">
@@ -561,7 +561,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                    <div class="form-group datepicker">
                          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data2.startdate_pricechange" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" />
                          <span class="input-group-btn">
-                           <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                           <i class="glyphicon glyphicon-calendar" ng-click="open1()"></i></span>
                      </div>
                </div>
                <div class="col-sm-2">
@@ -584,10 +584,8 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                <div class="col-sm-3">New Price (USD $)</div>
                <div class="col-sm-9">
                     <input  type="number" min="0" name="new_price" ng-model="data2.new_price" class="form-control" value="" required>
-
                     <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.new_price.$invalid && !pricelevelForm.new_price.$pristine">Please enter valid price</p>
-
-
+                    
                     <span style="color:red" ng-show="pricechangeform.new_price.$dirty && pricechangeform.new_price.$invalid">
                 <span ng-show="pricechangeform.new_price.$error.required">New Price is required</span>
                </span>
