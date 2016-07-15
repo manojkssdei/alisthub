@@ -1,0 +1,55 @@
+<div class="container">
+    <h1>User Permission</h1>
+    <div class="form-section  wt-frame">
+        <form class="event-form" name="addUserForm" novalidate>
+            <section class="gray-frame">
+                
+                <section class="grid-widget">
+                <span ng-show="success_message_bundle" class="ng-hide"><p class="success-fld ng-binding">{{success_bundle}}</p></span>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="60%">Module Name</th>
+                                    <th width="10%"></th>
+                                    <th width="10%"></th>
+                                    <th width="10%"></th>
+                                    <th width="10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="module in modules track by $index">
+                                    <td><strong>{{module.module_name}}</strong></td>
+                                    <td class="action">
+                                      <input type="checkbox" ng-model="module.add" ng-true-value = "1" ng-false-value="0"> &nbsp; Add
+                                    </td>
+                                    <td class="action">
+                                      <input type="checkbox" ng-model="module.edit" ng-true-value = "1" ng-false-value="0"> &nbsp; Edit
+                                    </td>
+                                    <td class="action">
+                                      <input type="checkbox" ng-model="module.delete" ng-true-value = "1" ng-false-value="0"> &nbsp; Delete
+                                    </td>
+                                    <td class="action">
+                                      <input type="checkbox" ng-model="module.view" ng-true-value = "1" ng-false-value="0"> &nbsp; View
+                                    </td>
+                                </tr>
+                                <tr ng-show="loader_bundle">
+                                      <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+
+
+            </section>
+            <div class="editor-btn">
+                <button class="pink-btn btn" ng-click="submitCreateUserForm()" ng-disabled="addUserForm.$invalid">SUBMIT</button>
+                <button class="pink-btn btn" ui-sref="view_user">CANCEL</button>         
+            </div>
+
+        </form>
+        
+    </div>
+</div>

@@ -189,7 +189,36 @@ url.removePackageProduct = function(jsondata,callback){
     });
   };
 
+  //get event user
+  url.getAllPackageEvent = function(jsondata,callback) {
+    communicationService.resultViaPost(webservices.getAllPackageEvent,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+
+   url.getQuestionsOfEventOfPackage = function(jsondata,callback) {
+    communicationService.resultViaPost(webservices.getQuestionsOfEventOfPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+
+  url.delPackage = function(jsondata,callback) {
+    communicationService.resultViaPost(webservices.delPackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
+
+  url.addFavouritePackage = function(jsondata,callback) {
+    communicationService.resultViaPost(webservices.addFavouritePackage,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+      callback(res.data);
+    });
+  };
+
   
+
 
 
 /*url.saveSetting = function(jsondata,callback){

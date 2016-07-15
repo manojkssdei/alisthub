@@ -1,0 +1,35 @@
+<!-- Header -->
+<section class="header animated bounce"><a href="#"><img src="images/logo-l.png" alt=""/></a></section>
+<!-- //Header --> 
+<section class="container">
+    <section class="login-frame animated bounceInLeft">
+        <h1>Forgot Password</h1>
+        <form name="userForm" ng-submit="forgotPassword()"  novalidate>
+            <p class="tagline">We do the right things to prove our integrity and reliability to earn your trust. </p>
+            <span ng-hide="success_message">
+                <p class="success-fld" ng-show="message">{{ message }}</p>
+            </span>
+            <span ng-hide="error_message">
+                <p class="error-fld" ng-show="errormessage">{{ errormessage }}</p>
+            </span>
+            <ul class="form-widget login-form">
+                <li>
+                    <section class="form-group">
+                        <section class="row icon-div">
+                            <section class="col-sm-12" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                                <p><i class="fa fa-user input-icons"></i><input type="email" placeholder="email-address"  ng-model="user.email" class="form-control" name="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required></p>
+                                <p ng-show="(userForm.email.$invalid && !userForm.email.$pristine ) || userForm.email.$error.pattern" class="error-fld ng-binding">Enter a valid email.</p>
+                            </section>
+                        </section>
+                    </section>
+                </li>
+            </ul>
+            <p><button  type="submit" class="btn-l m-fw"  ng-disabled="userForm.$invalid">Submit</button></p>
+            <section class="otherlinks">
+                <p><a ui-sref="login">Back to Login</a></p>
+            </section>
+        </form>
+    </section>
+</section>
+<div id="push"></div>
+<!--ui-sref="events"-->

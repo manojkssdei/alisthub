@@ -22,10 +22,12 @@
     <form  name="myForm1" novalidate ng-submit="price_and_link_data(data1)">
 
    <section class="row">
-              <section class="col-sm-4">
+              <section class="col-sm-2">
                   <div class="form-group" ng-class="{ 'has-error' : myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid }"  >
                     <label class="form-label">Event Inventory<span class="req">*</span></label>
-                    <input  type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" class="form-control" placeholder="Event Inventory" ng-blur="eventInventoryCalc()" required >
+
+                    <input  type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" maxlength="4" class="event_number_wd form-control" placeholder="" ng-blur="eventInventoryCalc()" required  style="width:87px;">
+
 
                     <p class="help-inline error-fld ng-binding"  ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">Enter valid event inventory.</p>
 
@@ -41,11 +43,11 @@
                     <label class="form-label">Type of Event</label>
                     <section class="radio-sec with-ftext">
                           <section class="radio-inline">
-                              <input id="radio111" type="radio"  name="type_of_event" ng-model="data1.type_of_event"  value="0">
+                              <input type="radio"  id="radio111"  name="type_of_event" ng-model="data1.type_of_event"  value="0" ng-checked="data1.type_of_event==0">
                               <label for="radio111"><span></span>Ticketed</label>
                           </section>
                             <section class="radio-inline">
-                          <input id="radio2222" type="radio"   name="type_of_event" ng-model="data1.type_of_event" value="1">
+                          <input  type="radio" id="radio2222"   name="type_of_event" ng-model="data1.type_of_event" value="1" ng-checked="data1.type_of_event==1">
                           <label for="radio2222"><span></span>Registration</label>
                           </section>
                    </section>
@@ -63,11 +65,11 @@
                       <section class="col-sm-7">
                         <section class="radio-sec">
                           <section class="radio-inline">
-                              <input type="radio" id="radio011"  name="price" ng-model="data1.price"   value="0">
+                              <input type="radio" id="radio011"  name="price" ng-model="data1.price"   value="0" ng-checked="data1.price==0">
                               <label for="radio011"><span></span>Arrange by price</label>
                           </section>
                             <section class="radio-inline">
-                          <input id="radio022" type="radio"  name="price" ng-model="data1.price"  value="1">
+                          <input id="radio022" type="radio"  name="price" ng-model="data1.price"  value="1" ng-checked="data1.price==1">
                           <label for="radio022"><span></span>Manually Arrange</label>
                           </section>
                          </section>
@@ -117,9 +119,9 @@
             <td class="numbers">{{price.max_per_order}}</td>
             <td class="action">
               <a ng-click="getPrice(price.id)" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
-              <a ng-click="price_change('lg',price.id)" style="cursor: pointer;"><i class="fa fa-tags"></i></a>
-              <a ng-click="changeStatus(price.id,price.is_active)" ng-confirm-click="Would you like to change Price level status ?" style="cursor: pointer;"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a>
-              <a ng-click="delete_price_level('',$index,price.id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+              <a ng-click="price_change('lg',price.id,price.showclix_price_id,1)" style="cursor: pointer;"><i class="fa fa-tags"></i></a>
+              <a ng-click="changeStatus(price.id,price.is_active,price.showclix_price_id)" ng-confirm-click="Would you like to change Price level status ?" style="cursor: pointer;"><i class="fa fa-check-circle" ng-if="price.is_active == 1"></i><i class="fa fa-times" ng-if="price.is_active == 0"></i></a>
+              <a ng-click="delete_price_level('',$index,price.id,price.showclix_price_id)" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
             </td>
           </tr>
           <tr ng-show="loader">
@@ -298,7 +300,7 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="EventName"> Video</label>
-          <input type="url" name="video" ng-model="data1.video" class="form-control" placeholder="Video Embed Url"/>
+          <input type="url" name="video" ng-model="data1.video" class="form-control"/>
           <span style="color:red" ng-show="myForm1.video.$dirty && myForm1.video.$invalid">
   <span ng-show="myForm1.video.$error.required">Video embed url is required</span>
   </span>
@@ -310,7 +312,7 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="EventName"> Facebook</label>
-         <input type="url" name="facebook" ng-model="data1.facebook"  class="form-control" ng-pattern="/^(https?:\/\/)?(www\.)?facebook.com/" placeholder="Facebook Url"/>
+         <input type="url" name="facebook" ng-model="data1.facebook"  class="form-control" ng-pattern="/^(https?:\/\/)?(www\.)?facebook.com/" />
           <span style="color:red" ng-show="myForm1.facebook.$dirty && myForm1.facebook.$invalid">
   <span ng-show="myForm1.facebook.$error.pattern">Not a valid Facebook URL</span>
   </span>
@@ -321,7 +323,7 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="EventName"> Twitter</label>
-         <input type="url" name="twitter" ng-model="data1.twitter"   class="form-control" ng-pattern="/^(https?:\/\/)?(www\.)?twitter.com/" placeholder="Twitter Url"/>
+         <input type="url" name="twitter" ng-model="data1.twitter"   class="form-control" ng-pattern="/^(https?:\/\/)?(www\.)?twitter.com/"/>
            <span style="color:red" ng-show="myForm1.twitter.$dirty && myForm1.twitter.$invalid">
   <span ng-show="myForm1.twitter.$error.pattern">Not a valid Twitter URL</span>
   </span>
@@ -330,7 +332,7 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="EventName"> Event Website</label>
-          <input type="url" class="form-control"  name="eventwebsite" ng-model="data1.eventwebsite"   placeholder="Event Website" />
+          <input type="url" class="form-control"  name="eventwebsite" ng-model="data1.eventwebsite"  />
           <span style="color:red" ng-show="myForm1.eventwebsite.$dirty && myForm1.eventwebsite.$invalid">
   <span ng-show="myForm1.eventwebsite.$error.url">Not a valid website URL</span>
   </span>
@@ -435,7 +437,7 @@
             </fieldset>
             <fieldset class="form-group" ng-hide="online_price">
                <div class="col-sm-4">Online Price(USD $)</div>
-               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.online_price" name="online_price" class="form-control" ng-blur="onlinePricefunc()" >
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.online_price" name="online_price" class="event_number_wd form-control" ng-blur="onlinePricefunc()" >
                <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.online_price.$invalid && !pricelevelForm.online_price.$pristine">Please enter valid online price</p>
                </div>
 
@@ -445,7 +447,7 @@
             
             <fieldset class="form-group" ng-hide="min_price">
                <div class="col-sm-4">Minimum Price(USD $)</div>
-               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.minimum_price" name="minimum_price" class="form-control">
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.minimum_price" name="minimum_price" class="event_number_wd form-control">
                <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_price.$invalid && !pricelevelForm.minimum_price.$pristine">Please enter valid minimum price</p>
                </div>
 
@@ -454,7 +456,7 @@
             </fieldset>
             <fieldset class="form-group" ng-hide="min_price">
                <div class="col-sm-4">Suggested Price(USD $)</div>
-               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.suggested_price" name="suggested_price" class="form-control" ng-blur="suggestedPricefunc()" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.suggested_price.$invalid && !pricelevelForm.suggested_price.$pristine">Please enter valid suggested price</p>
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.suggested_price" name="suggested_price" class="event_number_wd form-control" ng-blur="suggestedPricefunc()" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.suggested_price.$invalid && !pricelevelForm.suggested_price.$pristine">Please enter valid suggested price</p>
                </div>
 
                
@@ -463,7 +465,7 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Box Office Price(USD $)</div>
-               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.box_office_price" name="box_office_price" class="form-control"><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.box_office_price.$invalid && !pricelevelForm.box_office_price.$pristine">Please enter valid box office price</p>
+               <div class="col-sm-8"><input  type="number" min="0" ng-model="data1.box_office_price" name="box_office_price" class="event_number_wd form-control"><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.box_office_price.$invalid && !pricelevelForm.box_office_price.$pristine">Please enter valid box office price</p>
                </div>
 
 
@@ -473,7 +475,7 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Quantity Available</div>
-               <div class="col-sm-8"><input  type="number" min="0" max={{eventInventory}} ng-model="data1.quantity_available" name="quantity_available" ng-change="QuanAvailClear()" class="form-control" >
+               <div class="col-sm-8"><input  type="number" min="0" max={{eventInventory}} ng-model="data1.quantity_available" name="quantity_available" ng-change="QuanAvailClear()" class="event_number_wd form-control" >
                <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.quantity_available.$invalid && !pricelevelForm.quantity_available.$pristine">Please enter valid available quantity or less than inventory remaining</p>
                </div>
             </fieldset>
@@ -516,7 +518,8 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Minimum Per Order</div>
-               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.minimum_per_order" name="minimum_per_order" class="form-control" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_per_order.$invalid && !pricelevelForm.minimum_per_order.$pristine">Please enter valid number or less than available quanity</p>
+               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.minimum_per_order" name="minimum_per_order" class="event_number_wd form-control" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_per_order.$invalid && !pricelevelForm.minimum_per_order.$pristine">
+               Minimum no. of tickets should be greater than 0 and less than available quantity</p>
                </div>
                
                
@@ -525,8 +528,9 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Maximum Per Order</div>
-               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.maximum_per_order" name="maximum_per_order" class="form-control" >
-               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.maximum_per_order.$invalid && !pricelevelForm.maximum_per_order.$pristine">Please enter valid number or less than available quanity</p>
+               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.maximum_per_order" name="maximum_per_order" class="event_number_wd form-control" >
+               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.maximum_per_order.$invalid && !pricelevelForm.maximum_per_order.$pristine">
+               Minimum no. of tickets should be greater than 0 and less than available quantity</p>
                </div>
 
                
@@ -552,6 +556,11 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
            <h3 class="modal-title" style="float:left;">Schedule Price Change</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
         </div>
         <div class="modal-body">
+            <fieldset class="form-group" ng-repeat="data in schedules">
+              <div class="col-sm-9">$ {{data.price}} on {{data.start_date}} {{data.start_date_hour}} {{data.start_date_minute}} {{data.start_date_am_pm}}</div>
+               <div class="col-sm-3">Delete</div>
+            </fieldset>
+            
             <fieldset class="form-group">
                <div class="col-sm-3">Price to change on</div>
                <div class="col-sm-3">
@@ -559,7 +568,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                    <div class="form-group datepicker">
                          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data2.startdate_pricechange" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" />
                          <span class="input-group-btn">
-                           <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                           <i class="glyphicon glyphicon-calendar" ng-click="open1()"></i></span>
                      </div>
                </div>
                <div class="col-sm-2">
@@ -582,24 +591,19 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                <div class="col-sm-3">New Price (USD $)</div>
                <div class="col-sm-9">
                     <input  type="number" min="0" name="new_price" ng-model="data2.new_price" class="form-control" value="" required>
-
-                    <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.new_price.$invalid && !pricelevelForm.new_price.$pristine">Please enter valid price</p>
-
-
-                    <span style="color:red" ng-show="pricechangeform.new_price.$dirty && pricechangeform.new_price.$invalid">
-                <span ng-show="pricechangeform.new_price.$error.required">New Price is required</span>
-               </span>
+                    <p class="help-inline error-fld ng-binding"  ng-show="pricechangeform.new_price.$invalid && !pricechangeform.new_price.$pristine">Please enter valid price</p>
+                
                </div>
               
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-3">Apply to</div>
-               <div class="col-sm-9">
+               <div class="col-sm-3">
                     <select name="price" ng-model="data2.apply"  class="form-control" >
                          <option ng-repeat="applied in apply" value="{{applied.id}}">{{applied.name}}</option>
                     </select>
                </div>
-              
+               <div class="col-sm-6">&nbsp;</div>
             </fieldset>
         </div>
         <div class="modal-footer">
@@ -642,14 +646,17 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                                     <section class="gray-frame">
                                      
                                       <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-12">
                                           <div class="form-group" ng-class="{true: 'error'}[submitted]">
                                             <label for="EventName">Name<span class="req">*</span></label>
                                             <input type="text" class="form-control" name="bundle_name" placeholder="Bundle name" ng-model="bundle.bundle_name" required/>
                                             <p class="help-inline error-fld ng-binding" ng-show="submitted && bundleForm.bundle_name.$error.required">Please enter bundle name</p>
                                           </div>
                                         </div>
-                                        <div class="col-sm-8">
+
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-sm-12">
                                           <div class="form-group">
                                             <label for="EventName"> Description</label>
                                             <div class="bundle-editr" >
@@ -662,7 +669,9 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                                         <div class="col-sm-4" >
                                           <div class="form-group">
                                             <label for="EventName"> Limit<span class="req-limit">*</span></label>
-                                            <input  type="number" min="0" class="form-control" placeholder="Limit" ng-model="bundle.bundle_limit" name="bundle_limit"/>
+
+                                            <input  type="number" min="0" class="event_number_wd form-control" placeholder="Limit" ng-model="bundle.bundle_limit" name="bundle_limit"/>
+
                                             <p class="help-inline error-fld ng-binding"  ng-show="bundleForm.bundle_limit.$invalid && !bundleForm.bundle_limit.$pristine">Please enter valid limit</p>
                                             
                                           </div>
@@ -671,7 +680,9 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                                         <div class="col-sm-4">
                                           <div class="form-group">
                                             <label for="EventName"> Minimum Purchase</label>
-                                            <input type="number" min="0"  class="form-control" placeholder="Minimum Purchase" ng-model="bundle.bundle_minimum_purchase" name="bundle_minimum_purchase"/>
+
+                                            <input type="number" min="0"  class="event_number_wd form-control" placeholder="Minimum Purchase" ng-model="bundle.bundle_minimum_purchase" name="bundle_minimum_purchase"/>
+
 
                                             <p class="help-inline error-fld ng-binding"  ng-show="bundleForm.bundle_minimum_purchase.$invalid && !bundleForm.bundle_minimum_purchase.$pristine">Please enter valid minimum purchase limit</p>
                                            
@@ -711,7 +722,9 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                                         <div class="col-sm-4">
                                           <div class="form-group">
                                             <label for="EventName"> Inventory</label>
-                                            <input type="number" min="0" class="form-control" ng-disabled="!bundle.assign_inventory" placeholder="Inventory" ng-model="bundle.bundle_inventory" name="bundle_inventory"/>
+
+                                            <input type="number" min="0" class="event_number_wd form-control" ng-disabled="!bundle.assign_inventory" placeholder="Inventory" ng-model="bundle.bundle_inventory" name="bundle_inventory"/>
+
                                             <p class="help-inline error-fld ng-binding"  ng-show="bundleForm.bundle_inventory.$invalid && !bundleForm.bundle_inventory.$pristine">Please enter valid value</p>
                                           </div>
                                         </div>
@@ -776,7 +789,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                   <div class="row" ng-repeat="price in price_level" >
                     <div class="col-sm-8" >
                       <div class="form-group">
-                        <label for="EventName">  {{price.price_level_name}} (Online Price: {{price.online_price}}, Box Office Price: {{price.box_office_price}}) </label>
+                        <label for="EventName">  {{price.price_level_name}} (Online Price: ${{price.online_price}}, Box Office Price: ${{price.box_office_price}}) </label>
                       </div>
                     </div>
                     <div class="col-sm-4" >
@@ -796,7 +809,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
                   <div class="row" ng-repeat="product in productList" >
                     <div class="col-sm-8" >
                       <div class="form-group">
-                        <label for="EventName"> {{product.product_name}} (Price: {{product.retail_price}}) </label>
+                        <label for="EventName"> {{product.product_name}} (Price: ${{product.retail_price}}) </label>
                       </div>
                     </div>
                     <div class="col-sm-4" >
@@ -988,7 +1001,7 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
         <fieldset class="form-group">
            <div class="col-sm-4">Available Products</div>
            <div class="col-sm-8">
-           <select ng-model="product.product_id" name="product_id" class="form-control" ng-change="showPrice()" required>
+           <select ng-model="product.product_id" name="product_id" class="event_number_wd form-control" ng-change="showPrice()" required>
               <option ng-selected="product.product_id == productVal.id"
  ng-repeat="productVal in productList" value="{{productVal.id}}">{{productVal.product_name}}</option>
            </select>
@@ -997,12 +1010,12 @@ ng-disabled="pricechangeform.$invalid"  type="submit">Submit</button>
         </fieldset>
         <fieldset class="form-group">
            <div class="col-sm-4">Retail Price</div>
-           <div class="col-sm-8"><span class="form-control">{{product_retail_price}}</span></div> 
+           <div class="col-sm-8"><span class="event_number_wd form-control">{{product_retail_price}}</span></div> 
         </fieldset>
         
         <fieldset class="form-group" ng-hide="min_price">
            <div class="col-sm-4">Price(USD $)</div>
-           <div class="col-sm-8"><input type="text" ng-model="product.price" name="minimum_price" class="form-control"></div>
+           <div class="col-sm-8"><input type="text" ng-model="product.price" name="minimum_price" class="event_number_wd form-control"></div>
         </fieldset>
         
         <fieldset class="form-group">

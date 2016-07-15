@@ -2,6 +2,7 @@ module.exports = function(app, express) {
 	var router = express.Router();
 
         Package   = require('./../app/event_package/controllers/package.js');
+        AllPackage   = require('./../app/event_package/controllers/all_package.js');
          
          function supportCrossOriginScript(req, res, next) {
           res.header('Access-Control-Allow-Origin', '*');
@@ -15,6 +16,9 @@ module.exports = function(app, express) {
        /* Save reoccuring event data */
        //router.post('/saverecurringPackage', Package.saverecurringPackage);
 
+  // post event package data step 1
+  router.post('/stepOneEventPackage' , supportCrossOriginScript , Package.stepOneEventPackage);
+  
       /* To get the package data */
       router.post('/getPackage',supportCrossOriginScript, Package.getPackage);
 
@@ -84,7 +88,17 @@ module.exports = function(app, express) {
       router.post('/saveAdvanceSettingsOfPackage',supportCrossOriginScript, Package.saveAdvanceSettingsOfPackage);
       
       router.post('/getAdvanceSettingOfPackage',supportCrossOriginScript, Package.getAdvanceSettingOfPackage);
+
+      router.post('/getAllPackageEvent',supportCrossOriginScript, AllPackage.getAllPackageEvent);
+
+      /* Export CSV events  */
+      router.get('/exportPackageCSV', AllPackage.exportPackageCSV);
     
-      
-       app.use('/package', router);
+     router.post('/getQuestionsOfEventOfPackage',supportCrossOriginScript, Package.getQuestionsOfEventOfPackage);
+
+     router.post('/delPackage',supportCrossOriginScript, Package.delPackage);
+
+     router.post('/addFavouritePackage',supportCrossOriginScript, Package.addFavouritePackage);
+
+      app.use('/package', router);
 }  

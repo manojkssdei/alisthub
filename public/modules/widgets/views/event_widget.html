@@ -1,235 +1,291 @@
 
- <div class="container">
-     <h1>Add Event Widget</h1>
-         <div class="form-section  wt-frame">
+<style>
 
-<p>Create a customized event widget to easily display your upcoming events on any website.<br>
-<br>
-Simply customize your settings below and copy/paste the code where you'd like your widget to be displayed.</p>
-<br>
-<h3>Settings</h3>
-<br>
-<form  name="myForm" class="event-form">
-<div class="gray-frame sub-fields">
- <div class="row">
-	<div class=col-sm-12>
-	  <div class=col-sm-6>
-       <section class="form-group">
-            <label>Display Title Bar</label>
-              <div class="onoffswitch mt-3">
-              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" checked>
-              <label class="onoffswitch-label" for="myonoffswitch2"></label>
-              </div>
-         </section>
-        </div>
-	   <div class=col-sm-6>
-           <section class="form-group">
-            <label>Group Event Series</label>
-            <div class="onoffswitch mt-3">
-            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" checked>
-           <label class="onoffswitch-label" for="myonoffswitch3"></label>
-     </div>
-      </section>
-       </div>
-	</div>
-  </div>
+color-picker
+{
+  float:none !important;
+}
+#sc_event_list{
+  height: 200px;
+}
 
- <div class="row">
-	<div class=col-sm-12>
-	  <div class=col-sm-6>
-       <section class="form-group">
-            <label for="title">Title Text</label>
-<input type="text" name="title" ng-model="data.title" class="form-control" placeholder="upcoming event" required>
-         </section>
-        </div>
-	 <div class=col-sm-6>
-           <section class="form-group">
-            <label for="max_event">Max # of event</label>
-<input type="text" name="max_event" ng-model="data.max_event" class="form-control" placeholder="4" required>
-      </section>
-       </div>
-	  </div>
-	  </div>
-
-
-	  <div class="row">
-	<div class=col-sm-12>
-	  <div class=col-sm-6>
-       <section class="form-group">
-            <label>Display Date Block?</label>
-              <div class="onoffswitch mt-3">
-              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" checked>
-              <label class="onoffswitch-label" for="myonoffswitch4"></label>
-              </div>
-         </section>
-        </div>
-	 <div class=col-sm-6>
-           <section class="form-group">
-            <label>Display image?</label>
-            <div class="onoffswitch mt-3">
-            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" checked>
-           <label class="onoffswitch-label" for="myonoffswitch5"></label>
-     </div>
-      </section>
-       </div>
-	  </div>
-	  </div>
-
-
-	  <div class="row">
-	<div class=col-sm-12>
-	  <div class=col-sm-6>
-       <section class="form-group">
-            <label>Display Full Date?</label>
-              <div class="onoffswitch mt-3">
-              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch6" checked>
-              <label class="onoffswitch-label" for="myonoffswitch6"></label>
-              </div>
-         </section>
-        </div>
-	 <div class=col-sm-6>
-           <section class="form-group">
-            <label>Display Time?</label>
-            <div class="onoffswitch mt-3">
-            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch7" checked>
-           <label class="onoffswitch-label" for="myonoffswitch7"></label>
-     </div>
-      </section>
-       </div>
-	  </div>
-	  </div>
-
-	  <div class="row">
-	<div class=col-sm-12>
-	  <div class=col-sm-6>
-       <section class="form-group">
-            <label>Display Vanue?</label>
-              <div class="onoffswitch mt-3">
-              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch8" checked>
-              <label class="onoffswitch-label" for="myonoffswitch8"></label>
-              </div>
-         </section>
-        </div>
-	 <div class=col-sm-6>
-           <section class="form-group">
-            <label>Display Ticket Link?</label>
-            <div class="onoffswitch mt-3">
-            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch9" checked>
-           <label class="onoffswitch-label" for="myonoffswitch9"></label>
-     </div>
-      </section>
-       </div>
-	  </div>
-	  </div>
-
-
-</div>
-</form>
-<br>
-<br>
-<h3>style</h3>
-<div class="gray-frame sub-fields">
-
- <div class="row">
-	<div class=col-sm-12>
-	  <div class=col-sm-6>
-       <section class="form-group">
-            <label>Preview</label>
-         </section>
-        </div>
-        </div>
-        </div>
- <div class="row">
-     <div class="module template-view">
-         <div class="image-main">
-              <img src="images/img/f-img.jpg" alt="" style="border:2px solid black;"/>
-         </div>
-     </div>
-</div>
-<br>
-<!-- <div class="form-group">
-<div class="row">
-<div class=col-sm-12>
-<div class=col-sm-2.4>
-
-                      <label class="form-label">Set Width</label>
-                   </div>
-                    <div class="col-sm-2.4">
-                     <label for="height">Height in PIxel</label>
-                  </div>
-
-                    <div class="col-sm-2.4">
-                     <label for="width">Width in Pixel</label>
+.ScrollVenueList {
+    height: 275px;
+    overflow: hidden;
+    padding: 0 15px;
+    width: 100%;
+}
+</style>
+<div class="container">
+    <h1>Add Event Widget</h1>
+    <div class="form-section  wt-frame">
+        <p>Create a customized event widget to easily display your upcoming events on any website.
+            <br>
+            <br> Simply customize your settings below and copy/paste the code where you'd like your widget to be displayed.</p>
+        <br>
+        <h3>Settings</h3>
+        <br>
+        <form name="myForm" class="event-form">
+            <div class="gray-frame sub-fields">
+                <div class="row">
+                    <div class=col-sm-12>
+                        <div class=col-sm-6>
+                            <section class="form-group">
+                                <label>Display Title Bar</label>
+                                <div class="onoffswitch mt-3">
+                                    <input type="checkbox" name="onoffswitch" ng-blur="title_text()" ng-model="data.display_title_bar" class="onoffswitch-checkbox" id="myonoffswitch2" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch2"></label>
+                                </div>
+                            </section>
+                        </div>
+                        <div class=col-sm-6>
+                            <section class="form-group">
+                                <label>Group Event Series</label>
+                                <div class="onoffswitch mt-3">
+                                    <input type="checkbox" name="onoffswitch" ng-blur="title_text()" ng-model="data.group_series_events" class="onoffswitch-checkbox" id="myonoffswitch3" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch3"></label>
+                                </div>
+                            </section>
+                        </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class=col-sm-12>
+                        <div class=col-sm-6>
+                            <section class="form-group">
+                                <label for="title">Title Text</label>
+                                <input type="text" name="title" ng-model="data.title" ng-blur="title_text()" class="form-control" placeholder="upcoming event" required>
+                            </section>
+                        </div>
+                        <div class=col-sm-6>
+                            <section class="form-group">
+                                <label for="max_event">Max # of event</label>
+                                <input name="max_number_of_events" ng-model="data.max_number_of_events" ng-blur="title_text()" class="form-control" placeholder="4" required>
+                            </section>
+                        </div>
                     </div>
-                 </div> 
-
-
-</div> -->
-  </div>
-<br>
-<br>
-<h3>Size</h3>
-<div class="gray-frame sub-fields">
-
+                </div>
+                <div class="row">
+                    <div class=col-sm-12>
+                        <div class=col-sm-6>
+                            <section class="form-group">
+                                <label>Display Date Block?</label>
+                                <div class="onoffswitch mt-3">
+                                    <input type="checkbox" name="onoffswitch" ng-blur="title_text()" ng-model="data.display_date_block" class="onoffswitch-checkbox" id="myonoffswitch4" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch4"></label>
+                                </div>
+                            </section>
+                        </div>
+                        <div class=col-sm-6>
+                            <section class="form-group">
+                                <label>Display image?</label>
+                                <div class="onoffswitch mt-3">
+                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch5"></label>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=col-sm-12>
+                        <div class=col-sm-6>
+                            <section class="form-group">
+                                <label>Display Full Date?</label>
+                                <div class="onoffswitch mt-3">
+                                    <input type="checkbox" name="onoffswitch" ng-blur="title_text()" ng-model="data.display_full_date" class="onoffswitch-checkbox" id="myonoffswitch6" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch6"></label>
+                                </div>
+                            </section>
+                        </div>
+                        <div class=col-sm-6>
+                            <section class="form-group">
+                                <label>Display Time?</label>
+                                <div class="onoffswitch mt-3">
+                                    <input type="checkbox" ng-model="data.display_time" ng-blur="title_text()" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch7" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch7"></label>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=col-sm-12>
+                        <div class=col-sm-6>
+                            <section class="form-group">
+                                <label>Display Venue?</label>
+                                <div class="onoffswitch mt-3">
+                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch8" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch8"></label>
+                                </div>
+                            </section>
+                        </div>
+                        <div class=col-sm-6>
+                            <section class="form-group">
+                                <label>Display Ticket Link?</label>
+                                <div class="onoffswitch mt-3">
+                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch9" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch9"></label>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <br>
+        <br>
+        <h3>style</h3>
+        <div class="gray-frame sub-fields">
+            <div class="row">
+                <div class=col-sm-12>
+                    <div class=col-sm-6>
+                        <section class="form-group">
+                            <label>Preview</label>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="module template-view">
+                    <div class="image-main">
+                        <img src="images/img/f-img.jpg" alt="" style="border:2px solid black;" />
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+        <br>
+        <br>
+        <h3>style</h3>
+        <div class="gray-frame sub-fields">
             <!-- Date Event Group -->
             <div class="event-date fieldSection">
-              <div class="row">
-        <div class="col-sm-12">
-        <div class="col-sm-4">
-                      <label class="form-label">Set Width</label>
+                <div class="row">
+                    <div class="form-group">
+                        <section class="row">
+                            <div class="col-sm-2">preview</div>
+                            <section class="col-sm-5">
+                                <section class="form-group">
+                                    <div class="col-sm-6 loc-list ScrollVenueList">
+					<script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js"/>
+					<script type="text/javascript">
+					var EventsWidgetDisplayPreferences = { seller_id: "22381",uri:"http://tickets.alistixs.com/events/22381",domain: "tickets.alistixs.com",white_label: "ALIST Solutions LLC",max_number_of_events: "4",group_series_events: "true",title_text: "Upcoming Events",height: "auto",width: "330px",background_color: "#d09a9a",header_color: "#FFFFFF",row_background_color: "#FFFFFF",text_color: "#333",link_color: "#fe1e5a",include_scrollbar: "auto",display_title_bar: "true", display_date_block: "true", display_image: "none",display_full_date: "true",display_time: "true",display_venue: "true",display_tickets_link: "none"}
+					</script>
+                                    </div>
+                                </section>
+                            </section>
+                        </section>
                     </div>
-                    <div class="col-sm-4">
-                     <label for="height">Height in PIxel</label>
+                    <div class="row form-group">
+                        <div class="col-sm-2">shell background</div>
+                        <div class="col-sm-8 ">
+                            <input type="text" id="d_1" class="form-control" ng-model="data.background_color" ng-blur="title_text()" />
+                            </div>
+                            <div class="col-sm-2">
+                            <color-picker id="i_1" ng-model="background_color" color-picker-format="hex" color-picker-swatch-only="true" ng-click="picCol(1)"></color-picker>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-2">shell text</div>
+                        <div class="col-sm-8">
+                            <input type="text" id="d_2" class="form-control" ng-model="data.header_color" ng-blur="title_text()" />
+                            </div>
+                            <div class="col-sm-2">
+                            <color-picker id="i_2" ng-model="header_color" color-picker-format="'hex'" color-picker-swatch-only="true" ng-click="picCol(2)"></color-picker>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-2">row background </div>
+                        <div class="col-sm-8">
+                            <input type="text"  id="d_3" class="form-control" ng-model="data.row_background_color" ng-blur="title_text()" />
+                        </div>
+                        <div class="col-sm-2">
+                            <color-picker id="i_3" ng-model="row_background_color" color-picker-format="'hex'" color-picker-swatch-only="true" ng-click="picCol(3)"></color-picker>
+                        </div>
                     </div>
 
+                     <div class="row form-group">
+                        <div class="col-sm-2">row text</div>
+                        <div class="col-sm-8">
+                            <input type="text"  id="d_4" class="form-control" ng-model="data.text_color" ng-blur="title_text()" />
+                            </div>
+                            <div class="col-sm-2">
+                            <color-picker id="i_4" ng-model="text_color" color-picker-format="'hex'" color-picker-swatch-only="true" ng-click="picCol(4)"></color-picker>
+                        </div>
+                </div>
+                <div class="row  form-group">
+                    <div class="col-sm-2">links</div>
+                    <div class="col-sm-8">
+                      <input type="text" id="d_5" class="form-control" ng-model="data.link_color" ng-blur="title_text()" />
+                    </div>
+                    <div class="col-sm-2">
+                      
+                        <color-picker id="i_5" ng-model="link_color" color-picker-format="'hex'" color-picker-swatch-only="true" ng-click="picCol(5)"></color-picker>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <h3>Size</h3>
+    <div class="gray-frame sub-fields">
+        <!-- Date Event Group -->
+        <div class="event-date fieldSection">
+            <div class="row">
+                <div class="col-sm-12">
                     <div class="col-sm-4">
-                     <label for="width">Width in Pixel</label>
+                        <label class="form-label">Set Width</label>
                     </div>
+                    <div class="col-sm-4">
+                        <label for="height">Height in PIxel</label>
                     </div>
-                    <section class="radio-sec with-ftext col-sm-12">
-                          <div class="col-sm-4">
-
-                          <section class="radio-inline">
-                              <input type="radio"  name="auto"id="radio10"/>
-                              <label for="radio10"><span></span>Auto</label>
-                          </section>
-                          <section class="radio-inline">
-                          <input type="radio"   name="fixed" id="radio9"/>
-                          <label for="radio9"><span></span>Fixed</label>
-                          </section>
-                        </div>
-                        <div class="col-sm-4">
-                         <input type="text" name="height"  class="form-control" placeholder="160" required>
-                       </div>
-                        <div class="col-sm-4">
-                          <input type="text" name="height"  class="form-control" placeholder="330" required> 
-                        </div>
+                    <div class="col-sm-4">
+                        <label for="width">Width in Pixel</label>
+                    </div>
+                </div>
+                <section class="radio-sec with-ftext col-sm-12">
+                    <div class="col-sm-4">
+                        <section class="radio-inline">
+                            <input type="radio" name="auto" id="radio10" />
+                            <label for="radio10"><span></span>Auto</label>
+                        </section>
+                        <section class="radio-inline">
+                            <input type="radio" name="fixed" id="radio9" />
+                            <label for="radio9"><span></span>Fixed</label>
+                        </section>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" name="height" ng-model="data.height" ng-blur="title_text()" class="form-control" placeholder="160" required>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" name="height" ng-model="data.width" ng-blur="title_text()" class="form-control" placeholder="330" required>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <h3>Embed</h3>
+    <div class="gray-frame sub-fields">
+        <p><b>Simply click below and copy the code onto your website to display your customized event widget!</b> </p>
+        <br>
+        <br>
+        <section class="row">
+            <section class="col-sm-8">
+                <section class="form-group">
+                    <textarea ng-model="embed_code" name="textarea" class="form-control" cols="150" rows="5">
+                    </textarea>
+                </section>
             </section>
-        </div>
-  </div>
-</div>
-
-<br>
-<br>
-<h3>Embed</h3>
-<div class="gray-frame sub-fields">
-<p><b>Simply click below and copy the code onto your website to display your customized event widget!</b> </p>
- <br>
- <br>
-      <section class="row">
-         <section class="col-sm-8">
-            <section class="form-group">
-              <textarea name="textarea" class="form-control" cols="150" rows="5"></textarea>
-             </section>
-          </section>  
-      </section>
- 
-</div>
-<div class="editr">        
+        </section>
+    </div>
+   <!--  <div class="editr">
         <div class="editor-btn">
-         <button class="gray-btn btn">Save</button>
+            <button class="gray-btn btn">Save</button>
         </div>
-      </div>
+    </div> -->
 </div>
 </div>

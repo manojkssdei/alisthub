@@ -7,6 +7,8 @@ Module : Events Home
 
 angular.module('alisthub').controller('allEventController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams,$stateParams) { 
     
+    
+
     $rootScope.class_status=false;
     var eventService = $injector.get("events");
     $scope.eventloader = false;
@@ -19,7 +21,6 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
       };	  
     }
     console.log($stateParams);
-    
     
     $scope.seller_id = $localStorage.userId;
     //upcomming event list
@@ -36,8 +37,15 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
       if($rootScope.searchToDate!=undefined) {
         dateRange.searchToDate = $rootScope.searchToDate;
       }
-      
-      eventService.getAllEvent({ 'user_id' : $localStorage.userId , 'allevent' : allevent, 'dateRange': dateRange },function(response) {
+
+      var userModuleInfo = {};
+      userModuleInfo.userType = 'user';
+      userModuleInfo.sellerUserId = '39';
+      userModuleInfo.moduleName = 'Events';
+      userModuleInfo.moduleId = '1';
+      userModuleInfo.action = 'add';
+
+      eventService.getAllEvent({ 'user_id' : $localStorage.userId, 'userModuleInfo' : userModuleInfo, 'allevent' : allevent, 'dateRange': dateRange },function(response) {
         $scope.eventloader = false;
         if (response!=null) {
           if (response.code == 200) {
@@ -77,8 +85,25 @@ angular.module('alisthub').controller('allEventController', function($scope,$loc
       }
     }
 
-    $scope.delEvent=function(event_id) {
-      eventService.deleteEvent({'event_id':event_id},function(response) {
+
+$scope.viewHref = function(eventId,recurringOrNot) {
+      if(recurringOrNot==0){
+        $location.path("/view_event/" + eventId);  
+      } else {
+        $location.path("/view_series/" + eventId);
+      }
+    }
+
+    $scope.viewOverviewHref = function(eventId,recurringOrNot) {
+      if(recurringOrNot==0){
+        $location.path("/single_event_overview/" + eventId);  
+      } else {
+        $location.path("/series_event_overview/" + eventId);
+      }
+    }
+
+    $scope.delEvent=function(event_id,showclix_id) {
+      eventService.deleteEvent({'event_id':event_id,showclix_id:showclix_id,showclix_token:$localStorage.showclix_token},function(response) {
         if(response.code==200) {
           $scope.getAllEvent();
     	  }

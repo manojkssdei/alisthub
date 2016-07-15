@@ -1,0 +1,82 @@
+<!-- Header -->
+<section class="header animated bounce"><a href="#"><img src="images/logo-l.png" alt=""/></a></section>
+<!-- //Header --> 
+<section class="container">
+    <section class="login-frame animated bounceInLeft">
+        <h1>Login Now!</h1>
+        <form name="userForm" ng-submit="submitForm()" novalidate>
+            <p class="tagline">We do the right things to prove our integrity and reliability to earn your trust. </p>
+            <span ng-hide="error_message">
+                <p class="error-fld" >{{error}}</p>
+            </span>
+            <span ng-hide="signup_success_message">
+                <p class="success-fld" >{{SignupSuccessMessage}}</p>
+            </span>
+            <span ng-hide="success_message">
+                <p class="success-fld" ng-show="activation_message">{{activation_message}}</p>
+            </span>
+            <ul class="form-widget login-form">
+<<<<<<< HEAD
+                <li>
+                    
+                    <!--<a href="https://tickets.alistixs.com/event/magic-show/tag/widget"><input type="button" name="checkout" class="btn-l m-fw" value="Checkout"></a>
+                    <script type="text/javascript">
+    var EventsWidgetDisplayPreferences = {
+        seller_id: '22876',
+        uri: 'http://tickets.alistixs.com/events/22876',
+        domain: 'tickets.alistixs.com',
+        white_label: 'ALIST Solutions LLC',
+        max_number_of_events: '4',
+        group_series_events: 'true',
+        title_text: 'Upcoming Events',
+        height: 'auto',
+        width: '330px',
+        background_color: '#2c344b',
+        header_color: '#FFFFFF',
+        row_background_color: '#FFFFFF',
+        text_color: '#333',
+        link_color: '#fe1e5a',
+        include_scrollbar: 'auto',
+        display_title_bar: 'block',
+        display_date_block: 'true',
+        display_image: 'none',
+        display_full_date: 'true',
+        display_time: 'true',
+        display_venue: 'true',
+        display_tickets_link: 'none'
+    }
+</script>
+<script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js">
+</script><script src="//embed.alistixs.com/event/embed-widget/2406a0a94c.js"></script>
+            -->
+            <section class="form-group">
+=======
+                <li><!--<script src="//embed.alistixs.com/event/embed-widget/2406a0a94c.js"></script>-->
+                    <section class="form-group">
+>>>>>>> pb/master
+                        <section class="row icon-div">
+                            <section class="col-sm-6" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                                <p><i class="fa fa-user input-icons"></i><input type="email" placeholder="Email"  ng-model="user.email" class="form-control" name="email" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"></p>
+                                <p ng-show="(userForm.email.$invalid && !userForm.email.$pristine ) || userForm.email.$error.pattern" class="error-fld ng-binding">Please enter a valid email address!</p>
+                            </section>
+                            <section class="col-sm-6" ng-class="{ 'has-error' : userForm.password.$error.required }">
+                                <p><i class="fa fa-lock input-icons"></i><input type="password" placeholder="Password" class="form-control" name="password" ng-model="user.password"  ng-minlength="5" ng-maxlength="12" required></p>
+                                <p ng-show="userForm.password.$error.required && userForm.password.$invalid && !userForm.password.$pristine" class="error-fld ng-binding">Enter password.</p>
+                                <p ng-show="userForm.password.$error.minlength" class="error-fld ng-binding">Password is too short.</p>
+                                <p ng-show="userForm.password.$error.maxlength" class="error-fld ng-binding">Password is too long.</p>
+                               
+                            </section>
+                        </section>
+                    </section>
+                </li>
+            </ul>
+            <p><button  type="submit" class="btn-l m-fw"  ng-disabled="userForm.$invalid">Login</button></p>
+            <section class="otherlinks">
+                <p><a ui-sref="forgot-password">Forgot Password?</a></p>
+                <p><a  ui-sref="signup" class="signup-link">Sign Up if not a Member</a></p>
+            </section>
+        </form>
+    </section>
+</section>
+<div id="push"></div>
+<!--ui-sref="events"-->

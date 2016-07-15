@@ -7,7 +7,6 @@ Module : Events Home
 
 angular.module('alisthub').controller('eventhomeController', function($scope,$localStorage,$injector, $uibModal,$rootScope, $filter,$timeout,$sce,$location, $ocLazyLoad,$state,ngTableParams,$http) { 
 
-    
     $rootScope.class_status=false;
     var eventService = $injector.get("events");
     
@@ -95,6 +94,9 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
       }
     }
 
+
+     
+
     //upcomming event list
     $scope.getUpcommingEvent = function(eventType) {
       type = 0;      
@@ -172,9 +174,22 @@ angular.module('alisthub').controller('eventhomeController', function($scope,$lo
       });
     }
 
+
+ $scope.viewOverviewHref = function(eventId,recurringOrNot) {
+      if(recurringOrNot==0){
+        $location.path("/single_event_overview/" + eventId);  
+      } else {
+        $location.path("/series_event_overview/" + eventId);
+      }
+    }
+    
     $scope.getUpcommingEvent();
     $scope.getPastEvent();
     $scope.getEventSeries();
+
+
+   
+
 
     $scope.delEvent=function(event_id)
     {

@@ -14,11 +14,13 @@
         <link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
         <link rel="stylesheet" href="stylesheets/custom-style.css" type="text/css" />
         <link rel="stylesheet" href="stylesheets/media.css" type="text/css" />
-        <link rel="stylesheet" href="stylesheets/demo.css" type="text/css" />
+       
         <link rel="stylesheet" href="stylesheets/ng-table.css"/>
         <link rel="stylesheet" href="stylesheets/angularjs-color-picker.min.css"/>
         <link rel="stylesheet" href="preview_template/assets/css/event.css" type="text/css" />
         <link rel="stylesheet" href="stylesheets/angular-tooltips.css"/>
+         
+        
         <!-- Website Main CSS -->
         <!--[if lte IE 8]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script><![endif]-->
 
@@ -33,7 +35,7 @@
                 <section class="container">
                     <div class="welcometxt mob-clear">
                         <a href="javascript:void(0)" class="noti-link"><i class="fa fa-bell-o"></i><span class="badge">5</span></a>
-                        <!-- <span class="user-pic"><img src="images/user.jpg" width="36" height="36" alt=""/></span> {{name}} <i class="fa fa-angle-down"></i>-->
+
                         <div class="btn-group" uib-dropdown is-open="status.isopen">
                             <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
                             <span class="user-pic"><img src="images/user.jpg" width="36" height="36" alt=""/></span> {{name}} <i class="fa fa-angle-down"></i>
@@ -41,11 +43,10 @@
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                 <li role="menuitem"> <a href="#/view_account">My Account</a></li>
                                 <li role="menuitem"> <a ui-sref="financial_setting">Financial Settings</a></li>
-                                <li role="menuitem"> <a href="#">Shopping Cart</a></li>
                                 <li role="menuitem"> <a style="cursor:pointer;" ng-click="logout()">Sign Out</a></li>
                             </ul>
                         </div>
-                        <a href="javascript:void(0)">Help</a>
+                        <a href="#/help">Help</a>
                     </div>
                     <a  ng-click="toggleMenu()" class="navbar-toggle">
                     <span class="icon-bar"></span>
@@ -65,33 +66,33 @@
                                         <a  ui-sref="dashboard">Event</a>
                                         <ul>
                                             <li><a  ui-sref="dashboard">Events Dashboard</a></li>
-                                            <li><a  ui-sref="view_all_event">View all Events</a></li>
-                                            <li><a  ui-sref="create_an_event">Create an Event</a></li>
-                                            <li><a  href="#/event_setting">Event Settings</a></li>
+                                            <li ng-if = checkPermission(permission[0],'add') || ng-if = checkPermission(permission[0],'edit') || ng-if = checkPermission(permission[0],'delete') || ng-if = checkPermission(permission[0],'view')><a ui-sref="view_all_event">View all Events</a></li>
+                                            <li ng-if = checkPermission(permission[0],'add') ><a ui-sref="create_an_event">Create an Event</a></li>
+                                            <li><a href="#/event_setting">Event Settings</a></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a  href="javascript:void(0)">Manage</a>
                                         <ul>
-                                            <li><a  href="#/view_customer">Customers</a></li>
-                                            <li><a  ui-sref="view_user">Users</a></li>
-                                            <li><a  href="#/widgets">Widgets</a></li>
-                                            <li><a  href="javascript:void(0)">Website Manager</a></li>
-                                            <li><a  href="javascript:void(0)">Downloads</a></li>
+                                            <li><a ng-if="userType=='seller'" href="#/view_customer">Customers</a></li>
+                                            <li><a ng-if="userType=='seller'" ui-sref="view_user">Users</a></li>
+                                            <li><a href="#/widgets">Widgets</a></li>
+                                            <li><a href="javascript:void(0)">Website Manager</a></li>
+                                            <li><a href="#/downloads">Downloads</a></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a  href="javascript:void(0)">Promote</a>
                                         <ul>
-                                            <li><a  href="javascript:void(0)">Social Media</a></li>
-                                            <li><a  href="javascript:void(0)">Email Marketing</a></li>
-                                            <li><a  href="javascript:void(0)">Ad Manager</a></li>
-                                            <li><a  href="javascript:void(0)">Tracking Tags</a></li>
-                                            <li><a  href="javascript:void(0)">Analytics Settings</a></li>
+                                            <li><a href="javascript:void(0)">Social Media</a></li>
+                                            <li><a href="javascript:void(0)">Email Marketing</a></li>
+                                            <li><a href="javascript:void(0)">Ad Manager</a></li>
+                                            <li><a ui-sref="tracking">Tracking Tags</a></li>
+                                            <li><a href="javascript:void(0)">Analytics Settings</a></li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a  href="javascript:void(0)">Reports</a>
+                                    <li ng-if="userType=='seller'">
+                                        <a href="javascript:void(0)">Reports</a>
                                         <ul>
                                             <li><a  href="javascript:void(0)">Reports Dashboard</a></li>
                                             <li><a  href="javascript:void(0)">Box Office</a></li>
@@ -196,7 +197,10 @@
         </footer>
         
         <!-- /Wrapper --> 
+       
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
         <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script src="javascripts/angular-min.js"></script>
         <script src="javascripts/angular-ui-router.js"></script>
         <!--<script src="javascripts/ui-bootstrap-tpls-0.12.0.min.js"></script>-->
@@ -205,7 +209,7 @@
         <script src="javascripts/ocLazyLoad.js"></script>
         <link href="stylesheets/autocomplete.css" rel="stylesheet">
         <link href="stylesheets/angucomplete.css" rel="stylesheet">
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key= AIzaSyC9IrHjTTUT79_wyZc7mxglvB2-5xq7HoQ &libraries=places"></script>
         <script src="javascripts/autocomplete.js"></script>
         <script src="javascripts/angucomplete.js"></script>
                 <!--  captcha -->
@@ -225,10 +229,11 @@
 
         <script src="http://cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
         <script src="javascripts/directives/angular-ckeditor.js"></script>
-        <script src="javascripts/jquery.gridster.js" type="text/javascript"  charset="utf-8"></script>
+       
         <script src="javascripts/tinycolor-min.js" type="text/javascript"  charset="utf-8"></script>
         <script src="javascripts/angularjs-color-picker.js" type="text/javascript"  charset="utf-8"></script>
         <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+        <script src="javascripts/gm.datepickerMultiSelect.js"></script>
          
  </body>
 </html>

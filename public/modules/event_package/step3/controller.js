@@ -5,7 +5,7 @@ Created By: Deepak khokkar
 Module : Event setting  
 */
 
-angular.module('alisthub').controller('createpackageController', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad , $http,$stateParams) {
+angular.module('alisthub').controller('createpackageControllerThree', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad , $http,$stateParams) {
   //var $serviceTest = $injector.get("event_setting");
   var $serviceTest = $injector.get("event_package");
 
@@ -48,7 +48,7 @@ angular.module('alisthub').controller('createpackageController', function($scope
     if (menu.id === 2) {
       console.log('------2----');
      if($stateParams.packageId != null && $stateParams.packageId !=undefined && $stateParams.packageId !='') {
-            $location.path("/event_package_step_3/"+$stateParams.packageId);
+            $location.path("/event_package_step_2/"+$stateParams.packageId);
           } 
     }
 
@@ -128,6 +128,14 @@ angular.module('alisthub').controller('createpackageController', function($scope
   $scope.open6 = function() {
     $scope.popup6.opened = true;
   };
+
+  $scope.open7 = function() {
+    $scope.popup7.opened = true;
+  };
+  
+  $scope.open8 = function() {
+    $scope.popup8.opened = true;
+  };
   
   $scope.popup1 = {
     opened: false
@@ -153,6 +161,45 @@ angular.module('alisthub').controller('createpackageController', function($scope
     opened: false
   };
 
+  $scope.popup7 = {
+    opened: false
+  };
+
+  $scope.popup8 = {
+    opened: false
+  };
+
+
+
+  $scope.onReady = function() {
+  
+  };
+ 
+  $scope.options = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+    $scope.options1 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+
+ 
+ 
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date(tomorrow);
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [{
+    date: tomorrow,
+    status: 'full'
+  }, {
+    date: afterTomorrow,
+    status: 'partially'
+  }];
+
   function getDayClass(data) {
       var date = data.date,
         mode = data.mode;
@@ -177,6 +224,10 @@ angular.module('alisthub').controller('createpackageController', function($scope
   // timepicker end
 
   $scope.data = {};
+  $scope.data.print_home = 1;
+  $scope.data.will_call = 1;
+
+  $scope.timeout = timeout;
   $scope.enable_on = {};
   $scope.disable_on = {};
 
@@ -239,10 +290,21 @@ $scope.redirectToDashboard = function() {
       $scope.data.print_disable_date = $scope.combine($scope.data.print_disable_date.date,$scope.data.print_disable_date.time);
     }
 
+
+   if($scope.data.will_call_enable_date.date!=undefined && $scope.data.will_call_enable_date.time!=undefined && $scope.data.will_call_enable_date.date!='' && $scope.data.will_call_enable_date.time!=''){
+      $scope.data.will_call_enable_date = $scope.combine($scope.data.will_call_enable_date.date,$scope.data.will_call_enable_date.time);  
+    } 
+    if($scope.data.print_disable_date.date!=undefined && $scope.data.print_disable_date.time!=undefined && $scope.data.print_disable_date.date!='' && $scope.data.print_disable_date.time!=''){
+      $scope.data.print_disable_date = $scope.combine($scope.data.print_disable_date.date,$scope.data.print_disable_date.time);
+    }
+
+
     console.log($scope.data);
 
     if ($localStorage.userId !== undefined) {
       $scope.data.user_id = $localStorage.userId;
+      $scope.data.showclix_token = $localStorage.showclix_token;
+      $scope.data.showclix_seller_id = $localStorage.showclix_seller_id;
 
       $serviceTest.postThirdStepPackageData($scope.data, function(response) {
 
@@ -260,6 +322,16 @@ $scope.redirectToDashboard = function() {
 
           } else {
             $scope.activation_message = global_message.ErrorInActivation;
+
+            $scope.error = response.error;
+            $scope.error_message = false;
+
+            $timeout(function() {
+              $scope.success = '';
+              $scope.error_message = true;
+              $scope.error = '';
+            }, 5000);
+
           }
 
       });
@@ -284,12 +356,14 @@ $scope.advSettingPackageId = $scope.eventSetting.package_id;
   $serviceTest.getPackage($scope.eventSetting, function(response) {
     $scope.data = response.results[0];
     if($scope.data!=undefined){
-      $scope.data.will_call = parseInt($scope.data.will_call);
+
+      console.log('$scope.data' , $scope.data) ;
+
+      $scope.data.event_id = parseInt($scope.data.showclix_package_id);
       $scope.data.sales_immediatly = parseInt($scope.data.sales_immediatly);
-      $scope.data.donation = parseInt($scope.data.donation);
       $scope.data.custom_fee = parseInt($scope.data.custom_fee);
-      $scope.data.question_required = parseInt($scope.data.question_required);
       $scope.data.collect_name = parseInt($scope.data.collect_name);
+      $scope.data.url_short_name = $scope.data.url_short_name;
 
       var openDateTime = getDateTime($scope.data.online_sales_open);
       $scope.data.online_sales_open = {};
@@ -306,15 +380,45 @@ $scope.advSettingPackageId = $scope.eventSetting.package_id;
       $scope.data.print_enable_date.date = null;
       $scope.data.print_enable_date.time = null;
       
-      if(enableDateTime.date!='' && enableDateTime.time!=''){
-        $scope.data.print_enable_date.date = enableDateTime.date;
-        $scope.data.print_enable_date.time = enableDateTime.time;  
-      }
+        if(enableDateTime.date!='' && enableDateTime.time!=''){
+          $scope.data.print_enable_date.date = enableDateTime.date;
+          $scope.data.print_enable_date.time = enableDateTime.time;  
+        }
 
       var disableDateTime = getDateTime($scope.data.print_disable_date);
       $scope.data.print_disable_date = {};
-      $scope.data.print_disable_date.date = disableDateTime.date;
-      $scope.data.print_disable_date.time = disableDateTime.time;
+       $scope.data.print_disable_date.date = null;
+      $scope.data.print_disable_date.time = null;
+
+        if(disableDateTime.date!='' && disableDateTime.time!=''){
+        $scope.data.print_disable_date.date = disableDateTime.date;
+        $scope.data.print_disable_date.time = disableDateTime.time;
+        }
+
+
+
+       var willCallEnableDateTime = getDateTime($scope.data.will_call_enable_date);
+      $scope.data.will_call_enable_date = {};
+      $scope.data.will_call_enable_date.date = null;
+      $scope.data.will_call_enable_date.time = null;
+      
+        if(willCallEnableDateTime.date!='' && willCallEnableDateTime.time!=''){
+          $scope.data.will_call_enable_date.date = willCallEnableDateTime.date;
+          $scope.data.will_call_enable_date.time = willCallEnableDateTime.time;  
+        }
+
+      var willCallDisableDateTime = getDateTime($scope.data.will_call_disable_date);
+      $scope.data.will_call_disable_date = {};
+       $scope.data.will_call_disable_date.date = null;
+      $scope.data.will_call_disable_date.time = null;
+
+        if(willCallDisableDateTime.date!='' && willCallDisableDateTime.time!=''){
+        $scope.data.will_call_disable_date.date = willCallDisableDateTime.date;
+        $scope.data.will_call_disable_date.time = willCallDisableDateTime.time;
+        }
+      
+
+       console.log('after $scope.data' , $scope.data) ;
     }
 
   });

@@ -88,6 +88,289 @@ ticketImage='./images/ticket.png';
   }, {
     id: 31
   }];
+
+hours = [{
+    id: 00
+  },{
+    id: 01
+  }, {
+    id: 02
+  }, {
+    id: 03
+  }, {
+    id: 04
+  }, {
+    id: 05
+  }, {
+    id: 06
+  }, {
+    id: 07
+  }, {
+    id: 08
+  }, {
+    id: 09
+  }, {
+    id: 10
+  }, {
+    id: 11
+  }, {
+    id: 12
+  }, {
+    id: 13
+  }, {
+    id: 14
+  }, {
+    id: 15
+  }, {
+    id: 16
+  }, {
+    id: 17
+  }, {
+    id: 18
+  }, {
+    id: 19
+  }, {
+    id: 20
+  }, {
+    id: 21
+  }, {
+    id: 22
+  }, {
+    id: 23
+  }];
+  minutes = seconds =[{
+    id: 01
+  }, {
+    id: 02
+  }, {
+    id: 03
+  }, {
+    id: 04
+  }, {
+    id: 05
+  }, {
+    id: 06
+  }, {
+    id: 07
+  }, {
+    id: 08
+  }, {
+    id: 09
+  }, {
+    id: 10
+  }, {
+    id: 11
+  }, {
+    id: 12
+  }, {
+    id: 13
+  }, {
+    id: 14
+  }, {
+    id: 15
+  }, {
+    id: 16
+  }, {
+    id: 17
+  }, {
+    id: 18
+  }, {
+    id: 19
+  }, {
+    id: 20
+  }, {
+    id: 21
+  }, {
+    id: 22
+  }, {
+    id: 23
+  }, {
+    id: 24
+  }, {
+    id: 25
+  }, {
+    id: 26
+  }, {
+    id: 27
+  }, {
+    id: 28
+  }, {
+    id: 29
+  }, {
+    id: 30
+  }, {
+    id: 31
+  }, {
+    id: 32
+  }, {
+    id: 33
+  }, {
+    id: 34
+  }, {
+    id: 35
+  }, {
+    id: 36
+  }, {
+    id: 37
+  }, {
+    id: 38
+  }, {
+    id: 39
+  }, {
+    id: 40
+  }, {
+    id: 41
+  }, {
+    id: 42
+  }, {
+    id: 43
+  }, {
+    id: 44
+  }, {
+    id: 45
+  }, {
+    id: 46
+  }, {
+    id: 47
+  }, {
+    id: 48
+  }, {
+    id: 49
+  }, {
+    id: 50
+  }, {
+    id: 51
+  }, {
+    id: 52
+  }, {
+    id: 53
+  }, {
+    id: 54
+  }, {
+    id: 55
+  }, {
+    id: 56
+  }, {
+    id: 57
+  }, {
+    id: 58
+  }, {
+    id: 59
+  }, {
+    id: 60
+  }
+  ];
+
+
+
+
+ timeout = [{
+    value: 300,
+    minutes : '5 minutes',
+  },
+{
+    value: 360,
+    minutes : '6 minutes',
+  },
+{
+    value: 420,
+    minutes : '7 minutes',
+  },
+{
+    value: 480,
+    minutes : '8 minutes',
+  },
+{
+    value: 540,
+    minutes : '9 minutes',
+  },
+{
+    value: 600,
+    minutes : '10 minutes',
+  },
+{
+    value: 660,
+    minutes : '11 minutes',
+  },
+{
+    value: 720,
+    minutes : '12 minutes',
+  },
+{
+    value: 780,
+    minutes : '13 minutes',
+  },
+{
+    value: 840,
+    minutes : '14 minutes',
+  },
+{
+    value: 900,
+    minutes : '15 minutes',
+  },
+{
+    value: 960,
+    minutes : '16 minutes',
+  },
+{
+    value: 1020,
+    minutes : '17 minutes',
+  },
+{
+    value: 1080,
+    minutes : '18 minutes',
+  },
+{
+    value: 1140,
+    minutes : '19 minutes',
+  },
+{
+    value: 1200,
+    minutes : '20 minutes',
+  },
+{
+    value: 1260,
+    minutes : '21 minutes',
+  },
+{
+    value: 1320,
+    minutes : '22 minutes',
+  },
+{
+    value: 1380,
+    minutes : '23 minutes',
+  },
+{
+    value: 1440,
+    minutes : '24 minutes',
+  },
+{
+    value: 1500,
+    minutes : '25 minutes',
+  },
+{
+    value: 1560,
+    minutes : '26 minutes',
+  },
+{
+    value: 1620,
+    minutes : '27 minutes',
+  },
+
+{
+    value: 1680,
+    minutes : '28 minutes',
+  },
+
+{
+    value: 1740,
+    minutes : '29 minutes',
+  },
+
+{
+    value: 1800,
+    minutes : '30 minutes',
+  }];
 var webservices = {
 
     "getUserregister": baseUrl + "/webservices/register",
@@ -118,6 +401,7 @@ var webservices = {
     "deleteQuestion": "/event_setting/deleteQuestion",
     "exportQuestionCSV": "/event_setting/exportQuestionCSV",
     "getSelectedQuestion": "/event_setting/getSelectedQuestion",
+    "getQuestionsOfEvent" : "/event_setting/getQuestionsOfEvent",
 
     /* Constants for the product */
     "getSettingCount": "/event_setting/getSettingCount",
@@ -162,9 +446,28 @@ var webservices = {
     "getAllEvent": "/event/getAllEvent",
     "getEventDates": "/event/getEventDates",
 
+
+    /////widget //////////
+    "savewidget":"/widget/savewidget",
+
+    "getWidget":"/widget/getWidget",
+    "getWidgetDetail":"/widget/getWidgetDetail",
+
+
+
+//tracking tag
+
+
+ "saveTag":"/tracking/saveTag",
+
+ "getTag":"/tracking/getTag",
+
+ "getTagDetail":"/tracking/getTagDetail",
+ "deleteTag":"/tracking/deleteTag",
     // event package
 
-    "stepOneEventPackage"  :  "/event/stepOneEventPackage",
+    //"stepOneEventPackage"  :  "/event/stepOneEventPackage",
+    "stepOneEventPackage" : "/package/stepOneEventPackage",
     "getPackage" : "/package/getPackage",
     "getEventsInPackage" : "/package/getEventsInPackage",
     "getBundlesInPackage" : "/package/getBundlesInPackage",
@@ -189,7 +492,7 @@ var webservices = {
     "getBundleDetailOfPackage" : "/package/getBundleDetailOfPackage" ,
     "saveAdvanceSettingsOfPackage" : "/package/saveAdvanceSettingsOfPackage" ,
     "getAdvanceSettingOfPackage" : "/package/getAdvanceSettingOfPackage",
-
+    "getAllPackageEvent": "/package/getAllPackageEvent",
 
 
     /* Constants for the discount module */
@@ -210,6 +513,9 @@ var webservices = {
     "getAssignDiscountDetails": "/event_setting/getAssignDiscountDetails",
     "updateFinalAssignment": "/event_setting/updateFinalAssignment",
     "delPriceLevelDiscAssignment": "/event_setting/delPriceLevelDiscAssignment",
+    "getDiscountsOfEvent": "/event_setting/getDiscountsOfEvent",
+    "getCountDiscountsOfEvent" : "/event_setting/getCountDiscountsOfEvent",
+    
 
     /* Constants for the bundle module */
     "getBundles": "/event_setting/getBundles",
@@ -230,6 +536,8 @@ var webservices = {
     "deleteUser": "/user/deleteUser",
     "checksellerUser": "/user/checksellerUser",
     "changeUserStatus": "user/changeUserStatus",
+    "checkSellerSubUser": "/user/checkSellerSubUser",
+
     /*  CREATE BY DK   */
     /*Constants for the Customers Management*/
     "addCustomer": "/customers/addCustomer",
@@ -326,7 +634,45 @@ var webservices = {
     "saveSeriesSetting": "/event/saveSeriesSetting",
     "saveInventory": "/event/saveInventory",
 
+//event overview
+    "addEmailReport" : "/event/addEmailReport",
+    "getEmailReport" : "/event/getEmailReport",
+    "editEmailReport" : "/event/editEmailReport",
+    "getEmailReportById" : "/event/getEmailReportById",
+    "getEmailTemplateOfEvent" : "/event/getEmailTemplateOfEvent",
+    "assignEmailTemplate" : "/event/assignEmailTemplate",
+    "deleteEmailReportById" : "/event/deleteEmailReportById" ,
+    "pauseSales" : "/event/pauseSales" ,
+    "addFavouriteEvent" : "/event/addFavouriteEvent",
 
+    //event series overview
+
+    "pauseSalesSeries" : "/event/pauseSalesSeries" ,
+    "addFavouriteEventSeries" : "/event/addFavouriteEventSeries",
+    "delEventSeries" : "/event/delEventSeries",
+    "getEmailReportSeries" : "/event/getEmailReportSeries" ,
+    "addEmailReportSeries" : "/event/addEmailReportSeries" ,
+    "deleteEmailReportByIdSeries" : "/event/deleteEmailReportByIdSeries" ,
+    "editEmailReportSeries" : "/event/editEmailReportSeries" ,
+    "getEmailReportByIdSeries" : "/event/getEmailReportByIdSeries" ,
+    "getEmailTemplateOfEventSeries" : "/event/getEmailTemplateOfEventSeries" ,
+    "assignEmailTemplateSeries" : "/event/assignEmailTemplateSeries" ,
+    "unassignQuestionSeries" : "/event_setting/unassignQuestionSeries" ,
+    "unassignQuestionEvent" : "/event_setting/unassignQuestionEvent" ,
+    "makeAssignmentOverview" : "/event_setting/makeAssignmentOverview" ,
+    
+   
+    //Permisssion module routes
+    "getPerModules": "/user/getPerModules",
+    "savePerModules": "/user/savePerModules",
+
+    //assign question postition
+
+    "saveQuestionLocationPosition" : "/event_setting/saveQuestionLocationPosition" ,
+    "getQuestionsOfEventOfPackage" : "/package/getQuestionsOfEventOfPackage" ,
+    "delPackage" : "/package/delPackage" ,
+    "addFavouritePackage" : "/package/addFavouritePackage" ,
+    
 
 
 
@@ -442,7 +788,13 @@ var global_message = {
     "event_product_delete": "Product has been deleted successfully.",
 
     /* My account section **/
-    "fetchError": "There is some problem on Sever side , Please try after some time ."
+    "fetchError": "There is some problem on Sever side , Please try after some time .",
+
+    "saveEmailReport" : "Email report saved successfully.",
+
+    // package overview
+
+
 }
 
 var appConstants = {

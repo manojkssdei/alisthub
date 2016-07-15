@@ -1,5 +1,8 @@
+
+
 var showClix   = require('./../../constant.js');
 var request    = require('request');
+var http       = require('http');
 module.exports = function()
 {
   this.add_venue = function(req,res,next)
@@ -46,9 +49,10 @@ module.exports = function()
                });
     
   }
+    
   this.add_event = function(data,res,next)
   {
-    // required : event_name , address ,city , status (1, 2, 3, 4, 5, 7, 8),
+  // required : event_name , address ,city , status (1, 2, 3, 4, 5, 7, 8),
   //0.event_type :   int. 3 for General Admission Event, 2 for an Assigned Seating Event 
   //1.status : { Description: int. Events can be setup in stages. A status of 5 means the even is completely setup. A status of 4 means the event is in Preview Mode - only the seller can view the listing on ShowClix. 3, 2, and 1 each mean that the event is not complete and can be used to represent different stages in an event process if desired. 6 = canceled, 7 = paused, 8 = suspended.
 //Required: Yes
@@ -61,7 +65,7 @@ module.exports = function()
 //7.event_id :  int. Primary Key. Id of an event. (not required) 
     var input = {
                  "event":data.eventname,
-                 "description":data.content,
+                 "description":JSON.stringify(data.content),
                  "short_name":data.eventurl,
                  "event_start":data.event_startdatetime,
                  "sales_open":data.event_startdatetime,
@@ -69,26 +73,62 @@ module.exports = function()
                  "seller_id":data.showclix_seller_id,
                  "venue_id":"34657",
                  "event_type":"3",
-                 "status":data.step
+                 "status":"5"
                 };
-      if(data.showclix_id){
-        input.event_id = data.showclix_id;
-        request.put({
-                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
+      if(data.showclix_id != "" && data.showclix_id !== undefined){
+        console.log("---------3-------");
+        input.event_id = data.showclix_id.toString();
+        input.status   = '5';
+        delete input.description;
+        delete input.short_name;
+        delete input.sales_open;
+        delete input.user_id;
+        
+        //////////////////////////////////////////////////////////////////////////////////////
+        request({
+                method:'PUT',
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/Event/"+data.showclix_id,
-                form:    input }, function(error, response, body){
-                  var str = JSON.parse(response.body);
-                  console.log(response.body.event_id);
-                                  
-                  if (response.body.event_id) {
-                    return next({status:1,location:response.body.event_id});
+                body:    input,
+                json: true}, function(error, response, body){
+                  var str = "There is some problem on server. Please try after some time.";
+                  function isJson(item) {
+                      item = typeof item !== "string"
+                          ? JSON.stringify(item)
+                          : item;
+                  
+                      try {
+                          item = JSON.parse(item);
+                      } catch (e) {
+                          return false;
+                      }
+                  
+                      if (typeof item === "object" && item !== null) {
+                          return true;
+                      }
+                  
+                      return false;
+                  }
+                  var dataw = response.body;
+                  
+                  if (isJson(response.body)) {
+                    str = response.body;
+                  }
+                  
+                  if (str.event_id && str.event_id !== undefined) {
+                    console.log("---------6-------");
+                    return next({status:1,location:str.event_id});
                   }
                   else
                   {
+                    console.log("---------5-------");
                     return next({status:0,location:"","error":str});
                   }
                    
           });
+          //////////////////////////////////////////////////////////////////////////////// 
+        
+        
       }
       else{
     request.post({
@@ -117,6 +157,144 @@ module.exports = function()
     
   }
   
+  this.single_2nd_step = function(data,res,next)
+  {
+       var input = {};
+      if(data.showclix_id != "" && data.showclix_id !== undefined){
+        console.log("---------3-------");
+        input.event_id = data.showclix_id.toString();
+        input.status   = '5';
+        input.inventory = data.eventinventory;
+        input.event_category_id = data.category1;
+        input.ages     = data.custom_ages;
+        input.url      = data.eventwebsite;
+        input.keywords = data.keyword;
+        
+        
+        //////////////////////////////////////////////////////////////////////////////////////
+        request({
+                method:'PUT',
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
+                url:     "http://api.showclix.com/Event/"+data.showclix_id,
+                body:    input,
+                json: true}, function(error, response, body){
+                  var str = "There is some problem on server. Please try after some time.";
+                  function isJson(item) {
+                      item = typeof item !== "string"
+                          ? JSON.stringify(item)
+                          : item;
+                  
+                      try {
+                          item = JSON.parse(item);
+                      } catch (e) {
+                          return false;
+                      }
+                  
+                      if (typeof item === "object" && item !== null) {
+                          return true;
+                      }
+                  
+                      return false;
+                  }
+                  var dataw = response.body;
+                  
+                  if (isJson(response.body)) {
+                    str = response.body;
+                  }
+                  
+                  if (str.event_id && str.event_id !== undefined) {
+                    console.log("---------6-------");
+                    return next({status:1,location:str.event_id});
+                  }
+                  else
+                  {
+                    console.log("---------5-------");
+                    return next({status:0,location:"","error":str});
+                  }
+                   
+          });
+          //////////////////////////////////////////////////////////////////////////////// 
+        
+        
+      }
+      else{
+          return next({status:0,location:"","error":"Server error"}); 
+      }
+  }
+  
+  this.single_4th_step = function(data,res,next)
+  {
+       var input = {};
+      if(data.showclix_id != "" && data.showclix_id !== undefined){
+        console.log("---------3-------");
+        input.event_id = data.showclix_id.toString();
+        input.status   = '5';
+        input.donation_live = data.donation == 1 ?'y':'n';
+        if (data.donation == 1) {
+          input.donation_name = data.donation_name;
+        }
+        
+        input.approved      = 1;
+        input.bos_price     = data.box_office_service_fee;
+        input.ticket_note   = data.ticket_note;
+        //input.sales_open   = data.ticket_note;
+        input.ticket_note   = data.ticket_note;
+        
+        //////////////////////////////////////////////////////////////////////////////////////
+        request({
+                method:'PUT',
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
+                url:     "http://api.showclix.com/Event/"+data.showclix_id,
+                body:    input,
+                json: true}, function(error, response, body){
+                  console.log("=================");
+                  console.log(body);
+                  console.log("=================");
+                  var str = "There is some problem on server. Please try after some time.";
+                  function isJson(item) {
+                      item = typeof item !== "string"
+                          ? JSON.stringify(item)
+                          : item;
+                  
+                      try {
+                          item = JSON.parse(item);
+                      } catch (e) {
+                          return false;
+                      }
+                  
+                      if (typeof item === "object" && item !== null) {
+                          return true;
+                      }
+                  
+                      return false;
+                  }
+                  var dataw = response.body;
+                  
+                  if (isJson(response.body)) {
+                    str = response.body;
+                  }
+                  
+                  if (str.event_id && str.event_id !== undefined) {
+                    console.log("---------6-------");
+                    return next({status:1,location:str.event_id});
+                  }
+                  else
+                  {
+                    console.log("---------5-------");
+                    return next({status:0,location:"","error":str});
+                  }
+                   
+          });
+          //////////////////////////////////////////////////////////////////////////////// 
+        
+        
+      }
+      else{
+          return next({status:0,location:"","error":"Server error"}); 
+      }
+  }
+  
+  
   this.add_price_level = function(data,res,next)
   {
       var input = {
@@ -124,7 +302,7 @@ module.exports = function()
                  "level":data.price_level,
                  "active":1
                   };
-      //{"event_id":"4194781","min_price":"2","bos_price":"8","price":"10","level":"Term","limit":70,"active":"1","description":"This is test description"}
+      
       if(data.showclix_price_id) {  input.level_id = data.showclix_price_id;  }
       if(data.online_price)    {    input.price = data.online_price; }
       if(data.minimum_price)   {    input.min_price = data.minimum_price; }
@@ -136,10 +314,40 @@ module.exports = function()
       if(data.suggested_price){     input.upsell_price = data.suggested_price; }
       if(data.hide_in_box_office){  input.box_office_hide = data.hide_in_box_office; }
       
+      if(data.showclix_price_id != "" && data.showclix_price_id !== undefined){
+          input.level_id = data.showclix_price_id;     
+        //////////////////////////////////////////////////////////////////////////////////////
+        request({
+                method:'PUT',
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
+                url:     "http://api.showclix.com/PriceLevel/"+data.showclix_price_id,
+                body:    input,
+                json: true}, function(error, response, body){
+                  //console.log(response.body);
+                  console.log(response.statusCode);
+                   
+                  var str='';                 
+                  if (response.statusCode == 200) {
+                    console.log("---------6-------");
+                    return next({status:2,location:data.showclix_price_id});
+                  }
+                  else
+                  {
+                    console.log("---------5-------");
+                    return next({status:0,location:"","error":str});
+                  }
+                   
+          });
+          //////////////////////////////////////////////////////////////////////////////// 
+        
+        
+      }
+      else{
       request.post({
                 headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/PriceLevel",
                 form:    input }, function(error, response, body){
+                   console.log(response.code);
                   var str = response.body;
                   console.log(response.body);
                                   
@@ -158,6 +366,7 @@ module.exports = function()
                   }
                    
                });
+    }
   }
   
   this.add_series_event = function(req,res,next)
@@ -197,25 +406,85 @@ module.exports = function()
   this.delete_event = function(req,res,next)
   {
     // required : 
-    
+    console.log(req);
     request.delete({
                 headers: {'X-API-Token':req.showclix_token},
                 url:     "https://api.showclix.com/Event/"+req.showclix_id,
                 form:    {} }, function(error, response, body){
-                   if (response.headers.location) {
-                    return next({status:1,location:response.headers.location});
-                   }
-                   else
-                   {
-                   return next({status:0,location:""});
-                                      
-                   }
-                   
-               });
+                    return next({status:1,location:""});
+                });
     
   }
+
   
+  this.get_price_level = function(req,res,next)
+  {
+    request.get({
+                headers: {"content-type": "application/json"}, //{'X-API-Token':req.showclix_token},
+                url:     "https://api.showclix.com/Event/"+req+"/price_levels",
+                form:    {} }, function(error, response, body){
+                    return next({status:1,data:response.body});
+    });
+  }
+
+     
+  this.change_price_level = function(data,res,next)
+  {
+    var input = {};
+    input.PriceLevelSchedule__disabled=0;
+    input.PriceLevelSchedule__start_date       = data.start_date;
+    input.PriceLevelSchedule__start_date_date  = data.start_date_date;
+    input.PriceLevelSchedule__start_date_hour  = data.month;
+    input.PriceLevelSchedule__start_date_minute= data.time;
+    input.PriceLevelSchedule__start_date_am_pm = data.interval;
+    input.PriceLevelSchedule__price            = data.new_price;
+    input.PriceLevelSchedule__apply_to         = data.apply;
+    
+    request.post({
+                headers: {"content-type": "application/json", 'X-API-Token':data.showclix_token},
+                url: "https://admin.alistixs.com/event/"+data.showclix_id+"/level/"+data.showclix_price_id+"/schedule.json",
+                form:   input }, function(error, response, body){
+                  return next({status:1,data:response.body});
+    });  
+  }
+   
+  this.change_price_level_status = function(data,res,next)
+  {
+      var input = {};
+      input.status                                = data.status;
+      input.PriceLevelSchedule__start_date        = data.start_date;
+      input.PriceLevelSchedule__start_date_hour   = data.start_date_hour;
+      input.PriceLevelSchedule__start_date_minute = data.start_date_minute;
+      input.PriceLevelSchedule__start_date_am_pm  = data.start_date_am_pm;
  
+      request({
+                method:'POST',
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
+                url:     "https://admin.alistixs.com/event/"+data.showclix_id+"/level/"+data.showclix_price_id+"/status-schedule.json",
+                body:    input,
+                json: true}, function(error, response, body){
+                  //console.log(response.body);
+                  console.log(response.statusCode);
+                  var str='';                 
+                  return next({status:1,location:data.showclix_price_id});
+                    
+          }); 
+  }
   
-  
+  this.delete_price_level = function(req,res,next)
+  {
+    request.delete({
+                headers: {"content-type": "application/json",'X-API-Token':req.showclix_token}, 
+                url:     "http://api.showclix.com/PriceLevel/"+req.showclix_price_id,
+                form:    {} }, function(error, response, body){
+                  if (response.statusCode == 200) {
+                    return next({status:1,data:response.body});
+                  }
+                  else{
+                    return next({status:0,data:response.body});
+                  }
+                  
+    });  
+  }
+
 }

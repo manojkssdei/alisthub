@@ -97,3 +97,103 @@ exports.checksellerUser =function(req,res)
      res.json({result:results,code:200});
   });
 }
+
+/** 
+Method: GetPerModules
+Description: Function for permission modules 
+Created : 2016-06-29
+Created By: Deepak khokkar  
+*/
+exports.getPerModules =function(req,res) {
+  //permission_module_id
+  //'SELECT * from permission_modules as p LEFT JOIN user_permissions as up on up.permission_module_id = p.id where up.user_id = 127'
+  var data = req.body;
+  console.log(data);
+
+  var squery = "Select COUNT(*) AS exist from `user_permissions` where user_id = "+ data.userId;
+     
+    connection.query(squery, function(err8, selectResponse) {
+      if(err8) {
+        res.json({error:err8,code:101});
+      }
+      
+      //console.log("selected response:"+selectResponse[0].exist);
+
+      if(selectResponse[0].exist > 0) {
+
+        //console.log("SELECT module_name,permission_module_id,extended_module,add,edit,delete,view from permission_modules as p LEFT JOIN user_permissions as up on up.permission_module_id = p.id where up.user_id = " + data.userId);
+        //return false;
+
+        connection.query("SELECT *,p.id as per_id from permission_modules as p LEFT JOIN user_permissions as up on up.permission_module_id = p.id where up.user_id = " + data.userId, function(err, results) {
+          if (err) {
+            res.json({error:err,code:101});
+          }
+          res.json({result:results,code:200});
+        });
+      } else {
+        connection.query("SELECT module_name,extended_module,permission_modules.id as per_id,0 as 'add',0 as 'edit',0 as 'delete',0 as 'view' from permission_modules", function(err, results) {
+          if (err) {
+            res.json({error:err,code:101});
+          }
+          res.json({result:results,code:200});
+        });
+      }
+    });
+}
+
+
+/** 
+Method: savePerModules
+Description: Function for saving permission modules 
+Created : 2016-06-29
+Created By: Deepak khokkar  
+*/
+exports.savePerModules =function(req,res) {
+  var data = req.body;
+  connection.query("DELETE FROM user_permissions WHERE user_id = " + data.user, function(err, results) {
+    if (err) {
+      res.json({error:err,code:101});
+    }
+    
+    var query_value = "";
+    
+    for (var key in data.modules) {
+      query_value += "(NULL, '"+data.user+"', '"+data.modules[key].per_id+"', '"+data.modules[key].add+"', '"+data.modules[key].edit+"', '"+data.modules[key].delete+"', '"+data.modules[key].view+"'),";
+    }
+
+    if (query_value != "") {
+      query_value = query_value.substr(0, query_value.length-1);
+      var query_option = "INSERT INTO `user_permissions` (`id`, `user_id`, `permission_module_id`, `add`, `edit`, `delete`,`view`) VALUES " + query_value;
+      console.log(query_option);
+      connection.query(query_option, function(err8, results) { 
+        res.json({result:results,code:200});
+      });
+    } 
+
+
+  });
+}
+
+
+/** 
+Method: checkSellerSubUser
+Description: Function for fetching sub user data 
+Created : 2016-07-22
+Created By: Deepak khokkar  
+*/
+exports.checkSellerSubUser = function(req,res) {
+  //console.log("body request: " + req.body.userData.email);
+  //console.log("body request: " + req.body.userData.password);
+  var sql = 'SELECT * from seller_users where email = "'+req.body.userData.email+ '" and password = '+req.body.userData.password ;
+  
+  //console.log(sql);  res.json({result:'results',code:200});
+
+  connection.query(sql, function(err, results) {
+    if (err) {
+      res.json({error:err,code:101});
+    }
+    else{
+    res.json({result:results,code:200});
+    }
+  });
+}

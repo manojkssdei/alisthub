@@ -76,7 +76,13 @@ angular.module('alisthub').factory('venues', ['$q', '$timeout','communicationSer
 		});
   };
   
-
+ //getPriceLevelChange
+  url.getPriceLevelChange = function(jsondata,callback){
+    communicationService.resultViaPost(webservices.getPriceLevelChange,appConstants.authorizationKey,headerConstants.json,jsondata, function(res,req) {
+			callback(res.data);
+		});
+  };
+  
 //add Bundle
 
   url.addBundle = function(jsondata,callback){

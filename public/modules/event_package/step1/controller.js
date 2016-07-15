@@ -151,6 +151,17 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
         startingDay: 1
     };
 
+    $scope.slugify = function(text) {
+        return text.toString().toLowerCase().trim()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '')            // Trim - from end of text
+        .replace(/&/g, '-and-');         // Replace & with 'and'
+    };
+
+
     // Disable weekend selection
     function disabled(data) {
         var date = data.date,
@@ -163,7 +174,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
         $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
     };
 
-    $scope.toggleMin();
+    //$scope.toggleMin();
 
     /************** calender ends ****************/
 
@@ -174,9 +185,63 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('create
         allowedContent: true,
         entities: false
     };
-    $scope.onReady = function() {
-        // ...
-    };
+
+
+
+    //////////////////////////////
+   // Called when the editor is completely ready.
+  $scope.onReady = function() {
+  
+  };
+ 
+  $scope.options = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+
+  $scope.options1 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+  $scope.options2 = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+  // $scope.options4 = {
+  //   customClass: getDayClass,
+  //   minDate: new Date(),
+  //   showWeeks: false
+  // };
+
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date(tomorrow);
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [{
+    date: tomorrow,
+    status: 'full'
+  }, {
+    date: afterTomorrow,
+    status: 'partially'
+  }];
+
+  function getDayClass(data) {
+    var date = data.date,
+      mode = data.mode;
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+      for (var i = 0; i < $scope.events.length; i++) {
+        var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+        if (dayToCheck === currentDay) {
+          return $scope.events[i].status;
+        }
+      }
+    }
+    return '';
+  }
     /************** ck editor ends ****************/
 
     //To get Event Category
@@ -204,6 +269,7 @@ console.log('$state.params.packageId' , $state.params.packageId);
 
 
     if ( $localStorage.packageId) {
+        console.log($localStorage);
         console.log('edit called');
 
         var packageId = $state.params.packageId;
@@ -221,7 +287,11 @@ console.log('$state.params.packageId' , $state.params.packageId);
                 $scope.data.defined_age = 1;
             }
 
+console.log('$scope.data.defined_age' , $scope.data.defined_age) ;
+console.log('$scope.data.ages' , $scope.data.ages) ;
+
             if ($scope.data.defined_age === undefined || $scope.data.defined_age != 1) {
+                console.log('---------------------> $scope.data.ages e' , $scope.data.ages) ; 
                 $scope.data.ages = $scope.data.ages;
             }
 
@@ -285,6 +355,9 @@ $scope.data.image_1 = $scope.data.image ;
         console.log('menu', menu);
         console.log('menu.id', menu.id);
 
+console.log('$localStorage.packageId' , $localStorage.packageId);
+
+
         if (menu.id == 1) {
            // do nothing stay on step 1
         }
@@ -293,19 +366,37 @@ $scope.data.image_1 = $scope.data.image ;
             console.log('$localStorage.packageId', $localStorage.packageId);
             console.log('$rootScope.packageId', $rootScope.packageId);
 
-            if ($localStorage.packageId !== '' && $rootScope.packageId  == "" && $state.params.packageId != '') {
+            if ($localStorage.packageId != undefined && $localStorage.packageId !== '' && $rootScope.packageId  == "" && $state.params.packageId != '') {
                 console.log(' edit case......... go ..............');
+
                 $location.path("/event_package_step_2/" + $localStorage.packageId);
             }
 
-            if ($localStorage.packageId !== '' && $rootScope.packageId  !== "" && $rootScope.packageId === $localStorage.packageId ) {
-                console.log(' edit case......... go ..............');
+            if ($localStorage.packageId != undefined && $localStorage.packageId != '' && $rootScope.packageId  !== "" && $rootScope.packageId === $localStorage.packageId ) {
+                console.log(' edit case......... goooooooooo ..............');
                 $location.path("/event_package_step_2/" + $localStorage.packageId);
             }
 
-            if ($localStorage.packageId == '' && $rootScope.packageId === $localStorage.packageId) {
+            if ($localStorage.packageId == undefined && $rootScope.packageId == '' ) {
                 console.log('save & go in case of direct edit');
-                $scope.stepOne();
+
+                           if($localStorage.packageId == undefined || $localStorage.packageId =='' || $localStorage.packageId == 'undefined') {
+    console.log('empty package id, break the code here');
+
+      $scope.error_message = false;
+                $scope.error = global_message.error_in_step1;
+                $timeout(function() {
+                    $scope.error = '';
+                    $scope.error_message = true;
+                }, 3000);
+
+
+           
+
+    return false;
+}
+
+               // $scope.stepOne();
                 $location.path("/event_package_step_2/" + $localStorage.packageId);
             }
 
@@ -318,6 +409,19 @@ $scope.data.image_1 = $scope.data.image ;
             console.log('in cond 2');
             console.log('$localStorage.packageId', $localStorage.packageId);
             console.log('$rootScope.packageId', $rootScope.packageId);
+
+            if($localStorage.packageId == undefined || $localStorage.packageId =='' || $localStorage.packageId == 'undefined') {
+    console.log('empty package id, break the code here');
+
+      $scope.error_message = false;
+                $scope.error = global_message.error_in_step1;
+                $timeout(function() {
+                    $scope.error = '';
+                    $scope.error_message = true;
+                }, 3000);
+
+    return false;
+}
 
             if ($localStorage.packageId !== '' && $rootScope.packageId  == "" && $state.params.packageId != '') {
                 console.log(' edit case......... go ..............');
@@ -346,6 +450,8 @@ $scope.data.image_1 = $scope.data.image ;
 
     $scope.changedendtime = function() {
 
+console.log('$scope.data.online_sales_open_date' , $scope.data.online_sales_open_date);
+console.log('$scope.data.online_sales_open_time' , $scope.data.online_sales_open_time);
         if ($scope.data.immidiately != 1 && $scope.data.online_sales_open_date !== '' && $scope.data.online_sales_open_date != undefined && $scope.data.online_sales_close_date != '' && $scope.data.online_sales_close_date != undefined) {
 
             var od = $scope.data.online_sales_open_date;
@@ -382,6 +488,9 @@ $scope.data.image_1 = $scope.data.image ;
                     }
                 }
             }
+console.log(' ------------------------------ ' );
+console.log('$scope.data.online_sales_open_date' , $scope.data.online_sales_open_date);
+console.log('$scope.data.online_sales_open_time' , $scope.data.online_sales_open_time);
             //$scope.select_delect_event = false;
             //$rootScope.endevent_time = $filter('date')($scope.endtime, 'shortTime');
         }
@@ -440,7 +549,28 @@ $scope.data.image_1 = $scope.data.image ;
     /************** Date Time Merge ends **************/
 
     /************** Function to check form errors starts **************/
-
+    $scope.formatDate = function(d){
+        var d2 = new Date();
+        var n2 = d2.getTimezoneOffset(); 
+        if (n2 > 0) {
+          var newdate = new Date(d .getTime() + n2*60000);
+        } else {
+          var newdate = new Date(d .getTime() - n2*60000);
+        }
+        
+        d = newdate;
+        console.log(d);
+        
+        function addZero(n){
+           return n < 10 ? '0' + n : '' + n;
+        }
+        console.log(d.getFullYear()+"-"+ addZero(d.getMonth()+1) + "-" + addZero(d.getDate()) + " " + 
+                 addZero(d.getHours()) + ":" + addZero(d.getMinutes()) + ":" + addZero(d.getMinutes()));
+      
+          return d.getFullYear()+"-"+ addZero(d.getMonth()+1) + "-" + addZero(d.getDate()) + " " + 
+                 addZero(d.getHours()) + ":" + addZero(d.getMinutes()) + ":" + addZero(d.getMinutes());
+  }
+    
     $scope.checkErrors = function() {
         var error = $scope.myForm.$error;
         angular.forEach(error.required, function(field) {
@@ -475,6 +605,8 @@ $scope.data.image_1 = $scope.data.image ;
     $scope.stepOne = function() {
             console.log('stepOne data', $scope.data);
 
+            $scope.data.short_name = $scope.slugify($scope.data.package_name);
+
             if ($scope.data.online_sales_open_date && $scope.data.online_sales_open_time) {
                 $scope.data.online_sales_open_date_time = $scope.combine($scope.data.online_sales_open_date, $scope.data.online_sales_open_time);
             }
@@ -491,6 +623,24 @@ $scope.data.image_1 = $scope.data.image ;
             if ($localStorage.userId != undefined) {
                 $scope.data.user_id = $localStorage.userId;
                 //$scope.loader = true;
+                $scope.data.showclix_token = $localStorage.showclix_token;
+                $scope.data.showclix_seller_id = $localStorage.showclix_seller_id;
+
+
+        var showclix_event_ids = [];
+        for (var key in $rootScope.FinalEvents) {
+            // make changes here.................... put showclix id in array
+            var id = $rootScope.FinalEvents[key].id;
+            var showclix_event_id = $rootScope.FinalEvents[key].showclix_id;
+            if( id != null && showclix_event_id != null)
+            showclix_event_ids[id] = showclix_event_id;
+            //showclix_event_ids.push($rootScope.allEvents[eventId]);
+        }
+
+$scope.data.showclix_event_ids = showclix_event_ids;
+console.log("-==================-");
+console.log($scope.data.showclix_event_ids);
+
                 $serviceTest.stepOneEventPackage($scope.data, function(response) {
                     console.log('response', response);
                     //$scope.loader = false;
@@ -511,7 +661,17 @@ $scope.data.image_1 = $scope.data.image ;
 
                         // $location.path("/event_package_step_2/"+$scope.data.package_id);
                     } else {
-                        $scope.error_message = response.error;
+                        //$scope.error_message = response.error;
+
+                         $scope.error = response.error;
+            $scope.error_message = false;
+
+            $timeout(function() {
+              $scope.success = '';
+              $scope.error_message = true;
+              $scope.error = '';
+            }, 5000);
+
                     }
 
                 });
@@ -774,7 +934,7 @@ console.log('$scope.eventcheckbox ' , $scope.eventcheckbox );
     };
 
     $scope.dateOptions = {
-        dateDisabled: disabled,
+        //dateDisabled: disabled,
         formatYear: 'yy',
         minDate: new Date(),
         startingDay: 1
@@ -813,14 +973,14 @@ console.log('$scope.eventcheckbox ' , $scope.eventcheckbox );
     $scope.options = {
         customClass: getDayClass,
         minDate: new Date(),
-        showWeeks: true
+        showWeeks: false
     };
 
-    $scope.options1 = {
-        customClass: getDayClass,
-        initDate: current,
-        showWeeks: true
-    };
+    // $scope.options1 = {
+    //     customClass: getDayClass,
+    //     initDate: new Date(),
+    //     showWeeks: false
+    // };
 
     var tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);

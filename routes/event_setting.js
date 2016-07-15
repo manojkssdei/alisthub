@@ -27,6 +27,9 @@ module.exports = function(app, express) {
     /* Module : Venue Management
     * Service : Add Venue to Seller
     * */
+
+    
+
     router.post('/addVenue', Event_setting.addVenue);
    
     /* Service : Venue Overview to Seller
@@ -90,6 +93,16 @@ module.exports = function(app, express) {
     /* exportQuestionCSV Question Asssignment Event Seller   */
     
     router.get('/exportQuestionCSV', question_setting.exportQuestionCSV);
+   
+
+    router.post('/getQuestionsOfEvent', question_setting.getQuestionsOfEvent);
+
+    
+    router.post('/unassignQuestionSeries' , question_setting.unassignQuestionSeries);
+
+    
+    router.post('/unassignQuestionEvent' , question_setting.unassignQuestionEvent);
+
     
 
 
@@ -197,6 +210,12 @@ module.exports = function(app, express) {
     router.post('/delPriceLevelDiscAssignment', discount_setting.delPriceLevelDiscAssignment);
 
 
+    router.post('/getDiscountsOfEvent', discount_setting.getDiscountsOfEvent);
+
+    
+    router.post('/getCountDiscountsOfEvent', discount_setting.getCountDiscountsOfEvent);
+
+
 
     /*** Module : Manage Bundle
      *   Get Seller Bundle 
@@ -234,6 +253,14 @@ module.exports = function(app, express) {
     router.post('/removeEventProduct', product_setting.removeEventProduct);
     
     router.post('/getEventPriceLevel', bundle_setting.getEventPriceLevel);
+    
+    router.post('/saveQuestionLocationPosition', question_setting.saveQuestionLocationPosition);
+    
+    router.post('/makeAssignmentOverview', question_setting.makeAssignmentOverview);
+
+
+
+    
     
     router.get('/testrequest', function(req, res, next) {
     

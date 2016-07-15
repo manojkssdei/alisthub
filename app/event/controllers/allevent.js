@@ -21,7 +21,7 @@ exports.getAllEvent=function(req,res) {
   
   console.log(dateRange);
    
-  var sql = "SELECT events.id, events.showclix_id, events.title,events.recurring_or_not, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.parent_id IS NULL and events.user_id="+user_id;
+  var sql = "SELECT events.id, events.title, events.showclix_id,events.recurring_or_not, events.sub_title, events.image_name, events.start_date, events.end_date, events.event_location, events.city, events.event_address, events.website_url, events.description, events.short_description FROM events LEFT JOIN event_dates ON events.id = event_dates.event_id where events.parent_id IS NULL and events.user_id=" + user_id;
 
   if(req.body.allevent!=undefined) {
   	if(req.body.allevent.eventType != undefined && req.body.allevent.eventType != '') {
@@ -144,4 +144,9 @@ exports.exportAllEventCSV = function(req, res) {
         rows.unshift(headers);
         res.csv(rows);
     });
+}
+
+
+exports.test = function(req, res) {
+  console.log('test');
 }

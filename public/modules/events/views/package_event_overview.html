@@ -1,0 +1,880 @@
+<div class="container">
+   <h1>Package Overview</h1>
+   <!-- Form COntainer -->
+   <div class="wt-frame form-section">
+      <section class="top-buttons bb-1 text-right">
+
+         <a href="/#/edit_event_step1/{{packageId}}" ><button type="button" class="btn pink-btn btn-small" ><i class="fa fa-edit"> </i>  Edit</button></a>
+         <button type="button" class="btn pink-btn btn-small" ng-click="delPackage(packageId)"><i class="fa fa-trash"> </i>  Delete</button>
+        
+         <!--<button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  Duplicate</button>-->
+         <a href="/#/view_package/{{packageId}}" > <button type="button" class="btn pink-btn btn-small"> View Listing</button></a>
+          <button type="button" class="btn pink-btn btn-small" ng-show="favorite_status_flag" ng-click="addFavouritePackage(packageId)"><i class="fa fa-star"> </i> {{favorite_status}}</button> 
+        <button type="button" class="btn pink-btn btn-small"><i class="fa fa-mail"> </i>  Send Invitation</button>
+
+         <!--<button type="button" class="btn pink-btn btn-small"><i class="fa fa-copy"> </i>  View Listing</button>
+
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-group"> </i>  Admissions</button>
+         <button type="button" class="btn pink-btn btn-small"><i class="fa fa-list"> </i>  Guest List</button> -->
+        
+      </section>
+      <!--/Top Buttons-->
+      <form class="event-form">
+         <!-- Event Detail Form -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Package Information <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               <section class="grid-widget" >
+               
+                  <h3> {{data.package_name}}</h3>
+                  <hr/>
+       
+                  <!--<h5><i class="fa fa-qrcode"> </i>  </h5>-->
+                 
+                
+                     <div class="event-status-container">
+                     <!-- Recurring Event (Prime) -->
+                     <div class="event-status status-onsale">
+                     <div class="event-status-type">
+                     Ticket sales are currently {{data.sales_status}} <i  class="fa fa-checkmark"></i>
+                     </div>
+                     <div class="event-status-detail">
+                     Sales will close on <strong>{{data.online_sales_close}}</strong>.
+                     </div>
+                     </div>
+
+                     </div>
+
+               </section>
+            </section>
+         </section>
+         <!-- Event Detail Form -->
+
+
+          <!-- Select Tickets Form -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Select Tickets <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               <section class="grid-widget">
+                  <h5>Total Packages Issued: {{inventory}}</h5>
+                  <h5> Remaining Packages: {{inventory}} </h5>
+               </section>
+            </section>
+         </section>
+         <!-- Select Tickets Form -->
+
+
+
+
+
+<section class="form-group field-group row">
+          <section class="col-sm-8">
+
+
+
+
+
+          <!-- selected events -->
+          
+      <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Events Included in Packages <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               
+               <section class="grid-widget" >
+                  
+                        <div class="table-responsive">
+                            <table class="table table-striped" >
+                                <thead>
+                                    <tr>
+                                        <th width="22%">ID</th>
+                                        <th width="36%">Event</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="event in FinalEvents" >
+                                        <td><a href="#"><strong>{{event.id}}</strong></a></td>
+                                        <td>
+                                            <p> <b>{{event.title}}</b><span ng-if="event.event_address != '' " > @ {{event.event_address}} {{event.city}}</span></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+               </section>
+            </section>
+         </section>
+
+
+          <!-- selected events -->      
+
+         <!-- price level details Starts -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Bundles <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               
+               
+                  
+                 <section class="grid-widget" ng-show="showBundleList">
+                  <span ng-show="success_message_bundle" class="ng-hide"><p class="success-fld ng-binding">{{success_bundle}}</p></span>
+
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th width="15%">Name</th>
+                                <th width="10%" class="numbers">Price</th>
+                                <th width="14%" class="numbers">Box Office Price</th>
+                                <th width="13%" class="numbers">Per-Sale Limit</th>
+                                <th width="14%" class="numbers">Max Inventory Set</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="bundle in bundleInPackageList track by $index">
+                                <td><strong>{{bundle.bundle_name}}</strong></td>
+                                <td class="numbers">${{bundle.total_online}}</td>
+                                <td class="numbers">${{bundle.total_boxoffice}}</td>
+                                <td class="numbers">${{bundle.bundle_limit}}</td>
+                                <td class="numbers">${{bundle.bundle_inventory}}</td>
+                               
+                            </tr>
+                            <tr ng-if="bundleInPackageList == '' ">
+                                  <td colspan="5" align="left">You have not created a bundle for this package. </td>
+                            </tr>
+
+                            <tr ng-show="loader_bundle">
+                                  <td colspan="5" align="center"><img src="/images/icons/loader.gif"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                  </section>
+          
+            </section>
+         </section>
+         <!-- price level details Ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+         
+        <!--  <section class="panel panel-grey">
+            <section class="prof-hd">
+               <h5 class="m-b0">Questions</h5>
+            </section>
+            <section class="panel-body">
+               <section class="grid-btn-top row">
+                  <section class="col-sm-5 pull-right text-right">
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="download_answers('lg')">Download Answers</button>
+                  </section>
+               </section>
+               <span ng-show="success_message_bundle" class="ng-hide">
+                  <p class="success-fld ng-binding">{{success_bundle}}</p>
+               </span>
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               <section class="module">
+                  <section class="prof-hd">
+                     <i class="fa fa-database hdicon pos-l16"></i>
+                     <h2> ABC Price Level Questions <span class="rt-img"></span></h2>
+                  </section>
+                  <section class="gray-frame sub-fields">
+                     <section class="grid-btn-top row">
+                        <section class="col-sm-5 pull-right text-right">
+                           <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assign_price_level_questions('lg')">Assign</button>
+                        </section>
+                     </section>
+                     <section class="grid-widget" ng-show="showPriceLevelQuestionList">
+                        <div class="table-responsive">
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr>
+                                    <th width="15%">Question</th>
+                                    <th width="10%" class="numbers">Ask Once Per</th>
+                                    <th width="23%">&nbsp;</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr ng-repeat="question in priceLevelQuestionList track by $index">
+                                    <td><strong>{{question.question_name}}</strong></td>
+                                    <td >
+                                       <select name="" ng-model="" />
+                                          <option>Sale</option>
+                                          <option>Ticket</option>
+                                          <option>Event</option>
+                                       </select>
+                                    </td>
+                                    <td class="action">
+                                       <a ng-click="edit_question('lg',question.id)" tooltips tooltip-template="Edit Question" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                                       <a ng-click="change_question_status(question.id,question.status)" ng-confirm-click="Would you like to change bundle status ?" tooltips tooltip-template="Activate/Deactivate" >
+                                       <i class="fa fa-check-circle" ng-if="question.status == 'true'"></i>
+                                       <i class="fa fa-times" ng-if="question.status == 'false'"></i>
+                                       </a>
+                                       <a ng-click="unassign_question('',$index,question.id)" style="cursor: pointer;"><i class="fa fa-trash" tooltips tooltip-template="Unassign" ></i></a>
+                                    </td>
+                                 </tr>
+                                 <tr ng-if="questionList == '' ">
+                                    <td colspan="3" align="left">No Questions have been assigned to this price level.  </td>
+                                 </tr>
+                                 <tr ng-show="loader_bundle">
+                                    <td colspan="3" align="center"><img src="/images/icons/loader.gif"></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </section>
+                  </section>
+               </section>
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               <section class="module">
+                  <section class="prof-hd">
+                     <i class="fa fa-database hdicon pos-l16"></i>
+                     <h2> Event Questions <span class="rt-img"></span></h2>
+                  </section>
+                  <section class="gray-frame sub-fields">
+                     <section class="grid-btn-top row">
+                        <section class="col-sm-5 pull-right text-right">
+                           <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assign_event_questions('lg')">Assign</button>
+                        </section>
+                     </section>
+                     <section class="grid-widget" ng-show="showEventQuestionList">
+                        <div class="table-responsive">
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr>
+                                    <th width="15%">Question</th>
+                                    <th width="10%" class="numbers">Ask Once Per</th>
+                                    <th width="23%">&nbsp;</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr ng-repeat="question in eventQuestionList track by $index">
+                                    <td><strong>{{question.question_name}}</strong></td>
+                                    <td >
+                                       <select name="" ng-model="" />
+                                          <option>Sale</option>
+                                          <option>Ticket</option>
+                                          <option>Event</option>
+                                       </select>
+                                    </td>
+                                    <td class="action">
+                                       <a ng-click="edit_question('lg',question.id)" tooltips tooltip-template="Edit Question" style="cursor: pointer;"><i class="fa fa-edit"></i></a>
+                                       <a ng-click="change_question_status(question.id,question.status)" ng-confirm-click="Would you like to change bundle status ?" tooltips tooltip-template="Activate/Deactivate" >
+                                       <i class="fa fa-check-circle" ng-if="question.status == 'true'"></i>
+                                       <i class="fa fa-times" ng-if="question.status == 'false'"></i>
+                                       </a>
+                                       <a ng-click="unassign_question('',$index,question.id)" style="cursor: pointer;"><i class="fa fa-trash" tooltips tooltip-template="Unassign" ></i></a>
+                                    </td>
+                                 </tr>
+                                 <tr ng-if="questionList == '' ">
+                                    <td colspan="3" align="left">No Questions have been assigned to this price level.  </td>
+                                 </tr>
+                                 <tr ng-show="loader_bundle">
+                                    <td colspan="3" align="center"><img src="/images/icons/loader.gif"></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </section>
+                  </section>
+               </section>
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               <section class="module">
+                  <section class="prof-hd">
+                     <i class="fa fa-database hdicon pos-l16"></i>
+                     <h2> Global Questions <span class="rt-img"></span></h2>
+                  </section>
+                  <section class="gray-frame sub-fields">
+                     <section class="grid-widget" ng-show="showGlobalQuestionList">
+                        <div class="table-responsive">
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr>
+                                    <th width="15%">Question</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr ng-repeat="question in globalQuestionList track by $index">
+                                    <td><strong>{{question.question_name}}</strong></td>
+                                 </tr>
+                                 <tr ng-if="globalQuestionList == '' ">
+                                    <td colspan="3" align="left">No Global Questions exists.</td>
+                                 </tr>
+                                 <tr ng-show="loader_globalQuestions">
+                                    <td colspan="3" align="center"><img src="/images/icons/loader.gif"></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </section>
+                  </section>
+               </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </section>
+         </section> -->
+
+
+
+           <!-- event level question start -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Questions <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               <section class="grid-widget" >
+                  
+                  <div class="table-responsive">
+                     <table ng-table="tableParamsQuestions" class="table table-striped table-ng-style">
+                        <tbody>
+                           
+                             <tr  ng-repeat="pdata in $data | filter:filter">
+                                       
+
+                                        <td width="44%" header-class="'header-text-align'" title="'Name'" filter="{ question_name: 'text'}" sortable="'question_name'"><strong>{{pdata.question_name}}</strong></td>
+                                        <td width="18%" header-class="'header-text-align'" title="'Type'" filter="{ question_type: 'text'}" sortable="'question_type'" >{{pdata.question_type}}</td>
+                                       
+                                    </tr>
+                                    <tr ng-show="loader">
+                                        <td colspan="2" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+                <tr ng-if="$getQuestions == ''">
+                                        <td colspan="2" align="center">No Record found!</td>
+                                    </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </section>
+            </section>
+         </section>
+
+         <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+        <input type="checkbox" name="checkall" class="listing-check" ng-model="check.isAllSelected" ng-click="toggleAll(all_check_point)">
+        </script>
+
+         <!-- event level questions end -->
+
+
+
+
+
+
+
+
+
+
+
+         <!-- Discount Starts -->
+         <section class="module">
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Coupons <span class="rt-img"></span></h2>
+            </section>
+            <section class="gray-frame sub-fields">
+               <section class="grid-btn-top row">
+                  <section class="col-sm-5 pull-right text-right">
+                     <button class="pink-btn btn btn-small m-fw" type="button" ng-click="add_bundle('lg')">Assign Coupons</button>
+                  </section>
+               </section>
+               <section class="grid-widget" >
+                  <span ng-show="success_message_bundle" class="ng-hide">
+                     <p class="success-fld ng-binding">{{success_discount}}</p>
+                  </span>
+
+               <a href="#/view_event_discounts/singleEvent/{{eventId}}"><strong><p>{{getCountDiscountsOfEvent}} assignments for this event</p></strong></a>
+                  <!--<div class="table-responsive">
+  
+
+                     <table ng-table="tableParamsDiscounts" class="table table-striped table-ng-style">
+                        <tbody>
+                             <tr ng-repeat="data in $data | filter:filter">
+                                        <td  width="5%" header-class="'header-text-align'" header="'ng-table/headers/checkbox3.html'"><input type="checkbox" name="checkall" ng-model="data.selected"  ng-click="optionToggled(data.id);" >
+               </td>
+                                        <td width="15%" header-class="'header-text-align'" title="'Name'" filter="{ coupon_name: 'text'}" sortable="'coupon_name'"><strong>{{data.coupon_name}}</strong>
+               </td>
+                                        <td width="12%" header-class="'header-text-align'" title="'Type'" filter="{ coupon_type: 'text'}" sortable="'coupon_type'">{{data.coupon_type}}
+               </td>
+                                        <td width="12%" header-class="'header-text-align'" title="'Code'" filter="{ coupon_code: 'text'}" sortable="'coupon_code'" >
+                                            <p ng-if="data.coupon_code">{{data.coupon_code}}</p>
+                                            <p ng-if="data.coupon_code == '' || data.coupon_code == null || data.coupon_code == undefined"></p>
+                                        </td>
+                                        <td width="12%" header-class="'header-text-align'" title="'Discount'" filter="{ amount: 'text'}" sortable="'amount'" class="numbers">
+                                            <p ng-if="data.amount">{{data.amount}}</p>
+                                            <p ng-if="data.amount == '' || data.amount == null || data.amount == undefined || data.amount == 0"></p>
+                                        </td>
+                                        <td width="16%" header-class="'header-text-align'" title="'Amount Type'" filter="{ amount_type: 'text'}" sortable="'amount_type'" >{{data.amount_type}}
+               </td>
+                                        <td width="14%" header-class="'header-text-align'" title="'Assigned To'"  class="">
+                                            <a href="#/discount_assignment_overview/{{data.id}}"><strong><p ng-if="event_count[data.id] > 0">{{event_count[data.id]}} Assignments</p></strong></a>
+
+                                            <p ng-if="event_count[data.id] == '' || event_count[data.id] == null">0 Assignments</p>
+                                             </td>
+
+                                        <td width="23%" title="'Action'"  class="action">
+                                            <a href="#/edit_discount/{{data.id}}"><i class="fa fa-edit"></i></a>
+                                            <a ng-click="changeStatus(data.id,data.status)" ng-confirm-click="Would you like to change Discount status ?"><i class="fa fa-check-circle" ng-if="data.status == 1"></i><i class="fa fa-times" ng-if="data.status == 0"></i></a>
+                                            <a ng-click="delDiscount(data.id)" ng-confirm-clicks="Would you like to delete this Discount?" ng-if="event_count[data.id] == '' || event_count[data.id] == null"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+
+                <tr ng-if="$data == ''">
+                                        <td colspan="5" align="center">No coupons have been assigned to this event. </td>
+                                    </tr>
+                                    <tr ng-show="loader">
+                                        <td colspan="7" align="center"><img src="/images/icons/loader.gif"></td>
+                                    </tr>
+
+                        </tbody>
+                     </table>
+                  </div> -->
+               </section>
+              
+            </section>
+         </section>
+         <!-- Discount Ends -->
+        
+
+
+
+
+
+
+
+
+
+
+          </section>
+
+          <section class="col-sm-4">
+
+
+<!-- Templates -->
+         <section class="module">
+
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Templates <span class="rt-img"></span></h2>
+            </section>
+
+            <section class="gray-frame sub-fields">
+                 <section class="grid-btn-top row">
+                    <section class="col-sm-12 pull-right text-right">
+                       <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assignTemplate('lg')">Assign a template</button>
+                    </section>
+                 </section>
+
+                 <section class="grid-widget">
+                    <span ng-show="success_message_template" class="ng-hide">
+                       <p class="success-fld ng-binding">{{success_template}}</p>
+                    </span>
+                    <div class="table-responsive">
+                       You are currently using the template: <a href="">{{template_name}}</a>
+                       <br/><br/><br/>
+                       <img height="400" width="250" class="center" src="{{data.preview_image}}">
+                    </div>
+                </section>
+
+                <section class="module row">
+                    <section class="col-sm-12 temp-view" ng-repeat="template in templates track by $index">
+                       <section class="form-group" ng-if="template.id == template_id">
+                            <p class="temp-image"><img src="{{template.image}}" alt=""/></p>   
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+         </section>
+         <!-- Templates -->
+
+
+
+
+         <!-- Templates -->
+         <section class="module">
+
+            <section class="prof-hd">
+               <i class="fa fa-database hdicon pos-l16"></i>
+               <h2>Templates <span class="rt-img"></span></h2>
+            </section>
+
+            <section class="gray-frame sub-fields">
+                 <section class="grid-btn-top row">
+                    <section class="col-sm-12 pull-right text-right">
+                       <button class="pink-btn btn btn-small m-fw" type="button" ng-click="assignTemplate('lg')">Assign a template</button>
+                    </section>
+                 </section>
+
+                 <section class="grid-widget">
+<p class="advSetting" ng-show="advSetting.hide_event_time_cbox_cbox" > <strong> Hide Event time: </strong>{{ advSetting.hide_event_time }} </p>
+<p class="advSetting" ng-show="advSetting.hide_event_date_time_cbox_cbox" > <strong> Hide Event Date and Time: </strong>{{ advSetting.hide_event_date_time }} </p>
+<p class="advSetting" ng-show="advSetting.hide_venue_info_cbox" > <strong> Hide Venue Info: </strong>{{ advSetting.hide_venue_info }} </p>
+<p class="advSetting" ng-show="advSetting.hide_x_days_away_cbox" > <strong> Hide "x days away": </strong>{{ advSetting.hide_x_days_away }} </p>
+<p class="advSetting" ng-show="advSetting.hide_calender_link_cbox" > <strong> Hide Calender link: </strong>{{ advSetting.hide_calender_link }} </p>
+<p class="advSetting" ng-show="advSetting.hide_calender_icon_cbox" > <strong> Hide Calender Icon: </strong>{{ advSetting.hide_calender_icon }} </p>
+
+
+<p class="advSetting" ng-show="advSetting.hide_age_limit_cbox" > <strong> Hide Age limit: </strong>{{ advSetting.hide_age_limit }} </p>
+<p class="advSetting" ng-show="advSetting.hide_price_range_cbox" > <strong> Hide Price Range: </strong>{{ advSetting.hide_price_range }} </p>
+<p class="advSetting" ng-show="advSetting.hide_best_available_cbox" > <strong> Hide "Best Aviliable": </strong>{{ advSetting.hide_best_available }} </p>
+<p class="advSetting" ng-show="advSetting.hide_presale_date_cbox" > <strong> Hide Presale Date: </strong>{{ advSetting.hide_presale_date }} </p>
+<p class="advSetting" ng-show="advSetting.presale_instuction_text_cbox" > <strong> Presale Instruction Text: </strong>{{ advSetting.presale_instuction_text }} </p>
+<p class="advSetting" ng-show="advSetting.presale_placeholder_text_cbox" > <strong> Presale Placeholder Text: </strong>{{ advSetting.presale_placeholder_text }} </p>
+
+<p class="advSetting" ng-show="advSetting.hide_presale_event_in_series_cbox" > <strong> Hide Presale Event in Series: </strong>{{ advSetting.hide_presale_event_in_series }} </p>
+<p class="advSetting" ng-show="advSetting.hide_from_search_engine_cbox" > <strong> Hide From Search Engine: </strong>{{ advSetting.hide_from_search_engine }} </p>
+<p class="advSetting" ng-show="advSetting.hide_social_media_cbox" > <strong> Hide Social Media: </strong>{{ advSetting.hide_social_media }} </p>
+<p class="advSetting" ng-show="advSetting.hide_invite_friends_cbox" > <strong> Hide "Invite Friends": </strong>{{ advSetting.hide_invite_friends }} </p>
+
+<p class="advSetting" ng-show="advSetting.checkout_text_cbox" > <strong> Checkout Text: </strong>{{ advSetting.checkout_text }} </p>
+<p class="advSetting" ng-show="advSetting.confirmation_page_text_cbox" > <strong> Confirmation Page Text: </strong>{{ advSetting.confirmation_page_text }} </p>
+<p class="advSetting" ng-show="advSetting.receipt_reminder_text_cbox" > <strong> Receipt Reminder Text: </strong>{{ advSetting.receipt_reminder_text }} </p>
+<p class="advSetting" ng-show="advSetting.confirmation_email_text_cbox" > <strong> Confirmation Email Text: </strong>{{ advSetting.confirmation_email_text }} </p>
+<p class="advSetting" ng-show="advSetting.hide_ticket_holder_name_cbox" > <strong> Hide Ticket Holder Name: </strong>{{ advSetting.hide_ticket_holder_name }} </p>
+<p class="advSetting" ng-show="advSetting.donot_send_reminder_email_cbox" > <strong> Don't Send Reminder Email: </strong>{{ advSetting.donot_send_reminder_email }} </p>
+<p class="advSetting" ng-show="advSetting.hide_event_date_time_in_event_reminder_cbox" > <strong> Hide Event Date/Time in Event Reminder: </strong>{{ advSetting.hide_event_date_time_in_event_reminder }} </p>
+
+<p class="advSetting" ng-show="advSetting.hide_venue_in_event_reminder_cbox" > <strong> Hide Venue in Event Reminder: </strong>{{ advSetting.hide_venue_in_event_reminder }} </p>
+<p class="advSetting" ng-show="advSetting.hide_ticket_info_in_event_reminder_cbox" > <strong> Hide Ticket info in Event Reminder: </strong>{{ advSetting.hide_ticket_info_in_event_reminder }} </p>
+<p class="advSetting" ng-show="advSetting.custom_event_reminder_message_cbox" > <strong> Custom Event Reminder Message: </strong>{{ advSetting.custom_event_reminder_message }} </p>
+<p class="advSetting" ng-show="advSetting.hide_event_date_on_ticket_cbox" > <strong> Hide Event Date on Ticket: </strong>{{ advSetting.hide_event_date_on_ticket }} </p>
+<p class="advSetting" ng-show="advSetting.use_lat_long_coords_cbox" > <strong> Use Late/Long Coords: </strong>{{ advSetting.use_lat_long_coords }} </p>
+
+
+<p class="advSetting" ng-show="advSetting.hide_premiere_price_level_discount_cbox" > <strong> Hide Premiere Price Level Discount: </strong>{{ advSetting.hide_premiere_price_level_discount }} </p>
+<p class="advSetting" ng-show="advSetting.additional_receipt_text_cbox" > <strong> Additional Receipt Text: </strong>{{ advSetting.additional_receipt_text }} </p>
+<p class="advSetting" ng-show="advSetting.show_sale_barcode_in_text_cbox" > <strong> Show Sale Barcode in Text: </strong>{{ advSetting.show_sale_barcode_in_text }} </p>
+<p class="advSetting" ng-show="advSetting.disable_autocomplete_in_the_box_office_cbox" > <strong> Disable Autocomplete in The Box Office: </strong>{{ advSetting.disable_autocomplete_in_the_box_office }} </p>
+
+<p class="advSetting" ng-show="advSetting.dropdown_for_reccuring_events_cbox" > <strong> Dropdown For Reccuring Events: </strong>{{ advSetting.dropdown_for_reccuring_events }} </p>
+<p class="advSetting" ng-show="advSetting.suggested_donation_amount_cbox" > <strong> Suggested Donation Amount: </strong>{{ advSetting.suggested_donation_amount }} </p>
+<p class="advSetting" ng-show="advSetting.sales_closed_message_cbox" > <strong> Sales Closed Message: </strong>{{ advSetting.sales_closed_message }} </p>
+<p class="advSetting" ng-show="advSetting.custom_sold_out_message_cbox" > <strong> Custom Sold Out Message: </strong>{{ advSetting.custom_sold_out_message }} </p>
+<p class="advSetting" ng-show="advSetting.embed_show_navbar_seller_name_cbox" > <strong> Embed - Show Navbar Seller Name: </strong>{{ advSetting.embed_show_navbar_seller_name }} </p>
+<p class="advSetting" ng-show="advSetting.embed_show_header_banner_cbox" > <strong> Embed - Show Header Banner: </strong>{{ advSetting.embed_show_header_banner }} </p>
+<p class="advSetting" ng-show="advSetting.embed_hide_venue_names_on_events_list_cbox" > <strong> Embed - Hide Venue Names On Events List: </strong>{{ advSetting.embed_hide_venue_names_on_events_list }} </p>
+
+<p class="advSetting" ng-show="advSetting.footer_message_on_event_pages_cbox" > <strong> Footer Message On Event Pages: </strong>{{ advSetting.footer_message_on_event_pages }} </p>
+<p class="advSetting" ng-show="advSetting.force_show_on_seller_homepage_cbox" > <strong> Force Show On Seller Homepage: </strong>{{ advSetting.force_show_on_seller_homepage }} </p>
+<p class="advSetting" ng-show="advSetting.hide_stage_front_cbox" > <strong> Hide Stage Front: </strong>{{ advSetting.hide_stage_front }} </p>
+<p class="advSetting" ng-show="advSetting.stage_front_name_cbox" > <strong> Stage Front Name: </strong>{{ advSetting.stage_front_name }} </p>
+<p class="advSetting" ng-show="advSetting.lock_question_answer_cbox" > <strong> Lock Question Answer: </strong>{{ advSetting.lock_question_answer }} </p>
+
+<p class="advSetting" ng-show="advSetting.lock_ticket_names_cbox" > <strong> Lock Ticket Names: </strong>{{ advSetting.lock_ticket_names }} </p>
+<p class="advSetting" ng-show="advSetting.lock_order_names_cbox" > <strong> Lock Order Names: </strong>{{ advSetting.lock_order_names }} </p>
+<p class="advSetting" ng-show="advSetting.hide_back_to_event_button_cbox" > <strong> Hide 'Back To Event' Button: </strong>{{ advSetting.hide_back_to_event_button }} </p>
+<p class="advSetting" ng-show="advSetting.custom_shipping_text_instruction_cbox" > <strong> Custom Shipping Text Instruction: </strong>{{ advSetting.custom_shipping_text_instruction }} </p>
+
+<p class="advSetting" ng-show="advSetting.upsell_matching_items_cbox" > <strong> Upsell Matching Items: </strong>{{ advSetting.upsell_matching_items }} </p>
+<p class="advSetting" ng-show="advSetting.ignore_cart_limit_when_upselling_cbox" > <strong> Ignore Cart Limit When Upselling: </strong>{{ advSetting.ignore_cart_limit_when_upselling }} </p>
+<p class="advSetting" ng-show="advSetting.hide_look_for_different_seats_option_cbox" > <strong> Hide 'Look For Different Seats' Option: </strong>{{ advSetting.hide_look_for_different_seats_option }} </p>
+
+<p class="advSetting" ng-show="advSetting.analytics_facebook_conversion_pixel_id_cbox" > <strong> Analytics - Facebook Conversion Pixel ID: </strong>{{ advSetting.analytics_facebook_conversion_pixel_id }} </p>
+<p class="advSetting" ng-show="advSetting.analytics_facebook_audiance_new_pixel_cbox" > <strong> Analytics - Facebook Audiance New Pixel: </strong>{{ advSetting.analytics_facebook_audiance_new_pixel }} </p>
+<p class="advSetting" ng-show="advSetting.analytics_facebook_custom_audiance_pixel_id_cbox" > <strong> Analytics - Facebook Custom Audiance Pixel ID: </strong>{{ advSetting.analytics_facebook_custom_audiance_pixel_id }} </p>
+
+<p class="advSetting" ng-show="advSetting.allow_extended_event_names_cbox" > <strong> Allow Extended Event Names: </strong>{{ advSetting.allow_extended_event_names }} </p>
+<p class="advSetting" ng-show="advSetting.twitter_share_text_cbox" > <strong> Twitter Share Text: </strong>{{ advSetting.twitter_share_text }} </p>
+
+<p class="advSetting" ng-show="advSetting.name_change_fee_cbox" > <strong> Name Change Fee: </strong>{{ advSetting.name_change_fee }} </p>
+
+<p class="advSetting" ng-show="advSetting.name_change_cutoff_cbox" > <strong> Name Change Cutoff: </strong>{{ advSetting.name_change_cutoff }} </p>
+<p class="advSetting" ng-show="advSetting.email_reply_to_cbox" > <strong> Email Reply-To: </strong>{{ advSetting.email_reply_to }} </p>
+<p class="advSetting" ng-show="advSetting.email_reply_to_name_cbox" > <strong> Email Reply-To Name: </strong>{{ advSetting.email_reply_to_name }} </p>
+
+<p class="advSetting" ng-show="advSetting.enable_sidekick_for_thermal_printing_cbox" > <strong> Enable Sidekick for Thermal Printing: </strong>{{ advSetting.enable_sidekick_for_thermal_printing }} </p>
+<p class="advSetting" ng-show="advSetting.acceptable_locales_cbox" > <strong> Acceptable Locales: </strong>{{ advSetting.acceptable_locales }} </p>
+<p class="advSetting" ng-show="advSetting.custom_title_prefix_cbox" > <strong> Custom Title Prefix: </strong>{{ advSetting.custom_title_prefix }} </p>
+<p class="advSetting" ng-show="advSetting.show_support_link_in_email_cbox" > <strong> Show Support Link In Email: </strong>{{ advSetting.show_support_link_in_email }} </p>
+<p class="advSetting" ng-show="advSetting.collect_addresses_on_free_orders_cbox" > <strong> Collect Addresses on Free Orders: </strong>{{ advSetting.collect_addresses_on_free_orders }} </p>
+
+<p class="advSetting" ng-show="advSetting.ask_questions_on_checkout_cbox" > <strong> Ask Questions on Checkout: </strong>{{ advSetting.ask_questions_on_checkout }} </p>
+<p class="advSetting" ng-show="advSetting.cancel_ticket_button_on_receipt_cbox" > <strong> Cancel ticket button on receipt: </strong>{{ advSetting.cancel_ticket_button_on_receipt }} </p>
+<p class="advSetting" ng-show="advSetting.custom_ticket_cancelation_message_cbox" > <strong> Custom Ticket Cancelation Message: </strong>{{ advSetting.custom_ticket_cancelation_message }} </p>
+<p class="advSetting" ng-show="advSetting.additional_email_for_receipts_cbox" > <strong> Additional email for receipts: </strong>{{ advSetting.additional_email_for_receipts }} </p>
+<p class="advSetting" ng-show="advSetting.access_code_request_text_cbox" > <strong> Access Code Request Text: </strong>{{ advSetting.access_code_request_text }} </p>
+<p class="advSetting" ng-show="advSetting.access_code_instructions_text_cbox" > <strong> Access Code Instructions Text: </strong>{{ advSetting.access_code_instructions_text }} </p>
+<p class="advSetting" ng-show="advSetting.show_bundle_details_by_default_cbox" > <strong> Show Bundle Details by Default: </strong>{{ advSetting.show_bundle_details_by_default }} </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </section>
+
+              
+            </section>
+
+         </section>
+         <!-- Templates -->
+
+
+
+
+          </section>
+</section>
+
+      </form>
+   </div>
+   <!-- //Form COntainer --> 
+</div>
+
+
+<!-- *************************************************************************************** -->
+
+<script type="text/ng-template" id="myModalEmailReport.html">
+
+    <div class="modal-header">
+
+        <h3 class="modal-title">Add a Email Report</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+    </div>
+    <form  name="reportForm" ng-submit="reportForm.$valid && addEmailReport(report)" novalidate>
+    <div class="modal-body">
+        
+        <fieldset class="form-group">
+           <div class="col-sm-4">Email Address<span class="req">*</span></div>
+           <div class="col-sm-8">
+           <input type="email" ng-model="report.email_address" name="email_address" class="form-control"  placeholder="Email Address" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+
+            <p ng-show="reportForm.email_address.$invalid && !reportForm.email_address.$pristine || reportForm.email_address.$error.pattern" class="error-fld ng-binding">Email address is required.</p>
+            </div>
+
+           </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+           <div class="col-sm-4">Timezone<span class="req">*</span></div>
+           <div class="col-sm-8"><select class="form-control " id="timezone_name" name="timezone_name" ng-model="report.timezone_name" required >
+            <option value="America/New_York">Eastern Time</option><option value="America/Chicago">Central Time</option><option value="America/Denver">Mountain Time</option><option value="America/Phoenix">Mountain Time (Arizona)</option><option value="America/Los_Angeles">Pacific Time</option><option value="America/Juneau">Alaskan Time</option><option value="Pacific/Honolulu">Hawaiian Time</option><option value="Pacific/Samoa">Samoa Standard Time</option>
+        </select><p ng-show="reportForm.timezone_name.$invalid && !reportForm.timezone_name.$pristine" class="error-fld ng-binding">Timezone name is required.</p></div> 
+        
+        </fieldset>
+
+
+
+
+
+               <fieldset class="form-group">
+           <div class="col-sm-4"> Send Time<span class="req">*</span></div>
+           <div class="col-sm-2">
+           
+<select class="form-control" name="category" ng-model="report.send_time.hours" required>
+<option ng-repeat="hour in hours" value="{{hour.id}}" >{{hour.id}}</option>
+</select>
+</div>
+  <div class="col-sm-2">
+<select class="form-control" name="category" ng-model="report.send_time.minutes" required>
+<option ng-repeat="minute in minutes" value="{{minute.id}}" >{{minute.id}}</option>
+</select> </div>
+  <div class="col-sm-2">
+<select class="form-control" name="category" ng-model="report.send_time.seconds" required>
+<option ng-repeat="second in seconds" value="{{second.id}}" >{{second.id}}</option>
+</select>
+
+ 
+
+                <p ng-show="reportForm.send_time.$invalid && !reportForm.send_time.$pristine" class="error-fld ng-binding">Send time is required.</p>
+
+                 <p ng-show="reportForm.input.$error.time" class="error-fld ng-binding">Not a valid time</p>
+
+           </div>
+           
+          
+           </div>
+        </fieldset>
+
+        
+        <fieldset class="form-group">
+           <div class="col-sm-4">Export Format<span class="req">*</span></div>
+           <div class="col-sm-8">
+           <select id="export_format" class="form-control"  name="export_format" ng-model="report.export_format" required>
+            <option value="PDF">PDF</option>
+            <option value="CSV">CSV</option>
+            <option value="Embedded HTML">Embedded HTML</option>
+        </select>
+        <p ng-show="reportForm.export_format.$invalid && !reportForm.export_format.$pristine" class="error-fld ng-binding">Export format is required.</p>
+        </div> </div>
+        </fieldset>
+         
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" ng-disabled="reportForm.$invalid"  >Submit</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+    </form>
+</script>
+
+<!-- *************************************************************************************** -->
+
+
+
+
+
+<!-- *************************************************************************************** -->
+
+
+<script type="text/ng-template" id="myModalAssignTemplate.html">
+
+   <div class="modal-header">
+   <h3 class="modal-title">Choose Template</h3><a style="float:right;cursor: pointer;" ng-click="cancel()">X</a>
+   </div>
+
+   <span ng-show="success_message_template" class="ng-hide">
+      <p class="success-fld ng-binding">{{success_template}}</p>
+   </span>
+
+    <form  name="templateForm" ng-submit="templateForm.$valid && assignEmailTemplate(templateData)" novalidate>
+    <div class="modal-body">
+        <section class="module row">
+       
+       
+
+
+            <section class="col-sm-12 temp-view" ng-repeat="template in templates">
+               <section class="form-group">
+               <section class="col-sm-6">
+                  
+                    <div class="form-group">
+                    <section class="radio-sec with-ftext">
+                          <section class="radio-inline">
+                              <input id="radio111" type="radio" id="{{template.id}}" name="template_id"  value="{{template.id}}" ng-model="templateData.template_id"> 
+                              <label for="radio111"><span></span>{{template.template_name}}</label>
+                          </section>
+                           
+                   </section>
+                  </div>
+               </section>
+
+
+
+
+
+
+               <section class="col-sm-6"><p class="temp-image"><img src="{{template.image}}" class="center" height="250" width="200" /></p>
+
+
+
+
+
+                </section>
+            </section>
+       </section>   
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" ng-disabled="templateForm.$invalid"  >Submit</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+    </form>
+</script>
+
+<!-- *************************************************************************************** -->
+

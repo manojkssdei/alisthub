@@ -1,4 +1,4 @@
-angular.module('alisthub').controller('createpackageController', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
+angular.module('alisthub').controller('createpackageControllerTwo', function($scope, $localStorage, $injector, $uibModal, $rootScope, $filter, $timeout, $sce, $location, $ocLazyLoad,$stateParams, $state) {
    
   //For Step 2
 var $serviceTest = $injector.get("event_package");
@@ -78,6 +78,10 @@ var $serviceTest = $injector.get("event_package");
 
 
 
+  
+
+
+
 
     $serviceTest.getPackage({'package_id':packageId , 'user_id' : userId },function(response){
         $scope.data=response.results[0];
@@ -112,6 +116,8 @@ var $serviceTest = $injector.get("event_package");
   $scope.eventBundle.eventsInPackage = $scope.eventsInPackage; 
   $scope.eventBundle.user_id = userId;
   $scope.eventBundle.package_id = packageId;
+    console.log('$scope.eventBundle ' , $scope.eventBundle );
+
   //To get bundles
   $serviceTest.getBundlesInPackage($scope.eventBundle, function(response) {
     //$rootScope.bundleList = response.results;
@@ -128,6 +134,8 @@ var $serviceTest = $injector.get("event_package");
   $scope.product.eventsInPackage = $scope.eventsInPackage; 
   $scope.product.package_id = packageId;
   $scope.product.user_id = userId;
+  console.log('$scope.product ' , $scope.product );
+
   $serviceTest.getProductsInPackage($scope.product, function(response) {
     //$rootScope.eventProductList = response.result;
     $scope.loader_product = true;
@@ -1260,8 +1268,6 @@ console.log('$localStorage.bundleId' , $localStorage.bundleId);
 
 
 
-
-
                   } else {
                     $localStorage.bundleId = bundle.id;
                     $scope.success = global_message.bundle_update;
@@ -1601,6 +1607,46 @@ angular.module('alisthub').controller('PricechangeCtrl', function($scope, $uibMo
   $scope.popup1 = {
     opened: false
   };
+
+  $scope.onReady = function() {
+  
+  };
+ 
+  $scope.options = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: false
+  };
+
+ 
+ 
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date(tomorrow);
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [{
+    date: tomorrow,
+    status: 'full'
+  }, {
+    date: afterTomorrow,
+    status: 'partially'
+  }];
+
+  function getDayClass(data) {
+    var date = data.date,
+      mode = data.mode;
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+      for (var i = 0; i < $scope.events.length; i++) {
+        var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+        if (dayToCheck === currentDay) {
+          return $scope.events[i].status;
+        }
+      }
+    }
+    return '';
+  }
+
   //To get Months
   $scope.months = [{
       id: '01',
