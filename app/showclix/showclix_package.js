@@ -50,15 +50,16 @@ module.exports = function() {
 
             console.log('------------------******** UPDATE *******--------------------');
 
-            //delete input.status;
+            delete input.status;
             //delete input.short_name;
             //delete input.sales_open;
-            //delete input.date_added;
+            delete input.date_added;
 
             console.log(input);
 
             var postData = {
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-API-Token': data.showclix_token },
+                method:'PUT',
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
                 url: "http://api.showclix.com/Event/" + data.showclix_package_id,
                 body: input,
                 json: true
