@@ -408,7 +408,7 @@ module.exports = function()
 
 
   
-  this.add_package = function(data,res,next)
+  this.add_package_old = function(data,res,next)
   {
 
 // var fields = ['package_name', '', 'online_sales_open_time','online_sales_open_date_time', 'immidiately', 'online_sales_close_time', 'online_sales_close_date_time', 'event_type', '', 'ages', 'custom_age', 'website', 'image', 'display_image_in_listing' ];
@@ -427,8 +427,8 @@ data.event_type - (int) 3 for General Admission Event, 2 for an Assigned Seating
 
 */
    var input_1 = {
-  "user_id": "28676",
-  "seller_id": "22876",
+  "user_id": data.showclix_user ,
+  "seller_id": data.showclix_seller ,
   "event": data.package_name ,
   "behavior_set": "5",
   "description": data.package_description ,

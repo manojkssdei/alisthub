@@ -52,7 +52,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       var curr_year = d.getFullYear();
       var cur_mon = d.getMonth() + 1;
       $rootScope.single_start_date = curr_year + "-" + cur_mon + "-" + curr_date;
-      $rootScope.selectevent_date = weekday[day] + " " + m_names[curr_month] + " " + curr_date + "," + curr_year;
+      $rootScope.selectevent_date = weekday[day] + " " + m_names[curr_month] + " " + curr_date + "," + " "+ curr_year;
       $scope.start_date = d;
       $scope.select_delect_event = false;
       $scope.single_eventstart();
@@ -351,10 +351,14 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
   }
 
   $scope.data1 = {};
-  $scope.data1 = {
-    type_of_event: 0,
-    price: 0
-  };
+
+$scope.data1.type_of_event=0;
+$scope.data1.price=0;
+
+  // $scope.data1 = {
+  //   type_of_event: 0,
+  //   price: 0
+  // };
   //To get steps
   $scope.steps = [
 
@@ -916,7 +920,7 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('stepev
       var curr_year = d.getFullYear();
       var cur_mon = d.getMonth() + 1;
       $rootScope.single_start_date = curr_year + "-" + cur_mon + "-" + curr_date;
-      $rootScope.selectevent_date = weekday[day] + " " + m_names[curr_month] + " " + curr_date + "," + curr_year;
+      $rootScope.selectevent_date = weekday[day] + " " + m_names[curr_month] + " " + curr_date + "," +" "+curr_year;
     //} else {
      /* var modalInstance = $uibModal.open({
         animation: $scope.animationsEnabled,
