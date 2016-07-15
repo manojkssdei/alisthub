@@ -12,97 +12,88 @@
     </div>
     <!-- //Step Form -->
     <!-- Form COntainer -->
-   
     <span ng-show="show_error_message"><p class="error-fld">{{show_error}}</p></span>
     <span ng-show="success_message" class="ng-hide"><p class="success-fld ng-binding">{{success}}</p></span>
     <div class="form-section  wt-frame">
-
-      <div ng-hide="eventdetail_div">
-        
-        <form  name="myForm" class="event-form"  ng-submit="savedata(data)" novalidate>
-          <div class="form-group" ng-class="{ 'has-error' : myForm.eventname.$dirty && myForm.eventname.$invalid }"  >
-            <label for="eventname">Event Name<span class="req">*</span></label>
-            <input tooltips tooltip-template="This is the title of your event. Minimum 3 characters, maximum 50 characters."  type="text" name="eventname" ng-model="data.eventname" minlength="3" maxlength="50" class="event_name_wd form-control" placeholder="Title of your Event" required >
-            <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">Event Name is required</p>
-          </div>
-          <div class="form-group"  >
-            <label for="eventname">Event Url<span class="req">*</span></label>
-           
-            <section class="form-group"  ng-class="{ 'has-error' : myForm.eventurl.$dirty && myForm.eventurl.$invalid }">
-                        <div class="domain-name"><input  type="text" name="eventurl" ng-model="data.eventurl" class="event_short_url form-control" tooltips tooltip-template="A ticketing page's unique URL. By default, the Event Name is plugged in as the last part of the URL. Must be 5 - 30 characters in length." placeholder="Url of your Event" ng-blur="checkeventurl();" ng-pattern="/^\s*\w*\s*$/" minlength="5" maxlength="30" required><span class="d1name">.alistixs.com</span></div>
-                         <input type="hidden"  ng-model="data.domain_url_availability" class="form-control" required> 
+        <div ng-hide="eventdetail_div">
+            <form name="myForm" class="event-form" ng-submit="savedata(data)" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : myForm.eventname.$dirty && myForm.eventname.$invalid }">
+                    <label for="eventname">Event Name<span class="req">*</span></label>
+                    <input tooltips tooltip-template="This is the title of your event. Minimum 3 characters, maximum 50 characters." type="text" name="eventname" ng-model="data.eventname" minlength="3" maxlength="50" class="event_name_wd form-control" placeholder="Title of your Event" required>
+                    <p class="help-inline error-fld ng-binding" ng-show="myForm.eventname.$dirty && myForm.eventname.$invalid">Event Name is required</p>
+                </div>
+                <div class="form-group">
+                    <label for="eventname">Event Url<span class="req">*</span></label>
+                    <section class="form-group" ng-class="{ 'has-error' : myForm.eventurl.$dirty && myForm.eventurl.$invalid }">
+                        <div class="domain-name">
+                            <input type="text" name="eventurl" ng-model="data.eventurl" class="event_short_url form-control" tooltips tooltip-template="A ticketing page's unique URL. By default, the Event Name is plugged in as the last part of the URL. Must be 5 - 30 characters in length." placeholder="Url of your Event" ng-blur="checkeventurl();" ng-pattern="/^\s*\w*\s*$/" onkeypress="return keypress(event)" minlength="5" maxlength="30" required><span class="d1name">.alistixs.com</span></div>
+                        <input type="hidden" ng-model="data.domain_url_availability" class="form-control" required>
                         <span ng-hide="successuniquemessage">
                             <p class="success-fld">{{unique}}</p>
                         </span>
                         <span ng-hide="erroruniquemessage">
                             <p class="error-fld">{{unique}}</p>
                         </span>
-                        <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventurl.$dirty && myForm.eventurl.$invalid">Event Url is required (spaces not allowed)</p>
-                        
-                      </section>
-            
-          </div>
-          <div class="form-group field-group">
-            <label>Date and Time<span class="req">*</span></label>
-            <div class="event-date fieldSection">
-              <!-- Nav tabs -->
-              <div class="content-tab">
+                        <p class="help-inline error-fld ng-binding" ng-show="myForm.eventurl.$dirty && myForm.eventurl.$invalid">Event Url is required (spaces not allowed)</p>
+                    </section>
+                </div>
+                <div class="form-group field-group">
+                    <label>Date and Time<span class="req">*</span></label>
+                    <div class="event-date fieldSection">
+                        <!-- Nav tabs -->
+                        <!--  <div class="content-tab">
                 <ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
                     <li ng-repeat="event in events" ng-class="{active: isActive(event)}" >
                     <a class="pointer" ui-sref="{{event.href}}">{{event.name}}</a>
                     </li>
                 </ul>
                 <input type="hidden" name="eventtype" ng-init="data.eventtype='single'" ng-model="data.eventtype" >
-            </div>
-            
-            <!-- Tab panes -->
-            <div class="tab-content">
-              <div role="tabpanel" class="active"  id="single-event" ng-hide="single_event_div">
-                <div class="row">
-                  <div class="col-lg-5 col-sm-7">
-                    <div class="form-group">
-                      <!-- <label>From</label>-->
-                      
-                      <uib-datepicker ng-model="start_date" class="well well-sm" datepicker-options="options" ng-change="single_eventstart(this)"></uib-datepicker>
-                      
-                    </div>
-                  
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="form-group">
-                      <label for="StartTime">Start Time</label>
-                      <div class="input-group bootstrap-timepicker timepicker">
-                        <input  ng-model="starttime" ng-change="changedstarttime()"  class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="form-group">
-                      <label for="EndTime">End Time</label>
-                      <div class="input-group bootstrap-timepicker timepicker">
-                        <input ng-model="endtime" ng-change="changedendtime()" class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                </div>
-                <div class="row" ng-hide="error_message"><p class="error-fld" >{{error}}</p></div>
-                <div class="row" ng-hide="select_delect_event">
-                  <div class="col-xs-12">
-                    <label>Select/Deselect Events</label>
-                    <div class="clearfix list-event-date">
-                      <div class="col-sm-3 pull-right text-right lss-top"> <a  href="javascript:void(0)" ng-click="remove_event()"><i class="fa fa-close"></i></a> </div>
-                      <div class="col-sm-3"> {{selectevent_date }} <span style="display:none;">{{single_start_date}}</span> </div>
-                      <div class="col-sm-3"> Start Time :{{startevent_time}}</div>
-                      <div class="col-sm-3"> End Time :{{endevent_time}} </div>
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
-               </div>
+            </div> -->
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="active" id="single-event" ng-hide="single_event_div">
+                                <div class="row">
+                                    <div class="col-lg-5 col-sm-7">
+                                        <div class="form-group">
+                                            <!-- <label>From</label>-->
+                                            <uib-datepicker ng-model="start_date" class="well well-sm" datepicker-options="options" ng-change="single_eventstart(this)"></uib-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="StartTime">Start Time</label>
+                                            <div class="input-group bootstrap-timepicker timepicker">
+                                                <input ng-model="starttime" ng-change="changedstarttime()" class="form-control input-small timepick" type="text" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="EndTime">End Time</label>
+                                            <div class="input-group bootstrap-timepicker timepicker">
+                                                <input ng-model="endtime" ng-change="changedendtime()" class="form-control input-small timepick" type="text" /><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-hide="error_message">
+                                    <p class="error-fld">{{error}}</p>
+                                </div>
+                                <div class="row" ng-hide="select_delect_event">
+                                    <div class="col-xs-12">
+                                        <label>Select/Deselect Events</label>
+                                        <div class="clearfix list-event-date">
+                                            <div class="col-sm-3 pull-right text-right lss-top"> <a href="javascript:void(0)" ng-click="remove_event()"><i class="fa fa-close"></i></a> </div>
+                                            <div class="col-sm-3"> {{selectevent_date }} <span style="display:none;">{{single_start_date}}</span> </div>
+                                            <div class="col-sm-3"> Start Time :{{startevent_time}}</div>
+                                            <div class="col-sm-3"> End Time :{{endevent_time}} </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group field-group">
@@ -204,50 +195,43 @@
                         </div>
                     </div>
                 </div>
-               
-
-      <div class="form-group field-group" ng-show="data.venuename && venue_event_div">
-        <label for="Location">Selected Venue</label>
-        <div class="fieldSection">
-            <div class="row">
-            <div class="col-sm-12 col-md-6">
-            <i class="fa fa-map-marker"></i> <strong>
+                <div class="form-group field-group" ng-show="data.venuename && venue_event_div">
+                    <label for="Location">Selected Venue</label>
+                    <div class="fieldSection">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <i class="fa fa-map-marker"></i> <strong>
             {{data.venuename}}
             </strong>
-            </div>
-            </div>
-            <div class="row">&nbsp;</div>
-            <div class="row">
-            <div class="col-sm-12 col-md-6">
-            <span>{{data.address}}, {{data.city}}&nbsp;,&nbsp;{{data.state}}&nbsp;,&nbsp;{{data.zipcode}}</span>
-            </div>
-            </div>
-        </div>
-      </div>
-      
-      <div class="editr">
-        <label>Event Description<span class="req">*</span></label>
-        <div tooltips tooltip-template="The area of the ticketing page where you can display additional details about the event. The description box is HTML enabled, which means that you can add HTML code to change the color and size of the font in this area of the ticketing page, as well as embed images, video and audio." ckeditor="option_ckeditor" name="content"  required ng-model="data.content" ready="onReady()" value=''></div>
- 
-        
-        
-        <div class="editor-btn">
-          <!--<button type="submit"
+                            </div>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <span>{{data.address}}, {{data.city}}&nbsp;,&nbsp;{{data.state}}&nbsp;,&nbsp;{{data.zipcode}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="editr">
+                    <label>Event Description<span class="req">*</span></label>
+                    <div tooltips tooltip-template="The area of the ticketing page where you can display additional details about the event. The description box is HTML enabled, which means that you can add HTML code to change the color and size of the font in this area of the ticketing page, as well as embed images, video and audio." ckeditor="option_ckeditor" name="content" required ng-model="data.content" ready="onReady()" value=''></div>
+                    <div class="editor-btn">
+                        <!--<button type="submit"
           ng-disabled="myForm.$invalid" class="gray-btn btn">Save</button>-->
-          <button type="button" ng-disabled="myForm.$invalid" ng-click="click_menu(steps[1] , data)" class="pink-btn btn">Save &amp Continue</button>
+                        <button type="button" ng-disabled="myForm.$invalid" ng-click="click_menu(steps[1] , data)" class="pink-btn btn">Save &amp Continue</button>
+                    </div>
+                    <div ng-hide="error_message">
+                        <p class="success-fld ng-binding">{{success}}</p>
+                    </div>
+                </div>
+            </form>
+            <div ng-show="saveloader" align="center">
+                <img src="/images/icons/loader.gif">
+            </div>
         </div>
-        <div ng-hide="error_message"><p class="success-fld ng-binding">{{success}}</p></div>
-      </div>
-    </form>
-    <div ng-show="saveloader" align="center">
-          <img src="/images/icons/loader.gif">
     </div>
-  
 </div>
-</div>
-
-</div>
-
 <script type="text/ng-template" id="myModalContent.html">
     <div class="modal-header">
         <h3 class="modal-title">Remove Previous Event</h3>

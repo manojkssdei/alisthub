@@ -1,109 +1,103 @@
-
-  <!-- Container -->
-  <div class="container">
-     <h1>VIEW PACKAGE</h1>
-    
+<!-- Container -->
+<div class="container">
+    <h1>VIEW PACKAGE</h1>
     <!-- Form COntainer -->
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6&appId=603757886354207";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-    
+    <div id="fb-root"></div>
+    <script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6&appId=603757886354207";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
     <div class="wt-frame form-section">
-      <form class="event-form">
-        <section class="top-buttons bb-1 text-right">
-        <button type="button" class="btn pink-btn btn-small"><i class="fa fa-website"></i> Website</button>
-                <button type="button" class="btn pink-btn btn-small"><i class="fa fa-twitter"></i> Tweet</button>
-                         <div class="fb-like"
-      data-href="https://developers.facebook.com/docs/plugins/"
-      data-layout="button" data-action="like">
-    </div>
-            </section><!--/Top Buttons-->
-          <section class="form-group field-group row">
-              <section class="col-sm-8">                    
-                   <section class="form-group field-group">
+        <form class="event-form">
+            <section class="top-buttons bb-1 text-right">
+                <button type="button" class="btn pink-btn btn-small"><i class="fa fa-website"></i> Website</button>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-show-count="false">Tweet</a>
+                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-action="like">
+                </div>
+            </section>
+            <!--/Top Buttons-->
+            <section class="form-group field-group row">
+                <section class="col-sm-8">
+                    <section class="form-group field-group">
                         <div class="media">
-                              <section class="media-left">
-                                    <section class="date-media">
-                                       <div class="date-view">
-                                       <span class="date-m">{{start_date| date:'MMMM'}}</span>
+                            <section class="media-left">
+                                <section class="date-media">
+                                    <div class="date-view">
+                                        <span class="date-m">{{start_date| date:'MMMM'}}</span>
                                         <span class="date-d">{{start_date| date:'dd'}}</span></div>
-                                       
-                                       <div class="date-view">
-                                       <span class="date-m">{{end_date| date:'MMMM'}}</span>
+                                    <div class="date-view">
+                                        <span class="date-m">{{end_date| date:'MMMM'}}</span>
                                         <span class="date-d">{{end_date| date:'dd'}}</span></div>
-                                   </section>
-                              </section>
-                              <div class="media-body content">
-                                  <h4>{{title}}</h4>                                  
-                                  <p>{{start_date | date:"dd MMMM yyyy"}}  at {{start_time}} - {{end_date | date:"dd MMMM yyyy"}} at {{end_time}} EDT</p>
-                                  <p><button class="btn pink-btn btn-small" type="button">{{ages}}</button></p>
-                              </div>
+                                </section>
+                            </section>
+                            <div class="media-body content">
+                                <h4>{{title}}</h4>
+                                <p>{{start_date | date:"dd MMMM yyyy"}} at {{start_time}} - {{end_date | date:"dd MMMM yyyy"}} at {{end_time}} EDT</p>
+                                <p>
+                                    <button class="btn pink-btn btn-small" type="button">{{ages}}</button>
+                                </p>
                             </div>
-                   </section><!--/Package-->
-                  
-                   <section class="form-group field-group">
-                    <h4>Package Details</h4>
-                    <section class="gray-frame sub-fields">             
-                        <section ng-bind-html="description">
-                       
-                        </section>                
+                        </div>
                     </section>
-                  </section><!--/Package Details-->
-                  
-                   <section class="form-group field-group">
-                  <section class="sub-fields">                
+                    <!--/Package-->
+                    <section class="form-group field-group">
+                        <h4>Package Details</h4>
+                        <section class="gray-frame sub-fields">
+                            <section ng-bind-html="description">
+                            </section>
+                        </section>
+                    </section>
+                    <!--/Package Details-->
+                    <section class="form-group field-group">
+                        <section class="sub-fields">
                             <div class="media">
-                         
-                               
-                              <div class="media-body">
-                                <section class="form-group">
-                                <div class="fb-comments"
-                            data-href= "https://www.facebook.com/plugins/comments#configur" data-numposts="1">
-                             
+                                <div class="media-body">
+                                    <section class="form-group">
+                                        <div class="fb-comments" data-href="https://www.facebook.com/plugins/comments#configur" data-numposts="1">
+                                        </div>
+                                    </section>
                                 </div>
-                                </section>                                
-                             
-                              </div>
                             </div>
-                    </section>                  
-                </section><!--/Comments-->
-              </section><!--/Left-->
-              
-              <section class="col-sm-4">
-                  <section class="panel panel-primary">
-                       <section class="panel-heading"><h5 class="m-b0">Select Tickets</h5></section>                       
-                       <section class="panel-body">Sorry, online ticket sales have closed.</section>
-                  </section>
-                  
-                  <section class="panel panel-primary">
-                       <section class="panel-heading"><h5 class="m-b0">Venue Map</h5></section>                       
-                       <section class="panel-body">
-                             <section class="v-map-overview">
-                              <!--   <div id="map" style="height:400px;"> -->
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d54891.42287220298!2d76.69738045!3d30.698324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1467028849903"  height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </section>
+                    </section>
+                    <!--/Comments-->
+                </section>
+                <!--/Left-->
+                <section class="col-sm-4">
+                    <section class="panel panel-primary">
+                        <section class="panel-heading">
+                            <h5 class="m-b0">Select Tickets</h5></section>
+                        <section class="panel-body">Sorry, online ticket sales have closed.</section>
+                    </section>
+                    <section class="panel panel-primary">
+                        <section class="panel-heading">
+                            <h5 class="m-b0">Venue Map</h5></section>
+                        <section class="panel-body">
+                            <section class="v-map-overview">
+                                <!--   <div id="map" style="height:400px;"> -->
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d54891.42287220298!2d76.69738045!3d30.698324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1467028849903" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
                             </section>
                             <ul class="address-list">
-                                <li><p><strong>smartData Enterprises (l) Ltd.</strong></p>
-                                <p>E-37 Industrial Area, S.A.S Nagar,</p>
-                                <p>Mohali(Punjab), 160071</p></li>
+                                <li>
+                                    <p><strong>smartData Enterprises (l) Ltd.</strong></p>
+                                    <p>E-37 Industrial Area, S.A.S Nagar,</p>
+                                    <p>Mohali(Punjab), 160071</p>
+                                </li>
                             </ul>
-                            
-                       </section>
-                  </section>
-              </section>
-          </section>
-        
-      </form>
-      
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </form>
     </div>
-    
-    <!-- //Form COntainer --> 
-  </div>
-  <!-- //Container --> 
-  
+    <!-- //Form COntainer -->
+</div>
+<!-- //Container -->
 </div>

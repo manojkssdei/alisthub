@@ -1149,42 +1149,44 @@ angular.module('alisthub').controller('advanceSetting', function($scope,$localSt
         } 
   }
 
-
-     /* Edit advance settings of seller*/
-   /*if ($state.params.id) {
-        $scope.callfunction = 1;
+  /* Edit advance settings of seller*/
+   // if ($state.params.id) {
+   //     $scope.callfunction = 1;
         
-        $scope.getAdvanceSetting = function() {
-            if ($localStorage.userId != undefined) {
-                $scope.data.seller_id = $localStorage.userId;
-                $scope.data.event_id = $state.params.id;
-                $serviceTest.getAdvanceSetting($scope.data, function(response) {
-                    $scope.loader = false;
-                    if (response.code == 200) {
-                        $scope.data = {};
-                        $scope.data = response.result[0];
-                    } else {
-                        $scope.error_message = response.error;
-                    }
+   //     $scope.getAdvanceSetting = function() {
+   //         if ($localStorage.userId != undefined) {
+   //               $scope.data.seller_id = $localStorage.userId;
+   //              $scope.data.event_id = $state.params.id;
+   //             $serviceTest.getAdvanceSetting($scope.data, function(response) {
+   //                $scope.loader = false;
+   //                  if (response.code == 200) {
+   //                      $scope.data = {};
+   //                      $scope.data = response.result[0];
+   //                  } else {
+   //                      $scope.error_message = response.error;
+   //                  }
 
-                });
+   //             });
 
-            }
-        };
-        $scope.getAdvanceSetting();
-        $scope.editAdvanceSetting = function() {
-            if ($localStorage.userId != undefined) {
-                $scope.data.seller_id = $localStorage.userId;
-                $scope.data.id = $state.params.id;
-                $serviceTest.saveAdvanceSettings($scope.data);
-            }
-        };
-    }
-    */
-    
+   //         }
+   //      };
+   //      $scope.getAdvanceSetting();
+   //     $scope.editAdvanceSetting = function() {
+   //          if ($localStorage.userId != undefined) {
+   //              $scope.data.seller_id = $localStorage.userId;
+   //             $scope.data.id = $state.params.id;
+   //             $serviceTest.saveAdvanceSettings($scope.data);
+   //          }
+   //      };
+   //  }
+   
 
-
-
-  
 });
-
+function keypress(e){
+  if(e.charCode===32){
+    return false;
+  }
+  else{
+    return true;
+  }
+}

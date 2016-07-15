@@ -1,39 +1,38 @@
-
 <div class="container">
-
-
-<style>
-  .full button span {
-    background-color: #c129b9;
-    border-radius: 32px;
-    color: white;
-    padding:5px;
-  }
-  .partially button span {
-    background-color: #c129b9;
-    border-radius: 32px;
-    color: white;
-     padding:5px;
-  }
-</style>
+    <style>
+    .full button span {
+        background-color: #c129b9;
+        border-radius: 32px;
+        color: white;
+        padding: 5px;
+    }
+    
+    .partially button span {
+        background-color: #c129b9;
+        border-radius: 32px;
+        color: white;
+        padding: 5px;
+    }
+    </style>
     <h1>view series</h1>
     <!-- Form COntainer -->
-          <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-    fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
- <div class="wt-frame form-section">
+    <script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div class="wt-frame form-section">
         <form class="event-form">
             <section class="top-buttons bb-1 text-right">
-                <button type="button" class="btn pink-btn btn-small"><i class="fa fa-twitter"></i> Tweet </button>
-           <!--      <button type="button" class="btn pink-btn btn-small"><i class="fa fa-facebook"></i> Facebook </button> -->
-                 <div class="fb-like"
-      data-href="https://developers.facebook.com/docs/plugins/"
-      data-layout="button" data-action="like">
-    </div>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-show-count="false">Tweet</a>
+                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-action="like">
+                </div>
             </section>
             <section class="form-group field-group row">
                 <section class="col-sm-8">
@@ -65,34 +64,39 @@
                         </section>
                     </section>
                     <!--/Package Details-->
-             
-                
-                 
+                    <section class="form-group field-group">
+                        <section class="sub-fields">
+                            <div class="media">
+                                <div class="media-body">
+                                    <section class="form-group">
+                                        <div class="fb-comments" data-href="https://www.facebook.com/plugins/comments#configur" data-numposts="1">
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
                 </section>
                 <!--/Left-->
                 <section class="col-sm-4">
                     <section class="panel panel-primary">
                         <section class="panel-heading">
                             <h5 class="m-b0">Select Tickets</h5></section>
-                        <section class="panel-body"> 
-
-                        <!-- <div> -->
- <!--    <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre> -->
-
-   <!--  <div style="display:inline-block; min-height:290px;"> -->
-      <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options" ></uib-datepicker>
- <!--    </div> -->
-        
-    <!--    <uib-datepicker ng-model="all_dates" class="well well-sm" datepicker-options="options1"  multi-select="all_dates[0]"></uib-datepicker></section>  -->
-                       <!--  ng-change="single_eventstart(this)" -->
-                   <!--     {{start_date}}<br>{{thisDate}}
+                        <section class="panel-body">
+                            <!-- <div> -->
+                            <!--    <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre> -->
+                            <!--  <div style="display:inline-block; min-height:290px;"> -->
+                            <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+                            <!--    </div> -->
+                            <!--    <uib-datepicker ng-model="all_dates" class="well well-sm" datepicker-options="options1"  multi-select="all_dates[0]"></uib-datepicker></section>  -->
+                            <!--  ng-change="single_eventstart(this)" -->
+                            <!--     {{start_date}}<br>{{thisDate}}
                        <section ng-if="start_date == thisDate">Potatoes</section> -->
-                      </section>
-                      <select class="form-control">
-                       <option>-please slect the timing-</option>
-                          <option value="{{timings}}">{{timings}}</option>
-                      </select>
-                      
+                        </section>
+                        <select class="form-control">
+                            <option>-please slect the timing-</option>
+                            <option value="{{timings}}">{{timings}}</option>
+                        </select>
                     </section>
                     <section class="panel panel-primary">
                         <section class="panel-heading">

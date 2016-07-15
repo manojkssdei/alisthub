@@ -164,7 +164,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             views: {
                 "lazyLoadView": {
                   controller: 'allEventController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/events/views/view_event.html'
+                  templateUrl: 'modules/events/views/view_all_event.html'
                 },
             },
              resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -248,7 +248,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             views: {
                 "lazyLoadView": {
                   controller: 'eventviewController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/events/views/event_overview.html'
+                  templateUrl: 'modules/events/views/event_view.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
@@ -1803,8 +1803,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
 
 
-        .state('widgets/add', {
-            url: '/widgets/add',
+        .state('widgets/checkout_widgets', {
+            url: '/widgets/checkout_widgets',
             
             views: {
                 "lazyLoadView": {
@@ -1827,8 +1827,8 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
 
 
 ////////////////////add event widget ////////////////////
-        .state('widgets/add_event', {
-            url: '/widgets/add_event',
+        .state('widgets/event_widget', {
+            url: '/widgets/event_widget',
             
             views: {
                 "lazyLoadView": {

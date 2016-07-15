@@ -54,7 +54,8 @@ exports.saveEvent = function(req,res) {
           var venue_id = responce.insertId;
           var eventId = null;
           data.created = new Date();
-          var query1 = "INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`,`event_domain`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+data.content+"','"+venue_id+"','"+data.eventurl+"')";
+          var content_html=data.content.replace(/'/g, "\\'"); 
+          var query1 = "INSERT INTO `events`(`id`,`user_id`,`title`,`start_date`,`description`,`venue_id`,`event_domain`) VALUES(NULL,'"+data.userId+"','"+data.eventname+"','"+data.eventdate+"','"+content_html+"','"+venue_id+"','"+data.eventurl+"')";
          
             connection.query(query1,function(err,result) {
             
@@ -114,8 +115,8 @@ exports.saveEvent = function(req,res) {
           })
      }
       //console.log('venueID:'+venueid);
-
-      connection.query("UPDATE events SET `user_id`='"+data.userId+"',`title`='"+data.eventname+"',`description`='"+data.content+"',`venue_id`='"+venueid+"'  where id="+data.id, function(err, results) {
+     var content_html=data.content.replace(/'/g, "\\'");
+      connection.query("UPDATE events SET `user_id`='"+data.userId+"',`title`='"+data.eventname+"',`description`='"+content_html+"',`venue_id`='"+venueid+"'  where id="+data.id, function(err, results) {
          if (err) {
           res.json({error:err,code:101});
          }
@@ -197,16 +198,16 @@ exports.saverecurringEvent=function(req,res){
        data.start_date = data.date_time_series[0].date;
        var length = data.date_time_series.length;
        data.end_date   = data.date_time_series[length-1].date;
-       
+       var html1=data.content.replace(/'/g, "\\'");
        // For update parent event
        if(data.event_id && data.event_id != null && data.event_id !== undefined)
        {      
-        var save_query = "UPDATE `events` SET user_id='"+data.userId+"',title='"+data.eventname+"',start_date='"+data.start_date+"',recurring_or_not='1',recurring_type='"+data.period+"',description='"+data.content+"',event_steps='1',end_date='"+data.end_date+"',venue_id='"+data.venue_id+"',created='"+curtime+"' where id="+data.event_id;
+        var save_query = "UPDATE `events` SET user_id='"+data.userId+"',title='"+data.eventname+"',start_date='"+data.start_date+"',recurring_or_not='1',recurring_type='"+data.period+"',description='"+html1+"',event_steps='1',end_date='"+data.end_date+"',venue_id='"+data.venue_id+"',created='"+curtime+"' where id="+data.event_id;
         rollback_events(data.event_id,1);
        }
        else // For Insert parent event
        {
-        var save_query = "INSERT INTO `events` (`id`, `user_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+data.content+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+curtime+"')";
+        var save_query = "INSERT INTO `events` (`id`, `user_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `created`) VALUES (NULL, '"+data.userId+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+html1+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+curtime+"')";
        }
         // Save Parent Event
         connection.query(save_query,function(perr,presult){
@@ -224,8 +225,8 @@ exports.saverecurringEvent=function(req,res){
                 
                 /// Save Child events
                 date_array.forEach(function(date_arr){
-                
-                var child_save_query = "INSERT INTO `events` (`id`, `user_id`, `parent_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `created`) VALUES (NULL, '"+data.userId+"', '"+parent_id+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+data.content+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+curtime+"')";
+                var html1=data.content.replace(/'/g, "\\'");
+                var child_save_query = "INSERT INTO `events` (`id`, `user_id`, `parent_id`, `title`, `start_date`, `recurring_or_not`, `recurring_type`, `description`, `event_steps`, `end_date`, `venue_id`, `created`) VALUES (NULL, '"+data.userId+"', '"+parent_id+"', '"+data.eventname+"', '"+data.start_date+"', '1', '"+ data.period+"', '"+html1+"', '1', '"+data.end_date+"', '"+data.venue_id+"', '"+curtime+"')";
                 
                 connection.query(child_save_query,function(cerr,cresult){
                 var child_id = cresult.insertId;

@@ -1483,6 +1483,14 @@ $scope.rec_year_func = function() {
   }
 });
 
+function keypress(e){
+  if(e.charCode===32){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
 angular.module('alisthub').controller('ModalInstanceCtrl', function($scope, $uibModalInstance, items, $rootScope) {
   $scope.items = items;
   $scope.selected = {
