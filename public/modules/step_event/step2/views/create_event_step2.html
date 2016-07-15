@@ -518,7 +518,8 @@
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-4">Minimum Per Order</div>
-               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.minimum_per_order" name="minimum_per_order" class="event_number_wd form-control" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_per_order.$invalid && !pricelevelForm.minimum_per_order.$pristine">Please enter valid number or less than available quanity</p>
+               <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.minimum_per_order" name="minimum_per_order" class="event_number_wd form-control" ><p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.minimum_per_order.$invalid && !pricelevelForm.minimum_per_order.$pristine">
+               Minimum no. of tickets should be greater than 0 and less than available quantity</p>
                </div>
                
                
@@ -528,7 +529,8 @@
             <fieldset class="form-group">
                <div class="col-sm-4">Maximum Per Order</div>
                <div class="col-sm-8"><input  type="number" min="0" max={{data1.quantity_available}} ng-model="data1.maximum_per_order" name="maximum_per_order" class="event_number_wd form-control" >
-               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.maximum_per_order.$invalid && !pricelevelForm.maximum_per_order.$pristine">Please enter valid number or less than available quanity</p>
+               <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.maximum_per_order.$invalid && !pricelevelForm.maximum_per_order.$pristine">
+               Minimum no. of tickets should be greater than 0 and less than available quantity</p>
                </div>
 
                
