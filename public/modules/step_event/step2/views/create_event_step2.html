@@ -561,7 +561,7 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                    <div class="form-group datepicker">
                          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data2.startdate_pricechange" is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" />
                          <span class="input-group-btn">
-                           <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                           <i class="glyphicon glyphicon-calendar" ng-click="open1()"></i></span>
                      </div>
                </div>
                <div class="col-sm-2">
@@ -584,10 +584,8 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                <div class="col-sm-3">New Price (USD $)</div>
                <div class="col-sm-9">
                     <input  type="number" min="0" name="new_price" ng-model="data2.new_price" class="form-control" value="" required>
-
                     <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.new_price.$invalid && !pricelevelForm.new_price.$pristine">Please enter valid price</p>
-
-
+                    
                     <span style="color:red" ng-show="pricechangeform.new_price.$dirty && pricechangeform.new_price.$invalid">
                 <span ng-show="pricechangeform.new_price.$error.required">New Price is required</span>
                </span>

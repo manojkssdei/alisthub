@@ -45,6 +45,7 @@ exports.stepOneEventPackage = function(req,res) {
     console.log('online_sales_close_date_time' , req.body.online_sales_close_date);
 
 
+
 req.body.online_sales_open_date_time_moment = moment(req.body.online_sales_open_date_time).format('YYYY-MM-DD HH:mm:ss');
 req.body.online_sales_close_date_time_moment = moment(req.body.online_sales_close_date_time).format('YYYY-MM-DD HH:mm:ss');
 
@@ -62,6 +63,9 @@ console.log(' online_sales_close_date_time_moment : ', req.body.online_sales_clo
     req.body.showclix_seller = '22876';
 
     data = req.body;
+
+data.sales_open = req.body.online_sales_open_date_time_moment;
+
     var showClixPackage2 = new showClixPackage();
 
           showClixPackage2.add_package(data,res,function(sdata){
@@ -607,7 +611,7 @@ exports.postThirdStepPackageData = function(req,res) {
 
 console.log('req.body before ' , req.body);
 
- var fields = ['print_home' , 'print_enable_date' , 'print_disable_date' , 'print_description' , 'donation' , 'donation_name' , 'custom_fee' , 'custom_fee_name' , 'custom_fee_type' , 'custom_fee_amount' , 'custom_when' , 'online_service_fee' , 'box_office_service_fee' , 'ticket_note' , 'ticket_transaction_limit' , 'checkout_time_limit' , 'collect_name' , 'private_event' , 'show_seating_chart' , 'url_short_name' ]; 
+ var fields = ['print_home' , 'print_enable_date' , 'print_disable_date' , 'print_description' , 'will_call' , 'will_call_enable_date' , 'will_call_disable_date' , 'will_call_description' , 'donation' , 'donation_name' , 'custom_fee' , 'custom_fee_name' , 'custom_fee_type' , 'custom_fee_amount' , 'custom_when' , 'online_service_fee' , 'box_office_service_fee' , 'ticket_note' , 'ticket_transaction_limit' , 'checkout_time_limit' , 'collect_name' , 'private_event' , 'show_seating_chart' , 'url_short_name' ]; 
 
 
 console.log('fields ' , fields);
