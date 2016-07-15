@@ -48,15 +48,15 @@
                                         <label for="radio1"><span></span>Always Available</label>
                                     </section>
                                     <section class="radio-inline">
-                                        <input type="radio" name="radio1" id="radio2" ng-model="data.print_home" value="2">
+                                        <input type="radio" name="radio1" id="radio2" ng-model="data.print_home" value="0">
                                         <label for="radio2"><span></span>Never Available</label>
                                     </section>
                                     <section class="radio-inline">
-                                        <input type="radio" name="radio1" id="radio3" ng-model="data.print_home" value="3">
+                                        <input type="radio" name="radio1" id="radio3" ng-model="data.print_home" value="2">
                                         <label for="radio3"><span></span>Set Dates</label>
                                     </section>
                                 </section>
-                                <section ng-if="data.print_home == 3">
+                                <section ng-if="data.print_home == 2">
                                     <div class="" style="display: block; margin: 10px;">
                                         <section class="row">
                                             <div class="col-sm-4">
@@ -68,7 +68,7 @@
                                         <section class="row">
                                             <div class="col-sm-4">
                                                 <div class="form-group datepicker">
-                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.print_enable_date.date" is-open="popup5.opened" datepicker-options="options" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" />
+                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.print_enable_date.date" is-open="popup5.opened" datepicker-options="options" close-text="Close" alt-input-formats="altInputFormats" />
                                                     <span class="input-group-btn">
                                                     <button type="button" class="btn btn-default" ng-click="open5()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                                                 </div>
@@ -92,7 +92,7 @@
                                         <section class="row">
                                             <div class="col-sm-4">
                                                     <div class="form-group datepicker">
-                                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.print_disable_date.date" is-open="popup6.opened" datepicker-options="options1" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" />
+                                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.print_disable_date.date" is-open="popup6.opened" datepicker-options="options1" close-text="Close" alt-input-formats="altInputFormats"  />
                                                         <span class="input-group-btn">
                                                         <button type="button" class="btn btn-default" ng-click="open6()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                                                     </div>
@@ -113,23 +113,96 @@
                                 </section>
                             </section>
                             <div style="height: 30px;" class="col-sm-12"></div>
-                            <!--<section class="col-sm-12 mob-mt20">
-                                <section class="radio-sec custom-check">
-                                    <p class="radio-inline">
-                                        <input type="checkbox" id="test1" ng-model="data.will_call" ng-true-value="1" ng-false-value="0">
-                                        <label for="test1">Will Call</label>
-                                    </p>
+
+                             <label>Will Call</label>
+
+                            <section class="col-sm-12 mob-mt20">
+                                
+                                <section class="radio-sec">
+                                    <section class="radio-inline">
+                                        <input type="radio" name="radio_willcall" id="radio_willcall1" ng-model="data.will_call" value="1">
+                                        <label for="radio_willcall1"><span></span>Always Available</label>
+                                    </section>
+                                    <section class="radio-inline">
+                                        <input type="radio" name="radio_willcall" id="radio_willcall2" ng-model="data.will_call" value="0">
+                                        <label for="radio_willcall2"><span></span>Never Available</label>
+                                    </section>
+                                    <section class="radio-inline">
+                                        <input type="radio" name="radio_willcall" id="radio_willcall3" ng-model="data.will_call" value="2">
+                                        <label for="radio_willcall3"><span></span>Set Dates</label>
+                                    </section>
                                 </section>
+
+
+
+                                 <section ng-if="data.will_call == 2">
+                                    <div class="" style="display: block; margin: 10px;">
+                                        <section class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Enable On :</label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group datepicker">
+                                                    <input type="text" name="will_call_enable_date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.will_call_enable_date.date" is-open="popup7.opened" datepicker-options="options" close-text="Close" alt-input-formats="altInputFormats"  />
+                                                    <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" ng-click="open7()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="input-group bootstrap-timepicker timepicker">
+                                                  <input  ng-model="data.will_call_enable_date.time" class="form-control input-small timepick" type="text"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                                </div>
+                                            </div>
+                                        </section>
+
+                                    </div>
+                                    <div class="" style="display: block; margin: 10px;">
+                                        <section class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Disable On: </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section class="row">
+                                            <div class="col-sm-4">
+                                                    <div class="form-group datepicker">
+                                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.will_call_disable_date.date" is-open="popup8.opened" datepicker-options="options1" close-text="Close" alt-input-formats="altInputFormats" name="will_call_disable_date" />
+                                                        <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-default" ng-click="open8()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                                                    </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                              <div class="input-group bootstrap-timepicker timepicker">
+                                                <input  ng-model="data.will_call_disable_date.time" ng-change=""  class="form-control input-small timepick" type="text" id="timepicker2"/><span class="input-group-addon timepick1"><i class="glyphicon glyphicon-time"></i></span>
+                                              </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </section>
+
+
+
+
+
+
+
                                 <section class="row">
                                     <button type="button" class="pink-btn btn btn-small" ng-hide="desc_box_2" ng-click="desc_box_2=true">Add a Description</button>
                                     <textarea class="desc_2 form-control input" ng-show="desc_box_2" rows="7" ng-model="data.will_call_description"> </textarea>
                                 </section>
-                            </section> -->
+
+
+                            </section> 
                         </section>
                     </section>
                 </section>
                 <!--/Delivery Methods-->
-                <!--
+                
                 <section class="form-group field-group">
                     <label>Sales Times</label>
                     <section class="gray-frame sub-fields">
@@ -186,7 +259,7 @@
                         </section>
                         <span style="font: red;">{{date_error_message}}</span>
                     </section>
-                </section>-->
+                </section>
                 <!--/Sales Times-->
 
                 <section class="" style="margin-top: 50px; padding-bottom: 20px; margin-bottom: 20px;">
@@ -258,6 +331,7 @@
                                   <!--  ng-model="data.custom_fee_type" tooltips tooltip-template="Select whether the fee is a fixed amount or a percentage of the order total." -->
                                     <select class="form-control" name="custom_fee_type" >
                                         <option value="1">Fixed Amount</option>
+                                        <option value="2">Percentage</option>
                                     </select>
                                   </div>
                             <!-- </section> -->
@@ -283,6 +357,7 @@
                                   <!-- tooltips tooltip-template="Select whether to apply this fee to the order before or after a discount coupon has adjusted the order total. If no discount coupons are in effect, this option will not affect the order." -->
                                     <select class="form-control" name="custom_when" ng-model="data.custom_when" >
                                         <option value="1">Before Discount</option>
+                                        <option value="2">After Discount</option>
                                     </select>
                                   </div>
                             <!-- </section> -->
@@ -357,8 +432,13 @@
                                       <div class="col-sm-3 left-margin-zero">
                                         <label class="label-padding">Checkout Time Limit</label>
                                       </div>
-                                      <div class="col-sm-7">
-                                        <input type="number" placeholder="Checkout Time Limit" class="form-control" value="" name="StartTime" min="0" max="100" ng-model="data.checkout_time_limit" tooltips tooltip-template="The amount of time given to a customer to complete the checkout process. Must be a number between 1 – 100.">
+                                      <div class="col-sm-7" >
+
+                                        <!--<input type="number" placeholder="Checkout Time Limit" class="form-control" value="" name="StartTime" min="0" max="100" ng-model="data.checkout_time_limit" >-->
+                                    <select class="form-control" name="checkout_time_limit" ng-model="data.checkout_time_limit" placeholder="Checkout Time Limit" >
+                                        <option ng-repeat="to in timeout" value="{{to.value}}" >{{to.minutes}}</option>
+                                    </select>
+
                                       </div>
                                       <div class="col-sm-2 info-padding">
 

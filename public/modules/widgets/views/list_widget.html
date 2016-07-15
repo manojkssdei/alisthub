@@ -1,6 +1,6 @@
 <style>
 table {
-    border:2px solid black;
+    border:2px solid #ccc;
     width: 100%;
 }
 
@@ -13,6 +13,10 @@ tr:nth-child(even){background-color: #f2f2f2}
 .form-section.wt-frame
 {
   margin:0;
+}
+.event
+{
+  width:100%;
 }
 </style>
 <div class="container">
@@ -29,12 +33,16 @@ tr:nth-child(even){background-color: #f2f2f2}
             </div>
                         <div class="form-group">
                         <div class="col-sm-12">
-                          <div class="col-sm-9">
+                          <div class="col-sm-6">
                           <br>
                                <label><h4>Checkout Widget</h4></label>
                             </div>
+                            <div class="col-sm-3">
+                                 <a href='/#/widgets/event_widget'>
+                                 <button type="button"  class="pink-btn btn event">Create Event Widget</button></a>
+                               </div>
                                 <div class="col-sm-3">
-                                 <a href='/#/widgets/add'>
+                                 <a href='/#/widgets/checkout_widgets'>
                                  <button type="button"  class="pink-btn btn">Create Checkout Widget</button></a>
                                </div>
                               
@@ -70,10 +78,10 @@ tr:nth-child(even){background-color: #f2f2f2}
                                 </tr>
                               
                                    <tr ng-show="loader">
-                                        <td colspan="4" align="center"><img src="/images/icons/loader.gif"></td>
+                                        <td colspan="4" align="center"><img src="/images/icons/loader.gif" style="margin-left: 48%"></td>
                                     </tr>
                                     <tr ng-if="$data == ''">
-                                        <td colspan="4" align="center">No Record found!</td>
+                                        <td colspan="4" align="center"><span style="margin-left: 40%">No Record found!</span></td>
                                     </tr>
                            </tbody>
                         </table>
@@ -93,7 +101,7 @@ tr:nth-child(even){background-color: #f2f2f2}
  
      </div>
      <!-- event table-->
-     <div class="form-section wt-frame">
+    <!--  <div class="form-section wt-frame">
            <section class="gray-frame sub-fields">
                         <div class="form-group">
                         <div class="col-sm-12">
@@ -150,11 +158,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                                 <li><i class="fa fa-edit"></i><span>Edit</span></li>
                                 <li><i class="fa fa-eye"></i><span>Preview</span></li>
                             </ul>
-                      <!--   </section> -->
-                    </section>
-                </section>
-              </section>
-     </div>
+            
      </div>
 
      <script type="text/ng-template" id="checkout_widgets.html">

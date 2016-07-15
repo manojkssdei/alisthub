@@ -561,7 +561,11 @@ exports.savepricelevel=function(req,res){
                             var event_url = sdata.location;
                             update_showclix_pricedata(event_url,parne_id,data);
                             res.json({result:result,showclix:sdata.location,code:200});
-                        } else {
+                        }
+                        else if(sdata.status == 2) {
+                            res.json({result:result,showclix:sdata.location,code:200});
+                        }
+                        else{
                             rollback_level(data.eventId);
                             res.json({result:"",error:sdata.error,code:101});  
                         }
@@ -621,14 +625,26 @@ exports.removepricelevel=function(req,res){
     var price_leveldelete_id=req.body.price_leveldelete_id;
     var sql="Delete FROM price_levels where id="+price_leveldelete_id;
     
-    connection.query(sql,function(err,result){
-       
-        if (err) {
-           res.send({err:"error",code:101}); 
-        }
-           res.send({"message":"success",code:200});  
-        
-    });
+    // showclix start 
+                var showClix2 = new showClix();
+                    showClix2.delete_price_level(req.body,res,function(sdata){
+                        if (sdata.status == 1) {
+                            connection.query(sql,function(err,result){
+                                if (err) {
+                                   res.send({err:"error",code:101}); 
+                                }
+                                else
+                                {
+                                   res.send({"message":"success",code:200});
+                                }
+                                
+                            });
+                                                
+                        } else {
+                            res.json({result:"",error:"Server down",code:101});  
+                        }
+                    });
+    //showclix end
 }
 /** 
 Method: changePricelevelStatus

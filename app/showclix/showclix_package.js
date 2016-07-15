@@ -32,7 +32,7 @@ module.exports = function() {
             "date_added": data.created,
             "date_edited": data.modified,
             "event_start": "2016-07-15 03:30:30",
-            "sales_open": "2016-07-10 03:30:30",
+            "sales_open": data.sales_open ,
             "event_end": "2016-07-21 21:00:00",
             "short_name": data.short_name,
             "image_url": data.image,
@@ -41,18 +41,6 @@ module.exports = function() {
             "event_type": "3",
             "venue_id": "34657",
             "display_image": data.display_image_in_listing,
-            "product_map": {
-                "892707": {
-                    "event_product_map_id": "892707",
-                    "event_id": "4206298",
-                    "product_id": "1878",
-                    "price": "22.00",
-                    "upsell_price": null,
-                    "position": "3",
-                    "sort_position": null,
-                    "box_office_hide": "0"
-                }
-            },
         };
 
 
@@ -63,14 +51,15 @@ module.exports = function() {
             console.log('------------------******** UPDATE *******--------------------');
 
             delete input.status;
-            delete input.short_name;
-            delete input.sales_open;
+            //delete input.short_name;
+            //delete input.sales_open;
             delete input.date_added;
 
             console.log(input);
 
             var postData = {
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-API-Token': data.showclix_token },
+                method:'PUT',
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
                 url: "http://api.showclix.com/Event/" + data.showclix_package_id,
                 body: input,
                 json: true
@@ -241,106 +230,79 @@ module.exports = function() {
          var fields = ['' , 'print_enable_date' , 'print_disable_date' , '' , '' , '' , '' , 'custom_fee_name' , 'custom_fee_type' , 'custom_fee_amount' , 'custom_when' , 'online_service_fee' , 'box_office_service_fee' , '' , '' , '' , 'collect_name' , '' , '' , '' ]; 
         */
 
-        var donation_live = 'n';
-        var delivery_type_2 = 0;
         var status = 3;
 
-        var checkout_time_limit_in_seconds = data.checkout_time_limit * 60;
-        if (data.donation == 1) { donation_live = 'y'; } else { donation_live = 'n'; }
-
-        if (data.print_home == 1) { delivery_type_2 = 1; }
-        if (data.print_home == 2) { delivery_type_2 = 0; }
-        if (data.print_home == 3) { delivery_type_2 = 2; }
-
+        var donation = 'n';
+        if(data.donation == 1 ) { donation = 'y';}
         var input = {
             "user_id": data.showclix_user,
             "seller_id": data.showclix_seller,
             "event_id": data.showclix_package_id,
-            "will_call_ticketing": null,
-            "delivery_type_2": delivery_type_2,
+            "will_call_ticketing": data.will_call ,
+            "delivery_type_2": data.print_home ,
             "description_2": data.print_description,
-            "donation_live": donation_live,
+            "donation_live": donation ,
             "donation_name": data.donation_name,
             "custom_buyer_fee": data.custom_fee,
             "ticket_note": data.ticket_note,
             "ticket_purchase_limit": data.ticket_transaction_limit,
-            "ticket_purchase_timelimit": checkout_time_limit_in_seconds,
+            "ticket_purchase_timelimit": data.checkout_time_limit,
             "private_event": data.private_event,
-            //"short_name": data.url_short_name,
+            "short_name": data.url_short_name,
             "date_edited": data.modified,
             "status": status,
         };
 
-            console.log('------------------********postThirdStepPackageData  UPDATE *******--------------------');
+        var postData = {
+            method:'PUT',
+            headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
+            url: "http://api.showclix.com/Event/" + data.showclix_package_id,
+            body: input,
+            json: true
+        };
 
-            //delete input.status;
-            //delete input.short_name;
-            //delete input.sales_open;
-            //delete input.date_added;
+        console.log('------------------********postThirdStepPackageData  UPDATE *******--------------------');
+        console.log(postData);
+        console.log(' i m here');
 
-            console.log(input);
+        request.put(postData, function(error, response, body) {
 
-            var postData = {
-                method:'PUT',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-API-Token': data.showclix_token },
-                url: "http://api.showclix.com/Event/" + data.showclix_package_id,
-                body: input,
-                json: true
-            };
+            console.log('---------------------------response comming here--------------');
+            console.log(response);
 
-            console.log(postData);
+            var str = "There is some problem on server. Please try after some time.";
 
-console.log(' i m here');
+            function isJson(item) {
+                item = typeof item !== "string" ?
+                    JSON.stringify(item) :
+                    item;
 
-
-            request({
-                method:'PUT',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-API-Token': data.showclix_token },
-                url: "http://api.showclix.com/Event/" + data.showclix_package_id,
-                body: input,
-                json: true
-            }, function(error, response, body) {
-
-          
-
-
-
-                console.log('---------------------------response comming here--------------');
-                console.log(response);
-
-                var str = "There is some problem on server. Please try after some time.";
-
-                function isJson(item) {
-                    item = typeof item !== "string" ?
-                        JSON.stringify(item) :
-                        item;
-
-                    try {
-                        item = JSON.parse(item);
-                    } catch (e) {
-                        return false;
-                    }
-
-                    if (typeof item === "object" && item !== null) {
-                        return true;
-                    }
-
+                try {
+                    item = JSON.parse(item);
+                } catch (e) {
                     return false;
                 }
-                var dataw = response.body;
 
-                if (isJson(response.body)) {
-                    str = response.body;
+                if (typeof item === "object" && item !== null) {
+                    return true;
                 }
 
-                if (str.event_id && str.event_id !== undefined) {
-                    console.log(" PACKAGE UPDATED AND PACKAGE ID SENT");
-                    return next({ status: 1, operation: 'edit_package', location: str.event_id });
-                } else {
-                    console.log(" SERVER ERROR  ");
-                    return next({ status: 0, operation: 'error_in_edit_package', location: "", "error": str });
-                }
-            });
+                return false;
+            }
+            var dataw = response.body;
+
+            if (isJson(response.body)) {
+                str = response.body;
+            }
+
+            if (str.event_id && str.event_id !== undefined) {
+                console.log(" PACKAGE UPDATED AND PACKAGE ID SENT");
+                return next({ status: 1, operation: 'edit_package', location: str.event_id });
+            } else {
+                console.log(" SERVER ERROR  ");
+                return next({ status: 0, operation: 'error_in_edit_package', location: "", "error": str });
+            }
+        });
 
     }
 

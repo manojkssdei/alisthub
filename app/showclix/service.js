@@ -302,7 +302,7 @@ module.exports = function()
                  "level":data.price_level,
                  "active":1
                   };
-      //{"event_id":"4194781","min_price":"2","bos_price":"8","price":"10","level":"Term","limit":70,"active":"1","description":"This is test description"}
+      
       if(data.showclix_price_id) {  input.level_id = data.showclix_price_id;  }
       if(data.online_price)    {    input.price = data.online_price; }
       if(data.minimum_price)   {    input.min_price = data.minimum_price; }
@@ -314,10 +314,40 @@ module.exports = function()
       if(data.suggested_price){     input.upsell_price = data.suggested_price; }
       if(data.hide_in_box_office){  input.box_office_hide = data.hide_in_box_office; }
       
+      if(data.showclix_price_id != "" && data.showclix_price_id !== undefined){
+          input.level_id = data.showclix_price_id;     
+        //////////////////////////////////////////////////////////////////////////////////////
+        request({
+                method:'PUT',
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
+                url:     "http://api.showclix.com/PriceLevel/"+data.showclix_price_id,
+                body:    input,
+                json: true}, function(error, response, body){
+                  //console.log(response.body);
+                  console.log(response.statusCode);
+                   
+                  var str='';                 
+                  if (response.statusCode == 200) {
+                    console.log("---------6-------");
+                    return next({status:2,location:data.showclix_price_id});
+                  }
+                  else
+                  {
+                    console.log("---------5-------");
+                    return next({status:0,location:"","error":str});
+                  }
+                   
+          });
+          //////////////////////////////////////////////////////////////////////////////// 
+        
+        
+      }
+      else{
       request.post({
                 headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
                 url:     "http://api.showclix.com/PriceLevel",
                 form:    input }, function(error, response, body){
+                   console.log(response.code);
                   var str = response.body;
                   console.log(response.body);
                                   
@@ -336,6 +366,7 @@ module.exports = function()
                   }
                    
                });
+    }
   }
   
   this.add_series_event = function(req,res,next)
@@ -380,12 +411,7 @@ module.exports = function()
                 headers: {'X-API-Token':req.showclix_token},
                 url:     "https://api.showclix.com/Event/"+req.showclix_id,
                 form:    {} }, function(error, response, body){
-                  console.log("====================");
-                  console.log(response.headers);
-                  console.log("====================");
-                  console.log(response.body);
-                  console.log("====================");
-                  return next({status:1,location:""});
+                    return next({status:1,location:""});
                 });
     
   }
@@ -397,185 +423,37 @@ module.exports = function()
                 headers: {"content-type": "application/json"}, //{'X-API-Token':req.showclix_token},
                 url:     "https://api.showclix.com/Event/"+req+"/price_levels",
                 form:    {} }, function(error, response, body){
-                  console.log("====================");
-                  console.log(response.headers);
-                  console.log("====================");
-                  console.log(response.body);
-                  console.log("====================");
-                  return next({status:1,data:response.body});
+                    return next({status:1,data:response.body});
     });
   }
 
-
-  
-  this.add_package_old = function(data,res,next)
+     
+  this.change_price_level = function(data,res,next)
   {
-
-// var fields = ['package_name', '', 'online_sales_open_time','online_sales_open_date_time', 'immidiately', 'online_sales_close_time', 'online_sales_close_date_time', 'event_type', '', 'ages', 'custom_age', 'website', 'image', 'display_image_in_listing' ];
-
-/*
-data.user_id - (int) 
-data.seller_id - (int) 
-data.event - (string) 
-data.behavior_set - (int) 
-data.description - (string) 
-data.private_event - (int) 1- don't show up in searches and public listings
-                           0- show up in searches and public listings
-data.ages - (int) 0,18,19,21
-data.genre -  (string) Genre of the event. Open Field. e.g. Pop, Classical, Rock, Raffle, etc.
-data.event_type - (int) 3 for General Admission Event, 2 for an Assigned Seating Event
-
-*/
-   var input_1 = {
-  "user_id": data.showclix_user ,
-  "seller_id": data.showclix_seller ,
-  "event": data.package_name ,
-  "behavior_set": "5",
-  "description": data.package_description ,
-  "private_event": "0",
-  "ages": data.ages ,
-  "image": data.image,
-  "event_category_id": data.category,
-  "genre": null,
-  "date_added": data.created ,
-  "date_edited": data.modified ,
-  "event_start": "2016-07-15 03:30:30",
-  "sales_open": "2016-07-10 03:30:30",
-  "event_end": "2016-07-21 21:00:00",
-  "short_name": data.short_name ,
-  "image_url": data.image,
-  "thumbnail_url": data.image,
-  "status":data.status,
-  "event_type":"3",
-  "venue_id":"34657" ,
-  "product_map": {
-            "892707": {
-                "event_product_map_id": "892707",
-                "event_id": "4206298",
-                "product_id": "1878",
-                "price": "22.00",
-                "upsell_price": null,
-                "position": "3",
-                "sort_position": null,
-                "box_office_hide": "0"
-            }
-        },
-};
-
-
-console.log('--------------------input_1---------------------');
-console.log(input_1 );
-
-    var input = {
-  "user_id": "28676",
-  "seller_id": "22876",
-  "event": "Technical Challenge",
-  "behavior_set": "5",
-  "description": "This is Technical Challenge package",
-  "private_event": "0",
-  "ages": "0",
-  "image": null,
-  "event_category_id": "20",
-  "genre": null,
-  "date_added": "2016-06-21 05:18:02",
-  "date_edited": null,
-  "event_start": "2016-07-15 03:30:30",
-  "sales_open": "2016-07-10 03:30:30",
-  "event_end": "2016-07-21 21:00:00",
-  "short_name": "technical_challege",
-  "image_url": null,
-  "thumbnail_url": null,
-  "status":"1",
-  "event_type":"3",
-  "venue_id":"34657" ,
-  "product_map": {
-            "892707": {
-                "event_product_map_id": "892707",
-                "event_id": "4206298",
-                "product_id": "1878",
-                "price": "22.00",
-                "upsell_price": null,
-                "position": "3",
-                "sort_position": null,
-                "box_office_hide": "0"
-            }
-        },
-}
-
-/*
-if(event_id) {
- input.event_id = "4206298";
-} */
-
-console.log('data : ' , data );
-console.log('data.showclix_token : ' , data.showclix_token );
-console.log('input : ' ,  input );
-
-var postData = {
-                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
-                url:     "http://api.showclix.com/Event",
-                form:    input };
-
-    request.post( postData, function(error, response, body){
-                  var str = response.body;
-                  //console.log(response.body);
-                  if (response.headers.location) {
-                    return next({status:1,location:response.headers.location});
-                  }
-                  else
-                  {
-                    var percent  = str.split("<p>");
-                    var percent2 = percent[1].split("</p>");
-                    var percent3 = percent2[0].replace("<h2>", "");
-                    var percent3 = percent3.replace("<h3>", "");
-                    var percent3 = percent3.replace("</h2>", "");
-                    var percent3 =percent3.replace("</h3>", "");
-                    return next({status:0,location:"","error":percent3});
-                  }                   
-               });
-    
+    var input = {};
+        
+    request.post({
+                headers: {"content-type": "application/json", 'X-API-Token':req.showclix_token},
+                url: "https://admin.alistixs.com/event/4214812/level/11787337/schedule.json",
+                form:   input }, function(error, response, body){
+                  return next({status:1,data:response.body});
+    });  
   }
-   
-
- 
-   this.add_events_of_package = function(data,res,next)
+  
+  this.delete_price_level = function(req,res,next)
   {
-     var input = {
-                    "package_id": "4206298",
-                    "event_id": "4203183"
-                  };
-
-console.log('data : ' , data );
-console.log('data.showclix_token : ' , data.showclix_token );
-console.log('input : ' ,  input );
-
-var postData = {
-                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-API-Token':data.showclix_token},
-                url:     "http://api.showclix.com/Event",
-                form:    input };
-
-    request.post( postData, function(error, response, body){
-                  var str = response.body;
-                  console.log(response.body);
-                                  
-                 /* if (response.headers.location) {
-                    return next({status:1,location:response.headers.location});
+    request.delete({
+                headers: {"content-type": "application/json",'X-API-Token':req.showclix_token}, 
+                url:     "http://api.showclix.com/PriceLevel/"+req.showclix_price_id,
+                form:    {} }, function(error, response, body){
+                  if (response.statusCode == 200) {
+                    return next({status:1,data:response.body});
                   }
-                  else
-                  {
-                    var percent  = str.split("<p>");
-                    var percent2 = percent[1].split("</p>");
-                    var percent3 = percent2[0].replace("<h2>", "");
-                    var percent3 = percent3.replace("<h3>", "");
-                    var percent3 = percent3.replace("</h2>", "");
-                    var percent3 =percent3.replace("</h3>", "");
-                    return next({status:0,location:"","error":percent3});
+                  else{
+                    return next({status:0,data:response.body});
                   }
-
-                  */
-                   
-               });
-    
-  } 
+                  
+    });  
+  }
 
 }

@@ -1,22 +1,23 @@
 <div class="container">
     <h1>view event</h1>
     <!-- Form COntainer -->
-          <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-    fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
+    <script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
     <div class="wt-frame form-section">
         <form class="event-form">
             <section class="top-buttons bb-1 text-right">
-                <button type="button" class="btn pink-btn btn-small"><i class="fa fa-twitter"></i> Tweet </button>
-           <!--      <button type="button" class="btn pink-btn btn-small"><i class="fa fa-facebook"></i> Facebook </button> -->
-                 <div class="fb-like"
-      data-href="https://developers.facebook.com/docs/plugins/"
-      data-layout="standard" data-action="like">
-    </div>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-show-count="false">Tweet</a>
+                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-action="like">
+                </div>
             </section>
             <section class="form-group field-group row">
                 <section class="col-sm-8">
@@ -25,12 +26,13 @@
                             <section class="media-left">
                                 <section class="date-media">
                                     <div class="date-view"><span class="date-m">{{start_date| date:'MMMM'}} </span> <span class="date-d">{{start_date| date:'dd'}} </span></div>
-                                    <div class="date-view"><span class="date-m">{{start_date| date:'MMMM'}}</span> <span class="date-d">{{start_date| date:'dd'}}</span></div>
+                                    <!-- <div class="date-view"><span class="date-m">{{start_date| date:'MMMM'}}</span> <span class="date-d">{{start_date| date:'dd'}}</span></div> -->
                                 </section>
                             </section>
                             <div class="media-body content">
                                 <h4>{{title}}</h4>
-                                <p>{{start_date | date:"dd MMMM yyyy"}} {{start_time}} - {{start_date| date:"dd MMMM yyyy"}} {{end_time}}</p>
+                                <p>{{start_date | date:"dd MMMM yyyy"}} at {{start_time}}</p>
+                                <!-- <p>{{start_date | date:"dd MMMM yyyy"}}  at {{start_time}} - {{start_date| date:"dd MMMM yyyy"}} {{end_time}}</p> -->
                                 <br>
                                 <p>
                                     <button class="btn pink-btn btn-small" type="button">{{ages}}</button>
@@ -48,7 +50,7 @@
                         </section>
                     </section>
                     <!--/Package Details-->
-                    <section class="form-group field-group">
+                    <!--   <section class="form-group field-group">
                         <section class="row form-group">
                             <h4 class="col-sm-8"><span></span> Comments</h4>
                             <section class="col-sm-4 right-btns text-right">
@@ -85,7 +87,20 @@
                             </div>
                         </section>
                     </section>
+ -->
                     <section class="form-group field-group">
+                        <section class="sub-fields">
+                            <div class="media">
+                                <div class="media-body">
+                                    <section class="form-group">
+                                        <div class="fb-comments" data-href="https://www.facebook.com/plugins/comments#configur" data-numposts="1">
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                    <!-- <section class="form-group field-group">
                         <section class="row form-group">
                         <div class="col-sm-12 loc-list ScrollVenueList">
                             <ul id="myList">
@@ -97,17 +112,15 @@
                                     </p>
 
                                     </section>
-                                   <!--  <div>
-                                        <p style="font-weight:bold; font-size:12px;">{{comment[2]}} {{comment[3]}}</p> 
-                                        <p>{{comment[1] | date:"dd MMMM yyyy"}}</p>
-                                    </div> -->
+                                   
+
                                     <br>
                                    
                                 </li>
                             </ul>
                             </div>
                         </section>
-                    </section>
+                    </section> -->
                     <!--/Comments-->
                 </section>
                 <!--/Left-->

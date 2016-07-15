@@ -51,24 +51,35 @@ function setColor(els, $scope){
         col = col.replace(')','');
         var re = col.split(',');
         document.querySelector("#d_"+els).style.backgroundColor = ele1[0].style.backgroundColor;
+
         if(els == 1){
             $scope.data.background_color = rgbToHex(parseInt(re[0]), parseInt(re[1]), parseInt(re[2]));
-
+            console.log(EventsWidgetDisplayPreferences);
+            EventsWidgetDisplayPreferences.background_color = $scope.data.background_color;
         }
         else if(els == 2){
             $scope.data.header_color = rgbToHex(parseInt(re[0]), parseInt(re[1]), parseInt(re[2]));
+            EventsWidgetDisplayPreferences.header_color = $scope.data.header_color;
         }
         else if(els == 3)
         {
           $scope.data.row_background_color = rgbToHex(parseInt(re[0]), parseInt(re[1]), parseInt(re[2]));
+          EventsWidgetDisplayPreferences.row_background_color = $scope.data.row_background_color;
         }
          else if(els == 4)
         {
           $scope.data.text_color = rgbToHex(parseInt(re[0]), parseInt(re[1]), parseInt(re[2]));
+          EventsWidgetDisplayPreferences.text_color = $scope.data.text_color;
         }
          else if(els == 5)
         {
           $scope.data.link_color = rgbToHex(parseInt(re[0]), parseInt(re[1]), parseInt(re[2]));
-        }    
-    },10);
+          EventsWidgetDisplayPreferences.link_color = $scope.data.link_color;
+        } 
+        EventsWidgetAPI.event_panel_elems.set_options(EventsWidgetDisplayPreferences);
+        EventsWidgetAPI.build_event_panel(); 
+
+        $scope.embed_code = '<script id="EventsWidgetScript" type="text/javascript" src="https://tickets.alistixs.com/js/events_widget.js"></script><script type="text/javascript">var EventsWidgetDisplayPreferences ='+JSON.stringify(EventsWidgetDisplayPreferences)+';</script>';
+
+    },2);
 }
