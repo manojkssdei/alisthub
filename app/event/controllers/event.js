@@ -652,12 +652,25 @@ Created : 2016-05-18
 Created By: Deepak khokhar  
 */
 exports.changePricelevelStatus = function(req,res) { 
-  connection.query("UPDATE price_levels SET is_active='"+req.body.status+"' where id="+req.body.id, function(err, results) {
-     if (err) {
-      res.json({error:err,code:101});
-     }
-     res.json({result:results,code:200});
-  });
+   // showclix start 
+    var showClix2 = new showClix();
+        showClix2.change_price_level_status(req.body,res,function(sdata){
+            if (sdata.status == 1) {
+                connection.query("UPDATE price_levels SET is_active='"+req.body.status+"' where id="+req.body.id, function(err, results) {
+                    
+                    if (err) {
+                        res.json({error:err,code:101});
+                    }
+                    else {
+                       res.json({result:results,code:200});
+                    }
+                    
+                    });
+                } else {
+                            res.json({result:"",error:"Server down",code:101});  
+                        }
+        });
+    //showclix end
 }
 
 

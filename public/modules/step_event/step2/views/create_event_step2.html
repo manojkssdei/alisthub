@@ -584,22 +584,22 @@ ng-disabled="pricelevelForm.$invalid"  type="submit">Submit</button>
                <div class="col-sm-3">New Price (USD $)</div>
                <div class="col-sm-9">
                     <input  type="number" min="0" name="new_price" ng-model="data2.new_price" class="form-control" value="" required>
-                    <p class="help-inline error-fld ng-binding"  ng-show="pricelevelForm.new_price.$invalid && !pricelevelForm.new_price.$pristine">Please enter valid price</p>
+                    <p class="help-inline error-fld ng-binding"  ng-show="pricechangeform.new_price.$invalid && !pricechangeform.new_price.$pristine">Please enter valid price</p>
                     
-                    <span style="color:red" ng-show="pricechangeform.new_price.$dirty && pricechangeform.new_price.$invalid">
+                    <!--<span style="color:red" ng-show="pricechangeform.new_price.$dirty && pricechangeform.new_price.$invalid">
                 <span ng-show="pricechangeform.new_price.$error.required">New Price is required</span>
-               </span>
+               </span>-->
                </div>
               
             </fieldset>
             <fieldset class="form-group">
                <div class="col-sm-3">Apply to</div>
-               <div class="col-sm-9">
+               <div class="col-sm-3">
                     <select name="price" ng-model="data2.apply"  class="form-control" >
                          <option ng-repeat="applied in apply" value="{{applied.id}}">{{applied.name}}</option>
                     </select>
                </div>
-              
+               <div class="col-sm-6">&nbsp;</div>
             </fieldset>
         </div>
         <div class="modal-footer">

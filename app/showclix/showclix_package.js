@@ -248,7 +248,7 @@ module.exports = function() {
             "ticket_purchase_limit": data.ticket_transaction_limit,
             "ticket_purchase_timelimit": data.checkout_time_limit,
             "private_event": data.private_event,
-            "short_name": data.url_short_name,
+           // "short_name": data.url_short_name,
             "date_edited": data.modified,
             "status": status,
         };
@@ -268,7 +268,6 @@ module.exports = function() {
         request.put(postData, function(error, response, body) {
 
             console.log('---------------------------response comming here--------------');
-            console.log(response);
 
             var str = "There is some problem on server. Please try after some time.";
 

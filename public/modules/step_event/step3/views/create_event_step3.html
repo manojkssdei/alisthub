@@ -1,20 +1,31 @@
- 
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="../../../../javascripts/ckeditor.js"></script>
-  
-
-
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="../../../../javascripts/ckeditor.js"></script>
 <style type="text/css">
-.ev-header { background: #0275d0 none repeat scroll 0 0;  width: 100%;}
-.ev-image .social-media{right:17%;}
-
-.ev-container { margin: 0 auto;  max-width: 800px;}
-.gray-frame1 li{ border:solid 1px black;}
-.form-section.wt-frame {   padding: 40px 10px;}
-.col-sm-2.design-left { padding-left: 5px;}
-.modal-dialog{ width:900px;}
+.ev-header {
+	background: #0275d0 none repeat scroll 0 0;
+	width: 100%;
+}
+.ev-image .social-media {
+	right: 17%;
+}
+.ev-container {
+	margin: 0 auto;
+	max-width: 800px;
+}
+.gray-frame1 li {
+	border: solid 1px black;
+}
+.form-section.wt-frame {
+	padding: 40px 10px;
+}
+.col-sm-2.design-left {
+	padding-left: 5px;
+}
+.modal-dialog {
+	width: 900px;
+}
 </style>
- <script>
+<script>
   $("document").ready(function() {
     sort();
     });
@@ -34,322 +45,253 @@
   
   </script>
 <div class="container">
-  <h1>Create an Event</h1>
-  <!-- Step Form -->
-  
-  <div class="stage-container clearfix">
-    <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)">
-      <div class="stage-icon"><i class="{{step.icon}}"></i> </div>
-      <div class="stage-title">{{step.title}}</div>
+<h1>Create an Event</h1>
+<!-- Step Form -->
+
+<div class="stage-container clearfix">
+  <div class="stage" ng-repeat="step in steps" ng-class="{current: isActive2(step)}" ng-click="click_menu(step)">
+    <div class="stage-icon"><i class="{{step.icon}}"></i> </div>
+    <div class="stage-title">{{step.title}}</div>
+  </div>
+</div>
+
+<!-- //Step Form --> 
+
+<!-- Form COntainer --> 
+
+<span ng-hide="error_message">
+<p class="error-fld" >{{error}}</p>
+</span>
+<div class="form-section  wt-frame">
+  <div>
+    <div class="tab-widget">
+      <ul role="tablist" id="event-date" class="nav nav-tabs responsive-tabs">
+        <li ng-repeat="look_and_feel in look_and_feel_step" ng-click="select(look_and_feel)" ng-class="{active: isActive(look_and_feel)}" ><a id="lookstep{{look_and_feel.id}}" class="pointer" href="javascript:void(0)" >{{look_and_feel.name}}</a> </li>
+      </ul>
     </div>
- </div>
- 
-    <!-- //Step Form -->
-    
-    <!-- Form COntainer -->
-    
-    <span ng-hide="error_message"><p class="error-fld" >{{error}}</p></span>
-    
-    <div class="form-section  wt-frame">
-        <div>
-  <div class="tab-widget">
-        <ul role="tablist" id="event-date" class="nav nav-tabs responsive-tabs">
-         
-	  <li ng-repeat="look_and_feel in look_and_feel_step" ng-click="select(look_and_feel)" ng-class="{active: isActive(look_and_feel)}" ><a id="lookstep{{look_and_feel.id}}" class="pointer" href="javascript:void(0)" >{{look_and_feel.name}}</a>
-                  
-               </li>
-        </ul>
-      </div> 	
-      <div ng-hide="campaign_div">
+    <div ng-hide="campaign_div">
       <h2 class="head">Choose campaign template from below</h2>
-       <section class="module row">
-       		<section class="col-sm-3 temp-view" ng-repeat="template in templates track by $index">
-            	<section class="form-group">
-                    <p class="temp-image"><img src="{{template.image}}" alt=""/></p>	
-                    <section class="top-buttons text-center">
-		      <button ng-click="preview_btn(template.id,'')" class="btn pink-btn btn-small mw-100" type="button">Preview</button>
-		      <button ng-click="select_btn(template.id)" class="btn pink-btn btn-small mw-100" type="button">Select</button>
-		    </section>
-                </section>
+      <section class="module row">
+        <section class="col-sm-3 temp-view" ng-repeat="template in templates track by $index">
+          <section class="form-group">
+            <p class="temp-image"><img src="{{template.image}}" alt=""/></p>
+            <section class="top-buttons text-center">
+              <button ng-click="preview_btn(template.id,'')" class="btn pink-btn btn-small mw-100" type="button">Preview</button>
+              <button ng-click="select_btn(template.id)" class="btn pink-btn btn-small mw-100" type="button">Select</button>
             </section>
-            
-       </section>
+          </section>
+        </section>
+      </section>
     </div>
-      <section class="tb-con"  ng-hide="module_div">
-      	  <section class="row">
-          	   <section class="col-sm-2 design-left">
-               		<section class="tabs-widget">
-                        <ul class="tabs">
-                            
-			    <li ng-repeat="choose in look_and_feel_choose_type" ng-click="select1(choose)" ng-class="{active: isActive1(choose)}" ><a class="pointer" href="javascript:void(0)" >{{choose.name}}</a>
-                  
-               </li>
-                        </ul>
-                        
-                        <section class="tbs-container">
-                        	<section class="tab-con" ng-hide="color_div">
-                            	<ul class="choose-color">
-                                	<li>
-                                    	<span class="color-txt">Outer Background</span>
-                                       <color-picker ng-model="backgroundColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
-                                    </li>
-                                    <li>
-                                    	<span class="color-txt">Inner Background</span>
-                                        <color-picker ng-model="InnerbackgroundColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
-                                    </li>
-                                    <li>
-                                    	<span class="color-txt">Text</span>
-                                        <color-picker ng-model="TextColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
-                                    </li>
-                                    <li>
-                                    	<span class="color-txt">Outer Border</span>
-                                       <color-picker ng-model="OuterborderColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
-                                    </li>
-                                    <li>
-                                    	<span class="color-txt">Inner Border</span>
-                                        <color-picker ng-model="InnerborderColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
-                                    </li>
-                                </ul>
-                            </section>
-                            
-                            <section class="tab-con" ng-hide="image_div">
-                            	<!--<span class="file-input btn pink-btn btn-small btn-file">Upload Images<input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg"></span>-->
-                            	<ul class="images-widget" id="imgTest">
-                                	
-                                </ul>
-                            </section>
-			    <section class="tab-con" ng-hide="block_div">
-                            	
-                            	<ul class="blocks-widget clearfix">
-                                	<li><a onClick="add_block()" href="javascript:void(0)"><i aria-hidden="true" class="fa fa-file-video-o"></i></a><span>Add Block</span></li>
-                                    
-                                   
-                                </ul>
-                                 <div id="add_block_div">
-				  
-				 </div>
-                            </section>
-                        </section>
-                    </section>
-               </section><!--Left-->
-               <section class="col-sm-10 design-right">
-		<section id="preview_div_contain_html">
-		<section class="gray-frame1" style="background: rgba(0, 0, 0, 0) url('{{site_url}}/images/bg/bg.png') no-repeat scroll center top  ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">               		
-      <div class="module  gridster">
-
-	<div class="ev-container wtframe m-t35" ng-style="{background: background_inner,border:border_color}"> 
-            <section id="repeatsection1">
-	      <section class="ev-image col2" id="section1"><div class="portlet"  ng-style="{background: background_inner,color:text_color}">
-	      <div class="drag" style="display: none;">
-		<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		<a onclick="remove_widget('section1')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		<a onclick="crop_image('banner_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
-		<a onclick="copy_create('section1')"><i class="fa fa-clone" aria-hidden="true"></i></a>
-		</div>
-		<div class="main-image">
-		  <img src="{{banner_image}}" id="banner_image" alt="banner image" height="200px" width="100%"  onclick="change_image()">
-		    <input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
-		</div>
-	      </div>
-	      </section>
-           </section>
-    <!--Main Pic-->
-    
-    
-    <section class="row">
-    	<section class="col-sm-8">
-	        <section class="scial-medial col2" id="section2">
-		  <div class="portlet"  ng-style="{background: background_inner,color:text_color}">
-		  <div class="drag" style="display: none;">
-		  <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		  <a onclick="remove_widget('section2')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		  </div>
-		  <section>
-		    <section class="social-med" ng-click="socialLink('')">                          	  
-
-		      <a class="facebook-net" href="{{sociallink.facebook_url}}"><span class="network-icon"><i class="fa fa-facebook"></i></span></a>
-		      <a class="google-net" href="#"><span class="network-icon"><i class="fa fa-google"></i></span></a>                      
-		      <a class="twitter-net" href="{{sociallink.twitter_url}}"><span class="network-icon"><i class="fa fa-twitter"></i></span></a>                    
-		      <a class="linkedin-net" href="#"><span class="network-icon"><i class="fa fa-linkedin"></i></span></a>
-		      <a class="instagram-net" href="#"><span class="network-icon"><i class="fa fa-instagram"></i></span></a>
-		      <a class="youtube-net" href="#"><span class="network-icon"><i class="fa fa-youtube-play"></i></span></a>
-                                    
-                    </section>
-		  </section>
-		  </div>
-	      </section><!--Media Icons-->
-        	<section class="ev-details module-div  col2" id="section3">
-                <div class="portlet"  ng-style="{background: background_inner,color:text_color}">
-                
-            	 <div id="ev-details"> <div class="drag" style="display: none;">
-		    
-		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		    <a onclick="remove_widget('section3')" style="display:none;"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		  </div>
-		  
-		  <section class="form-group">
-		    <div class="media">
-			  <section class="media-left m-fw">
-				<section class="date-media">
-				   <div class="date-view"><span class="date-m">{{start_date| date:'MMM'}}</span> <span class="date-d">{{start_date| date:'dd'}}</span></div>
-				   
-			       </section>
-			       
-			       
-			  </section>
-			  <div class="media-body content m-fw">
-			      <h4>{{title}}</h4>                                  
-			      <p>{{start_date| date:'dd MMM yyyy'}}  {{start_time}}-{{end_time}}</p>
-			      <p>{{eventwebsite_url}}</p>
-			      <p class="clearfix event-labels clearfix"   ng-style="{background: background_inner};"><span class="event-price pull-left" ng-style="{color:text_color}">Inventory:{{inventory}}</span><span class="event-label pull-right">{{ages}}</span></p>
-			  </div>
-			</div>
-		  </section></div>
-                </div>
-            </section><!--Event Details-->
-            
-            <section class="ev-details module-div col2" id="section4">
-                <div class="portlet"  ng-style="{background: background_inner,color:text_color}">
-                
-            	<div id="video-widget"><div class="drag" style="display: none;">
-		      <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		      <a onclick="remove_widget('section4')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		      <a onclick="open_popup_editor('content2')"><i class="fa fa-edit" aria-hidden="true"></i></a>
-		     
-		    </div>
-		  <section class="form-group field-group">
-          	
-              <section class="event-details"   ng-style="{background: background_inner,color:text_color}">
-                    <section class="content">
-		    	<div id="content2" ng-bind-html="content2"></div>
-		    </section>        
+    <section class="tb-con"  ng-hide="module_div">
+      <section class="row">
+        <section class="col-sm-2 design-left">
+          <section class="tabs-widget">
+            <ul class="tabs">
+              <li ng-repeat="choose in look_and_feel_choose_type" ng-click="select1(choose)" ng-class="{active: isActive1(choose)}" ><a class="pointer" href="javascript:void(0)" >{{choose.name}}</a> </li>
+            </ul>
+            <section class="tbs-container">
+              <section class="tab-con" ng-hide="color_div">
+                <ul class="choose-color">
+                  <li> <span class="color-txt">Outer Background</span>
+                    <color-picker ng-model="backgroundColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                  </li>
+                  <li> <span class="color-txt">Inner Background</span>
+                    <color-picker ng-model="InnerbackgroundColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                  </li>
+                  <li> <span class="color-txt">Text</span>
+                    <color-picker ng-model="TextColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                  </li>
+                  <li> <span class="color-txt">Outer Border</span>
+                    <color-picker ng-model="OuterborderColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                  </li>
+                  <li> <span class="color-txt">Inner Border</span>
+                    <color-picker ng-model="InnerborderColor"  color-picker-format="'hex'"   color-picker-swatch-only="true"></color-picker>
+                  </li>
+                </ul>
               </section>
-          </section></div>
-                </div>
-            </section><!--Video Block-->
-	   <section class="ev-details module-div col2" id="section5">
-                <div class="portlet" ng-style="{background: background_inner,color:text_color}">
-                 
-		 <div class="drag" style="display: none;">
-			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-			<a onclick="remove_widget('section5')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		      
-		      </div>
-		     <div><iframe  width="100%" height=200" src="https://www.youtube.com/embed/ODaWO5eYQgI" frameborder="1" allowfullscreen></iframe></div> 
-		</div>
-	   </section>
-        </section><!--Left Panel-->
-        <section class="col-sm-4">
-        	<section class="venue-panel module-div col2" id="section6">
-		  <div class="portlet" ng-style="{background: background_inner,color:text_color}">
-                 
-                 <div class="drag" style="display: none;">
-			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-			<a onclick="remove_widget('section6')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		        <a onclick="crop_image('section3_image')"><i class="fa fa-crop" aria-hidden="true"></i></a>
-		      </div>
-		      <div> <img src="{{section3_image}}" id="section3_image" alt="banner imageee"  height="auto" width="100%" onclick="change_image3()">
-		    <input type="file" id="my_file3"  onchange="angular.element(this).scope().encodeImageFileAsURL3(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
-		    </div>
-		  </div>
-            </section><!--Venue Block-->
-            <section class="venue-panel module-div col2" id="section7">
-		  <div class="portlet" ng-style="{background: background_inner,color:text_color}">
-                
-                  <div class="drag" style="display: none;">
-			<span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		       <a onclick="remove_widget('section7')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		      
-		      </div>
-		      <section class="panel panel-primary"   ng-style="{background: background_inner,color:text_color}">
-		     <section class="panel-heading"><h5 class="m-b0">Venue</h5></section>                     
-		     <section class="panel-body">
-			  
-			  <div class="address-list">
-			      <p><strong>{{venue_name}}</strong></p>
-			      <p>{{city}}</p>
-			      <p>({{state}}) </p>
-			      <p>{{zipcode}}</p>
-			      <p>{{country}}</p>
-			      
-			  </div>
-			  
-			</section>
-		   </section>
-		  </div>
-            </section><!--Venue Block-->
-            <section class="ticket-panel module-div col2" id="section8">
-                <div class="portlet" ng-style="{background: background_inner,color:text_color}">
-               
-            	<div id="ticket-panel"><div class="drag" style="display: none;">
-		    
-		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		    <a onclick="remove_widget('section8')" style="display:none;"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		  </div>
-	     <img width="100%;" height="auto" src="{{ticket_image}}" alt="your image"/></div>
-                </div>
-            </section><!--Venue Block-->
-            
-            <section class="fb-block module-div col2" id="section9">
-                <div class="portlet" ng-style="{background: background_inner,color:text_color}">
-                
-            	<div id="fb-block"><div class="drag" style="display: none;">
-		    
-		    <span><i class="header fa fa-arrows" aria-hidden="true"></i></span>
-		    <a onclick="remove_widget('section9')"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		  </div>
-		 <div id="fb-root"></div>
-	      <script>(function(d, s, id) {
+              <section class="tab-con" ng-hide="image_div"> 
+                <!--<span class="file-input btn pink-btn btn-small btn-file">Upload Images<input  id="inputFileToLoad" type="file" onchange="angular.element(this).scope().encodeImageFileAsURL(this)" file-model="file.myFiles" accept="image/jpeg"></span>-->
+                <ul class="images-widget" id="imgTest">
+                </ul>
+              </section>
+              <section class="tab-con" ng-hide="block_div">
+                <ul class="blocks-widget clearfix">
+                  <li><a onClick="add_block()" href="javascript:void(0)"><i aria-hidden="true" class="fa fa-file-video-o"></i></a><span>Add Block</span></li>
+                </ul>
+                <div id="add_block_div"> </div>
+              </section>
+            </section>
+          </section>
+        </section>
+        <!--Left-->
+        <section class="col-sm-10 design-right">
+          <section id="preview_div_contain_html">
+            <section class="gray-frame1 templateWrap" style="background: rgba(0, 0, 0, 0) url('{{site_url}}/images/bg/bg.png') no-repeat scroll center top  ;background-color:{{background_outer}};border:solid 1px {{border_outer}};color:{{text_color}}">
+              <div class="module  gridster">
+                <div class="ev-container wtframe m-t35 templateContainer" ng-style="{background: background_inner,border:border_color}">
+                  <section id="repeatsection1">
+                    <section class="ev-image col2" id="section1">
+                      <div class="portlet"  ng-style="{background: background_inner,color:text_color}">
+                        <div class="drag" style="display: none;"> <span><i class="header fa fa-arrows" aria-hidden="true"></i></span> <a onclick="remove_widget('section1')"><i class="fa fa-trash" aria-hidden="true"></i></a> <a onclick="crop_image('banner_image')"><i class="fa fa-crop" aria-hidden="true"></i></a> <a onclick="copy_create('section1')"><i class="fa fa-clone" aria-hidden="true"></i></a> </div>
+                        <div class="main-image"> <img src="{{banner_image}}" id="banner_image" alt="banner image" height="200px" width="100%"  onclick="change_image()">
+                          <input type="file" id="my_file"  onchange="angular.element(this).scope().encodeImageFileAsURL1(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
+                        </div>
+                      </div>
+                    </section>
+                  </section>
+                  <!--Main Pic-->
+                  
+                  <section class="row">
+                    <section class="col-sm-8 template_left">
+                      <section class="scial-medial col2" id="section2">
+                        <div class="portlet"  ng-style="{background: background_inner,color:text_color}">
+                          <div class="drag" style="display: none;"> <span><i class="header fa fa-arrows" aria-hidden="true"></i></span> <a onclick="remove_widget('section2')"><i class="fa fa-trash" aria-hidden="true"></i></a> </div>
+                          <section>
+                            <section class="social-med" ng-click="socialLink('')"> <a class="facebook-net" href="{{sociallink.facebook_url}}"><span class="network-icon"><i class="fa fa-facebook"></i></span></a> <a class="google-net" href="#"><span class="network-icon"><i class="fa fa-google"></i></span></a> <a class="twitter-net" href="{{sociallink.twitter_url}}"><span class="network-icon"><i class="fa fa-twitter"></i></span></a> <a class="linkedin-net" href="#"><span class="network-icon"><i class="fa fa-linkedin"></i></span></a> <a class="instagram-net" href="#"><span class="network-icon"><i class="fa fa-instagram"></i></span></a> <a class="youtube-net" href="#"><span class="network-icon"><i class="fa fa-youtube-play"></i></span></a> </section>
+                          </section>
+                        </div>
+                      </section>
+                      <!--Media Icons-->
+                      <section class="ev-details module-div  col2" id="section3">
+                        <div class="portlet"  ng-style="{background: background_inner,color:text_color}">
+                          <div id="ev-details">
+                            <div class="drag" style="display: none;"> <span><i class="header fa fa-arrows" aria-hidden="true"></i></span> <a onclick="remove_widget('section3')" style="display:none;"><i class="fa fa-trash" aria-hidden="true"></i></a> </div>
+                            <section class="form-group">
+                              <div class="media">
+                                <section class="media-left m-fw">
+                                  <section class="date-media">
+                                    <div class="date-view"><span class="date-m">{{start_date| date:'MMM'}}</span> <span class="date-d">{{start_date| date:'dd'}}</span></div>
+                                  </section>
+                                </section>
+                                <div class="media-body content m-fw">
+                                  <h4>{{title}}</h4>
+                                  <p>{{start_date| date:'dd MMM yyyy'}}  {{start_time}}-{{end_time}}</p>
+                                  <p>{{eventwebsite_url}}</p>
+                                  <p class="clearfix event-labels clearfix"   ng-style="{background: background_inner};"><span class="event-price pull-left" ng-style="{color:text_color}">Inventory:{{inventory}}</span><span class="event-label pull-right">{{ages}}</span></p>
+                                </div>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </section>
+                      <!--Event Details-->
+                      
+                      <section class="ev-details module-div col2" id="section4">
+                        <div class="portlet"  ng-style="{background: background_inner,color:text_color}">
+                          <div id="video-widget">
+                            <div class="drag" style="display: none;"> <span><i class="header fa fa-arrows" aria-hidden="true"></i></span> <a onclick="remove_widget('section4')"><i class="fa fa-trash" aria-hidden="true"></i></a> <a onclick="open_popup_editor('content2')"><i class="fa fa-edit" aria-hidden="true"></i></a> </div>
+                            <section class="form-group field-group">
+                              <section class="event-details"   ng-style="{background: background_inner,color:text_color}">
+                                <section class="content">
+                                  <div id="content2" ng-bind-html="content2"></div>
+                                </section>
+                              </section>
+                            </section>
+                          </div>
+                        </div>
+                      </section>
+                      <!--Video Block-->
+                      <section class="ev-details module-div col2" id="section5">
+                        <div class="portlet" ng-style="{background: background_inner,color:text_color}">
+                          <div class="drag" style="display: none;"> <span><i class="header fa fa-arrows" aria-hidden="true"></i></span> <a onclick="remove_widget('section5')"><i class="fa fa-trash" aria-hidden="true"></i></a> </div>
+                          <div>
+                            <iframe  width="100%" height=200" src="https://www.youtube.com/embed/ODaWO5eYQgI" frameborder="1" allowfullscreen></iframe>
+                          </div>
+                        </div>
+                      </section>
+                    </section>
+                    <!--Left Panel-->
+                    <section class="col-sm-4 template_right">
+                      <section class="venue-panel module-div col2 sideImg_first" id="section6">
+                        <div class="portlet" ng-style="{background: background_inner,color:text_color}">
+                          <div class="drag" style="display: none;"> <span><i class="header fa fa-arrows" aria-hidden="true"></i></span> <a onclick="remove_widget('section6')"><i class="fa fa-trash" aria-hidden="true"></i></a> <a onclick="crop_image('section3_image')"><i class="fa fa-crop" aria-hidden="true"></i></a> </div>
+                          <div> <img src="{{section3_image}}" id="section3_image" alt="banner imageee"  height="auto" width="100%" onclick="change_image3()">
+                            <input type="file" id="my_file3"  onchange="angular.element(this).scope().encodeImageFileAsURL3(this)" file-model="file.myFiles" accept="image/jpeg" style="display: none;" />
+                          </div>
+                        </div>
+                      </section>
+                      <!--Venue Block-->
+                      <section class="venue-panel module-div col2" id="section7">
+                        <div class="portlet" ng-style="{background: background_inner,color:text_color}">
+                          <div class="drag" style="display: none;"> <span><i class="header fa fa-arrows" aria-hidden="true"></i></span> <a onclick="remove_widget('section7')"><i class="fa fa-trash" aria-hidden="true"></i></a> </div>
+                          <section class="panel panel-primary"   ng-style="{background: background_inner,color:text_color}">
+                            <section class="panel-heading">
+                              <h5 class="m-b0">Venue</h5>
+                            </section>
+                            <section class="panel-body">
+                              <div class="address-list">
+                                <p><strong>{{venue_name}}</strong></p>
+                                <p>{{city}}</p>
+                                <p>({{state}}) </p>
+                                <p>{{zipcode}}</p>
+                                <p>{{country}}</p>
+                              </div>
+                            </section>
+                          </section>
+                        </div>
+                      </section>
+                      <!--Venue Block-->
+                      <section class="ticket-panel module-div col2" id="section8">
+                        <div class="portlet" ng-style="{background: background_inner,color:text_color}">
+                          <div id="ticket-panel">
+                            <div class="drag" style="display: none;"> <span><i class="header fa fa-arrows" aria-hidden="true"></i></span> <a onclick="remove_widget('section8')" style="display:none;"><i class="fa fa-trash" aria-hidden="true"></i></a> </div>
+                            <img width="100%;" height="auto" src="{{ticket_image}}" alt="your image"/></div>
+                        </div>
+                      </section>
+                      <!--Venue Block-->
+                      
+                      <section class="fb-block module-div col2" id="section9">
+                        <div class="portlet" ng-style="{background: background_inner,color:text_color}">
+                          <div id="fb-block">
+                            <div class="drag" style="display: none;"> <span><i class="header fa fa-arrows" aria-hidden="true"></i></span> <a onclick="remove_widget('section9')"><i class="fa fa-trash" aria-hidden="true"></i></a> </div>
+                            <div id="fb-root"></div>
+                            <script>(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
 		if (d.getElementById(id)) return;
 		js = d.createElement(s); js.id = id;
 		js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
 		fjs.parentNode.insertBefore(js, fjs);
-	      }(document, 'script', 'facebook-jssdk'));</script>
-
-		<!-- Your like button code -->
-		<div class="fb-like" 
+	      }(document, 'script', 'facebook-jssdk'));</script> 
+                            
+                            <!-- Your like button code -->
+                            <div class="fb-like" 
 			data-href="https://developers.facebook.com/docs/plugins/" 
 			data-layout="standard" 
 			data-action="like" 
-			data-show-faces="true">
-
-		</div></div>
+			data-show-faces="true"> </div>
+                          </div>
+                        </div>
+                      </section>
+                      <!--Facebook Block--> 
+                      
+                    </section>
+                    <!--Right Panel--> 
+                  </section>
                 </div>
-            </section><!--Facebook Block-->
-            
-        </section><!--Right Panel-->
-    </section>
-
-  
-</div>
-
-		  <input type="hidden" id="outer_background" value="{{background_outer}}">
-		  <input type="hidden" id="inner_background" value="{{background_inner}}">
-		  <input type="hidden" id="text_color" value="{{text_color}}">
-		  <input type="hidden" id="outer_border" value="{{border_outer}}">
-		  <input type="hidden" id="inner_border" value="{{border_color}}">
-		  <input type="hidden" id="currentSection" value="11">
-      
-                      </div>
-		<span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/> <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
-		<input type="text" id="select_image" value="{{select_image_val}}">
-                 </span>
-		
-		    </section>
-		</section>
-		<button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
-               </section><!--Left-->
-	       
+                <input type="hidden" id="outer_background" value="{{background_outer}}">
+                <input type="hidden" id="inner_background" value="{{background_inner}}">
+                <input type="hidden" id="text_color" value="{{text_color}}">
+                <input type="hidden" id="outer_border" value="{{border_outer}}">
+                <input type="hidden" id="inner_border" value="{{border_color}}">
+                <input type="hidden" id="currentSection" value="11">
+              </div>
+              <span style="display:none;"><img width="300px;" id="ImagePreview" src="{{banner_image1}}" alt="your image"/>
+              <button  type="button" class="black-add-button" id="editImagePreview"> Edit!</button>
+              <input type="text" id="select_image" value="{{select_image_val}}">
+              </span> </section>
           </section>
+          <button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
+        </section>
+        <!--Left--> 
+        
       </section>
-
-      <section ng-hide="preview_div" >
-       <section id="preview_div"></section>
-       <a class="btn pink-btn" style="margin-top:4%" href="/#/create_event_step4/{{eventId}}">Continue</a>
-      </section>
-</div>
-<script type="text/javascript">
+    </section>
+    <section ng-hide="preview_div" >
+      <section id="preview_div"></section>
+      <a class="btn pink-btn" style="margin-top:4%" href="/#/create_event_step4/{{eventId}}">Continue</a> </section>
+  </div>
+  <script type="text/javascript">
 
 function change_image()
 {
@@ -596,8 +538,8 @@ function remove_widget_dynamic(widgetId)
      $("#"+section_block).html(block);
      $('.close').click();
     }
-    </script>
-<script type="text/ng-template" id="previewtemplate.html">
+    </script> 
+  <script type="text/ng-template" id="previewtemplate.html">
      <div class="modal-header">
             <h3 class="modal-title">Preview Template</h3>
         </div>
@@ -608,8 +550,8 @@ function remove_widget_dynamic(widgetId)
             
             <button class="btn btn-warning" type="button" ng-click="cancel()">close</button>
         </div>
-  </script>
-<script type="text/ng-template" id="editfooter.html">
+  </script> 
+  <script type="text/ng-template" id="editfooter.html">
      <div class="modal-header">
             <h3 class="modal-title">Edit Section</h3>
         </div>
@@ -621,11 +563,9 @@ function remove_widget_dynamic(widgetId)
             
             <button class="btn btn-warning" type="button" ng-click="cancel()">close</button>
         </div>
-  </script>
-    </div>
-
-
-    <script type="text/ng-template" id="socialLinktemplate.html">
+  </script> 
+</div>
+<script type="text/ng-template" id="socialLinktemplate.html">
      <div class="modal-header">
             <h3 class="modal-title">Social link</h3>
         </div>
@@ -649,9 +589,8 @@ function remove_widget_dynamic(widgetId)
             <button class="btn btn-warning" type="button" ng-click="cancel()">cancel</button>
         </div>
 	</form> 
-  </script>
-    
-  <script type="text/ng-template" id="ckedit.html">
+  </script> 
+<script type="text/ng-template" id="ckedit.html">
      <div class="modal-header">
                <a style="float:right;cursor: pointer;" ng-click="Cancel()">X</a>
 
@@ -674,10 +613,8 @@ function remove_widget_dynamic(widgetId)
            
         </div>
 	
-  </script>
-
-
- <script type="text/ng-template" id="imageEdit.html">
+  </script> 
+<script type="text/ng-template" id="imageEdit.html">
     <div class="modal-header">
         <a style="float:right;cursor: pointer;" ng-click="Cancel()">X</a>
     </div>
@@ -691,10 +628,7 @@ function remove_widget_dynamic(widgetId)
         <button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
         </section>
     </div>
-</script>
-
-
-
+</script> 
 <script type="text/ng-template" id="EditDetail.html">
     <div class="modal-header">
         <a style="float:right;cursor: pointer;" ng-click="Cancel()">X</a>
@@ -710,28 +644,27 @@ function remove_widget_dynamic(widgetId)
         <button type="button" class="js-seralize btn pink-btn" style="margin-top:4%">Save and Continue</button>
         </section>
     </div>
-</script>
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Description</h4>
-        </divCKEDITOR.instances['editor1'].setData(>
-        <div class="modal-body">
-          <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
-	  <script>
+</script> 
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+<div class="modal-dialog"> 
+  
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Description</h4>
+      </divCKEDITOR.instances['editor1'].setData(>
+      <div class="modal-body">
+        <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
+        <script>
              CKEDITOR.replace('editor1');
              </script>
-	     <input type="hidden" id="section_block" value="">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn pink-btn btn-small" onclick="return save_block()">Save</button>
-        </div>
+        <input type="hidden" id="section_block" value="">
       </div>
-      
+      <div class="modal-footer">
+        <button type="button" class="btn pink-btn btn-small" onclick="return save_block()">Save</button>
+      </div>
     </div>
   </div>
+</div>

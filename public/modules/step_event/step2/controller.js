@@ -206,13 +206,16 @@ angular.module('alisthub').controller('stepevent2Controller', function($scope, $
         if ($localStorage.userId!=undefined) {
         $scope.data.id   = id;
 	$scope.data.showclix_price_id   = showclix_price_id;
-        $scope.data.status   = status==1?0:1;
+        $scope.data.status              = status==1?0:1;
+	$scope.data.showclix_token      = $localStorage.showclix_token;
+        $scope.data.showclix_user_id    = $localStorage.showclix_user_id;
+        $scope.data.showclix_seller_id  = $localStorage.showclix_seller_id;
         $scope.loader = true;
         $serviceTest.changePricelevelStatus($scope.data,function(response){
             
             if (response.code == 200) {
-                     $eventId=$localStorage.eventId;
-                    $serviceTest.getPricelevel({'eventId':$eventId},function(response){
+                     var eventId=$stateParams.eventId;
+                    $serviceTest.getPricelevel({'eventId':eventId},function(response){
                         
                         $rootScope.price_level=response.results;
                     });
@@ -591,7 +594,7 @@ $scope.success_message = false;
   $rootScope.eventinventory = $scope.data1.eventinventory
 
   //Schedule Price change
-  $scope.price_change = function(size, priceid, showclix_price_id) {
+  $scope.price_change = function(size, priceid, showclix_price_id, type) {
 
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
@@ -602,12 +605,15 @@ $scope.success_message = false;
         items: function() {
           $rootScope.price_change_id   = priceid;
 	  $rootScope.showclix_price_id = showclix_price_id;
+	  $rootScope.formtype          = type;
           return $scope.items;
         }
       }
     });
 
   }
+  
+  
 
 
   //delete Price level

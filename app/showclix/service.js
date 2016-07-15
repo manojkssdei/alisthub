@@ -440,6 +440,29 @@ module.exports = function()
     });  
   }
   
+  this.change_price_level_status = function(data,res,next)
+  {
+      var input = {};
+      input.status                                = data.status;
+      input.PriceLevelSchedule__start_date        = data.start_date;
+      input.PriceLevelSchedule__start_date_hour   = data.start_date_hour;
+      input.PriceLevelSchedule__start_date_minute = data.start_date_minute;
+      input.PriceLevelSchedule__start_date_am_pm  = data.start_date_am_pm;
+ 
+      request({
+                method:'POST',
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
+                url:     "https://admin.alistixs.com/event/"+data.showclix_id+"/level/"+data.showclix_price_id+"/status-schedule.json",
+                body:    input,
+                json: true}, function(error, response, body){
+                  //console.log(response.body);
+                  console.log(response.statusCode);
+                  var str='';                 
+                  return next({status:1,location:data.showclix_price_id});
+                    
+          }); 
+  }
+  
   this.delete_price_level = function(req,res,next)
   {
     request.delete({
