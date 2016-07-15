@@ -26,7 +26,7 @@
                   <div class="form-group" ng-class="{ 'has-error' : myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid }"  >
                     <label class="form-label">Event Inventory<span class="req">*</span></label>
 
-                    <input  type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" class="event_number_wd form-control" placeholder="Event Inventory" ng-blur="eventInventoryCalc()" required  style="width:100px;">
+                    <input  type="number" min="0" name="eventinventory" ng-model="data1.eventinventory" maxlength="4" class="event_number_wd form-control" placeholder="" ng-blur="eventInventoryCalc()" required  style="width:87px;">
 
 
                     <p class="help-inline error-fld ng-binding"  ng-show="myForm1.eventinventory.$dirty && myForm1.eventinventory.$invalid">Enter valid event inventory.</p>

@@ -248,7 +248,7 @@ var routerApp = angular.module('alisthub', ['ui.router', ,'ngStorage','oc.lazyLo
             views: {
                 "lazyLoadView": {
                   controller: 'eventviewController', // This view will use AppCtrl loaded below in the resolve
-                  templateUrl: 'modules/events/views/event_overview.html'
+                  templateUrl: 'modules/events/views/event_view.html'
                 }
             },
             resolve: { // Any property in resolve should return a promise and is executed before the view is loaded

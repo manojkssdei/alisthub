@@ -28,7 +28,7 @@
             <label for="eventname">Event Url<span class="req">*</span></label>
            
             <section class="form-group"  ng-class="{ 'has-error' : myForm.eventurl.$dirty && myForm.eventurl.$invalid }">
-                        <div class="domain-name"><input  type="text" name="eventurl" ng-model="data.eventurl" class="event_short_url form-control" tooltips tooltip-template="A ticketing page's unique URL. By default, the Event Name is plugged in as the last part of the URL. Must be 5 - 30 characters in length." placeholder="Url of your Event" ng-blur="checkeventurl();"  required><span class="d1name">.alistixs.com</span></div>
+                        <div class="domain-name"><input  type="text" name="eventurl" ng-model="data.eventurl" class="event_short_url form-control" tooltips tooltip-template="A ticketing page's unique URL. By default, the Event Name is plugged in as the last part of the URL. Must be 5 - 30 characters in length." placeholder="Url of your Event" onkeypress="return keypress(event)" ng-pattern="/^\s*\w*\s*$/" ng-blur="checkeventurl();" minlength="5" maxlength="30" required><span class="d1name">.alistixs.com</span></div>
                          <input type="hidden"  ng-model="data.domain_url_availability" class="form-control" required> 
                         <span ng-hide="successuniquemessage">
                             <p class="success-fld">{{unique}}</p>
@@ -36,7 +36,7 @@
                         <span ng-hide="erroruniquemessage">
                             <p class="error-fld">{{unique}}</p>
                         </span>
-                        <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventurl.$dirty && myForm.eventurl.$invalid">Event Url is required</p>
+                        <p class="help-inline error-fld ng-binding"  ng-show="myForm.eventurl.$dirty && myForm.eventurl.$invalid">Event Url is required (spaces not allowed)</p>
                       </section>
             
           </div>
@@ -44,14 +44,14 @@
             <label>Date and Time<span class="req">*</span></label>
             <div class="event-date fieldSection">
               <!-- Nav tabs -->
-              <div class="content-tab">
+              <!-- <div class="content-tab">
                 <ul class="nav nav-tabs responsive-tabs" id="event-date" role="tablist">
                   <li ng-repeat="event in events"  ng-class="{active: isActive(event)}" ><a class="pointer" ui-sref="{{event.href}}" >{{event.name}}</a>
                   </li>
                 
               </ul>
                <input type="hidden" name="eventtype" ng-init="data.eventtype='multiple'" ng-model="data.eventtype" >
-            </div>
+            </div> -->
             
             <!-- Tab panes -->
             <div class="tab-content">
