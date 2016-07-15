@@ -130,11 +130,11 @@ angular.module('alisthub').controller('createpackageControllerThree', function($
   };
 
   $scope.open7 = function() {
-    $scope.popup5.opened = true;
+    $scope.popup7.opened = true;
   };
   
   $scope.open8 = function() {
-    $scope.popup6.opened = true;
+    $scope.popup8.opened = true;
   };
   
   $scope.popup1 = {
@@ -353,7 +353,7 @@ $scope.advSettingPackageId = $scope.eventSetting.package_id;
       $scope.data.sales_immediatly = parseInt($scope.data.sales_immediatly);
       $scope.data.custom_fee = parseInt($scope.data.custom_fee);
       $scope.data.collect_name = parseInt($scope.data.collect_name);
-      $scope.data.url_short_name = parseInt($scope.data.url_short_name);
+      $scope.data.url_short_name = $scope.data.url_short_name;
 
       var openDateTime = getDateTime($scope.data.online_sales_open);
       $scope.data.online_sales_open = {};

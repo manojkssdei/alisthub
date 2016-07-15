@@ -231,6 +231,9 @@ module.exports = function() {
         */
 
         var status = 3;
+
+        var donation = 'n';
+        if(data.donation == 1 ) { donation = 'y';}
         var input = {
             "user_id": data.showclix_user,
             "seller_id": data.showclix_seller,
@@ -238,7 +241,7 @@ module.exports = function() {
             "will_call_ticketing": data.will_call ,
             "delivery_type_2": data.print_home ,
             "description_2": data.print_description,
-            "donation_live": data.donation ,
+            "donation_live": donation ,
             "donation_name": data.donation_name,
             "custom_buyer_fee": data.custom_fee,
             "ticket_note": data.ticket_note,

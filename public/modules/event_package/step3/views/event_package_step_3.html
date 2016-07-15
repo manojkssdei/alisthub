@@ -56,7 +56,7 @@
                                         <label for="radio3"><span></span>Set Dates</label>
                                     </section>
                                 </section>
-                                <section ng-if="data.print_home == 3">
+                                <section ng-if="data.print_home == 2">
                                     <div class="" style="display: block; margin: 10px;">
                                         <section class="row">
                                             <div class="col-sm-4">
@@ -68,7 +68,7 @@
                                         <section class="row">
                                             <div class="col-sm-4">
                                                 <div class="form-group datepicker">
-                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.print_enable_date.date" is-open="popup5.opened" datepicker-options="options" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" />
+                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.print_enable_date.date" is-open="popup5.opened" datepicker-options="options" close-text="Close" alt-input-formats="altInputFormats" />
                                                     <span class="input-group-btn">
                                                     <button type="button" class="btn btn-default" ng-click="open5()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                                                 </div>
@@ -92,7 +92,7 @@
                                         <section class="row">
                                             <div class="col-sm-4">
                                                     <div class="form-group datepicker">
-                                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.print_disable_date.date" is-open="popup6.opened" datepicker-options="options1" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" />
+                                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.print_disable_date.date" is-open="popup6.opened" datepicker-options="options1" close-text="Close" alt-input-formats="altInputFormats"  />
                                                         <span class="input-group-btn">
                                                         <button type="button" class="btn btn-default" ng-click="open6()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                                                     </div>
@@ -147,7 +147,7 @@
                                         <section class="row">
                                             <div class="col-sm-4">
                                                 <div class="form-group datepicker">
-                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.will_call_enable_date.date" is-open="popup7.opened" datepicker-options="options" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" />
+                                                    <input type="text" name="will_call_enable_date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.will_call_enable_date.date" is-open="popup7.opened" datepicker-options="options" close-text="Close" alt-input-formats="altInputFormats"  />
                                                     <span class="input-group-btn">
                                                     <button type="button" class="btn btn-default" ng-click="open7()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                                                 </div>
@@ -171,7 +171,7 @@
                                         <section class="row">
                                             <div class="col-sm-4">
                                                     <div class="form-group datepicker">
-                                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.will_call_disable_date.date" is-open="popup8.opened" datepicker-options="options1" close-text="Close" alt-input-formats="altInputFormats" ng-change="recurring_period('start')" />
+                                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.will_call_disable_date.date" is-open="popup8.opened" datepicker-options="options1" close-text="Close" alt-input-formats="altInputFormats" name="will_call_disable_date" />
                                                         <span class="input-group-btn">
                                                         <button type="button" class="btn btn-default" ng-click="open8()"><i class="glyphicon glyphicon-calendar"></i></button></span>
                                                     </div>
@@ -274,7 +274,7 @@
                         </section>
                         <section class="col-md-4 col-sm-4">
                             <div class="onoffswitch mt-3">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-model="data.donation" ng-true-value="y" ng-false-value="n">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-model="data.donation" ng-true-value="1" ng-false-value="0">
                                 <label class="onoffswitch-label" for="myonoffswitch"></label>
                             </div>
                         </section>
@@ -357,7 +357,7 @@
                                   <!-- tooltips tooltip-template="Select whether to apply this fee to the order before or after a discount coupon has adjusted the order total. If no discount coupons are in effect, this option will not affect the order." -->
                                     <select class="form-control" name="custom_when" ng-model="data.custom_when" >
                                         <option value="1">Before Discount</option>
-                                        <option value="2">Before Discount</option>
+                                        <option value="2">After Discount</option>
                                     </select>
                                   </div>
                             <!-- </section> -->
