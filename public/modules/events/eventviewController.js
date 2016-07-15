@@ -89,76 +89,76 @@ angular.module('alisthub', ['google.places', 'angucomplete']).controller('eventv
 
 
 
-    //get comment  
-    $scope.array = [];
+    // //get comment  
+    // $scope.array = [];
 
 
-    eventService.getComment({ 'seller_id': $localStorage.userId}, function(response) {
+    // eventService.getComment({ 'seller_id': $localStorage.userId}, function(response) {
 
-        if (response != null) {
+    //     if (response != null) {
 
-           if (response.code == 200) {
-                for (j in response.result) {
-                    var comment_detail = response.result[j];
+    //        if (response.code == 200) {
+    //             for (j in response.result) {
+    //                 var comment_detail = response.result[j];
                     
-                    $scope.array.push([comment_detail.comment, comment_detail.created,comment_detail.first_name,comment_detail.last_name]);
+    //                 $scope.array.push([comment_detail.comment, comment_detail.created,comment_detail.first_name,comment_detail.last_name]);
 
-                }
+    //             }
 
-                $scope.comments = $scope.array;
+    //             $scope.comments = $scope.array;
               
-            } else {
-                $scope.activation_message = global_message.ErrorInActivation;
-            }
-        }
-    });
+    //         } else {
+    //             $scope.activation_message = global_message.ErrorInActivation;
+    //         }
+    //     }
+    // });
 
     //add the comments 
 
-    $scope.data = {};
-    eventService.addComment($scope.data, function(response) {
-                if (response.code == 200) {
-                    // $scope.success = "comment Successfully Saved.";
+    // $scope.data = {};
+    // eventService.addComment($scope.data, function(response) {
+    //             if (response.code == 200) {
+    //                 // $scope.success = "comment Successfully Saved.";
 
-                    //  
+    //                 //  
 
-                    $scope.array = [];
+    //                 $scope.array = [];
 
 
-                    eventService.getComment({ 'seller_id': $localStorage.userId }, function(response) {
+    //                 eventService.getComment({ 'seller_id': $localStorage.userId }, function(response) {
 
-                        if (response != null) {
+    //                     if (response != null) {
 
-                            if (response.code == 200) {
-                                for (j in response.result) {
-                                    var comment_detail = response.result[j];
+    //                         if (response.code == 200) {
+    //                             for (j in response.result) {
+    //                                 var comment_detail = response.result[j];
 
-                                    $scope.array.push([comment_detail.comment, comment_detail.created, comment_detail.first_name, comment_detail.last_name]);
+    //                                 $scope.array.push([comment_detail.comment, comment_detail.created, comment_detail.first_name, comment_detail.last_name]);
 
-                                }
+    //                             }
 
-                                $scope.comments = $scope.array;
+    //                             $scope.comments = $scope.array;
                            
-                            }
-                             else {
-                                $scope.activation_message = global_message.ErrorInActivation;
-                            }
-                        }
-                    });
-                    // var node = document.createElement("LI");
-                    // var textnode = document.createTextNode($scope.data.comment);
+    //                         }
+    //                          else {
+    //                             $scope.activation_message = global_message.ErrorInActivation;
+    //                         }
+    //                     }
+    //                 });
+    //                 // var node = document.createElement("LI");
+    //                 // var textnode = document.createTextNode($scope.data.comment);
 
-                    // node.appendChild(textnode);
-                    // document.getElementById("myList").appendChild(node);
-                    // $scope.data.comment = "";
-                         $scope.data.comment = "";
+    //                 // node.appendChild(textnode);
+    //                 // document.getElementById("myList").appendChild(node);
+    //                 // $scope.data.comment = "";
+    //                      $scope.data.comment = "";
 
 
-                } else {
-                    $scope.activation_message = global_message.ErrorInActivation;
-                }
+    //             } else {
+    //                 $scope.activation_message = global_message.ErrorInActivation;
+    //             }
 
-            });
+    //         });
 
 
 
