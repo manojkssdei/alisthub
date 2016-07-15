@@ -282,7 +282,7 @@ module.exports = function() {
 
             var postData = {
                 method:'PUT',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-API-Token': data.showclix_token },
+                headers: {'Content-Type':'application/json','Pragma':'no-cache','X-API-Token':data.showclix_token},
                 url: "http://api.showclix.com/Event/" + data.showclix_package_id,
                 body: input,
                 json: true
@@ -293,13 +293,7 @@ module.exports = function() {
 console.log(' i m here');
 
 
-            request({
-                method:'PUT',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-API-Token': data.showclix_token },
-                url: "http://api.showclix.com/Event/" + data.showclix_package_id,
-                body: input,
-                json: true
-            }, function(error, response, body) {
+            request.put(postData, function(error, response, body) {
 
           
 
